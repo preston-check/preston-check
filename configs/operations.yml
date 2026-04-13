@@ -1,0 +1,7 @@
+app_name: operations-portal
+source_dir: /Users/diegofbaez/DEV/operations/BloxOpsPortal
+log_dir: /home/ec2-user
+ssh_host: ops
+api_base_url: https://ops.blox.services
+redis_host: localhost
+db_host:

@@ -1,0 +1,7 @@
+app_name: bloxcross
+source_dir: /Users/diegofbaez/DEV/bloxcross_master_stable/bloxcross
+log_dir: /home/ec2-user
+ssh_host: sandbox-cluster-001
+api_base_url: https://api.blox.services
+redis_host: localhost
+db_host: bloxcross.cduv9qpcsu9a.us-east-1.rds.amazonaws.com

@@ -1,0 +1,10 @@
+{
+  "timestamp": "20260412-184330",
+  "app": "bloxcross",
+  "pass": 28,
+  "fail": 2,
+  "warn": 19,
+  "skip": 1,
+  "total": 50,
+  "score_pct": 56.0
+}

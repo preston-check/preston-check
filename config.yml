@@ -1,0 +1,16 @@
+# Preston-Check Default Configuration
+# Global instance at ~/DEV/preston-check/
+#
+# Usage from any project:
+#   ~/DEV/preston-check/preston-check.sh --config ~/DEV/preston-check/configs/myapp.yml
+#
+# Or run against the current directory with defaults:
+#   ~/DEV/preston-check/preston-check.sh
+
+app_name: default
+source_dir: .
+log_dir: /home/ec2-user
+ssh_host:
+api_base_url:
+redis_host: localhost
+db_host:

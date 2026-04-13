@@ -1,0 +1,112 @@
+
+============================================================================
+  PRESTON-CHECK — Pre-Deployment Security Audit
+  2026-04-12 18:43:30
+============================================================================
+
+  App:     bloxcross
+  Config:  /Users/diegofbaez/DEV/preston-check/configs/bloxcross.yml
+  Source:  /Users/diegofbaez/DEV/bloxcross_master_stable/bloxcross
+
+----------------------------------------------------------------------------
+
+P-01: Hardcoded Secrets
+[0;32m[PASS][0m P-01 Hardcoded secrets                   No hardcoded secrets found in source
+
+P-02: 2FA Bypass Paths
+[1;33m[WARN][0m P-02 2FA bypass paths                          10 potential 2FA bypass paths (review manually)
+[0;32m[PASS][0m P-02 2FA default state                   No default-to-NONE 2FA patterns
+
+P-03: Information Leakage
+[1;33m[WARN][0m P-03 Exception leakage                         10 potential exception message leaks in responses
+[1;33m[WARN][0m P-03 Sensitive field exposure                  10 sensitive fields may be serialized (check @JsonIgnore)
+
+P-04: Rate Limiting
+[1;33m[WARN][0m P-04 Rate limiting                       80 of 101 controllers lack rate limiting
+
+P-05: Idempotency Guards
+[0;31m[FAIL][0m P-05 Webhook idempotency                 6 of 10 webhook handlers lack idempotency
+[1;33m[WARN][0m P-05 Financial locking                   Only 7 of 20 financial files use locking
+
+P-06: Session Security
+[1;33m[WARN][0m P-06 Session IP binding                  No evidence of login IP stored in session
+[0;32m[PASS][0m P-06 Session expiration                  Sessions have TTL configured
+[0;32m[PASS][0m P-06 Session kill capability             Session termination available for remediation
+
+P-07: Blacklist Enforcement
+[0;32m[PASS][0m P-07 Blacklist in registration           Blacklist check found in registration/KYC flow
+[0;32m[PASS][0m P-07 Blacklist on name change            Name changes check against blacklist
+
+P-08: Input Validation
+[1;33m[WARN][0m P-08 SQL injection                             10 potential SQL concatenation sites (verify parameterized)
+[0;31m[FAIL][0m P-08 Command injection                          5 potential command execution sites
+
+P-09: Audit Trail
+[0;32m[PASS][0m P-09 DB audit triggers                         10 audit trigger definitions found
+[0;32m[PASS][0m P-09 Append-only ledger                  Delete prevention on financial tables found
+
+P-10: Live Attack Indicators
+[0;32m[PASS][0m P-10 Brute force (current)               No brute force activity in current logs
+[1;33m[WARN][0m P-10 Rapid polling (current)             Peak: 40 requests/minute in Client.log
+[1;33m[WARN][0m P-10 Blacklist activity                  Recent blacklist events detected in logs
+[0;32m[PASS][0m P-10 Withdraw 2FA failures               No recent 2FA failures on withdrawals
+
+P-11: TLS & Encryption
+[1;33m[WARN][0m P-11 No plaintext HTTP                          1 non-localhost HTTP URLs found (should be HTTPS)
+[1;33m[WARN][0m P-11 No weak crypto                             1 weak encryption patterns (DES/RC4/MD5/ECB)
+[1;33m[WARN][0m P-11 SSL enabled                         No SSL configuration found
+
+P-12: Financial Guards
+[0;32m[PASS][0m P-12 Balance validation                         5 balance check patterns in financial paths
+[0;32m[PASS][0m P-12 Negative amount check               Amount validation found
+[0;32m[PASS][0m P-12 Row locking                               10 row-locking patterns for financial operations
+[0;32m[PASS][0m P-12 Transaction IDs                     Collision-resistant transaction ID generation found
+
+P-13: Authentication Enforcement
+[1;33m[WARN][0m P-13 Auth on controllers                        2 controllers may lack auth enforcement
+[1;33m[WARN][0m P-13 Anonymous endpoints                       10 publicly accessible endpoints (review intentionality)
+[0;32m[PASS][0m P-13 JWT verification                    JWT signature verification found
+
+P-14: Dependency Security
+[0;32m[PASS][0m P-14 Bouncy Castle version               No deprecated bcpkix-jdk15on found
+[0;32m[PASS][0m P-14 No SNAPSHOT deps                    No SNAPSHOT dependencies in production
+[0;34m[SKIP][0m P-14 npm audit                           No package.json found
+
+P-15: CORS & CSRF
+[0;32m[PASS][0m P-15 No wildcard CORS                    No Access-Control-Allow-Origin: * found
+[1;33m[WARN][0m P-15 CSRF protection                     No CSRF protection patterns found
+
+P-16: Error Handling
+[1;33m[WARN][0m P-16 No printStackTrace                       880 e.printStackTrace() calls (should use logger)
+[0;32m[PASS][0m P-16 No swallowed exceptions             No empty catch blocks found
+[1;33m[WARN][0m P-16 Generic error messages              Check that error responses don't leak stack traces
+
+P-17: Secure Randomness
+[0;32m[PASS][0m P-17 Secure randomness                   No java.util.Random or Math.random() found
+[0;32m[PASS][0m P-17 SecureRandom present                SecureRandom used in Common module
+
+P-18: Data Privacy & PII
+[0;32m[PASS][0m P-18 Password hashing                    Password hashing mechanism found
+[1;33m[WARN][0m P-18 PII in logs                               82 potential PII fields in log statements (consider masking)
+[0;32m[PASS][0m P-18 Password serialization                    40 password fields have @JsonIgnore
+
+P-19: API Versioning
+[0;32m[PASS][0m P-19 API versioning                            10 versioned API paths found
+[1;33m[WARN][0m P-19 No deprecated endpoints                    4 deprecated endpoints still active
+
+P-20: Deployment Safety
+[0;32m[PASS][0m P-20 No debug mode                       No debug/dev mode enabled in configs
+[0;32m[PASS][0m P-20 No test credentials                 No test/default credentials in configs
+[0;32m[PASS][0m P-20 Health endpoint                     Health check endpoint found
+[0;32m[PASS][0m P-20 DB migrations                             20 migration files (structured deployment)
+
+
+============================================================================
+  SUMMARY
+============================================================================
+  [0;32mPASS: 28[0m  [0;31mFAIL: 2[0m  [1;33mWARN: 19[0m  [0;34mSKIP: 1[0m
+
+  [0;31m2 CHECKS FAILED[0m — review and fix before deploying
+
+  Report saved to: /Users/diegofbaez/DEV/preston-check/cycles/bloxcross/cycle-20260412-184330/report.md
+
