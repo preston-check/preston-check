@@ -29,6 +29,7 @@ REPORT_FILE=""
 CI_MODE=false
 SINGLE_CHECK=""
 VERBOSE=false
+RUN_MODE="full"  # "light" = P-01 to P-20 (fast), "full" = all checks
 
 # Colors
 RED='\033[0;31m'
@@ -51,6 +52,8 @@ while [[ $# -gt 0 ]]; do
     --report) REPORT_FILE="$2"; shift 2 ;;
     --ci) CI_MODE=true; shift ;;
     --verbose|-v) VERBOSE=true; shift ;;
+    --light|--fast) RUN_MODE="light"; shift ;;
+    --full) RUN_MODE="full"; shift ;;
     --list) ls "$CHECKS_DIR"/*.sh 2>/dev/null | xargs -I{} basename {} .sh; exit 0 ;;
     --help|-h)
       echo "preston-check — Pre-deployment security audit"
@@ -60,6 +63,8 @@ while [[ $# -gt 0 ]]; do
       echo "  --check NAME     Run a single check"
       echo "  --report FILE    Save report to file"
       echo "  --ci             CI mode: exit 1 on any FAIL"
+      echo "  --light, --fast  Light mode: core checks only (P-01 to P-20, ~30s)"
+      echo "  --full           Full mode: all 82 checks (default, ~3min)"
       echo "  --list           List available checks"
       echo "  --verbose        Show check details"
       echo "  --help           Show this help"
@@ -116,6 +121,11 @@ load_config
 echo "  App:     ${APP_NAME:-not configured}"
 echo "  Config:  $CONFIG_FILE"
 echo "  Source:  ${SOURCE_DIR:-.}"
+if [[ "$RUN_MODE" == "light" ]]; then
+  echo "  Mode:    LIGHT (P-01 to P-20 — core security checks)"
+else
+  echo "  Mode:    FULL (P-01 to P-82 — enterprise security suite)"
+fi
 echo ""
 echo "----------------------------------------------------------------------------"
 echo ""
@@ -134,6 +144,13 @@ if [[ -n "$SINGLE_CHECK" ]]; then
 else
   for check_file in "$CHECKS_DIR"/*.sh; do
     [[ -f "$check_file" ]] || continue
+    # In light mode, only run P-01 through P-20
+    if [[ "$RUN_MODE" == "light" ]]; then
+      check_num=$(basename "$check_file" | grep -oE '^[0-9]+' || echo "99")
+      if [[ "$check_num" -gt 20 ]]; then
+        continue
+      fi
+    fi
     source "$check_file"
     echo ""
   done
