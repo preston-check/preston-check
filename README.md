@@ -115,7 +115,7 @@ db_host:
 EOF
 ```
 
-## Security Checks (95 categories, 258 test points)
+## Security Checks (100 categories, 276 test points)
 
 Organized by compliance framework. Each check maps to one or more of: PCI-DSS v4.0, SOC 2 Type II, ISO 27001:2022, OWASP API Top 10, NIST CSF 2.0, CIS Controls v8. See COMPLIANCE_MAPPING.md for the full mapping. With the compliance evidence directory (compliance-template/), all six frameworks reach 100% coverage.
 
