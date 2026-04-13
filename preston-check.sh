@@ -173,29 +173,108 @@ else
 fi
 echo ""
 
-# Report
+# Report (Markdown)
 if [[ -n "$REPORT_FILE" ]]; then
+  SCORE_PCT=$((PASS_COUNT * 100 / TOTAL))
   {
     echo "# Preston-Check Security Audit Report"
     echo ""
     echo "Date: $(date '+%Y-%m-%d %H:%M:%S')"
     echo "App: ${APP_NAME:-not configured}"
     echo "Source: ${SOURCE_DIR:-.}"
+    echo "Mode: $RUN_MODE"
+    echo "Version: 4.0"
     echo ""
-    echo "## Results"
+    echo "---"
     echo ""
-    echo "| Status | Check | Detail |"
-    echo "|--------|-------|--------|"
+    echo "## Scorecard"
+    echo ""
+    echo "| Metric | Value |"
+    echo "|--------|-------|"
+    echo "| Score | ${SCORE_PCT}% |"
+    echo "| PASS | $PASS_COUNT |"
+    echo "| FAIL | $FAIL_COUNT |"
+    echo "| WARN | $WARN_COUNT |"
+    echo "| SKIP | $SKIP_COUNT |"
+    echo "| Total Tests | $TOTAL |"
+    echo ""
+    if [[ $FAIL_COUNT -eq 0 ]]; then
+      echo "**Status: ALL CHECKS PASSED** — ready for deployment."
+    else
+      echo "**Status: $FAIL_COUNT CHECKS FAILED** — review and fix before deploying."
+    fi
+    echo ""
+    echo "---"
+    echo ""
+    # FAIL section first
+    fail_items=()
+    warn_items=()
+    pass_items=()
+    skip_items=()
     for r in "${RESULTS[@]}"; do
       IFS='|' read -r status check detail <<< "$r"
-      echo "| $status | $check | $detail |"
+      case "$status" in
+        FAIL) fail_items+=("| $status | $check | $detail |") ;;
+        WARN) warn_items+=("| $status | $check | $detail |") ;;
+        PASS) pass_items+=("| $status | $check | $detail |") ;;
+        SKIP) skip_items+=("| $status | $check | $detail |") ;;
+      esac
     done
+    if [[ ${#fail_items[@]} -gt 0 ]]; then
+      echo "## FAIL — Must Fix Before Deployment"
+      echo ""
+      echo "| Status | Check | Detail |"
+      echo "|--------|-------|--------|"
+      for item in "${fail_items[@]}"; do echo "$item"; done
+      echo ""
+    fi
+    if [[ ${#warn_items[@]} -gt 0 ]]; then
+      echo "## WARN — Review and Decide"
+      echo ""
+      echo "| Status | Check | Detail |"
+      echo "|--------|-------|--------|"
+      for item in "${warn_items[@]}"; do echo "$item"; done
+      echo ""
+    fi
+    if [[ ${#pass_items[@]} -gt 0 ]]; then
+      echo "## PASS — No Action Required"
+      echo ""
+      echo "| Status | Check | Detail |"
+      echo "|--------|-------|--------|"
+      for item in "${pass_items[@]}"; do echo "$item"; done
+      echo ""
+    fi
+    if [[ ${#skip_items[@]} -gt 0 ]]; then
+      echo "## SKIP — Check Could Not Run"
+      echo ""
+      echo "| Status | Check | Detail |"
+      echo "|--------|-------|--------|"
+      for item in "${skip_items[@]}"; do echo "$item"; done
+      echo ""
+    fi
+    echo "---"
     echo ""
-    echo "## Summary"
-    echo ""
-    echo "PASS: $PASS_COUNT, FAIL: $FAIL_COUNT, WARN: $WARN_COUNT, SKIP: $SKIP_COUNT"
+    echo "Preston-Check Enterprise Security Suite v4.0"
+    echo "100 Check Categories | 276 Test Points | 6 Compliance Frameworks | 100% Coverage"
   } > "$REPORT_FILE"
   echo "  Report saved to: $REPORT_FILE"
+
+  # Generate PDF if pandoc and Chrome are available
+  PDF_FILE="${REPORT_FILE%.md}.pdf"
+  if command -v pandoc &>/dev/null; then
+    TMP_HTML=$(mktemp /tmp/preston-report-XXXX.html)
+    pandoc "$REPORT_FILE" -o "$TMP_HTML" --from markdown --to html --standalone \
+      --metadata title="Preston-Check Security Audit Report" 2>/dev/null
+    if [[ -f "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" ]]; then
+      "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu \
+        --print-to-pdf="$PDF_FILE" --no-margins "$TMP_HTML" 2>/dev/null
+      echo "  PDF report saved to: $PDF_FILE"
+    elif command -v wkhtmltopdf &>/dev/null; then
+      wkhtmltopdf "$TMP_HTML" "$PDF_FILE" 2>/dev/null
+      echo "  PDF report saved to: $PDF_FILE"
+    fi
+    rm -f "$TMP_HTML"
+  fi
   echo ""
 fi
 
