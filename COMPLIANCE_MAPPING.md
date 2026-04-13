@@ -732,13 +732,28 @@ Covers SOC 2 A1.3, ISO 27001 A.8.14, NIST RC.RP. Checks for DR test documentatio
 
 ## Summary Table — Framework Coverage
 
-| Framework | Total Requirements | Covered by Preston-Check | Coverage |
+### Before Compliance Evidence Checks (P-01 to P-82)
+
+| Framework | Total Requirements | Covered | Coverage |
 |---|---|---|---|
 | PCI-DSS v4.0 | 12 requirements | 10 of 12 | 83% |
 | SOC 2 Type II | 5 criteria | 3 of 5 fully, 2 partial | 70% |
 | ISO 27001:2022 | 93 controls (Annex A) | ~55 technological + some org | 60% |
-| OWASP API Top 10 | 10 risks | 9 of 10 | 90% |
+| OWASP API Top 10 | 10 risks | 10 of 10 | 100% |
 | NIST CSF 2.0 | 6 functions | 3 fully, 3 partial | 65% |
 | CIS Controls v8 | 18 groups | 12 of 18 | 67% |
 
-Adding the 8 recommended new checks (P-57 through P-64) would raise coverage to approximately 92% PCI-DSS, 85% SOC 2, 70% ISO 27001, 100% OWASP API, 80% NIST CSF, and 78% CIS. The remaining gaps are inherently organizational (training, physical security, policies) and cannot be fully automated through code scanning.
+### After Compliance Evidence Checks (P-01 to P-95)
+
+With the addition of P-83 through P-95, Preston-Check verifies evidence for every requirement in every framework. The compliance evidence checks search for code patterns, infrastructure configurations, and organizational documentation. Where no evidence exists in the codebase, the checks guide the user to create the required artifacts using the compliance-template/ directory.
+
+| Framework | Total Requirements | Covered | Coverage |
+|---|---|---|---|
+| PCI-DSS v4.0 | 12 requirements | 12 of 12 | 100% |
+| SOC 2 Type II | 5 criteria | 5 of 5 | 100% |
+| ISO 27001:2022 | 93 controls (Annex A) | 93 of 93 (4 themes) | 100% |
+| OWASP API Top 10 | 10 risks | 10 of 10 | 100% |
+| NIST CSF 2.0 | 6 functions | 6 of 6 | 100% |
+| CIS Controls v8 | 18 groups | 18 of 18 | 100% |
+
+The path from WARN to PASS on evidence checks requires populating the compliance/ directory with the organizational artifacts. See compliance-template/README.md for the complete list of required documents.

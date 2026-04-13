@@ -1,0 +1,49 @@
+#!/bin/bash
+# P-87: ISO 27001 Organizational Controls (A.5.x) Evidence
+# Checks for ISMS documentation, risk register, threat intelligence, supplier management.
+echo "P-87: ISO 27001 Organizational"
+SRC="${SOURCE_DIR:-.}"
+
+found=0
+required=5
+
+# A.5.1 — Information Security Policy
+isp=$(find "$SRC" -maxdepth 5 \( -iname "*security*policy*" -o -iname "*isms*" -o -iname "*information*security*management*" \) \
+  -not -path "*/target/*" -not -path "*/node_modules/*" 2>/dev/null | head -1)
+[[ -n "$isp" ]] && found=$((found + 1))
+
+# A.5.7 — Threat Intelligence
+threat_intel=$(grep -rn --include="*.java" --include="*.ts" --include="*.yml" \
+  "threat.*intel\|threat.*feed\|ioc\|indicator.*compromise\|cve.*check\|vulnerability.*feed\|osint" \
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
+[[ -n "$threat_intel" ]] && found=$((found + 1))
+
+# A.5.19-5.22 — Supplier/Third-party management
+supplier=$(find "$SRC" -maxdepth 5 \( -iname "*supplier*" -o -iname "*vendor*assess*" -o -iname "*third*party*risk*" \) \
+  -not -path "*/target/*" -not -path "*/node_modules/*" 2>/dev/null | head -1)
+supplier_code=$(grep -rn --include="*.java" --include="*.ts" \
+  "vendor.*security\|supplier.*assess\|third.*party.*risk\|soc2.*report\|iso.*cert" \
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -1)
+[[ -n "$supplier" || -n "$supplier_code" ]] && found=$((found + 1))
+
+# A.5.23 — Cloud services security
+cloud_sec=$(grep -rn --include="*.yml" --include="*.yaml" --include="*.tf" --include="*.json" \
+  "security.*group\|iam.*policy\|kms\|cloudtrail\|guardduty\|waf\|shield" \
+  "$SRC" 2>/dev/null | grep -v "target\|node_modules" | head -3)
+[[ -n "$cloud_sec" ]] && found=$((found + 1))
+
+# A.5.24-5.28 — Incident management
+incident=$(find "$SRC" -maxdepth 5 \( -iname "*incident*" -o -iname "*ir*plan*" -o -iname "*response*plan*" \) \
+  -not -path "*/target/*" -not -path "*/node_modules/*" 2>/dev/null | head -1)
+incident_code=$(grep -rn --include="*.java" --include="*.ts" \
+  "incident.*response\|security.*incident\|breach.*notification\|forensic" \
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -1)
+[[ -n "$incident" || -n "$incident_code" ]] && found=$((found + 1))
+
+if [[ $found -ge 4 ]]; then
+  record "PASS" "P-87 ISO organizational" "$found/$required organizational control evidence found"
+elif [[ $found -ge 2 ]]; then
+  record "WARN" "P-87 ISO organizational" "$found/$required — need: security policy, threat intel, supplier mgmt, cloud security, incident mgmt"
+else
+  record "WARN" "P-87 ISO organizational" "Only $found/$required ISO organizational control evidence found"
+fi

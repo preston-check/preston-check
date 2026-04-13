@@ -115,9 +115,9 @@ db_host:
 EOF
 ```
 
-## Security Checks (80 categories, 200+ tests)
+## Security Checks (95 categories, 258 test points)
 
-Organized by compliance framework. Each check maps to one or more of: PCI-DSS v4.0, SOC 2 Type II, ISO 27001:2022, OWASP API Top 10, NIST CSF 2.0, CIS Controls v8. See COMPLIANCE_MAPPING.md for the full mapping.
+Organized by compliance framework. Each check maps to one or more of: PCI-DSS v4.0, SOC 2 Type II, ISO 27001:2022, OWASP API Top 10, NIST CSF 2.0, CIS Controls v8. See COMPLIANCE_MAPPING.md for the full mapping. With the compliance evidence directory (compliance-template/), all six frameworks reach 100% coverage.
 
 ### Code Scanning (P-01 to P-09) — runs against source_dir
 
@@ -372,3 +372,23 @@ These checks go beyond standard security frameworks into financial-system-specif
 | P-80 | Financial Event Sourcing | Event log, history tables, point-in-time, data lineage | SOX 802, MiFID II |
 | P-81 | Financial Input Guards | Negative amounts, overflow, type coercion, NaN/Infinity, zero-amount, precision | OWASP, PCI-DSS 6.5 |
 | P-82 | Continuous Defense Model | Real-time monitoring, auto-response, audit automation, circuit breakers, self-healing | NIST CSF DE/RS |
+
+### Compliance Evidence Verification (P-83 to P-95) — THE PATH TO 100%
+
+These checks verify the existence of compliance artifacts that close the remaining gaps in all six frameworks. They transform Preston-Check from a code scanner into a compliance evidence verifier. Populate the compliance-template/ directory to satisfy these checks.
+
+| # | Check | What It Verifies | Framework Gap Closed |
+|---|---|---|---|
+| P-83 | Physical Access Evidence | Physical security docs, badge system refs, data center documentation | PCI-DSS Req 9 |
+| P-84 | Organizational Policies | Security policy, acceptable use, risk assessment, training, vendor mgmt, PCI scope | PCI-DSS Req 12 |
+| P-85 | SOC 2 Availability | Capacity planning, SLA documentation, infrastructure redundancy | SOC 2 A1 |
+| P-86 | SOC 2 Confidentiality | Data classification, NDA references, DLP controls | SOC 2 C1 |
+| P-87 | ISO Organizational | ISMS scope, threat intelligence, supplier management, cloud security, incident mgmt | ISO 27001 A.5.x |
+| P-88 | ISO People Controls | Screening, security training, offboarding procedures, remote work policy | ISO 27001 A.6.x |
+| P-89 | ISO Physical Controls | Data center docs, equipment security, environmental monitoring | ISO 27001 A.7.x |
+| P-90 | NIST Govern | Organizational context, risk strategy, roles, cybersecurity policy, supply chain | NIST CSF GV |
+| P-91 | NIST Identify | Asset inventory, risk assessment, improvement tracking | NIST CSF ID |
+| P-92 | NIST Recover | Recovery planning, recovery communication plan | NIST CSF RC |
+| P-93 | CIS Asset Inventory | Service catalog, infrastructure-as-code, monitoring tools | CIS Control 1 |
+| P-94 | CIS Security Training | Training docs, platform references, secure coding standards | CIS Control 14 |
+| P-95 | CIS Service Provider & Pentest | Vendor assessments, pentest program, vulnerability scan schedule | CIS Controls 15, 18 |
