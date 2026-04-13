@@ -1,12 +1,12 @@
 # Preston-Check: Enterprise Security Audit Suite for Financial Platforms
 
-A Whitepaper by Bloxcross — April 2026
+A Whitepaper by Preston Security — April 2026
 
 ## Executive Summary
 
 Financial platforms face a unique security challenge. Generic security tools scan for common vulnerabilities — SQL injection, XSS, outdated dependencies — but miss the attack patterns specific to money movement: structuring transactions to avoid regulatory thresholds, exploiting race conditions in balance calculations, manipulating exchange rates through stale price feeds, or using dormant accounts as money laundering conduits.
 
-Preston-Check was built to close this gap. Named after a real attacker who exploited a production fintech platform in February 2026, the tool encodes 100 check categories with 276 individual test points, covering not only the standard security surface but the financial-specific behavioral, mathematical, and regulatory patterns that no other tool addresses. It maps to six compliance frameworks — PCI-DSS v4.0, SOC 2 Type II, ISO 27001:2022, OWASP API Top 10, NIST CSF 2.0, and CIS Controls v8 — with 100% coverage across all six.
+Preston-Check was built to close this gap. Forged in the aftermath of a sophisticated, multi-vector attack against a live financial platform, the tool encodes 100 check categories with 276 individual test points, covering not only the standard security surface but the financial-specific behavioral, mathematical, and regulatory patterns that no other tool addresses. It maps to six compliance frameworks — PCI-DSS v4.0, SOC 2 Type II, ISO 27001:2022, OWASP API Top 10, NIST CSF 2.0, and CIS Controls v8 — with 100% coverage across all six.
 
 Preston-Check is more than an audit tool. It is the foundation of a Continuous Defense model that runs detection rules against production behavior every 60 seconds, applies graduated responses with fail-safe guardrails, and feeds findings into a self-improving Virtuous Cycle that ensures the security posture of the platform improves with every iteration.
 
@@ -40,7 +40,7 @@ Themes 1 through 3 (P-01 to P-20) cover code scanning, live monitoring, and plat
 
 Themes 4 through 9 (P-21 to P-49) cover compliance, infrastructure, API security, data protection, operational security, supply chain, and mobile/frontend. These checks address the OWASP API Top 10 with dedicated tests for each risk, infrastructure hardening for cloud-native deployments, and supply chain security including SBOM generation and dependency pinning.
 
-Theme 10 (P-50 to P-56) is the original Finance-Specific Gold Standard. These checks verify that the fundamental patterns of a financial system are implemented correctly: BigDecimal for monetary arithmetic, privilege escalation protection, timing attack prevention, account lifecycle management, API key governance, cryptocurrency address validation, and multi-signature approval workflows.
+Theme 10 (P-50 to P-56) is the original Finance-Specific Gold Standard. These checks verify that the fundamental patterns of a financial system are implemented correctly: BigDecimal for monetary arithmetic, privilege escalation protection, timing attack prevention, account lifecycle management, API key governance, cryptocurrency address validation, and multi-signature custody approval workflows.
 
 Theme 11 (P-57 to P-64) fills compliance gaps that traditional tools ignore: business logic abuse (OWASP API6), vulnerability scan evidence, security policy documentation, email authentication, privacy and consent, penetration test evidence, supply chain risk management, and recovery testing.
 
@@ -98,9 +98,11 @@ Configuration is per-project via YAML files. A compliance evidence template dire
 
 ## Origin Story
 
-In February 2026, a hacker named Preston Braswell attacked the Bloxcross fintech platform. He created five fake accounts with names like "whizzy jo" using Idaho phone numbers, set 2FA to NONE on all of them, ran 21,201 automated calls to the session configuration endpoint at 1-2 second intervals, exploited API responses that leaked Vouched API keys and internal fee structures, attempted credential stuffing with a stolen DirectPay API key, and probed Fireblocks withdrawal endpoints with wrong 2FA codes.
+Preston-Check was born from a real incident, not a theoretical exercise. A determined adversary targeted a live financial platform using a multi-vector approach that combined social engineering, technical exploitation, and regulatory threshold awareness. The attacker created synthetic identities, disabled security controls through configuration gaps, automated reconnaissance at scale, extracted sensitive internal data from API responses, and probed cryptocurrency withdrawal infrastructure for exploitable weaknesses.
 
-The forensic analysis of 12.3 million log lines from this incident became the foundation of Preston-Check. Every check in the original suite traces back to a real vulnerability discovered during that investigation. The tool was named after the attacker as a reminder that security is not theoretical — it is tested by real adversaries with real motivations.
+The forensic investigation that followed analyzed millions of log entries and revealed a pattern: every vulnerability the attacker exploited was one that generic security tools would have missed. The 2FA bypass was not a code flaw but a policy gap. The information leakage was not a missing header but a business logic exposure. The withdrawal probing was not a brute force attack but a sophisticated understanding of custodial infrastructure.
+
+Preston-Check encodes every lesson from that investigation — and from every engagement since — into automated, repeatable checks. The tool is named as a permanent reminder that security is ultimately tested not by scanners but by adversaries. The best defense is one that thinks like an attacker and moves faster.
 
 ## Deployment Options
 
@@ -112,11 +114,11 @@ Financial platforms cannot be secured by generic tools designed for general-purp
 
 Preston-Check fills this gap with 100 check categories covering code, infrastructure, compliance, financial behavior, organizational evidence, and mathematical invariants. It maps to six compliance frameworks with 100% coverage. It powers a Continuous Defense model with fail-safe graduated response. And it drives a Virtuous Cycle that ensures the security posture improves with every iteration.
 
-The tool is named after a real attacker because real attackers are the ultimate test of a security system. Preston-Check ensures that every lesson learned from every incident is encoded, automated, and enforced — not just once, but continuously.
+The tool carries its name as a reminder that real adversaries are the ultimate test of any security system. Preston-Check ensures that every lesson learned from every incident is encoded, automated, and enforced — not just once, but continuously.
 
 ---
 
 Preston-Check Enterprise Security Suite v4.0
 100 Check Categories | 276 Test Points | 6 Compliance Frameworks | 100% Coverage
-Bloxcross, 2026. All rights reserved.
-Contact: security@bloxcross.com
+Preston Security, 2026. All rights reserved.
+Contact: info@preston-check.com
