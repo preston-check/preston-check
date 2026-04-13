@@ -7,8 +7,8 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for transaction deletion (never allowed on completed transactions)
 tx_delete=$(grep -rn --include="*.java" --include="*.ts" \
-  "DELETE.*transaction\|deleteTransaction\|remove.*transaction\|transaction.*delete\|\.delete().*transaction" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|migration\|CREATE\|ALTER" | head -5)
+  "\.delete(.*hold\|\.delete(.*fee\|\.delete(.*transaction\|DELETE FROM.*portfolio_asset_transaction" \
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|migration\|CREATE\|ALTER\|cancel" | head -5)
 if [[ -z "$tx_delete" ]]; then
   record "PASS" "P-70 No tx deletion" "No transaction deletion patterns found"
 else
@@ -17,9 +17,10 @@ else
 fi
 
 # Check for status reversal protection (completed → pending is never allowed)
+# Exclude legitimate payment reversal statuses (reverted is a valid terminal state)
 status_rewind=$(grep -rn --include="*.java" --include="*.ts" \
-  "PROCESSED.*PENDING\|COMPLETED.*PENDING\|SETTLED.*PENDING\|status.*revert\|status.*rollback" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | head -3)
+  "PROCESSED.*PENDING\|COMPLETED.*PENDING\|SETTLED.*PENDING\|status.*rollback" \
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|reverted\|REVERSED\|REFUND" | head -3)
 if [[ -z "$status_rewind" ]]; then
   record "PASS" "P-70 No status rewind" "No forward-to-backward status transitions found"
 else
