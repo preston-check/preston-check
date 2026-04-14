@@ -8,10 +8,10 @@ echo "P-06: Session Security"
 SRC="${SOURCE_DIR:-.}"
 
 # Check if session stores login IP
-session_ip=$(grep -rn --include="*.java" \
-  "login_ip\|loginIp\|session.*ip.*store\|addHash.*ip" \
+session_ip=$(grep -rn --include="$SRC_EXT" \
+  "$SESSION_IP_PATTERN" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target\|node_modules" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go\|node_modules" \
   | head -5)
 
 if [[ -n "$session_ip" ]]; then
@@ -21,10 +21,10 @@ else
 fi
 
 # Check session expiration
-session_ttl=$(grep -rn --include="*.java" \
-  "session_expires\|expire.*session\|TTL.*session\|setex\|EXPIRE" \
+session_ttl=$(grep -rn --include="$SRC_EXT" \
+  "$SESSION_EXPIRE_PATTERN" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target\|node_modules" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go\|node_modules" \
   | head -3)
 
 if [[ -n "$session_ttl" ]]; then
@@ -34,10 +34,10 @@ else
 fi
 
 # Check for session kill on sensitive operations
-session_kill=$(grep -rn --include="*.java" \
-  "deleteSessionCache\|killAllSessions\|deleteHashAll.*session\|clearConversation" \
+session_kill=$(grep -rn --include="$SRC_EXT" \
+  "$SESSION_KILL_PATTERN" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -5)
 
 if [[ -n "$session_kill" ]]; then

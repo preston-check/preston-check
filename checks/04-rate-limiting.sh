@@ -7,20 +7,36 @@ echo "P-04: Rate Limiting"
 
 SRC="${SOURCE_DIR:-.}"
 
-# Check for @RateLimiter or Resilience4j annotations on controllers
-controllers=$(find "$SRC" -name "*Controller.java" -path "*/src/*" ! -path "*/test/*" ! -path "*/target/*" 2>/dev/null)
+# Language-aware controller detection
+if [[ "$DETECTED_LANG" == "go" ]]; then
+  controllers=$(find "$SRC" -name "*handler*.go" -o -name "*controller*.go" -o -name "*routes*.go" 2>/dev/null \
+    | grep -v "test\|vendor\|_test\.go" | head -20)
+elif [[ "$DETECTED_LANG" == "python" ]]; then
+  controllers=$(find "$SRC" -name "*views*.py" -o -name "*routes*.py" -o -name "*endpoints*.py" 2>/dev/null \
+    | grep -v "test\|__pycache__\|venv" | head -20)
+else
+  controllers=$(find "$SRC" -name "*Controller.java" -path "*/src/*" ! -path "*/test/*" ! -path "*/target/*" 2>/dev/null)
+fi
+
 total_controllers=0
 rate_limited=0
 
 for c in $controllers; do
   ((total_controllers++))
-  if grep -q "RateLimiter\|@RateLimit\|RateLimiterFilter\|rateLimiter" "$c" 2>/dev/null; then
+  if grep -q "$RATE_LIMIT_PATTERN" "$c" 2>/dev/null; then
     ((rate_limited++))
   fi
 done
 
 if [[ $total_controllers -eq 0 ]]; then
-  record "SKIP" "P-04 Rate limiting" "No controllers found"
+  # Also check for rate limiting in middleware/router setup
+  middleware_rl=$(grep -rn --include="$SRC_EXT" "$RATE_LIMIT_PATTERN" "$SRC" 2>/dev/null \
+    | grep -v "test\|Test\|target\|vendor\|_test\.go" | head -3)
+  if [[ -n "$middleware_rl" ]]; then
+    record "PASS" "P-04 Rate limiting" "Rate limiting found in middleware/router"
+  else
+    record "SKIP" "P-04 Rate limiting" "No controllers found"
+  fi
 elif [[ $rate_limited -eq $total_controllers ]]; then
   record "PASS" "P-04 Rate limiting" "All $total_controllers controllers have rate limiting"
 elif [[ $rate_limited -gt 0 ]]; then

@@ -7,9 +7,9 @@ echo "P-100: Mathematical Invariants"
 SRC="${SOURCE_DIR:-.}"
 
 # Invariant 1: Conservation of value (deposits - withdrawals = balance)
-conservation=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
+conservation=$(grep -rn --include="$SRC_EXT" --include="*.sql" \
   "sum.*deposit\|sum.*withdraw\|balance.*check\|reconcil\|conservation\|total.*in.*total.*out\|net.*position" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | head -5)
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go\|//\|/\*" | head -5)
 if [[ -n "$conservation" ]]; then
   record "PASS" "P-100 Conservation of value" "Value conservation/reconciliation patterns found"
 else
@@ -17,9 +17,9 @@ else
 fi
 
 # Invariant 2: Non-negativity (balances cannot go below zero for non-margin accounts)
-non_negative=$(grep -rn --include="*.java" --include="*.ts" \
-  "balance.*<.*0\|balance.*negative\|insufficient.*fund\|insufficient.*balance\|overdraft\|below.*zero\|qty.*<.*0" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | head -5)
+non_negative=$(grep -rn --include="$SRC_EXT" \
+  "balance.*<.*0\|balance.*negative\|insufficient.*fund\|insufficient.*balance\|overdraft\|below.*zero\|qty.*<.*0\|IsNegative" \
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go\|//\|/\*" | head -5)
 if [[ -n "$non_negative" ]]; then
   record "PASS" "P-100 Non-negativity" "Balance non-negativity enforcement found"
 else
@@ -27,9 +27,9 @@ else
 fi
 
 # Invariant 3: Commutativity (A→B then B→A must net to zero, minus fees)
-commutative=$(grep -rn --include="*.java" --include="*.ts" \
+commutative=$(grep -rn --include="$SRC_EXT" \
   "round.*trip\|reverse.*transaction\|net.*zero\|offset\|contra.*entry\|matching.*entry" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | head -3)
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go\|//\|/\*" | head -3)
 if [[ -n "$commutative" ]]; then
   record "PASS" "P-100 Transaction symmetry" "Round-trip/contra-entry patterns found"
 else
@@ -37,9 +37,9 @@ else
 fi
 
 # Invariant 4: Idempotency of completed operations
-idempotent=$(grep -rn --include="*.java" --include="*.ts" \
+idempotent=$(grep -rn --include="$SRC_EXT" \
   "already.*processed\|already.*completed\|duplicate.*transaction\|idempoten.*key\|ON CONFLICT\|IF NOT EXISTS" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | head -5)
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go\|//\|/\*" | head -5)
 if [[ -n "$idempotent" ]]; then
   count=$(echo "$idempotent" | wc -l | tr -d ' ')
   record "PASS" "P-100 Idempotency invariant" "$count idempotency guard patterns found"
@@ -48,9 +48,9 @@ else
 fi
 
 # Invariant 5: Monotonicity (transaction IDs / timestamps must be strictly increasing)
-monotonic=$(grep -rn --include="*.java" --include="*.ts" \
+monotonic=$(grep -rn --include="$SRC_EXT" \
   "sequence\|auto.*increment\|generateTransactionId\|Snowflake\|SERIAL\|nextval\|monoton\|strictly.*increasing" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | head -3)
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go\|//\|/\*" | head -3)
 if [[ -n "$monotonic" ]]; then
   record "PASS" "P-100 Monotonicity" "Monotonic ID/sequence generation found"
 else

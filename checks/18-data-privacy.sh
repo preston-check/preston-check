@@ -8,10 +8,10 @@ echo "P-18: Data Privacy & PII"
 SRC="${SOURCE_DIR:-.}"
 
 # Check for password hashing (not plaintext storage)
-password_hash=$(grep -rn --include="*.java" \
-  --max-count=5 "hashPassword\|generateHashPassword\|bcrypt\|PBKDF2\|scrypt\|Argon2" \
+password_hash=$(grep -rn --include="$SRC_EXT" \
+  --max-count=5 "$PASSWORD_HASH_PATTERN" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -5)
 
 if [[ -n "$password_hash" ]]; then
@@ -21,10 +21,10 @@ else
 fi
 
 # Check for PII in log statements (email, phone, SSN patterns)
-pii_in_logs=$(grep -rn --include="*.java" \
-  --max-count=10 'log\.\(info\|error\|warn\|debug\).*\(email\|phone\|ssn\|password\|secret\|token\)' \
-  "$SRC/Common/src" "$SRC/Registration/src" 2>/dev/null \
-  | grep -v "test\|Test\|target\|sanitize\|mask\|redact" \
+pii_in_logs=$(grep -rn --include="$SRC_EXT" \
+  --max-count=10 'log\.\(info\|error\|warn\|debug\|Info\|Error\|Warn\|Debug\).*\(email\|phone\|ssn\|password\|secret\|token\)' \
+  "$SRC" 2>/dev/null \
+  | grep -v "test\|Test\|target\|sanitize\|mask\|redact\|vendor\|_test\.go" \
   | wc -l)
 
 if [[ $pii_in_logs -lt 5 ]]; then
@@ -33,16 +33,16 @@ else
   record "WARN" "P-18 PII in logs" "$pii_in_logs potential PII fields in log statements (consider masking)"
 fi
 
-# Check for @JsonIgnore on password fields
-json_ignore=$(grep -rn --include="*.java" -B1 \
+# Check for password field exclusion from serialization
+json_ignore=$(grep -rn --include="$SRC_EXT" -B1 \
   "password\|Password\|password_salt\|passwordSalt" \
   "$SRC" 2>/dev/null \
-  | grep "@JsonIgnore" \
-  | grep -v "test\|Test\|target" \
+  | grep "$SENSITIVE_FIELD_PATTERN\|@JsonIgnore\|json:\"-\"\|omitempty" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | wc -l)
 
 if [[ $json_ignore -gt 0 ]]; then
-  record "PASS" "P-18 Password serialization" "$json_ignore password fields have @JsonIgnore"
+  record "PASS" "P-18 Password serialization" "$json_ignore password fields excluded from serialization"
 else
-  record "WARN" "P-18 Password serialization" "Check that password fields have @JsonIgnore"
+  record "WARN" "P-18 Password serialization" "Check that password fields are excluded from serialization"
 fi

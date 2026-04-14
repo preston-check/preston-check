@@ -36,10 +36,10 @@ else
 fi
 
 # Check for health endpoint
-health=$(grep -rn --include="*.java" --include="*.ts" \
-  --max-count=5 '"/health"\|/health\|healthcheck\|health-check' \
+health=$(grep -rn --include="$SRC_EXT" \
+  --max-count=5 "$HEALTH_ENDPOINT_PATTERN" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target\|node_modules" \
+  | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go" \
   | head -3)
 
 if [[ -n "$health" ]]; then

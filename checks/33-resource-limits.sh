@@ -12,18 +12,18 @@ else
   record "WARN" "P-33 Request body limit" "No request body size limits found"
 fi
 
-timeouts=$(grep -rn --include="*.java" --include="*.yml" --max-count=10 \
-  "connectTimeout\|readTimeout\|read-timeout\|connect-timeout\|Duration.ofSeconds" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -5)
+timeouts=$(grep -rn --include="$SRC_EXT" --include="*.yml" --max-count=10 \
+  "$HTTP_TIMEOUT_PATTERN" \
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|vendor\|_test\.go" | head -5)
 if [[ -n "$timeouts" ]]; then
   record "PASS" "P-33 HTTP timeouts" "Outbound HTTP client timeouts configured"
 else
   record "FAIL" "P-33 HTTP timeouts" "No HTTP client timeouts — risk of thread pool exhaustion"
 fi
 
-pagination=$(grep -rn --include="*.java" --max-count=5 \
-  "Pageable\|@QueryValue.*page\|@QueryValue.*limit\|LIMIT.*OFFSET\|setMaxResults" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
+pagination=$(grep -rn --include="$SRC_EXT" --max-count=5 \
+  "Pageable\|@QueryValue.*page\|@QueryValue.*limit\|LIMIT.*OFFSET\|setMaxResults\|pagination\|PageRequest" \
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|vendor\|_test\.go" | head -3)
 if [[ -n "$pagination" ]]; then
   record "PASS" "P-33 Pagination" "Pagination on list endpoints found"
 else

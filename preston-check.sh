@@ -30,6 +30,7 @@ CI_MODE=false
 SINGLE_CHECK=""
 VERBOSE=false
 RUN_MODE="full"  # "light" = P-01 to P-20 (fast), "full" = all checks
+FORCE_LANG=""    # Override auto-detection with --lang
 
 # Colors
 RED='\033[0;31m'
@@ -54,6 +55,7 @@ while [[ $# -gt 0 ]]; do
     --verbose|-v) VERBOSE=true; shift ;;
     --light|--fast) RUN_MODE="light"; shift ;;
     --full) RUN_MODE="full"; shift ;;
+    --lang) FORCE_LANG="$2"; shift 2 ;;
     --list) ls "$CHECKS_DIR"/*.sh 2>/dev/null | xargs -I{} basename {} .sh; exit 0 ;;
     --help|-h)
       echo "preston-check — Pre-deployment security audit"
@@ -65,6 +67,7 @@ while [[ $# -gt 0 ]]; do
       echo "  --ci             CI mode: exit 1 on any FAIL"
       echo "  --light, --fast  Light mode: core checks only (P-01 to P-20, ~30s)"
       echo "  --full           Full mode: all 82 checks (default, ~3min)"
+      echo "  --lang LANG      Force language (java, go, python, typescript)"
       echo "  --list           List available checks"
       echo "  --verbose        Show check details"
       echo "  --help           Show this help"
@@ -118,9 +121,20 @@ echo "==========================================================================
 echo ""
 
 load_config
+
+# Language detection
+source "$SCRIPT_DIR/lang/detect.sh"
+if [[ -n "$FORCE_LANG" ]]; then
+  DETECTED_LANG="$FORCE_LANG"
+else
+  detect_language "${SOURCE_DIR:-.}"
+fi
+load_language_profile "$DETECTED_LANG"
+
 echo "  App:     ${APP_NAME:-not configured}"
 echo "  Config:  $CONFIG_FILE"
 echo "  Source:  ${SOURCE_DIR:-.}"
+echo "  Lang:    ${DETECTED_LANG}"
 if [[ "$RUN_MODE" == "light" ]]; then
   echo "  Mode:    LIGHT (P-01 to P-20 — core security checks)"
 else

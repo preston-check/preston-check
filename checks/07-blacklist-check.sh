@@ -7,26 +7,26 @@ echo "P-07: Blacklist Enforcement"
 
 SRC="${SOURCE_DIR:-.}"
 
-# Check for blacklist check in registration
-reg_check=$(grep -rn --include="*.java" \
-  "BlacklistCheck\|blacklist.*check\|checkBlacklist\|isBlacklisted" \
+# Check for blacklist check in registration/auth
+reg_check=$(grep -rn --include="$SRC_EXT" \
+  "$BLACKLIST_PATTERN" \
   "$SRC" 2>/dev/null \
-  | grep -i "regist\|signup\|create.*user\|create.*client\|name.*change\|vouched" \
-  | grep -v "test\|Test\|target" \
+  | grep -iv "test\|Test\|target\|vendor\|_test\.go" \
+  | grep -i "regist\|signup\|create.*user\|create.*client\|auth\|login\|CheckAndBlock" \
   | head -5)
 
 if [[ -n "$reg_check" ]]; then
-  record "PASS" "P-07 Blacklist in registration" "Blacklist check found in registration/KYC flow"
+  record "PASS" "P-07 Blacklist in registration" "Blacklist check found in registration/auth flow"
 else
   record "FAIL" "P-07 Blacklist in registration" "No blacklist check in registration or KYC paths"
 fi
 
-# Check for blacklist check on name changes
-name_check=$(grep -rn --include="*.java" \
-  "BlacklistCheck\|blacklist" \
+# Check for blacklist check on name changes / profile updates
+name_check=$(grep -rn --include="$SRC_EXT" \
+  "$BLACKLIST_PATTERN" \
   "$SRC" 2>/dev/null \
-  | grep -i "name.*change\|applyName\|confirmName\|pending.*name" \
-  | grep -v "test\|Test\|target" \
+  | grep -iv "test\|Test\|target\|vendor\|_test\.go" \
+  | grep -i "name.*change\|applyName\|confirmName\|pending.*name\|UpdateProfile\|profile.*update" \
   | head -5)
 
 if [[ -n "$name_check" ]]; then

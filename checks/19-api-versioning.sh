@@ -8,10 +8,10 @@ echo "P-19: API Versioning"
 SRC="${SOURCE_DIR:-.}"
 
 # Check for versioned API paths
-versioned=$(grep -rn --include="*.java" --include="*.ts" \
-  --max-count=10 '"/v[0-9]\|/api/v[0-9]\|@RequestMapping.*v[0-9]' \
+versioned=$(grep -rn --include="$SRC_EXT" \
+  --max-count=10 "$API_VERSION_PATTERN" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target\|node_modules\|dist" \
+  | grep -v "test\|Test\|target\|node_modules\|dist\|vendor\|_test\.go" \
   | head -10)
 
 if [[ -n "$versioned" ]]; then
@@ -22,11 +22,11 @@ else
 fi
 
 # Check for deprecated/legacy endpoints still active
-deprecated=$(grep -rn --include="*.java" \
-  --max-count=10 "@Deprecated\|DEPRECATED\|// TODO.*remove\|// LEGACY" \
+deprecated=$(grep -rn --include="$SRC_EXT" \
+  --max-count=10 "@Deprecated\|DEPRECATED\|// TODO.*remove\|// LEGACY\|//nolint.*deprecated" \
   "$SRC" 2>/dev/null \
-  | grep -i "controller\|endpoint\|route" \
-  | grep -v "test\|Test\|target" \
+  | grep -i "controller\|endpoint\|route\|handler" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -10)
 
 if [[ -z "$deprecated" ]]; then

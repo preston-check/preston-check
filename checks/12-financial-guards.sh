@@ -8,11 +8,11 @@ echo "P-12: Financial Guards"
 SRC="${SOURCE_DIR:-.}"
 
 # Check for balance validation before withdrawals
-balance_check=$(grep -rn --include="*.java" \
+balance_check=$(grep -rn --include="$SRC_EXT" \
   --max-count=10 "balance.*sufficient\|isBalanceAvailable\|checkBalance\|getBalance.*compare\|qty.*compare" \
   "$SRC" 2>/dev/null \
   | grep -i "withdraw\|transfer\|funds_out\|pay\|send" \
-  | grep -v "test\|Test\|target" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -5)
 
 if [[ -n "$balance_check" ]]; then
@@ -23,10 +23,10 @@ else
 fi
 
 # Check for negative amount validation
-negative_check=$(grep -rn --include="*.java" \
-  --max-count=10 "amount.*<= 0\|amount.*compareTo.*ZERO\|amount.*negative\|validateAmount\|BigDecimal.ZERO.*compare" \
+negative_check=$(grep -rn --include="$SRC_EXT" \
+  --max-count=10 "$NEGATIVE_AMOUNT_PATTERN\|validateAmount" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -5)
 
 if [[ -n "$negative_check" ]]; then
@@ -36,10 +36,10 @@ else
 fi
 
 # Check for FOR UPDATE locking on financial queries
-for_update=$(grep -rn --include="*.java" \
-  --max-count=10 "FOR UPDATE\|pessimistic\|PESSIMISTIC_WRITE\|advisory_lock\|pg_try_advisory" \
+for_update=$(grep -rn --include="$SRC_EXT" \
+  --max-count=10 "$FOR_UPDATE_PATTERN" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -10)
 
 if [[ -n "$for_update" ]]; then
@@ -50,10 +50,10 @@ else
 fi
 
 # Check for transaction ID generation (collision resistance)
-txn_id=$(grep -rn --include="*.java" \
-  --max-count=5 "generateTransactionId\|UUID.randomUUID\|SecureRandom.*transaction" \
+txn_id=$(grep -rn --include="$SRC_EXT" \
+  --max-count=5 "generateTransactionId\|$SECURE_RANDOM_PATTERN\|SecureRandom.*transaction" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target" \
+  | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -5)
 
 if [[ -n "$txn_id" ]]; then
