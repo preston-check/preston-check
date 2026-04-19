@@ -6,9 +6,24 @@ echo "P-97: Division Precision"
 SRC="${SOURCE_DIR:-.}"
 
 # Check for BigDecimal.divide() without explicit scale and RoundingMode
-unsafe_divide=$(grep -rn --include="*.java" '\.divide(' "$SRC" 2>/dev/null \
-  | grep -v "RoundingMode\|HALF_UP\|HALF_EVEN\|HALF_DOWN\|CEILING\|FLOOR\|scale" \
-  | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | head -5)
+# For each .divide() call, check the line itself + next 2 lines for RoundingMode
+unsafe_divide=""
+while IFS= read -r file_and_line; do
+  file=$(echo "$file_and_line" | cut -d: -f1)
+  lineno=$(echo "$file_and_line" | cut -d: -f2)
+  # Read 5 lines starting from the divide call (covers multi-line .divide(\n val,\n scale,\n RoundingMode\n))
+  context=$(sed -n "${lineno},$((lineno+4))p" "$file" 2>/dev/null)
+  # Skip BigInteger.divide() — integer division doesn't need RoundingMode
+  if echo "$context" | grep -q "BigInteger"; then
+    continue
+  fi
+  if ! echo "$context" | grep -qi "RoundingMode\|HALF_UP\|HALF_EVEN\|HALF_DOWN\|CEILING\|FLOOR"; then
+    unsafe_divide+="${file_and_line}"$'\n'
+  fi
+done < <(grep -rn --include="*.java" '\.divide(' "$SRC" 2>/dev/null \
+  | grep -v "test\|Test\|target\|node_modules\|//.*divide\|/\*" \
+  | cut -d: -f1-2)
+unsafe_divide=$(echo "$unsafe_divide" | sed '/^$/d' | head -5)
 if [[ -z "$unsafe_divide" ]]; then
   record "PASS" "P-97 Safe division" "All BigDecimal.divide() calls specify scale and RoundingMode"
 else
@@ -19,7 +34,7 @@ fi
 # Check for consistent rounding mode across the codebase
 rounding_modes=$(grep -rn --include="*.java" "RoundingMode\.\|HALF_UP\|HALF_EVEN\|HALF_DOWN\|CEILING\|FLOOR\|UNNECESSARY" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" \
-  | grep -oP 'RoundingMode\.\w+|HALF_UP|HALF_EVEN|HALF_DOWN|CEILING|FLOOR' | sort | uniq -c | sort -rn)
+  | grep -oE 'RoundingMode\.[A-Z_]+|HALF_UP|HALF_EVEN|HALF_DOWN|CEILING|FLOOR' | sort | uniq -c | sort -rn)
 if [[ -n "$rounding_modes" ]]; then
   primary=$(echo "$rounding_modes" | head -1 | awk '{print $2}')
   count=$(echo "$rounding_modes" | wc -l | tr -d ' ')

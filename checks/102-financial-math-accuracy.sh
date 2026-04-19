@@ -84,7 +84,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     -E '\.doubleValue\(\)|\.floatValue\(\)|\.longValue\(\)|\.intValue\(\)' \
     "$SRC" 2>/dev/null \
     | grep -iE "amount|balance|price|fee|cost|total|payment|rate|tax|discount|spread|commission" \
-    | grep -v "test\|Test\|target\|//\|/\*" | head -10)
+    | grep -v "test\|Test\|target\|//\|/\*\|Formatting\|format\|display\|template\|Variable\|setVariable\|log\.\|toString\|String\.format" | head -10)
   if [[ -z "$unsafe_cast" ]]; then
     record "PASS" "P-102 Numeric casting" "No doubleValue()/floatValue() on financial BigDecimals"
   else

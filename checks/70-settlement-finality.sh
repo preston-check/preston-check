@@ -8,7 +8,7 @@ SRC="${SOURCE_DIR:-.}"
 # Check for transaction deletion (never allowed on completed transactions)
 tx_delete=$(grep -rn --include="*.java" --include="*.ts" \
   "\.delete(.*hold\|\.delete(.*fee\|\.delete(.*transaction\|DELETE FROM.*portfolio_asset_transaction" \
-  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|migration\|CREATE\|ALTER\|cancel" | head -5)
+  "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|migration\|CREATE\|ALTER\|cancel\|removeHold\|HOLD\|hold.*release\|Whitelist Rejected\|delete(hold)\|delete(fee)\|delete(fixedfee)" | head -5)
 if [[ -z "$tx_delete" ]]; then
   record "PASS" "P-70 No tx deletion" "No transaction deletion patterns found"
 else

@@ -57,11 +57,11 @@ fi
 
 # Check for defense-in-depth (multiple layers)
 defense_layers=0
-[[ -n $(grep -rl "firewall\|waf\|WAF" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
-[[ -n $(grep -rl "@Secured\|authenticate\|JWT\|jwt" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
-[[ -n $(grep -rl "encrypt\|AES\|RSA\|cipher" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
-[[ -n $(grep -rl "audit\|log.*security\|security.*log" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
-[[ -n $(grep -rl "blacklist\|whitelist\|allowlist\|blocklist" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" --include="*.yml" "firewall\|waf\|WAF" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" "@Secured\|authenticate\|JWT\|jwt" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" "encrypt\|AES\|RSA\|cipher" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" "audit\|log.*security\|security.*log" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" "blacklist\|whitelist\|allowlist\|blocklist" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
 if [[ $defense_layers -ge 4 ]]; then
   record "PASS" "P-82 Defense in depth" "$defense_layers/5 defense layers active (WAF, auth, encryption, audit, access control)"
 elif [[ $defense_layers -ge 2 ]]; then

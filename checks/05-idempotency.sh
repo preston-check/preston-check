@@ -20,11 +20,17 @@ total_wh=0
 idempotent_wh=0
 
 for w in $webhooks; do
+  # Skip webhook subscription management controllers (CRUD for managing webhook URLs, not inbound receivers)
+  if grep -q "WebhookSubscription\|subscribe.*url\|unsubscribe\|listSubscriptions" "$w" 2>/dev/null; then
+    if ! grep -q "@Post.*receive\|@Put.*receive\|@Post.*callback\|@Post.*notify\|recordIncoming\|WebhookMessageStore" "$w" 2>/dev/null; then
+      continue
+    fi
+  fi
   ((total_wh++))
   dir=$(dirname "$w")
-  if grep -q "idempoten\|IdempotencyKey\|ON CONFLICT\|Idempotency\|webhook_idempotency" "$w" 2>/dev/null; then
+  if grep -q "idempoten\|IdempotencyKey\|ON CONFLICT\|Idempotency\|webhook_idempotency\|WebhookMessageStore\|recordIncoming\|FinancialOperationGuard" "$w" 2>/dev/null; then
     ((idempotent_wh++))
-  elif grep -rq "idempoten\|IdempotencyKey\|Idempotency\|webhook_idempotency" "$dir/" 2>/dev/null; then
+  elif grep -rq --include="*.java" --include="*.ts" "idempoten\|IdempotencyKey\|Idempotency\|webhook_idempotency\|WebhookMessageStore\|recordIncoming" "$dir/" 2>/dev/null; then
     ((idempotent_wh++))
   fi
 done

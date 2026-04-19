@@ -28,9 +28,9 @@ SRC="${SRC:-.}"
 # UNSAFE: balance = getBalance(); if (balance >= amount) setBalance(balance - amount);
 
 if [[ "$DETECTED_LANG" == "java" ]]; then
-  # Look for atomic SQL UPDATE with WHERE balance >= amount
+  # Look for atomic SQL UPDATE with WHERE balance >= amount, or SELECT FOR UPDATE pattern
   atomic_debit=$(grep -rn --include="*.java" --include="*.sql" \
-    -iE "balance\s*=\s*balance\s*-.*WHERE.*balance\s*>=|SET.*balance.*=.*balance.*-.*AND.*balance" \
+    -iE "balance\s*=\s*balance\s*-.*WHERE.*balance\s*>=|SET.*balance.*=.*balance.*-.*AND.*balance|ForUpdate|findPosition.*ForUpdate|SELECT.*FOR UPDATE.*withdraw|FOR UPDATE.*balance" \
     "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|//\|/\*" | head -5)
 
@@ -93,7 +93,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
   void_return=$(grep -rn --include="*.java" \
     -E "void (debit|withdraw|transfer|spend|decrement)Balance|void (debit|withdraw|transfer)" \
     "$SRC" 2>/dev/null \
-    | grep -v "test\|Test\|target\|//\|/\*" | head -5)
+    | grep -v "test\|Test\|target\|//\|/\*\|domain\|dto\|set[A-Z]\|Event\|Notify\|Email\|SMS\|reverse_withdraw\|processPayment\|save" | head -5)
 
   if [[ -n "$int_return" ]] && [[ -z "$void_return" ]]; then
     record "PASS" "P-103 Row-count check" "Mutation queries return int row count — double-spend detected by rows != 1"

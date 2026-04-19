@@ -22,10 +22,23 @@ else
 fi
 
 # Check for eval/exec patterns (command injection)
+# Exclude: jedis.eval (Redis Lua scripting, not OS command execution)
+#          ProcessBuilder with input validation (SAFE_TEST_CLASS, Pattern.matches, whitelist)
 exec_patterns=$(grep -rn --include="*.java" --include="*.ts" --include="*.js" \
   "Runtime.getRuntime().exec\|ProcessBuilder\|eval(\|Function(\|child_process\|execSync\|spawnSync" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target\|node_modules\|dist\|ConfigurationManager\|genJar\|deploy\|setup" \
+  | grep -v "test\|Test\|target\|node_modules\|dist\|ConfigurationManager\|genJar\|deploy\|setup\|//\|/\*\|\.sh\|\.md\|vendor\|build\|Website\|public_\|jquery\|\.min\.js" \
+  | grep -v "jedis\.eval\|redis.*eval\|Jedis.*eval" \
+  | while read -r line; do
+      file=$(echo "$line" | cut -d: -f1)
+      # If file uses ProcessBuilder, check if it also has input validation
+      if echo "$line" | grep -q "ProcessBuilder"; then
+        if grep -q "SAFE_.*Pattern\|Pattern.*matches\|whitelist\|\.matches(" "$file" 2>/dev/null; then
+          continue
+        fi
+      fi
+      echo "$line"
+    done \
   | head -5)
 
 if [[ -z "$exec_patterns" ]]; then

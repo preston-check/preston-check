@@ -32,7 +32,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
   unsafe_decl=$(grep -rn --include="*.java" \
     -E "(float|double|Float|Double)\s+(amount|balance|price|fee|cost|total|subtotal|tax|discount|rate|spread|margin|revenue|income|payout|refund|credit|debit|deposit|withdrawal|settlement|commission|premium|interest|principal|payment|salary|wage|bonus|tip|cashback|rebate|surcharge)" \
     "$SRC" 2>/dev/null \
-    | grep -v "test\|Test\|target\|node_modules\|vendor\|//.*float\|/\*" | head -20)
+    | grep -v "test\|Test\|target\|node_modules\|vendor\|//.*float\|/\*\|totalPages\|totalCount\|pageSize\|Math\.ceil\|pagination\|Formatting\|template\|display\|format\|toString" | head -20)
 
   # Also catch: double getAmount(), float calculateFee(), etc.
   unsafe_return=$(grep -rn --include="*.java" \

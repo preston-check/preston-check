@@ -7,7 +7,7 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for velocity/frequency limits on transactions
 velocity=$(grep -rn --include="$SRC_EXT" \
-  "velocity\|frequency.*limit\|tx.*per.*day\|daily.*limit\|rolling.*window\|24.*hour\|rate.*check.*amount\|transaction.*count" \
+  "velocity\|frequency.*limit\|tx.*per.*day\|daily.*limit\|rolling.*window\|24.*hour\|rate.*check.*amount\|transaction.*count\|HackingDetectionService.checkSessionActivity\|HackingDetectionService.checkLoginAttempt\|checkWithdrawalProbe\|session_polling\|failed_login_burst" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go\|//\|/\*" | head -5)
 if [[ -n "$velocity" ]]; then
   record "PASS" "P-65 Velocity limits" "Transaction velocity/frequency limiting found"

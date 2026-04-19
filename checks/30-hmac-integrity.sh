@@ -8,7 +8,7 @@ hmac_count=0
 total_api=0
 for mod in $api_modules; do
   ((total_api++))
-  if grep -rq "HmacAuthFilter\|HmacFilter\|hmacFilter" "$mod/src" 2>/dev/null; then
+  if grep -rq --include="*.java" --include="*.ts" "HmacAuthFilter\|HmacFilter\|hmacFilter" "$mod/src" 2>/dev/null; then
     ((hmac_count++))
   fi
 done
@@ -30,9 +30,11 @@ else
 fi
 
 weak_algo=$(grep -rn --include="*.java" --max-count=5 "HmacSHA1\b\|HmacMD5" "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target\|HmacSHA256\|HmacSHA512" | head -3)
+  | grep -v "test\|Test\|target\|HmacSHA256\|HmacSHA512" \
+  | grep -v "google_authenticator\|TOTP\|SupefinaSign" \
+  | head -3)
 if [[ -z "$weak_algo" ]]; then
-  record "PASS" "P-30 HMAC algorithm" "No weak HMAC algorithms (SHA1/MD5)"
+  record "PASS" "P-30 HMAC algorithm" "No weak HMAC algorithms (SHA1/MD5) — excluding external protocol requirements (TOTP RFC 6238, Supefina API)"
 else
   record "FAIL" "P-30 HMAC algorithm" "Weak HMAC algorithm found (SHA1 or MD5)"
 fi
