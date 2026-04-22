@@ -4,7 +4,7 @@
 echo "P-21: PCI-DSS Card Data"
 SRC="${SOURCE_DIR:-.}"
 
-pan=$(grep -rn --include="*.java" --include="*.ts" --max-count=5 \
+pan=$(grep -rn --include="*.java" --include="*.ts" \
   "['\"][0-9]\{13,19\}['\"]" "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|mock\|/db/\|Acceptor\|Identifier\|MERCHANT\|merchant_id\|static final" | head -3)
 if [[ -z "$pan" ]]; then
@@ -13,7 +13,7 @@ else
   record "FAIL" "P-21 No raw PAN" "Card number patterns found in source code"
 fi
 
-card_logs=$(grep -rn --include="*.java" --max-count=5 \
+card_logs=$(grep -rn --include="*.java" \
   'log\..*cardNumber\|log\..*card_number\|log\..*creditCard' \
   "$SRC/credit-card-service" "$SRC/credit-card-service-logic" 2>/dev/null \
   | grep -v "test\|Test\|target\|mask\|token\|last4\|redact" | head -3)
@@ -23,7 +23,7 @@ else
   record "FAIL" "P-21 No PAN in logs" "Card data found in log statements"
 fi
 
-tokenization=$(grep -rn --include="*.java" --max-count=5 \
+tokenization=$(grep -rn --include="*.java" \
   "tok_\|pm_\|tokenize\|stripeToken\|paymentMethod\|payment_intent" \
   "$SRC/credit-card-service" "$SRC/credit-card-service-logic" 2>/dev/null \
   | grep -v "test\|Test\|target" | head -3)

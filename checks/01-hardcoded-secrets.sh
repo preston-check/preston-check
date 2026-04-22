@@ -20,7 +20,7 @@ PATTERNS=(
 found=0
 for pattern in "${PATTERNS[@]}"; do
   hits=$(grep -rn --include="*.java" --include="*.ts" --include="*.js" --include="*.py" --include="*.yml" --include="*.yaml" \
-    --max-count=5 -E "$pattern" "$SRC/Common/src" "$SRC/Registration/src" "$SRC/Client/src" "$SRC/Payments-logic/src" 2>/dev/null \
+    -E "$pattern" "$SRC/Common/src" "$SRC/Registration/src" "$SRC/Client/src" "$SRC/Payments-logic/src" 2>/dev/null \
     | grep -v "test\|Test\|mock\|Mock\|example\|Example\|node_modules\|target\|dist\|\.env\.example" \
     | grep -v "System.getenv\|process.env\|getProperty\|getSecretValue" \
     | grep -v "//\|^\s*\*\|/\*" \

@@ -3,7 +3,7 @@
 echo "P-28: WAF & DDoS"
 SRC="${SOURCE_DIR:-.}"
 
-waf=$(grep -rn --include="*.java" --max-count=5 \
+waf=$(grep -rn --include="*.java" \
   "WAF\|waf\|IpSet\|WebACL\|WafIpSet\|GeoMatch" "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$waf" ]]; then
@@ -12,7 +12,7 @@ else
   record "WARN" "P-28 WAF integration" "No WAF integration found"
 fi
 
-geo=$(grep -rn --include="*.java" --include="*.yml" --max-count=5 \
+geo=$(grep -rn --include="*.java" --include="*.yml" \
   "country.*block\|geo.*block\|OFAC\|sanctioned\|restricted.*country\|blocked.*jurisdiction" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$geo" ]]; then

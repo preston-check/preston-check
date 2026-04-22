@@ -3,7 +3,7 @@
 # Financial systems MUST use proper decimal types, never float/double for money.
 echo "P-50: Transaction Integrity"
 SRC="${SOURCE_DIR:-.}"
-float_money=$(grep -rn --include="$SRC_EXT" --max-count=10 \
+float_money=$(grep -rn --include="$SRC_EXT" \
   "$FLOAT_MONEY_PATTERN" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|vendor\|_test\.go\|$BIG_DECIMAL_TYPE\|//\|/\*" | head -5)
 if [[ -z "$float_money" ]]; then
@@ -13,7 +13,7 @@ else
   record "FAIL" "P-50 Float for money" "$count uses of float/double for monetary amounts (must be $BIG_DECIMAL_TYPE)"
 fi
 
-rounding=$(grep -rn --include="$SRC_EXT" --max-count=5 \
+rounding=$(grep -rn --include="$SRC_EXT" \
   "$ROUNDING_MODE_PATTERN\|setScale\|divide.*scale\|StringFixed" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|vendor\|_test\.go" | head -3)
@@ -23,7 +23,7 @@ else
   record "FAIL" "P-50 Rounding mode" "No explicit rounding mode — risk of precision loss"
 fi
 
-divide_no_scale=$(grep -rn --include="$SRC_EXT" --max-count=10 \
+divide_no_scale=$(grep -rn --include="$SRC_EXT" \
   '\.divide([^,)]*)[^,]*)\|\.Div(' "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|vendor\|_test\.go\|$ROUNDING_MODE_PATTERN\|scale\|StringFixed" | head -5)
 if [[ -z "$divide_no_scale" ]]; then

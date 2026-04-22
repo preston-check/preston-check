@@ -37,7 +37,18 @@ detect_language() {
     fi
   fi
 
+  # Build list of all detected languages for display
+  DETECTED_LANGS=""
+  [[ $java_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Java($java_count) "
+  [[ $ts_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}TypeScript($ts_count) "
+  [[ $js_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}JavaScript($js_count) "
+  [[ $py_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Python($py_count) "
+  [[ $go_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Go($go_count) "
+  [[ $rs_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Rust($rs_count) "
+  [[ -z "$DETECTED_LANGS" ]] && DETECTED_LANGS="unknown"
+
   export DETECTED_LANG
+  export DETECTED_LANGS
 }
 
 # Load language-specific patterns

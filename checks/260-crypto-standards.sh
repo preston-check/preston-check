@@ -3,8 +3,8 @@
 echo "P-260: Cryptographic Standards"
 SRC="${SOURCE_DIR:-.}"
 
-weak_hash=$(grep -rn --include="$SRC_EXT" 'MD5\|SHA-1\b\|SHA1\b' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|SHA-256\|SHA256\|SHA-512\|HmacSHA256\|google_authenticator\|TOTP\|SupefinaSign\|comment\|//" | head -5)
-if [[ -z "$weak_hash" ]]; then record "PASS" "P-260 Hash strength" "No weak hash algorithms (excluding external protocol requirements)"; else count=$(echo "$weak_hash" | wc -l | tr -d ' '); record "WARN" "P-260 Hash strength" "$count weak hash patterns — prefer SHA-256 minimum"; fi
+weak_hash=$(grep -rn --include="$SRC_EXT" 'MD5\|SHA-1\b\|SHA1\b' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|SHA-256\|SHA256\|SHA-512\|HmacSHA256\|google_authenticator\|TOTP\|SupefinaSign\|comment\|//")
+if [[ -z "$weak_hash" ]]; then record "PASS" "P-260 Hash strength" "No weak hash algorithms (excluding external protocol requirements)"; else count=$(echo "$weak_hash" | wc -l | tr -d ' '); record "WARN" "P-260 Hash strength" "$count weak hash patterns — prefer SHA-256 minimum"; echo "$weak_hash" | head -5; fi
 
 secure_random=$(grep -rn --include="$SRC_EXT" 'SecureRandom\|crypto\.randomBytes\|os\.urandom' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
 unsafe_random=$(grep -rn --include="$SRC_EXT" 'java\.util\.Random\b\|Math\.random()' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|SecureRandom\|//\|/\*" | head -3)

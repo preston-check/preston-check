@@ -3,7 +3,7 @@
 # Password comparison, HMAC verification, token comparison must be constant-time.
 echo "P-52: Timing Attacks"
 SRC="${SOURCE_DIR:-.}"
-constant_time=$(grep -rn --include="*.java" --max-count=5 \
+constant_time=$(grep -rn --include="*.java" \
   "MessageDigest.isEqual\|constantTimeEquals\|timingSafeEqual\|SecureCompare\|slowEquals" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$constant_time" ]]; then
@@ -12,7 +12,7 @@ else
   record "WARN" "P-52 Constant-time compare" "No constant-time comparison — timing oracle risk on auth"
 fi
 
-string_equals_secret=$(grep -rn --include="*.java" --max-count=10 \
+string_equals_secret=$(grep -rn --include="*.java" \
   '\.equals.*password\|\.equals.*secret\|\.equals.*token\|\.equals.*signature\|\.equals.*hmac' \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|MessageDigest\|constantTime\|//\|enum\|Enum\|name()" | head -5)
 if [[ -z "$string_equals_secret" ]]; then

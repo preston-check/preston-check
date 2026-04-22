@@ -5,8 +5,8 @@ SRC="${SOURCE_DIR:-.}"
 
 # Only flag SNAPSHOT in dependency versions, not the module's own <version> tag
 # A module version like 0.0.1-SNAPSHOT is normal for development; a dependency on SNAPSHOT is dangerous
-snapshot=$(grep -rB3 --include="pom.xml" 'SNAPSHOT' "$SRC" 2>/dev/null | grep -B3 "SNAPSHOT" | grep "<groupId>\|<artifactId>" | grep -v "test\|Test\|target\|node_modules" | head -3)
-if [[ -z "$snapshot" ]]; then record "PASS" "P-280 No SNAPSHOT deps" "No SNAPSHOT dependencies in production"; else count=$(echo "$snapshot" | wc -l | tr -d ' '); record "FAIL" "P-280 No SNAPSHOT deps" "$count SNAPSHOT dependencies — non-reproducible builds"; fi
+snapshot=$(grep -rB3 --include="pom.xml" 'SNAPSHOT' "$SRC" 2>/dev/null | grep -B3 "SNAPSHOT" | grep "<groupId>\|<artifactId>" | grep -v "test\|Test\|target\|node_modules")
+if [[ -z "$snapshot" ]]; then record "PASS" "P-280 No SNAPSHOT deps" "No SNAPSHOT dependencies in production"; else count=$(echo "$snapshot" | wc -l | tr -d ' '); record "FAIL" "P-280 No SNAPSHOT deps" "$count SNAPSHOT dependencies — non-reproducible builds"; echo "$snapshot" | head -5; fi
 
 version_pinned=$(grep -rn --include="pom.xml" '<version>' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|SNAPSHOT\|<!--\|\${" | wc -l | tr -d ' ')
 if [[ $version_pinned -gt 10 ]]; then record "PASS" "P-280 Pinned versions" "$version_pinned pinned dependency versions found"; else record "WARN" "P-280 Pinned versions" "Few pinned versions — all dependencies should have exact versions"; fi

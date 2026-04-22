@@ -20,7 +20,7 @@ else
   record "WARN" "P-30 HMAC coverage" "$((total_api - hmac_count)) of $total_api API modules lack HMAC filter"
 fi
 
-replay=$(grep -rn --include="*.java" --max-count=5 \
+replay=$(grep -rn --include="*.java" \
   "X-Timestamp\|timestamp.*sign\|nonce.*sign\|replay.*protect\|requestTime.*valid" \
   "$SRC" 2>/dev/null | grep -i "hmac\|sign\|auth.*filter" | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$replay" ]]; then
@@ -29,7 +29,7 @@ else
   record "WARN" "P-30 HMAC replay protection" "No replay protection in HMAC authentication"
 fi
 
-weak_algo=$(grep -rn --include="*.java" --max-count=5 "HmacSHA1\b\|HmacMD5" "$SRC" 2>/dev/null \
+weak_algo=$(grep -rn --include="*.java" "HmacSHA1\b\|HmacMD5" "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|HmacSHA256\|HmacSHA512" \
   | grep -v "google_authenticator\|TOTP\|SupefinaSign" \
   | head -3)

@@ -3,8 +3,8 @@
 echo "P-200: PII Protection"
 SRC="${SOURCE_DIR:-.}"
 
-pii_logs=$(grep -rn --include="$SRC_EXT" 'log\.\(info\|warn\|error\|debug\).*\(\.getEmail()\|\.getPhone()\|\.getSsn()\|password\|card_number\|account_number\)' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|vendor\|masked\|mask\|redact\|\\*\\*\\*" | head -5)
-if [[ -z "$pii_logs" ]]; then record "PASS" "P-200 PII in logs" "No direct PII in log statements"; else count=$(echo "$pii_logs" | wc -l | tr -d ' '); record "WARN" "P-200 PII in logs" "$count potential PII in log statements — use masking"; fi
+pii_logs=$(grep -rn --include="$SRC_EXT" 'log\.\(info\|warn\|error\|debug\).*\(\.getEmail()\|\.getPhone()\|\.getSsn()\|password\|card_number\|account_number\)' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|vendor\|masked\|mask\|redact\|\\*\\*\\*")
+if [[ -z "$pii_logs" ]]; then record "PASS" "P-200 PII in logs" "No direct PII in log statements"; else count=$(echo "$pii_logs" | wc -l | tr -d ' '); record "WARN" "P-200 PII in logs" "$count potential PII in log statements — use masking"; echo "$pii_logs" | head -5; fi
 
 pii_url=$(grep -rn --include="$SRC_EXT" '@Get.*\(email\|ssn\|password\|card_number\)' "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -z "$pii_url" ]]; then record "PASS" "P-200 PII in URLs" "No PII in URL parameters"; else record "FAIL" "P-200 PII in URLs" "PII exposed in URL parameters — use POST body instead"; fi

@@ -3,7 +3,7 @@
 # Account creation, suspension, closure must be audited and irreversible where needed.
 echo "P-53: Account Lifecycle"
 SRC="${SOURCE_DIR:-.}"
-account_lock=$(grep -rn --include="*.java" --max-count=5 \
+account_lock=$(grep -rn --include="*.java" \
   "account_locked\|lockAccount\|suspendAccount\|freezeAccount\|deactivateAccount\|login_attempts" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$account_lock" ]]; then
@@ -12,7 +12,7 @@ else
   record "WARN" "P-53 Account locking" "No account lock mechanism for brute force protection"
 fi
 
-email_change_auth=$(grep -rn --include="*.java" --max-count=5 \
+email_change_auth=$(grep -rn --include="*.java" \
   "changeEmail\|updateEmail\|change_email\|update_email" "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$email_change_auth" ]]; then

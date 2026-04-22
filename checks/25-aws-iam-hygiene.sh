@@ -4,7 +4,7 @@
 echo "P-25: AWS IAM Hygiene"
 SRC="${SOURCE_DIR:-.}"
 
-static_creds=$(grep -rn --include="*.java" --max-count=10 \
+static_creds=$(grep -rn --include="*.java" \
   "AwsBasicCredentials\|StaticCredentialsProvider\|BasicAWSCredentials\|AWSStaticCredentials" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|//\|/\*" | head -5)
 if [[ -z "$static_creds" ]]; then
@@ -14,7 +14,7 @@ else
   record "WARN" "P-25 Static AWS creds" "$count files use static AWS credentials (should use IAM roles)"
 fi
 
-secrets_mgr=$(grep -rn --include="*.java" --max-count=5 \
+secrets_mgr=$(grep -rn --include="*.java" \
   "SecretsManager\|getSecretValue\|secretsmanager\|ConfigurationManager" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$secrets_mgr" ]]; then

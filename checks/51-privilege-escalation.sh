@@ -3,7 +3,7 @@
 # Role/permission changes must be admin-only and audited.
 echo "P-51: Privilege Escalation"
 SRC="${SOURCE_DIR:-.}"
-role_change=$(grep -rn --include="*.java" --max-count=10 \
+role_change=$(grep -rn --include="*.java" \
   "setRole\|updateRole\|addRole\|removeRole\|setPermission\|grantPermission\|set_2fa_state\|setBlacklisted" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -5)
 role_auth=$(echo "$role_change" | grep -i "admin\|@Secured\|authorize\|isAdmin\|isSuperuser\|requireRole" | head -3)

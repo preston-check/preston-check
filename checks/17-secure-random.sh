@@ -9,7 +9,7 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for java.util.Random in security-sensitive contexts
 insecure_random=$(grep -rn --include="*.java" \
-  --max-count=10 "new Random()\|java.util.Random\|Math.random()" \
+  "new Random()\|java.util.Random\|Math.random()" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|SecureRandom" \
   | head -10)
@@ -23,7 +23,7 @@ fi
 
 # Check that SecureRandom IS used somewhere
 secure_random=$(grep -rn --include="*.java" \
-  --max-count=5 "SecureRandom" \
+  "SecureRandom" \
   "$SRC/Common/src" 2>/dev/null \
   | grep -v "test\|Test\|target" \
   | head -3)

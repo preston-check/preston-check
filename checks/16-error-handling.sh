@@ -9,7 +9,7 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for e.printStackTrace() (stack trace leak to logs/stdout)
 print_stack=$(grep -rn --include="*.java" \
-  --max-count=15 "\.printStackTrace()" \
+  "\.printStackTrace()" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules" \
   | wc -l)
@@ -39,7 +39,7 @@ fi
 
 # Check for generic error messages (not leaking internals)
 generic_errors=$(grep -rn --include="*.java" \
-  --max-count=10 "\"Internal error\"\|\"Internal server error\"\|\"An error occurred\"" \
+  "\"Internal error\"\|\"Internal server error\"\|\"An error occurred\"" \
   "$SRC/Common/src" 2>/dev/null \
   | grep -v "test\|Test\|target" \
   | head -5)

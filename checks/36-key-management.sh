@@ -12,7 +12,7 @@ else
   record "FAIL" "P-36 Key files in repo" "$count key/cert files in repo (should be in Secrets Manager)"
 fi
 
-rotation=$(grep -rn --include="$SRC_EXT" --include="*.yml" --max-count=5 \
+rotation=$(grep -rn --include="$SRC_EXT" --include="*.yml" \
   "key.*rotation\|rotate.*key\|key.*version\|rotateSecret\|key.*expir" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|vendor\|_test\.go" | head -3)
 if [[ -n "$rotation" ]]; then

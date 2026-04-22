@@ -4,7 +4,7 @@
 echo "P-23: KYC Document Security"
 SRC="${SOURCE_DIR:-.}"
 
-s3_enc=$(grep -rn --include="*.java" --max-count=5 \
+s3_enc=$(grep -rn --include="*.java" \
   "ServerSideEncryption\|serverSideEncryption\|SSE\|aws:kms" \
   "$SRC/Registration" "$SRC/FileManager" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$s3_enc" ]]; then
@@ -13,7 +13,7 @@ else
   record "WARN" "P-23 S3 encryption" "No S3 encryption enforcement found for KYC documents"
 fi
 
-presign=$(grep -rn --include="*.java" --max-count=5 \
+presign=$(grep -rn --include="*.java" \
   "signatureDuration\|Duration.of\|presigned\|presignGetObject" \
   "$SRC/Registration" "$SRC/FileManager" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$presign" ]]; then
@@ -25,7 +25,7 @@ if [[ -n "$presign" ]]; then
   fi
 fi
 
-filetype=$(grep -rn --include="*.java" --max-count=5 \
+filetype=$(grep -rn --include="*.java" \
   "contentType\|getContentType\|allowedTypes\|MIME\|file.*extension\|accept.*image\|accept.*pdf" \
   "$SRC/Registration" "$SRC/FileManager" 2>/dev/null \
   | grep -i "valid\|check\|allow\|restrict\|reject\|whitelist" \

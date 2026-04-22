@@ -3,7 +3,7 @@
 echo "P-37: Backup & DR"
 SRC="${SOURCE_DIR:-.}"
 
-backup=$(grep -rn --include="*.sh" --include="*.yml" --include="*.md" --max-count=10 \
+backup=$(grep -rn --include="*.sh" --include="*.yml" --include="*.md" \
   "backup\|pg_dump\|snapshot\|restore\|recovery\|rds.*backup" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -5)
 if [[ -n "$backup" ]]; then
@@ -19,7 +19,7 @@ else
   record "WARN" "P-37 DR documentation" "No disaster recovery documentation"
 fi
 
-rollback=$(grep -rn --include="*.sql" --max-count=5 "ROLLBACK\|-- ROLLBACK\|rollback\|DOWN" \
+rollback=$(grep -rn --include="*.sql" "ROLLBACK\|-- ROLLBACK\|rollback\|DOWN" \
   "$SRC/db" 2>/dev/null | head -3)
 if [[ -n "$rollback" ]]; then
   record "PASS" "P-37 Migration rollback" "DB migration rollback scripts found"

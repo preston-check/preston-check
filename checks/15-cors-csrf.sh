@@ -9,7 +9,7 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for wildcard CORS (allow all origins)
 wildcard_cors=$(grep -rn --include="*.java" --include="*.ts" --include="*.yml" \
-  --max-count=10 "Access-Control-Allow-Origin.*\*\|allowedOrigin.*\*\|cors.*origin.*\*" \
+  "Access-Control-Allow-Origin.*\*\|allowedOrigin.*\*\|cors.*origin.*\*" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|comment\|// " \
   | head -5)
@@ -23,7 +23,7 @@ fi
 
 # Check for CSRF protection
 csrf=$(grep -rn --include="*.java" --include="*.ts" \
-  --max-count=5 "csrf\|CSRF\|X-CSRF\|csrfProtection\|csrfToken\|X-Requested-With" \
+  "csrf\|CSRF\|X-CSRF\|csrfProtection\|csrfToken\|X-Requested-With" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|disable" \
   | head -5)

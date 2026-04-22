@@ -3,7 +3,7 @@
 echo "P-32: Mass Assignment"
 SRC="${SOURCE_DIR:-.}"
 
-direct_entity=$(grep -rn --include="*.java" --max-count=10 \
+direct_entity=$(grep -rn --include="*.java" \
   "@Body.*Client\b\|@Body.*User\b\|@Body.*Portfolio\b" "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|Dto\|DTO\|Request\|Command\|View" | head -5)
 if [[ -z "$direct_entity" ]]; then

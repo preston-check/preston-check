@@ -9,7 +9,7 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for balance validation before withdrawals
 balance_check=$(grep -rn --include="$SRC_EXT" \
-  --max-count=10 "balance.*sufficient\|isBalanceAvailable\|checkBalance\|getBalance.*compare\|qty.*compare" \
+  "balance.*sufficient\|isBalanceAvailable\|checkBalance\|getBalance.*compare\|qty.*compare" \
   "$SRC" 2>/dev/null \
   | grep -i "withdraw\|transfer\|funds_out\|pay\|send" \
   | grep -v "test\|Test\|target\|vendor\|_test\.go" \
@@ -24,7 +24,7 @@ fi
 
 # Check for negative amount validation
 negative_check=$(grep -rn --include="$SRC_EXT" \
-  --max-count=10 "$NEGATIVE_AMOUNT_PATTERN\|validateAmount" \
+  "$NEGATIVE_AMOUNT_PATTERN\|validateAmount" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -5)
@@ -37,7 +37,7 @@ fi
 
 # Check for FOR UPDATE locking on financial queries
 for_update=$(grep -rn --include="$SRC_EXT" \
-  --max-count=10 "$FOR_UPDATE_PATTERN" \
+  "$FOR_UPDATE_PATTERN" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -10)
@@ -51,7 +51,7 @@ fi
 
 # Check for transaction ID generation (collision resistance)
 txn_id=$(grep -rn --include="$SRC_EXT" \
-  --max-count=5 "generateTransactionId\|$SECURE_RANDOM_PATTERN\|SecureRandom.*transaction" \
+  "generateTransactionId\|$SECURE_RANDOM_PATTERN\|SecureRandom.*transaction" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -5)

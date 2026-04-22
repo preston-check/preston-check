@@ -134,7 +134,7 @@ load_language_profile "$DETECTED_LANG"
 echo "  App:     ${APP_NAME:-not configured}"
 echo "  Config:  $CONFIG_FILE"
 echo "  Source:  ${SOURCE_DIR:-.}"
-echo "  Lang:    ${DETECTED_LANG}"
+echo "  Lang:    ${DETECTED_LANG} (primary) | ${DETECTED_LANGS}"
 if [[ "$RUN_MODE" == "light" ]]; then
   echo "  Mode:    LIGHT (P-01 to P-20 — core security checks)"
 else

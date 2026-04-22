@@ -9,7 +9,7 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for debug mode / dev mode in production configs
 debug_mode=$(grep -rn --include="*.yml" --include="*.yaml" --include="*.properties" \
-  --max-count=10 "debug.*true\|devmode.*true\|dev-mode.*true\|trace.*true" \
+  "debug.*true\|devmode.*true\|dev-mode.*true\|trace.*true" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|#\|enabled: false" \
   | head -5)
@@ -23,7 +23,7 @@ fi
 
 # Check for test credentials in production configs
 test_creds=$(grep -rn --include="*.yml" --include="*.yaml" --include="*.properties" --include="*.sh" \
-  --max-count=10 "test.*password\|admin.*admin\|password123\|changeme\|default.*secret" \
+  "test.*password\|admin.*admin\|password123\|changeme\|default.*secret" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|example\|template\|#" \
   | head -5)
@@ -37,7 +37,7 @@ fi
 
 # Check for health endpoint
 health=$(grep -rn --include="$SRC_EXT" \
-  --max-count=5 "$HEALTH_ENDPOINT_PATTERN" \
+  "$HEALTH_ENDPOINT_PATTERN" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go" \
   | head -3)

@@ -3,7 +3,7 @@
 echo "P-34: SSRF Prevention"
 SRC="${SOURCE_DIR:-.}"
 
-user_url=$(grep -rn --include="*.java" --max-count=10 \
+user_url=$(grep -rn --include="*.java" \
   "callbackUrl\|callback_url\|webhookUrl\|webhook_url\|redirectUrl\|notificationUrl" \
   "$SRC" 2>/dev/null | grep -i "httpClient\|restTemplate\|webClient\|fetch\|request\|URL\|URI" \
   | grep -v "test\|Test\|target" | head -5)
@@ -14,7 +14,7 @@ else
   record "WARN" "P-34 User URLs to HTTP" "$count potential SSRF vectors — user URLs in HTTP client calls"
 fi
 
-metadata=$(grep -rn --include="*.java" --max-count=5 \
+metadata=$(grep -rn --include="*.java" \
   "169.254.169.254\|metadata.*block\|validateUrl.*internal\|isInternalUrl\|SSRF" \
   "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$metadata" ]]; then

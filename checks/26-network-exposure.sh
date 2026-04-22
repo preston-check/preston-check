@@ -4,10 +4,10 @@
 echo "P-26: Network Exposure"
 SRC="${SOURCE_DIR:-.}"
 
-redis_no_auth=$(grep -rn --include="*.yml" --include="*.yaml" --max-count=10 \
+redis_no_auth=$(grep -rn --include="*.yml" --include="*.yaml" \
   "redis.*host\|redis.*server\|redis.*url" "$SRC" 2>/dev/null \
   | grep -v "password\|auth\|requirepass\|test\|Test\|target\|#" | head -5)
-redis_with_auth=$(grep -rn --include="*.yml" --include="*.yaml" --max-count=5 \
+redis_with_auth=$(grep -rn --include="*.yml" --include="*.yaml" \
   "redis.*password\|redis.*auth" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|#" | head -3)
 if [[ -n "$redis_with_auth" ]]; then
   record "PASS" "P-26 Redis auth" "Redis authentication configured"
@@ -17,7 +17,7 @@ else
   record "SKIP" "P-26 Redis auth" "No Redis configuration found"
 fi
 
-mgmt_ports=$(grep -rn --include="*.yml" --include="*.yaml" --max-count=5 \
+mgmt_ports=$(grep -rn --include="*.yml" --include="*.yaml" \
   "jmx.*port\|management.*port\|actuator\|jolokia" "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|#\|disabled\|false" | head -3)
 if [[ -z "$mgmt_ports" ]]; then

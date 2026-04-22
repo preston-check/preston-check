@@ -27,7 +27,7 @@ fi
 
 # Check for IS_ANONYMOUS endpoints (intentionally public)
 anon=$(grep -rn --include="$SRC_EXT" \
-  --max-count=10 "IS_ANONYMOUS\|permitAll\|@Secured.*isAnonymous\|PublicEndpoint\|NoAuth" \
+  "IS_ANONYMOUS\|permitAll\|@Secured.*isAnonymous\|PublicEndpoint\|NoAuth" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -10)
@@ -39,7 +39,7 @@ fi
 
 # Check for JWT signature verification
 jwt_verify=$(grep -rn --include="$SRC_EXT" \
-  --max-count=5 "$JWT_VERIFY_PATTERN" \
+  "$JWT_VERIFY_PATTERN" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -5)

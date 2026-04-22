@@ -9,7 +9,7 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for password hashing (not plaintext storage)
 password_hash=$(grep -rn --include="$SRC_EXT" \
-  --max-count=5 "$PASSWORD_HASH_PATTERN" \
+  "$PASSWORD_HASH_PATTERN" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|vendor\|_test\.go" \
   | head -5)
@@ -22,7 +22,7 @@ fi
 
 # Check for PII in log statements (email, phone, SSN patterns)
 pii_in_logs=$(grep -rn --include="$SRC_EXT" \
-  --max-count=10 'log\.\(info\|error\|warn\|debug\|Info\|Error\|Warn\|Debug\).*\(email\|phone\|ssn\|password\|secret\|token\)' \
+  'log\.\(info\|error\|warn\|debug\|Info\|Error\|Warn\|Debug\).*\(email\|phone\|ssn\|password\|secret\|token\)' \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|sanitize\|mask\|redact\|vendor\|_test\.go" \
   | wc -l)

@@ -9,7 +9,7 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for versioned API paths
 versioned=$(grep -rn --include="$SRC_EXT" \
-  --max-count=10 "$API_VERSION_PATTERN" \
+  "$API_VERSION_PATTERN" \
   "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|dist\|vendor\|_test\.go" \
   | head -10)
@@ -23,7 +23,7 @@ fi
 
 # Check for deprecated/legacy endpoints still active
 deprecated=$(grep -rn --include="$SRC_EXT" \
-  --max-count=10 "@Deprecated\|DEPRECATED\|// TODO.*remove\|// LEGACY\|//nolint.*deprecated" \
+  "@Deprecated\|DEPRECATED\|// TODO.*remove\|// LEGACY\|//nolint.*deprecated" \
   "$SRC" 2>/dev/null \
   | grep -i "controller\|endpoint\|route\|handler" \
   | grep -v "test\|Test\|target\|vendor\|_test\.go" \

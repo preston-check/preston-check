@@ -3,7 +3,7 @@
 # Keys must have expiration, rotation, scope limits, and usage logging.
 echo "P-54: API Key Management"
 SRC="${SOURCE_DIR:-.}"
-key_expiry=$(grep -rn --include="*.java" --include="*.sql" --max-count=5 \
+key_expiry=$(grep -rn --include="*.java" --include="*.sql" \
   "expires_on\|key.*expir\|api_key.*valid\|token.*expir" "$SRC" 2>/dev/null \
   | grep -i "api.*key\|bloxpay_api" | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$key_expiry" ]]; then
@@ -12,7 +12,7 @@ else
   record "WARN" "P-54 API key expiry" "No API key expiration found"
 fi
 
-key_scope=$(grep -rn --include="*.java" --include="*.sql" --max-count=5 \
+key_scope=$(grep -rn --include="*.java" --include="*.sql" \
   "permissions\|scope\|allowed_ip\|ip_whitelist" "$SRC" 2>/dev/null \
   | grep -i "api.*key\|hmac\|bloxpay_api" | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$key_scope" ]]; then

@@ -23,12 +23,13 @@ while IFS= read -r file_and_line; do
 done < <(grep -rn --include="*.java" '\.divide(' "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|//.*divide\|/\*" \
   | cut -d: -f1-2)
-unsafe_divide=$(echo "$unsafe_divide" | sed '/^$/d' | head -5)
+unsafe_divide=$(echo "$unsafe_divide" | sed '/^$/d')
 if [[ -z "$unsafe_divide" ]]; then
   record "PASS" "P-97 Safe division" "All BigDecimal.divide() calls specify scale and RoundingMode"
 else
   count=$(echo "$unsafe_divide" | wc -l | tr -d ' ')
   record "FAIL" "P-97 Safe division" "$count BigDecimal.divide() without scale/RoundingMode — causes ArithmeticException on non-terminating decimals"
+  echo "$unsafe_divide" | head -10
 fi
 
 # Check for consistent rounding mode across the codebase

@@ -9,7 +9,7 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for HTTP (non-HTTPS) URLs in source code
 http_urls=$(grep -rn --include="*.java" --include="*.ts" --include="*.yml" \
-  --max-count=10 "http://" "$SRC/Common/src" "$SRC/Registration/src" "$SRC/Payments-logic/src" 2>/dev/null \
+  "http://" "$SRC/Common/src" "$SRC/Registration/src" "$SRC/Payments-logic/src" 2>/dev/null \
   | grep -v "localhost\|127\.0\.0\.1\|0\.0\.0\.0\|test\|Test\|target\|node_modules\|//.*http://\|http://schemas" \
   | head -10)
 
@@ -22,7 +22,7 @@ fi
 
 # Check for weak encryption algorithms
 weak_crypto=$(grep -rn --include="*.java" \
-  --max-count=10 "DES\b\|RC4\|MD5\|SHA-1\|ECB\|AES/ECB\|Blowfish" \
+  "DES\b\|RC4\|MD5\|SHA-1\|ECB\|AES/ECB\|Blowfish" \
   "$SRC/Common/src" 2>/dev/null \
   | grep -v "test\|Test\|target\|// \|/\*\|comment\|log\.\|MD5.*Supefina" \
   | head -10)
