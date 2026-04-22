@@ -12,8 +12,8 @@ detect_language() {
   local java_count=$(find "$src" -name "*.java" -not -path "*/target/*" -not -path "*/node_modules/*" 2>/dev/null | wc -l | tr -d ' ')
   local go_count=$(find "$src" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
   local py_count=$(find "$src" -name "*.py" -not -path "*/__pycache__/*" -not -path "*/venv/*" 2>/dev/null | wc -l | tr -d ' ')
-  local ts_count=$(find "$src" -name "*.ts" -name "*.tsx" -not -path "*/node_modules/*" 2>/dev/null | wc -l | tr -d ' ')
-  local js_count=$(find "$src" -name "*.js" -name "*.jsx" -not -path "*/node_modules/*" 2>/dev/null | wc -l | tr -d ' ')
+  local ts_count=$(find "$src" \( -name "*.ts" -o -name "*.tsx" \) -not -path "*/node_modules/*" -not -path "*/.next/*" -not -path "*/dist/*" 2>/dev/null | wc -l | tr -d ' ')
+  local js_count=$(find "$src" \( -name "*.js" -o -name "*.jsx" \) -not -path "*/node_modules/*" -not -path "*/.next/*" -not -path "*/dist/*" 2>/dev/null | wc -l | tr -d ' ')
   local rs_count=$(find "$src" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
 
   # Determine primary language
@@ -28,7 +28,8 @@ detect_language() {
 
   # Fallback: check for go.mod, pom.xml, package.json, Cargo.toml
   if [[ $max -eq 0 ]]; then
-    if [[ -f "$src/go.mod" ]]; then DETECTED_LANG="go"
+    if [[ -f "$src/tsconfig.json" ]] || find "$src" -name "tsconfig.json" -maxdepth 3 -not -path "*/node_modules/*" 2>/dev/null | grep -q .; then DETECTED_LANG="typescript"
+    elif [[ -f "$src/go.mod" ]]; then DETECTED_LANG="go"
     elif [[ -f "$src/pom.xml" ]] || [[ -f "$src/build.gradle" ]]; then DETECTED_LANG="java"
     elif [[ -f "$src/package.json" ]]; then DETECTED_LANG="javascript"
     elif [[ -f "$src/requirements.txt" ]] || [[ -f "$src/pyproject.toml" ]]; then DETECTED_LANG="python"
@@ -131,6 +132,34 @@ load_language_profile() {
       export HEALTH_ENDPOINT_PATTERN="/health\|healthcheck\|liveness\|readiness"
       export ROUNDING_MODE_PATTERN="ROUND_HALF_UP\|quantize\|Decimal.*round"
       export BIG_DECIMAL_TYPE="Decimal\|decimal\.Decimal"
+      ;;
+    typescript|javascript)
+      export SRC_EXT="*.ts *.tsx *.js *.jsx"
+      export SRC_EXTS=("*.ts" "*.tsx" "*.js" "*.jsx")
+      export CONTROLLER_PATTERN="*handler*.ts *controller*.ts *routes*.ts *server.ts"
+      export SERVICE_PATTERN="*service*.ts *service*.js"
+      export CONFIG_EXT="*.yml *.yaml *.json *.env"
+      export AUTH_ANNOTATION="authenticate\|requireAuth\|verifyToken\|withMiddleware\|isAuthenticated\|jwt.*verify"
+      export RATE_LIMIT_PATTERN="rateLimit\|rateLimiter\|RateLimit\|throttle\|express-rate-limit"
+      export SESSION_IP_PATTERN="ip_address\|ipAddress\|req\.ip\|x-forwarded-for\|X-Real-IP"
+      export SESSION_EXPIRE_PATTERN="expiresAt\|session.*ttl\|SESSION_TIMEOUT\|maxAge\|cookie.*expires"
+      export SESSION_KILL_PATTERN="killAllUserSessions\|revokeSession\|revokeToken\|session\.destroy\|deleteSession\|revoked.*true"
+      export BLACKLIST_PATTERN="blacklist\|Blacklist\|isBlocked\|blocked.*check\|checkBlacklist\|GlobalBlacklist"
+      export EXCEPTION_LEAK_PATTERN="err\.message\|error\.stack\|catch.*res.*json.*error\|Internal Server Error"
+      export SENSITIVE_FIELD_PATTERN="password.*json\|select.*password\|omit.*password\|exclude.*password"
+      export FLOAT_MONEY_PATTERN="parseFloat.*amount\|Number.*balance\|toFixed.*fee"
+      export PASSWORD_HASH_PATTERN="bcrypt\|argon2\|pbkdf2\|scrypt\|hashPin\|createHash.*sha256"
+      export JWT_VERIFY_PATTERN="jwt\.verify\|jsonwebtoken\|verifyToken\|validateToken"
+      export WEBHOOK_HANDLER_PATTERN="webhook\|Webhook\|handleCallback\|verifySignature\|verifyTwilioSignature"
+      export FINANCIAL_MUTATION_PATTERN="withdraw\|transfer\|send.*money\|createRemittance\|pay_vendor\|executeAction"
+      export FOR_UPDATE_PATTERN="FOR UPDATE\|advisory.*lock\|\\\$executeRaw.*UPDATE"
+      export SECURE_RANDOM_PATTERN="crypto\.randomBytes\|crypto\.randomUUID\|nanoid\|uuid"
+      export HTTP_TIMEOUT_PATTERN="timeout\|Timeout\|AbortController\|signal.*abort"
+      export NEGATIVE_AMOUNT_PATTERN="amount.*<=.*0\|amount.*<.*0\|Math\.max.*0"
+      export API_VERSION_PATTERN="/api/v[0-9]\|/v[0-9]/"
+      export HEALTH_ENDPOINT_PATTERN="/health\|healthcheck\|health.*ok"
+      export ROUNDING_MODE_PATTERN="roundMoney\|ROUND_HALF_UP\|toFixed\|Math\.round.*100\|Decimal.*round"
+      export BIG_DECIMAL_TYPE="Decimal\|decimal\|BigNumber"
       ;;
     *)
       # Fallback: try all common extensions

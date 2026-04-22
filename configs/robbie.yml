@@ -1,0 +1,7 @@
+app_name: robbie
+source_dir: /Users/diegofbaez/DEV/ton-pay
+log_dir: /opt/robbie
+ssh_host: ton
+api_base_url: https://robbie.land
+redis_host: /var/run/redis/redis.sock
+db_host: /var/run/postgresql
