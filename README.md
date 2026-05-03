@@ -72,6 +72,23 @@ Preston-Check is licensed under Apache 2.0. The "Preston-Check" name and logo ar
 
 Community contributions are welcome via the trust-tier system documented in CONTRIBUTING.md. Drop new checks into `checks/community/proposed/`, fill in the metadata block (see `templates/check.sh`), run `tools/lint-check.sh path/to/check.sh`, and open a PR. Maintainer review promotes proposed → accepted, and field validation eventually promotes accepted → verified. Author attribution is shown in every report.
 
+## Crypto / DeFi suite (P-301..P-360)
+
+Sixty dedicated checks covering smart contract security, key custody, outbound transaction safety, inbound asset hygiene, source-wallet integrity, and regulatory compliance. Aligned to OWASP Smart Contract Top 10 (2025), CryptoCurrency Security Standard v9.0, NIST CSF 2.0, FATF Travel Rule, MiCA, OFAC, NIST FIPS post-quantum standards, and CCSS Level 1-3 evidence requirements. See `docs/crypto-coverage.md` for the full breakdown.
+
+Run by compliance framework:
+
+```bash
+preston-check --framework MiCA              # EU MiCA crypto-asset service provider audit
+preston-check --framework "CCSS:9.0:Level2" # CCSS Level 2 self-assessment
+preston-check --framework "OWASP-SC-Top-10:2025"
+preston-check --framework FATF              # Travel Rule + sanctions
+preston-check --framework OFAC
+preston-check --framework FIPS              # NIST post-quantum readiness
+```
+
+Mapping is in `docs/crypto-frameworks.md`. Authoritative sources tracked in `docs/crypto-sources.md` so checks can be updated as frameworks evolve.
+
 ## Existing check catalog
 
 ## Directory Structure

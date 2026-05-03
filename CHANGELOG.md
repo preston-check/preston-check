@@ -4,6 +4,61 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] — 2026-05-03 — Crypto / DeFi suite
+
+### Added
+
+- Sixty dedicated crypto-business security checks (P-301..P-360)
+  organized into six thematic groups:
+  - Smart contract security (P-301..P-310): reentrancy, integer
+    overflow, tx.origin authorization, unbounded loops, DEX slippage,
+    oracle manipulation, token approvals, bridge replay, stablecoin
+    peg monitoring, governance time-locks.
+  - Key custody and storage (P-311..P-320): private-key/mnemonic
+    exposure, HSM, KMS, MPC/threshold sigs, cold-wallet air-gap, hot-
+    wallet caps, key ceremony, seed handling, key rotation, multi-sig.
+  - Outbound transaction safety (P-321..P-330): address validation,
+    withdrawal whitelist, blockchain analytics risk scoring, OFAC live
+    screening, scam-address screening, address poisoning, mixers,
+    Travel Rule, new-address cooldown, step-up auth.
+  - Inbound asset hygiene (P-331..P-335): dust attacks, scam tokens
+    and honeypots, unverified contract quarantine, NFT phishing,
+    counterparty reputation.
+  - Source wallet integrity (P-336..P-340): tainted-funds tracing,
+    compromise indicators, approval audits, drainer pattern detection,
+    reorg confirmation depth.
+  - Extended key storage and token semantics (P-341..P-350): hardware
+    wallets, secure enclaves, BIP-44 derivation paths, backup
+    encryption, Shamir's Secret Sharing, in-process memory hygiene,
+    fee-on-transfer tokens, proxy upgrade safety, EIP-2612 Permit
+    replay, ERC-4337 account abstraction.
+  - OWASP / Bybit / PQC / CCSS closure (P-351..P-360): comprehensive
+    access control, flash loan attack resistance, unchecked external
+    call returns, cold-to-hot transfer verification (Bybit Feb 2025
+    lesson), blind signing prevention, DeFi liquidation safety,
+    stablecoin admin freeze handling, CCSS evidence, emergency pause
+    patterns, post-quantum cryptography readiness assessment.
+- `--framework <NAME>` CLI flag for compliance-scoped runs (e.g.,
+  `preston-check --framework MiCA`, `--framework "CCSS:9.0:Level2"`,
+  `--framework "OWASP-SC-Top-10:2025"`, `--framework FATF`,
+  `--framework OFAC`, `--framework FIPS`). Filter is a case-insensitive
+  substring match against each check's `frameworks` metadata.
+- `lang/detect.sh` now recognizes `*.sol` Solidity files (counts and
+  fallback detection of `foundry.toml`, `hardhat.config.*`,
+  `truffle-config.js`).
+- `docs/crypto-coverage.md` — full 60-check breakdown.
+- `docs/crypto-frameworks.md` — framework-to-check mapping for
+  compliance-scoped runs.
+- `docs/crypto-sources.md` — authoritative source registry with URLs,
+  current versions, and per-source affected-check lists. Used by
+  maintainers to keep checks aligned as standards evolve.
+
+### Tier and licensing
+
+- All sixty crypto checks default to `min_tier: free`. Crypto businesses
+  can validate controls without a license; Pro and Enterprise tiers
+  add value through the audit-package layer.
+
 ## [1.0.0] — 2026-05-03 — Productization release
 
 ### Added

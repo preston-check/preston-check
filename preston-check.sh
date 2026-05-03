@@ -35,7 +35,8 @@ AIRGAP_MODE=false              # --airgap: forbid all network calls (telemetry, 
 TELEMETRY_OPT_IN_FLAG=false    # --telemetry-opt-in: anonymous score reporting
 INCLUDE_PROPOSED=false         # --include-proposed: run unreviewed community checks
 CI_SOFT_MODE=false             # --ci-soft: never exit 1 (CI handles its own thresholds)
-PRESTON_VERSION="1.0.0"
+FRAMEWORK_FILTER=""            # --framework FILTER: only run checks whose metadata frameworks contain FILTER
+PRESTON_VERSION="1.1.0"
 
 export AIRGAP_MODE PRESTON_VERSION
 
@@ -67,6 +68,7 @@ while [[ $# -gt 0 ]]; do
     --telemetry-opt-in) TELEMETRY_OPT_IN_FLAG=true; shift ;;
     --include-proposed) INCLUDE_PROPOSED=true; shift ;;
     --ci-soft) CI_SOFT_MODE=true; shift ;;
+    --framework) FRAMEWORK_FILTER="$2"; shift 2 ;;
     --list)
       for d in "$CHECKS_DIR" "$CHECKS_DIR/core" "$CHECKS_DIR/community/verified" "$CHECKS_DIR/community/accepted" "$CHECKS_DIR/community/proposed"; do
         [[ -d "$d" ]] && ls "$d"/*.sh 2>/dev/null | xargs -I{} basename {} .sh
@@ -87,6 +89,8 @@ while [[ $# -gt 0 ]]; do
       echo "  --airgap             No network calls. Disables telemetry."
       echo "  --telemetry-opt-in   Send anonymous score to State of Fintech Security report"
       echo "  --include-proposed   Run unreviewed community-contributed checks"
+      echo "  --framework NAME     Run only checks whose metadata references NAME"
+      echo "                       (e.g., MiCA, CCSS:9.0:Level2, OWASP-SC-Top-10:2025, FATF, OFAC)"
       echo "  --list               List available checks"
       echo "  --verbose            Show check details"
       echo "  --help               Show this help"
@@ -211,13 +215,18 @@ if [[ "$INCLUDE_PROPOSED" == "true" && -d "$CHECKS_DIR/community/proposed" ]]; t
   CHECK_DIRS+=("$CHECKS_DIR/community/proposed")
 fi
 
-# Decide whether a single check should run, based on metadata + tier
+# Decide whether a single check should run, based on metadata + tier + framework filter
 should_run_check() {
   local check_file="$1"
   if declare -f parse_check_metadata >/dev/null; then
     parse_check_metadata "$check_file"
     if [[ -n "${META_MIN_TIER:-}" ]] && declare -f tier_allows_check >/dev/null; then
       if ! tier_allows_check "$META_MIN_TIER" "$EFFECTIVE_TIER"; then
+        return 1
+      fi
+    fi
+    if [[ -n "$FRAMEWORK_FILTER" ]]; then
+      if [[ -z "${META_FRAMEWORKS:-}" ]] || ! echo "${META_FRAMEWORKS}" | grep -qiE "$(echo "$FRAMEWORK_FILTER" | sed 's/[][\.*^$/]/\\&/g')"; then
         return 1
       fi
     fi

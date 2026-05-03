@@ -15,6 +15,7 @@ detect_language() {
   local ts_count=$(find "$src" \( -name "*.ts" -o -name "*.tsx" \) -not -path "*/node_modules/*" -not -path "*/.next/*" -not -path "*/dist/*" 2>/dev/null | wc -l | tr -d ' ')
   local js_count=$(find "$src" \( -name "*.js" -o -name "*.jsx" \) -not -path "*/node_modules/*" -not -path "*/.next/*" -not -path "*/dist/*" 2>/dev/null | wc -l | tr -d ' ')
   local rs_count=$(find "$src" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
+  local sol_count=$(find "$src" -name "*.sol" -not -path "*/node_modules/*" -not -path "*/artifacts/*" -not -path "*/cache/*" 2>/dev/null | wc -l | tr -d ' ')
 
   # Determine primary language
   local max=$java_count
@@ -25,10 +26,12 @@ detect_language() {
   if [[ $ts_count -gt $max ]]; then max=$ts_count; DETECTED_LANG="typescript"; fi
   if [[ $js_count -gt $max ]]; then max=$js_count; DETECTED_LANG="javascript"; fi
   if [[ $rs_count -gt $max ]]; then max=$rs_count; DETECTED_LANG="rust"; fi
+  if [[ $sol_count -gt $max ]]; then max=$sol_count; DETECTED_LANG="solidity"; fi
 
-  # Fallback: check for go.mod, pom.xml, package.json, Cargo.toml
+  # Fallback: check for go.mod, pom.xml, package.json, Cargo.toml, foundry.toml, hardhat.config.*
   if [[ $max -eq 0 ]]; then
-    if [[ -f "$src/tsconfig.json" ]] || find "$src" -name "tsconfig.json" -maxdepth 3 -not -path "*/node_modules/*" 2>/dev/null | grep -q .; then DETECTED_LANG="typescript"
+    if [[ -f "$src/foundry.toml" ]] || [[ -f "$src/hardhat.config.js" ]] || [[ -f "$src/hardhat.config.ts" ]] || [[ -f "$src/truffle-config.js" ]]; then DETECTED_LANG="solidity"
+    elif [[ -f "$src/tsconfig.json" ]] || find "$src" -name "tsconfig.json" -maxdepth 3 -not -path "*/node_modules/*" 2>/dev/null | grep -q .; then DETECTED_LANG="typescript"
     elif [[ -f "$src/go.mod" ]]; then DETECTED_LANG="go"
     elif [[ -f "$src/pom.xml" ]] || [[ -f "$src/build.gradle" ]]; then DETECTED_LANG="java"
     elif [[ -f "$src/package.json" ]]; then DETECTED_LANG="javascript"
@@ -45,6 +48,7 @@ detect_language() {
   [[ $py_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Python($py_count) "
   [[ $go_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Go($go_count) "
   [[ $rs_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Rust($rs_count) "
+  [[ $sol_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Solidity($sol_count) "
   [[ -z "$DETECTED_LANGS" ]] && DETECTED_LANGS="unknown"
 
   export DETECTED_LANG
