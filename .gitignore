@@ -1,0 +1,41 @@
+# Preston-Check — local artifacts and operator-only files
+
+# Cycle output and reports (per-run scan artifacts)
+cycles/
+*.report.md
+*.report.pdf
+preston-check-report.md
+preston-check-report.pdf
+security-audit-*.md
+security-audit-*.pdf
+
+# License files (signed customer licenses, never commit)
+*.license
+~/.preston-check/
+
+# OS / editor
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Build artifacts and tmp
+/tmp/
+*.tmp
+node_modules/
+dist/
+build/
+
+# Secrets / private keys (never commit any private signing material)
+*.pem.private
+*-private.pem
+keys/private*
+
+# Optional: keep private project configs out of public repo
+# Uncomment these BEFORE going public if you have private fintech configs:
+# configs/bloxcross.yml
+# configs/operations.yml
+# configs/robbie.yml
+# blox-logo*.svg
+# blox-logo*.png

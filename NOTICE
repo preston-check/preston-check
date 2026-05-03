@@ -1,0 +1,17 @@
+Preston-Check
+Copyright 2026 Preston-Check Maintainers
+
+This product includes software developed by the Preston-Check community.
+
+Named in reference to a real fintech security incident that informed the
+attack patterns codified in this tool. See README.md for the founding story.
+
+The audit-package layer (compliance evidence bundling, branded report
+generation, multi-repo dashboard, license issuance, customer portal, SSO
+integration) is a SEPARATE commercial product distributed under a
+proprietary license. The open-source project under this Apache 2.0 license
+covers the scanning engine, check definitions, runner, and tooling. The
+commercial layer is not included in this repository.
+
+The "Preston-Check" name and logo are trademarks. See TRADEMARK.md for
+the trademark policy. Apache 2.0 explicitly does NOT grant trademark rights.

@@ -1,33 +1,78 @@
 # Preston-Check — Pre-Deployment Security Audit Tool
 
-Named after Preston Braswell, a hacker who created multiple fake accounts, bypassed 2FA, ran 21,201 automated session polling calls, and probed for race conditions and information leakage on a production fintech platform.
+Apache 2.0 open-source, community-grown, fintech-focused. 100+ automated security checks run locally against your source code. Your code never leaves your machine.
 
-This tool codifies the lessons learned from that attack into 20 automated security check categories (50 individual tests) that can be run before any deployment of a financial system exposed to the public.
+Named after Preston Braswell, a real hacker who created multiple fake accounts, bypassed 2FA, ran 21,201 automated session polling calls, and probed for race conditions and information leakage on a production fintech platform. This tool codifies the lessons learned from that attack — and from the broader fintech security catalog — into automated checks you can run before every deployment.
 
-Location: `~/DEV/preston-check/` (global, shared across all projects)
+## Install
+
+```bash
+# Homebrew (macOS / Linux)
+brew tap preston-check/preston-check && brew install preston-check
+
+# Docker
+docker run --rm -v $(pwd):/src prestoncheck/scan:latest
+
+# curl | bash
+curl -fsSL https://get.preston-check.dev/install.sh | sh
+
+# GitHub Action (in your .github/workflows/)
+- uses: preston-check/scan-action@v1
+```
 
 ## Quick Start
 
 ```bash
-# Scan a specific project using its config
-~/DEV/preston-check/preston-check.sh --config ~/DEV/preston-check/configs/bloxcross.yml
+# Scan the current directory (Free tier, no license needed)
+preston-check
 
-# Scan the current directory with default config
-cd ~/projects/my-app
-~/DEV/preston-check/preston-check.sh
+# Scan with a project config
+preston-check --config configs/myapp.yml
 
-# CI mode — exits with code 1 if any check FAILs (use in pipelines)
-~/DEV/preston-check/preston-check.sh --ci --config ~/DEV/preston-check/configs/myapp.yml
+# CI mode — exits 1 on any FAIL
+preston-check --ci --report security-audit.md
 
-# Save a report for audit trail
-~/DEV/preston-check/preston-check.sh --report security-audit-$(date +%Y%m%d).md
+# Light mode for fast pre-commit hooks (~30s)
+preston-check --light
 
-# Run a single check category
-~/DEV/preston-check/preston-check.sh --check 07-blacklist-check
+# Run a single check
+preston-check --check 07-blacklist-check
 
-# List all available checks
-~/DEV/preston-check/preston-check.sh --list
+# Airgap mode (no network calls, ever)
+preston-check --airgap
+
+# Opt in to anonymous score telemetry (helps the community)
+preston-check --telemetry-opt-in
+
+# Run unreviewed community-contributed checks
+preston-check --include-proposed
 ```
+
+## Privacy by design
+
+Preston-Check reads your source files and never sends them anywhere. It is open-source so you can verify this yourself. The only network call the tool can make is opt-in anonymous score telemetry that contributes to the annual State of Fintech Security report — and even that is disabled by `--airgap`. There is no required signup, no email gate, and no account for the Free tier.
+
+## Tiers
+
+| Tier | Price | What you get |
+|---|---|---|
+| Free | $0 | All scanning checks (P-01..P-103+), unlimited repos, no license required |
+| Pro | $999/repo/yr or $4,999/yr unlimited | Compliance-evidence layer (P-83..P-95), multi-repo dashboard, branded reports, priority email support |
+| Enterprise | $29,999+/yr | White-label reports, SSO, custom check authoring, signed audit packages, dedicated support |
+
+OSS exemption: any repository with a recognized OSS LICENSE file (MIT, Apache, BSD, GPL, MPL, ISC) gets Pro features automatically and free. This is intentional — public security work makes the community stronger.
+
+License enforcement is strict on Pro/Enterprise (expired licenses block paid features) with a 30-day pre-expiry warning printed in every report so renewals never sneak up on you.
+
+## Trademark and forks
+
+Preston-Check is licensed under Apache 2.0. The "Preston-Check" name and logo are trademarks — see TRADEMARK.md for what is permitted (using the badge in your README, mentioning the tool in articles, etc.) and what requires permission (naming a fork, registering domains, etc.). The audit-package layer (compliance-evidence bundling, branded report generation, multi-repo dashboard, customer portal, license issuance) is a separate commercial product distributed under proprietary terms.
+
+## Contributing
+
+Community contributions are welcome via the trust-tier system documented in CONTRIBUTING.md. Drop new checks into `checks/community/proposed/`, fill in the metadata block (see `templates/check.sh`), run `tools/lint-check.sh path/to/check.sh`, and open a PR. Maintainer review promotes proposed → accepted, and field validation eventually promotes accepted → verified. Author attribution is shown in every report.
+
+## Existing check catalog
 
 ## Directory Structure
 

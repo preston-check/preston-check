@@ -50,9 +50,15 @@ echo "==========================================================================
 echo ""
 
 # 1. Copy the tool
-mkdir -p "$DEST/checks"
+mkdir -p "$DEST/checks" "$DEST/lib" "$DEST/lang" "$DEST/templates"
 cp "$SCRIPT_DIR/preston-check.sh" "$DEST/"
-cp "$SCRIPT_DIR/checks/"*.sh "$DEST/checks/"
+cp "$SCRIPT_DIR/checks/"*.sh "$DEST/checks/" 2>/dev/null
+[[ -d "$SCRIPT_DIR/checks/core" ]] && cp -r "$SCRIPT_DIR/checks/core" "$DEST/checks/"
+[[ -d "$SCRIPT_DIR/checks/community" ]] && cp -r "$SCRIPT_DIR/checks/community" "$DEST/checks/"
+cp "$SCRIPT_DIR/lib/"*.sh "$DEST/lib/" 2>/dev/null
+cp "$SCRIPT_DIR/lib/"*.pem "$DEST/lib/" 2>/dev/null
+cp "$SCRIPT_DIR/lang/"*.sh "$DEST/lang/" 2>/dev/null
+cp "$SCRIPT_DIR/templates/"*.sh "$DEST/templates/" 2>/dev/null
 
 # 2. Generate config.yml
 cat > "$DEST/config.yml" << EOF
@@ -70,7 +76,8 @@ db_host:
 EOF
 
 # 3. Make executable
-chmod +x "$DEST/preston-check.sh" "$DEST/checks/"*.sh
+chmod +x "$DEST/preston-check.sh" "$DEST/checks/"*.sh 2>/dev/null
+find "$DEST/checks" "$DEST/lib" "$DEST/lang" "$DEST/templates" -name "*.sh" -exec chmod +x {} \; 2>/dev/null || true
 
 echo "  Copied: preston-check.sh"
 echo "  Copied: $(ls "$DEST/checks/"*.sh | wc -l) check scripts"

@@ -31,6 +31,13 @@ SINGLE_CHECK=""
 VERBOSE=false
 RUN_MODE="full"  # "light" = P-01 to P-20 (fast), "full" = all checks
 FORCE_LANG=""    # Override auto-detection with --lang
+AIRGAP_MODE=false              # --airgap: forbid all network calls (telemetry, etc.)
+TELEMETRY_OPT_IN_FLAG=false    # --telemetry-opt-in: anonymous score reporting
+INCLUDE_PROPOSED=false         # --include-proposed: run unreviewed community checks
+CI_SOFT_MODE=false             # --ci-soft: never exit 1 (CI handles its own thresholds)
+PRESTON_VERSION="1.0.0"
+
+export AIRGAP_MODE PRESTON_VERSION
 
 # Colors
 RED='\033[0;31m'
@@ -56,7 +63,15 @@ while [[ $# -gt 0 ]]; do
     --light|--fast) RUN_MODE="light"; shift ;;
     --full) RUN_MODE="full"; shift ;;
     --lang) FORCE_LANG="$2"; shift 2 ;;
-    --list) ls "$CHECKS_DIR"/*.sh 2>/dev/null | xargs -I{} basename {} .sh; exit 0 ;;
+    --airgap) AIRGAP_MODE=true; export AIRGAP_MODE; shift ;;
+    --telemetry-opt-in) TELEMETRY_OPT_IN_FLAG=true; shift ;;
+    --include-proposed) INCLUDE_PROPOSED=true; shift ;;
+    --ci-soft) CI_SOFT_MODE=true; shift ;;
+    --list)
+      for d in "$CHECKS_DIR" "$CHECKS_DIR/core" "$CHECKS_DIR/community/verified" "$CHECKS_DIR/community/accepted" "$CHECKS_DIR/community/proposed"; do
+        [[ -d "$d" ]] && ls "$d"/*.sh 2>/dev/null | xargs -I{} basename {} .sh
+      done
+      exit 0 ;;
     --help|-h)
       echo "preston-check — Pre-deployment security audit"
       echo ""
@@ -64,13 +79,17 @@ while [[ $# -gt 0 ]]; do
       echo "  --config FILE    Use custom config (default: config.yml)"
       echo "  --check NAME     Run a single check"
       echo "  --report FILE    Save report to file"
-      echo "  --ci             CI mode: exit 1 on any FAIL"
-      echo "  --light, --fast  Light mode: core checks only (P-01 to P-20, ~30s)"
-      echo "  --full           Full mode: all 82 checks (default, ~3min)"
-      echo "  --lang LANG      Force language (java, go, python, typescript)"
-      echo "  --list           List available checks"
-      echo "  --verbose        Show check details"
-      echo "  --help           Show this help"
+      echo "  --ci                 CI mode: exit 1 on any FAIL"
+      echo "  --ci-soft            CI mode that never exits 1 (caller applies thresholds)"
+      echo "  --light, --fast      Light mode: P-01 to P-20 only (~30s)"
+      echo "  --full               Full mode: all checks (default, ~3min)"
+      echo "  --lang LANG          Force language (java, go, python, typescript)"
+      echo "  --airgap             No network calls. Disables telemetry."
+      echo "  --telemetry-opt-in   Send anonymous score to State of Fintech Security report"
+      echo "  --include-proposed   Run unreviewed community-contributed checks"
+      echo "  --list               List available checks"
+      echo "  --verbose            Show check details"
+      echo "  --help               Show this help"
       exit 0
       ;;
     *) echo "Unknown option: $1"; exit 1 ;;
@@ -112,15 +131,44 @@ record() {
 export -f record
 export RED GREEN YELLOW BLUE NC
 
+# Source product modules (license, metadata, telemetry, branding, oss detection)
+# These are intentionally sourced AFTER load_config sets SOURCE_DIR, but BEFORE
+# check execution so tier and brand context are established.
+[[ -f "$SCRIPT_DIR/lib/check_metadata.sh" ]] && source "$SCRIPT_DIR/lib/check_metadata.sh"
+[[ -f "$SCRIPT_DIR/lib/license.sh" ]]        && source "$SCRIPT_DIR/lib/license.sh"
+[[ -f "$SCRIPT_DIR/lib/telemetry.sh" ]]      && source "$SCRIPT_DIR/lib/telemetry.sh"
+[[ -f "$SCRIPT_DIR/lib/branding.sh" ]]       && source "$SCRIPT_DIR/lib/branding.sh"
+[[ -f "$SCRIPT_DIR/lib/oss_detection.sh" ]]  && source "$SCRIPT_DIR/lib/oss_detection.sh"
+
+# Honor --telemetry-opt-in flag
+if [[ "$TELEMETRY_OPT_IN_FLAG" == "true" ]]; then
+  TELEMETRY_OPT_IN="true"
+fi
+# Airgap forces telemetry off
+if [[ "$AIRGAP_MODE" == "true" ]]; then
+  TELEMETRY_OPT_IN="false"
+fi
+
+load_config
+
+# Load license, detect OSS exemption, apply branding (Enterprise only)
+if declare -f load_license >/dev/null; then load_license; fi
+if declare -f detect_oss_license >/dev/null; then detect_oss_license "${SOURCE_DIR:-.}"; fi
+if declare -f apply_brand_config >/dev/null; then apply_brand_config "$CONFIG_FILE"; fi
+
+# Effective tier accounts for OSS exemption
+EFFECTIVE_TIER="${LICENSE_TIER:-free}"
+if declare -f effective_tier >/dev/null; then
+  EFFECTIVE_TIER="$(effective_tier "$LICENSE_TIER")"
+fi
+
 # Header
 echo ""
 echo "============================================================================"
-echo "  PRESTON-CHECK — Pre-Deployment Security Audit"
+echo "  ${BRAND_NAME:-Preston-Check} — Pre-Deployment Security Audit"
 echo "  $(date '+%Y-%m-%d %H:%M:%S')"
 echo "============================================================================"
 echo ""
-
-load_config
 
 # Language detection
 source "$SCRIPT_DIR/lang/detect.sh"
@@ -138,35 +186,86 @@ echo "  Lang:    ${DETECTED_LANG} (primary) | ${DETECTED_LANGS}"
 if [[ "$RUN_MODE" == "light" ]]; then
   echo "  Mode:    LIGHT (P-01 to P-20 — core security checks)"
 else
-  echo "  Mode:    FULL (P-01 to P-82 — enterprise security suite)"
+  echo "  Mode:    FULL (all enterprise security checks)"
 fi
+declare -f print_license_status   >/dev/null && print_license_status
+declare -f print_oss_status       >/dev/null && print_oss_status
+declare -f print_telemetry_status >/dev/null && print_telemetry_status
+[[ "$AIRGAP_MODE" == "true" ]] && echo "  Airgap:  ON (no network calls)"
+[[ "$EFFECTIVE_TIER" != "${LICENSE_TIER:-free}" ]] && echo "  Effective tier: $EFFECTIVE_TIER (OSS exemption)"
 echo ""
 echo "----------------------------------------------------------------------------"
 echo ""
 
+# Build list of check directories to scan, in priority order.
+# checks/         legacy root (treated as core for backward compatibility)
+# checks/core/    canonical maintainer-authored
+# checks/community/verified/  promoted community checks
+# checks/community/accepted/  reviewed community checks
+# checks/community/proposed/  unreviewed; only with --include-proposed
+CHECK_DIRS=("$CHECKS_DIR")
+[[ -d "$CHECKS_DIR/core" ]] && CHECK_DIRS+=("$CHECKS_DIR/core")
+[[ -d "$CHECKS_DIR/community/verified" ]] && CHECK_DIRS+=("$CHECKS_DIR/community/verified")
+[[ -d "$CHECKS_DIR/community/accepted" ]] && CHECK_DIRS+=("$CHECKS_DIR/community/accepted")
+if [[ "$INCLUDE_PROPOSED" == "true" && -d "$CHECKS_DIR/community/proposed" ]]; then
+  CHECK_DIRS+=("$CHECKS_DIR/community/proposed")
+fi
+
+# Decide whether a single check should run, based on metadata + tier
+should_run_check() {
+  local check_file="$1"
+  if declare -f parse_check_metadata >/dev/null; then
+    parse_check_metadata "$check_file"
+    if [[ -n "${META_MIN_TIER:-}" ]] && declare -f tier_allows_check >/dev/null; then
+      if ! tier_allows_check "$META_MIN_TIER" "$EFFECTIVE_TIER"; then
+        return 1
+      fi
+    fi
+  fi
+  return 0
+}
+
 # Run checks
 if [[ -n "$SINGLE_CHECK" ]]; then
-  check_file="$CHECKS_DIR/${SINGLE_CHECK}.sh"
-  if [[ -f "$check_file" ]]; then
-    source "$check_file"
+  found=""
+  for d in "${CHECK_DIRS[@]}"; do
+    if [[ -f "$d/${SINGLE_CHECK}.sh" ]]; then found="$d/${SINGLE_CHECK}.sh"; break; fi
+  done
+  if [[ -n "$found" ]]; then
+    if should_run_check "$found"; then
+      source "$found"
+    else
+      echo "Check $SINGLE_CHECK is gated to a higher tier than your current license ($EFFECTIVE_TIER)."
+      exit 2
+    fi
   else
     echo "Check not found: $SINGLE_CHECK"
     echo "Available checks:"
-    ls "$CHECKS_DIR"/*.sh 2>/dev/null | xargs -I{} basename {} .sh
+    for d in "${CHECK_DIRS[@]}"; do ls "$d"/*.sh 2>/dev/null | xargs -I{} basename {} .sh; done
     exit 1
   fi
 else
-  for check_file in "$CHECKS_DIR"/*.sh; do
-    [[ -f "$check_file" ]] || continue
-    # In light mode, only run P-01 through P-20
-    if [[ "$RUN_MODE" == "light" ]]; then
-      check_num=$(basename "$check_file" | grep -oE '^[0-9]+' || echo "99")
-      if [[ "$check_num" -gt 20 ]]; then
+  for d in "${CHECK_DIRS[@]}"; do
+    for check_file in "$d"/*.sh; do
+      [[ -f "$check_file" ]] || continue
+      # In light mode, only run P-01 through P-20
+      if [[ "$RUN_MODE" == "light" ]]; then
+        check_num=$(basename "$check_file" | grep -oE '^[0-9]+' || echo "99")
+        if [[ "$check_num" -gt 20 ]]; then
+          continue
+        fi
+      fi
+      if ! should_run_check "$check_file"; then
+        # Silently skip checks that are above the user's effective tier.
+        # In verbose mode, surface them as SKIP entries.
+        if [[ "$VERBOSE" == "true" ]]; then
+          record "SKIP" "${META_ID:-?} ${META_NAME:-$(basename "$check_file" .sh)}" "Requires $META_MIN_TIER tier (current: $EFFECTIVE_TIER)"
+        fi
         continue
       fi
-    fi
-    source "$check_file"
-    echo ""
+      source "$check_file"
+      echo ""
+    done
   done
 fi
 
@@ -189,15 +288,24 @@ echo ""
 
 # Report (Markdown)
 if [[ -n "$REPORT_FILE" ]]; then
-  SCORE_PCT=$((PASS_COUNT * 100 / TOTAL))
+  if [[ $TOTAL -gt 0 ]]; then
+    SCORE_PCT=$((PASS_COUNT * 100 / TOTAL))
+  else
+    SCORE_PCT=0
+  fi
   {
-    echo "# Preston-Check Security Audit Report"
+    echo "# ${BRAND_NAME:-Preston-Check} Security Audit Report"
     echo ""
+    [[ -n "${BRAND_LOGO_URL:-}" ]] && echo "![logo](${BRAND_LOGO_URL})"
+    [[ -n "${BRAND_LOGO_URL:-}" ]] && echo ""
     echo "Date: $(date '+%Y-%m-%d %H:%M:%S')"
     echo "App: ${APP_NAME:-not configured}"
     echo "Source: ${SOURCE_DIR:-.}"
     echo "Mode: $RUN_MODE"
-    echo "Version: 4.0"
+    echo "Tier: ${EFFECTIVE_TIER:-free}"
+    [[ -n "${LICENSE_CUSTOMER:-}" ]] && echo "Customer: $LICENSE_CUSTOMER"
+    [[ -n "${LICENSE_WARNING:-}" ]] && echo "Renewal: $LICENSE_WARNING"
+    echo "Version: ${PRESTON_VERSION:-1.0.0}"
     echo ""
     echo "---"
     echo ""
@@ -268,8 +376,11 @@ if [[ -n "$REPORT_FILE" ]]; then
     fi
     echo "---"
     echo ""
-    echo "Preston-Check Enterprise Security Suite v4.0"
-    echo "100 Check Categories | 276 Test Points | 6 Compliance Frameworks | 100% Coverage"
+    echo "${BRAND_FOOTER:-Preston-Check Enterprise Security Suite}"
+    echo ""
+    if [[ -n "${LICENSE_CUSTOMER:-}" && "${BRAND_NAME:-Preston-Check}" != "Preston-Check" ]]; then
+      echo "Powered by Preston-Check · https://preston-check.dev"
+    fi
   } > "$REPORT_FILE"
   echo "  Report saved to: $REPORT_FILE"
 
@@ -292,7 +403,15 @@ if [[ -n "$REPORT_FILE" ]]; then
   echo ""
 fi
 
+# Send opt-in anonymous telemetry (no-op unless explicitly opted in and not airgapped)
+if declare -f send_telemetry >/dev/null; then
+  send_telemetry "$PASS_COUNT" "$FAIL_COUNT" "$WARN_COUNT" "$SKIP_COUNT" "$TOTAL" "${DETECTED_LANG:-unknown}"
+fi
+
 # CI mode
+if $CI_SOFT_MODE; then
+  exit 0
+fi
 if $CI_MODE && [[ $FAIL_COUNT -gt 0 ]]; then
   exit 1
 fi

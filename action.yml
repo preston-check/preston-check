@@ -1,0 +1,153 @@
+name: 'Preston-Check Security Audit'
+description: 'Pre-deployment security audit for fintech and financial systems. 100+ checks covering PCI-DSS, SOC 2, ISO 27001, NIST CSF, OWASP, and CIS Controls.'
+author: 'Preston-Check Maintainers'
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  config:
+    description: 'Path to a Preston-Check config YAML file'
+    required: false
+    default: ''
+  source-dir:
+    description: 'Path to the source directory to scan (defaults to GITHUB_WORKSPACE)'
+    required: false
+    default: ''
+  mode:
+    description: 'light (P-01..P-20, fast) or full (all checks)'
+    required: false
+    default: 'full'
+  fail-on:
+    description: 'Severity threshold that causes the action to fail: critical, high, medium, any, never'
+    required: false
+    default: 'any'
+  report-path:
+    description: 'Where to save the markdown report'
+    required: false
+    default: 'preston-check-report.md'
+  license:
+    description: 'Pro/Enterprise license content (paste the .license file). Free tier needs nothing.'
+    required: false
+    default: ''
+  airgap:
+    description: 'Run in airgap mode: no telemetry, no network calls'
+    required: false
+    default: 'true'
+  telemetry-opt-in:
+    description: 'Opt in to anonymous score telemetry for the State of Fintech Security report'
+    required: false
+    default: 'false'
+  pr-comment:
+    description: 'Post a summary comment on the PR (requires GITHUB_TOKEN with pull-requests: write)'
+    required: false
+    default: 'true'
+
+outputs:
+  pass-count:
+    description: 'Number of checks that passed'
+    value: ${{ steps.scan.outputs.pass-count }}
+  fail-count:
+    description: 'Number of checks that failed'
+    value: ${{ steps.scan.outputs.fail-count }}
+  warn-count:
+    description: 'Number of checks that emitted warnings'
+    value: ${{ steps.scan.outputs.warn-count }}
+  score:
+    description: 'Overall security score (0-100)'
+    value: ${{ steps.scan.outputs.score }}
+  report-path:
+    description: 'Path to the generated markdown report'
+    value: ${{ steps.scan.outputs.report-path }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Preston-Check
+      shell: bash
+      run: |
+        set -euo pipefail
+        if [[ ! -d /opt/preston-check ]]; then
+          curl -fsSL https://get.preston-check.dev/install.sh | sh -s -- --prefix /opt/preston-check --no-symlink
+        fi
+        echo "PRESTON_HOME=/opt/preston-check" >> "$GITHUB_ENV"
+        echo "/opt/preston-check" >> "$GITHUB_PATH"
+
+    - name: Install license (if provided)
+      shell: bash
+      if: inputs.license != ''
+      run: |
+        mkdir -p "$HOME/.preston-check"
+        cat <<'PRESTON_LICENSE_EOF' > "$HOME/.preston-check/license"
+        ${{ inputs.license }}
+        PRESTON_LICENSE_EOF
+
+    - name: Run Preston-Check
+      id: scan
+      shell: bash
+      run: |
+        set -uo pipefail
+        SRC="${{ inputs.source-dir }}"
+        SRC="${SRC:-$GITHUB_WORKSPACE}"
+        ARGS=(--report "${{ inputs.report-path }}")
+        [[ "${{ inputs.mode }}" == "light" ]] && ARGS+=(--light)
+        [[ "${{ inputs.airgap }}" == "true" ]] && ARGS+=(--airgap)
+        [[ "${{ inputs.telemetry-opt-in }}" == "true" ]] && ARGS+=(--telemetry-opt-in)
+        if [[ -n "${{ inputs.config }}" ]]; then
+          ARGS+=(--config "${{ inputs.config }}")
+        else
+          export SOURCE_DIR="$SRC"
+        fi
+
+        "$PRESTON_HOME/preston-check.sh" "${ARGS[@]}" --ci-soft || true
+
+        # Extract counts from the report
+        REPORT="${{ inputs.report-path }}"
+        PASS=$(grep -E "^\\| PASS \\|" "$REPORT" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
+        FAIL=$(grep -E "^\\| FAIL \\|" "$REPORT" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
+        WARN=$(grep -E "^\\| WARN \\|" "$REPORT" 2>/dev/null | wc -l | tr -d ' ' || echo 0)
+        TOTAL=$((PASS + FAIL + WARN))
+        SCORE=0
+        [[ $TOTAL -gt 0 ]] && SCORE=$(( PASS * 100 / TOTAL ))
+
+        echo "pass-count=$PASS"  >> "$GITHUB_OUTPUT"
+        echo "fail-count=$FAIL"  >> "$GITHUB_OUTPUT"
+        echo "warn-count=$WARN"  >> "$GITHUB_OUTPUT"
+        echo "score=$SCORE"      >> "$GITHUB_OUTPUT"
+        echo "report-path=$REPORT" >> "$GITHUB_OUTPUT"
+
+        # Apply fail-on threshold
+        case "${{ inputs.fail-on }}" in
+          never)    exit 0 ;;
+          any)      [[ $FAIL -gt 0 ]] && exit 1 ;;
+          critical) grep -qE "^\\| FAIL \\|.*critical" "$REPORT" 2>/dev/null && exit 1 ;;
+          high)     grep -qE "^\\| FAIL \\|.*(critical|high)" "$REPORT" 2>/dev/null && exit 1 ;;
+          medium)   grep -qE "^\\| FAIL \\|.*(critical|high|medium)" "$REPORT" 2>/dev/null && exit 1 ;;
+        esac
+        exit 0
+
+    - name: Comment on PR
+      shell: bash
+      if: inputs.pr-comment == 'true' && github.event_name == 'pull_request'
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        SCORE="${{ steps.scan.outputs.score }}"
+        PASS="${{ steps.scan.outputs.pass-count }}"
+        FAIL="${{ steps.scan.outputs.fail-count }}"
+        WARN="${{ steps.scan.outputs.warn-count }}"
+        BODY=$(cat <<EOF
+        ## Preston-Check: $SCORE/100
+
+        | Status | Count |
+        |---|---|
+        | PASS | $PASS |
+        | FAIL | $FAIL |
+        | WARN | $WARN |
+
+        Full report attached as the \`preston-check-report\` workflow artifact.
+
+        [View badge](https://preston-check.dev/badge/${{ github.repository }}.svg) · [Public scorecard](https://preston-check.dev/scorecard/${{ github.repository }})
+        EOF
+        )
+        gh pr comment "${{ github.event.pull_request.number }}" --body "$BODY" || true
