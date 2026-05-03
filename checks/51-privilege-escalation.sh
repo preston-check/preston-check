@@ -32,5 +32,5 @@ if [[ -z "$role_change" ]]; then
 elif [[ -n "$role_auth" ]]; then
   record "PASS" "P-51 Role changes guarded" "Role mutations have authorization checks"
 else
-  record "WARN" "P-51 Unguarded role changes" "Role/permission changes may lack admin authorization checks"
+  record "WARN" "P-51 Unguarded role changes" "Role/permission changes may lack admin authorization checks" "$(echo "$role_change" | head -10)"
 fi

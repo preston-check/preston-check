@@ -46,5 +46,5 @@ peg_count=$([[ -n "$peg_logic" ]] && echo "$peg_logic" | wc -l | tr -d ' ' || ec
 if [[ ${peg_count:-0} -gt 0 ]]; then
   record "PASS" "P-309 Stablecoin peg" "$ref_count stablecoin reference(s); peg deviation logic present in $peg_count place(s)"
 else
-  record "WARN" "P-309 Stablecoin peg" "$ref_count stablecoin reference(s) without observable peg-deviation or circuit-breaker logic"
+  record "WARN" "P-309 Stablecoin peg" "$ref_count stablecoin reference(s) without observable peg-deviation or circuit-breaker logic" "$(echo "$peg_logic" | head -10)"
 fi

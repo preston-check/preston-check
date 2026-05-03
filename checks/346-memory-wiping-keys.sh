@@ -45,5 +45,5 @@ if [[ -n "$zeroing" ]]; then
   count=$(echo "$zeroing" | wc -l | tr -d ' ')
   record "PASS" "P-346 Memory wiping" "$count file(s) explicitly wipe / mlock key material"
 else
-  record "WARN" "P-346 Memory wiping" "In-process key handling without explicit memory wiping (consider Zeroize, Arrays.fill, sodium_memzero)"
+  record "WARN" "P-346 Memory wiping" "In-process key handling without explicit memory wiping (consider Zeroize, Arrays.fill, sodium_memzero)" "$(echo "$zeroing" | head -10)"
 fi

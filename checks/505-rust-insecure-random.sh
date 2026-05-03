@@ -34,7 +34,7 @@ secure=$(grep -rln --include="*.rs" -E "rand::rngs::OsRng|getrandom|ring::rand|r
 t_count=$([[ -n "$token_random" ]] && echo "$token_random" | wc -l | tr -d ' ' || echo 0)
 s_count=$([[ -n "$secure" ]] && echo "$secure" | wc -l | tr -d ' ' || echo 0)
 if [[ ${t_count:-0} -gt 0 && ${s_count:-0} -eq 0 ]]; then
-  record "WARN" "P-505 Rust insecure random" "$t_count token/secret usage(s) of thread_rng without OsRng alternative"
+  record "WARN" "P-505 Rust insecure random" "$t_count token/secret usage(s) of thread_rng without OsRng alternative" "$(echo "$secure" | head -10)"
 elif [[ ${s_count:-0} -gt 0 ]]; then
   record "PASS" "P-505 Rust insecure random" "$s_count file(s) reference OsRng / getrandom for secure random"
 else

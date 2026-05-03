@@ -60,5 +60,5 @@ total=$((unsafe_chainlink + unsafe_reserves))
 if [[ $total -eq 0 ]]; then
   record "PASS" "P-306 Oracle manipulation" "All oracle reads include staleness checks or TWAP wrappers"
 else
-  record "FAIL" "P-306 Oracle manipulation" "$unsafe_chainlink Chainlink read(s) without staleness check; $unsafe_reserves getReserves use(s) without TWAP"
+  record "FAIL" "P-306 Oracle manipulation" "$unsafe_chainlink Chainlink read(s) without staleness check; $unsafe_reserves getReserves use(s) without TWAP" "$(echo "$getreserves_files" | head -10)"
 fi

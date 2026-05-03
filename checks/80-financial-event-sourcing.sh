@@ -32,7 +32,7 @@ event_sourcing=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" 
 if [[ -n "$event_sourcing" ]]; then
   record "PASS" "P-80 Event sourcing" "Event sourcing/journaling patterns found"
 else
-  record "WARN" "P-80 Event sourcing" "No event sourcing — consider journaling all financial mutations for reconstruction"
+  record "WARN" "P-80 Event sourcing" "No event sourcing — consider journaling all financial mutations for reconstruction" "$(echo "$event_sourcing" | head -10)"
 fi
 
 # Check for transaction history completeness (every state change logged)
@@ -43,7 +43,7 @@ if [[ -n "$history_log" ]]; then
   count=$(echo "$history_log" | wc -l | tr -d ' ')
   record "PASS" "P-80 History tables" "$count history/audit table patterns found"
 else
-  record "WARN" "P-80 History tables" "No history tables — every financial entity should have a change history"
+  record "WARN" "P-80 History tables" "No history tables — every financial entity should have a change history" "$(echo "$history_log" | head -10)"
 fi
 
 # Check for point-in-time query capability
@@ -53,7 +53,7 @@ point_in_time=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
 if [[ -n "$point_in_time" ]]; then
   record "PASS" "P-80 Point-in-time" "Point-in-time query capability found"
 else
-  record "WARN" "P-80 Point-in-time" "No point-in-time query — should be able to reconstruct state at any past moment"
+  record "WARN" "P-80 Point-in-time" "No point-in-time query — should be able to reconstruct state at any past moment" "$(echo "$point_in_time" | head -10)"
 fi
 
 # Check for data lineage (where did this balance come from?)
@@ -63,5 +63,5 @@ lineage=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
 if [[ -n "$lineage" ]]; then
   record "PASS" "P-80 Data lineage" "Transaction lineage/correlation tracking found"
 else
-  record "WARN" "P-80 Data lineage" "No transaction lineage — should trace every balance back to its origin"
+  record "WARN" "P-80 Data lineage" "No transaction lineage — should trace every balance back to its origin" "$(echo "$lineage" | head -10)"
 fi

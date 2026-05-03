@@ -29,7 +29,7 @@ body_limit=$(grep -rn --include="*.yml" --include="*.yaml" \
 if [[ -n "$body_limit" ]]; then
   record "PASS" "P-33 Request body limit" "Request body size limits configured"
 else
-  record "WARN" "P-33 Request body limit" "No request body size limits found"
+  record "WARN" "P-33 Request body limit" "No request body size limits found" "$(echo "$body_limit" | head -10)"
 fi
 
 timeouts=$(grep -rn --include="$SRC_EXT" --include="*.yml" \
@@ -38,7 +38,7 @@ timeouts=$(grep -rn --include="$SRC_EXT" --include="*.yml" \
 if [[ -n "$timeouts" ]]; then
   record "PASS" "P-33 HTTP timeouts" "Outbound HTTP client timeouts configured"
 else
-  record "FAIL" "P-33 HTTP timeouts" "No HTTP client timeouts — risk of thread pool exhaustion"
+  record "FAIL" "P-33 HTTP timeouts" "No HTTP client timeouts — risk of thread pool exhaustion" "$(echo "$timeouts" | head -10)"
 fi
 
 pagination=$(grep -rn --include="$SRC_EXT" \
@@ -47,5 +47,5 @@ pagination=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$pagination" ]]; then
   record "PASS" "P-33 Pagination" "Pagination on list endpoints found"
 else
-  record "WARN" "P-33 Pagination" "No pagination found — unbounded queries risk"
+  record "WARN" "P-33 Pagination" "No pagination found — unbounded queries risk" "$(echo "$pagination" | head -10)"
 fi

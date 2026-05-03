@@ -33,7 +33,7 @@ for wh in "${webhook_dirs[@]}"; do
     if [[ -n "$sig" ]]; then
       record "PASS" "P-29 $wh signature" "Webhook signature verification found"
     else
-      record "WARN" "P-29 $wh signature" "No signature verification in $wh"
+      record "WARN" "P-29 $wh signature" "No signature verification in $wh" "$(echo "$sig" | head -10)"
     fi
   fi
 done

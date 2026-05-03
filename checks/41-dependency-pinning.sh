@@ -28,7 +28,7 @@ npm_dirs=$(find "$SRC" -maxdepth 3 -name "package.json" -not -path "*/node_modul
 for pkg in $npm_dirs; do
   dir=$(dirname "$pkg")
   if [[ ! -f "$dir/package-lock.json" ]] && [[ ! -f "$dir/yarn.lock" ]]; then
-    record "WARN" "P-41 Lock file $(basename $dir)" "No lock file in $(basename $dir)"
+    record "WARN" "P-41 Lock file $(basename $dir)" "No lock file in $(basename $dir)" "$(echo "$npm_dirs" | head -10)"
   fi
 done
 docker_latest=$(find "$SRC" -maxdepth 4 -name "Dockerfile*" ! -path "*/target/*" -exec grep -l ":latest\|FROM.*[^:]*$" {} \; 2>/dev/null)

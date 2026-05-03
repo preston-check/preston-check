@@ -37,7 +37,7 @@ password_hash=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$password_hash" ]]; then
   record "PASS" "P-18 Password hashing" "Password hashing mechanism found"
 else
-  record "FAIL" "P-18 Password hashing" "No password hashing found — passwords may be stored in plaintext"
+  record "FAIL" "P-18 Password hashing" "No password hashing found — passwords may be stored in plaintext" "$(echo "$password_hash" | head -10)"
 fi
 
 # Check for PII in log statements (email, phone, SSN patterns)
@@ -50,7 +50,7 @@ pii_in_logs=$(grep -rn --include="$SRC_EXT" \
 if [[ $pii_in_logs -lt 5 ]]; then
   record "PASS" "P-18 PII in logs" "Minimal PII logging ($pii_in_logs patterns)"
 else
-  record "WARN" "P-18 PII in logs" "$pii_in_logs potential PII fields in log statements (consider masking)"
+  record "WARN" "P-18 PII in logs" "$pii_in_logs potential PII fields in log statements (consider masking)" "$(echo "$pii_in_logs" | head -10)"
 fi
 
 # Check for password field exclusion from serialization
@@ -64,5 +64,5 @@ json_ignore=$(grep -rn --include="$SRC_EXT" -B1 \
 if [[ $json_ignore -gt 0 ]]; then
   record "PASS" "P-18 Password serialization" "$json_ignore password fields excluded from serialization"
 else
-  record "WARN" "P-18 Password serialization" "Check that password fields are excluded from serialization"
+  record "WARN" "P-18 Password serialization" "Check that password fields are excluded from serialization" "$(echo "$json_ignore" | head -10)"
 fi

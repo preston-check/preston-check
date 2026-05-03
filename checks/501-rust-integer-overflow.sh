@@ -35,7 +35,7 @@ checked=$(grep -rln --include="*.rs" -E "checked_(add|sub|mul|div)|saturating_(a
 m_count=$([[ -n "$money_arith" ]] && echo "$money_arith" | wc -l | tr -d ' ' || echo 0)
 c_count=$([[ -n "$checked" ]] && echo "$checked" | wc -l | tr -d ' ' || echo 0)
 if [[ ${m_count:-0} -gt 0 && ${c_count:-0} -eq 0 ]]; then
-  record "WARN" "P-501 Rust integer overflow" "$m_count money-arithmetic line(s) without checked_/saturating_ usage anywhere"
+  record "WARN" "P-501 Rust integer overflow" "$m_count money-arithmetic line(s) without checked_/saturating_ usage anywhere" "$(echo "$checked" | head -10)"
 elif [[ ${c_count:-0} -gt 0 ]]; then
   record "PASS" "P-501 Rust integer overflow" "$c_count file(s) use checked_/saturating_ arithmetic"
 else

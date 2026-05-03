@@ -31,7 +31,7 @@ threshold=$(grep -rn --include="*.java" \
 if [[ -n "$threshold" ]]; then
   record "PASS" "P-22 Amount thresholds" "Transaction amount threshold checks found"
 else
-  record "WARN" "P-22 Amount thresholds" "No CTR/AML amount threshold checks found"
+  record "WARN" "P-22 Amount thresholds" "No CTR/AML amount threshold checks found" "$(echo "$threshold" | head -10)"
 fi
 
 velocity=$(grep -rn --include="*.java" \
@@ -40,7 +40,7 @@ velocity=$(grep -rn --include="*.java" \
 if [[ -n "$velocity" ]]; then
   record "PASS" "P-22 Velocity checks" "Transaction velocity/limit checks found"
 else
-  record "WARN" "P-22 Velocity checks" "No velocity/structuring detection found"
+  record "WARN" "P-22 Velocity checks" "No velocity/structuring detection found" "$(echo "$velocity" | head -10)"
 fi
 
 sar=$(grep -rn --include="*.java" --include="*.sql" \
@@ -49,5 +49,5 @@ sar=$(grep -rn --include="*.java" --include="*.sql" \
 if [[ -n "$sar" ]]; then
   record "PASS" "P-22 SAR mechanism" "Suspicious activity flagging found"
 else
-  record "WARN" "P-22 SAR mechanism" "No suspicious activity reporting mechanism"
+  record "WARN" "P-22 SAR mechanism" "No suspicious activity reporting mechanism" "$(echo "$sar" | head -10)"
 fi

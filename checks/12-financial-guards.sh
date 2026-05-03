@@ -39,7 +39,7 @@ if [[ -n "$balance_check" ]]; then
   count=$(echo "$balance_check" | wc -l)
   record "PASS" "P-12 Balance validation" "$count balance check patterns in financial paths"
 else
-  record "FAIL" "P-12 Balance validation" "No balance validation found before withdrawals"
+  record "FAIL" "P-12 Balance validation" "No balance validation found before withdrawals" "$(echo "$balance_check" | head -10)"
 fi
 
 # Check for negative amount validation
@@ -52,7 +52,7 @@ negative_check=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$negative_check" ]]; then
   record "PASS" "P-12 Negative amount check" "Amount validation found"
 else
-  record "WARN" "P-12 Negative amount check" "No explicit negative/zero amount validation found"
+  record "WARN" "P-12 Negative amount check" "No explicit negative/zero amount validation found" "$(echo "$negative_check" | head -10)"
 fi
 
 # Check for FOR UPDATE locking on financial queries
@@ -66,7 +66,7 @@ if [[ -n "$for_update" ]]; then
   count=$(echo "$for_update" | wc -l)
   record "PASS" "P-12 Row locking" "$count row-locking patterns for financial operations"
 else
-  record "FAIL" "P-12 Row locking" "No FOR UPDATE or advisory lock patterns found"
+  record "FAIL" "P-12 Row locking" "No FOR UPDATE or advisory lock patterns found" "$(echo "$for_update" | head -10)"
 fi
 
 # Check for transaction ID generation (collision resistance)
@@ -79,5 +79,5 @@ txn_id=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$txn_id" ]]; then
   record "PASS" "P-12 Transaction IDs" "Collision-resistant transaction ID generation found"
 else
-  record "WARN" "P-12 Transaction IDs" "No secure transaction ID generation pattern found"
+  record "WARN" "P-12 Transaction IDs" "No secure transaction ID generation pattern found" "$(echo "$txn_id" | head -10)"
 fi

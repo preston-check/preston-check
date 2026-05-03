@@ -33,7 +33,7 @@ if [[ -n "$negative_deposit" ]]; then
   count=$(echo "$negative_deposit" | wc -l | tr -d ' ')
   record "PASS" "P-81 Negative amount" "$count negative/zero amount checks found"
 else
-  record "FAIL" "P-81 Negative amount" "No negative amount validation — deposits/withdrawals with negative amounts enable theft"
+  record "FAIL" "P-81 Negative amount" "No negative amount validation — deposits/withdrawals with negative amounts enable theft" "$(echo "$negative_deposit" | head -10)"
 fi
 
 # Check for numeric overflow protection
@@ -43,7 +43,7 @@ overflow=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$overflow" ]]; then
   record "PASS" "P-81 Overflow protection" "Numeric overflow protection found"
 else
-  record "WARN" "P-81 Overflow protection" "No explicit numeric overflow protection — extremely large values can cause calculation errors"
+  record "WARN" "P-81 Overflow protection" "No explicit numeric overflow protection — extremely large values can cause calculation errors" "$(echo "$overflow" | head -10)"
 fi
 
 # Check for type coercion prevention (string-to-number, null amount)
@@ -58,10 +58,10 @@ if [[ -n "$type_coercion" ]]; then
   if [[ -n "$handled" ]]; then
     record "PASS" "P-81 Type coercion" "Numeric parsing with error handling found"
   else
-    record "WARN" "P-81 Type coercion" "Numeric parsing found but no error handling — invalid input (chars as numbers) can crash"
+    record "WARN" "P-81 Type coercion" "Numeric parsing found but no error handling — invalid input (chars as numbers) can crash" "$(echo "$handled" | head -10)"
   fi
 else
-  record "WARN" "P-81 Type coercion" "No explicit type validation on financial inputs"
+  record "WARN" "P-81 Type coercion" "No explicit type validation on financial inputs" "$(echo "$handled" | head -10)"
 fi
 
 # Check for precision/scale validation on monetary amounts
@@ -71,7 +71,7 @@ precision=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$precision" ]]; then
   record "PASS" "P-81 Precision control" "Decimal precision/scale enforcement found"
 else
-  record "WARN" "P-81 Precision control" "No precision/scale enforcement — amounts with 100 decimal places can cause performance issues"
+  record "WARN" "P-81 Precision control" "No precision/scale enforcement — amounts with 100 decimal places can cause performance issues" "$(echo "$precision" | head -10)"
 fi
 
 # Check for zero-amount transaction prevention
@@ -81,7 +81,7 @@ zero_amount=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$zero_amount" ]]; then
   record "PASS" "P-81 Zero amount" "Zero-amount transaction prevention found"
 else
-  record "WARN" "P-81 Zero amount" "No zero-amount transaction prevention — zero-value txns can be used to probe the system"
+  record "WARN" "P-81 Zero amount" "No zero-amount transaction prevention — zero-value txns can be used to probe the system" "$(echo "$zero_amount" | head -10)"
 fi
 
 # Check for special float values (NaN, Infinity)
@@ -91,5 +91,5 @@ special_values=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$special_values" ]]; then
   record "PASS" "P-81 Special values" "NaN/Infinity validation found"
 else
-  record "WARN" "P-81 Special values" "No NaN/Infinity validation — special float values bypass comparison operators"
+  record "WARN" "P-81 Special values" "No NaN/Infinity validation — special float values bypass comparison operators" "$(echo "$special_values" | head -10)"
 fi

@@ -34,9 +34,9 @@ const_time=$(grep -rln --include="*.go" -E "subtle\.ConstantTimeCompare|crypto/s
 u_count=$([[ -n "$unsafe" ]] && echo "$unsafe" | wc -l | tr -d ' ' || echo 0)
 c_count=$([[ -n "$const_time" ]] && echo "$const_time" | wc -l | tr -d ' ' || echo 0)
 if [[ ${u_count:-0} -gt 0 && ${c_count:-0} -eq 0 ]]; then
-  record "FAIL" "P-493 Go const-time" "$u_count timing-vulnerable comparison(s); no crypto/subtle import"
+  record "FAIL" "P-493 Go const-time" "$u_count timing-vulnerable comparison(s); no crypto/subtle import" "$(echo "$const_time" | head -10)"
 elif [[ ${c_count:-0} -gt 0 ]]; then
   record "PASS" "P-493 Go const-time" "$c_count file(s) use crypto/subtle constant-time comparison"
 else
-  record "WARN" "P-493 Go const-time" "No secret comparisons detected; ensure crypto/subtle for any future ones"
+  record "WARN" "P-493 Go const-time" "No secret comparisons detected; ensure crypto/subtle for any future ones" "$(echo "$const_time" | head -10)"
 fi

@@ -45,5 +45,5 @@ if [[ -n "$caps" ]]; then
   cap_count=$(echo "$caps" | wc -l | tr -d ' ')
   record "PASS" "P-316 Hot wallet caps" "$cap_count file(s) reference hot-wallet caps or sweep-to-cold policies"
 else
-  record "WARN" "P-316 Hot wallet caps" "Hot-wallet references present but no caps or sweep-to-cold policies detected"
+  record "WARN" "P-316 Hot wallet caps" "Hot-wallet references present but no caps or sweep-to-cold policies detected" "$(echo "$hot_refs" | head -10)"
 fi

@@ -29,14 +29,14 @@ backup=$(grep -rn --include="*.sh" --include="*.yml" --include="*.md" \
 if [[ -n "$backup" ]]; then
   record "PASS" "P-37 Backup references" "Backup/recovery references found"
 else
-  record "WARN" "P-37 Backup references" "No backup/recovery references in codebase"
+  record "WARN" "P-37 Backup references" "No backup/recovery references in codebase" "$(echo "$backup" | head -10)"
 fi
 
 dr_docs=$(find "$SRC/docs" -maxdepth 2 \( -name "*disaster*" -o -name "*DR*" -o -name "*recovery*" -o -name "*runbook*" \) 2>/dev/null | head -3)
 if [[ -n "$dr_docs" ]]; then
   record "PASS" "P-37 DR documentation" "Disaster recovery documentation found"
 else
-  record "WARN" "P-37 DR documentation" "No disaster recovery documentation"
+  record "WARN" "P-37 DR documentation" "No disaster recovery documentation" "$(echo "$dr_docs" | head -10)"
 fi
 
 rollback=$(grep -rn --include="*.sql" "ROLLBACK\|-- ROLLBACK\|rollback\|DOWN" \
@@ -44,5 +44,5 @@ rollback=$(grep -rn --include="*.sql" "ROLLBACK\|-- ROLLBACK\|rollback\|DOWN" \
 if [[ -n "$rollback" ]]; then
   record "PASS" "P-37 Migration rollback" "DB migration rollback scripts found"
 else
-  record "WARN" "P-37 Migration rollback" "No rollback scripts in DB migrations"
+  record "WARN" "P-37 Migration rollback" "No rollback scripts in DB migrations" "$(echo "$rollback" | head -10)"
 fi

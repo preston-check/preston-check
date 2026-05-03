@@ -32,7 +32,7 @@ max_amount=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$max_amount" ]]; then
   record "PASS" "P-99 Maximum amount" "Maximum amount enforcement found"
 else
-  record "WARN" "P-99 Maximum amount" "No maximum amount constants — every financial input should have an upper bound"
+  record "WARN" "P-99 Maximum amount" "No maximum amount constants — every financial input should have an upper bound" "$(echo "$max_amount" | head -10)"
 fi
 
 # Check for minimum amount enforcement (dust/micro-transaction prevention)
@@ -42,7 +42,7 @@ min_amount=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$min_amount" ]]; then
   record "PASS" "P-99 Minimum amount" "Minimum amount enforcement found"
 else
-  record "WARN" "P-99 Minimum amount" "No minimum amount enforcement — micro-transactions can be used for probing"
+  record "WARN" "P-99 Minimum amount" "No minimum amount enforcement — micro-transactions can be used for probing" "$(echo "$min_amount" | head -10)"
 fi
 
 # Check for exact threshold handling (e.g., exactly $10,000 — above or equal to CTR threshold?)
@@ -52,7 +52,7 @@ threshold_handling=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$threshold_handling" ]]; then
   record "PASS" "P-99 Threshold handling" "Boundary threshold comparisons found"
 else
-  record "WARN" "P-99 Threshold handling" "No explicit threshold boundary handling — verify >= vs > at regulatory thresholds"
+  record "WARN" "P-99 Threshold handling" "No explicit threshold boundary handling — verify >= vs > at regulatory thresholds" "$(echo "$threshold_handling" | head -10)"
 fi
 
 # Check for empty string / null amount protection
@@ -62,5 +62,5 @@ null_amount=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$null_amount" ]]; then
   record "PASS" "P-99 Null amount" "Null/empty amount protection found"
 else
-  record "WARN" "P-99 Null amount" "No explicit null/empty amount handling"
+  record "WARN" "P-99 Null amount" "No explicit null/empty amount handling" "$(echo "$null_amount" | head -10)"
 fi

@@ -37,7 +37,7 @@ if [[ -n "$testing" ]]; then
   count=$(echo "$testing" | wc -l | tr -d ' ')
   record "PASS" "P-405 DORA resilience testing" "$count reference(s) to operational resilience testing program"
 elif [[ -n "$vuln_scan_evidence" ]]; then
-  record "WARN" "P-405 DORA resilience testing" "Generic vuln scan references; ensure DORA-aligned annual program with scenario-based testing"
+  record "WARN" "P-405 DORA resilience testing" "Generic vuln scan references; ensure DORA-aligned annual program with scenario-based testing" "$(echo "$vuln_scan_evidence" | head -10)"
 else
-  record "WARN" "P-405 DORA resilience testing" "No documented DORA resilience-testing program found"
+  record "WARN" "P-405 DORA resilience testing" "No documented DORA resilience-testing program found" "$(echo "$vuln_scan_evidence" | head -10)"
 fi

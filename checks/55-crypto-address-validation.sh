@@ -29,7 +29,7 @@ addr_validate=$(grep -rn --include="*.java" \
 if [[ -n "$addr_validate" ]]; then
   record "PASS" "P-55 Address validation" "Crypto address validation found"
 else
-  record "WARN" "P-55 Address validation" "No explicit crypto address validation"
+  record "WARN" "P-55 Address validation" "No explicit crypto address validation" "$(echo "$addr_validate" | head -10)"
 fi
 
 addr_whitelist=$(grep -rn --include="*.java" \
@@ -38,7 +38,7 @@ addr_whitelist=$(grep -rn --include="*.java" \
 if [[ -n "$addr_whitelist" ]]; then
   record "PASS" "P-55 Address whitelisting" "Withdrawal address whitelisting found"
 else
-  record "WARN" "P-55 Address whitelisting" "No withdrawal address whitelist"
+  record "WARN" "P-55 Address whitelisting" "No withdrawal address whitelist" "$(echo "$addr_whitelist" | head -10)"
 fi
 
 aml_screen=$(grep -rn --include="*.java" \
@@ -47,5 +47,5 @@ aml_screen=$(grep -rn --include="*.java" \
 if [[ -n "$aml_screen" ]]; then
   record "PASS" "P-55 AML screening" "Crypto address AML screening found (Btrace/Chainalysis)"
 else
-  record "WARN" "P-55 AML screening" "No crypto address AML screening"
+  record "WARN" "P-55 AML screening" "No crypto address AML screening" "$(echo "$aml_screen" | head -10)"
 fi

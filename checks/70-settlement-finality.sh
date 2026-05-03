@@ -33,7 +33,7 @@ if [[ -z "$tx_delete" ]]; then
   record "PASS" "P-70 No tx deletion" "No transaction deletion patterns found"
 else
   count=$(echo "$tx_delete" | wc -l | tr -d ' ')
-  record "FAIL" "P-70 No tx deletion" "$count transaction deletion patterns — settled transactions must be immutable"
+  record "FAIL" "P-70 No tx deletion" "$count transaction deletion patterns — settled transactions must be immutable" "$(echo "$tx_delete" | head -10)"
 fi
 
 # Check for status reversal protection (completed → pending is never allowed)
@@ -45,7 +45,7 @@ if [[ -z "$status_rewind" ]]; then
   record "PASS" "P-70 No status rewind" "No forward-to-backward status transitions found"
 else
   count=$(echo "$status_rewind" | wc -l | tr -d ' ')
-  record "FAIL" "P-70 No status rewind" "$count status rewind patterns — completed transactions must not revert to pending"
+  record "FAIL" "P-70 No status rewind" "$count status rewind patterns — completed transactions must not revert to pending" "$(echo "$status_rewind" | head -10)"
 fi
 
 # Check for qty zeroing on HOLDs (should change type, not zero qty)
@@ -56,7 +56,7 @@ if [[ -z "$qty_zero" ]]; then
   record "PASS" "P-70 No qty zeroing" "No transaction qty zeroing found"
 else
   count=$(echo "$qty_zero" | wc -l | tr -d ' ')
-  record "WARN" "P-70 No qty zeroing" "$count qty zeroing patterns — HOLD resolution should change transaction_type, not zero qty"
+  record "WARN" "P-70 No qty zeroing" "$count qty zeroing patterns — HOLD resolution should change transaction_type, not zero qty" "$(echo "$qty_zero" | head -10)"
 fi
 
 # Check for append-only enforcement (DB trigger or application guard)
@@ -66,5 +66,5 @@ append_only=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
 if [[ -n "$append_only" ]]; then
   record "PASS" "P-70 Append-only" "Append-only ledger enforcement found"
 else
-  record "WARN" "P-70 Append-only" "No explicit append-only ledger enforcement (DB trigger recommended)"
+  record "WARN" "P-70 Append-only" "No explicit append-only ledger enforcement (DB trigger recommended)" "$(echo "$append_only" | head -10)"
 fi

@@ -39,7 +39,7 @@ if [[ -n "$mixer_refs" ]]; then
   count=$(echo "$mixer_refs" | wc -l | tr -d ' ')
   record "PASS" "P-327 Mixer detection" "$count file(s) reference mixer / privacy-tool detection patterns"
 elif [[ -n "$screening" ]]; then
-  record "WARN" "P-327 Mixer detection" "Address screening present but no explicit mixer/privacy-tool detection — consider augmenting"
+  record "WARN" "P-327 Mixer detection" "Address screening present but no explicit mixer/privacy-tool detection — consider augmenting" "$(echo "$screening" | head -10)"
 else
-  record "WARN" "P-327 Mixer detection" "No mixer/privacy-tool detection logic found"
+  record "WARN" "P-327 Mixer detection" "No mixer/privacy-tool detection logic found" "$(echo "$screening" | head -10)"
 fi

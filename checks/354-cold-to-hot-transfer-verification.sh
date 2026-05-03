@@ -45,5 +45,5 @@ if [[ -n "$verification" ]]; then
   count=$(echo "$verification" | wc -l | tr -d ' ')
   record "PASS" "P-354 Cold-to-hot verification" "$count file(s) reference signing-interface verification or isolated signers"
 else
-  record "FAIL" "P-354 Cold-to-hot verification" "Cold-to-hot transfer flows without signing-interface verification (Bybit Feb 2025 attack vector)"
+  record "FAIL" "P-354 Cold-to-hot verification" "Cold-to-hot transfer flows without signing-interface verification (Bybit Feb 2025 attack vector)" "$(echo "$verification" | head -10)"
 fi

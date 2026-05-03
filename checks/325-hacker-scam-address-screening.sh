@@ -44,5 +44,5 @@ if [[ -n "$screen_refs" ]]; then
   count=$(echo "$screen_refs" | wc -l | tr -d ' ')
   record "PASS" "P-325 Scam address screening" "$count file(s) reference community-maintained scam/hack address lists"
 else
-  record "WARN" "P-325 Scam address screening" "No screening against community scam/hack address lists detected (consider Scam Sniffer, ChainAbuse, hapi.one)"
+  record "WARN" "P-325 Scam address screening" "No screening against community scam/hack address lists detected (consider Scam Sniffer, ChainAbuse, hapi.one)" "$(echo "$crypto_ops" | head -10)"
 fi

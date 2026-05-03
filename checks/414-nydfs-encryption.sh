@@ -31,9 +31,9 @@ strong=$(grep -rln --include="*.java" --include="*.ts" --include="*.js" --includ
 weak_count=$([[ -n "$weak" ]] && echo "$weak" | wc -l | tr -d ' ' || echo 0)
 strong_count=$([[ -n "$strong" ]] && echo "$strong" | wc -l | tr -d ' ' || echo 0)
 if [[ ${weak_count:-0} -gt 0 && ${strong_count:-0} -eq 0 ]]; then
-  record "FAIL" "P-414 NYDFS encryption" "$weak_count weak-crypto reference(s) and no strong-crypto reference"
+  record "FAIL" "P-414 NYDFS encryption" "$weak_count weak-crypto reference(s) and no strong-crypto reference" "$(echo "$strong" | head -10)"
 elif [[ ${weak_count:-0} -gt 0 ]]; then
-  record "WARN" "P-414 NYDFS encryption" "$weak_count weak-crypto reference(s); $strong_count strong-crypto reference(s)"
+  record "WARN" "P-414 NYDFS encryption" "$weak_count weak-crypto reference(s); $strong_count strong-crypto reference(s)" "$(echo "$strong" | head -10)"
 else
   record "PASS" "P-414 NYDFS encryption" "Strong-only crypto references ($strong_count)"
 fi

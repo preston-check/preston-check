@@ -44,5 +44,5 @@ count=0
 if [[ $count -eq 0 ]]; then
   record "PASS" "P-318 Seed handling" "No logging or stringification of private keys / mnemonics found"
 else
-  record "FAIL" "P-318 Seed handling" "$count code path(s) log or stringify private key / mnemonic / seed material"
+  record "FAIL" "P-318 Seed handling" "$count code path(s) log or stringify private key / mnemonic / seed material" "$(echo "$stringify" | head -10)"
 fi

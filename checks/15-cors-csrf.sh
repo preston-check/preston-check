@@ -38,7 +38,7 @@ if [[ -z "$wildcard_cors" ]]; then
   record "PASS" "P-15 No wildcard CORS" "No Access-Control-Allow-Origin: * found"
 else
   count=$(echo "$wildcard_cors" | wc -l)
-  record "FAIL" "P-15 No wildcard CORS" "$count wildcard CORS patterns — restricts to known origins"
+  record "FAIL" "P-15 No wildcard CORS" "$count wildcard CORS patterns — restricts to known origins" "$(echo "$wildcard_cors" | head -10)"
 fi
 
 # Check for CSRF protection
@@ -51,5 +51,5 @@ csrf=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$csrf" ]]; then
   record "PASS" "P-15 CSRF protection" "CSRF protection mechanisms found"
 else
-  record "WARN" "P-15 CSRF protection" "No CSRF protection patterns found"
+  record "WARN" "P-15 CSRF protection" "No CSRF protection patterns found" "$(echo "$csrf" | head -10)"
 fi

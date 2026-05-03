@@ -43,5 +43,5 @@ if [[ -n "$cooldown_refs" ]]; then
   count=$(echo "$cooldown_refs" | wc -l | tr -d ' ')
   record "PASS" "P-329 New-address cooldown" "$count file(s) reference new-address cooldown logic"
 else
-  record "WARN" "P-329 New-address cooldown" "Withdrawal endpoints detected without new-address cooldown control"
+  record "WARN" "P-329 New-address cooldown" "Withdrawal endpoints detected without new-address cooldown control" "$(echo "$withdraw_files" | head -10)"
 fi

@@ -33,7 +33,7 @@ sbom_plugin=$(grep -rn --include="pom.xml" --include="package.json" \
 if [[ -n "$sbom" || -n "$sbom_plugin" ]]; then
   record "PASS" "P-63 SBOM generation" "Software Bill of Materials generation configured"
 else
-  record "WARN" "P-63 SBOM generation" "No SBOM generation configured (CycloneDX, SPDX recommended)"
+  record "WARN" "P-63 SBOM generation" "No SBOM generation configured (CycloneDX, SPDX recommended)" "$(echo "$sbom_plugin" | head -10)"
 fi
 
 # Check for dependency lock files
@@ -44,7 +44,7 @@ mvn_wrapper=$(find "$SRC" -maxdepth 1 -name "mvnw" -o -name ".mvn" 2>/dev/null |
 if [[ $lock_files -gt 0 ]]; then
   record "PASS" "P-63 Dependency locking" "Dependency lock files present"
 else
-  record "WARN" "P-63 Dependency locking" "No dependency lock files found"
+  record "WARN" "P-63 Dependency locking" "No dependency lock files found" "$(echo "$mvn_wrapper" | head -10)"
 fi
 
 # Check for vendor/third-party documentation
@@ -54,5 +54,5 @@ vendor_docs=$(find "$SRC" -maxdepth 4 \( \
 if [[ -n "$vendor_docs" ]]; then
   record "PASS" "P-63 Vendor assessment" "Vendor security documentation found"
 else
-  record "WARN" "P-63 Vendor assessment" "No vendor security assessment documentation found"
+  record "WARN" "P-63 Vendor assessment" "No vendor security assessment documentation found" "$(echo "$vendor_docs" | head -10)"
 fi

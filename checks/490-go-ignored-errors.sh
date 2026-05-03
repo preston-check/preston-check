@@ -31,7 +31,7 @@ ignored=$(grep -rn --include="*.go" -E "(^|;)\s*_,\s*_\s*[:=]\s*[a-zA-Z]" "$SRC"
   | grep -vE "/vendor/|_test\.go|/test/" || true)
 count=$([[ -n "$ignored" ]] && echo "$ignored" | wc -l | tr -d ' ' || echo 0)
 if [[ ${count:-0} -gt 0 ]]; then
-  record "WARN" "P-490 Go ignored errors" "$count instance(s) of '_, _ =' patterns ignoring error returns"
+  record "WARN" "P-490 Go ignored errors" "$count instance(s) of '_, _ =' patterns ignoring error returns" "$(echo "$ignored" | head -10)"
 else
   record "PASS" "P-490 Go ignored errors" "No '_, _ =' error-suppression patterns detected"
 fi

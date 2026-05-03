@@ -61,7 +61,7 @@ elif [[ $rate_limited -eq $total_controllers ]]; then
   record "PASS" "P-04 Rate limiting" "All $total_controllers controllers have rate limiting"
 elif [[ $rate_limited -gt 0 ]]; then
   unprotected=$((total_controllers - rate_limited))
-  record "WARN" "P-04 Rate limiting" "$unprotected of $total_controllers controllers lack rate limiting"
+  record "WARN" "P-04 Rate limiting" "$unprotected of $total_controllers controllers lack rate limiting" "$(echo "$middleware_rl" | head -10)"
 else
-  record "FAIL" "P-04 Rate limiting" "No controllers have rate limiting ($total_controllers found)"
+  record "FAIL" "P-04 Rate limiting" "No controllers have rate limiting ($total_controllers found)" "$(echo "$middleware_rl" | head -10)"
 fi

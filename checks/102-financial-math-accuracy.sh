@@ -42,38 +42,38 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     | grep -v "test\|Test\|target" | awk -F: '{print $NF}' | sort | uniq -c | sort -rn)
   mode_count=$(echo "$modes" | sed '/^$/d' | wc -l | tr -d ' ')
   if [[ $mode_count -gt 2 ]]; then
-    record "FAIL" "P-102 Rounding consistency" "$mode_count different RoundingModes — pick one (HALF_UP for banking, HALF_EVEN for statistics) and use it everywhere"
+    record "FAIL" "P-102 Rounding consistency" "$mode_count different RoundingModes — pick one (HALF_UP for banking, HALF_EVEN for statistics) and use it everywhere" "$(echo "$modes" | head -10)"
     echo "$modes" | head -5 | while read line; do echo "    $line"; done
   elif [[ $mode_count -ge 1 ]]; then
     primary=$(echo "$modes" | head -1 | awk '{print $2}')
     record "PASS" "P-102 Rounding consistency" "Consistent rounding: $primary"
   else
-    record "WARN" "P-102 Rounding consistency" "No RoundingMode found — financial calculations must specify rounding explicitly"
+    record "WARN" "P-102 Rounding consistency" "No RoundingMode found — financial calculations must specify rounding explicitly" "$(echo "$modes" | head -10)"
   fi
 elif [[ "$DETECTED_LANG" == "go" ]]; then
   modes=$(grep -rn --include="*.go" -oE 'Round(HalfUp|HalfEven|Up|Down|Ceil|Floor|Banker)' "$SRC" 2>/dev/null \
     | grep -v "test\|vendor\|_test\.go" | awk -F: '{print $NF}' | sort | uniq -c | sort -rn)
   mode_count=$(echo "$modes" | sed '/^$/d' | wc -l | tr -d ' ')
   if [[ $mode_count -gt 2 ]]; then
-    record "FAIL" "P-102 Rounding consistency" "$mode_count different rounding strategies — standardize across codebase"
+    record "FAIL" "P-102 Rounding consistency" "$mode_count different rounding strategies — standardize across codebase" "$(echo "$modes" | head -10)"
   elif [[ $mode_count -ge 1 ]]; then
     record "PASS" "P-102 Rounding consistency" "Consistent rounding strategy found"
   else
-    record "WARN" "P-102 Rounding consistency" "No explicit rounding strategy found"
+    record "WARN" "P-102 Rounding consistency" "No explicit rounding strategy found" "$(echo "$modes" | head -10)"
   fi
 elif [[ "$DETECTED_LANG" == "python" ]]; then
   modes=$(grep -rn --include="*.py" -oE 'ROUND_(HALF_UP|HALF_EVEN|HALF_DOWN|UP|DOWN|CEILING|FLOOR|05UP)' "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|__pycache__\|venv" | awk -F: '{print $NF}' | sort | uniq -c | sort -rn)
   mode_count=$(echo "$modes" | sed '/^$/d' | wc -l | tr -d ' ')
   if [[ $mode_count -gt 2 ]]; then
-    record "FAIL" "P-102 Rounding consistency" "$mode_count different rounding modes"
+    record "FAIL" "P-102 Rounding consistency" "$mode_count different rounding modes" "$(echo "$modes" | head -10)"
   elif [[ $mode_count -ge 1 ]]; then
     record "PASS" "P-102 Rounding consistency" "Consistent rounding found"
   else
-    record "WARN" "P-102 Rounding consistency" "No explicit rounding context — use decimal.getcontext().rounding"
+    record "WARN" "P-102 Rounding consistency" "No explicit rounding context — use decimal.getcontext().rounding" "$(echo "$modes" | head -10)"
   fi
 else
-  record "WARN" "P-102 Rounding consistency" "Check rounding consistency manually for $DETECTED_LANG"
+  record "WARN" "P-102 Rounding consistency" "Check rounding consistency manually for $DETECTED_LANG" "$(echo "$modes" | head -10)"
 fi
 
 # ─── CHECK 2: Intermediate precision loss ────────────────────────────
@@ -91,7 +91,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-102 Intermediate precision" "No unguarded chained multiply/divide — intermediate precision preserved"
   else
     count=$(echo "$chain_ops" | wc -l | tr -d ' ')
-    record "WARN" "P-102 Intermediate precision" "$count chained multiply().divide() without MathContext — may lose intermediate precision"
+    record "WARN" "P-102 Intermediate precision" "$count chained multiply().divide() without MathContext — may lose intermediate precision" "$(echo "$chain_ops" | head -10)"
   fi
 fi
 
@@ -109,7 +109,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-102 Numeric casting" "No doubleValue()/floatValue() on financial BigDecimals"
   else
     count=$(echo "$unsafe_cast" | wc -l | tr -d ' ')
-    record "FAIL" "P-102 Numeric casting" "$count BigDecimal.doubleValue()/floatValue() calls on money — precision loss"
+    record "FAIL" "P-102 Numeric casting" "$count BigDecimal.doubleValue()/floatValue() calls on money — precision loss" "$(echo "$unsafe_cast" | head -10)"
     echo "$unsafe_cast" | head -3 | while read line; do echo "    $line"; done
   fi
 elif [[ "$DETECTED_LANG" == "go" ]]; then
@@ -121,7 +121,7 @@ elif [[ "$DETECTED_LANG" == "go" ]]; then
     record "PASS" "P-102 Numeric casting" "No float64() casts on financial values"
   else
     count=$(echo "$unsafe_cast" | wc -l | tr -d ' ')
-    record "WARN" "P-102 Numeric casting" "$count float64() casts on financial values — use Decimal type"
+    record "WARN" "P-102 Numeric casting" "$count float64() casts on financial values — use Decimal type" "$(echo "$unsafe_cast" | head -10)"
   fi
 fi
 
@@ -154,7 +154,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-102 Money parsing" "No Double.parseDouble() for financial parsing — uses BigDecimal"
   else
     count=$(echo "$parse_float" | wc -l | tr -d ' ')
-    record "WARN" "P-102 Money parsing" "$count Double.parseDouble() on financial values — use new BigDecimal(string)"
+    record "WARN" "P-102 Money parsing" "$count Double.parseDouble() on financial values — use new BigDecimal(string)" "$(echo "$parse_float" | head -10)"
   fi
 fi
 
@@ -173,7 +173,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-102 Accumulation safety" "No float/double accumulation on financial totals"
   else
     count=$(echo "$accum_float" | wc -l | tr -d ' ')
-    record "WARN" "P-102 Accumulation safety" "$count += accumulations on financial vars — verify using BigDecimal.add(), not double +="
+    record "WARN" "P-102 Accumulation safety" "$count += accumulations on financial vars — verify using BigDecimal.add(), not double +=" "$(echo "$accum_float" | head -10)"
   fi
 fi
 
@@ -207,13 +207,13 @@ db_scales=$(grep -rn --include="*.sql" \
 scale_count=$(echo "$db_scales" | sed '/^$/d' | wc -l | tr -d ' ')
 
 if [[ $scale_count -gt 2 ]]; then
-  record "WARN" "P-102 Scale consistency" "$scale_count different NUMERIC scales in DB — inconsistent decimal places cause truncation on transfer between tables"
+  record "WARN" "P-102 Scale consistency" "$scale_count different NUMERIC scales in DB — inconsistent decimal places cause truncation on transfer between tables" "$(echo "$db_scales" | head -10)"
   echo "$db_scales" | head -3 | while read line; do echo "    scale($line)"; done
 elif [[ $scale_count -ge 1 ]]; then
   primary_scale=$(echo "$db_scales" | head -1 | awk '{print $2}')
   record "PASS" "P-102 Scale consistency" "Consistent DB decimal scale: $primary_scale"
 else
-  record "WARN" "P-102 Scale consistency" "No NUMERIC/DECIMAL columns found — verify money columns use precise types"
+  record "WARN" "P-102 Scale consistency" "No NUMERIC/DECIMAL columns found — verify money columns use precise types" "$(echo "$db_scales" | head -10)"
 fi
 
 # ─── CHECK 8: Equality comparison on decimals ────────────────────────
@@ -230,6 +230,6 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-102 Decimal equality" "No BigDecimal.equals() — uses compareTo() for value comparison"
   else
     count=$(echo "$bd_equals" | wc -l | tr -d ' ')
-    record "WARN" "P-102 Decimal equality" "$count .equals() on BigDecimal — use .compareTo() == 0 (equals considers scale: 1.0 != 1.00)"
+    record "WARN" "P-102 Decimal equality" "$count .equals() on BigDecimal — use .compareTo() == 0 (equals considers scale: 1.0 != 1.00)" "$(echo "$bd_equals" | head -10)"
   fi
 fi

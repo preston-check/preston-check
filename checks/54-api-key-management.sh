@@ -29,7 +29,7 @@ key_expiry=$(grep -rn --include="*.java" --include="*.sql" \
 if [[ -n "$key_expiry" ]]; then
   record "PASS" "P-54 API key expiry" "API keys have expiration dates"
 else
-  record "WARN" "P-54 API key expiry" "No API key expiration found"
+  record "WARN" "P-54 API key expiry" "No API key expiration found" "$(echo "$key_expiry" | head -10)"
 fi
 
 key_scope=$(grep -rn --include="*.java" --include="*.sql" \
@@ -38,5 +38,5 @@ key_scope=$(grep -rn --include="*.java" --include="*.sql" \
 if [[ -n "$key_scope" ]]; then
   record "PASS" "P-54 API key scoping" "API keys have permission/IP scoping"
 else
-  record "WARN" "P-54 API key scoping" "No API key scope restrictions"
+  record "WARN" "P-54 API key scoping" "No API key scope restrictions" "$(echo "$key_scope" | head -10)"
 fi

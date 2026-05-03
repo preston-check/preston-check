@@ -44,5 +44,5 @@ if [[ -n "$honeypot_refs" ]]; then
   count=$(echo "$honeypot_refs" | wc -l | tr -d ' ')
   record "PASS" "P-332 Honeypot detection" "$count file(s) reference honeypot/scam-token detection"
 else
-  record "WARN" "P-332 Honeypot detection" "Token receipt/listing without honeypot detection (consider GoPlus, TokenSniffer, simulated-transfer test)"
+  record "WARN" "P-332 Honeypot detection" "Token receipt/listing without honeypot detection (consider GoPlus, TokenSniffer, simulated-transfer test)" "$(echo "$token_receipt" | head -10)"
 fi

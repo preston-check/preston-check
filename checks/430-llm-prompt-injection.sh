@@ -47,5 +47,5 @@ if [[ -n "$unsafe" && -z "$defense" ]]; then
 elif [[ -n "$defense" ]]; then
   record "PASS" "P-430 LLM prompt injection" "$(echo "$defense" | wc -l | tr -d ' ') prompt-defense reference(s)"
 else
-  record "WARN" "P-430 LLM prompt injection" "LLM usage without observable prompt-injection defenses"
+  record "WARN" "P-430 LLM prompt injection" "LLM usage without observable prompt-injection defenses" "$(echo "$defense" | head -10)"
 fi

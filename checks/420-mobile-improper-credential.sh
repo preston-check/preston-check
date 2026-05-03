@@ -35,7 +35,7 @@ sec_count=$([[ -n "$secure" ]] && echo "$secure" | wc -l | tr -d ' ' || echo 0)
 if [[ ${hits_count:-0} -eq 0 && ${sec_count:-0} -gt 0 ]]; then
   record "PASS" "P-420 mobile credentials" "$sec_count secure-storage reference(s)"
 elif [[ ${hits_count:-0} -gt 0 ]]; then
-  record "FAIL" "P-420 mobile credentials" "$hits_count credential mishandling pattern(s) detected"
+  record "FAIL" "P-420 mobile credentials" "$hits_count credential mishandling pattern(s) detected" "$(echo "$secure" | head -10)"
 else
   record "SKIP" "P-420 mobile credentials" "No mobile source code detected"
 fi

@@ -49,7 +49,7 @@ found=0
 if [[ $found -ge 2 ]]; then
   record "PASS" "P-94 Security training" "$found/3 training evidence found (docs, platform, secure coding standards)"
 elif [[ $found -ge 1 ]]; then
-  record "WARN" "P-94 Security training" "$found/3 — need: training docs, platform reference, secure coding guide"
+  record "WARN" "P-94 Security training" "$found/3 — need: training docs, platform reference, secure coding guide" "$(echo "$secure_coding" | head -10)"
 else
-  record "WARN" "P-94 Security training" "No security training evidence — create compliance/security-training-program.md (CIS Control 14)"
+  record "WARN" "P-94 Security training" "No security training evidence — create compliance/security-training-program.md (CIS Control 14)" "$(echo "$secure_coding" | head -10)"
 fi

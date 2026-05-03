@@ -44,5 +44,5 @@ if [[ -n "$enclave_refs" ]]; then
   count=$(echo "$enclave_refs" | wc -l | tr -d ' ')
   record "PASS" "P-342 Secure enclave" "$count file(s) reference Secure Enclave / Keystore / TPM-backed key storage"
 else
-  record "WARN" "P-342 Secure enclave" "Mobile wallet code without Secure Enclave / Keystore / TPM references"
+  record "WARN" "P-342 Secure enclave" "Mobile wallet code without Secure Enclave / Keystore / TPM references" "$(echo "$mobile" | head -10)"
 fi

@@ -45,5 +45,5 @@ if [[ -n "$analytics_refs" ]]; then
   count=$(echo "$analytics_refs" | wc -l | tr -d ' ')
   record "PASS" "P-323 Pre-send risk scoring" "$count file(s) integrate a blockchain analytics provider"
 else
-  record "FAIL" "P-323 Pre-send risk scoring" "Outbound send operations detected with no blockchain analytics integration"
+  record "FAIL" "P-323 Pre-send risk scoring" "Outbound send operations detected with no blockchain analytics integration" "$(echo "$send_files" | head -10)"
 fi

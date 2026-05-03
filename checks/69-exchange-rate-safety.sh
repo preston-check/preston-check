@@ -35,7 +35,7 @@ else
   rate_usage=$(grep -rn --include="*.java" "rate\|exchange\|convert\|swap" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | wc -l | tr -d ' ')
   if [[ "$rate_usage" -gt 10 ]]; then
-    record "WARN" "P-69 Stale rate protection" "Exchange rate usage found but no staleness check — rates served without freshness validation"
+    record "WARN" "P-69 Stale rate protection" "Exchange rate usage found but no staleness check — rates served without freshness validation" "$(echo "$rate_usage" | head -10)"
   else
     record "SKIP" "P-69 Stale rate protection" "No significant exchange rate usage found"
   fi
@@ -48,7 +48,7 @@ rate_bounds=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$rate_bounds" ]]; then
   record "PASS" "P-69 Rate bounds" "Exchange rate sanity bounds found"
 else
-  record "WARN" "P-69 Rate bounds" "No rate deviation/sanity bounds — a manipulated rate feed could drain accounts"
+  record "WARN" "P-69 Rate bounds" "No rate deviation/sanity bounds — a manipulated rate feed could drain accounts" "$(echo "$rate_bounds" | head -10)"
 fi
 
 # Check for spread limits
@@ -61,7 +61,7 @@ else
   spread_usage=$(grep -rn --include="*.java" "spread\|markup" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | wc -l | tr -d ' ')
   if [[ "$spread_usage" -gt 3 ]]; then
-    record "WARN" "P-69 Spread limits" "Spread calculations exist but no upper bound — a misconfigured spread could overcharge"
+    record "WARN" "P-69 Spread limits" "Spread calculations exist but no upper bound — a misconfigured spread could overcharge" "$(echo "$spread_usage" | head -10)"
   else
     record "PASS" "P-69 Spread limits" "No spread patterns requiring bounds"
   fi
@@ -74,5 +74,5 @@ rate_lock=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$rate_lock" ]]; then
   record "PASS" "P-69 Rate locking" "Rate locking/guarantee mechanism found"
 else
-  record "WARN" "P-69 Rate locking" "No rate locking — customer may see different rate at execution than at quote"
+  record "WARN" "P-69 Rate locking" "No rate locking — customer may see different rate at execution than at quote" "$(echo "$rate_lock" | head -10)"
 fi

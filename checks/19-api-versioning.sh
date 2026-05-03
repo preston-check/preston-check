@@ -38,7 +38,7 @@ if [[ -n "$versioned" ]]; then
   count=$(echo "$versioned" | wc -l)
   record "PASS" "P-19 API versioning" "$count versioned API paths found"
 else
-  record "WARN" "P-19 API versioning" "No versioned API paths (e.g., /api/v1/) found"
+  record "WARN" "P-19 API versioning" "No versioned API paths (e.g., /api/v1/) found" "$(echo "$versioned" | head -10)"
 fi
 
 # Check for deprecated/legacy endpoints still active
@@ -53,5 +53,5 @@ if [[ -z "$deprecated" ]]; then
   record "PASS" "P-19 No deprecated endpoints" "No deprecated/legacy endpoints found"
 else
   count=$(echo "$deprecated" | wc -l)
-  record "WARN" "P-19 No deprecated endpoints" "$count deprecated endpoints still active"
+  record "WARN" "P-19 No deprecated endpoints" "$count deprecated endpoints still active" "$(echo "$deprecated" | head -10)"
 fi

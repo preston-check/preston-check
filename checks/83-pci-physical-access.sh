@@ -48,7 +48,7 @@ found=0
 if [[ $found -ge 2 ]]; then
   record "PASS" "P-83 Physical access evidence" "Physical security documentation and/or references found"
 elif [[ $found -ge 1 ]]; then
-  record "WARN" "P-83 Physical access evidence" "Partial physical security evidence — add compliance/ directory with physical access policy"
+  record "WARN" "P-83 Physical access evidence" "Partial physical security evidence — add compliance/ directory with physical access policy" "$(echo "$phys_code" | head -10)"
 else
-  record "WARN" "P-83 Physical access evidence" "No physical security evidence — create compliance/physical-access-policy.md (PCI-DSS Req 9)"
+  record "WARN" "P-83 Physical access evidence" "No physical security evidence — create compliance/physical-access-policy.md (PCI-DSS Req 9)" "$(echo "$phys_code" | head -10)"
 fi

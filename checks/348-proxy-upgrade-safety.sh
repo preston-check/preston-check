@@ -55,5 +55,5 @@ done
 if [[ $unsafe -eq 0 ]]; then
   record "PASS" "P-348 Proxy upgrade" "$total upgradable contract(s) all reference initializer guards"
 else
-  record "FAIL" "P-348 Proxy upgrade" "$unsafe of $total upgradable contract(s) lack initializer / authorize-upgrade protection"
+  record "FAIL" "P-348 Proxy upgrade" "$unsafe of $total upgradable contract(s) lack initializer / authorize-upgrade protection" "$(echo "$proxy_files" | head -10)"
 fi

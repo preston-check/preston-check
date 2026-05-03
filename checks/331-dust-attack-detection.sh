@@ -44,5 +44,5 @@ if [[ -n "$dust_refs" ]]; then
   count=$(echo "$dust_refs" | wc -l | tr -d ' ')
   record "PASS" "P-331 Dust attack detection" "$count file(s) reference dust filtering"
 else
-  record "WARN" "P-331 Dust attack detection" "UTXO/consolidation logic without dust filtering"
+  record "WARN" "P-331 Dust attack detection" "UTXO/consolidation logic without dust filtering" "$(echo "$utxo_handling" | head -10)"
 fi

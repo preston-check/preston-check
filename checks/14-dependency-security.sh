@@ -38,7 +38,7 @@ if [[ -z "$bouncy_old" ]]; then
   record "PASS" "P-14 Bouncy Castle version" "No deprecated bcpkix-jdk15on found"
 else
   count=$(echo "$bouncy_old" | wc -l)
-  record "WARN" "P-14 Bouncy Castle version" "$count pom.xml files use deprecated jdk15on (should be jdk18on)"
+  record "WARN" "P-14 Bouncy Castle version" "$count pom.xml files use deprecated jdk15on (should be jdk18on)" "$(echo "$bouncy_old" | head -10)"
 fi
 
 # Check for SNAPSHOT dependencies in non-test poms
@@ -53,12 +53,12 @@ if [[ -z "$snapshots" ]]; then
   record "PASS" "P-14 No SNAPSHOT deps" "No SNAPSHOT dependencies in production"
 else
   count=$(echo "$snapshots" | wc -l)
-  record "WARN" "P-14 No SNAPSHOT deps" "$count SNAPSHOT dependencies found"
+  record "WARN" "P-14 No SNAPSHOT deps" "$count SNAPSHOT dependencies found" "$(echo "$snapshots" | head -10)"
 fi
 
 # Check npm for high/critical vulnerabilities (if package.json exists)
 if [[ -f "$SRC/package.json" ]] || find "$SRC" -maxdepth 3 -name "package.json" -not -path "*/node_modules/*" 2>/dev/null | head -1 | grep -q .; then
-  record "WARN" "P-14 npm audit" "Run 'npm audit' manually to check for JS vulnerabilities"
+  record "WARN" "P-14 npm audit" "Run 'npm audit' manually to check for JS vulnerabilities" "$(echo "$snapshots" | head -10)"
 else
   record "SKIP" "P-14 npm audit" "No package.json found"
 fi

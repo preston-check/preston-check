@@ -47,5 +47,5 @@ done
 if [[ $unsafe -eq 0 ]]; then
   record "PASS" "P-340 Reorg depth" "$total deposit handler(s) enforce confirmation depth"
 else
-  record "FAIL" "P-340 Reorg depth" "$unsafe of $total deposit handler(s) lack confirmation-depth enforcement"
+  record "FAIL" "P-340 Reorg depth" "$unsafe of $total deposit handler(s) lack confirmation-depth enforcement" "$(echo "$deposit_files" | head -10)"
 fi

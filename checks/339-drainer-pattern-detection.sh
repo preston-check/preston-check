@@ -44,5 +44,5 @@ if [[ -n "$drainer_refs" ]]; then
   count=$(echo "$drainer_refs" | wc -l | tr -d ' ')
   record "PASS" "P-339 Drainer detection" "$count file(s) reference drainer detection / tx simulation"
 else
-  record "WARN" "P-339 Drainer detection" "Signing flows without drainer detection or tx simulation (consider Blockaid, Wallet Guard, Harpie)"
+  record "WARN" "P-339 Drainer detection" "Signing flows without drainer detection or tx simulation (consider Blockaid, Wallet Guard, Harpie)" "$(echo "$sign_calls" | head -10)"
 fi

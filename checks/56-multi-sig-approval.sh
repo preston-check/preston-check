@@ -30,7 +30,7 @@ if [[ -n "$dual_approval" ]]; then
   count=$(echo "$dual_approval" | wc -l)
   record "PASS" "P-56 Approval workflow" "$count dual-approval/authorization patterns found"
 else
-  record "WARN" "P-56 Approval workflow" "No dual-approval workflow for high-value operations"
+  record "WARN" "P-56 Approval workflow" "No dual-approval workflow for high-value operations" "$(echo "$dual_approval" | head -10)"
 fi
 
 fireblocks_cosign=$(grep -rn --include="*.java" \
@@ -40,5 +40,5 @@ fireblocks_cosign=$(grep -rn --include="*.java" \
 if [[ -n "$fireblocks_cosign" ]]; then
   record "PASS" "P-56 Fireblocks co-signer" "Fireblocks co-signer/TAP integration found"
 else
-  record "WARN" "P-56 Fireblocks co-signer" "No Fireblocks co-signer verification found"
+  record "WARN" "P-56 Fireblocks co-signer" "No Fireblocks co-signer verification found" "$(echo "$fireblocks_cosign" | head -10)"
 fi

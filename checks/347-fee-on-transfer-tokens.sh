@@ -44,5 +44,5 @@ if [[ -n "$handling" ]]; then
   count=$(echo "$handling" | wc -l | tr -d ' ')
   record "PASS" "P-347 Fee-on-transfer" "$count file(s) handle fee-on-transfer / rebasing token semantics"
 else
-  record "WARN" "P-347 Fee-on-transfer" "Token transfers without explicit fee-on-transfer / rebasing accounting"
+  record "WARN" "P-347 Fee-on-transfer" "Token transfers without explicit fee-on-transfer / rebasing accounting" "$(echo "$transfers" | head -10)"
 fi

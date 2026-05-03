@@ -34,5 +34,5 @@ if [[ -n "$rep_refs" ]]; then
   count=$(echo "$rep_refs" | wc -l | tr -d ' ')
   record "PASS" "P-335 Counterparty reputation" "$count file(s) reference counterparty reputation/profiling"
 else
-  record "WARN" "P-335 Counterparty reputation" "No counterparty reputation profiling detected (wallet age, attribution, behavior)"
+  record "WARN" "P-335 Counterparty reputation" "No counterparty reputation profiling detected (wallet age, attribution, behavior)" "$(echo "$rep_refs" | head -10)"
 fi

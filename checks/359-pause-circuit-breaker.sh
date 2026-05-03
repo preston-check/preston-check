@@ -48,5 +48,5 @@ done
 if [[ $unprotected -eq 0 ]]; then
   record "PASS" "P-359 Pause / breaker" "$total user-funds contract(s) all reference pause / circuit-breaker patterns"
 else
-  record "WARN" "P-359 Pause / breaker" "$unprotected of $total user-funds contract(s) lack visible pause / circuit-breaker mechanism"
+  record "WARN" "P-359 Pause / breaker" "$unprotected of $total user-funds contract(s) lack visible pause / circuit-breaker mechanism" "$(echo "$funds_files" | head -10)"
 fi

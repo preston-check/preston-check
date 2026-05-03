@@ -45,5 +45,5 @@ if [[ -n "$mpc_refs" ]]; then
   count=$(echo "$mpc_refs" | wc -l | tr -d ' ')
   record "PASS" "P-314 MPC / TSS" "MPC/TSS integration referenced in $count file(s)"
 else
-  record "WARN" "P-314 MPC / TSS" "Signing detected without MPC/TSS reference; consider for institutional custody risk reduction"
+  record "WARN" "P-314 MPC / TSS" "Signing detected without MPC/TSS reference; consider for institutional custody risk reduction" "$(echo "$any_sign" | head -10)"
 fi

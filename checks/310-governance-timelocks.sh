@@ -54,5 +54,5 @@ done
 if [[ $unprotected -eq 0 ]]; then
   record "PASS" "P-310 Governance time-locks" "$total contract(s) with privileged functions all reference timelock guards"
 else
-  record "WARN" "P-310 Governance time-locks" "$unprotected of $total contract(s) with privileged admin functions lack visible timelock guard"
+  record "WARN" "P-310 Governance time-locks" "$unprotected of $total contract(s) with privileged admin functions lack visible timelock guard" "$(echo "$priv_files" | head -10)"
 fi

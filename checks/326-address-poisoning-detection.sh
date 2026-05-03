@@ -44,5 +44,5 @@ if [[ -n "$poison_refs" ]]; then
   count=$(echo "$poison_refs" | wc -l | tr -d ' ')
   record "PASS" "P-326 Address poisoning" "$count file(s) reference address-poisoning or look-alike detection"
 else
-  record "WARN" "P-326 Address poisoning" "Truncated-address display detected without look-alike/poisoning detection logic"
+  record "WARN" "P-326 Address poisoning" "Truncated-address display detected without look-alike/poisoning detection logic" "$(echo "$addr_display" | head -10)"
 fi

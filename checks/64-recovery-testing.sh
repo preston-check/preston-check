@@ -33,7 +33,7 @@ if [[ -n "$recovery_docs" ]]; then
   count=$(echo "$recovery_docs" | wc -l | tr -d ' ')
   record "PASS" "P-64 Recovery documentation" "$count recovery/DR documents found"
 else
-  record "WARN" "P-64 Recovery documentation" "No disaster recovery or runbook documentation found"
+  record "WARN" "P-64 Recovery documentation" "No disaster recovery or runbook documentation found" "$(echo "$recovery_docs" | head -10)"
 fi
 
 # Check for backup configuration
@@ -43,7 +43,7 @@ backup_config=$(grep -rn --include="*.java" --include="*.ts" --include="*.yml" -
 if [[ -n "$backup_config" ]]; then
   record "PASS" "P-64 Backup configuration" "Database backup references found"
 else
-  record "WARN" "P-64 Backup configuration" "No database backup configuration references found"
+  record "WARN" "P-64 Backup configuration" "No database backup configuration references found" "$(echo "$backup_config" | head -10)"
 fi
 
 # Check for health check endpoints (needed for failover)
@@ -53,5 +53,5 @@ health_check=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$health_check" ]]; then
   record "PASS" "P-64 Health endpoints" "Health check endpoints found (supports failover)"
 else
-  record "WARN" "P-64 Health endpoints" "No health/readiness endpoints found"
+  record "WARN" "P-64 Health endpoints" "No health/readiness endpoints found" "$(echo "$health_check" | head -10)"
 fi

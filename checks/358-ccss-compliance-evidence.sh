@@ -44,5 +44,5 @@ if [[ -n "$ccss_docs" || -n "$ccss_in_template" ]]; then
   template_count=$([[ -n "$ccss_in_template" ]] && echo "$ccss_in_template" | wc -l | tr -d ' ' || echo 0)
   record "PASS" "P-358 CCSS evidence" "$count CCSS-relevant doc(s); $template_count compliance-template entry(ies)"
 else
-  record "WARN" "P-358 CCSS evidence" "No CCSS Level 1+ documentation evidence found (key generation, storage, usage policies, ceremony records)"
+  record "WARN" "P-358 CCSS evidence" "No CCSS Level 1+ documentation evidence found (key generation, storage, usage policies, ceremony records)" "$(echo "$ccss_in_template" | head -10)"
 fi

@@ -31,7 +31,7 @@ consent=$(grep -rn --include="*.java" --include="*.ts" --include="*.tsx" \
 if [[ -n "$consent" ]]; then
   record "PASS" "P-61 Consent management" "Privacy/consent handling patterns found"
 else
-  record "WARN" "P-61 Consent management" "No consent management or DSAR handling patterns found"
+  record "WARN" "P-61 Consent management" "No consent management or DSAR handling patterns found" "$(echo "$consent" | head -10)"
 fi
 
 # Check for data export capability
@@ -41,5 +41,5 @@ data_export=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$data_export" ]]; then
   record "PASS" "P-61 Data portability" "Data export capability found"
 else
-  record "WARN" "P-61 Data portability" "No data export/portability mechanism found (GDPR Art 20)"
+  record "WARN" "P-61 Data portability" "No data export/portability mechanism found (GDPR Art 20)" "$(echo "$data_export" | head -10)"
 fi

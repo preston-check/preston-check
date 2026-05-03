@@ -30,7 +30,7 @@ ssl_enforced=$(echo "$db_ssl" | grep -c "ssl\|sslmode\|useSSL\|requireSSL" 2>/de
 if [[ $ssl_enforced -gt 0 ]]; then
   record "PASS" "P-35 DB SSL" "Database SSL enforcement found"
 else
-  record "WARN" "P-35 DB SSL" "No SSL enforcement on database connections"
+  record "WARN" "P-35 DB SSL" "No SSL enforcement on database connections" "$(echo "$db_ssl" | head -10)"
 fi
 
 select_star=$(grep -rn --include="*.java" \
@@ -39,5 +39,5 @@ select_star=$(grep -rn --include="*.java" \
 if [[ $select_star -lt 5 ]]; then
   record "PASS" "P-35 No SELECT *" "Minimal SELECT * usage ($select_star instances)"
 else
-  record "WARN" "P-35 SELECT *" "$select_star SELECT * queries — may overfetch sensitive data"
+  record "WARN" "P-35 SELECT *" "$select_star SELECT * queries — may overfetch sensitive data" "$(echo "$select_star" | head -10)"
 fi

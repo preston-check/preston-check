@@ -29,7 +29,7 @@ constant_time=$(grep -rn --include="*.java" \
 if [[ -n "$constant_time" ]]; then
   record "PASS" "P-52 Constant-time compare" "Constant-time comparison for secrets found"
 else
-  record "WARN" "P-52 Constant-time compare" "No constant-time comparison — timing oracle risk on auth"
+  record "WARN" "P-52 Constant-time compare" "No constant-time comparison — timing oracle risk on auth" "$(echo "$constant_time" | head -10)"
 fi
 
 string_equals_secret=$(grep -rn --include="*.java" \
@@ -39,5 +39,5 @@ if [[ -z "$string_equals_secret" ]]; then
   record "PASS" "P-52 No .equals() for secrets" "Secrets not compared with .equals()"
 else
   count=$(echo "$string_equals_secret" | wc -l)
-  record "WARN" "P-52 .equals() for secrets" "$count potential timing-vulnerable secret comparisons"
+  record "WARN" "P-52 .equals() for secrets" "$count potential timing-vulnerable secret comparisons" "$(echo "$string_equals_secret" | head -10)"
 fi

@@ -47,5 +47,5 @@ if [[ -n "$pqc" ]]; then
   pqc_count=$(echo "$pqc" | wc -l | tr -d ' ')
   record "PASS" "P-360 PQC readiness" "$cls_count classical reference(s); $pqc_count PQC migration reference(s) present"
 else
-  record "WARN" "P-360 PQC readiness" "$cls_count classical-crypto reference(s) without documented PQC migration plan (FIPS 203/204/205, ML-KEM/ML-DSA)"
+  record "WARN" "P-360 PQC readiness" "$cls_count classical-crypto reference(s) without documented PQC migration plan (FIPS 203/204/205, ML-KEM/ML-DSA)" "$(echo "$pqc" | head -10)"
 fi

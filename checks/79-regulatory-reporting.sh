@@ -33,7 +33,7 @@ ctr=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
 if [[ -n "$ctr" ]]; then
   record "PASS" "P-79 CTR readiness" "Currency Transaction Report patterns found"
 else
-  record "WARN" "P-79 CTR readiness" "No CTR filing patterns — BSA requires automatic CTR for transactions over $10,000"
+  record "WARN" "P-79 CTR readiness" "No CTR filing patterns — BSA requires automatic CTR for transactions over $10,000" "$(echo "$ctr" | head -10)"
 fi
 
 # Check for SAR (Suspicious Activity Report) mechanism
@@ -43,7 +43,7 @@ sar=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$sar" ]]; then
   record "PASS" "P-79 SAR mechanism" "SAR filing mechanism found"
 else
-  record "WARN" "P-79 SAR mechanism" "No SAR filing mechanism — must be able to file Suspicious Activity Reports"
+  record "WARN" "P-79 SAR mechanism" "No SAR filing mechanism — must be able to file Suspicious Activity Reports" "$(echo "$sar" | head -10)"
 fi
 
 # Check for regulatory data export
@@ -53,5 +53,5 @@ reg_export=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$reg_export" ]]; then
   record "PASS" "P-79 Regulatory export" "Regulatory data export capability found"
 else
-  record "WARN" "P-79 Regulatory export" "No regulatory data export — must provide transaction data to regulators on demand"
+  record "WARN" "P-79 Regulatory export" "No regulatory data export — must provide transaction data to regulators on demand" "$(echo "$reg_export" | head -10)"
 fi

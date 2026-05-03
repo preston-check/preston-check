@@ -32,7 +32,7 @@ withdraw_limit=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$withdraw_limit" ]]; then
   record "PASS" "P-77 Withdrawal limits" "Withdrawal amount limits found"
 else
-  record "WARN" "P-77 Withdrawal limits" "No explicit withdrawal limits"
+  record "WARN" "P-77 Withdrawal limits" "No explicit withdrawal limits" "$(echo "$withdraw_limit" | head -10)"
 fi
 
 # Check for withdrawal address whitelisting
@@ -42,7 +42,7 @@ address_whitelist=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$address_whitelist" ]]; then
   record "PASS" "P-77 Address whitelist" "Withdrawal address whitelisting found"
 else
-  record "WARN" "P-77 Address whitelist" "No withdrawal address whitelisting — crypto withdrawals should only go to pre-approved addresses"
+  record "WARN" "P-77 Address whitelist" "No withdrawal address whitelisting — crypto withdrawals should only go to pre-approved addresses" "$(echo "$address_whitelist" | head -10)"
 fi
 
 # Check for withdrawal cooling period (new addresses)
@@ -52,7 +52,7 @@ withdraw_cooldown=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$withdraw_cooldown" ]]; then
   record "PASS" "P-77 Withdrawal cooldown" "Withdrawal cooling period found"
 else
-  record "WARN" "P-77 Withdrawal cooldown" "No cooling period for new withdrawal addresses — delays prevent account takeover theft"
+  record "WARN" "P-77 Withdrawal cooldown" "No cooling period for new withdrawal addresses — delays prevent account takeover theft" "$(echo "$withdraw_cooldown" | head -10)"
 fi
 
 # Check for withdrawal 2FA requirement
@@ -62,7 +62,7 @@ withdraw_2fa=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$withdraw_2fa" ]]; then
   record "PASS" "P-77 Withdrawal 2FA" "2FA required for withdrawals"
 else
-  record "WARN" "P-77 Withdrawal 2FA" "No 2FA enforcement on withdrawals"
+  record "WARN" "P-77 Withdrawal 2FA" "No 2FA enforcement on withdrawals" "$(echo "$withdraw_2fa" | head -10)"
 fi
 
 # Check for large withdrawal manual review
@@ -72,5 +72,5 @@ manual_review=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$manual_review" ]]; then
   record "PASS" "P-77 Manual review" "Large withdrawal manual review found"
 else
-  record "WARN" "P-77 Manual review" "No manual review for large withdrawals — should require human approval above threshold"
+  record "WARN" "P-77 Manual review" "No manual review for large withdrawals — should require human approval above threshold" "$(echo "$manual_review" | head -10)"
 fi

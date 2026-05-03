@@ -31,7 +31,7 @@ email_auth=$(grep -rn --include="*.java" --include="*.ts" --include="*.yml" --in
 if [[ -n "$email_auth" ]]; then
   record "PASS" "P-60 Email authentication" "Email authentication (SPF/DKIM/DMARC) configuration found"
 else
-  record "WARN" "P-60 Email authentication" "No SPF/DKIM/DMARC configuration references found"
+  record "WARN" "P-60 Email authentication" "No SPF/DKIM/DMARC configuration references found" "$(echo "$email_auth" | head -10)"
 fi
 
 # Check for email template injection
@@ -42,5 +42,5 @@ if [[ -z "$email_injection" ]]; then
   record "PASS" "P-60 Email injection" "No email header injection patterns found"
 else
   count=$(echo "$email_injection" | wc -l | tr -d ' ')
-  record "WARN" "P-60 Email injection" "$count potential email injection sites (string concatenation in email headers)"
+  record "WARN" "P-60 Email injection" "$count potential email injection sites (string concatenation in email headers)" "$(echo "$email_injection" | head -10)"
 fi

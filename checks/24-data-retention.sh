@@ -30,7 +30,7 @@ redis_no_ttl=$(grep -rn --include="*.java" \
 if [[ $redis_no_ttl -lt 3 ]]; then
   record "PASS" "P-24 Redis TTL" "Redis operations use TTL/expiration"
 else
-  record "WARN" "P-24 Redis TTL" "$redis_no_ttl Redis set operations may lack TTL"
+  record "WARN" "P-24 Redis TTL" "$redis_no_ttl Redis set operations may lack TTL" "$(echo "$redis_no_ttl" | head -10)"
 fi
 
 erasure=$(grep -rn --include="*.java" --include="*.sql" \
@@ -39,5 +39,5 @@ erasure=$(grep -rn --include="*.java" --include="*.sql" \
 if [[ -n "$erasure" ]]; then
   record "PASS" "P-24 Data erasure" "Data deletion/anonymization mechanism found"
 else
-  record "WARN" "P-24 Data erasure" "No GDPR right-to-erasure mechanism found"
+  record "WARN" "P-24 Data erasure" "No GDPR right-to-erasure mechanism found" "$(echo "$erasure" | head -10)"
 fi

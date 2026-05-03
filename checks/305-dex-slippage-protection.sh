@@ -43,5 +43,5 @@ unsafe_count=0
 if [[ $unsafe_count -eq 0 ]]; then
   record "PASS" "P-305 DEX slippage" "All DEX swaps appear to specify amountOutMin and a sensible deadline"
 else
-  record "FAIL" "P-305 DEX slippage" "$unsafe_count DEX swap(s) with amountOutMin=0 or block.timestamp deadline (no buffer)"
+  record "FAIL" "P-305 DEX slippage" "$unsafe_count DEX swap(s) with amountOutMin=0 or block.timestamp deadline (no buffer)" "$(echo "$missing_deadline" | head -10)"
 fi

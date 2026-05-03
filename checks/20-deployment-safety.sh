@@ -38,7 +38,7 @@ if [[ -z "$debug_mode" ]]; then
   record "PASS" "P-20 No debug mode" "No debug/dev mode enabled in configs"
 else
   count=$(echo "$debug_mode" | wc -l)
-  record "WARN" "P-20 No debug mode" "$count debug/dev mode settings found in configs"
+  record "WARN" "P-20 No debug mode" "$count debug/dev mode settings found in configs" "$(echo "$debug_mode" | head -10)"
 fi
 
 # Check for test credentials in production configs
@@ -52,7 +52,7 @@ if [[ -z "$test_creds" ]]; then
   record "PASS" "P-20 No test credentials" "No test/default credentials in configs"
 else
   count=$(echo "$test_creds" | wc -l)
-  record "FAIL" "P-20 No test credentials" "$count test/default credentials in production configs"
+  record "FAIL" "P-20 No test credentials" "$count test/default credentials in production configs" "$(echo "$test_creds" | head -10)"
 fi
 
 # Check for health endpoint
@@ -65,7 +65,7 @@ health=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$health" ]]; then
   record "PASS" "P-20 Health endpoint" "Health check endpoint found"
 else
-  record "WARN" "P-20 Health endpoint" "No health check endpoint found"
+  record "WARN" "P-20 Health endpoint" "No health check endpoint found" "$(echo "$health" | head -10)"
 fi
 
 # Check for DB migration files (structured deployment)

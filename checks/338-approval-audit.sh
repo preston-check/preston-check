@@ -44,5 +44,5 @@ if [[ -n "$approval_audit" ]]; then
   count=$(echo "$approval_audit" | wc -l | tr -d ' ')
   record "PASS" "P-338 Approval audit" "$count file(s) expose outstanding approvals / revocation UI"
 else
-  record "WARN" "P-338 Approval audit" "Wallet UI without visible approval-audit / revocation surface"
+  record "WARN" "P-338 Approval audit" "Wallet UI without visible approval-audit / revocation surface" "$(echo "$wallet_ui" | head -10)"
 fi

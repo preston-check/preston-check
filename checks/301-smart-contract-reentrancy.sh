@@ -50,5 +50,5 @@ done
 if [[ $unsafe -eq 0 ]]; then
   record "PASS" "P-301 Reentrancy" "All contracts with external calls use nonReentrant or equivalent guards"
 else
-  record "FAIL" "P-301 Reentrancy" "$unsafe Solidity contract(s) make external value transfers without nonReentrant modifier"
+  record "FAIL" "P-301 Reentrancy" "$unsafe Solidity contract(s) make external value transfers without nonReentrant modifier" "$(echo "$external_call_files" | head -10)"
 fi

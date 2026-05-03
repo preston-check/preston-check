@@ -45,5 +45,5 @@ if [[ -n "$tr_refs" ]]; then
   count=$(echo "$tr_refs" | wc -l | tr -d ' ')
   record "PASS" "P-328 Travel Rule" "$count file(s) reference Travel Rule provider integration or originator/beneficiary fields"
 else
-  record "FAIL" "P-328 Travel Rule" "Outbound crypto transfers without Travel Rule originator/beneficiary handling"
+  record "FAIL" "P-328 Travel Rule" "Outbound crypto transfers without Travel Rule originator/beneficiary handling" "$(echo "$sends" | head -10)"
 fi

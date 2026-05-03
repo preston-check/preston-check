@@ -36,7 +36,7 @@ else
   fee_calc=$(grep -rn --include="*.java" --include="*.ts" "fee\|spread\|commission\|markup" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|coffee\|caffee" | wc -l | tr -d ' ')
   if [[ "$fee_calc" -gt 5 ]]; then
-    record "WARN" "P-68 Fee validation" "Fee calculations exist but no explicit fee validation guards (negative/zero/bypass)"
+    record "WARN" "P-68 Fee validation" "Fee calculations exist but no explicit fee validation guards (negative/zero/bypass)" "$(echo "$fee_calc" | head -10)"
   else
     record "SKIP" "P-68 Fee validation" "No significant fee calculation patterns found"
   fi
@@ -50,7 +50,7 @@ if [[ -z "$client_fee" ]]; then
   record "PASS" "P-68 Server-side fees" "No client-supplied fee parameters found"
 else
   count=$(echo "$client_fee" | wc -l | tr -d ' ')
-  record "WARN" "P-68 Server-side fees" "$count endpoints accept fee from client request — fees must be computed server-side"
+  record "WARN" "P-68 Server-side fees" "$count endpoints accept fee from client request — fees must be computed server-side" "$(echo "$client_fee" | head -10)"
 fi
 
 # Check for fee consistency (same fee engine used everywhere)
@@ -64,7 +64,7 @@ else
   scattered=$(grep -rn --include="*.java" "spread\|bps\|basis.*point\|fee.*percent" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|FeeEngine\|FeeService" | wc -l | tr -d ' ')
   if [[ "$scattered" -gt 3 ]]; then
-    record "WARN" "P-68 Fee centralization" "$scattered scattered fee calculations — consolidate into single FeeEngine"
+    record "WARN" "P-68 Fee centralization" "$scattered scattered fee calculations — consolidate into single FeeEngine" "$(echo "$scattered" | head -10)"
   else
     record "PASS" "P-68 Fee centralization" "Fee calculations appear consolidated"
   fi

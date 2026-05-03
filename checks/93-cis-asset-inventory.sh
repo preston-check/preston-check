@@ -40,9 +40,9 @@ found=0
 if [[ $found -ge 2 ]]; then
   record "PASS" "P-93 Asset inventory" "Service inventory/infrastructure-as-code found"
 elif [[ $found -ge 1 ]]; then
-  record "WARN" "P-93 Asset inventory" "Partial asset inventory — add services.list or infrastructure-as-code (CIS Control 1)"
+  record "WARN" "P-93 Asset inventory" "Partial asset inventory — add services.list or infrastructure-as-code (CIS Control 1)" "$(echo "$docker" | head -10)"
 else
-  record "WARN" "P-93 Asset inventory" "No asset inventory — create services.list with all deployed services and their ports"
+  record "WARN" "P-93 Asset inventory" "No asset inventory — create services.list with all deployed services and their ports" "$(echo "$docker" | head -10)"
 fi
 
 # Check for auto-discovery or monitoring agent
@@ -52,5 +52,5 @@ monitoring=$(grep -rn --include="*.yml" --include="*.yaml" --include="*.json" --
 if [[ -n "$monitoring" ]]; then
   record "PASS" "P-93 Asset monitoring" "Infrastructure monitoring/discovery tool references found"
 else
-  record "WARN" "P-93 Asset monitoring" "No infrastructure monitoring tool references (CloudWatch, Datadog, Prometheus)"
+  record "WARN" "P-93 Asset monitoring" "No infrastructure monitoring tool references (CloudWatch, Datadog, Prometheus)" "$(echo "$monitoring" | head -10)"
 fi

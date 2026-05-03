@@ -56,7 +56,7 @@ remote=$(grep -rn --include="*.md" --include="*.yml" \
 if [[ $found -ge 3 ]]; then
   record "PASS" "P-88 ISO people controls" "$found/4 people control evidence found"
 elif [[ $found -ge 1 ]]; then
-  record "WARN" "P-88 ISO people controls" "$found/4 — need: screening/onboarding, training, offboarding, remote work policy"
+  record "WARN" "P-88 ISO people controls" "$found/4 — need: screening/onboarding, training, offboarding, remote work policy" "$(echo "$remote" | head -10)"
 else
-  record "WARN" "P-88 ISO people controls" "No people control evidence — create compliance/ directory with HR security procedures"
+  record "WARN" "P-88 ISO people controls" "No people control evidence — create compliance/ directory with HR security procedures" "$(echo "$remote" | head -10)"
 fi

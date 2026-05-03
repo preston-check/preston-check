@@ -44,5 +44,5 @@ if [[ -n "$freeze_handling" ]]; then
   count=$(echo "$freeze_handling" | wc -l | tr -d ' ')
   record "PASS" "P-357 Token freeze handling" "$count file(s) handle stablecoin admin freeze/blacklist scenarios"
 else
-  record "WARN" "P-357 Token freeze handling" "Stablecoin usage detected without freeze/blacklist handling logic"
+  record "WARN" "P-357 Token freeze handling" "Stablecoin usage detected without freeze/blacklist handling logic" "$(echo "$freeze_handling" | head -10)"
 fi

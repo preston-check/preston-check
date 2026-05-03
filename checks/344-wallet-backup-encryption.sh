@@ -43,5 +43,5 @@ if [[ -n "$strong_kdf" ]]; then
   count=$(echo "$strong_kdf" | wc -l | tr -d ' ')
   record "PASS" "P-344 Backup encryption" "$count file(s) reference strong KDF / authenticated encryption for backups"
 else
-  record "FAIL" "P-344 Backup encryption" "Wallet backup code without strong KDF (argon2/scrypt) or authenticated encryption (AES-GCM/ChaCha20-Poly1305)"
+  record "FAIL" "P-344 Backup encryption" "Wallet backup code without strong KDF (argon2/scrypt) or authenticated encryption (AES-GCM/ChaCha20-Poly1305)" "$(echo "$strong_kdf" | head -10)"
 fi

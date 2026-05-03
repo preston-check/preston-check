@@ -48,5 +48,5 @@ done
 if [[ $without_whitelist -eq 0 ]]; then
   record "PASS" "P-322 Withdrawal whitelist" "$total withdrawal handler(s) reference an address whitelist"
 else
-  record "FAIL" "P-322 Withdrawal whitelist" "$without_whitelist of $total withdrawal handler(s) lack address-whitelist enforcement"
+  record "FAIL" "P-322 Withdrawal whitelist" "$without_whitelist of $total withdrawal handler(s) lack address-whitelist enforcement" "$(echo "$withdraw_files" | head -10)"
 fi

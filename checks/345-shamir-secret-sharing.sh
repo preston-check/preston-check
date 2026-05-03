@@ -44,5 +44,5 @@ if [[ -n "$sss_refs" ]]; then
   count=$(echo "$sss_refs" | wc -l | tr -d ' ')
   record "PASS" "P-345 Shamir SSS" "$count file(s) reference Shamir Secret Sharing or SLIP-39"
 else
-  record "WARN" "P-345 Shamir SSS" "Backup/recovery flows without SSS or SLIP-39 distribution"
+  record "WARN" "P-345 Shamir SSS" "Backup/recovery flows without SSS or SLIP-39 distribution" "$(echo "$recovery" | head -10)"
 fi

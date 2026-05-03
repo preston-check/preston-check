@@ -31,7 +31,7 @@ patch_mgmt=$(grep -rln --include="*.md" --include="*.txt" --include="*.yml" \
 if [[ -n "$hits" ]]; then
   record "PASS" "P-441 MAS cyber hygiene" "$(echo "$hits" | wc -l | tr -d ' ') reference(s) to MAS Cyber Hygiene"
 elif [[ -n "$patch_mgmt" ]]; then
-  record "WARN" "P-441 MAS cyber hygiene" "Generic hygiene refs present; ensure 6-category coverage per MAS Notice 655"
+  record "WARN" "P-441 MAS cyber hygiene" "Generic hygiene refs present; ensure 6-category coverage per MAS Notice 655" "$(echo "$patch_mgmt" | head -10)"
 else
-  record "WARN" "P-441 MAS cyber hygiene" "No MAS Cyber Hygiene documentation found"
+  record "WARN" "P-441 MAS cyber hygiene" "No MAS Cyber Hygiene documentation found" "$(echo "$patch_mgmt" | head -10)"
 fi

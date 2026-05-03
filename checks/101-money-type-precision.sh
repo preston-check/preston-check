@@ -126,7 +126,7 @@ if [[ -z "$all_unsafe" ]]; then
   record "PASS" "P-101 Money type precision" "No float/double used for financial values — all money uses precise types"
 else
   count=$(echo "$all_unsafe" | wc -l | tr -d ' ')
-  record "FAIL" "P-101 Money type precision" "$count float/double declarations on money fields — use BigDecimal/Decimal instead"
+  record "FAIL" "P-101 Money type precision" "$count float/double declarations on money fields — use BigDecimal/Decimal instead" "$(echo "$unsafe_decl" | head -10)"
   echo "$all_unsafe" | head -5 | while read line; do
     echo "    $line"
   done
@@ -143,7 +143,7 @@ if [[ -z "$unsafe_sql" ]]; then
   record "PASS" "P-101 DB money columns" "No FLOAT/DOUBLE/REAL on financial database columns — uses NUMERIC/DECIMAL"
 else
   count=$(echo "$unsafe_sql" | wc -l | tr -d ' ')
-  record "FAIL" "P-101 DB money columns" "$count FLOAT/DOUBLE/REAL columns for money — use NUMERIC(precision,scale) or DECIMAL"
+  record "FAIL" "P-101 DB money columns" "$count FLOAT/DOUBLE/REAL columns for money — use NUMERIC(precision,scale) or DECIMAL" "$(echo "$unsafe_sql" | head -10)"
   echo "$unsafe_sql" | head -3 | while read line; do
     echo "    $line"
   done
@@ -163,7 +163,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-101 JSON precision" "No @JsonFormat NUMBER_FLOAT on BigDecimal — safe serialization"
   else
     count=$(echo "$json_number" | wc -l | tr -d ' ')
-    record "WARN" "P-101 JSON precision" "$count BigDecimal fields serialize as JSON number — JavaScript loses precision above 2^53"
+    record "WARN" "P-101 JSON precision" "$count BigDecimal fields serialize as JSON number — JavaScript loses precision above 2^53" "$(echo "$json_number" | head -10)"
   fi
 fi
 
@@ -180,7 +180,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-101 Safe arithmetic" "No primitive arithmetic on money variables — uses BigDecimal methods"
   else
     count=$(echo "$primitive_arith" | wc -l | tr -d ' ')
-    record "WARN" "P-101 Safe arithmetic" "$count primitive +/-/* on money variables — use BigDecimal.add()/subtract()/multiply()"
+    record "WARN" "P-101 Safe arithmetic" "$count primitive +/-/* on money variables — use BigDecimal.add()/subtract()/multiply()" "$(echo "$primitive_arith" | head -10)"
   fi
 fi
 
@@ -196,7 +196,7 @@ if [[ "$DETECTED_LANG" == "go" ]]; then
 
   if [[ -n "$cents_trunc" ]]; then
     count=$(echo "$cents_trunc" | wc -l | tr -d ' ')
-    record "WARN" "P-101 Cents truncation" "$count integer division on cents — verify no silent truncation (use math.Round or explicit remainder handling)"
+    record "WARN" "P-101 Cents truncation" "$count integer division on cents — verify no silent truncation (use math.Round or explicit remainder handling)" "$(echo "$cents_trunc" | head -10)"
   else
     record "PASS" "P-101 Cents truncation" "No unguarded cents division found"
   fi

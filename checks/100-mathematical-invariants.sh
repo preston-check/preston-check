@@ -33,7 +33,7 @@ conservation=$(grep -rn --include="$SRC_EXT" --include="*.sql" \
 if [[ -n "$conservation" ]]; then
   record "PASS" "P-100 Conservation of value" "Value conservation/reconciliation patterns found"
 else
-  record "WARN" "P-100 Conservation of value" "No conservation-of-value check — sum(deposits) - sum(withdrawals) must equal current balance"
+  record "WARN" "P-100 Conservation of value" "No conservation-of-value check — sum(deposits) - sum(withdrawals) must equal current balance" "$(echo "$conservation" | head -10)"
 fi
 
 # Invariant 2: Non-negativity (balances cannot go below zero for non-margin accounts)
@@ -43,7 +43,7 @@ non_negative=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$non_negative" ]]; then
   record "PASS" "P-100 Non-negativity" "Balance non-negativity enforcement found"
 else
-  record "WARN" "P-100 Non-negativity" "No balance non-negativity check — accounts should not go below zero"
+  record "WARN" "P-100 Non-negativity" "No balance non-negativity check — accounts should not go below zero" "$(echo "$non_negative" | head -10)"
 fi
 
 # Invariant 3: Commutativity (A→B then B→A must net to zero, minus fees)
@@ -53,7 +53,7 @@ commutative=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$commutative" ]]; then
   record "PASS" "P-100 Transaction symmetry" "Round-trip/contra-entry patterns found"
 else
-  record "WARN" "P-100 Transaction symmetry" "No transaction symmetry verification — reversals should net to zero (minus fees)"
+  record "WARN" "P-100 Transaction symmetry" "No transaction symmetry verification — reversals should net to zero (minus fees)" "$(echo "$commutative" | head -10)"
 fi
 
 # Invariant 4: Idempotency of completed operations
@@ -64,7 +64,7 @@ if [[ -n "$idempotent" ]]; then
   count=$(echo "$idempotent" | wc -l | tr -d ' ')
   record "PASS" "P-100 Idempotency invariant" "$count idempotency guard patterns found"
 else
-  record "FAIL" "P-100 Idempotency invariant" "No idempotency guards — retrying operations can create duplicate financial entries"
+  record "FAIL" "P-100 Idempotency invariant" "No idempotency guards — retrying operations can create duplicate financial entries" "$(echo "$idempotent" | head -10)"
 fi
 
 # Invariant 5: Monotonicity (transaction IDs / timestamps must be strictly increasing)
@@ -74,5 +74,5 @@ monotonic=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$monotonic" ]]; then
   record "PASS" "P-100 Monotonicity" "Monotonic ID/sequence generation found"
 else
-  record "WARN" "P-100 Monotonicity" "No monotonic ID generation — transaction ordering must be deterministic"
+  record "WARN" "P-100 Monotonicity" "No monotonic ID generation — transaction ordering must be deterministic" "$(echo "$monotonic" | head -10)"
 fi

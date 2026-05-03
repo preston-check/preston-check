@@ -42,7 +42,7 @@ hsm_refs=$(grep -rln --include="*.ts" --include="*.js" --include="*.java" --incl
   | grep -vE '/test/|/tests/|/spec/|node_modules|/mock' || true)
 
 if [[ -z "$hsm_refs" ]]; then
-  record "FAIL" "P-312 HSM integration" "Transaction signing detected but no HSM/KMS/Vault integration found"
+  record "FAIL" "P-312 HSM integration" "Transaction signing detected but no HSM/KMS/Vault integration found" "$(echo "$hsm_refs" | head -10)"
 else
   hsm_count=$(echo "$hsm_refs" | wc -l | tr -d ' ')
   record "PASS" "P-312 HSM integration" "$hsm_count file(s) reference HSM/KMS/Vault-backed signing"

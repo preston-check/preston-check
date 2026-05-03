@@ -50,5 +50,5 @@ done
 if [[ $unvalidated -eq 0 ]]; then
   record "PASS" "P-321 Address validation" "$total file(s) handle addresses with validation library calls"
 else
-  record "WARN" "P-321 Address validation" "$unvalidated of $total file(s) handle addresses without visible checksum/format validation"
+  record "WARN" "P-321 Address validation" "$unvalidated of $total file(s) handle addresses without visible checksum/format validation" "$(echo "$addr_files" | head -10)"
 fi

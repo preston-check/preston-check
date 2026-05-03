@@ -38,7 +38,7 @@ if [[ -z "$insecure_random" ]]; then
   record "PASS" "P-17 Secure randomness" "No java.util.Random or Math.random() found"
 else
   count=$(echo "$insecure_random" | wc -l)
-  record "WARN" "P-17 Secure randomness" "$count uses of insecure Random (should be SecureRandom)"
+  record "WARN" "P-17 Secure randomness" "$count uses of insecure Random (should be SecureRandom)" "$(echo "$insecure_random" | head -10)"
 fi
 
 # Check that SecureRandom IS used somewhere
@@ -51,5 +51,5 @@ secure_random=$(grep -rn --include="*.java" \
 if [[ -n "$secure_random" ]]; then
   record "PASS" "P-17 SecureRandom present" "SecureRandom used in Common module"
 else
-  record "WARN" "P-17 SecureRandom present" "SecureRandom not found in Common — check other modules"
+  record "WARN" "P-17 SecureRandom present" "SecureRandom not found in Common — check other modules" "$(echo "$secure_random" | head -10)"
 fi

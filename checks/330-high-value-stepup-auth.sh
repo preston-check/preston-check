@@ -43,5 +43,5 @@ if [[ -n "$stepup" ]]; then
   count=$(echo "$stepup" | wc -l | tr -d ' ')
   record "PASS" "P-330 Step-up auth" "$count file(s) reference step-up authentication on high-value flows"
 else
-  record "FAIL" "P-330 Step-up auth" "Withdrawal flows detected without step-up authentication mechanism"
+  record "FAIL" "P-330 Step-up auth" "Withdrawal flows detected without step-up authentication mechanism" "$(echo "$stepup" | head -10)"
 fi

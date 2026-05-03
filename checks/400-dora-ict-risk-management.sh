@@ -37,5 +37,5 @@ if [[ -n "$docs" || -n "$template_refs" ]]; then
   count=$([[ -n "$docs" ]] && echo "$docs" | wc -l | tr -d ' ' || echo 0)
   record "PASS" "P-400 DORA ICT risk framework" "$count documentation reference(s) to DORA / ICT risk management"
 else
-  record "WARN" "P-400 DORA ICT risk framework" "No DORA / ICT risk management framework documentation found"
+  record "WARN" "P-400 DORA ICT risk framework" "No DORA / ICT risk management framework documentation found" "$(echo "$docs" | head -10)"
 fi

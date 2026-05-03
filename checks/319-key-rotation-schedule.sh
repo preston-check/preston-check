@@ -34,5 +34,5 @@ if [[ -n "$rot_refs" ]]; then
   count=$(echo "$rot_refs" | wc -l | tr -d ' ')
   record "PASS" "P-319 Key rotation" "$count reference(s) to key rotation policy or schedule"
 else
-  record "WARN" "P-319 Key rotation" "No key-rotation references found; document a rotation policy or enable automated KMS rotation"
+  record "WARN" "P-319 Key rotation" "No key-rotation references found; document a rotation policy or enable automated KMS rotation" "$(echo "$rot_refs" | head -10)"
 fi

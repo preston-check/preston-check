@@ -45,5 +45,5 @@ if [[ ${nonstandard_count:-0} -eq 0 ]]; then
   count=$(echo "$derivation_paths" | wc -l | tr -d ' ')
   record "PASS" "P-343 Derivation path" "$count derivation path(s) follow BIP-44/49/84/86 standards"
 else
-  record "WARN" "P-343 Derivation path" "$nonstandard_count derivation path(s) do not match BIP-44/49/84/86 standard format"
+  record "WARN" "P-343 Derivation path" "$nonstandard_count derivation path(s) do not match BIP-44/49/84/86 standard format" "$(echo "$derivation_paths" | head -10)"
 fi

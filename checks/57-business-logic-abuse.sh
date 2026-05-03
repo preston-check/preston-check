@@ -35,7 +35,7 @@ else
   reg_count=$(grep -rn --include="*.java" --include="*.ts" "register\|signup\|createAccount" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | wc -l | tr -d ' ')
   if [[ "$reg_count" -gt 0 ]]; then
-    record "WARN" "P-57 Registration rate limit" "No rate limiting on $reg_count registration endpoints"
+    record "WARN" "P-57 Registration rate limit" "No rate limiting on $reg_count registration endpoints" "$(echo "$reg_count" | head -10)"
   else
     record "SKIP" "P-57 Registration rate limit" "No registration endpoints found"
   fi
@@ -51,7 +51,7 @@ if [[ -n "$bulk_ops" ]]; then
     record "PASS" "P-57 Bulk operation limits" "Bulk operations have size limits"
   else
     count=$(echo "$bulk_ops" | wc -l | tr -d ' ')
-    record "WARN" "P-57 Bulk operation limits" "$count bulk operations without explicit size limits"
+    record "WARN" "P-57 Bulk operation limits" "$count bulk operations without explicit size limits" "$(echo "$bulk_ops" | head -10)"
   fi
 else
   record "PASS" "P-57 Bulk operation limits" "No bulk operation patterns found"
@@ -64,5 +64,5 @@ bot_detection=$(grep -rn --include="*.java" --include="*.ts" --include="*.xml" -
 if [[ -n "$bot_detection" ]]; then
   record "PASS" "P-57 Bot detection" "Bot detection/CAPTCHA patterns found"
 else
-  record "WARN" "P-57 Bot detection" "No CAPTCHA or bot detection patterns found"
+  record "WARN" "P-57 Bot detection" "No CAPTCHA or bot detection patterns found" "$(echo "$bot_detection" | head -10)"
 fi

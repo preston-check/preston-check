@@ -54,5 +54,5 @@ done
 if [[ $unprotected -eq 0 ]]; then
   record "PASS" "P-351 Access control" "$total contract(s) with privileged functions all reference access modifiers"
 else
-  record "FAIL" "P-351 Access control" "$unprotected of $total contract(s) have privileged functions without visible access control"
+  record "FAIL" "P-351 Access control" "$unprotected of $total contract(s) have privileged functions without visible access control" "$(echo "$priv_files" | head -10)"
 fi

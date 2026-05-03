@@ -38,7 +38,7 @@ reg_check=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$reg_check" ]]; then
   record "PASS" "P-07 Blacklist in registration" "Blacklist check found in registration/auth flow"
 else
-  record "FAIL" "P-07 Blacklist in registration" "No blacklist check in registration or KYC paths"
+  record "FAIL" "P-07 Blacklist in registration" "No blacklist check in registration or KYC paths" "$(echo "$reg_check" | head -10)"
 fi
 
 # Check for blacklist check on name changes / profile updates
@@ -52,5 +52,5 @@ name_check=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$name_check" ]]; then
   record "PASS" "P-07 Blacklist on name change" "Name changes check against blacklist"
 else
-  record "FAIL" "P-07 Blacklist on name change" "Name changes do NOT check blacklist — re-entry vector"
+  record "FAIL" "P-07 Blacklist on name change" "Name changes do NOT check blacklist — re-entry vector" "$(echo "$name_check" | head -10)"
 fi

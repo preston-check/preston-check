@@ -37,7 +37,7 @@ else
     "setStatus\|\.status.*=\|UPDATE.*SET.*status" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|migration\|CREATE\|ALTER" | wc -l | tr -d ' ')
   if [[ "$status_update" -gt 5 ]]; then
-    record "WARN" "P-76 State machine" "$status_update status updates without state machine validation — invalid transitions possible"
+    record "WARN" "P-76 State machine" "$status_update status updates without state machine validation — invalid transitions possible" "$(echo "$status_update" | head -10)"
   else
     record "SKIP" "P-76 State machine" "Minimal status management found"
   fi
@@ -50,7 +50,7 @@ terminal_protect=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$terminal_protect" ]]; then
   record "PASS" "P-76 Terminal states" "Terminal state protection found"
 else
-  record "WARN" "P-76 Terminal states" "No terminal state protection — completed payments should not allow further status changes"
+  record "WARN" "P-76 Terminal states" "No terminal state protection — completed payments should not allow further status changes" "$(echo "$terminal_protect" | head -10)"
 fi
 
 # Check for expiration enforcement
@@ -60,5 +60,5 @@ expiration=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$expiration" ]]; then
   record "PASS" "P-76 Payment expiration" "Payment expiration enforcement found"
 else
-  record "WARN" "P-76 Payment expiration" "No payment expiration — pending payments should auto-expire"
+  record "WARN" "P-76 Payment expiration" "No payment expiration — pending payments should auto-expire" "$(echo "$expiration" | head -10)"
 fi

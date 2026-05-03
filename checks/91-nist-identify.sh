@@ -32,7 +32,7 @@ asset_doc=$(find "$SRC" -maxdepth 5 \( -iname "*asset*inventory*" -o -iname "*se
 if [[ -n "$asset_mgmt" || -n "$asset_doc" ]]; then
   record "PASS" "P-91 Asset management" "Asset inventory/service catalog references found"
 else
-  record "WARN" "P-91 Asset management" "No asset inventory or service catalog — create services.list or architecture doc (NIST ID.AM)"
+  record "WARN" "P-91 Asset management" "No asset inventory or service catalog — create services.list or architecture doc (NIST ID.AM)" "$(echo "$asset_doc" | head -10)"
 fi
 
 # ID.RA — Risk Assessment
@@ -43,7 +43,7 @@ risk_code=$(grep -rn --include="*.md" "risk.*score\|threat.*level\|vulnerability
 if [[ -n "$risk_assess" || -n "$risk_code" ]]; then
   record "PASS" "P-91 Risk assessment" "Risk assessment documentation found"
 else
-  record "WARN" "P-91 Risk assessment" "No risk assessment documentation (NIST ID.RA)"
+  record "WARN" "P-91 Risk assessment" "No risk assessment documentation (NIST ID.RA)" "$(echo "$risk_code" | head -10)"
 fi
 
 # ID.IM — Improvement
@@ -53,5 +53,5 @@ improvement=$(grep -rn --include="*.md" --include="*.yml" \
 if [[ -n "$improvement" ]]; then
   record "PASS" "P-91 Improvement" "Improvement/lessons-learned patterns found"
 else
-  record "WARN" "P-91 Improvement" "No improvement tracking (post-mortems, lessons learned, security roadmap)"
+  record "WARN" "P-91 Improvement" "No improvement tracking (post-mortems, lessons learned, security roadmap)" "$(echo "$improvement" | head -10)"
 fi

@@ -32,7 +32,7 @@ reconciliation=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$reconciliation" ]]; then
   record "PASS" "P-74 Balance reconciliation" "Balance reconciliation patterns found"
 else
-  record "WARN" "P-74 Balance reconciliation" "No balance reconciliation — platform must prove reserves match liabilities"
+  record "WARN" "P-74 Balance reconciliation" "No balance reconciliation — platform must prove reserves match liabilities" "$(echo "$reconciliation" | head -10)"
 fi
 
 # Check for overdraft/negative balance prevention
@@ -42,7 +42,7 @@ overdraft=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$overdraft" ]]; then
   record "PASS" "P-74 Overdraft prevention" "Negative balance prevention found"
 else
-  record "WARN" "P-74 Overdraft prevention" "No explicit negative balance prevention"
+  record "WARN" "P-74 Overdraft prevention" "No explicit negative balance prevention" "$(echo "$overdraft" | head -10)"
 fi
 
 # Check for double-entry bookkeeping pattern
@@ -52,5 +52,5 @@ double_entry=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
 if [[ -n "$double_entry" ]]; then
   record "PASS" "P-74 Double-entry" "Double-entry bookkeeping patterns found"
 else
-  record "WARN" "P-74 Double-entry" "No double-entry bookkeeping — every financial movement should have a matching contra entry"
+  record "WARN" "P-74 Double-entry" "No double-entry bookkeeping — every financial movement should have a matching contra entry" "$(echo "$double_entry" | head -10)"
 fi

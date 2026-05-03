@@ -33,7 +33,7 @@ if [[ -z "$int_arith" ]]; then
   record "PASS" "P-96 Integer overflow" "No unguarded integer arithmetic on financial quantities"
 else
   count=$(echo "$int_arith" | wc -l | tr -d ' ')
-  record "WARN" "P-96 Integer overflow" "$count integer arithmetic operations on financial quantities — use BigDecimal or Math.addExact()"
+  record "WARN" "P-96 Integer overflow" "$count integer arithmetic operations on financial quantities — use BigDecimal or Math.addExact()" "$(echo "$int_arith" | head -10)"
 fi
 
 # Check for Math.addExact / Math.multiplyExact usage (safe overflow detection)
@@ -42,7 +42,7 @@ safe_math=$(grep -rn --include="*.java" "Math\.addExact\|Math\.multiplyExact\|Ma
 if [[ -n "$safe_math" ]]; then
   record "PASS" "P-96 Safe math" "Math.addExact/multiplyExact or ArithmeticException handling found"
 else
-  record "WARN" "P-96 Safe math" "No overflow-safe math operations — use Math.addExact() for integer financial calculations"
+  record "WARN" "P-96 Safe math" "No overflow-safe math operations — use Math.addExact() for integer financial calculations" "$(echo "$safe_math" | head -10)"
 fi
 
 # Check for currency amount stored as cents (long) without overflow guard
@@ -53,5 +53,5 @@ if [[ -z "$cents_pattern" ]]; then
   record "PASS" "P-96 Cents conversion" "No risky cents conversion patterns"
 else
   count=$(echo "$cents_pattern" | wc -l | tr -d ' ')
-  record "WARN" "P-96 Cents conversion" "$count amount-to-cents conversions — verify overflow protection on multiply"
+  record "WARN" "P-96 Cents conversion" "$count amount-to-cents conversions — verify overflow protection on multiply" "$(echo "$cents_pattern" | head -10)"
 fi

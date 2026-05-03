@@ -43,7 +43,7 @@ revoke_pattern=$(grep -rn --include="*.sol" --include="*.ts" --include="*.tsx" -
   | grep -v "/test/\|node_modules" | wc -l | tr -d ' ')
 
 if [[ $revoke_pattern -gt 0 ]]; then
-  record "WARN" "P-307 Token approvals" "$count infinite-approval call(s) found; revocation pattern present in $revoke_pattern place(s)"
+  record "WARN" "P-307 Token approvals" "$count infinite-approval call(s) found; revocation pattern present in $revoke_pattern place(s)" "$(echo "$revoke_pattern" | head -10)"
 else
-  record "FAIL" "P-307 Token approvals" "$count infinite-approval call(s) without any revocation path detected"
+  record "FAIL" "P-307 Token approvals" "$count infinite-approval call(s) without any revocation path detected" "$(echo "$revoke_pattern" | head -10)"
 fi

@@ -33,5 +33,5 @@ if [[ -n "$conc" ]]; then
   count=$(echo "$conc" | wc -l | tr -d ' ')
   record "PASS" "P-404 DORA concentration risk" "$count reference(s) to concentration-risk assessment"
 else
-  record "WARN" "P-404 DORA concentration risk" "No documented ICT concentration-risk assessment found"
+  record "WARN" "P-404 DORA concentration risk" "No documented ICT concentration-risk assessment found" "$(echo "$conc" | head -10)"
 fi

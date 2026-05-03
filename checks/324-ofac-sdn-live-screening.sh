@@ -32,7 +32,7 @@ ofac_refs=$(grep -rln --include="*.ts" --include="*.js" --include="*.java" --inc
   | grep -vE 'node_modules|/test/|/mock' || true)
 
 if [[ -z "$ofac_refs" ]]; then
-  record "WARN" "P-324 OFAC screening" "No OFAC/SDN screening references found in code"
+  record "WARN" "P-324 OFAC screening" "No OFAC/SDN screening references found in code" "$(echo "$ofac_refs" | head -10)"
   return 0 2>/dev/null || true
 fi
 
@@ -47,10 +47,10 @@ snapshot=$(find "$SRC" \( -iname "sdn.xml" -o -iname "ofac*.csv" -o -iname "sanc
 
 if [[ -n "$snapshot" ]] && [[ -z "$live_fetch" ]]; then
   count=$(echo "$snapshot" | wc -l | tr -d ' ')
-  record "FAIL" "P-324 OFAC screening" "$count committed sanctions snapshot file(s) found without live-refresh code path"
+  record "FAIL" "P-324 OFAC screening" "$count committed sanctions snapshot file(s) found without live-refresh code path" "$(echo "$snapshot" | head -10)"
 elif [[ -n "$live_fetch" ]]; then
   count=$(echo "$live_fetch" | wc -l | tr -d ' ')
   record "PASS" "P-324 OFAC screening" "$count file(s) reference live OFAC/sanctions data refresh"
 else
-  record "WARN" "P-324 OFAC screening" "OFAC references present but no live-refresh mechanism detected; verify list freshness"
+  record "WARN" "P-324 OFAC screening" "OFAC references present but no live-refresh mechanism detected; verify list freshness" "$(echo "$snapshot" | head -10)"
 fi

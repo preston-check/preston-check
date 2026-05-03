@@ -41,5 +41,5 @@ if [[ -z "$suspicious" ]]; then
   record "PASS" "P-304 Unbounded loops" "No suspicious unbounded loop patterns found"
 else
   count=$(echo "$suspicious" | wc -l | tr -d ' ')
-  record "WARN" "P-304 Unbounded loops" "$count loop(s) iterate over .length without explicit bounds — review for DoS"
+  record "WARN" "P-304 Unbounded loops" "$count loop(s) iterate over .length without explicit bounds — review for DoS" "$(echo "$suspicious" | head -10)"
 fi

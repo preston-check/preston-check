@@ -47,9 +47,9 @@ flash_resist=$(grep -rln --include="*.sol" \
 unsafe_count=$([[ -n "$unsafe_voting" ]] && echo "$unsafe_voting" | wc -l | tr -d ' ' || echo 0)
 
 if [[ ${unsafe_count:-0} -gt 0 ]]; then
-  record "FAIL" "P-352 Flash loan resistance" "$unsafe_count voting/governance contract(s) read live balanceOf without snapshot/checkpoint protection"
+  record "FAIL" "P-352 Flash loan resistance" "$unsafe_count voting/governance contract(s) read live balanceOf without snapshot/checkpoint protection" "$(echo "$flash_resist" | head -10)"
 elif [[ -z "$flash_resist" ]]; then
-  record "WARN" "P-352 Flash loan resistance" "No flash-loan-resistance patterns detected; consider TWAP, snapshots, or same-block guards"
+  record "WARN" "P-352 Flash loan resistance" "No flash-loan-resistance patterns detected; consider TWAP, snapshots, or same-block guards" "$(echo "$flash_resist" | head -10)"
 else
   count=$(echo "$flash_resist" | wc -l | tr -d ' ')
   record "PASS" "P-352 Flash loan resistance" "$count file(s) reference flash-loan resistance patterns"

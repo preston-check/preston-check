@@ -32,7 +32,7 @@ redis_with_auth=$(grep -rn --include="*.yml" --include="*.yaml" \
 if [[ -n "$redis_with_auth" ]]; then
   record "PASS" "P-26 Redis auth" "Redis authentication configured"
 elif [[ -n "$redis_no_auth" ]]; then
-  record "WARN" "P-26 Redis auth" "Redis connections without password found"
+  record "WARN" "P-26 Redis auth" "Redis connections without password found" "$(echo "$redis_with_auth" | head -10)"
 else
   record "SKIP" "P-26 Redis auth" "No Redis configuration found"
 fi
@@ -43,5 +43,5 @@ mgmt_ports=$(grep -rn --include="*.yml" --include="*.yaml" \
 if [[ -z "$mgmt_ports" ]]; then
   record "PASS" "P-26 No mgmt ports" "No exposed management/debug ports"
 else
-  record "WARN" "P-26 Mgmt ports" "Management/debug ports may be exposed"
+  record "WARN" "P-26 Mgmt ports" "Management/debug ports may be exposed" "$(echo "$mgmt_ports" | head -10)"
 fi

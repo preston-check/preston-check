@@ -37,7 +37,7 @@ if [[ -n "$cross_account" ]]; then
   if [[ -n "$monitored" ]]; then
     record "PASS" "P-67 Transfer monitoring" "Cross-account transfers are monitored"
   else
-    record "WARN" "P-67 Transfer monitoring" "Cross-account transfers exist but monitoring not evident"
+    record "WARN" "P-67 Transfer monitoring" "Cross-account transfers exist but monitoring not evident" "$(echo "$monitored" | head -10)"
   fi
 else
   record "PASS" "P-67 Transfer monitoring" "No cross-account transfer patterns found"
@@ -50,7 +50,7 @@ layering=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$layering" ]]; then
   record "PASS" "P-67 Layering detection" "Deposit-then-withdraw (layering) detection found"
 else
-  record "WARN" "P-67 Layering detection" "No rapid deposit→withdraw detection — classic money laundering pattern"
+  record "WARN" "P-67 Layering detection" "No rapid deposit→withdraw detection — classic money laundering pattern" "$(echo "$layering" | head -10)"
 fi
 
 # Check for beneficiary change monitoring
@@ -60,5 +60,5 @@ beneficiary=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$beneficiary" ]]; then
   record "PASS" "P-67 Beneficiary monitoring" "Beneficiary change monitoring found"
 else
-  record "WARN" "P-67 Beneficiary monitoring" "No beneficiary/destination change monitoring"
+  record "WARN" "P-67 Beneficiary monitoring" "No beneficiary/destination change monitoring" "$(echo "$beneficiary" | head -10)"
 fi

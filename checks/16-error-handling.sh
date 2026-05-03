@@ -37,7 +37,7 @@ print_stack=$(grep -rn --include="*.java" \
 if [[ $print_stack -eq 0 ]]; then
   record "PASS" "P-16 No printStackTrace" "No e.printStackTrace() calls (use logger instead)"
 else
-  record "WARN" "P-16 No printStackTrace" "$print_stack e.printStackTrace() calls (should use logger)"
+  record "WARN" "P-16 No printStackTrace" "$print_stack e.printStackTrace() calls (should use logger)" "$(echo "$print_stack" | head -10)"
 fi
 
 # Check for catch blocks that swallow exceptions silently
@@ -52,9 +52,9 @@ empty_catch=$(grep -rn --include="*.java" -A1 \
 if [[ $empty_catch -eq 0 ]]; then
   record "PASS" "P-16 No swallowed exceptions" "No empty catch blocks found"
 elif [[ $empty_catch -lt 5 ]]; then
-  record "WARN" "P-16 No swallowed exceptions" "$empty_catch potentially empty catch blocks"
+  record "WARN" "P-16 No swallowed exceptions" "$empty_catch potentially empty catch blocks" "$(echo "$empty_catch" | head -10)"
 else
-  record "FAIL" "P-16 No swallowed exceptions" "$empty_catch empty catch blocks — errors hidden"
+  record "FAIL" "P-16 No swallowed exceptions" "$empty_catch empty catch blocks — errors hidden" "$(echo "$empty_catch" | head -10)"
 fi
 
 # Check for generic error messages (not leaking internals)
@@ -67,5 +67,5 @@ generic_errors=$(grep -rn --include="*.java" \
 if [[ -n "$generic_errors" ]]; then
   record "PASS" "P-16 Generic error messages" "Generic error messages used (not leaking internals)"
 else
-  record "WARN" "P-16 Generic error messages" "Check that error responses don't leak stack traces"
+  record "WARN" "P-16 Generic error messages" "Check that error responses don't leak stack traces" "$(echo "$generic_errors" | head -10)"
 fi

@@ -47,7 +47,7 @@ kms_count=$(grep -rln --include="*.ts" --include="*.js" --include="*.java" --inc
 if [[ $unsafe_count -eq 0 ]]; then
   record "PASS" "P-313 KMS key ops" "No raw private-key loading detected; ${kms_count:-0} KMS reference(s) present"
 elif [[ ${kms_count:-0} -gt 0 ]]; then
-  record "WARN" "P-313 KMS key ops" "$unsafe_count raw key load(s) co-exist with $kms_count KMS reference(s); confirm raw loads are dev-only"
+  record "WARN" "P-313 KMS key ops" "$unsafe_count raw key load(s) co-exist with $kms_count KMS reference(s); confirm raw loads are dev-only" "$(echo "$kms_count" | head -10)"
 else
-  record "FAIL" "P-313 KMS key ops" "$unsafe_count raw private-key load path(s) without any KMS integration"
+  record "FAIL" "P-313 KMS key ops" "$unsafe_count raw private-key load path(s) without any KMS integration" "$(echo "$kms_count" | head -10)"
 fi

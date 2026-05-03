@@ -34,7 +34,7 @@ soc_reports=$(grep -rn --include="*.md" \
 if [[ -n "$vendor_assess" || -n "$soc_reports" ]]; then
   record "PASS" "P-95 Service provider mgmt" "Vendor security assessment evidence found"
 else
-  record "WARN" "P-95 Service provider mgmt" "No vendor security assessment evidence (CIS Control 15)"
+  record "WARN" "P-95 Service provider mgmt" "No vendor security assessment evidence (CIS Control 15)" "$(echo "$soc_reports" | head -10)"
 fi
 
 # CIS 18 — Penetration testing program
@@ -52,7 +52,7 @@ if [[ -n "$pentest_program" || -n "$pentest_evidence" ]]; then
   [[ -n "$pentest_evidence" ]] && count=$((count + 1))
   record "PASS" "P-95 Pentest program" "Penetration testing evidence found"
 else
-  record "WARN" "P-95 Pentest program" "No penetration testing program evidence (CIS Control 18)"
+  record "WARN" "P-95 Pentest program" "No penetration testing program evidence (CIS Control 18)" "$(echo "$pentest_evidence" | head -10)"
 fi
 
 # Check for vulnerability management schedule
@@ -62,5 +62,5 @@ vuln_schedule=$(grep -rn --include="*.md" --include="*.yml" \
 if [[ -n "$vuln_schedule" ]]; then
   record "PASS" "P-95 Vuln scan schedule" "Vulnerability scanning schedule documented"
 else
-  record "WARN" "P-95 Vuln scan schedule" "No vulnerability scanning schedule — document quarterly ASV scans and annual pentests"
+  record "WARN" "P-95 Vuln scan schedule" "No vulnerability scanning schedule — document quarterly ASV scans and annual pentests" "$(echo "$vuln_schedule" | head -10)"
 fi

@@ -42,7 +42,7 @@ if [[ -z "$unprotected" ]]; then
   record "PASS" "P-13 Auth on controllers" "All controllers have authentication annotations"
 else
   count=$(echo "$unprotected" | wc -l)
-  record "WARN" "P-13 Auth on controllers" "$count controllers may lack auth enforcement"
+  record "WARN" "P-13 Auth on controllers" "$count controllers may lack auth enforcement" "$(echo "$unprotected" | head -10)"
 fi
 
 # Check for IS_ANONYMOUS endpoints (intentionally public)
@@ -54,7 +54,7 @@ anon=$(grep -rn --include="$SRC_EXT" \
 
 if [[ -n "$anon" ]]; then
   count=$(echo "$anon" | wc -l)
-  record "WARN" "P-13 Anonymous endpoints" "$count publicly accessible endpoints (review intentionality)"
+  record "WARN" "P-13 Anonymous endpoints" "$count publicly accessible endpoints (review intentionality)" "$(echo "$anon" | head -10)"
 fi
 
 # Check for JWT signature verification
@@ -67,5 +67,5 @@ jwt_verify=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$jwt_verify" ]]; then
   record "PASS" "P-13 JWT verification" "JWT signature verification found"
 else
-  record "FAIL" "P-13 JWT verification" "No JWT signature verification found"
+  record "FAIL" "P-13 JWT verification" "No JWT signature verification found" "$(echo "$jwt_verify" | head -10)"
 fi

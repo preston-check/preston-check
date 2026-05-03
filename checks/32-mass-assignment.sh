@@ -30,7 +30,7 @@ if [[ -z "$direct_entity" ]]; then
   record "PASS" "P-32 No raw entities as @Body" "Request bodies use DTOs, not raw entities"
 else
   count=$(echo "$direct_entity" | wc -l)
-  record "WARN" "P-32 Raw entities as @Body" "$count endpoints accept raw entities (risk: role/balance override)"
+  record "WARN" "P-32 Raw entities as @Body" "$count endpoints accept raw entities (risk: role/balance override)" "$(echo "$direct_entity" | head -10)"
 fi
 
 dto_count=$(find "$SRC" -name "*Dto.java" -o -name "*DTO.java" -o -name "*Request.java" -o -name "*Command.java" \
@@ -38,5 +38,5 @@ dto_count=$(find "$SRC" -name "*Dto.java" -o -name "*DTO.java" -o -name "*Reques
 if [[ $dto_count -gt 5 ]]; then
   record "PASS" "P-32 DTO pattern" "$dto_count DTO/Request classes found"
 else
-  record "WARN" "P-32 DTO pattern" "Only $dto_count DTO classes — consider adding more"
+  record "WARN" "P-32 DTO pattern" "Only $dto_count DTO classes — consider adding more" "$(echo "$dto_count" | head -10)"
 fi

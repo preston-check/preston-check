@@ -32,7 +32,7 @@ ubo=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
 if [[ -n "$ubo" ]]; then
   record "PASS" "P-71 UBO tracking" "Beneficial ownership tracking found"
 else
-  record "WARN" "P-71 UBO tracking" "No beneficial ownership tracking — FinCEN CDD Rule requires UBO identification for 25%+ owners"
+  record "WARN" "P-71 UBO tracking" "No beneficial ownership tracking — FinCEN CDD Rule requires UBO identification for 25%+ owners" "$(echo "$ubo" | head -10)"
 fi
 
 # Check for company/entity KYC (not just individual KYC)
@@ -42,5 +42,5 @@ entity_kyc=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$entity_kyc" ]]; then
   record "PASS" "P-71 Entity verification" "Corporate/entity verification found"
 else
-  record "WARN" "P-71 Entity verification" "No corporate entity verification patterns (EIN, business verification)"
+  record "WARN" "P-71 Entity verification" "No corporate entity verification patterns (EIN, business verification)" "$(echo "$entity_kyc" | head -10)"
 fi

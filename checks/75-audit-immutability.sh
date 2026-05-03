@@ -32,7 +32,7 @@ audit_triggers=$(grep -rn --include="*.sql" --include="*.java" \
 if [[ -n "$audit_triggers" ]]; then
   record "PASS" "P-75 Audit triggers" "Audit table triggers/protection found"
 else
-  record "WARN" "P-75 Audit triggers" "No audit table triggers — audit logs must be protected from deletion/modification"
+  record "WARN" "P-75 Audit triggers" "No audit table triggers — audit logs must be protected from deletion/modification" "$(echo "$audit_triggers" | head -10)"
 fi
 
 # Check for audit log append-only enforcement
@@ -42,7 +42,7 @@ audit_immutable=$(grep -rn --include="*.sql" --include="*.java" \
 if [[ -n "$audit_immutable" ]]; then
   record "PASS" "P-75 Append-only audit" "Audit log append-only enforcement found"
 else
-  record "WARN" "P-75 Append-only audit" "No append-only enforcement on audit logs — logs must be immutable"
+  record "WARN" "P-75 Append-only audit" "No append-only enforcement on audit logs — logs must be immutable" "$(echo "$audit_immutable" | head -10)"
 fi
 
 # Check for audit log completeness (actor, action, timestamp, before/after)
@@ -52,7 +52,7 @@ audit_fields=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
 if [[ -n "$audit_fields" ]]; then
   record "PASS" "P-75 Audit completeness" "Audit records include actor and state change fields"
 else
-  record "WARN" "P-75 Audit completeness" "Audit records may lack actor attribution or before/after state"
+  record "WARN" "P-75 Audit completeness" "Audit records may lack actor attribution or before/after state" "$(echo "$audit_fields" | head -10)"
 fi
 
 # Check for audit log integrity (hash chain, signatures, or external store)
@@ -62,7 +62,7 @@ audit_integrity=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$audit_integrity" ]]; then
   record "PASS" "P-75 Audit integrity" "Audit log integrity mechanism found (hash chain, external store, or WORM)"
 else
-  record "WARN" "P-75 Audit integrity" "No cryptographic audit log integrity — consider hash chaining or CloudTrail for tamper detection"
+  record "WARN" "P-75 Audit integrity" "No cryptographic audit log integrity — consider hash chaining or CloudTrail for tamper detection" "$(echo "$audit_integrity" | head -10)"
 fi
 
 # Check for audit retention policy
@@ -72,5 +72,5 @@ audit_retention=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql"
 if [[ -n "$audit_retention" ]]; then
   record "PASS" "P-75 Audit retention" "Audit retention policy found"
 else
-  record "WARN" "P-75 Audit retention" "No audit retention policy — regulators require 5-7 year retention for financial records"
+  record "WARN" "P-75 Audit retention" "No audit retention policy — regulators require 5-7 year retention for financial records" "$(echo "$audit_retention" | head -10)"
 fi

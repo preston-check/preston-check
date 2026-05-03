@@ -47,10 +47,10 @@ blind_accept=$(grep -rn --include="*.ts" --include="*.js" --include="*.swift" --
 
 if [[ -n "$blind_accept" ]]; then
   count=$(echo "$blind_accept" | wc -l | tr -d ' ')
-  record "FAIL" "P-355 Blind signing prevention" "$count occurrence(s) explicitly enable blind signing on hardware wallets"
+  record "FAIL" "P-355 Blind signing prevention" "$count occurrence(s) explicitly enable blind signing on hardware wallets" "$(echo "$blind_accept" | head -10)"
 elif [[ -n "$clear_signing" ]]; then
   count=$(echo "$clear_signing" | wc -l | tr -d ' ')
   record "PASS" "P-355 Blind signing prevention" "$count file(s) reference clear-signing or ABI-parsed device display"
 else
-  record "WARN" "P-355 Blind signing prevention" "Hardware wallet signing without clear-signing / typed-data references"
+  record "WARN" "P-355 Blind signing prevention" "Hardware wallet signing without clear-signing / typed-data references" "$(echo "$blind_accept" | head -10)"
 fi

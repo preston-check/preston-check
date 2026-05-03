@@ -31,7 +31,7 @@ if [[ -z "$user_url" ]]; then
   record "PASS" "P-34 No user URLs to HTTP" "No user-supplied URLs passed to HTTP clients"
 else
   count=$(echo "$user_url" | wc -l)
-  record "WARN" "P-34 User URLs to HTTP" "$count potential SSRF vectors — user URLs in HTTP client calls"
+  record "WARN" "P-34 User URLs to HTTP" "$count potential SSRF vectors — user URLs in HTTP client calls" "$(echo "$user_url" | head -10)"
 fi
 
 metadata=$(grep -rn --include="*.java" \
@@ -40,5 +40,5 @@ metadata=$(grep -rn --include="*.java" \
 if [[ -n "$metadata" ]]; then
   record "PASS" "P-34 Metadata protection" "AWS metadata endpoint protection found"
 else
-  record "WARN" "P-34 Metadata protection" "No explicit metadata endpoint (169.254.169.254) blocking"
+  record "WARN" "P-34 Metadata protection" "No explicit metadata endpoint (169.254.169.254) blocking" "$(echo "$metadata" | head -10)"
 fi

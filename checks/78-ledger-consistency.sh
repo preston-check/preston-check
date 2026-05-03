@@ -33,7 +33,7 @@ atomic_balance=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$atomic_balance" ]]; then
   record "PASS" "P-78 Atomic balance" "Balance updates use transactions/locking"
 else
-  record "WARN" "P-78 Atomic balance" "No atomic balance updates — concurrent operations can corrupt balances"
+  record "WARN" "P-78 Atomic balance" "No atomic balance updates — concurrent operations can corrupt balances" "$(echo "$atomic_balance" | head -10)"
 fi
 
 # Check for balance drift detection
@@ -43,7 +43,7 @@ drift=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
 if [[ -n "$drift" ]]; then
   record "PASS" "P-78 Drift detection" "Balance drift/discrepancy detection found"
 else
-  record "WARN" "P-78 Drift detection" "No balance drift detection — should periodically verify sum(credits) = sum(debits)"
+  record "WARN" "P-78 Drift detection" "No balance drift detection — should periodically verify sum(credits) = sum(debits)" "$(echo "$drift" | head -10)"
 fi
 
 # Check for orphan transaction detection
@@ -53,7 +53,7 @@ orphan=$(grep -rn --include="*.java" --include="*.ts" --include="*.sql" \
 if [[ -n "$orphan" ]]; then
   record "PASS" "P-78 Orphan detection" "Orphan transaction detection found"
 else
-  record "WARN" "P-78 Orphan detection" "No orphan transaction detection — unmatched entries indicate ledger corruption"
+  record "WARN" "P-78 Orphan detection" "No orphan transaction detection — unmatched entries indicate ledger corruption" "$(echo "$orphan" | head -10)"
 fi
 
 # Check for idempotent balance updates
@@ -63,5 +63,5 @@ idempotent_balance=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$idempotent_balance" ]]; then
   record "PASS" "P-78 Idempotent ledger" "Idempotent ledger updates found"
 else
-  record "WARN" "P-78 Idempotent ledger" "No idempotent ledger update pattern — retries could create duplicate entries"
+  record "WARN" "P-78 Idempotent ledger" "No idempotent ledger update pattern — retries could create duplicate entries" "$(echo "$idempotent_balance" | head -10)"
 fi

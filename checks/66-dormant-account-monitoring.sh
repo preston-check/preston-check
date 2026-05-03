@@ -32,7 +32,7 @@ dormant=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$dormant" ]]; then
   record "PASS" "P-66 Dormant detection" "Dormant/inactive account monitoring found"
 else
-  record "WARN" "P-66 Dormant detection" "No dormant account reactivation monitoring — flag accounts resuming activity after prolonged inactivity"
+  record "WARN" "P-66 Dormant detection" "No dormant account reactivation monitoring — flag accounts resuming activity after prolonged inactivity" "$(echo "$dormant" | head -10)"
 fi
 
 # Check for step-up authentication on reactivation
@@ -42,7 +42,7 @@ stepup=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$stepup" ]]; then
   record "PASS" "P-66 Step-up auth" "Enhanced verification patterns found"
 else
-  record "WARN" "P-66 Step-up auth" "No step-up authentication for high-risk activities (reactivation, large tx, new destination)"
+  record "WARN" "P-66 Step-up auth" "No step-up authentication for high-risk activities (reactivation, large tx, new destination)" "$(echo "$stepup" | head -10)"
 fi
 
 # Check for login anomaly detection
@@ -52,5 +52,5 @@ login_anomaly=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$login_anomaly" ]]; then
   record "PASS" "P-66 Login anomaly" "Login anomaly detection found"
 else
-  record "WARN" "P-66 Login anomaly" "No login anomaly detection (new device/IP/geolocation changes)"
+  record "WARN" "P-66 Login anomaly" "No login anomaly detection (new device/IP/geolocation changes)" "$(echo "$login_anomaly" | head -10)"
 fi

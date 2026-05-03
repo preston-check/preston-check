@@ -63,7 +63,7 @@ incident_code=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ $found -ge 4 ]]; then
   record "PASS" "P-87 ISO organizational" "$found/$required organizational control evidence found"
 elif [[ $found -ge 2 ]]; then
-  record "WARN" "P-87 ISO organizational" "$found/$required — need: security policy, threat intel, supplier mgmt, cloud security, incident mgmt"
+  record "WARN" "P-87 ISO organizational" "$found/$required — need: security policy, threat intel, supplier mgmt, cloud security, incident mgmt" "$(echo "$incident_code" | head -10)"
 else
-  record "WARN" "P-87 ISO organizational" "Only $found/$required ISO organizational control evidence found"
+  record "WARN" "P-87 ISO organizational" "Only $found/$required ISO organizational control evidence found" "$(echo "$incident_code" | head -10)"
 fi

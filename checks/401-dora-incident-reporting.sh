@@ -39,7 +39,7 @@ if [[ -n "$ir_refs" ]]; then
   record "PASS" "P-401 DORA incident reporting" "$count reference(s) to DORA-aligned incident classification/reporting"
 elif [[ -n "$ir_general" ]]; then
   count=$(echo "$ir_general" | wc -l | tr -d ' ')
-  record "WARN" "P-401 DORA incident reporting" "$count generic IR doc(s); ensure DORA-specific timelines and classification criteria"
+  record "WARN" "P-401 DORA incident reporting" "$count generic IR doc(s); ensure DORA-specific timelines and classification criteria" "$(echo "$ir_general" | head -10)"
 else
-  record "FAIL" "P-401 DORA incident reporting" "No incident response or DORA-aligned reporting documentation found"
+  record "FAIL" "P-401 DORA incident reporting" "No incident response or DORA-aligned reporting documentation found" "$(echo "$ir_general" | head -10)"
 fi

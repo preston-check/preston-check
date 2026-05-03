@@ -37,5 +37,5 @@ if [[ ${ub_count:-0} -eq 0 ]]; then
 elif [[ ${sc_count:-0} -ge 1 ]]; then
   record "PASS" "P-502 Rust unsafe blocks" "$ub_count unsafe block(s); SAFETY comments present in $sc_count file(s)"
 else
-  record "WARN" "P-502 Rust unsafe blocks" "$ub_count unsafe block(s) without SAFETY: comment justification"
+  record "WARN" "P-502 Rust unsafe blocks" "$ub_count unsafe block(s) without SAFETY: comment justification" "$(echo "$safety_comments" | head -10)"
 fi

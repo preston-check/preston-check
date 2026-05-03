@@ -30,7 +30,7 @@ if [[ -z "$float_money" ]]; then
   record "PASS" "P-50 No float for money" "No float/double used for monetary amounts"
 else
   count=$(echo "$float_money" | wc -l)
-  record "FAIL" "P-50 Float for money" "$count uses of float/double for monetary amounts (must be $BIG_DECIMAL_TYPE)"
+  record "FAIL" "P-50 Float for money" "$count uses of float/double for monetary amounts (must be $BIG_DECIMAL_TYPE)" "$(echo "$float_money" | head -10)"
 fi
 
 rounding=$(grep -rn --include="$SRC_EXT" \
@@ -40,7 +40,7 @@ rounding=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$rounding" ]]; then
   record "PASS" "P-50 Rounding mode" "Explicit rounding mode in financial calculations"
 else
-  record "FAIL" "P-50 Rounding mode" "No explicit rounding mode — risk of precision loss"
+  record "FAIL" "P-50 Rounding mode" "No explicit rounding mode — risk of precision loss" "$(echo "$rounding" | head -10)"
 fi
 
 divide_no_scale=$(grep -rn --include="$SRC_EXT" \
@@ -50,5 +50,5 @@ if [[ -z "$divide_no_scale" ]]; then
   record "PASS" "P-50 Division safety" "All decimal divides specify scale"
 else
   count=$(echo "$divide_no_scale" | wc -l)
-  record "WARN" "P-50 Division safety" "$count decimal divide calls without explicit scale"
+  record "WARN" "P-50 Division safety" "$count decimal divide calls without explicit scale" "$(echo "$divide_no_scale" | head -10)"
 fi

@@ -68,7 +68,7 @@ elif [[ $idempotent_wh -eq $total_wh ]]; then
   record "PASS" "P-05 Webhook idempotency" "All $total_wh webhook handlers have idempotency"
 else
   unprotected=$((total_wh - idempotent_wh))
-  record "FAIL" "P-05 Webhook idempotency" "$unprotected of $total_wh webhook handlers lack idempotency"
+  record "FAIL" "P-05 Webhook idempotency" "$unprotected of $total_wh webhook handlers lack idempotency" "$(echo "$idem_middleware" | head -10)"
 fi
 
 # Check financial mutation methods for locking
@@ -92,5 +92,5 @@ if [[ $total_mut -eq 0 ]]; then
 elif [[ $locked -ge $((total_mut / 2)) ]]; then
   record "PASS" "P-05 Financial locking" "$locked of $total_mut financial files use locking"
 else
-  record "WARN" "P-05 Financial locking" "Only $locked of $total_mut financial files use locking"
+  record "WARN" "P-05 Financial locking" "Only $locked of $total_mut financial files use locking" "$(echo "$mutations" | head -10)"
 fi

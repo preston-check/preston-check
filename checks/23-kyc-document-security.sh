@@ -30,7 +30,7 @@ s3_enc=$(grep -rn --include="*.java" \
 if [[ -n "$s3_enc" ]]; then
   record "PASS" "P-23 S3 encryption" "S3 server-side encryption configured"
 else
-  record "WARN" "P-23 S3 encryption" "No S3 encryption enforcement found for KYC documents"
+  record "WARN" "P-23 S3 encryption" "No S3 encryption enforcement found for KYC documents" "$(echo "$s3_enc" | head -10)"
 fi
 
 presign=$(grep -rn --include="*.java" \
@@ -39,7 +39,7 @@ presign=$(grep -rn --include="*.java" \
 if [[ -n "$presign" ]]; then
   long_presign=$(echo "$presign" | grep -i "ofDays\|ofHours.*[2-9]\|ofHours.*[1-9][0-9]")
   if [[ -n "$long_presign" ]]; then
-    record "WARN" "P-23 Presigned URL expiry" "Presigned URLs expire > 1 hour — reduce for KYC documents"
+    record "WARN" "P-23 Presigned URL expiry" "Presigned URLs expire > 1 hour — reduce for KYC documents" "$(echo "$presign" | head -10)"
   else
     record "PASS" "P-23 Presigned URL expiry" "Presigned URL duration appears reasonable"
   fi
@@ -53,5 +53,5 @@ filetype=$(grep -rn --include="*.java" \
 if [[ -n "$filetype" ]]; then
   record "PASS" "P-23 File type validation" "Upload file type validation found"
 else
-  record "WARN" "P-23 File type validation" "No file type validation on document uploads"
+  record "WARN" "P-23 File type validation" "No file type validation on document uploads" "$(echo "$filetype" | head -10)"
 fi

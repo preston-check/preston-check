@@ -32,7 +32,7 @@ per_tx_limit=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$per_tx_limit" ]]; then
   record "PASS" "P-73 Per-tx limits" "Per-transaction limit enforcement found"
 else
-  record "WARN" "P-73 Per-tx limits" "No per-transaction amount limits — every tx type should have a max"
+  record "WARN" "P-73 Per-tx limits" "No per-transaction amount limits — every tx type should have a max" "$(echo "$per_tx_limit" | head -10)"
 fi
 
 # Check for rolling period limits (24h, monthly)
@@ -42,7 +42,7 @@ rolling_limit=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$rolling_limit" ]]; then
   record "PASS" "P-73 Rolling limits" "Rolling period limits found"
 else
-  record "WARN" "P-73 Rolling limits" "No rolling period limits (daily/monthly) — essential for AML compliance"
+  record "WARN" "P-73 Rolling limits" "No rolling period limits (daily/monthly) — essential for AML compliance" "$(echo "$rolling_limit" | head -10)"
 fi
 
 # Check for atomic limit enforcement (FOR UPDATE or advisory lock)
@@ -56,7 +56,7 @@ else
   limit_check=$(grep -rn --include="*.java" "limit" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|SQL\|LIMIT\|rateLimit" | wc -l | tr -d ' ')
   if [[ "$limit_check" -gt 5 ]]; then
-    record "WARN" "P-73 Atomic limits" "Limit checks found but no FOR UPDATE/advisory lock — concurrent requests can bypass limits"
+    record "WARN" "P-73 Atomic limits" "Limit checks found but no FOR UPDATE/advisory lock — concurrent requests can bypass limits" "$(echo "$limit_check" | head -10)"
   else
     record "SKIP" "P-73 Atomic limits" "No significant limit enforcement patterns found"
   fi

@@ -37,7 +37,7 @@ if [[ $total_api -eq 0 ]]; then
 elif [[ $hmac_count -eq $total_api ]]; then
   record "PASS" "P-30 HMAC coverage" "All $total_api API modules have HMAC filters"
 else
-  record "WARN" "P-30 HMAC coverage" "$((total_api - hmac_count)) of $total_api API modules lack HMAC filter"
+  record "WARN" "P-30 HMAC coverage" "$((total_api - hmac_count)) of $total_api API modules lack HMAC filter" "$(echo "$api_modules" | head -10)"
 fi
 
 replay=$(grep -rn --include="*.java" \
@@ -46,7 +46,7 @@ replay=$(grep -rn --include="*.java" \
 if [[ -n "$replay" ]]; then
   record "PASS" "P-30 HMAC replay protection" "Timestamp/nonce in HMAC signature"
 else
-  record "WARN" "P-30 HMAC replay protection" "No replay protection in HMAC authentication"
+  record "WARN" "P-30 HMAC replay protection" "No replay protection in HMAC authentication" "$(echo "$replay" | head -10)"
 fi
 
 weak_algo=$(grep -rn --include="*.java" "HmacSHA1\b\|HmacMD5" "$SRC" 2>/dev/null \
@@ -56,5 +56,5 @@ weak_algo=$(grep -rn --include="*.java" "HmacSHA1\b\|HmacMD5" "$SRC" 2>/dev/null
 if [[ -z "$weak_algo" ]]; then
   record "PASS" "P-30 HMAC algorithm" "No weak HMAC algorithms (SHA1/MD5) — excluding external protocol requirements (TOTP RFC 6238, Supefina API)"
 else
-  record "FAIL" "P-30 HMAC algorithm" "Weak HMAC algorithm found (SHA1 or MD5)"
+  record "FAIL" "P-30 HMAC algorithm" "Weak HMAC algorithm found (SHA1 or MD5)" "$(echo "$weak_algo" | head -10)"
 fi

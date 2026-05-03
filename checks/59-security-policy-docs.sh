@@ -65,7 +65,7 @@ fi
 if [[ $found_docs -ge 4 ]]; then
   record "PASS" "P-59 Policy documentation" "$found_docs/$required_docs required security documents found"
 elif [[ $found_docs -ge 2 ]]; then
-  record "WARN" "P-59 Policy documentation" "$found_docs/$required_docs required security documents found"
+  record "WARN" "P-59 Policy documentation" "$found_docs/$required_docs required security documents found" "$(echo "$data_class" | head -10)"
 else
-  record "WARN" "P-59 Policy documentation" "Only $found_docs/$required_docs required security documents found (need IR plan, DR plan, security policy, deploy guide, data classification)"
+  record "WARN" "P-59 Policy documentation" "Only $found_docs/$required_docs required security documents found (need IR plan, DR plan, security policy, deploy guide, data classification)" "$(echo "$data_class" | head -10)"
 fi

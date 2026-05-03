@@ -38,5 +38,5 @@ count_docs=$([[ -n "$vendor_docs" ]] && echo "$vendor_docs" | wc -l | tr -d ' ' 
 if [[ ${count_files:-0} -gt 0 || ${count_docs:-0} -gt 0 ]]; then
   record "PASS" "P-403 DORA third-party register" "$count_files file(s) + $count_docs doc reference(s) to ICT third-party register"
 else
-  record "FAIL" "P-403 DORA third-party register" "No ICT third-party / vendor register found"
+  record "FAIL" "P-403 DORA third-party register" "No ICT third-party / vendor register found" "$(echo "$vendor_docs" | head -10)"
 fi

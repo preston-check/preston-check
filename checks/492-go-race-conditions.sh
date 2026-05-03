@@ -38,5 +38,5 @@ mu_count=$([[ -n "$mutex_use" ]] && echo "$mutex_use" | wc -l | tr -d ' ' || ech
 if [[ ${mu_count:-0} -gt 0 ]]; then
   record "PASS" "P-492 Go races" "$gor_count file(s) use goroutines; $mu_count file(s) use mutex/atomic"
 else
-  record "WARN" "P-492 Go races" "$gor_count file(s) use goroutines without observable sync primitives"
+  record "WARN" "P-492 Go races" "$gor_count file(s) use goroutines without observable sync primitives" "$(echo "$mutex_use" | head -10)"
 fi

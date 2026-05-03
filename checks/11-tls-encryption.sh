@@ -37,7 +37,7 @@ if [[ -z "$http_urls" ]]; then
   record "PASS" "P-11 No plaintext HTTP" "No non-localhost HTTP URLs in source"
 else
   count=$(echo "$http_urls" | wc -l)
-  record "WARN" "P-11 No plaintext HTTP" "$count non-localhost HTTP URLs found (should be HTTPS)"
+  record "WARN" "P-11 No plaintext HTTP" "$count non-localhost HTTP URLs found (should be HTTPS)" "$(echo "$http_urls" | head -10)"
 fi
 
 # Check for weak encryption algorithms
@@ -51,7 +51,7 @@ if [[ -z "$weak_crypto" ]]; then
   record "PASS" "P-11 No weak crypto" "No DES/RC4/MD5/SHA-1/ECB patterns found"
 else
   count=$(echo "$weak_crypto" | wc -l)
-  record "WARN" "P-11 No weak crypto" "$count weak encryption patterns (DES/RC4/MD5/ECB)"
+  record "WARN" "P-11 No weak crypto" "$count weak encryption patterns (DES/RC4/MD5/ECB)" "$(echo "$weak_crypto" | head -10)"
 fi
 
 # Check that SSL is enabled in application configs
@@ -64,5 +64,5 @@ ssl_enabled=$(grep -rn --include="*.yml" --include="*.yaml" \
 if [[ -n "$ssl_enabled" ]]; then
   record "PASS" "P-11 SSL enabled" "SSL configuration found in application config"
 else
-  record "WARN" "P-11 SSL enabled" "No SSL configuration found"
+  record "WARN" "P-11 SSL enabled" "No SSL configuration found" "$(echo "$ssl_enabled" | head -10)"
 fi

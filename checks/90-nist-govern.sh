@@ -64,7 +64,7 @@ scm_code=$(grep -rn --include="*.json" --include="*.xml" "cyclonedx\|spdx\|sbom\
 if [[ $found -ge 4 ]]; then
   record "PASS" "P-90 NIST Govern" "$found/$required governance evidence found"
 elif [[ $found -ge 2 ]]; then
-  record "WARN" "P-90 NIST Govern" "$found/$required — need: org context, risk management, roles, security policy, supply chain risk"
+  record "WARN" "P-90 NIST Govern" "$found/$required — need: org context, risk management, roles, security policy, supply chain risk" "$(echo "$scm_code" | head -10)"
 else
-  record "WARN" "P-90 NIST Govern" "Only $found/$required governance evidence — create compliance/ directory with governance docs"
+  record "WARN" "P-90 NIST Govern" "Only $found/$required governance evidence — create compliance/ directory with governance docs" "$(echo "$scm_code" | head -10)"
 fi

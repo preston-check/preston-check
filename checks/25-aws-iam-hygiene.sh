@@ -31,7 +31,7 @@ if [[ -z "$static_creds" ]]; then
   record "PASS" "P-25 No static AWS creds" "No static AWS credentials — using IAM roles"
 else
   count=$(echo "$static_creds" | wc -l)
-  record "WARN" "P-25 Static AWS creds" "$count files use static AWS credentials (should use IAM roles)"
+  record "WARN" "P-25 Static AWS creds" "$count files use static AWS credentials (should use IAM roles)" "$(echo "$static_creds" | head -10)"
 fi
 
 secrets_mgr=$(grep -rn --include="*.java" \
@@ -40,5 +40,5 @@ secrets_mgr=$(grep -rn --include="*.java" \
 if [[ -n "$secrets_mgr" ]]; then
   record "PASS" "P-25 Secrets Manager" "AWS Secrets Manager integration found"
 else
-  record "WARN" "P-25 Secrets Manager" "No Secrets Manager usage found"
+  record "WARN" "P-25 Secrets Manager" "No Secrets Manager usage found" "$(echo "$secrets_mgr" | head -10)"
 fi

@@ -37,7 +37,7 @@ if [[ -n "$audit_triggers" ]]; then
   count=$(echo "$audit_triggers" | wc -l)
   record "PASS" "P-09 DB audit triggers" "$count audit trigger definitions found"
 else
-  record "WARN" "P-09 DB audit triggers" "No database audit triggers found"
+  record "WARN" "P-09 DB audit triggers" "No database audit triggers found" "$(echo "$audit_triggers" | head -10)"
 fi
 
 # Check for append-only enforcement (prevent DELETE on financial tables)
@@ -50,5 +50,5 @@ delete_prevention=$(grep -rn --include="*.sql" --include="*.java" \
 if [[ -n "$delete_prevention" ]]; then
   record "PASS" "P-09 Append-only ledger" "Delete prevention on financial tables found"
 else
-  record "WARN" "P-09 Append-only ledger" "No delete prevention on financial tables found"
+  record "WARN" "P-09 Append-only ledger" "No delete prevention on financial tables found" "$(echo "$delete_prevention" | head -10)"
 fi

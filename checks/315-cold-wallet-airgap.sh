@@ -38,7 +38,7 @@ cold_online=$(grep -rnE --include="*.ts" --include="*.js" --include="*.java" --i
 
 if [[ -n "$cold_online" ]]; then
   count=$(echo "$cold_online" | wc -l | tr -d ' ')
-  record "FAIL" "P-315 Cold wallet air-gap" "$count occurrence(s) of cold-wallet key material in online config — defeats air-gap"
+  record "FAIL" "P-315 Cold wallet air-gap" "$count occurrence(s) of cold-wallet key material in online config — defeats air-gap" "$(echo "$cold_online" | head -10)"
 elif [[ -z "$wallet_tier_refs" ]]; then
   record "SKIP" "P-315 Cold wallet air-gap" "No hot/warm/cold wallet terminology found; manual review needed"
 else

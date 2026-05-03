@@ -39,5 +39,5 @@ if [[ -n "$ceremony" || -n "$template_refs" ]]; then
   count=$([[ -n "$ceremony" ]] && echo "$ceremony" | wc -l | tr -d ' ' || echo 0)
   record "PASS" "P-317 Key ceremony" "$count file(s) reference key ceremony or rotation documentation"
 else
-  record "WARN" "P-317 Key ceremony" "No key ceremony documentation found; auditors typically require evidence of key generation procedures"
+  record "WARN" "P-317 Key ceremony" "No key ceremony documentation found; auditors typically require evidence of key generation procedures" "$(echo "$ceremony" | head -10)"
 fi

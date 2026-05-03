@@ -43,5 +43,5 @@ if [[ -n "$screen_refs" ]]; then
   count=$(echo "$screen_refs" | wc -l | tr -d ' ')
   record "PASS" "P-334 NFT phishing" "$count file(s) reference NFT phishing/spam screening"
 else
-  record "WARN" "P-334 NFT phishing" "NFT handling without spam/phishing screening (consider Reservoir, OpenSea flags, blocklists)"
+  record "WARN" "P-334 NFT phishing" "NFT handling without spam/phishing screening (consider Reservoir, OpenSea flags, blocklists)" "$(echo "$screen_refs" | head -10)"
 fi

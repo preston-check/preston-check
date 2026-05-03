@@ -33,7 +33,7 @@ class_doc=$(find "$SRC" -maxdepth 5 \( -iname "*data*classification*" -o -iname 
 if [[ -n "$classification" || -n "$class_doc" ]]; then
   record "PASS" "P-86 Data classification" "Data classification patterns or documentation found"
 else
-  record "WARN" "P-86 Data classification" "No data classification system — need to label data by sensitivity level"
+  record "WARN" "P-86 Data classification" "No data classification system — need to label data by sensitivity level" "$(echo "$class_doc" | head -10)"
 fi
 
 # Check for NDA / confidentiality agreement references
@@ -43,7 +43,7 @@ nda=$(grep -rn --include="*.md" --include="*.txt" --include="*.java" --include="
 if [[ -n "$nda" ]]; then
   record "PASS" "P-86 Confidentiality agreements" "NDA/confidentiality agreement references found"
 else
-  record "WARN" "P-86 Confidentiality agreements" "No NDA or confidentiality agreement references"
+  record "WARN" "P-86 Confidentiality agreements" "No NDA or confidentiality agreement references" "$(echo "$nda" | head -10)"
 fi
 
 # Check for DLP (Data Loss Prevention) patterns
@@ -53,5 +53,5 @@ dlp=$(grep -rn --include="*.java" --include="*.ts" --include="*.yml" \
 if [[ -n "$dlp" ]]; then
   record "PASS" "P-86 DLP controls" "Data leakage prevention patterns found (masking, redaction, @JsonIgnore)"
 else
-  record "WARN" "P-86 DLP controls" "No data leakage prevention patterns"
+  record "WARN" "P-86 DLP controls" "No data leakage prevention patterns" "$(echo "$dlp" | head -10)"
 fi

@@ -29,7 +29,7 @@ account_lock=$(grep -rn --include="*.java" \
 if [[ -n "$account_lock" ]]; then
   record "PASS" "P-53 Account locking" "Account lock/suspension mechanism found"
 else
-  record "WARN" "P-53 Account locking" "No account lock mechanism for brute force protection"
+  record "WARN" "P-53 Account locking" "No account lock mechanism for brute force protection" "$(echo "$account_lock" | head -10)"
 fi
 
 email_change_auth=$(grep -rn --include="*.java" \
@@ -40,6 +40,6 @@ if [[ -n "$email_change_auth" ]]; then
   if [[ -n "$has_2fa" ]]; then
     record "PASS" "P-53 Email change auth" "Email changes require verification"
   else
-    record "WARN" "P-53 Email change auth" "Email changes may not require 2FA verification"
+    record "WARN" "P-53 Email change auth" "Email changes may not require 2FA verification" "$(echo "$email_change_auth" | head -10)"
   fi
 fi

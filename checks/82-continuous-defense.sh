@@ -32,7 +32,7 @@ realtime=$(grep -rn --include="*.java" --include="*.ts" --include="*.yml" \
 if [[ -n "$realtime" ]]; then
   record "PASS" "P-82 Real-time monitoring" "Security monitoring patterns found"
 else
-  record "WARN" "P-82 Real-time monitoring" "No real-time security monitoring — defense must be active 24/7"
+  record "WARN" "P-82 Real-time monitoring" "No real-time security monitoring — defense must be active 24/7" "$(echo "$realtime" | head -10)"
 fi
 
 # Check for automatic blocking/quarantine
@@ -42,7 +42,7 @@ auto_block=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$auto_block" ]]; then
   record "PASS" "P-82 Auto-response" "Automatic blocking/quarantine patterns found"
 else
-  record "WARN" "P-82 Auto-response" "No automatic threat response — system should auto-block suspicious activity"
+  record "WARN" "P-82 Auto-response" "No automatic threat response — system should auto-block suspicious activity" "$(echo "$auto_block" | head -10)"
 fi
 
 # Check for security audit cycle automation
@@ -52,7 +52,7 @@ audit_cycle=$(grep -rn --include="*.java" --include="*.ts" --include="*.sh" --in
 if [[ -n "$audit_cycle" ]]; then
   record "PASS" "P-82 Audit automation" "Automated security audit cycle found"
 else
-  record "WARN" "P-82 Audit automation" "No automated security audit scheduling — should run security checks on every deployment"
+  record "WARN" "P-82 Audit automation" "No automated security audit scheduling — should run security checks on every deployment" "$(echo "$audit_cycle" | head -10)"
 fi
 
 # Check for circuit breaker patterns
@@ -62,7 +62,7 @@ circuit_breaker=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$circuit_breaker" ]]; then
   record "PASS" "P-82 Circuit breakers" "Circuit breaker patterns found"
 else
-  record "WARN" "P-82 Circuit breakers" "No circuit breaker patterns — cascading failures can take down the entire platform"
+  record "WARN" "P-82 Circuit breakers" "No circuit breaker patterns — cascading failures can take down the entire platform" "$(echo "$circuit_breaker" | head -10)"
 fi
 
 # Check for self-healing patterns
@@ -72,7 +72,7 @@ self_heal=$(grep -rn --include="*.java" --include="*.ts" --include="*.sh" \
 if [[ -n "$self_heal" ]]; then
   record "PASS" "P-82 Self-healing" "Self-healing/auto-recovery patterns found"
 else
-  record "WARN" "P-82 Self-healing" "No self-healing patterns — system should auto-recover from transient failures"
+  record "WARN" "P-82 Self-healing" "No self-healing patterns — system should auto-recover from transient failures" "$(echo "$self_heal" | head -10)"
 fi
 
 # Check for defense-in-depth (multiple layers)
@@ -85,7 +85,7 @@ defense_layers=0
 if [[ $defense_layers -ge 4 ]]; then
   record "PASS" "P-82 Defense in depth" "$defense_layers/5 defense layers active (WAF, auth, encryption, audit, access control)"
 elif [[ $defense_layers -ge 2 ]]; then
-  record "WARN" "P-82 Defense in depth" "Only $defense_layers/5 defense layers — need WAF, auth, encryption, audit, and access control"
+  record "WARN" "P-82 Defense in depth" "Only $defense_layers/5 defense layers — need WAF, auth, encryption, audit, and access control" "$(echo "$self_heal" | head -10)"
 else
-  record "FAIL" "P-82 Defense in depth" "Only $defense_layers/5 defense layers active — insufficient defense in depth"
+  record "FAIL" "P-82 Defense in depth" "Only $defense_layers/5 defense layers active — insufficient defense in depth" "$(echo "$self_heal" | head -10)"
 fi

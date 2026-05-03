@@ -34,7 +34,7 @@ recovery_code=$(grep -rn --include="*.sh" --include="*.yml" --include="*.md" \
 if [[ -n "$recovery_plan" || -n "$recovery_code" ]]; then
   record "PASS" "P-92 Recovery planning" "Recovery/DR planning evidence found"
 else
-  record "WARN" "P-92 Recovery planning" "No disaster recovery plan (NIST RC.RP)"
+  record "WARN" "P-92 Recovery planning" "No disaster recovery plan (NIST RC.RP)" "$(echo "$recovery_code" | head -10)"
 fi
 
 # RC.CO — Recovery Communication
@@ -46,5 +46,5 @@ comm_doc=$(find "$SRC" -maxdepth 5 \( -iname "*communication*plan*" -o -iname "*
 if [[ -n "$comm" || -n "$comm_doc" ]]; then
   record "PASS" "P-92 Recovery communication" "Recovery communication/notification patterns found"
 else
-  record "WARN" "P-92 Recovery communication" "No recovery communication plan — how do you notify customers during an outage?"
+  record "WARN" "P-92 Recovery communication" "No recovery communication plan — how do you notify customers during an outage?" "$(echo "$comm_doc" | head -10)"
 fi

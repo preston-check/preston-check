@@ -46,5 +46,5 @@ done
 if [[ $vulnerable -eq 0 ]]; then
   record "PASS" "P-302 Integer overflow" "All pre-0.8 contracts use SafeMath, or only modern (>=0.8) Solidity present"
 else
-  record "FAIL" "P-302 Integer overflow" "$vulnerable pre-0.8 Solidity contract(s) without SafeMath"
+  record "FAIL" "P-302 Integer overflow" "$vulnerable pre-0.8 Solidity contract(s) without SafeMath" "$(echo "$pragma" | head -10)"
 fi

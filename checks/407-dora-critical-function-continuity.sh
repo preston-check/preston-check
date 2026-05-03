@@ -37,7 +37,7 @@ if [[ -n "$bcp" ]]; then
   count=$(echo "$bcp" | wc -l | tr -d ' ')
   record "PASS" "P-407 DORA critical function continuity" "$count reference(s) to RTO/RPO/BIA"
 elif [[ -n "$dr_docs" ]]; then
-  record "WARN" "P-407 DORA critical function continuity" "Generic DR/BCP references; DORA Art. 11 requires explicit RTO/RPO per critical function"
+  record "WARN" "P-407 DORA critical function continuity" "Generic DR/BCP references; DORA Art. 11 requires explicit RTO/RPO per critical function" "$(echo "$dr_docs" | head -10)"
 else
-  record "FAIL" "P-407 DORA critical function continuity" "No BCP/DR documentation with RTO/RPO targets found"
+  record "FAIL" "P-407 DORA critical function continuity" "No BCP/DR documentation with RTO/RPO targets found" "$(echo "$dr_docs" | head -10)"
 fi

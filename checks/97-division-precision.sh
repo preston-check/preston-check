@@ -62,10 +62,10 @@ if [[ -n "$rounding_modes" ]]; then
   if [[ $count -le 2 ]]; then
     record "PASS" "P-97 Rounding consistency" "Consistent rounding mode: $primary"
   else
-    record "WARN" "P-97 Rounding consistency" "$count different rounding modes in use — inconsistent rounding causes reconciliation drift"
+    record "WARN" "P-97 Rounding consistency" "$count different rounding modes in use — inconsistent rounding causes reconciliation drift" "$(echo "$rounding_modes" | head -10)"
   fi
 else
-  record "WARN" "P-97 Rounding consistency" "No explicit RoundingMode found — financial calculations must specify rounding"
+  record "WARN" "P-97 Rounding consistency" "No explicit RoundingMode found — financial calculations must specify rounding" "$(echo "$rounding_modes" | head -10)"
 fi
 
 # Check for floating-point comparison (== on doubles)
@@ -76,5 +76,5 @@ if [[ -z "$float_compare" ]]; then
   record "PASS" "P-97 Float comparison" "No floating-point equality comparisons on financial values"
 else
   count=$(echo "$float_compare" | wc -l | tr -d ' ')
-  record "WARN" "P-97 Float comparison" "$count float equality comparisons — use BigDecimal.compareTo() instead of =="
+  record "WARN" "P-97 Float comparison" "$count float equality comparisons — use BigDecimal.compareTo() instead of ==" "$(echo "$float_compare" | head -10)"
 fi

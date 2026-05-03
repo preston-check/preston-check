@@ -39,7 +39,7 @@ if [[ -z "$exception_leak" ]]; then
   record "PASS" "P-03 Exception leakage" "No exception messages in API responses"
 else
   count=$(echo "$exception_leak" | wc -l)
-  record "WARN" "P-03 Exception leakage" "$count potential exception message leaks in responses"
+  record "WARN" "P-03 Exception leakage" "$count potential exception message leaks in responses" "$(echo "$exception_leak" | head -10)"
 fi
 
 # Check for sensitive fields in serialized objects without @JsonIgnore
@@ -54,5 +54,5 @@ if [[ -z "$sensitive_fields" ]]; then
   record "PASS" "P-03 Sensitive field exposure" "Sensitive fields properly hidden"
 else
   count=$(echo "$sensitive_fields" | wc -l)
-  record "WARN" "P-03 Sensitive field exposure" "$count sensitive fields may be serialized (check @JsonIgnore)"
+  record "WARN" "P-03 Sensitive field exposure" "$count sensitive fields may be serialized (check @JsonIgnore)" "$(echo "$sensitive_fields" | head -10)"
 fi

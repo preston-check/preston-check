@@ -44,5 +44,5 @@ if [[ -n "$hw_refs" ]]; then
   count=$(echo "$hw_refs" | wc -l | tr -d ' ')
   record "PASS" "P-341 Hardware wallet" "$count file(s) reference hardware wallet integration"
 else
-  record "WARN" "P-341 Hardware wallet" "Wallet UI without hardware wallet integration (Ledger/Trezor/Coldcard)"
+  record "WARN" "P-341 Hardware wallet" "Wallet UI without hardware wallet integration (Ledger/Trezor/Coldcard)" "$(echo "$wallet_ui" | head -10)"
 fi

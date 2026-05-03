@@ -44,5 +44,5 @@ if [[ -n "$trace_refs" ]]; then
   count=$(echo "$trace_refs" | wc -l | tr -d ' ')
   record "PASS" "P-336 Tainted funds trace" "$count file(s) reference source-of-funds tracing"
 else
-  record "FAIL" "P-336 Tainted funds trace" "Deposits handled without multi-hop source-of-funds tracing"
+  record "FAIL" "P-336 Tainted funds trace" "Deposits handled without multi-hop source-of-funds tracing" "$(echo "$deposits" | head -10)"
 fi

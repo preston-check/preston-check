@@ -32,7 +32,7 @@ velocity=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$velocity" ]]; then
   record "PASS" "P-65 Velocity limits" "Transaction velocity/frequency limiting found"
 else
-  record "FAIL" "P-65 Velocity limits" "No transaction velocity monitoring — must detect rapid-fire transactions"
+  record "FAIL" "P-65 Velocity limits" "No transaction velocity monitoring — must detect rapid-fire transactions" "$(echo "$velocity" | head -10)"
 fi
 
 # Check for structuring detection (splitting transactions to avoid CTR thresholds)
@@ -42,7 +42,7 @@ structuring=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$structuring" ]]; then
   record "PASS" "P-65 Structuring detection" "Transaction structuring detection patterns found"
 else
-  record "WARN" "P-65 Structuring detection" "No structuring detection — must aggregate transactions to detect threshold avoidance (BSA/AML)"
+  record "WARN" "P-65 Structuring detection" "No structuring detection — must aggregate transactions to detect threshold avoidance (BSA/AML)" "$(echo "$structuring" | head -10)"
 fi
 
 # Check for cooling period between same-type transactions
@@ -52,5 +52,5 @@ cooling=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$cooling" ]]; then
   record "PASS" "P-65 Transaction cooldown" "Cooling period between transactions enforced"
 else
-  record "WARN" "P-65 Transaction cooldown" "No cooling period between rapid consecutive transactions"
+  record "WARN" "P-65 Transaction cooldown" "No cooling period between rapid consecutive transactions" "$(echo "$cooling" | head -10)"
 fi

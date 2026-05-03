@@ -32,7 +32,7 @@ sanctions=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$sanctions" ]]; then
   record "PASS" "P-72 Sanctions screening" "OFAC/sanctions screening patterns found"
 else
-  record "WARN" "P-72 Sanctions screening" "No OFAC/sanctions screening — mandatory for all financial institutions"
+  record "WARN" "P-72 Sanctions screening" "No OFAC/sanctions screening — mandatory for all financial institutions" "$(echo "$sanctions" | head -10)"
 fi
 
 # Check for PEP screening
@@ -42,7 +42,7 @@ pep=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$pep" ]]; then
   record "PASS" "P-72 PEP screening" "PEP/enhanced due diligence patterns found"
 else
-  record "WARN" "P-72 PEP screening" "No PEP screening — politically exposed persons require enhanced monitoring"
+  record "WARN" "P-72 PEP screening" "No PEP screening — politically exposed persons require enhanced monitoring" "$(echo "$pep" | head -10)"
 fi
 
 # Check for country-based restrictions
@@ -52,5 +52,5 @@ country_block=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$country_block" ]]; then
   record "PASS" "P-72 Country restrictions" "Country-based restrictions found"
 else
-  record "WARN" "P-72 Country restrictions" "No country-based transaction restrictions"
+  record "WARN" "P-72 Country restrictions" "No country-based transaction restrictions" "$(echo "$country_block" | head -10)"
 fi

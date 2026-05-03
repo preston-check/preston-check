@@ -34,5 +34,5 @@ if [[ -n "$beh_refs" ]]; then
   count=$(echo "$beh_refs" | wc -l | tr -d ' ')
   record "PASS" "P-337 Compromise indicators" "$count file(s) reference behavioral anomaly / fraud detection"
 else
-  record "WARN" "P-337 Compromise indicators" "No behavioral anomaly detection found for wallet activity"
+  record "WARN" "P-337 Compromise indicators" "No behavioral anomaly detection found for wallet activity" "$(echo "$beh_refs" | head -10)"
 fi

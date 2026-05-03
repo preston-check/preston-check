@@ -64,10 +64,10 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-103 Atomic debit" "Balance debits use atomic SQL (UPDATE WHERE balance >=) — no read-modify-write"
   elif [[ -n "$atomic_debit" ]] && [[ -n "$rmw_pattern" ]]; then
     count=$(echo "$rmw_pattern" | wc -l | tr -d ' ')
-    record "FAIL" "P-103 Atomic debit" "$count read-modify-write patterns coexist with atomic debits — race condition risk"
+    record "FAIL" "P-103 Atomic debit" "$count read-modify-write patterns coexist with atomic debits — race condition risk" "$(echo "$rmw_pattern" | head -10)"
     echo "$rmw_pattern" | head -3 | while read line; do echo "    $line"; done
   elif [[ -z "$atomic_debit" ]]; then
-    record "FAIL" "P-103 Atomic debit" "No atomic balance debit found — balance updates must use UPDATE SET balance = balance - ? WHERE balance >= ?"
+    record "FAIL" "P-103 Atomic debit" "No atomic balance debit found — balance updates must use UPDATE SET balance = balance - ? WHERE balance >= ?" "$(echo "$rmw_pattern" | head -10)"
   fi
 
 elif [[ "$DETECTED_LANG" == "go" ]]; then
@@ -78,7 +78,7 @@ elif [[ "$DETECTED_LANG" == "go" ]]; then
   if [[ -n "$atomic_debit" ]]; then
     record "PASS" "P-103 Atomic debit" "Atomic balance debit found"
   else
-    record "FAIL" "P-103 Atomic debit" "No atomic balance debit — use UPDATE SET balance = balance - ? WHERE balance >= ?"
+    record "FAIL" "P-103 Atomic debit" "No atomic balance debit — use UPDATE SET balance = balance - ? WHERE balance >= ?" "$(echo "$atomic_debit" | head -10)"
   fi
 
 elif [[ "$DETECTED_LANG" == "python" ]]; then
@@ -89,10 +89,10 @@ elif [[ "$DETECTED_LANG" == "python" ]]; then
   if [[ -n "$atomic_debit" ]]; then
     record "PASS" "P-103 Atomic debit" "Atomic balance debit found (F() expression or raw SQL)"
   else
-    record "WARN" "P-103 Atomic debit" "No atomic balance debit pattern found — verify no read-modify-write"
+    record "WARN" "P-103 Atomic debit" "No atomic balance debit pattern found — verify no read-modify-write" "$(echo "$atomic_debit" | head -10)"
   fi
 else
-  record "WARN" "P-103 Atomic debit" "Check atomic debit patterns manually for $DETECTED_LANG"
+  record "WARN" "P-103 Atomic debit" "Check atomic debit patterns manually for $DETECTED_LANG" "$(echo "$atomic_debit" | head -10)"
 fi
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -119,10 +119,10 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-103 Row-count check" "Mutation queries return int row count — double-spend detected by rows != 1"
   elif [[ -n "$void_return" ]]; then
     count=$(echo "$void_return" | wc -l | tr -d ' ')
-    record "FAIL" "P-103 Row-count check" "$count void-return mutations — must return int and check rows == 1"
+    record "FAIL" "P-103 Row-count check" "$count void-return mutations — must return int and check rows == 1" "$(echo "$void_return" | head -10)"
     echo "$void_return" | head -3 | while read line; do echo "    $line"; done
   else
-    record "WARN" "P-103 Row-count check" "No debit/withdraw mutation methods found — verify row count is checked"
+    record "WARN" "P-103 Row-count check" "No debit/withdraw mutation methods found — verify row count is checked" "$(echo "$void_return" | head -10)"
   fi
 fi
 
@@ -141,7 +141,7 @@ if [[ -n "$for_update" ]]; then
   count=$(echo "$for_update" | wc -l | tr -d ' ')
   record "PASS" "P-103 Pessimistic locking" "$count FOR UPDATE / advisory lock patterns for critical sections"
 else
-  record "WARN" "P-103 Pessimistic locking" "No SELECT FOR UPDATE or advisory locks — concurrent reads may see stale balances"
+  record "WARN" "P-103 Pessimistic locking" "No SELECT FOR UPDATE or advisory locks — concurrent reads may see stale balances" "$(echo "$for_update" | head -10)"
 fi
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -183,7 +183,7 @@ if [[ -n "$concurrency" ]]; then
   count=$(echo "$concurrency" | wc -l | tr -d ' ')
   record "PASS" "P-103 Concurrency control" "$count app-level concurrency guards (semaphore/lock/mutex) on financial operations"
 else
-  record "WARN" "P-103 Concurrency control" "No application-level concurrency control on financial operations — relies solely on DB"
+  record "WARN" "P-103 Concurrency control" "No application-level concurrency control on financial operations — relies solely on DB" "$(echo "$concurrency" | head -10)"
 fi
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -205,9 +205,9 @@ idem_unique=$(grep -rn --include="*.java" --include="*.sql" \
 if [[ -n "$idempotency" ]] && [[ -n "$idem_unique" ]]; then
   record "PASS" "P-103 Idempotency key" "Idempotency key with uniqueness constraint — duplicate payments prevented"
 elif [[ -n "$idempotency" ]]; then
-  record "WARN" "P-103 Idempotency key" "Idempotency key accepted but no UNIQUE constraint — duplicates possible under race"
+  record "WARN" "P-103 Idempotency key" "Idempotency key accepted but no UNIQUE constraint — duplicates possible under race" "$(echo "$idem_unique" | head -10)"
 else
-  record "FAIL" "P-103 Idempotency key" "No idempotency key on payment creation — retries create duplicate payments"
+  record "FAIL" "P-103 Idempotency key" "No idempotency key on payment creation — retries create duplicate payments" "$(echo "$idem_unique" | head -10)"
 fi
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -233,10 +233,10 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "PASS" "P-103 Atomic budget" "Budget enforcement uses atomic UPDATE (spend = spend + ? WHERE spend + ? <= limit)"
   elif [[ -n "$rmw_budget" ]]; then
     count=$(echo "$rmw_budget" | wc -l | tr -d ' ')
-    record "FAIL" "P-103 Atomic budget" "$count read-modify-write budget patterns — concurrent spends bypass budget limits"
+    record "FAIL" "P-103 Atomic budget" "$count read-modify-write budget patterns — concurrent spends bypass budget limits" "$(echo "$rmw_budget" | head -10)"
     echo "$rmw_budget" | head -3 | while read line; do echo "    $line"; done
   else
-    record "WARN" "P-103 Atomic budget" "No budget enforcement pattern detected — verify budget checks are atomic"
+    record "WARN" "P-103 Atomic budget" "No budget enforcement pattern detected — verify budget checks are atomic" "$(echo "$rmw_budget" | head -10)"
   fi
 fi
 
@@ -254,7 +254,7 @@ isolation=$(grep -rn --include="*.java" --include="*.go" --include="*.py" --incl
 if [[ -n "$isolation" ]]; then
   record "PASS" "P-103 Transaction isolation" "Explicit transaction isolation level configured"
 else
-  record "WARN" "P-103 Transaction isolation" "No explicit isolation level — defaults to READ COMMITTED which allows phantom reads in multi-step operations"
+  record "WARN" "P-103 Transaction isolation" "No explicit isolation level — defaults to READ COMMITTED which allows phantom reads in multi-step operations" "$(echo "$isolation" | head -10)"
 fi
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -272,7 +272,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
   if [[ -n "$status_check" ]]; then
     record "PASS" "P-103 Terminal state guard" "Completed/failed payments reject re-processing — replay attack prevented"
   else
-    record "WARN" "P-103 Terminal state guard" "No terminal state guard found on payments — completed transactions may be re-executed"
+    record "WARN" "P-103 Terminal state guard" "No terminal state guard found on payments — completed transactions may be re-executed" "$(echo "$status_check" | head -10)"
   fi
 fi
 
@@ -290,7 +290,7 @@ negative_detect=$(grep -rn --include="*.java" --include="*.go" --include="*.py" 
 if [[ -n "$negative_detect" ]]; then
   record "PASS" "P-103 Negative balance detection" "Negative balance detection/reconciliation found"
 else
-  record "WARN" "P-103 Negative balance detection" "No negative balance detection — add periodic reconciliation to catch double-spend outcomes"
+  record "WARN" "P-103 Negative balance detection" "No negative balance detection — add periodic reconciliation to catch double-spend outcomes" "$(echo "$negative_detect" | head -10)"
 fi
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -309,6 +309,6 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     count=$(echo "$dedup" | wc -l | tr -d ' ')
     record "PASS" "P-103 Request deduplication" "$count deduplication patterns — concurrent identical requests handled"
   else
-    record "WARN" "P-103 Request deduplication" "No request deduplication found — duplicate requests may create duplicate transactions"
+    record "WARN" "P-103 Request deduplication" "No request deduplication found — duplicate requests may create duplicate transactions" "$(echo "$dedup" | head -10)"
   fi
 fi

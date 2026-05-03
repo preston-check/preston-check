@@ -45,5 +45,5 @@ if [[ -n "$multisig_refs" ]]; then
   count=$(echo "$multisig_refs" | wc -l | tr -d ' ')
   record "PASS" "P-320 Multi-sig discipline" "$count file(s) reference multi-sig / approval threshold patterns"
 else
-  record "FAIL" "P-320 Multi-sig discipline" "Withdrawal/admin transfer paths detected but no multi-sig or approval-threshold pattern found"
+  record "FAIL" "P-320 Multi-sig discipline" "Withdrawal/admin transfer paths detected but no multi-sig or approval-threshold pattern found" "$(echo "$send_paths" | head -10)"
 fi

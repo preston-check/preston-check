@@ -37,5 +37,5 @@ if [[ ${d_count:-0} -eq 0 ]]; then
 elif [[ ${l_count:-0} -gt 0 ]]; then
   record "PASS" "P-504 Rust deserialization" "$d_count deserialization site(s); $l_count file(s) reference size/depth limits"
 else
-  record "WARN" "P-504 Rust deserialization" "$d_count deserialization site(s) without observable size/depth limits"
+  record "WARN" "P-504 Rust deserialization" "$d_count deserialization site(s) without observable size/depth limits" "$(echo "$limits" | head -10)"
 fi

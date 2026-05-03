@@ -33,5 +33,5 @@ if [[ -n "$sharing" ]]; then
   count=$(echo "$sharing" | wc -l | tr -d ' ')
   record "PASS" "P-406 DORA threat intel sharing" "$count reference(s) to threat-intel sharing arrangements"
 else
-  record "WARN" "P-406 DORA threat intel sharing" "No documented threat-intel sharing arrangements (DORA Art. 45)"
+  record "WARN" "P-406 DORA threat intel sharing" "No documented threat-intel sharing arrangements (DORA Art. 45)" "$(echo "$sharing" | head -10)"
 fi

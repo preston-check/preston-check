@@ -68,7 +68,7 @@ scope=$(find "$SRC" -maxdepth 5 \( -iname "*pci*scope*" -o -iname "*cardholder*d
 if [[ $found -ge 5 ]]; then
   record "PASS" "P-84 Org policies" "$found/$required organizational security documents found"
 elif [[ $found -ge 3 ]]; then
-  record "WARN" "P-84 Org policies" "$found/$required — need: security policy, acceptable use, risk assessment, training evidence, vendor mgmt, PCI scope"
+  record "WARN" "P-84 Org policies" "$found/$required — need: security policy, acceptable use, risk assessment, training evidence, vendor mgmt, PCI scope" "$(echo "$scope" | head -10)"
 else
-  record "WARN" "P-84 Org policies" "Only $found/$required — create compliance/ directory with required policy documents (PCI-DSS Req 12)"
+  record "WARN" "P-84 Org policies" "Only $found/$required — create compliance/ directory with required policy documents (PCI-DSS Req 12)" "$(echo "$scope" | head -10)"
 fi

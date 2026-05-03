@@ -51,7 +51,7 @@ cloud_infra=$(grep -rn --include="*.yml" --include="*.tf" --include="*.json" \
 if [[ $found -ge 2 ]]; then
   record "PASS" "P-89 ISO physical controls" "$found/3 physical control evidence found (cloud infrastructure counts)"
 elif [[ $found -ge 1 ]]; then
-  record "WARN" "P-89 ISO physical controls" "$found/3 — for cloud: document AWS region selection, VPC architecture, environmental controls via shared responsibility"
+  record "WARN" "P-89 ISO physical controls" "$found/3 — for cloud: document AWS region selection, VPC architecture, environmental controls via shared responsibility" "$(echo "$cloud_infra" | head -10)"
 else
-  record "WARN" "P-89 ISO physical controls" "No physical control evidence — document cloud infrastructure security (AWS shared responsibility model)"
+  record "WARN" "P-89 ISO physical controls" "No physical control evidence — document cloud infrastructure security (AWS shared responsibility model)" "$(echo "$cloud_infra" | head -10)"
 fi

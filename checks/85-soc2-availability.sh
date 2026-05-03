@@ -36,7 +36,7 @@ capacity_code=$(grep -rn --include="*.yml" --include="*.yaml" --include="*.json"
 if [[ -n "$capacity" || -n "$capacity_code" ]]; then
   record "PASS" "P-85 Capacity planning" "Capacity planning/load testing evidence found"
 else
-  record "WARN" "P-85 Capacity planning" "No capacity planning or load testing evidence (SOC 2 A1.1)"
+  record "WARN" "P-85 Capacity planning" "No capacity planning or load testing evidence (SOC 2 A1.1)" "$(echo "$capacity_code" | head -10)"
 fi
 
 # Check for SLA / uptime commitment documentation
@@ -47,7 +47,7 @@ sla_code=$(grep -rn --include="*.md" --include="*.yml" "SLA\|uptime.*99\|availab
 if [[ -n "$sla" || -n "$sla_code" ]]; then
   record "PASS" "P-85 SLA documentation" "SLA/uptime commitment documentation found"
 else
-  record "WARN" "P-85 SLA documentation" "No SLA or uptime commitment documentation (SOC 2 A1.1)"
+  record "WARN" "P-85 SLA documentation" "No SLA or uptime commitment documentation (SOC 2 A1.1)" "$(echo "$sla_code" | head -10)"
 fi
 
 # Check for environmental / infrastructure redundancy
@@ -57,5 +57,5 @@ redundancy=$(grep -rn --include="*.yml" --include="*.yaml" --include="*.tf" --in
 if [[ -n "$redundancy" ]]; then
   record "PASS" "P-85 Redundancy" "Infrastructure redundancy patterns found"
 else
-  record "WARN" "P-85 Redundancy" "No infrastructure redundancy patterns (multi-AZ, failover, replicas)"
+  record "WARN" "P-85 Redundancy" "No infrastructure redundancy patterns (multi-AZ, failover, replicas)" "$(echo "$redundancy" | head -10)"
 fi

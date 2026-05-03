@@ -38,7 +38,7 @@ if [[ -z "$sql_concat" ]]; then
   record "PASS" "P-08 SQL injection" "No string-concatenated SQL found"
 else
   count=$(echo "$sql_concat" | wc -l)
-  record "WARN" "P-08 SQL injection" "$count potential SQL concatenation sites (verify parameterized)"
+  record "WARN" "P-08 SQL injection" "$count potential SQL concatenation sites (verify parameterized)" "$(echo "$sql_concat" | head -10)"
 fi
 
 # Check for eval/exec patterns (command injection)
@@ -65,5 +65,5 @@ if [[ -z "$exec_patterns" ]]; then
   record "PASS" "P-08 Command injection" "No exec/eval patterns found"
 else
   count=$(echo "$exec_patterns" | wc -l)
-  record "FAIL" "P-08 Command injection" "$count potential command execution sites"
+  record "FAIL" "P-08 Command injection" "$count potential command execution sites" "$(echo "$exec_patterns" | head -10)"
 fi

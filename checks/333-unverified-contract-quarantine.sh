@@ -34,5 +34,5 @@ if [[ -n "$verify_refs" ]]; then
   count=$(echo "$verify_refs" | wc -l | tr -d ' ')
   record "PASS" "P-333 Unverified contracts" "$count file(s) reference contract verification or quarantine"
 else
-  record "WARN" "P-333 Unverified contracts" "No contract source-verification check found in receipt flows"
+  record "WARN" "P-333 Unverified contracts" "No contract source-verification check found in receipt flows" "$(echo "$verify_refs" | head -10)"
 fi

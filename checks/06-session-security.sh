@@ -37,7 +37,7 @@ session_ip=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$session_ip" ]]; then
   record "PASS" "P-06 Session IP binding" "Session stores login IP for comparison"
 else
-  record "WARN" "P-06 Session IP binding" "No evidence of login IP stored in session"
+  record "WARN" "P-06 Session IP binding" "No evidence of login IP stored in session" "$(echo "$session_ip" | head -10)"
 fi
 
 # Check session expiration
@@ -50,7 +50,7 @@ session_ttl=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$session_ttl" ]]; then
   record "PASS" "P-06 Session expiration" "Sessions have TTL configured"
 else
-  record "WARN" "P-06 Session expiration" "No session expiration found"
+  record "WARN" "P-06 Session expiration" "No session expiration found" "$(echo "$session_ttl" | head -10)"
 fi
 
 # Check for session kill on sensitive operations
@@ -63,5 +63,5 @@ session_kill=$(grep -rn --include="$SRC_EXT" \
 if [[ -n "$session_kill" ]]; then
   record "PASS" "P-06 Session kill capability" "Session termination available for remediation"
 else
-  record "FAIL" "P-06 Session kill capability" "No session kill mechanism found"
+  record "FAIL" "P-06 Session kill capability" "No session kill mechanism found" "$(echo "$session_kill" | head -10)"
 fi

@@ -29,7 +29,7 @@ waf=$(grep -rn --include="*.java" \
 if [[ -n "$waf" ]]; then
   record "PASS" "P-28 WAF integration" "WAF/IP set management found"
 else
-  record "WARN" "P-28 WAF integration" "No WAF integration found"
+  record "WARN" "P-28 WAF integration" "No WAF integration found" "$(echo "$waf" | head -10)"
 fi
 
 geo=$(grep -rn --include="*.java" --include="*.yml" \
@@ -38,5 +38,5 @@ geo=$(grep -rn --include="*.java" --include="*.yml" \
 if [[ -n "$geo" ]]; then
   record "PASS" "P-28 Geo-blocking" "Country/jurisdiction screening found"
 else
-  record "WARN" "P-28 Geo-blocking" "No OFAC/geo-blocking found"
+  record "WARN" "P-28 Geo-blocking" "No OFAC/geo-blocking found" "$(echo "$geo" | head -10)"
 fi

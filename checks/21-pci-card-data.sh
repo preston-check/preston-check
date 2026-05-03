@@ -30,7 +30,7 @@ pan=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -z "$pan" ]]; then
   record "PASS" "P-21 No raw PAN" "No raw card numbers in source"
 else
-  record "FAIL" "P-21 No raw PAN" "Card number patterns found in source code"
+  record "FAIL" "P-21 No raw PAN" "Card number patterns found in source code" "$(echo "$pan" | head -10)"
 fi
 
 card_logs=$(grep -rn --include="*.java" \
@@ -40,7 +40,7 @@ card_logs=$(grep -rn --include="*.java" \
 if [[ -z "$card_logs" ]]; then
   record "PASS" "P-21 No PAN in logs" "No card data in log statements"
 else
-  record "FAIL" "P-21 No PAN in logs" "Card data found in log statements"
+  record "FAIL" "P-21 No PAN in logs" "Card data found in log statements" "$(echo "$card_logs" | head -10)"
 fi
 
 tokenization=$(grep -rn --include="*.java" \
@@ -50,5 +50,5 @@ tokenization=$(grep -rn --include="*.java" \
 if [[ -n "$tokenization" ]]; then
   record "PASS" "P-21 Tokenization" "Payment tokenization patterns found"
 else
-  record "WARN" "P-21 Tokenization" "No tokenization patterns found — verify Stripe/processor handles PAN"
+  record "WARN" "P-21 Tokenization" "No tokenization patterns found — verify Stripe/processor handles PAN" "$(echo "$tokenization" | head -10)"
 fi
