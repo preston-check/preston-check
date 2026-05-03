@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-09
+name: Audit Trail
+description: Checks for DB triggers, append-only enforcement on financial tables.
+category: code-scan
+severity: high
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:10.2, PCI-DSS:4.0:10.3, SOC2:TSC-2017:CC4.1, SOC2:TSC-2017:CC7.2, ISO-27001:2022:8.15, ISO-27001:2022:8.17, CIS-v8:8.2
+PRESTON_META
+
 # P-09: Audit trail completeness
 # Every sensitive operation must have an audit trail that cannot be altered.
 

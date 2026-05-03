@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-18
+name: Data Privacy
+description: Checks for plaintext passwords, PII in logs, missing @JsonIgnore.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:3.4, PCI-DSS:4.0:8.3.2, SOC2:TSC-2017:P1.1, SOC2:TSC-2017:CC6.5, ISO-27001:2022:8.11, ISO-27001:2022:8.12, CIS-v8:3.12
+PRESTON_META
+
 # P-18: Data privacy and PII protection
 # Financial platforms must protect personally identifiable information.
 # Passwords must be hashed, PII must not be logged in plaintext.

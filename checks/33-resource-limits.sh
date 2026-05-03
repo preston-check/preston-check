@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-33
+name: Resource Limits
+description: Checks request body size, HTTP timeouts, pagination.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: SOC2:TSC-2017:1.2, ISO-27001:2022:8.6, OWASP-API:2023:API4:2023, CIS-v8:13.4
+PRESTON_META
+
 # P-33: API Request Size & Timeout Limits — OWASP API #4
 echo "P-33: Resource Limits"
 SRC="${SOURCE_DIR:-.}"

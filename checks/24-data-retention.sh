@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-24
+name: Data Retention
+description: Checks Redis without TTL, GDPR erasure mechanisms.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:3.2.1, SOC2:TSC-2017:P4.1, ISO-27001:2022:8.10, CIS-v8:3.4
+PRESTON_META
+
 # P-24: Data Retention & Right to Deletion
 # Redis TTL, GDPR erasure, retention policies.
 echo "P-24: Data Retention"

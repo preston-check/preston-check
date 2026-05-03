@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-81
+name: Financial Input Guards
+description: Financial Input Guards security check (see COMPLIANCE_MAPPING.md for details).
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+PRESTON_META
+
 # P-81: Financial Input Validation Guards
 # Checks for numeric overflow, negative amount deposits, type coercion attacks,
 # integer overflow, and boundary value exploitation in financial operations.

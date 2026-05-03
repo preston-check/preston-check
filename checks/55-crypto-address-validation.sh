@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-55
+name: Crypto Address Validation
+description: Checks address validation, whitelisting, AML screening.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.26
+PRESTON_META
+
 # P-55: Cryptocurrency Address Validation
 # Withdrawal addresses must be validated, whitelisted, and AML-screened.
 echo "P-55: Crypto Address Security"

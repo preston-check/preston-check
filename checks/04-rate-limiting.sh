@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-04
+name: Rate Limiting
+description: Checks for missing rate limiting on API endpoints.
+category: code-scan
+severity: high
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:6.4.1, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.6, OWASP-API:2023:API4:2023, CIS-v8:13.3
+PRESTON_META
+
 # P-04: Rate limiting on endpoints
 # Preston made 21,201 calls to /client/config in rapid succession.
 # Every public and authenticated endpoint should have rate limiting.

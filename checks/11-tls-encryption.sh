@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-11
+name: TLS/Encryption
+description: Checks for plaintext HTTP, weak crypto (DES/RC4/MD5/ECB).
+category: code-scan
+severity: high
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:4.2.1, SOC2:TSC-2017:CC6.7, ISO-27001:2022:8.24, CIS-v8:3.10
+PRESTON_META
+
 # P-11: TLS/Encryption enforcement
 # Money-handling platforms must enforce HTTPS, use strong encryption,
 # and never transmit sensitive data in plaintext.

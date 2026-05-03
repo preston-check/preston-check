@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-19
+name: API Versioning
+description: Checks for unversioned APIs, deprecated endpoints.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:6.3.1, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.25, OWASP-API:2023:API9:2023, CIS-v8:2.1
+PRESTON_META
+
 # P-19: API versioning and deprecation safety
 # Public-facing APIs must be versioned to prevent breaking changes.
 # Deprecated endpoints must not expose more data than current endpoints.

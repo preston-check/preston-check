@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-200
+name: Pii Protection
+description: Pii Protection security check (see COMPLIANCE_MAPPING.md for details).
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+PRESTON_META
+
 # P-200: PII Protection
 echo "P-200: PII Protection"
 SRC="${SOURCE_DIR:-.}"

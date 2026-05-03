@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-23
+name: KYC Document Security
+description: Checks S3 encryption, presigned URL duration, file type validation.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:3.4, SOC2:TSC-2017:CC6.5, ISO-27001:2022:8.10, ISO-27001:2022:8.24
+PRESTON_META
+
 # P-23: KYC Document Security
 # S3 encryption, presigned URL expiry, file type validation, size limits.
 echo "P-23: KYC Document Security"

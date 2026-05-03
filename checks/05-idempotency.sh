@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-05
+name: Idempotency
+description: Checks webhook handlers and financial operations for replay protection.
+category: code-scan
+severity: high
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:10.2.1, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.25, OWASP-API:2023:API8:2023, CIS-v8:10.5
+PRESTON_META
+
 # P-05: Idempotency on state-changing operations
 # Preston probed for race conditions via rapid session polling.
 # All financial mutations and webhooks must be idempotent.

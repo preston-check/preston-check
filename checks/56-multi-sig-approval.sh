@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-56
+name: Multi-Signature Approval
+description: Checks dual-approval workflows, Fireblocks co-signer/TAP.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:8.4.1, SOC2:TSC-2017:CC6.1, ISO-27001:2022:5.17, ISO-27001:2022:8.5
+PRESTON_META
+
 # P-56: Multi-Signature & Dual Approval
 # High-value operations must require multiple approvers.
 echo "P-56: Multi-Signature Approval"

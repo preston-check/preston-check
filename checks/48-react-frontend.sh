@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-48
+name: React Frontend
+description: Checks dangerouslySetInnerHTML, localStorage tokens.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:6.4.1, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.26, OWASP-API:2023:API8:2023
+PRESTON_META
+
 # P-48: React/TypeScript Frontend Security
 echo "P-48: Frontend Security"
 SRC="${SOURCE_DIR:-.}"

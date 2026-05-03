@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-52
+name: Timing Attacks
+description: Checks constant-time comparison for secrets, .equals() on passwords.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:3.6.1, ISO-27001:2022:8.24
+PRESTON_META
+
 # P-52: Timing Attack Prevention
 # Password comparison, HMAC verification, token comparison must be constant-time.
 echo "P-52: Timing Attacks"

@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-30
+name: HMAC Integrity
+description: Checks HMAC filter coverage, replay protection, algorithm strength.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:4.2.1, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.24, OWASP-API:2023:API2:2023
+PRESTON_META
+
 # P-30: HMAC Inter-Service Authentication Integrity
 echo "P-30: HMAC Authentication"
 SRC="${SOURCE_DIR:-.}"

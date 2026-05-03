@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-21
+name: PCI-DSS Card Data
+description: Checks for raw PAN in source/logs, tokenization.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:3.3, PCI-DSS:4.0:3.4, PCI-DSS:4.0:3.5.1, SOC2:TSC-2017:CC6.5, ISO-27001:2022:8.11, CIS-v8:3.12
+PRESTON_META
+
 # P-21: PCI-DSS Card Data Handling
 # Raw PAN must never be stored, logged, or passed as query params.
 echo "P-21: PCI-DSS Card Data"

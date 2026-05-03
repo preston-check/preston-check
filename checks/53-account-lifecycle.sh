@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-53
+name: Account Lifecycle
+description: Checks account locking, email change verification.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:8.1.4, PCI-DSS:4.0:8.2.4, SOC2:TSC-2017:CC6.2, SOC2:TSC-2017:CC6.3, ISO-27001:2022:5.16, ISO-27001:2022:5.18, CIS-v8:5.3
+PRESTON_META
+
 # P-53: Account Lifecycle Security
 # Account creation, suspension, closure must be audited and irreversible where needed.
 echo "P-53: Account Lifecycle"

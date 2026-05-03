@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-59
+name: Security Policy Documentation
+description: Covers PCI-DSS 12.1, SOC 2 CC1.1, ISO 27001 A.5.1, NIST GV.PO. Checks for the existence of policy documents (information security policy, acceptable use, incident response plan, DR plan, data classification policy).
+category: compliance-evidence
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: true
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+PRESTON_META
+
 # P-59: Security Policy Documentation — PCI-DSS 12.1, SOC 2 CC1.1, ISO 27001 A.5.1
 # Verifies existence of required security policy documents.
 echo "P-59: Security Policy Documentation"

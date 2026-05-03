@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-01
+name: Hardcoded Secrets
+description: Detects API keys, passwords, AWS credentials, JWT secrets in source code.
+category: code-scan
+severity: critical
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:2.2.7, PCI-DSS:4.0:6.3.1, PCI-DSS:4.0:8.6.2, SOC2:TSC-2017:CC6.1, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.4, ISO-27001:2022:5.33, OWASP-API:2023:API8:2023, CIS-v8:16.4
+PRESTON_META
+
 # P-01: Hardcoded secrets in source code
 # Preston used exposed JWT secrets and API keys from the git repo.
 # This check scans source code for common secret patterns.

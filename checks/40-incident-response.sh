@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-40
+name: Incident Response
+description: Checks session revocation, IR documentation.
+category: compliance-evidence
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: true
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:12.10, SOC2:TSC-2017:CC7.3, SOC2:TSC-2017:CC7.4, ISO-27001:2022:5.24, ISO-27001:2022:5.26, CIS-v8:17.1
+PRESTON_META
+
 # P-40: Incident Response Readiness
 echo "P-40: Incident Response"
 SRC="${SOURCE_DIR:-.}"

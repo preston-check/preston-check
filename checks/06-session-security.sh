@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-06
+name: Session Security
+description: Checks for IP binding, TTL, session kill mechanisms.
+category: code-scan
+severity: high
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:8.2.8, SOC2:TSC-2017:CC6.1, SOC2:TSC-2017:CC6.3, ISO-27001:2022:8.5, OWASP-API:2023:API2:2023, CIS-v8:6.5
+PRESTON_META
+
 # P-06: Session security
 # Preston exploited sessions with no IP binding and no 2FA requirement.
 # Sessions should store login IP and validate it on subsequent requests.

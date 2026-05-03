@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-03
+name: Information Leakage
+description: Detects exception messages, sensitive fields, and internal data in API responses.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:6.2.4.3, SOC2:TSC-2017:CC7.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.12, OWASP-API:2023:API3:2023, CIS-v8:3.12
+PRESTON_META
+
 # P-03: Information leakage in API responses
 # Preston's session polling returned Vouched keys, full fee structure,
 # all permissions, and internal IDs. API responses should minimize data exposure.

@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-54
+name: API Key Management
+description: Checks key expiration, permission scoping.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:8.6, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.5, OWASP-API:2023:API2:2023, CIS-v8:6.2
+PRESTON_META
+
 # P-54: API Key Lifecycle Management
 # Keys must have expiration, rotation, scope limits, and usage logging.
 echo "P-54: API Key Management"

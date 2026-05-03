@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-34
+name: SSRF Prevention
+description: Checks user-supplied URLs in HTTP clients, metadata endpoint blocking.
+category: code-scan
+severity: high
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:6.2.4, ISO-27001:2022:8.26, OWASP-API:2023:API7:2023, CIS-v8:13.4
+PRESTON_META
+
 # P-34: SSRF Prevention — OWASP API #7
 echo "P-34: SSRF Prevention"
 SRC="${SOURCE_DIR:-.}"

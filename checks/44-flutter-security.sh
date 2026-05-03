@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-44
+name: Flutter/Dart Security
+description: Checks hardcoded keys, cert pinning, secure storage.
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:3.4, PCI-DSS:4.0:4.2, SOC2:TSC-2017:CC6.7, ISO-27001:2022:8.26
+PRESTON_META
+
 # P-44: Flutter/Dart Mobile Security
 echo "P-44: Mobile Security (Flutter)"
 SRC="${SOURCE_DIR:-.}"

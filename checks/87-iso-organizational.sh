@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-87
+name: Iso Organizational
+description: Iso Organizational security check (see COMPLIANCE_MAPPING.md for details).
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+runtime_class: static-grep
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+PRESTON_META
+
 # P-87: ISO 27001 Organizational Controls (A.5.x) Evidence
 # Checks for ISMS documentation, risk register, threat intelligence, supplier management.
 echo "P-87: ISO 27001 Organizational"

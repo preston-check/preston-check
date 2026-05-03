@@ -1,4 +1,23 @@
 #!/bin/bash
+
+: <<'PRESTON_META'
+schema_version: 1
+id: P-10
+name: Live Attack Indicators
+description: Checks production logs for brute force, rapid polling, blacklist events.
+category: live-monitoring
+severity: medium
+languages: any
+min_tier: free
+runtime_class: live-ssh
+evidence_required: false
+version: 1.0.0
+added_in: 0.1.0
+author_name: Preston-Check Maintainers
+author_github: prestoncheck
+frameworks: PCI-DSS:4.0:10.6, SOC2:TSC-2017:CC7.2, ISO-27001:2022:8.16, CIS-v8:8.11
+PRESTON_META
+
 # P-10: Live attack indicators (runs against production logs)
 # Checks current logs for active hacking patterns.
 # Requires SSH_HOST and LOG_DIR to be configured.
