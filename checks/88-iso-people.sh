@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-88
-name: Iso People
-description: Iso People security check (see COMPLIANCE_MAPPING.md for details).
+name: ISO People Controls
+description: Verifies screening, security training, offboarding, remote work policy.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: ISO-27001:2022:6.1, ISO-27001:2022:6.8, SOC2:TSC-2017:CC1.4
 PRESTON_META
+
 
 # P-88: ISO 27001 People Controls (A.6.x) Evidence
 # Checks for screening, training, disciplinary, and termination procedure artifacts.

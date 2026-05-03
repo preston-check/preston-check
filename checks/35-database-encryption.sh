@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:3.5, PCI-DSS:4.0:8.6, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.24, ISO-27001:2022:8.25, CIS-v8:3.11
+frameworks: PCI-DSS:4.0:3.5, PCI-DSS:4.0:8.6, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.24, ISO-27001:2022:8.25, NIST-CSF:2.0:PR.DS-1, CIS-v8:3.11
 PRESTON_META
+
 
 # P-35: Database Encryption & Access Control
 echo "P-35: Database Encryption"

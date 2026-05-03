@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-77
 name: Withdrawal Controls
-description: Withdrawal Controls security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects withdrawal limits, address whitelist, cooldown, 2FA on withdrawals.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:8.4.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:5.16, NIST-CSF:2.0:PR.AA-3, CIS-v8:6.3
 PRESTON_META
+
 
 # P-77: Withdrawal Controls & Fraud Prevention
 # Outbound fund movements are the highest-risk operations and require

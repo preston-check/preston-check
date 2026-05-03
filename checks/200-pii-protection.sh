@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-200
-name: Pii Protection
-description: Pii Protection security check (see COMPLIANCE_MAPPING.md for details).
+name: PII Protection
+description: Detects PII in logs, URLs, error messages, and client-bound JSON.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:3.4, PCI-DSS:4.0:8.3.2, SOC2:TSC-2017:P1.1, SOC2:TSC-2017:P5.1, ISO-27001:2022:8.11, ISO-27001:2022:8.12, NIST-CSF:2.0:PR.DS-1, CIS-v8:3.13
 PRESTON_META
+
 
 # P-200: PII Protection
 echo "P-200: PII Protection"

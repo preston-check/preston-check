@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-260
 name: Crypto Standards
-description: Crypto Standards security check (see COMPLIANCE_MAPPING.md for details).
+description: Verifies use of approved algorithms, key sizes, and modes.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:4.2.1, PCI-DSS:4.0:3.6, SOC2:TSC-2017:CC6.7, ISO-27001:2022:8.24, NIST-CSF:2.0:PR.DS-2, CIS-v8:3.10
 PRESTON_META
+
 
 # P-260: Cryptographic Standards
 echo "P-260: Cryptographic Standards"

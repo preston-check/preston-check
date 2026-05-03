@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-71
 name: Beneficial Ownership
-description: Beneficial Ownership security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects UBO tracking, entity KYC, FinCEN CDD compliance.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: SOC2:TSC-2017:CC2.3, ISO-27001:2022:5.13, NIST-CSF:2.0:ID.GV-3
 PRESTON_META
+
 
 # P-71: Beneficial Ownership & UBO Tracking
 # FinCEN CDD Rule requires identification of beneficial owners (25%+ ownership).

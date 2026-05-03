@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:7.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.3, OWASP-API:2023:API1:2023
+frameworks: PCI-DSS:4.0:7.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.3, OWASP-API:2023:API1
 PRESTON_META
+
 
 # P-31: Broken Object Level Authorization (BOLA) — OWASP API #1
 echo "P-31: BOLA Authorization"

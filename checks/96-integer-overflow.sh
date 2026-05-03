@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-96
-name: Integer Overflow
-description: Integer Overflow security check (see COMPLIANCE_MAPPING.md for details).
+name: Integer Overflow Detection
+description: Detects unchecked arithmetic on financial values across multiple languages.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:6.2.4, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.28, NIST-CSF:2.0:PR.DS-6
 PRESTON_META
+
 
 # P-96: Integer Overflow & Underflow Protection
 # Checks for unguarded integer arithmetic on financial quantities.

@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:8.6.1, SOC2:TSC-2017:CC6.1, SOC2:TSC-2017:CC6.3, ISO-27001:2022:5.15, ISO-27001:2022:8.2, CIS-v8:6.2
+frameworks: PCI-DSS:4.0:8.6.1, SOC2:TSC-2017:CC6.1, SOC2:TSC-2017:CC6.3, ISO-27001:2022:5.15, ISO-27001:2022:8.2, NIST-CSF:2.0:PR.AA-1, CIS-v8:6.2
 PRESTON_META
+
 
 # P-25: AWS IAM & Credential Hygiene
 # Static credentials vs IAM roles, wildcard policies, Secrets Manager usage.

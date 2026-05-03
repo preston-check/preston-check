@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:12.10, SOC2:TSC-2017:CC7.3, SOC2:TSC-2017:CC7.4, ISO-27001:2022:5.24, ISO-27001:2022:5.26, CIS-v8:17.1
+frameworks: PCI-DSS:4.0:12.10, SOC2:TSC-2017:CC7.3, SOC2:TSC-2017:CC7.4, ISO-27001:2022:5.24, ISO-27001:2022:5.26, NIST-CSF:2.0:RS.RP-1, CIS-v8:17.1
 PRESTON_META
+
 
 # P-40: Incident Response Readiness
 echo "P-40: Incident Response"

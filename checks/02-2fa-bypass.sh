@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:8.4.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.5, OWASP-API:2023:API2:2023, CIS-v8:6.3
+frameworks: PCI-DSS:4.0:8.4.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.5, OWASP-API:2023:API2, NIST-CSF:2.0:PR.AA-3, CIS-v8:6.3
 PRESTON_META
+
 
 # P-02: 2FA bypass paths
 # Preston created accounts with 2FA=NONE. This check verifies that no code path

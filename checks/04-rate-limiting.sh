@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:6.4.1, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.6, OWASP-API:2023:API4:2023, CIS-v8:13.3
+frameworks: PCI-DSS:4.0:6.4.1, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.6, OWASP-API:2023:API4, NIST-CSF:2.0:PR.IR-1, CIS-v8:13.3
 PRESTON_META
+
 
 # P-04: Rate limiting on endpoints
 # Preston made 21,201 calls to /client/config in rapid succession.

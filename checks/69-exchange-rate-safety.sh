@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-69
 name: Exchange Rate Safety
-description: Exchange Rate Safety security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects stale rates, missing rate bounds, spread limit violations, rate locking.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.25, NIST-CSF:2.0:PR.DS-6
 PRESTON_META
+
 
 # P-69: Currency Conversion & Exchange Rate Safety
 # Stale rates, unbounded spreads, and missing rate bounds enable arbitrage and theft.

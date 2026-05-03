@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:7.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.3, OWASP-API:2023:API1:2023, CIS-v8:6.8
+frameworks: PCI-DSS:4.0:7.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.3, OWASP-API:2023:API1, NIST-CSF:2.0:PR.AA-5, CIS-v8:6.8
 PRESTON_META
+
 
 # P-13: Authentication enforcement on all endpoints
 # Every non-public endpoint must require authentication. No endpoint should

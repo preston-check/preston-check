@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-65
 name: Transaction Velocity
-description: Transaction Velocity security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects rapid-fire transaction patterns, structuring, missing cooling periods.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:10.6.1, SOC2:TSC-2017:CC7.2, ISO-27001:2022:8.16, NIST-CSF:2.0:DE.AE-3, CIS-v8:8.11
 PRESTON_META
+
 
 # P-65: Transaction Velocity & Structuring Detection
 # Checks for velocity limits, structuring detection patterns, and smurfing prevention.

@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:10.6, SOC2:TSC-2017:CC7.2, ISO-27001:2022:8.16, CIS-v8:8.11
+frameworks: PCI-DSS:4.0:10.6, SOC2:TSC-2017:CC7.2, ISO-27001:2022:8.16, NIST-CSF:2.0:DE.AE-2, CIS-v8:8.11
 PRESTON_META
+
 
 # P-10: Live attack indicators (runs against production logs)
 # Checks current logs for active hacking patterns.

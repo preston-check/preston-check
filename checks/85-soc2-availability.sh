@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-85
-name: Soc2 Availability
-description: Soc2 Availability security check (see COMPLIANCE_MAPPING.md for details).
+name: SOC 2 Availability
+description: Verifies capacity planning, SLA documentation, infrastructure redundancy.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: SOC2:TSC-2017:A1.1, SOC2:TSC-2017:A1.2, SOC2:TSC-2017:A1.3, ISO-27001:2022:8.6, NIST-CSF:2.0:RC.RP-1
 PRESTON_META
+
 
 # P-85: SOC 2 Availability Criteria (A1)
 # Verifies capacity planning, load testing, auto-scaling, and recovery evidence.

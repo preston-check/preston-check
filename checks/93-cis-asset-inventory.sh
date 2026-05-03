@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-93
-name: Cis Asset Inventory
-description: Cis Asset Inventory security check (see COMPLIANCE_MAPPING.md for details).
+name: CIS Asset Inventory
+description: Verifies service catalog, infrastructure-as-code, monitoring tools.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: CIS-v8:1.1, CIS-v8:1.2, CIS-v8:2.1, NIST-CSF:2.0:ID.AM-1, NIST-CSF:2.0:ID.AM-2
 PRESTON_META
+
 
 # P-93: CIS Control 1 — Enterprise Asset Inventory
 # For cloud-native platforms, "assets" are services, instances, databases, and endpoints.

@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:1.3, PCI-DSS:4.0:2.2.4, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.20, ISO-27001:2022:8.21, CIS-v8:12.2
+frameworks: PCI-DSS:4.0:1.3, PCI-DSS:4.0:2.2.4, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.20, ISO-27001:2022:8.21, NIST-CSF:2.0:PR.AC-5, CIS-v8:12.2
 PRESTON_META
+
 
 # P-26: Network Exposure & Port Security
 # 0.0.0.0 binding, Redis auth, JMX, public DB endpoints.

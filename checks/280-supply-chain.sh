@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-280
 name: Supply Chain
-description: Supply Chain security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects supply chain risks, missing dependency pinning, unsigned artifacts.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:6.3.2, SOC2:TSC-2017:CC9.2, ISO-27001:2022:5.19, ISO-27001:2022:8.28, OWASP-API:2023:API10, CIS-v8:16.4
 PRESTON_META
+
 
 # P-280: Supply Chain Security
 echo "P-280: Supply Chain Security"

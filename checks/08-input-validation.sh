@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:6.2.4, PCI-DSS:4.0:6.5.1, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.26, OWASP-API:2023:API10:2023, CIS-v8:16.9
+frameworks: PCI-DSS:4.0:6.2.4, PCI-DSS:4.0:6.5.1, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.26, OWASP-API:2023:API10, NIST-CSF:2.0:PR.DS-1, CIS-v8:16.9
 PRESTON_META
+
 
 # P-08: Input validation and injection prevention
 # Check that API endpoints validate input and use parameterized queries.

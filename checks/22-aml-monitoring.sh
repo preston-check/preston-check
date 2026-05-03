@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: SOC2:TSC-2017:CC3.2, ISO-27001:2022:5.34
+frameworks: SOC2:TSC-2017:CC3.2, ISO-27001:2022:5.34, NIST-CSF:2.0:GV.RM-1
 PRESTON_META
+
 
 # P-22: AML Transaction Monitoring
 # CTR thresholds, velocity/structuring detection, SAR flagging.

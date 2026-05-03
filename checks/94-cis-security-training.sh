@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-94
-name: Cis Security Training
-description: Cis Security Training security check (see COMPLIANCE_MAPPING.md for details).
+name: CIS Security Training
+description: Verifies training docs, platform references, secure coding standards.
 category: compliance-evidence
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: CIS-v8:14.1, CIS-v8:14.6, ISO-27001:2022:6.3, SOC2:TSC-2017:CC2.2
 PRESTON_META
+
 
 # P-94: CIS Control 14 — Security Awareness & Skills Training
 # Verifies evidence of security training program, phishing simulations, developer training.

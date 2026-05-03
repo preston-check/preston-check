@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:3.4, SOC2:TSC-2017:CC6.5, ISO-27001:2022:8.10, ISO-27001:2022:8.24
+frameworks: PCI-DSS:4.0:3.4, SOC2:TSC-2017:CC6.5, ISO-27001:2022:8.10, ISO-27001:2022:8.24, NIST-CSF:2.0:PR.DS-1
 PRESTON_META
+
 
 # P-23: KYC Document Security
 # S3 encryption, presigned URL expiry, file type validation, size limits.

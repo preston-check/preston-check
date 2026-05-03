@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-95
-name: Cis Service Provider
-description: Cis Service Provider security check (see COMPLIANCE_MAPPING.md for details).
+name: CIS Service Provider and Pentest
+description: Verifies vendor assessments, pentest program, vulnerability scan schedule.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: CIS-v8:15.1, CIS-v8:18.1, ISO-27001:2022:5.19, NIST-CSF:2.0:ID.RA-1
 PRESTON_META
+
 
 # P-95: CIS Control 15 — Service Provider Management + CIS Control 18 — Pentest Program
 echo "P-95: CIS Service Provider & Pentest"

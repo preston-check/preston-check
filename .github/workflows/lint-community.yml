@@ -1,0 +1,53 @@
+name: Lint community checks
+
+on:
+  pull_request:
+    paths:
+      - 'checks/community/**'
+      - 'tools/lint-check.sh'
+      - 'lib/check_metadata.sh'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Identify changed community checks
+        id: changed
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+          FILES=$(git diff --name-only "$BASE" "$HEAD" -- 'checks/community/**' | grep '\.sh$' || true)
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$FILES" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Run lint-check.sh on each changed file
+        if: steps.changed.outputs.files != ''
+        run: |
+          chmod +x tools/lint-check.sh
+          set -e
+          while IFS= read -r f; do
+            [[ -z "$f" ]] && continue
+            echo ""
+            echo "============================================================================"
+            echo "  Linting $f"
+            echo "============================================================================"
+            tools/lint-check.sh "$f"
+          done <<< "${{ steps.changed.outputs.files }}"
+
+      - name: Verify shellcheck on all community checks
+        run: |
+          set +e
+          fail=0
+          for f in checks/community/**/*.sh; do
+            [[ -f "$f" ]] || continue
+            if ! shellcheck -S warning "$f"; then
+              fail=1
+            fi
+          done
+          exit $fail

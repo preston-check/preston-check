@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-80
 name: Financial Event Sourcing
-description: Financial Event Sourcing security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects event log immutability, history tables, point-in-time queries, lineage.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:10.2, SOC2:TSC-2017:CC4.1, ISO-27001:2022:8.15, NIST-CSF:2.0:PR.PT-1
 PRESTON_META
+
 
 # P-80: Financial Event Sourcing & Reconstruction
 # Every financial state must be reconstructable from the event log.

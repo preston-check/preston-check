@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-86
-name: Soc2 Confidentiality
-description: Soc2 Confidentiality security check (see COMPLIANCE_MAPPING.md for details).
+name: SOC 2 Confidentiality
+description: Verifies data classification, NDA references, DLP controls.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: SOC2:TSC-2017:C1.1, SOC2:TSC-2017:C1.2, ISO-27001:2022:5.12, NIST-CSF:2.0:PR.DS-5
 PRESTON_META
+
 
 # P-86: SOC 2 Confidentiality Criteria (C1)
 # Verifies data classification, confidentiality agreements, and DLP.

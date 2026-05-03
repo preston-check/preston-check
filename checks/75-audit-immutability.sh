@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-75
 name: Audit Immutability
-description: Audit Immutability security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects audit triggers, append-only enforcement, actor attribution, retention.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:10.3.1, PCI-DSS:4.0:10.3.2, SOC2:TSC-2017:CC4.1, SOC2:TSC-2017:CC7.2, ISO-27001:2022:8.15, NIST-CSF:2.0:PR.PT-1, CIS-v8:8.5
 PRESTON_META
+
 
 # P-75: Financial Audit Trail Immutability
 # Audit logs must be tamper-proof, append-only, with cryptographic integrity.

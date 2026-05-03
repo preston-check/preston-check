@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-92
-name: Nist Recover
-description: Nist Recover security check (see COMPLIANCE_MAPPING.md for details).
+name: NIST Recover
+description: Verifies recovery planning, recovery communications.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: ISO-27001:2022:5.30
 PRESTON_META
+
 
 # P-92: NIST CSF 2.0 Recover Function — Recovery Planning & Communication
 echo "P-92: NIST CSF Recover"

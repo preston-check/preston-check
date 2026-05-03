@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-72
 name: Sanctions Screening
-description: Sanctions Screening security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects OFAC, PEP, country restriction enforcement on transactions and registration.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: SOC2:TSC-2017:CC2.3, ISO-27001:2022:5.31, NIST-CSF:2.0:ID.GV-3
 PRESTON_META
+
 
 # P-72: Sanctions & PEP Screening
 # OFAC, EU, UN sanctions lists must be checked before every outbound payment.

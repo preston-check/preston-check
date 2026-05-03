@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: SOC2:TSC-2017:CC4.1, ISO-27001:2022:8.34
+frameworks: SOC2:TSC-2017:CC4.1, ISO-27001:2022:8.34, NIST-CSF:2.0:PR.DS-6
 PRESTON_META
+
 
 # P-47: Financial Reconciliation Controls
 echo "P-47: Financial Reconciliation"

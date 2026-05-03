@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-90
-name: Nist Govern
-description: Nist Govern security check (see COMPLIANCE_MAPPING.md for details).
+name: NIST Govern
+description: Verifies organizational context, risk strategy, roles, supply chain governance.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: ISO-27001:2022:5.1, ISO-27001:2022:5.4
 PRESTON_META
+
 
 # P-90: NIST CSF 2.0 Govern Function (GV)
 # Checks for governance documentation: organizational context, risk management strategy,

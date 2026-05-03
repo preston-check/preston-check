@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-78
 name: Ledger Consistency
-description: Ledger Consistency security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects atomic balance updates, drift detection, orphans, idempotent updates.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.25, NIST-CSF:2.0:PR.DS-6
 PRESTON_META
+
 
 # P-78: Ledger Consistency & Zero-Sum Validation
 # Every debit must have a corresponding credit. The sum of all movements must be zero.

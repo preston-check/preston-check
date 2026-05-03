@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:2.2, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.8, CIS-v8:4.6
+frameworks: PCI-DSS:4.0:2.2, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.8, NIST-CSF:2.0:PR.IP-1, CIS-v8:4.6
 PRESTON_META
+
 
 # P-43: Container & Runtime Security
 echo "P-43: Container Security"

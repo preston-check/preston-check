@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:3.6, PCI-DSS:4.0:3.7, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.24, CIS-v8:3.11
+frameworks: PCI-DSS:4.0:3.6, PCI-DSS:4.0:3.7, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.24, NIST-CSF:2.0:PR.DS-1, CIS-v8:3.11
 PRESTON_META
+
 
 # P-36: Encryption Key Management
 echo "P-36: Key Management"

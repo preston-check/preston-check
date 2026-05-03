@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-91
-name: Nist Identify
-description: Nist Identify security check (see COMPLIANCE_MAPPING.md for details).
+name: NIST Identify
+description: Verifies asset inventory, risk assessment, improvement tracking.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: CIS-v8:1.1
 PRESTON_META
+
 
 # P-91: NIST CSF 2.0 Identify Function — Asset Management & Risk Assessment
 echo "P-91: NIST CSF Identify"

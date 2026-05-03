@@ -18,6 +18,7 @@ author_github: prestoncheck
 frameworks: SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.26
 PRESTON_META
 
+
 # P-55: Cryptocurrency Address Validation
 # Withdrawal addresses must be validated, whitelisted, and AML-screened.
 echo "P-55: Crypto Address Security"

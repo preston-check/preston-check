@@ -18,6 +18,7 @@ author_github: prestoncheck
 frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
 PRESTON_META
 
+
 # P-60: Email Security Headers — CIS 9.2, ISO 27001 A.8.21
 # Checks for SPF, DKIM, DMARC configuration and secure email patterns.
 echo "P-60: Email Security"

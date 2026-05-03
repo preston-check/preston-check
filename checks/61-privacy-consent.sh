@@ -18,6 +18,7 @@ author_github: prestoncheck
 frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
 PRESTON_META
 
+
 # P-61: Privacy & Consent Mechanisms — SOC 2 P1-P8, ISO 27001 A.5.34, GDPR Art 6/7
 # Checks for consent management, DSAR handling, data export.
 echo "P-61: Privacy & Consent"

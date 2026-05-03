@@ -1,0 +1,38 @@
+name: Tests
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Shell syntax check
+        run: |
+          for f in preston-check.sh deploy-to-project.sh \
+                   lib/*.sh tools/*.sh templates/*.sh scripts/*.sh \
+                   docker/*.sh checks/*.sh checks/community/**/*.sh; do
+            [[ -f "$f" ]] || continue
+            bash -n "$f" || { echo "SYNTAX ERROR: $f"; exit 1; }
+          done
+
+      - name: Run lib tests
+        run: |
+          chmod +x tests/run-tests.sh
+          tests/run-tests.sh
+
+      - name: Self-scan (free tier, airgap)
+        run: |
+          chmod +x preston-check.sh checks/*.sh
+          ./preston-check.sh --light --airgap --report self-scan.md
+          test -s self-scan.md
+
+      - name: Verify framework filter
+        run: |
+          ./preston-check.sh --framework "PCI-DSS" --light --airgap --report fw-scan.md
+          grep -q "PCI-DSS" fw-scan.md || { echo "framework filter scan empty"; exit 1; }

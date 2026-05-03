@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-73
 name: Transaction Limits
-description: Transaction Limits security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects per-transaction limits, rolling limits, atomic enforcement.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:7.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:5.15, NIST-CSF:2.0:PR.AC-4
 PRESTON_META
+
 
 # P-73: Transaction Limit Enforcement
 # Per-transaction, daily rolling, monthly rolling limits must be atomic.

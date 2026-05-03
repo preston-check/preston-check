@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:3.4, PCI-DSS:4.0:8.3.2, SOC2:TSC-2017:P1.1, SOC2:TSC-2017:CC6.5, ISO-27001:2022:8.11, ISO-27001:2022:8.12, CIS-v8:3.12
+frameworks: PCI-DSS:4.0:3.4, PCI-DSS:4.0:8.3.2, SOC2:TSC-2017:P1.1, SOC2:TSC-2017:CC6.5, ISO-27001:2022:8.11, ISO-27001:2022:8.12, NIST-CSF:2.0:PR.DS-1, CIS-v8:3.12
 PRESTON_META
+
 
 # P-18: Data privacy and PII protection
 # Financial platforms must protect personally identifiable information.

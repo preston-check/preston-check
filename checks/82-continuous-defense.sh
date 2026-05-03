@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-82
-name: Continuous Defense
-description: Continuous Defense security check (see COMPLIANCE_MAPPING.md for details).
+name: Continuous Defense Model
+description: Detects real-time monitoring, auto-response, audit automation, circuit breakers.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: SOC2:TSC-2017:CC7.3, ISO-27001:2022:5.24, NIST-CSF:2.0:DE.CM-1, NIST-CSF:2.0:RS.AN-1, CIS-v8:17.1
 PRESTON_META
+
 
 # P-82: Continuous Defense Model Readiness
 # Validates the infrastructure for continuous security monitoring, automatic response,

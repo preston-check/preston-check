@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-270
 name: Session Security
-description: Session Security security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects missing session controls, weak session token generation, insecure cookies.
 category: code-scan
 severity: high
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:8.2, PCI-DSS:4.0:8.6, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.5, OWASP-API:2023:API2, NIST-CSF:2.0:PR.AC-7, CIS-v8:6.5
 PRESTON_META
+
 
 # P-270: Session Security
 echo "P-270: Session Security"

@@ -757,3 +757,471 @@ With the addition of P-83 through P-95, Preston-Check verifies evidence for ever
 | CIS Controls v8 | 18 groups | 18 of 18 | 100% |
 
 The path from WARN to PASS on evidence checks requires populating the compliance/ directory with the organizational artifacts. See compliance-template/README.md for the complete list of required documents.
+
+### P-65: Transaction Velocity
+Detects rapid-fire transaction patterns, structuring, missing cooling periods.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 10.6.1 — Critical events reviewed daily | Covered |
+| SOC 2 | CC7.2 — Anomaly detection | Covered |
+| ISO 27001 | A.8.16 — Monitoring activities | Covered |
+| NIST CSF | DE.AE-3 — Event data aggregated and correlated | Covered |
+| CIS v8 | 8.11 — Conduct audit log reviews | Covered |
+
+### P-66: Dormant Account Monitoring
+Detects reactivation anomalies, step-up auth on long-dormant accounts.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC6.2 — User access provisioning | Covered |
+| ISO 27001 | A.5.16 — Identity management | Covered |
+| NIST CSF | DE.CM-3 — Personnel activity monitored | Covered |
+| CIS v8 | 6.2 — Establish access granting process | Covered |
+
+### P-67: Cross-Account Transfers
+Detects money-mule patterns, layering indicators, beneficiary changes.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC7.2 — Anomaly detection | Covered |
+| ISO 27001 | A.8.16 — Monitoring activities | Covered |
+| NIST CSF | DE.AE-2 — Detected events analyzed | Covered |
+
+### P-68: Fee Manipulation
+Detects negative fees, client-supplied fees, missing fee centralization.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC8.1 — Change management; processing integrity | Covered |
+| ISO 27001 | A.8.25 — Secure development lifecycle | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-69: Exchange Rate Safety
+Detects stale rates, missing rate bounds, spread limit violations, rate locking.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.25 — Secure development lifecycle | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-70: Settlement Finality
+Detects transaction deletion, status rewinds, append-only enforcement, qty zeroing.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 10.3.2 — Audit log file integrity | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.15 — Logging | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-71: Beneficial Ownership
+Detects UBO tracking, entity KYC, FinCEN CDD compliance.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC2.3 — Internal communication | Covered |
+| ISO 27001 | A.5.13 — Customer information | Covered |
+| NIST CSF | ID.GV-3 — Legal and regulatory requirements | Covered |
+
+### P-72: Sanctions Screening
+Detects OFAC, PEP, country restriction enforcement on transactions and registration.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC2.3 — Compliance obligations | Covered |
+| ISO 27001 | A.5.31 — Legal requirements | Covered |
+| NIST CSF | ID.GV-3 — Legal and regulatory requirements | Covered |
+
+### P-73: Transaction Limits
+Detects per-transaction limits, rolling limits, atomic enforcement.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 7.2 — Access control | Covered |
+| SOC 2 | CC6.1 — Logical access | Covered |
+| ISO 27001 | A.5.15 — Access control | Covered |
+| NIST CSF | PR.AC-4 — Access permissions managed | Covered |
+
+### P-74: Proof of Reserves
+Detects balance reconciliation, overdraft prevention, double-entry patterns.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.25 — Secure development lifecycle | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-75: Audit Immutability
+Detects audit triggers, append-only enforcement, actor attribution, retention.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 10.3.1 — Limit audit log access; 10.3.2 — Protect log integrity | Covered |
+| SOC 2 | CC4.1 — Monitoring; CC7.2 — Anomalies | Covered |
+| ISO 27001 | A.8.15 — Logging | Covered |
+| NIST CSF | PR.PT-1 — Audit logs maintained | Covered |
+| CIS v8 | 8.5 — Collect detailed audit logs | Covered |
+
+### P-76: Payment State Machine
+Detects valid state transitions, terminal states, expiration policies.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.25 — Secure development lifecycle | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-77: Withdrawal Controls
+Detects withdrawal limits, address whitelist, cooldown, 2FA on withdrawals.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 8.4.2 — MFA enforcement | Covered |
+| SOC 2 | CC6.1 — Logical access | Covered |
+| ISO 27001 | A.5.16 — Identity management | Covered |
+| NIST CSF | PR.AA-3 — Authentication | Covered |
+| CIS v8 | 6.3 — Require MFA | Covered |
+
+### P-78: Ledger Consistency
+Detects atomic balance updates, drift detection, orphans, idempotent updates.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.25 — Secure development lifecycle | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-79: Regulatory Reporting
+Detects CTR readiness, SAR mechanisms, regulatory export capabilities.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC2.3 — Compliance obligations | Covered |
+| ISO 27001 | A.5.31 — Legal requirements | Covered |
+| NIST CSF | ID.GV-3 — Legal and regulatory requirements | Covered |
+
+### P-80: Financial Event Sourcing
+Detects event log immutability, history tables, point-in-time queries, lineage.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 10.2 — Audit log implementation | Covered |
+| SOC 2 | CC4.1 — Monitoring | Covered |
+| ISO 27001 | A.8.15 — Logging | Covered |
+| NIST CSF | PR.PT-1 — Audit logs maintained | Covered |
+
+### P-81: Financial Input Guards
+Detects negative amounts, integer overflow, NaN/Infinity, type coercion, precision.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.2.4 — Secure coding; 6.5.1 — Injection flaws | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.28 — Secure coding | Covered |
+| OWASP API | API3:2023 — Broken Object Property Level Authorization | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+| CIS v8 | 16.10 — Apply secure design principles | Covered |
+
+### P-82: Continuous Defense Model
+Detects real-time monitoring, auto-response, audit automation, circuit breakers.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC7.3 — Security incidents | Covered |
+| ISO 27001 | A.5.24 — Incident response | Covered |
+| NIST CSF | DE.CM-1 — Network monitoring; RS.AN-1 — Notification process | Covered |
+| CIS v8 | 17.1 — Designate incident response personnel | Covered |
+
+### P-83: Physical Access Evidence
+Verifies physical security docs, badge system references, data center documentation.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 9.1 — Physical access controls; 9.2 — Visitor management | Covered |
+| SOC 2 | CC6.4 — Physical access | Covered |
+| ISO 27001 | A.7.1 — Physical security perimeters | Covered |
+| NIST CSF | PR.AC-2 — Physical access managed | Covered |
+| CIS v8 | 13.10 — Perform application layer filtering | Covered |
+
+### P-84: Organizational Policies
+Verifies security policy, acceptable use, risk assessment, training, vendor mgmt.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 12.1 — Establish security policy; 12.6 — Security awareness | Covered |
+| SOC 2 | CC1.1 — Demonstrates commitment to integrity | Covered |
+| ISO 27001 | A.5.1 — Policies for information security | Covered |
+| NIST CSF | GV.PO-1 — Policy established | Covered |
+| CIS v8 | 14.1 — Establish security awareness program | Covered |
+
+### P-85: SOC 2 Availability
+Verifies capacity planning, SLA documentation, infrastructure redundancy.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | A1.1 — Capacity; A1.2 — Environmental; A1.3 — Recovery | Covered |
+| ISO 27001 | A.8.6 — Capacity management | Covered |
+| NIST CSF | RC.RP-1 — Recovery plan executed | Covered |
+
+### P-86: SOC 2 Confidentiality
+Verifies data classification, NDA references, DLP controls.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | C1.1 — Confidentiality identification; C1.2 — Confidentiality maintenance | Covered |
+| ISO 27001 | A.5.12 — Classification of information | Covered |
+| NIST CSF | PR.DS-5 — Data leak protections | Covered |
+
+### P-87: ISO Organizational Controls
+Verifies ISMS scope, threat intelligence, supplier mgmt, cloud security, incident mgmt.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| ISO 27001 | A.5.1..A.5.37 — Organizational controls | Covered |
+| SOC 2 | CC1.x — Organizational governance | Covered |
+
+### P-88: ISO People Controls
+Verifies screening, security training, offboarding, remote work policy.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| ISO 27001 | A.6.1..A.6.8 — People controls | Covered |
+| SOC 2 | CC1.4 — Workforce competence | Covered |
+
+### P-89: ISO Physical Controls
+Verifies data center docs, equipment security, environmental monitoring.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| ISO 27001 | A.7.1..A.7.14 — Physical controls | Covered |
+| PCI-DSS v4.0 | 9.x — Physical security | Covered |
+
+### P-90: NIST Govern
+Verifies organizational context, risk strategy, roles, supply chain governance.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| NIST CSF | GV.OC; GV.RM; GV.RR; GV.PO; GV.SC | Covered |
+| ISO 27001 | A.5.1..A.5.4 — Organizational policies | Covered |
+
+### P-91: NIST Identify
+Verifies asset inventory, risk assessment, improvement tracking.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| NIST CSF | ID.AM; ID.RA; ID.IM | Covered |
+| CIS v8 | 1.1 — Establish enterprise asset inventory | Covered |
+
+### P-92: NIST Recover
+Verifies recovery planning, recovery communications.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| NIST CSF | RC.RP; RC.CO | Covered |
+| ISO 27001 | A.5.30 — ICT readiness for business continuity | Covered |
+
+### P-93: CIS Asset Inventory
+Verifies service catalog, infrastructure-as-code, monitoring tools.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| CIS v8 | 1.1; 1.2; 2.1 — Inventory controls | Covered |
+| NIST CSF | ID.AM-1; ID.AM-2 — Asset management | Covered |
+
+### P-94: CIS Security Training
+Verifies training docs, platform references, secure coding standards.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| CIS v8 | 14.1; 14.6 — Security awareness | Covered |
+| ISO 27001 | A.6.3 — Information security awareness | Covered |
+| SOC 2 | CC2.2 — Internal communication | Covered |
+
+### P-95: CIS Service Provider and Pentest
+Verifies vendor assessments, pentest program, vulnerability scan schedule.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| CIS v8 | 15.1; 18.1 — Service providers; pentest program | Covered |
+| ISO 27001 | A.5.19 — Information security in supplier relationships | Covered |
+| NIST CSF | GV.SC; ID.RA-1 — Supply chain; vulnerability assessments | Covered |
+
+### P-96: Integer Overflow Detection
+Detects unchecked arithmetic on financial values across multiple languages.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.2.4 — Secure coding | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.28 — Secure coding | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-97: Division Precision
+Detects unsafe division patterns that lose precision in financial computations.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.2.4 — Secure coding | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.28 — Secure coding | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-98: Currency Safety
+Detects mixed-currency arithmetic and missing currency tagging on amounts.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.2.4 — Secure coding | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.28 — Secure coding | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-99: Boundary Values
+Detects missing zero, max-value, and edge-case handling on financial inputs.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.2.4 — Secure coding | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.28 — Secure coding | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-100: Mathematical Invariants
+Detects violations of conservation invariants in financial calculations.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.2.4 — Secure coding | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-101: Money Type Precision
+Detects float/double for money in Java, Python, Go, Rust, TypeScript, JavaScript.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.2.4 — Secure coding | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.28 — Secure coding | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-102: Financial Math Accuracy
+Detects division without scale, premature truncation, unsafe rounding modes.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.2.4 — Secure coding | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.28 — Secure coding | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+
+### P-103: Double-Spend Race Conditions
+Detects missing locking on financial mutations, concurrent withdrawal patterns.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.2.4 — Secure coding; 6.5.1 — Injection flaws | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.25 — Secure development lifecycle | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+| CIS v8 | 16.10 — Apply secure design principles | Covered |
+
+### P-200: PII Protection
+Detects PII in logs, URLs, error messages, and client-bound JSON.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 3.4 — Render PAN unreadable; 8.3.2 — Strong passwords | Covered |
+| SOC 2 | P1.1 — Privacy notice; P5.1 — Personal information | Covered |
+| ISO 27001 | A.8.11 — Data masking; A.8.12 — Data leakage prevention | Covered |
+| NIST CSF | PR.DS-1 — Data protection | Covered |
+| CIS v8 | 3.13 — Deploy data loss prevention | Covered |
+
+### P-210: Compliance Controls
+Verifies presence of compliance configuration documentation and controls.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| SOC 2 | CC1.1 — Integrity and ethics | Covered |
+| ISO 27001 | A.5.1 — Policies for information security | Covered |
+| NIST CSF | GV.PO-1 — Policy established | Covered |
+
+### P-220: Data Integrity
+Detects missing constraints, integrity violations, and data drift indicators.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 11.5.2 — File integrity monitoring | Covered |
+| SOC 2 | CC8.1 — Processing integrity | Covered |
+| ISO 27001 | A.8.7 — Protection against malware | Covered |
+| NIST CSF | PR.DS-6 — Integrity checking | Covered |
+| CIS v8 | 3.6 — Encrypt data on end-user devices | Covered |
+
+### P-230: Infrastructure Security
+Detects infrastructure misconfigurations, missing hardening, exposed services.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 1.2 — Configure firewalls; 2.2 — Configuration standards | Covered |
+| SOC 2 | CC6.6 — System boundaries | Covered |
+| ISO 27001 | A.8.9 — Configuration management | Covered |
+| NIST CSF | PR.IP-1 — Baseline configuration | Covered |
+| CIS v8 | 4.1 — Establish secure configuration process | Covered |
+
+### P-240: API Security
+Detects API security misconfigurations, missing rate limits, weak auth.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.4.1 — Public-facing web apps | Covered |
+| SOC 2 | CC6.6 — System boundaries | Covered |
+| ISO 27001 | A.8.26 — Application security requirements | Covered |
+| OWASP API | API1; API2; API3; API4; API8 | Covered |
+| NIST CSF | PR.AC-3 — Remote access managed | Covered |
+
+### P-250: Webhook Security
+Detects missing signature verification, replay protection on webhooks.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.4.1 — Public-facing web apps | Covered |
+| SOC 2 | CC6.6 — System boundaries | Covered |
+| ISO 27001 | A.8.26 — Application security requirements | Covered |
+| NIST CSF | PR.DS-2 — Data-in-transit protected | Covered |
+
+### P-260: Crypto Standards
+Verifies use of approved algorithms, key sizes, and modes.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 4.2.1 — Strong cryptography in transmission; 3.6 — Cryptographic key management | Covered |
+| SOC 2 | CC6.7 — Restrict data transmission | Covered |
+| ISO 27001 | A.8.24 — Use of cryptography | Covered |
+| NIST CSF | PR.DS-2 — Data-in-transit protected | Covered |
+| CIS v8 | 3.10 — Encrypt sensitive data in transit | Covered |
+
+### P-270: Session Security
+Detects missing session controls, weak session token generation, insecure cookies.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 8.2 — Identify users; 8.6 — Token security | Covered |
+| SOC 2 | CC6.1 — Logical access | Covered |
+| ISO 27001 | A.8.5 — Secure authentication | Covered |
+| OWASP API | API2:2023 — Broken Authentication | Covered |
+| NIST CSF | PR.AC-7 — User authentication | Covered |
+| CIS v8 | 6.5 — Session management | Covered |
+
+### P-280: Supply Chain
+Detects supply chain risks, missing dependency pinning, unsigned artifacts.
+
+| Framework | Requirement | Status |
+|---|---|---|
+| PCI-DSS v4.0 | 6.3.2 — Inventory of third-party components | Covered |
+| SOC 2 | CC9.2 — Vendor management | Covered |
+| ISO 27001 | A.5.19 — Supplier relationships; A.8.28 — Secure coding | Covered |
+| OWASP API | API10:2023 — Unsafe Consumption of APIs | Covered |
+| NIST CSF | GV.SC — Cybersecurity supply chain risk management | Covered |
+| CIS v8 | 16.4 — Audit third-party software | Covered |

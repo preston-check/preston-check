@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-230
 name: Infrastructure Security
-description: Infrastructure Security security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects infrastructure misconfigurations, missing hardening, exposed services.
 category: infra-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:1.2, PCI-DSS:4.0:2.2, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.9, NIST-CSF:2.0:PR.IP-1, CIS-v8:4.1
 PRESTON_META
+
 
 # P-230: Infrastructure Security
 echo "P-230: Infrastructure Security"

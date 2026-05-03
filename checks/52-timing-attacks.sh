@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:3.6.1, ISO-27001:2022:8.24
+frameworks: PCI-DSS:4.0:3.6.1, ISO-27001:2022:8.24, NIST-CSF:2.0:PR.DS-1
 PRESTON_META
+
 
 # P-52: Timing Attack Prevention
 # Password comparison, HMAC verification, token comparison must be constant-time.

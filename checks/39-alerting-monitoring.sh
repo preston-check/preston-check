@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:10.7, SOC2:TSC-2017:CC7.3, ISO-27001:2022:8.16, CIS-v8:8.11
+frameworks: PCI-DSS:4.0:10.7, SOC2:TSC-2017:CC7.3, ISO-27001:2022:8.16, NIST-CSF:2.0:DE.AE-4, CIS-v8:8.11
 PRESTON_META
+
 
 # P-39: Alerting & Anomaly Detection
 echo "P-39: Alerting & Monitoring"

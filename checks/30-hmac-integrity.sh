@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:4.2.1, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.24, OWASP-API:2023:API2:2023
+frameworks: PCI-DSS:4.0:4.2.1, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.24, OWASP-API:2023:API2
 PRESTON_META
+
 
 # P-30: HMAC Inter-Service Authentication Integrity
 echo "P-30: HMAC Authentication"

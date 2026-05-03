@@ -32,10 +32,21 @@ build/
 *-private.pem
 keys/private*
 
-# Optional: keep private project configs out of public repo
-# Uncomment these BEFORE going public if you have private fintech configs:
-# configs/bloxcross.yml
-# configs/operations.yml
-# configs/robbie.yml
-# blox-logo*.svg
-# blox-logo*.png
+# Private project configs (kept locally, never committed)
+configs/bloxcross.yml
+configs/operations.yml
+configs/robbie.yml
+
+# Bloxcross-branded assets (project is now Preston-Check standalone)
+blox-logo.png
+blox-logo-white.svg
+blox-logo*.svg
+blox-logo*.png
+
+# Internal cycle output / private working files
+cycles/
+
+# Operator-only docx sources of public PDFs (review before tracking publicly)
+Preston-Check_Selling_Sheet.docx
+Preston-Check_Whitepaper.docx
+Preston-Check_Whitepaper-full_info.docx

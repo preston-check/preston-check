@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-210
 name: Compliance Controls
-description: Compliance Controls security check (see COMPLIANCE_MAPPING.md for details).
+description: Verifies presence of compliance configuration documentation and controls.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: SOC2:TSC-2017:CC1.1, ISO-27001:2022:5.1, NIST-CSF:2.0:GV.PO-1
 PRESTON_META
+
 
 # P-210: Compliance Controls (SOC2, PCI, AML, GDPR)
 echo "P-210: Compliance Controls"

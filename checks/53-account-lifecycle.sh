@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:8.1.4, PCI-DSS:4.0:8.2.4, SOC2:TSC-2017:CC6.2, SOC2:TSC-2017:CC6.3, ISO-27001:2022:5.16, ISO-27001:2022:5.18, CIS-v8:5.3
+frameworks: PCI-DSS:4.0:8.1.4, PCI-DSS:4.0:8.2.4, SOC2:TSC-2017:CC6.2, SOC2:TSC-2017:CC6.3, ISO-27001:2022:5.16, ISO-27001:2022:5.18, NIST-CSF:2.0:PR.AA-1, CIS-v8:5.3
 PRESTON_META
+
 
 # P-53: Account Lifecycle Security
 # Account creation, suspension, closure must be audited and irreversible where needed.

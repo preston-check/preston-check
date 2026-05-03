@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:6.2.4.3, SOC2:TSC-2017:CC7.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.12, OWASP-API:2023:API3:2023, CIS-v8:3.12
+frameworks: PCI-DSS:4.0:6.2.4.3, SOC2:TSC-2017:CC7.2, SOC2:TSC-2017:CC6.1, ISO-27001:2022:8.12, OWASP-API:2023:API3, NIST-CSF:2.0:PR.DS-2, CIS-v8:3.12
 PRESTON_META
+
 
 # P-03: Information leakage in API responses
 # Preston's session polling returned Vouched keys, full fee structure,

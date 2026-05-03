@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:6.3.2, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.25, OWASP-API:2023:API10:2023, CIS-v8:16.3
+frameworks: PCI-DSS:4.0:6.3.2, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.25, OWASP-API:2023:API10, NIST-CSF:2.0:ID.AM-2, CIS-v8:16.3
 PRESTON_META
+
 
 # P-14: Dependency security
 # Check for known vulnerable dependencies, outdated libraries,

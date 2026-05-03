@@ -18,6 +18,7 @@ author_github: prestoncheck
 frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
 PRESTON_META
 
+
 # P-59: Security Policy Documentation — PCI-DSS 12.1, SOC 2 CC1.1, ISO 27001 A.5.1
 # Verifies existence of required security policy documents.
 echo "P-59: Security Policy Documentation"

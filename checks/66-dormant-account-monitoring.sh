@@ -4,7 +4,7 @@
 schema_version: 1
 id: P-66
 name: Dormant Account Monitoring
-description: Dormant Account Monitoring security check (see COMPLIANCE_MAPPING.md for details).
+description: Detects reactivation anomalies, step-up auth on long-dormant accounts.
 category: live-monitoring
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: SOC2:TSC-2017:CC6.2, ISO-27001:2022:5.16, NIST-CSF:2.0:DE.CM-3, CIS-v8:6.2
 PRESTON_META
+
 
 # P-66: Dormant Account Reactivation Monitoring
 # Accounts that go dormant then suddenly become active with large transactions

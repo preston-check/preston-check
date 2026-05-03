@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-240
-name: Api Security
-description: Api Security security check (see COMPLIANCE_MAPPING.md for details).
+name: API Security
+description: Detects API security misconfigurations, missing rate limits, weak auth.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:6.4.1, SOC2:TSC-2017:CC6.6, ISO-27001:2022:8.26, OWASP-API:2023:API1, OWASP-API:2023:API2, OWASP-API:2023:API3, OWASP-API:2023:API4, OWASP-API:2023:API8, NIST-CSF:2.0:PR.AC-3
 PRESTON_META
+
 
 # P-240: API Security
 echo "P-240: API Security"

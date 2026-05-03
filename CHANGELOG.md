@@ -4,6 +4,69 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] — 2026-05-03 — DORA suite, full metadata coverage, CI/tests, private artifact strip
+
+### Added
+
+- DORA framework suite (P-400..P-407) — 8 checks covering EU Digital
+  Operational Resilience Act (Regulation 2022/2554) requirements: ICT
+  risk management framework, incident classification and reporting,
+  threat-led penetration testing, third-party register, concentration
+  risk, resilience testing program, threat intelligence sharing, and
+  critical function ICT continuity (RTO/RPO).
+- `.github/workflows/test.yml` — runs `bash -n` syntax checks across
+  all scripts, executes the test suite, and validates `--framework`
+  filtering on every push and PR.
+- `.github/workflows/lint-community.yml` — automatically runs
+  `tools/lint-check.sh` on every community PR plus shellcheck on all
+  community check files.
+- `.github/workflows/release.yml` — tag-triggered release workflow
+  that builds the release tarball with private artifacts excluded,
+  creates a GitHub Release, and (when Docker Hub credentials are set)
+  builds and pushes multi-arch Docker images.
+- Test fixture corpus under `tests/fixtures/{good,bad}/` with sample
+  clean and vulnerable code for Java and Solidity, plus 28 smoke tests
+  in `tests/lib/` covering metadata parsing, trust tier derivation,
+  tier-allows-check policy, license loader, and PEM block extraction.
+- Extended `COMPLIANCE_MAPPING.md` with control-level citations for
+  P-65..P-103 (39 finance-extended checks) and P-200..P-280 (9 recently
+  added categories), bringing total mapping doc coverage from 64 to
+  112 sections.
+
+### Fixed
+
+- Metadata parser bug where OWASP-API citations were emitted as
+  `OWASP-API:2023:API8:2023` (year duplicated). Now correctly emits
+  `OWASP-API:2023:API8`.
+- Metadata parser bug where NIST-CSF citations (format `PR.DS-1`,
+  `DE.AE-2`) were not extracted because the regex didn't match the
+  two-letter dotted notation. Now correctly captured across all 64
+  control-level mapped legacy checks.
+- `tools/sync-metadata-from-compliance-doc.py` per-framework regex
+  patterns refactored from a single union pattern to dedicated patterns
+  per framework, producing accurate citations for SOC 2 (`CC6.1`,
+  `P1.1`), NIST CSF (`PR.DS-1`), OWASP API (`API8` without year
+  duplication), and others.
+- Added `--force-legacy` flag to the backfill script that strips and
+  regenerates `PRESTON_META` blocks for legacy IDs (P-001..P-280),
+  leaving the crypto suite (P-301..P-360) untouched.
+
+### Changed
+
+- All 112 legacy checks now have control-level framework citations
+  (was: 64 mapped + 48 generic in v1.1.1). Re-running
+  `tools/sync-metadata-from-compliance-doc.py --force-legacy` after
+  any future COMPLIANCE_MAPPING.md update will roll changes forward.
+- `.gitignore` now explicitly excludes `configs/bloxcross.yml`,
+  `configs/operations.yml`, `configs/robbie.yml`, `blox-logo*.png`,
+  `blox-logo*.svg`, `cycles/`, and `*.docx`. Files removed from git
+  tracking but preserved on the local filesystem.
+
+### Backward compatibility
+
+- All existing checks continue to function. PRESTON_META blocks are
+  bash heredoc-to-no-op constructs that introduce no behavioral change.
+
 ## [1.1.0] — 2026-05-03 — Crypto / DeFi suite
 
 ### Added

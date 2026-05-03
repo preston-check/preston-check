@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:8.4.1, SOC2:TSC-2017:CC6.1, ISO-27001:2022:5.17, ISO-27001:2022:8.5
+frameworks: PCI-DSS:4.0:8.4.1, SOC2:TSC-2017:CC6.1, ISO-27001:2022:5.17, ISO-27001:2022:8.5, NIST-CSF:2.0:PR.AA-3
 PRESTON_META
+
 
 # P-56: Multi-Signature & Dual Approval
 # High-value operations must require multiple approvers.

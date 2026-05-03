@@ -3,20 +3,21 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-83
-name: Pci Physical Access
-description: Pci Physical Access security check (see COMPLIANCE_MAPPING.md for details).
-category: code-scan
+name: Physical Access Evidence
+description: Verifies physical security docs, badge system references, data center documentation.
+category: compliance-evidence
 severity: medium
 languages: any
 min_tier: free
 runtime_class: static-grep
-evidence_required: false
+evidence_required: true
 version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:9.1, PCI-DSS:4.0:9.2, SOC2:TSC-2017:CC6.4, ISO-27001:2022:7.1, NIST-CSF:2.0:PR.AC-2, CIS-v8:13.10
 PRESTON_META
+
 
 # P-83: PCI-DSS Requirement 9 — Physical Access Evidence
 # Verifies that physical security documentation and controls are referenced.

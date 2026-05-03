@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-89
-name: Iso Physical
-description: Iso Physical security check (see COMPLIANCE_MAPPING.md for details).
+name: ISO Physical Controls
+description: Verifies data center docs, equipment security, environmental monitoring.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: ISO-27001:2022:7.1, ISO-27001:2022:7.14
 PRESTON_META
+
 
 # P-89: ISO 27001 Physical Controls (A.7.x) Evidence
 # Checks for data center docs, environmental monitoring, equipment management.

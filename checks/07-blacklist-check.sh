@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:8.2.4, SOC2:TSC-2017:CC6.2, ISO-27001:2022:5.16, OWASP-API:2023:API2:2023, CIS-v8:5.3
+frameworks: PCI-DSS:4.0:8.2.4, SOC2:TSC-2017:CC6.2, ISO-27001:2022:5.16, OWASP-API:2023:API2, NIST-CSF:2.0:PR.AA-1, CIS-v8:5.3
 PRESTON_META
+
 
 # P-07: Blacklist enforcement
 # Preston created multiple accounts after being blacklisted.

@@ -18,6 +18,7 @@ author_github: prestoncheck
 frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
 PRESTON_META
 
+
 # P-57: Business Logic Abuse Prevention — OWASP API6:2023
 # Checks for rate limits on account creation, bulk operation guards, bot detection.
 echo "P-57: Business Logic Abuse"

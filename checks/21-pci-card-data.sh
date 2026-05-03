@@ -18,6 +18,7 @@ author_github: prestoncheck
 frameworks: PCI-DSS:4.0:3.3, PCI-DSS:4.0:3.4, PCI-DSS:4.0:3.5.1, SOC2:TSC-2017:CC6.5, ISO-27001:2022:8.11, CIS-v8:3.12
 PRESTON_META
 
+
 # P-21: PCI-DSS Card Data Handling
 # Raw PAN must never be stored, logged, or passed as query params.
 echo "P-21: PCI-DSS Card Data"

@@ -3,8 +3,8 @@
 : <<'PRESTON_META'
 schema_version: 1
 id: P-103
-name: Double Spend Race
-description: Double Spend Race security check (see COMPLIANCE_MAPPING.md for details).
+name: Double-Spend Race Conditions
+description: Detects missing locking on financial mutations, concurrent withdrawal patterns.
 category: code-scan
 severity: medium
 languages: any
@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0, SOC2:TSC-2017, ISO-27001:2022, OWASP-API:2023, NIST-CSF:2.0, CIS-v8
+frameworks: PCI-DSS:4.0:6.2.4, PCI-DSS:4.0:6.5.1, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.25, NIST-CSF:2.0:PR.DS-6, CIS-v8:16.10
 PRESTON_META
+
 
 ###############################################################################
 # P-103: Double-Spend, Overspend & Race Condition Prevention

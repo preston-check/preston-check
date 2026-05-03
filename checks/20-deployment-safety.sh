@@ -15,8 +15,9 @@ version: 1.0.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
-frameworks: PCI-DSS:4.0:2.2.1, PCI-DSS:4.0:6.5.4, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.31, CIS-v8:4.1
+frameworks: PCI-DSS:4.0:2.2.1, PCI-DSS:4.0:6.5.4, SOC2:TSC-2017:CC8.1, ISO-27001:2022:8.31, NIST-CSF:2.0:PR.IP-3, CIS-v8:4.1
 PRESTON_META
+
 
 # P-20: Deployment safety
 # Pre-deployment checks: debug mode disabled, test credentials removed,
