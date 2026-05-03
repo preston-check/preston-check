@@ -24,7 +24,7 @@
 ###############################################################################
 
 TELEMETRY_OPT_IN="false"
-TELEMETRY_ENDPOINT="${PRESTON_TELEMETRY_ENDPOINT:-https://preston-check.dev/api/v1/telemetry}"
+TELEMETRY_ENDPOINT="${PRESTON_TELEMETRY_ENDPOINT:-https://preston-check.com/api/v1/telemetry}"
 
 is_telemetry_enabled() {
   [[ "$TELEMETRY_OPT_IN" == "true" ]] && return 0

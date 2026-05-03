@@ -174,7 +174,7 @@ load_license() {
   fi
 
   if [[ $LICENSE_DAYS_REMAINING -le 30 ]]; then
-    LICENSE_WARNING="License expires in $LICENSE_DAYS_REMAINING days ($expires_at). Renew at preston-check.dev/renew/$customer to avoid CI disruption."
+    LICENSE_WARNING="License expires in $LICENSE_DAYS_REMAINING days ($expires_at). Renew at preston-check.com/renew/$customer to avoid CI disruption."
   fi
 
   LICENSE_TIER="$tier"
@@ -204,8 +204,8 @@ enforce_license_strict() {
     echo "  $requested_tier features require a valid license."
     echo "  Free tier (P-01 to P-103+ scanning) is always available without a license."
     echo ""
-    echo "  Get a license:    https://preston-check.dev/buy"
-    echo "  Renew existing:   https://preston-check.dev/renew"
+    echo "  Get a license:    https://preston-check.com/buy"
+    echo "  Renew existing:   https://preston-check.com/renew"
     echo "  Install license:  $LICENSE_FILE"
     echo ""
     exit 2

@@ -29,7 +29,7 @@ brew tap preston-check/preston-check && brew install preston-check
 docker run --rm -v $(pwd):/src prestoncheck/scan:latest
 
 # curl | bash
-curl -fsSL https://get.preston-check.dev/install.sh | sh
+curl -fsSL https://get.preston-check.com/install.sh | sh
 
 # GitHub Action (in your .github/workflows/)
 - uses: preston-check/scan-action@v1

@@ -27,7 +27,7 @@ The **GitHub Action** uses `action.yml` and is published as the
 v1.x release) or `@v1.0.0` for pin-by-version.
 
 The **curl-bash installer** at `scripts/install.sh` is hosted at
-`get.preston-check.dev/install.sh`. It downloads the latest GitHub
+`get.preston-check.com/install.sh`. It downloads the latest GitHub
 release tarball and unpacks it into the user's home directory.
 
 ## Cutting a release
@@ -71,7 +71,7 @@ the rest:
 5. Creates the GitHub Release with the tarball attached and CHANGELOG
    notes copied into the release body.
 6. Tags `preston-check/scan-action` to bump the v1 floating tag.
-7. Posts a release announcement to the `preston-check.dev` blog.
+7. Posts a release announcement to the `preston-check.com` blog.
 
 ## Release workflow stub
 
@@ -148,7 +148,7 @@ For the curl-bash installer, in a clean directory:
 
 ```bash
 rm -rf ~/.preston-check/install
-curl -fsSL https://get.preston-check.dev/install.sh | sh
+curl -fsSL https://get.preston-check.com/install.sh | sh
 preston-check --help
 ```
 
@@ -162,12 +162,12 @@ For the GitHub Action, in a test workflow:
 
 ## Hosting the installer endpoint
 
-The `get.preston-check.dev/install.sh` endpoint serves the installer
+The `get.preston-check.com/install.sh` endpoint serves the installer
 script. Implementation options, in increasing complexity:
 
 The simplest is to host on GitHub Pages: serve `scripts/install.sh`
 from the repository's `gh-pages` branch under a custom domain mapped
-to `get.preston-check.dev`. Cloudflare's free DNS/SSL handles the
+to `get.preston-check.com`. Cloudflare's free DNS/SSL handles the
 domain mapping and HTTPS.
 
 The medium-complexity option is a Cloudflare Worker that proxies the
@@ -175,14 +175,14 @@ installer from GitHub Releases, allowing version pinning, custom
 headers, and analytics on installs.
 
 The full-featured option is a small dedicated service that handles
-versioned installer paths (`get.preston-check.dev/v1.0.0/install.sh`),
+versioned installer paths (`get.preston-check.com/v1.0.0/install.sh`),
 checksum verification, and platform-specific routing (e.g., serving
 different scripts for macOS vs Linux). Not necessary for v1; defer.
 
 ## Hosting the badge endpoint
 
 The README badge URLs follow the pattern
-`preston-check.dev/badge/<owner>/<repo>.svg`. The endpoint must
+`preston-check.com/badge/<owner>/<repo>.svg`. The endpoint must
 return a small SVG image with the current security score for that
 repository.
 
@@ -190,12 +190,12 @@ Minimum-viable implementation: a Cloudflare Worker that maintains a
 key-value cache mapping `<owner>/<repo>` to the latest reported
 score, served as a shields.io-compatible SVG. The score is updated
 by the GitHub Action when a scan runs (using a small POST request to
-`preston-check.dev/api/v1/score` with the repo identifier and score).
+`preston-check.com/api/v1/score` with the repo identifier and score).
 Owners must opt in to public scoreboard visibility via a flag in
 their repo's Preston-Check config.
 
 The same Worker can serve the public scorecard pages at
-`preston-check.dev/scorecard/<owner>/<repo>`.
+`preston-check.com/scorecard/<owner>/<repo>`.
 
 ## Hosting the telemetry endpoint
 

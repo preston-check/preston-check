@@ -511,7 +511,7 @@ if [[ -n "$REPORT_FILE" ]]; then
     echo "${BRAND_FOOTER:-Preston-Check Enterprise Security Suite}"
     echo ""
     if [[ -n "${LICENSE_CUSTOMER:-}" && "${BRAND_NAME:-Preston-Check}" != "Preston-Check" ]]; then
-      echo "Powered by Preston-Check · https://preston-check.dev"
+      echo "Powered by Preston-Check · https://preston-check.com"
     fi
   } > "$REPORT_FILE"
   echo "  Report saved to: $REPORT_FILE"

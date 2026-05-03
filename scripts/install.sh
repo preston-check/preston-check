@@ -2,7 +2,7 @@
 ###############################################################################
 # Preston-Check installer
 #
-#   curl -fsSL https://get.preston-check.dev/install.sh | sh
+#   curl -fsSL https://get.preston-check.com/install.sh | sh
 #
 # Flags:
 #   --prefix DIR    Install to DIR instead of $HOME/.preston-check/install
@@ -90,5 +90,5 @@ echo ""
 echo "Free tier runs immediately. For Pro/Enterprise, install your license at:"
 echo "  ~/.preston-check/license"
 echo ""
-echo "Docs:    https://preston-check.dev"
+echo "Docs:    https://preston-check.com"
 echo "Source:  https://github.com/${GH_REPO}"

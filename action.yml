@@ -68,7 +68,7 @@ runs:
       run: |
         set -euo pipefail
         if [[ ! -d /opt/preston-check ]]; then
-          curl -fsSL https://get.preston-check.dev/install.sh | sh -s -- --prefix /opt/preston-check --no-symlink
+          curl -fsSL https://get.preston-check.com/install.sh | sh -s -- --prefix /opt/preston-check --no-symlink
         fi
         echo "PRESTON_HOME=/opt/preston-check" >> "$GITHUB_ENV"
         echo "/opt/preston-check" >> "$GITHUB_PATH"
@@ -147,7 +147,7 @@ runs:
 
         Full report attached as the \`preston-check-report\` workflow artifact.
 
-        [View badge](https://preston-check.dev/badge/${{ github.repository }}.svg) · [Public scorecard](https://preston-check.dev/scorecard/${{ github.repository }})
+        [View badge](https://preston-check.com/badge/${{ github.repository }}.svg) · [Public scorecard](https://preston-check.com/scorecard/${{ github.repository }})
         EOF
         )
         gh pr comment "${{ github.event.pull_request.number }}" --body "$BODY" || true

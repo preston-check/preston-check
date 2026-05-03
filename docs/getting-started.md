@@ -29,7 +29,7 @@ files into the container.
 **Curl-bash installer** (works anywhere with curl):
 
 ```bash
-curl -fsSL https://get.preston-check.dev/install.sh | sh
+curl -fsSL https://get.preston-check.com/install.sh | sh
 ```
 
 This installs to `~/.preston-check/install` and (if writable)

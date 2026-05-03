@@ -128,7 +128,7 @@ secure location.
 ## Telemetry as the only outbound call
 
 The tool makes exactly one optional network call: an anonymous score
-ping to `preston-check.dev/api/v1/telemetry`, sent only when the user
+ping to `preston-check.com/api/v1/telemetry`, sent only when the user
 opts in via `--telemetry-opt-in` or the config flag, and disabled
 unconditionally by `--airgap`. The payload contains tool version, license
 tier, primary language, aggregate counts, a SHA-256 hash of the git remote

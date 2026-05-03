@@ -12,7 +12,7 @@
 
 class PrestonCheck < Formula
   desc "Pre-deployment security audit for fintech and financial systems"
-  homepage "https://preston-check.dev"
+  homepage "https://preston-check.com"
   url "https://github.com/preston-check/preston-check/archive/refs/tags/v1.0.0.tar.gz"
   sha256 "REPLACE_WITH_SHA256_OF_RELEASE_TARBALL"
   license "Apache-2.0"
@@ -56,7 +56,7 @@ class PrestonCheck < Formula
       For Pro/Enterprise tier, install your license at:
         ~/.preston-check/license
 
-      Documentation: https://preston-check.dev
+      Documentation: https://preston-check.com
       Community contributions: https://github.com/preston-check/preston-check
     EOS
   end
