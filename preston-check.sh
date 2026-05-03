@@ -36,7 +36,8 @@ TELEMETRY_OPT_IN_FLAG=false    # --telemetry-opt-in: anonymous score reporting
 INCLUDE_PROPOSED=false         # --include-proposed: run unreviewed community checks
 CI_SOFT_MODE=false             # --ci-soft: never exit 1 (CI handles its own thresholds)
 FRAMEWORK_FILTER=""            # --framework FILTER: only run checks whose metadata frameworks contain FILTER
-PRESTON_VERSION="1.1.0"
+CATEGORY_FILTER=""             # --category VAL[,VAL...]: filter by metadata category
+PRESTON_VERSION="1.2.1"
 
 export AIRGAP_MODE PRESTON_VERSION
 
@@ -69,6 +70,11 @@ while [[ $# -gt 0 ]]; do
     --include-proposed) INCLUDE_PROPOSED=true; shift ;;
     --ci-soft) CI_SOFT_MODE=true; shift ;;
     --framework) FRAMEWORK_FILTER="$2"; shift 2 ;;
+    --category) CATEGORY_FILTER="$2"; shift 2 ;;
+    --code-only) CATEGORY_FILTER="code-scan"; shift ;;
+    --docs-only) CATEGORY_FILTER="compliance-evidence"; shift ;;
+    --infra-only) CATEGORY_FILTER="infra-scan"; shift ;;
+    --live-only) CATEGORY_FILTER="live-monitoring"; shift ;;
     --list)
       for d in "$CHECKS_DIR" "$CHECKS_DIR/core" "$CHECKS_DIR/community/verified" "$CHECKS_DIR/community/accepted" "$CHECKS_DIR/community/proposed"; do
         [[ -d "$d" ]] && ls "$d"/*.sh 2>/dev/null | xargs -I{} basename {} .sh
@@ -90,7 +96,13 @@ while [[ $# -gt 0 ]]; do
       echo "  --telemetry-opt-in   Send anonymous score to State of Fintech Security report"
       echo "  --include-proposed   Run unreviewed community-contributed checks"
       echo "  --framework NAME     Run only checks whose metadata references NAME"
-      echo "                       (e.g., MiCA, CCSS:9.0:Level2, OWASP-SC-Top-10:2025, FATF, OFAC)"
+      echo "                       (e.g., MiCA, CCSS:9.0:Level2, OWASP-SC-Top-10:2025, FATF, OFAC, DORA)"
+      echo "  --category VAL       Filter by metadata category (comma-separated for multiple)"
+      echo "                       Values: code-scan, compliance-evidence, live-monitoring, infra-scan"
+      echo "  --code-only          Alias: --category code-scan (pure source-code analysis)"
+      echo "  --docs-only          Alias: --category compliance-evidence (policy/evidence verification)"
+      echo "  --infra-only         Alias: --category infra-scan"
+      echo "  --live-only          Alias: --category live-monitoring (SSH-based prod log checks)"
       echo "  --list               List available checks"
       echo "  --verbose            Show check details"
       echo "  --help               Show this help"
@@ -229,6 +241,16 @@ should_run_check() {
       if [[ -z "${META_FRAMEWORKS:-}" ]] || ! echo "${META_FRAMEWORKS}" | grep -qiE "$(echo "$FRAMEWORK_FILTER" | sed 's/[][\.*^$/]/\\&/g')"; then
         return 1
       fi
+    fi
+    if [[ -n "$CATEGORY_FILTER" ]]; then
+      local matched=false _cat
+      local _cur="${META_CATEGORY:-}"
+      IFS=',' read -ra _cats <<< "$CATEGORY_FILTER"
+      for _cat in "${_cats[@]}"; do
+        _cat="${_cat## }"; _cat="${_cat%% }"
+        if [[ "$_cur" == "$_cat" ]]; then matched=true; break; fi
+      done
+      [[ "$matched" == "true" ]] || return 1
     fi
   fi
   return 0
