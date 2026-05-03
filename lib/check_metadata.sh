@@ -176,16 +176,13 @@ validate_check_metadata() {
   return 0
 }
 
-# Decide whether the current license tier permits running this check.
-# Hierarchy: free < pro < enterprise
+# Open-core: every check runs for every user. The min_tier metadata field
+# remains for documentation, framework-scoped reporting, and informational
+# grouping in the audit-package SaaS, but it does NOT gate local execution.
+# Returning success unconditionally is intentional and aligns with the
+# Snyk / Semgrep / Trivy open-core playbook: scanner free, SaaS paid.
 tier_allows_check() {
-  local check_tier="$1" license_tier="$2"
-  case "$license_tier" in
-    free)       [[ "$check_tier" == "free" ]] ;;
-    pro)        [[ "$check_tier" == "free" || "$check_tier" == "pro" ]] ;;
-    enterprise) return 0 ;;
-    *)          [[ "$check_tier" == "free" ]] ;;
-  esac
+  return 0
 }
 
 export -f parse_check_metadata validate_check_metadata tier_allows_check

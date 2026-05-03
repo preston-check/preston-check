@@ -183,49 +183,20 @@ load_license() {
   return 0
 }
 
-# Strict enforcement: hard exit if user tries to use paid features without a valid license.
+# Open-core model: license verification is informational, not gating.
+#
+# All 284+ checks run for everyone, no license required. Customers with a
+# Pro/Enterprise license get their company name in the report header, can
+# upload reports to the audit-package SaaS at preston-check.com/dashboard
+# for branded PDF generation, and gain access to the multi-repo dashboard.
+# The commercial value is the SaaS layer that consumes scanner output, not
+# arbitrary gating of which checks run locally.
+#
+# This function is retained for backward compatibility and may be used by
+# downstream callers (e.g., the audit-package SaaS) to enforce tier on
+# their end. In the open scanner, it is a no-op — never blocks execution.
 enforce_license_strict() {
-  local requested_tier="$1"
-  if [[ "$requested_tier" == "free" ]]; then
-    return 0
-  fi
-  if [[ "$LICENSE_VALID" != "true" ]]; then
-    echo ""
-    echo "============================================================================"
-    echo "  PRESTON-CHECK — LICENSE REQUIRED"
-    echo "============================================================================"
-    echo ""
-    if [[ -n "$LICENSE_ERROR" ]]; then
-      echo "  Error: $LICENSE_ERROR"
-    else
-      echo "  No valid license found at $LICENSE_FILE"
-    fi
-    echo ""
-    echo "  $requested_tier features require a valid license."
-    echo "  Free tier (P-01 to P-103+ scanning) is always available without a license."
-    echo ""
-    echo "  Get a license:    https://preston-check.com/buy"
-    echo "  Renew existing:   https://preston-check.com/renew"
-    echo "  Install license:  $LICENSE_FILE"
-    echo ""
-    exit 2
-  fi
-
-  case "$LICENSE_TIER" in
-    free)
-      if [[ "$requested_tier" != "free" ]]; then
-        echo "ERROR: $requested_tier features require a Pro or Enterprise license." >&2
-        exit 2
-      fi
-      ;;
-    pro)
-      if [[ "$requested_tier" == "enterprise" ]]; then
-        echo "ERROR: Enterprise features require an Enterprise license. Current: Pro." >&2
-        exit 2
-      fi
-      ;;
-    enterprise) ;;
-  esac
+  return 0
 }
 
 print_license_status() {

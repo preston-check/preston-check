@@ -44,11 +44,13 @@ _check_tier() {
     echo "  FAIL: $desc (expected $want, got $result)"
   fi
 }
-_check_tier "free check, free user → allow"          free       free       allow
-_check_tier "pro check, free user → deny"            pro        free       deny
-_check_tier "pro check, pro user → allow"            pro        pro        allow
-_check_tier "enterprise check, free user → deny"     enterprise free       deny
-_check_tier "enterprise check, enterprise → allow"   enterprise enterprise allow
+# Open-core post-v1.5.2: every check runs for every tier. Commercial value
+# moves to the audit-package SaaS, not local scanner gating.
+_check_tier "free check, free user → allow"               free       free       allow
+_check_tier "pro check, free user → allow (open-core)"    pro        free       allow
+_check_tier "pro check, pro user → allow"                 pro        pro        allow
+_check_tier "enterprise check, free user → allow (OC)"    enterprise free       allow
+_check_tier "enterprise check, enterprise → allow"        enterprise enterprise allow
 
 echo "  --- crypto suite metadata ---"
 parse_check_metadata "$ROOT/checks/301-smart-contract-reentrancy.sh"
