@@ -436,6 +436,7 @@ if [[ -n "$REPORT_FILE" ]]; then
       echo ""
     }
 
+    # Status tables come first — clean executive view, no inline findings.
     if [[ ${#fail_items[@]} -gt 0 ]]; then
       echo "## FAIL — Must Fix Before Deployment"
       echo ""
@@ -443,11 +444,6 @@ if [[ -n "$REPORT_FILE" ]]; then
       echo "|--------|-------|--------|"
       for item in "${fail_items[@]}"; do echo "$item"; done
       echo ""
-      # Emit findings blocks for any FAIL row that included specifics
-      for entry in "${fail_findings[@]}"; do
-        IFS='|' read -r check findings_enc <<< "$entry"
-        [[ -n "$findings_enc" ]] && emit_findings_block "$check" "$findings_enc"
-      done
     fi
     if [[ ${#warn_items[@]} -gt 0 ]]; then
       echo "## WARN — Review and Decide"
@@ -456,10 +452,6 @@ if [[ -n "$REPORT_FILE" ]]; then
       echo "|--------|-------|--------|"
       for item in "${warn_items[@]}"; do echo "$item"; done
       echo ""
-      for entry in "${warn_findings[@]}"; do
-        IFS='|' read -r check findings_enc <<< "$entry"
-        [[ -n "$findings_enc" ]] && emit_findings_block "$check" "$findings_enc"
-      done
     fi
     if [[ ${#pass_items[@]} -gt 0 ]]; then
       echo "## PASS — No Action Required"
@@ -477,6 +469,43 @@ if [[ -n "$REPORT_FILE" ]]; then
       for item in "${skip_items[@]}"; do echo "$item"; done
       echo ""
     fi
+
+    # Addendum: code references for every FAIL/WARN row that has findings.
+    # Kept at the end so the executive tables stay scannable. Findings are
+    # ordered FAIL-first (highest priority), then WARN.
+    has_any_findings=false
+    for entry in "${fail_findings[@]}" "${warn_findings[@]}"; do
+      IFS='|' read -r _check findings_enc <<< "$entry"
+      [[ -n "$findings_enc" ]] && { has_any_findings=true; break; }
+    done
+
+    if $has_any_findings; then
+      echo "---"
+      echo ""
+      echo "## Addendum — Code References"
+      echo ""
+      echo "Specific file:line:content for each FAIL/WARN finding. Use this section to navigate directly to the offending source. Findings are listed in priority order — FAILs first, then WARNs — and each entry corresponds to a row in the tables above."
+      echo ""
+
+      if [[ ${#fail_findings[@]} -gt 0 ]]; then
+        echo "### FAIL findings"
+        echo ""
+        for entry in "${fail_findings[@]}"; do
+          IFS='|' read -r check findings_enc <<< "$entry"
+          [[ -n "$findings_enc" ]] && emit_findings_block "$check" "$findings_enc"
+        done
+      fi
+
+      if [[ ${#warn_findings[@]} -gt 0 ]]; then
+        echo "### WARN findings"
+        echo ""
+        for entry in "${warn_findings[@]}"; do
+          IFS='|' read -r check findings_enc <<< "$entry"
+          [[ -n "$findings_enc" ]] && emit_findings_block "$check" "$findings_enc"
+        done
+      fi
+    fi
+
     echo "---"
     echo ""
     echo "${BRAND_FOOTER:-Preston-Check Enterprise Security Suite}"
