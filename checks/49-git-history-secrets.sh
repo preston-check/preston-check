@@ -24,18 +24,22 @@ echo "P-49: Git History Secrets"
 SRC="${SOURCE_DIR:-.}"
 if ! git -C "$SRC" rev-parse --is-inside-work-tree &>/dev/null; then record "SKIP" "P-49 Git history" "Not a git repository"; return 0 2>/dev/null || exit 0; fi
 env_history=$(git -C "$SRC" log --all --diff-filter=A --name-only --pretty=format: 2>/dev/null | grep -E "\.env$|\.env\.local$|\.env\.production$" | sort -u)
-if [[ -z "$env_history" ]]; then record "PASS" "P-49 No .env in history" "No .env files ever committed"; else count=$(echo "$env_history" | wc -l); record "WARN" "P-49 .env in history" "$count .env files in git history (may contain secrets)"; echo "$env_history" | head -5; fi
+if [[ -z "$env_history" ]]; then
+  record "PASS" "P-49 No .env in history" "No .env files ever committed"
+else
+  count=$(echo "$env_history" | wc -l | tr -d ' ')
+  record "WARN" "P-49 .env in history" "$count .env files in git history (may contain secrets)" "$env_history"
+fi
 key_history=$(git -C "$SRC" log --all --diff-filter=A --name-only --pretty=format: 2>/dev/null | grep -E "\.pem$|\.key$|\.p12$|\.jks$|id_rsa$" | grep -v "node_modules\|test/" | sort -u)
 if [[ -z "$key_history" ]]; then
   record "PASS" "P-49 No keys in history" "No private key files ever committed"
 else
   tracked_keys=$(git -C "$SRC" ls-files 2>/dev/null | grep -E "\.pem$|\.key$|\.p12$|\.jks$|id_rsa$" | grep -v "node_modules\|test/")
   if [[ -n "$tracked_keys" ]]; then
-    count=$(echo "$tracked_keys" | wc -l)
-    record "FAIL" "P-49 Keys tracked" "$count key/cert files currently tracked in git (remove immediately)"
-    echo "$tracked_keys" | head -5
+    count=$(echo "$tracked_keys" | wc -l | tr -d ' ')
+    record "FAIL" "P-49 Keys tracked" "$count key/cert files currently tracked in git (remove immediately)" "$tracked_keys"
   else
-    count=$(echo "$key_history" | wc -l)
+    count=$(echo "$key_history" | wc -l | tr -d ' ')
     record "PASS" "P-49 Keys removed" "$count key/cert files in git history but NOT currently tracked (.gitignore in place)"
   fi
 fi

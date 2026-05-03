@@ -35,7 +35,8 @@ good=$(grep -rln --include="*.go" -iE "shopspring/decimal|decimal\.Decimal|math/
 bad_count=$([[ -n "$bad" ]] && echo "$bad" | wc -l | tr -d ' ' || echo 0)
 good_count=$([[ -n "$good" ]] && echo "$good" | wc -l | tr -d ' ' || echo 0)
 if [[ ${bad_count:-0} -gt 0 ]]; then
-  record "FAIL" "P-491 Go float money" "$bad_count float64/float32 declaration(s) with money-keyword names"
+  sample=$(echo "$bad" | head -10)
+  record "FAIL" "P-491 Go float money" "$bad_count float64/float32 declaration(s) with money-keyword names" "$sample"
 else
   record "PASS" "P-491 Go float money" "No float-typed money fields; $good_count decimal-library reference(s)"
 fi

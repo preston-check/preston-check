@@ -31,6 +31,11 @@ rs_count=$(find "$SRC" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
 unsafe=$(grep -rn --include="*.rs" -E "\.unwrap\(\s*\)|\.expect\(" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|#\[cfg\(test\)\]|//[[:space:]]*safe:|build\.rs|/examples/" || true)
 count=$([[ -n "$unsafe" ]] && echo "$unsafe" | wc -l | tr -d ' ' || echo 0)
-[[ ${count:-0} -gt 50 ]] && record "FAIL" "P-500 Rust unwrap" "$count unwrap()/expect() call(s) in non-test Rust code" \
-  || ([[ ${count:-0} -gt 0 ]] && record "WARN" "P-500 Rust unwrap" "$count unwrap()/expect() call(s); review for production paths" \
-  || record "PASS" "P-500 Rust unwrap" "No unwrap/expect detected outside tests")
+sample=$([[ -n "$unsafe" ]] && echo "$unsafe" | head -10 || echo "")
+if [[ ${count:-0} -gt 50 ]]; then
+  record "FAIL" "P-500 Rust unwrap" "$count unwrap()/expect() call(s) in non-test Rust code" "$sample"
+elif [[ ${count:-0} -gt 0 ]]; then
+  record "WARN" "P-500 Rust unwrap" "$count unwrap()/expect() call(s); review for production paths" "$sample"
+else
+  record "PASS" "P-500 Rust unwrap" "No unwrap/expect detected outside tests"
+fi

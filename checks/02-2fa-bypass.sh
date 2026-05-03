@@ -37,9 +37,8 @@ bypass=$(grep -rn --include="*.java" \
 if [[ -z "$bypass" ]]; then
   record "PASS" "P-02 2FA bypass paths" "No 2FA bypass patterns found"
 else
-  count=$(echo "$bypass" | wc -l)
-  record "WARN" "P-02 2FA bypass paths" "$count potential 2FA bypass paths (review manually)"
-  if $VERBOSE; then echo "$bypass"; fi
+  count=$(echo "$bypass" | wc -l | tr -d ' ')
+  record "WARN" "P-02 2FA bypass paths" "$count potential 2FA bypass paths (review manually)" "$bypass"
 fi
 
 # Check if new accounts can be created with 2FA=NONE
@@ -52,5 +51,5 @@ none_default=$(grep -rn --include="*.java" \
 if [[ -z "$none_default" ]]; then
   record "PASS" "P-02 2FA default state" "No default-to-NONE 2FA patterns"
 else
-  record "FAIL" "P-02 2FA default state" "Found code that defaults 2FA to NONE/skip"
+  record "FAIL" "P-02 2FA default state" "Found code that defaults 2FA to NONE/skip" "$none_default"
 fi

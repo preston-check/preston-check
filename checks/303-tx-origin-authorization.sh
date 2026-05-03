@@ -40,5 +40,6 @@ if [[ -z "$hits" ]]; then
   record "PASS" "P-303 tx.origin auth" "No tx.origin used for authorization"
 else
   count=$(echo "$hits" | wc -l | tr -d ' ')
-  record "FAIL" "P-303 tx.origin auth" "$count line(s) use tx.origin for authorization checks"
+  sample=$(echo "$hits" | head -10)
+  record "FAIL" "P-303 tx.origin auth" "$count line(s) use tx.origin for authorization checks" "$sample"
 fi

@@ -42,5 +42,6 @@ if [[ -z "$suspicious" ]]; then
   record "PASS" "P-353 Unchecked calls" "All low-level .call invocations check the return value"
 else
   count=$(echo "$suspicious" | wc -l | tr -d ' ')
-  record "FAIL" "P-353 Unchecked calls" "$count line(s) call .call() without checking the success return"
+  sample=$(echo "$suspicious" | head -10)
+  record "FAIL" "P-353 Unchecked calls" "$count line(s) call .call() without checking the success return" "$sample"
 fi

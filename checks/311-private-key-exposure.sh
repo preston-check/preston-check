@@ -53,5 +53,10 @@ count=0
 if [[ $count -eq 0 ]]; then
   record "PASS" "P-311 Private key exposure" "No hardcoded private keys, mnemonics, or wallet seed env values found"
 else
-  record "FAIL" "P-311 Private key exposure" "$count exposed private-key/mnemonic pattern(s) found in source — ROTATE IMMEDIATELY"
+  all=""
+  [[ -n "$hex_keys" ]]        && all+="$hex_keys"$'\n'
+  [[ -n "$mnemonic_hits" ]]   && all+="$mnemonic_hits"$'\n'
+  [[ -n "$env_assignments" ]] && all+="$env_assignments"$'\n'
+  sample=$(printf '%s' "$all" | head -10)
+  record "FAIL" "P-311 Private key exposure" "$count exposed private-key/mnemonic pattern(s) found in source — ROTATE IMMEDIATELY" "$sample"
 fi

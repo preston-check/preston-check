@@ -30,5 +30,9 @@ go_count=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l 
 
 unsafe=$(grep -rn --include="*.go" -E "(Query|Exec|QueryRow)Context?\s*\(\s*[^,]*fmt\.Sprintf\s*\(\s*[\"\`][^\`\"]*(SELECT|INSERT|UPDATE|DELETE)" "$SRC" 2>/dev/null \
   | grep -vE "/vendor/|_test\.go" || true)
-[[ -n "$unsafe" ]] && record "FAIL" "P-495 Go SQL injection" "$(echo "$unsafe" | wc -l | tr -d ' ') unsafe SQL string interpolation pattern(s)" \
-  || record "PASS" "P-495 Go SQL injection" "No fmt.Sprintf-based SQL string interpolation detected"
+if [[ -n "$unsafe" ]]; then
+  sample=$(echo "$unsafe" | head -10)
+  record "FAIL" "P-495 Go SQL injection" "$(echo "$unsafe" | wc -l | tr -d ' ') unsafe SQL string interpolation pattern(s)" "$sample"
+else
+  record "PASS" "P-495 Go SQL injection" "No fmt.Sprintf-based SQL string interpolation detected"
+fi

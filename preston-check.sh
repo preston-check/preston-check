@@ -133,11 +133,14 @@ load_config() {
   fi
 }
 
-# Result recording
+# Result recording. Supports an optional 4th argument carrying multi-line
+# `file:line:content` findings; those are surfaced in the markdown report
+# under each FAIL/WARN row, and printed to the terminal in --verbose mode.
 record() {
   local status="$1"  # PASS, FAIL, WARN, SKIP
   local check="$2"
   local detail="$3"
+  local findings="${4:-}"
 
   case $status in
     PASS) ((PASS_COUNT++)); color=$GREEN ;;
@@ -147,7 +150,24 @@ record() {
   esac
 
   printf "${color}[%4s]${NC} %-40s %s\n" "$status" "$check" "$detail"
-  RESULTS+=("$status|$check|$detail")
+
+  # Always show first findings inline for FAIL/WARN; show all in --verbose.
+  if [[ -n "$findings" ]]; then
+    if [[ "$VERBOSE" == "true" || "$status" == "FAIL" ]]; then
+      while IFS= read -r line; do
+        [[ -z "$line" ]] && continue
+        printf "         %s\n" "$line"
+      done <<< "$(echo "$findings" | head -10)"
+    fi
+  fi
+
+  # Encode findings with newlines escaped so the pipe-delimited RESULTS
+  # array can roundtrip multi-line data safely.
+  local findings_enc=""
+  if [[ -n "$findings" ]]; then
+    findings_enc="$(printf '%s' "$findings" | tr '\n|' '\036\037')"
+  fi
+  RESULTS+=("$status|$check|$detail|$findings_enc")
 }
 
 # Export for use in check scripts
@@ -376,20 +396,46 @@ if [[ -n "$REPORT_FILE" ]]; then
     echo ""
     echo "---"
     echo ""
-    # FAIL section first
+    # Section assembly: build per-status lists, then emit tables and per-row
+    # findings under each FAIL/WARN entry.
     fail_items=()
     warn_items=()
     pass_items=()
     skip_items=()
+    fail_findings=()
+    warn_findings=()
     for r in "${RESULTS[@]}"; do
-      IFS='|' read -r status check detail <<< "$r"
+      IFS='|' read -r status check detail findings_enc <<< "$r"
       case "$status" in
-        FAIL) fail_items+=("| $status | $check | $detail |") ;;
-        WARN) warn_items+=("| $status | $check | $detail |") ;;
+        FAIL)
+          fail_items+=("| $status | $check | $detail |")
+          fail_findings+=("$check|$findings_enc")
+          ;;
+        WARN)
+          warn_items+=("| $status | $check | $detail |")
+          warn_findings+=("$check|$findings_enc")
+          ;;
         PASS) pass_items+=("| $status | $check | $detail |") ;;
         SKIP) skip_items+=("| $status | $check | $detail |") ;;
       esac
     done
+
+    # Emit findings under a section heading. RESULT entries store findings
+    # with newlines escaped as \036 and pipes as \037; decode for display.
+    emit_findings_block() {
+      local check="$1" findings_enc="$2"
+      [[ -z "$findings_enc" ]] && return 0
+      local decoded
+      decoded="$(printf '%s' "$findings_enc" | tr '\036\037' '\n|')"
+      [[ -z "$decoded" ]] && return 0
+      echo "#### $check — findings"
+      echo ""
+      echo '```'
+      echo "$decoded"
+      echo '```'
+      echo ""
+    }
+
     if [[ ${#fail_items[@]} -gt 0 ]]; then
       echo "## FAIL — Must Fix Before Deployment"
       echo ""
@@ -397,6 +443,11 @@ if [[ -n "$REPORT_FILE" ]]; then
       echo "|--------|-------|--------|"
       for item in "${fail_items[@]}"; do echo "$item"; done
       echo ""
+      # Emit findings blocks for any FAIL row that included specifics
+      for entry in "${fail_findings[@]}"; do
+        IFS='|' read -r check findings_enc <<< "$entry"
+        [[ -n "$findings_enc" ]] && emit_findings_block "$check" "$findings_enc"
+      done
     fi
     if [[ ${#warn_items[@]} -gt 0 ]]; then
       echo "## WARN — Review and Decide"
@@ -405,6 +456,10 @@ if [[ -n "$REPORT_FILE" ]]; then
       echo "|--------|-------|--------|"
       for item in "${warn_items[@]}"; do echo "$item"; done
       echo ""
+      for entry in "${warn_findings[@]}"; do
+        IFS='|' read -r check findings_enc <<< "$entry"
+        [[ -n "$findings_enc" ]] && emit_findings_block "$check" "$findings_enc"
+      done
     fi
     if [[ ${#pass_items[@]} -gt 0 ]]; then
       echo "## PASS — No Action Required"

@@ -55,6 +55,33 @@ Your check must:
 - Produce zero false positives against the known-good fixture corpus.
 - Produce expected matches against the known-bad fixture corpus.
 
+## Surfacing actionable findings
+
+The `record` function accepts an optional 4th argument with multi-line
+`file:line:content` findings. When present, those findings appear under
+the corresponding FAIL/WARN row in the markdown report and on the
+terminal in `--verbose` mode (or always on FAIL). This is what makes
+findings actionable — auditors and developers can navigate from the
+report directly to the offending source line.
+
+Pattern your check like this:
+
+```bash
+hits=$(grep -rn --include="*.java" -E 'pattern' "$SRC" 2>/dev/null \
+  | grep -vE '/test/|node_modules' || true)
+
+if [[ -n "$hits" ]]; then
+  count=$(echo "$hits" | wc -l | tr -d ' ')
+  sample=$(echo "$hits" | head -10)
+  record "FAIL" "P-XXX Short name" "$count occurrence(s) detected" "$sample"
+else
+  record "PASS" "P-XXX Short name" "No issues found"
+fi
+```
+
+Cap findings to ~10 lines via `head` so the report stays scannable.
+The runner truncates appropriately on terminal output as well.
+
 ## Required metadata
 
 Every check must include a YAML metadata block at the top, wrapped in

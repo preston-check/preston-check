@@ -38,6 +38,7 @@ PATTERNS=(
 )
 
 found=0
+all_hits=""
 for pattern in "${PATTERNS[@]}"; do
   hits=$(grep -rn --include="*.java" --include="*.ts" --include="*.js" --include="*.py" --include="*.yml" --include="*.yaml" \
     -E "$pattern" "$SRC/Common/src" "$SRC/Registration/src" "$SRC/Client/src" "$SRC/Payments-logic/src" 2>/dev/null \
@@ -48,12 +49,12 @@ for pattern in "${PATTERNS[@]}"; do
     | head -5)
   if [[ -n "$hits" ]]; then
     ((found++))
-    if $VERBOSE; then echo "$hits"; fi
+    all_hits+="$hits"$'\n'
   fi
 done
 
 if [[ $found -eq 0 ]]; then
   record "PASS" "P-01 Hardcoded secrets" "No hardcoded secrets found in source"
 else
-  record "FAIL" "P-01 Hardcoded secrets" "$found secret patterns found in source code"
+  record "FAIL" "P-01 Hardcoded secrets" "$found secret pattern(s) found in source code" "$all_hits"
 fi
