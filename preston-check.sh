@@ -37,7 +37,8 @@ INCLUDE_PROPOSED=false         # --include-proposed: run unreviewed community ch
 CI_SOFT_MODE=false             # --ci-soft: never exit 1 (CI handles its own thresholds)
 FRAMEWORK_FILTER=""            # --framework FILTER: only run checks whose metadata frameworks contain FILTER
 CATEGORY_FILTER=""             # --category VAL[,VAL...]: filter by metadata category
-PRESTON_VERSION="1.2.1"
+SEVERITY_FILTER=""             # --severity VAL[,VAL...]: filter by severity
+PRESTON_VERSION="1.3.0"
 
 export AIRGAP_MODE PRESTON_VERSION
 
@@ -75,6 +76,9 @@ while [[ $# -gt 0 ]]; do
     --docs-only) CATEGORY_FILTER="compliance-evidence"; shift ;;
     --infra-only) CATEGORY_FILTER="infra-scan"; shift ;;
     --live-only) CATEGORY_FILTER="live-monitoring"; shift ;;
+    --severity) SEVERITY_FILTER="$2"; shift 2 ;;
+    --critical-only) SEVERITY_FILTER="critical"; shift ;;
+    --high-and-up) SEVERITY_FILTER="critical,high"; shift ;;
     --list)
       for d in "$CHECKS_DIR" "$CHECKS_DIR/core" "$CHECKS_DIR/community/verified" "$CHECKS_DIR/community/accepted" "$CHECKS_DIR/community/proposed"; do
         [[ -d "$d" ]] && ls "$d"/*.sh 2>/dev/null | xargs -I{} basename {} .sh
@@ -103,6 +107,9 @@ while [[ $# -gt 0 ]]; do
       echo "  --docs-only          Alias: --category compliance-evidence (policy/evidence verification)"
       echo "  --infra-only         Alias: --category infra-scan"
       echo "  --live-only          Alias: --category live-monitoring (SSH-based prod log checks)"
+      echo "  --severity VAL       Filter by severity (comma-separated): critical, high, medium, low, info"
+      echo "  --critical-only      Alias: --severity critical (fast core run, blocking issues only)"
+      echo "  --high-and-up        Alias: --severity critical,high (CI-blocking severity)"
       echo "  --list               List available checks"
       echo "  --verbose            Show check details"
       echo "  --help               Show this help"
@@ -251,6 +258,16 @@ should_run_check() {
         if [[ "$_cur" == "$_cat" ]]; then matched=true; break; fi
       done
       [[ "$matched" == "true" ]] || return 1
+    fi
+    if [[ -n "$SEVERITY_FILTER" ]]; then
+      local sev_match=false _sev
+      local _cur_sev="${META_SEVERITY:-}"
+      IFS=',' read -ra _sevs <<< "$SEVERITY_FILTER"
+      for _sev in "${_sevs[@]}"; do
+        _sev="${_sev## }"; _sev="${_sev%% }"
+        if [[ "$_cur_sev" == "$_sev" ]]; then sev_match=true; break; fi
+      done
+      [[ "$sev_match" == "true" ]] || return 1
     fi
   fi
   return 0

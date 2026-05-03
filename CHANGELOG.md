@@ -4,6 +4,70 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] — 2026-05-03 — Roadmap completion: 8 frameworks + Go/Rust polyglot + severity filter
+
+### Added — eight framework suites and polyglot parity (56 new checks)
+
+- **NYDFS Part 500 (23 NYCRR 500)** suite (P-410..P-415, 6 checks):
+  cybersecurity program documentation, CISO designation, annual risk
+  assessment, pentest + vuln management, encryption of nonpublic info,
+  expanded MFA scope per 2023 amendments.
+- **OWASP Mobile Top 10 (2024)** suite (P-420..P-427, 8 checks):
+  M1 improper credential usage, M2 supply chain, M3 insecure auth,
+  M4 input/output validation, M5 insecure communication, M6 privacy
+  controls, M7 binary protections, M8 misconfiguration.
+- **OWASP LLM Top 10 (2025)** suite (P-430..P-437, 8 checks):
+  LLM01 prompt injection, LLM02 sensitive disclosure, LLM03 supply
+  chain, LLM04 data poisoning, LLM05 output handling, LLM06 excessive
+  agency, LLM07 system prompt leakage, LLM10 unbounded consumption.
+- **MAS TRM (Singapore)** suite (P-440..P-444, 5 checks):
+  technology risk governance, cyber hygiene notice, customer
+  authentication, system security testing, incident management.
+- **APRA CPS 234 (Australia)** suite (P-450..P-453, 4 checks):
+  information security capability, policy framework, vulnerability
+  and threat management, incident notification.
+- **RBI Cyber Security Framework (India)** suite (P-460..P-463, 4 checks):
+  cyber security policy, network and database security, application
+  security lifecycle, vendor / third-party risk.
+- **PSD2 SCA** suite (P-470..P-474, 5 checks): SCA triggers, inherence,
+  possession, knowledge elements, and dynamic linking on payment
+  authorization.
+- **3DS2 / 3-D Secure 2** suite (P-480..P-483, 4 checks): integration
+  presence, frictionless / challenge flow handling, TRA exemption
+  validation, card-on-file CIT/MIT distinction.
+- **Go polyglot parity** (P-490..P-495, 6 checks): ignored error
+  returns, float64 for money, race conditions, constant-time
+  comparison, context cancellation, SQL injection patterns.
+- **Rust polyglot parity** (P-500..P-505, 6 checks): unwrap()/expect()
+  in production, integer overflow without checked_*, unsafe blocks
+  without SAFETY comments, weak crypto crates, unverified serde
+  deserialization, insecure random for cryptographic purposes.
+
+### Added — severity filter and fast-core mode
+
+- `--severity VAL[,VAL...]` flag to filter checks by metadata severity
+  (critical, high, medium, low, info; comma-separated for multiple).
+- `--critical-only` alias for `--severity critical` — runs only the
+  highest-severity checks across the full catalog (~8-10 checks total,
+  ~12-15 second runtime). Intended as the absolute fast-core run for
+  pre-commit hooks where every second matters.
+- `--high-and-up` alias for `--severity critical,high` — CI-blocking
+  severity tier (~73 checks across the catalog).
+
+### Changed
+
+- Catalog total grew from 180 to 236 checks across 14 reputable
+  frameworks. `--framework` filter and `--category` / `--severity`
+  filters work uniformly across the full catalog.
+- `--light` mode (P-01..P-20) preserved as the standing fast-core
+  performance baseline. ~4 second runtime against an empty source
+  directory; ~30 second runtime against a real fintech repo.
+
+### Backward compatibility
+
+- All existing checks unchanged. New checks are additive; no behavior
+  changes to any prior runs.
+
 ## [1.2.0] — 2026-05-03 — DORA suite, full metadata coverage, CI/tests, private artifact strip
 
 ### Added
