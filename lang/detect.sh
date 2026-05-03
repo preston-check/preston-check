@@ -16,6 +16,8 @@ detect_language() {
   local js_count=$(find "$src" \( -name "*.js" -o -name "*.jsx" \) -not -path "*/node_modules/*" -not -path "*/.next/*" -not -path "*/dist/*" 2>/dev/null | wc -l | tr -d ' ')
   local rs_count=$(find "$src" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
   local sol_count=$(find "$src" -name "*.sol" -not -path "*/node_modules/*" -not -path "*/artifacts/*" -not -path "*/cache/*" 2>/dev/null | wc -l | tr -d ' ')
+  local kt_count=$(find "$src" -name "*.kt" -not -path "*/build/*" 2>/dev/null | wc -l | tr -d ' ')
+  local move_count=$(find "$src" -name "*.move" -not -path "*/build/*" 2>/dev/null | wc -l | tr -d ' ')
 
   # Determine primary language
   local max=$java_count
@@ -27,6 +29,8 @@ detect_language() {
   if [[ $js_count -gt $max ]]; then max=$js_count; DETECTED_LANG="javascript"; fi
   if [[ $rs_count -gt $max ]]; then max=$rs_count; DETECTED_LANG="rust"; fi
   if [[ $sol_count -gt $max ]]; then max=$sol_count; DETECTED_LANG="solidity"; fi
+  if [[ $kt_count -gt $max ]]; then max=$kt_count; DETECTED_LANG="kotlin"; fi
+  if [[ $move_count -gt $max ]]; then max=$move_count; DETECTED_LANG="move"; fi
 
   # Fallback: check for go.mod, pom.xml, package.json, Cargo.toml, foundry.toml, hardhat.config.*
   if [[ $max -eq 0 ]]; then
@@ -49,6 +53,8 @@ detect_language() {
   [[ $go_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Go($go_count) "
   [[ $rs_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Rust($rs_count) "
   [[ $sol_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Solidity($sol_count) "
+  [[ $kt_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Kotlin($kt_count) "
+  [[ $move_count -gt 0 ]] && DETECTED_LANGS="${DETECTED_LANGS}Move($move_count) "
   [[ -z "$DETECTED_LANGS" ]] && DETECTED_LANGS="unknown"
 
   export DETECTED_LANG
