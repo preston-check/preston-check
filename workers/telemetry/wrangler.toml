@@ -1,0 +1,25 @@
+name = "preston-check-telemetry"
+main = "src/index.ts"
+compatibility_date = "2026-05-03"
+workers_dev = true
+
+# Bind a KV namespace for daily aggregate counts and a D1 database for
+# detailed per-scan records. Both fit in Cloudflare's free tier at low
+# volume; switch to paid at ~10M scans/day.
+[[d1_databases]]
+binding = "DB"
+database_name = "preston-check-telemetry"
+database_id = "<fill in via 'wrangler d1 create preston-check-telemetry'>"
+
+[[kv_namespaces]]
+binding = "AGGREGATE"
+id = "<fill in via 'wrangler kv:namespace create AGGREGATE'>"
+
+# Custom domain mapping (configure in Cloudflare dashboard after deploy)
+# routes:
+#   - pattern = "preston-check.com/api/v1/telemetry"
+#     custom_domain = true
+
+[vars]
+RATE_LIMIT_PER_HOUR = "1000"
+ALLOW_ORIGIN = "*"
