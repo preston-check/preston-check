@@ -38,7 +38,7 @@ from typing import Optional
 ROOT = Path(__file__).parent.parent
 CHECKS = ROOT / "checks"
 PROPOSED = CHECKS / "community" / "proposed"
-STATE_FILE = Path.home() / ".preston-check" / "threat-intel-state.json"
+DEFAULT_STATE_FILE = Path.home() / ".preston-check" / "threat-intel-state.json"
 
 # CVE sources (free, no auth required for these endpoints)
 NVD_FEED = "https://services.nvd.nist.gov/rest/json/cves/2.0?pubStartDate={start}&pubEndDate={end}"
@@ -77,15 +77,15 @@ def cvss_to_severity(score: float) -> str:
     return "info"
 
 
-def load_state() -> dict:
-    if STATE_FILE.exists():
-        return json.loads(STATE_FILE.read_text())
+def load_state(state_file: Path) -> dict:
+    if state_file.exists():
+        return json.loads(state_file.read_text())
     return {"last_run": None, "processed_cves": []}
 
 
-def save_state(state: dict) -> None:
-    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    STATE_FILE.write_text(json.dumps(state, indent=2))
+def save_state(state: dict, state_file: Path) -> None:
+    state_file.parent.mkdir(parents=True, exist_ok=True)
+    state_file.write_text(json.dumps(state, indent=2))
 
 
 def fetch_recent_cves(since: datetime) -> list:
@@ -216,9 +216,16 @@ def main():
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--max-new", type=int, default=10, help="Max new checks per run")
     parser.add_argument("--days-back", type=int, default=7)
+    parser.add_argument(
+        "--state-file",
+        type=Path,
+        default=DEFAULT_STATE_FILE,
+        help="Path to processed-CVE state file (default: ~/.preston-check/threat-intel-state.json)",
+    )
     args = parser.parse_args()
 
-    state = load_state()
+    state_file = args.state_file
+    state = load_state(state_file)
     since = datetime.now(timezone.utc) - timedelta(days=args.days_back)
     print(f"Fetching CVEs since {since.strftime('%Y-%m-%d')}...")
 
@@ -259,7 +266,7 @@ def main():
 
     state["last_run"] = datetime.now(timezone.utc).isoformat()
     if not args.dry_run:
-        save_state(state)
+        save_state(state, state_file)
 
     print()
     print(f"New drafts written:        {new_drafts}")

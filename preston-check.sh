@@ -33,12 +33,14 @@ RUN_MODE="full"  # "light" = P-01 to P-20 (fast), "full" = all checks
 FORCE_LANG=""    # Override auto-detection with --lang
 AIRGAP_MODE=false              # --airgap: forbid all network calls (telemetry, etc.)
 TELEMETRY_OPT_IN_FLAG=false    # --telemetry-opt-in: anonymous score reporting
+AI_AUGMENT=false               # --ai-augment: add AI false-positive filter + explanations
+AI_FIX=false                   # --ai-fix: also generate suggested patches per finding
 INCLUDE_PROPOSED=false         # --include-proposed: run unreviewed community checks
 CI_SOFT_MODE=false             # --ci-soft: never exit 1 (CI handles its own thresholds)
 FRAMEWORK_FILTER=""            # --framework FILTER: only run checks whose metadata frameworks contain FILTER
 CATEGORY_FILTER=""             # --category VAL[,VAL...]: filter by metadata category
 SEVERITY_FILTER=""             # --severity VAL[,VAL...]: filter by severity
-PRESTON_VERSION="1.3.0"
+PRESTON_VERSION="1.7.1"
 
 export AIRGAP_MODE PRESTON_VERSION
 
@@ -68,6 +70,8 @@ while [[ $# -gt 0 ]]; do
     --lang) FORCE_LANG="$2"; shift 2 ;;
     --airgap) AIRGAP_MODE=true; export AIRGAP_MODE; shift ;;
     --telemetry-opt-in) TELEMETRY_OPT_IN_FLAG=true; shift ;;
+    --ai-augment) AI_AUGMENT=true; export AI_AUGMENT; shift ;;
+    --ai-fix) AI_FIX=true; AI_AUGMENT=true; export AI_FIX AI_AUGMENT; shift ;;
     --include-proposed) INCLUDE_PROPOSED=true; shift ;;
     --ci-soft) CI_SOFT_MODE=true; shift ;;
     --framework) FRAMEWORK_FILTER="$2"; shift 2 ;;
@@ -96,8 +100,10 @@ while [[ $# -gt 0 ]]; do
       echo "  --light, --fast      Light mode: P-01 to P-20 only (~30s)"
       echo "  --full               Full mode: all checks (default, ~3min)"
       echo "  --lang LANG          Force language (java, go, python, typescript)"
-      echo "  --airgap             No network calls. Disables telemetry."
+      echo "  --airgap             No network calls. Disables telemetry and AI."
       echo "  --telemetry-opt-in   Send anonymous score to State of Fintech Security report"
+      echo "  --ai-augment         Add AI false-positive filter + explanations to FAIL/WARN findings"
+      echo "  --ai-fix             Also generate suggested patches per finding (implies --ai-augment)"
       echo "  --include-proposed   Run unreviewed community-contributed checks"
       echo "  --framework NAME     Run only checks whose metadata references NAME"
       echo "                       (e.g., MiCA, CCSS:9.0:Level2, OWASP-SC-Top-10:2025, FATF, OFAC, DORA)"
@@ -182,6 +188,8 @@ export RED GREEN YELLOW BLUE NC
 [[ -f "$SCRIPT_DIR/lib/telemetry.sh" ]]      && source "$SCRIPT_DIR/lib/telemetry.sh"
 [[ -f "$SCRIPT_DIR/lib/branding.sh" ]]       && source "$SCRIPT_DIR/lib/branding.sh"
 [[ -f "$SCRIPT_DIR/lib/oss_detection.sh" ]]  && source "$SCRIPT_DIR/lib/oss_detection.sh"
+[[ -f "$SCRIPT_DIR/lib/ai_analyze.sh" ]]     && source "$SCRIPT_DIR/lib/ai_analyze.sh"
+[[ -f "$SCRIPT_DIR/lib/ai_autofix.sh" ]]     && source "$SCRIPT_DIR/lib/ai_autofix.sh"
 
 # Honor --telemetry-opt-in flag
 if [[ "$TELEMETRY_OPT_IN_FLAG" == "true" ]]; then
@@ -422,6 +430,8 @@ if [[ -n "$REPORT_FILE" ]]; then
 
     # Emit findings under a section heading. RESULT entries store findings
     # with newlines escaped as \036 and pipes as \037; decode for display.
+    # When --ai-augment / --ai-fix is on, also append per-finding AI analysis
+    # and (optionally) a suggested patch.
     emit_findings_block() {
       local check="$1" findings_enc="$2"
       [[ -z "$findings_enc" ]] && return 0
@@ -434,6 +444,38 @@ if [[ -n "$REPORT_FILE" ]]; then
       echo "$decoded"
       echo '```'
       echo ""
+
+      # AI augmentation: per-finding analysis and (optional) suggested patch.
+      # Each finding is its own LLM call, with per-finding caching so reruns
+      # over the same code don't re-bill.
+      if declare -f ai_is_available >/dev/null 2>&1 && ai_is_available; then
+        local check_id check_name
+        check_id="$(echo "$check" | awk '{print $1}')"
+        check_name="$(echo "$check" | cut -d' ' -f2-)"
+        local i=0
+        while IFS= read -r finding; do
+          [[ -z "$finding" ]] && continue
+          # Only handle entries that look like file:line:content
+          [[ "$finding" =~ ^[^:]+:[0-9]+: ]] || continue
+          ((i++))
+          # Cap per-check per-finding work to keep scan time bounded
+          [[ $i -gt 5 ]] && break
+          local analysis
+          analysis=$(ai_analyze_finding "$check_id" "$check_name" "$finding" "high" "" 2>/dev/null)
+          if [[ -n "$analysis" ]]; then
+            echo "_AI assessment for \`$finding\`:_"
+            echo ""
+            ai_format_analysis "$analysis"
+          fi
+          if declare -f autofix_is_available >/dev/null 2>&1 && autofix_is_available; then
+            local diff
+            diff=$(autofix_generate "$check_id" "$check_name" "$finding" "high" 2>/dev/null)
+            if [[ -n "$diff" ]]; then
+              autofix_format "$diff"
+            fi
+          fi
+        done <<< "$decoded"
+      fi
     }
 
     # Status tables come first — clean executive view, no inline findings.

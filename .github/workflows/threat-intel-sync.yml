@@ -1,0 +1,84 @@
+name: Threat-intel sync
+
+# Pulls new fintech-relevant CVEs from NIST NVD weekly, drafts community-tier
+# checks under checks/community/proposed/, and opens a PR for maintainer review.
+# State (already-processed CVEs) is persisted in .preston-check/threat-intel-state.json
+# so subsequent runs don't re-emit the same drafts.
+
+on:
+  schedule:
+    # Mondays at 09:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      max_new:
+        description: 'Maximum number of draft checks to emit this run'
+        required: false
+        default: '10'
+      days_back:
+        description: 'How many days of CVE history to scan'
+        required: false
+        default: '7'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run threat-intel sync
+        run: |
+          mkdir -p .preston-check checks/community/proposed
+          python3 tools/sync-threat-intel.py \
+            --state-file .preston-check/threat-intel-state.json \
+            --max-new "${{ github.event.inputs.max_new || '10' }}" \
+            --days-back "${{ github.event.inputs.days_back || '7' }}"
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet --exit-code; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat
+          fi
+
+      - name: Open / update PR
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'threat-intel: weekly CVE draft sync'
+          branch: threat-intel/auto-sync
+          title: 'Threat-intel: weekly CVE draft sync'
+          body: |
+            Automated sync from `tools/sync-threat-intel.py`.
+
+            Drafts under `checks/community/proposed/` are derived from the past
+            week of NIST NVD CVEs that match fintech-relevant keywords. They
+            require maintainer review and pattern authoring before promotion to
+            `checks/community/accepted/`.
+
+            Triage steps:
+            1. Read each new draft's `description` and `origin` metadata.
+            2. Either author a real `grep` pattern, or close the draft if the
+               CVE isn't actually applicable to fintech codebases.
+            3. Move accepted drafts to `checks/community/accepted/` in this PR
+               or in a follow-up.
+
+            The state file `.preston-check/threat-intel-state.json` tracks which
+            CVE IDs have already been considered, so re-runs won't duplicate
+            drafts.
+          labels: |
+            threat-intel
+            automated
+          delete-branch: true
