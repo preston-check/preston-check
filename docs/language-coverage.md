@@ -61,28 +61,30 @@ sub-suite rather than retrofitting existing checks.
 
 ## Roadmap
 
-### v1.1 — Polyglot parity (Q3 2026)
+### v1.3 — Go and Rust polyglot parity (DELIVERED)
 
-Priority is closing the Go and Rust gap. The plan adds language-specific
-sister-checks for the most universal vulnerability classes:
+Polyglot parity for Go and Rust shipped in v1.3.0 (P-490..P-505).
 
-For **Go**: ignored error returns (`_, _ = func()`), money as `float64`
-(critical fintech anti-pattern), missing context cancellation in HTTP
-clients, race conditions where a struct field is mutated without
-`sync.Mutex` or atomics, SQL injection via string concatenation, and
-constant-time comparison missing for tokens (use `subtle.ConstantTimeCompare`).
+**Go suite (P-490..P-495):** P-490 ignored error returns, P-491
+float64 for money (anti-pattern detection plus shopspring/decimal /
+math/big.Rat recognition), P-492 race conditions on shared state with
+sync.Mutex / atomic awareness, P-493 constant-time comparison via
+crypto/subtle, P-494 context cancellation on HTTP and DB calls,
+P-495 SQL injection via fmt.Sprintf string interpolation.
 
-For **Rust**: `unwrap()` and `expect()` in non-test code (panic risk),
-integer arithmetic without `checked_*` / `saturating_*` / `wrapping_*`
-on financial types, `unsafe` blocks not justified by a safety comment,
-weak crypto crates (`md5`, `sha-1`, `rust-crypto` legacy), and unverified
-`serde` deserialization on untrusted input.
+**Rust suite (P-500..P-505):** P-500 unwrap()/expect() in production
+code, P-501 integer overflow without checked_* / saturating_*, P-502
+unsafe blocks without SAFETY justification comments, P-503 weak crypto
+crates (md5, sha-1, deprecated rust-crypto), P-504 unverified serde
+deserialization, P-505 insecure rand::thread_rng for cryptographic
+purposes.
 
-A new `lang/profiles/go.sh` and `lang/profiles/rust.sh` extend the
-detection layer with per-language pattern variables, mirroring the
-existing Java/TypeScript profiles. Most of the existing 195 Java-targeting
-checks gain a Go/Rust path that uses the per-language profile rather
-than hardcoded patterns.
+These complement Solidity detection added in v1.1.0 and the Solidity-
+focused crypto suite (P-301..P-310). Combined with `lang/detect.sh`
+language profiles for Java, TypeScript, JavaScript, Python, Go, Rust,
+and Solidity, Preston-Check now provides first-class polyglot coverage
+for the most universal vulnerability classes across the seven
+languages.
 
 ### v1.2 — JVM neighbors (Q4 2026)
 

@@ -163,6 +163,38 @@ opt-in telemetry. The scanner is open-source so you can verify these
 guarantees in `lib/telemetry.sh` directly — every network call goes
 through that file, and `--airgap` short-circuits it.
 
+## Filter by framework, severity, or category
+
+The catalog of 236 checks can be scoped at runtime. The four filter
+flags compose freely:
+
+```bash
+# Audit prep for a specific regulator
+preston-check --framework MiCA --report mica.md
+preston-check --framework DORA --report dora.md
+preston-check --framework NYDFS --report nydfs.md
+preston-check --framework "PCI-DSS" --report pci.md
+
+# Filter by check type
+preston-check --code-only       # only static source-code analysis
+preston-check --docs-only       # only documentation / evidence verification
+preston-check --infra-only      # only infrastructure / config scans
+preston-check --live-only       # only SSH-based production log checks
+
+# Filter by severity
+preston-check --critical-only   # ~8 checks, ~12 second runtime
+preston-check --high-and-up     # critical + high (~73 checks, CI gating)
+preston-check --severity medium # only medium-severity checks
+
+# Combinations
+preston-check --framework DORA --docs-only         # DORA evidence prep only
+preston-check --framework "OWASP-LLM-Top-10" --code-only
+preston-check --critical-only --ci                 # fast CI gate
+```
+
+See `docs/all-frameworks.md` for the full list of supported framework
+filters with per-check coverage.
+
 ## Free tier vs. Pro vs. Enterprise
 
 The Free tier requires no license, no email, and no signup. It

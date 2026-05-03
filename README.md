@@ -1,8 +1,23 @@
 # Preston-Check — Pre-Deployment Security Audit Tool
 
-Apache 2.0 open-source, community-grown, fintech-focused. 100+ automated security checks run locally against your source code. Your code never leaves your machine.
+Apache 2.0 open-source, community-grown, fintech-focused. **236 automated security checks** spanning **27 reputable frameworks** run locally against your source code. Your code never leaves your machine.
 
 Named after Preston Braswell, a real hacker who created multiple fake accounts, bypassed 2FA, ran 21,201 automated session polling calls, and probed for race conditions and information leakage on a production fintech platform. This tool codifies the lessons learned from that attack — and from the broader fintech security catalog — into automated checks you can run before every deployment.
+
+## Frameworks Covered
+
+| Category | Frameworks |
+|---|---|
+| Card payments | PCI-DSS v4.0, PCI 3DS, EMVCo 3DS 2.x |
+| EU finance | MiCA (2024), TFR (2023), PSD2 + PSD2-RTS, DORA (2025) |
+| US finance | NYDFS Part 500 (23 NYCRR), FinCEN 31 CFR, OFAC SDN |
+| APAC | MAS TRM (Singapore), APRA CPS 234 (Australia), RBI CSF (India) |
+| AML / sanctions | FATF Recommendations 2023 (incl. Travel Rule Rec.16) |
+| General security | SOC 2 (TSC 2017), ISO 27001:2022, ISO 22301:2019 |
+| OWASP families | API Top 10 2023, Top 10 2021, Mobile MAS 2024, LLM 2025, Smart Contract Top 10 2025 |
+| US framework | NIST CSF 2.0, FIPS 203/204/205 (post-quantum), SSDF 1.1 |
+| Crypto custody | CCSS v9.0 (CryptoCurrency Security Standard) |
+| Cyber benchmarks | CIS Controls v8 |
 
 ## Install
 
@@ -32,8 +47,14 @@ preston-check --config configs/myapp.yml
 # CI mode — exits 1 on any FAIL
 preston-check --ci --report security-audit.md
 
-# Light mode for fast pre-commit hooks (~30s)
+# Light mode (P-01..P-20 only, ~4-30s)
 preston-check --light
+
+# Critical-only fast-core run (~12s, blocking issues only)
+preston-check --critical-only
+
+# CI-blocking severity (critical + high, ~73 checks)
+preston-check --high-and-up --ci
 
 # Run a single check
 preston-check --check 07-blacklist-check
@@ -46,6 +67,30 @@ preston-check --telemetry-opt-in
 
 # Run unreviewed community-contributed checks
 preston-check --include-proposed
+```
+
+## Filter by framework, category, or severity
+
+```bash
+# Compliance-scoped audit reports
+preston-check --framework "PCI-DSS" --report pci-audit.md
+preston-check --framework MiCA --report mica-audit.md
+preston-check --framework DORA --report dora-audit.md
+preston-check --framework "NYDFS" --report nydfs-audit.md
+preston-check --framework "OWASP-LLM-Top-10" --report llm-audit.md
+
+# Filter by what kind of check
+preston-check --code-only       # pure source-code analysis
+preston-check --docs-only       # policy / evidence documentation only
+preston-check --infra-only      # infrastructure config only
+preston-check --live-only       # SSH-based production log checks
+
+# Filter by severity
+preston-check --severity critical,high
+preston-check --critical-only
+
+# Combine: DORA-scoped, code-only run for CI
+preston-check --framework DORA --code-only --ci
 ```
 
 ## Privacy by design
