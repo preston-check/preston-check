@@ -9,11 +9,11 @@ workers_dev = true
 [[d1_databases]]
 binding = "DB"
 database_name = "preston-check-telemetry"
-database_id = "<fill in via 'wrangler d1 create preston-check-telemetry'>"
+database_id = "e206e1e4-1c78-4a5e-a983-bc47104d1b3c"
 
 [[kv_namespaces]]
 binding = "AGGREGATE"
-id = "<fill in via 'wrangler kv:namespace create AGGREGATE'>"
+id = "330983ec5b464dab8ae2f338d40512f5"
 
 # Custom domain mapping (configure in Cloudflare dashboard after deploy)
 # routes:
