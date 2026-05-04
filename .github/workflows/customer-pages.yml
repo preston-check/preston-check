@@ -1,0 +1,76 @@
+name: Deploy customer portal to Cloudflare Pages
+
+# Publishes web/customer/ to the Cloudflare Pages project
+# 'preston-check-customer' on every master push that touches the
+# customer bundle or any shared brand asset. Skips cleanly when the
+# Cloudflare credentials are absent.
+#
+# This workflow consumes no untrusted input. Only repository secrets
+# and static file paths are referenced inside run: blocks.
+#
+# One-time setup mirrors web/admin/DEPLOY.md but for the customer
+# project: create a Pages project named 'preston-check-customer',
+# bind app.preston-check.com as a custom domain, and (when production
+# auth lands) configure magic-link or SSO via the Q3 2026 build
+# sequence in docs/commercial-roadmap.md.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'web/customer/**'
+      - 'web/landing/icons/**'
+      - 'web/landing/assets/**'
+      - '.github/workflows/customer-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Cloudflare credentials
+        id: check
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [[ -n "$CF_TOKEN" && -n "$CF_ACCT" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Cloudflare secrets not configured -- skipping customer deploy."
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.configured == 'true'
+
+      - name: Stage customer bundle
+        if: steps.check.outputs.configured == 'true'
+        run: |
+          set -eu
+          mkdir -p out/landing/icons out/landing/assets
+          cp web/customer/index.html out/index.html
+          cp web/customer/styles.css out/styles.css
+          cp web/customer/app.js     out/app.js
+          cp web/customer/README.md  out/README.md
+          cp -R web/landing/icons/. out/landing/icons/
+          cp -R web/landing/assets/. out/landing/assets/
+          sed -i 's|\.\./landing/|landing/|g' out/index.html out/styles.css || true
+          {
+            printf '/landing/*\n  Cache-Control: public, max-age=2592000, immutable\n'
+            printf '/styles.css\n  Cache-Control: public, max-age=86400\n'
+            printf '/app.js\n  Cache-Control: public, max-age=86400\n'
+            printf '/index.html\n  Cache-Control: public, max-age=300\n'
+          } > out/_headers
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.check.outputs.configured == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name=preston-check-customer --branch=master

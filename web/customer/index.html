@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Preston-Check · Customer Portal</title>
+  <link rel="icon" href="../landing/assets/logomark.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ====================================================== TOPBAR -->
+  <header class="topbar">
+    <a href="#/" class="logo" aria-label="Preston-Check">
+      <img src="../landing/assets/wordmark.svg" alt="Preston-Check"/>
+    </a>
+    <div class="org-switcher" tabindex="0" title="Switch organization">
+      <span class="org-mark">H</span>
+      <span class="name">Helios Banking</span>
+      <span class="plan">· Enterprise</span>
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="actions">
+      <button class="icon-btn" aria-label="Notifications">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2H4.5Z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+        <span class="dot"></span>
+      </button>
+      <div class="me" tabindex="0">
+        <span class="avatar">CT</span>
+        <span class="name">cto@helios-banking.example</span>
+        <span class="role">· Owner</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================================================== SIDE RAIL -->
+  <aside class="rail">
+    <div class="section-label">Security posture</div>
+    <nav>
+      <a href="#/home" data-route="home" class="active">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12 12 4l9 8"/><path d="M5 11v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8"/></svg>
+        Home
+      </a>
+      <a href="#/repos" data-route="repos">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h11l3 3v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M16 3v3h3"/></svg>
+        Repos <span class="badge-tiny">7</span>
+      </a>
+      <a href="#/findings" data-route="findings">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+        Findings <span class="badge-tiny">26</span>
+      </a>
+      <a href="#/compliance" data-route="compliance">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg>
+        Compliance
+      </a>
+    </nav>
+
+    <div class="section-label">Account</div>
+    <nav>
+      <a href="#/settings" data-route="settings">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+        Settings
+      </a>
+    </nav>
+
+    <div class="upgrade-card">
+      <h4>State of Fintech Security 2026</h4>
+      <p>Annual benchmark drawn from anonymized opt-in scans across 4,200+ fintechs. See where you stand.</p>
+      <button class="btn btn-accent">Read the report</button>
+    </div>
+  </aside>
+
+  <!-- ====================================================== MAIN -->
+  <main class="main">
+
+    <!-- ============================================ HOME -->
+    <section class="page is-active" data-page="home">
+      <div class="page-head">
+        <div>
+          <h1>Welcome back, Helios Banking</h1>
+          <p class="subhead">Latest scan finished 4 minutes ago across 7 connected repositories. Score is up 3 points from last week.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Re-run all scans</button>
+          <button class="btn btn-primary">+ Add repo</button>
+        </div>
+      </div>
+
+      <div class="hero-score">
+        <img class="badge-img" src="../landing/assets/score-badge.svg" alt="Score: A-, 87 of 100"/>
+        <div class="stack">
+          <p class="eyebrow">Org-wide score · trailing 7 days</p>
+          <h2>You're in the top 18% of fintechs your size.</h2>
+          <p class="lede">Strong coverage on PCI-DSS, SOC 2, and MiCA. Two critical findings are blocking a higher grade — both have AI-generated patches ready to review.</p>
+          <div class="stats">
+            <div class="stat"><div class="n">A−</div><div class="l">Letter grade</div></div>
+            <div class="stat"><div class="n">87/100</div><div class="l">Numeric score</div></div>
+            <div class="stat"><div class="n">+3 pts</div><div class="l">Week-over-week</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-tile"><span class="label">Repositories</span><span class="value">7</span><span class="delta flat">connected</span></div>
+        <div class="kpi-tile"><span class="label">Critical findings</span><span class="value">2</span><span class="delta down">−1 this week</span></div>
+        <div class="kpi-tile"><span class="label">High findings</span><span class="value">5</span><span class="delta down">−2</span></div>
+        <div class="kpi-tile"><span class="label">Frameworks covered</span><span class="value">12 / 33</span><span class="delta up">+2 (DORA, MAS TRM)</span></div>
+      </div>
+
+      <div class="split-2">
+        <div class="card">
+          <div class="card-head">
+            <h2>Score · trailing 90 days</h2>
+            <div class="actions"><span class="pill pill-pass">+11 pts</span></div>
+          </div>
+          <svg class="chart" viewBox="0 0 800 200" preserveAspectRatio="none">
+            <line x1="0" y1="50"  x2="800" y2="50"  stroke="#E2E8F0" stroke-width="1"/>
+            <line x1="0" y1="100" x2="800" y2="100" stroke="#E2E8F0" stroke-width="1"/>
+            <line x1="0" y1="150" x2="800" y2="150" stroke="#E2E8F0" stroke-width="1"/>
+            <text x="0" y="46" font-family="ui-monospace" font-size="10" fill="#94A3B8">90</text>
+            <text x="0" y="96" font-family="ui-monospace" font-size="10" fill="#94A3B8">75</text>
+            <text x="0" y="146" font-family="ui-monospace" font-size="10" fill="#94A3B8">60</text>
+            <polyline fill="none" stroke="#10B981" stroke-width="2.5"
+              points="40,140 100,138 160,135 220,130 280,118 340,112 400,108 460,100 520,92 580,84 640,72 700,58 760,46"/>
+            <circle cx="760" cy="46" r="5" fill="#10B981" stroke="#fff" stroke-width="2"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mute-2);font-family:var(--mono);margin-top:8px;">
+            <span>Feb 4</span><span>Mar 4</span><span>Apr 4</span><span>May 4</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Top critical findings</h2></div>
+          <div class="finding" style="margin-bottom: 8px;">
+            <div class="head">
+              <span class="severity critical">CRITICAL</span>
+              <span class="name" style="font-size: 13px;">P-103 Money idempotency<span class="sub">payments-api · transfer endpoint missing dedup</span></span>
+            </div>
+          </div>
+          <div class="finding" style="margin-bottom: 0;">
+            <div class="head">
+              <span class="severity critical">CRITICAL</span>
+              <span class="name" style="font-size: 13px;">P-712 Refund authorization<span class="sub">htlc-bridge · refund() lacks msg.sender check</span></span>
+            </div>
+          </div>
+          <a href="#/findings" style="display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 600;">View all 26 findings →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>Framework coverage</h2><div class="actions"><a href="#/compliance">Detailed view →</a></div></div>
+        <div class="framework-grid">
+          <div class="framework">
+            <div class="name">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg>
+              <h3>PCI-DSS v4.0</h3>
+            </div>
+            <div class="progress"><div class="fill" style="width: 92%;"></div></div>
+            <div class="meta"><span>92% controls passing</span><strong>34 / 37</strong></div>
+          </div>
+          <div class="framework">
+            <div class="name">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg>
+              <h3>SOC 2 (TSC 2017)</h3>
+            </div>
+            <div class="progress"><div class="fill" style="width: 88%;" ></div></div>
+            <div class="meta"><span>88% controls passing</span><strong>52 / 59</strong></div>
+          </div>
+          <div class="framework">
+            <div class="name">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg>
+              <h3>MiCA (EU 2024)</h3>
+            </div>
+            <div class="progress"><div class="fill" style="width: 76%; background: var(--warn);"></div></div>
+            <div class="meta"><span>76% controls passing</span><strong>13 / 17</strong></div>
+          </div>
+          <div class="framework">
+            <div class="name">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg>
+              <h3>OWASP API Top 10 2023</h3>
+            </div>
+            <div class="progress"><div class="fill" style="width: 90%;"></div></div>
+            <div class="meta"><span>90% controls passing</span><strong>9 / 10</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ REPOS -->
+    <section class="page" data-page="repos">
+      <div class="page-head">
+        <div>
+          <h1>Repositories</h1>
+          <p class="subhead">7 repositories connected. Each ran its latest scan via the GitHub Action; click a repo for findings, history, and trend.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Export CSV</button>
+          <button class="btn btn-primary">+ Connect repo</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr><th>Repository</th><th>Language</th><th>Score</th><th>Critical</th><th>High</th><th>Last scan</th><th>30d trend</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="repo-name">payments-api<span class="sub">helios-banking/payments-api</span></td>
+              <td>TypeScript</td>
+              <td><span class="score-chip A">A−</span></td>
+              <td><span class="pill pill-fail">2</span></td>
+              <td><span class="pill pill-warn">3</span></td>
+              <td>4m ago</td>
+              <td><svg width="80" height="22" viewBox="0 0 80 22"><polyline fill="none" stroke="#10B981" stroke-width="1.5" points="2,16 12,14 22,12 32,11 42,8 52,7 62,5 72,4"/></svg></td>
+            </tr>
+            <tr>
+              <td class="repo-name">core-ledger<span class="sub">helios-banking/core-ledger</span></td>
+              <td>Java</td>
+              <td><span class="score-chip A">A</span></td>
+              <td><span class="pill pill-pass">0</span></td>
+              <td><span class="pill pill-warn">1</span></td>
+              <td>4m ago</td>
+              <td><svg width="80" height="22" viewBox="0 0 80 22"><polyline fill="none" stroke="#10B981" stroke-width="1.5" points="2,12 12,11 22,10 32,9 42,8 52,7 62,6 72,4"/></svg></td>
+            </tr>
+            <tr>
+              <td class="repo-name">htlc-bridge<span class="sub">helios-banking/htlc-bridge</span></td>
+              <td>Solidity</td>
+              <td><span class="score-chip B">B+</span></td>
+              <td><span class="pill pill-fail">1</span></td>
+              <td><span class="pill pill-warn">2</span></td>
+              <td>4m ago</td>
+              <td><svg width="80" height="22" viewBox="0 0 80 22"><polyline fill="none" stroke="#F59E0B" stroke-width="1.5" points="2,8 12,9 22,11 32,10 42,12 52,11 62,10 72,9"/></svg></td>
+            </tr>
+            <tr>
+              <td class="repo-name">aml-screening<span class="sub">helios-banking/aml-screening</span></td>
+              <td>Python</td>
+              <td><span class="score-chip A">A−</span></td>
+              <td><span class="pill pill-pass">0</span></td>
+              <td><span class="pill pill-warn">2</span></td>
+              <td>5m ago</td>
+              <td><svg width="80" height="22" viewBox="0 0 80 22"><polyline fill="none" stroke="#10B981" stroke-width="1.5" points="2,14 12,12 22,11 32,10 42,9 52,8 62,7 72,6"/></svg></td>
+            </tr>
+            <tr>
+              <td class="repo-name">wallet-svc<span class="sub">helios-banking/wallet-svc</span></td>
+              <td>Go</td>
+              <td><span class="score-chip B">B</span></td>
+              <td><span class="pill pill-fail">1</span></td>
+              <td><span class="pill pill-warn">3</span></td>
+              <td>5m ago</td>
+              <td><svg width="80" height="22" viewBox="0 0 80 22"><polyline fill="none" stroke="#F59E0B" stroke-width="1.5" points="2,10 12,10 22,11 32,12 42,11 52,12 62,12 72,12"/></svg></td>
+            </tr>
+            <tr>
+              <td class="repo-name">customer-portal<span class="sub">helios-banking/customer-portal</span></td>
+              <td>TypeScript</td>
+              <td><span class="score-chip A">A</span></td>
+              <td><span class="pill pill-pass">0</span></td>
+              <td><span class="pill pill-warn">1</span></td>
+              <td>6m ago</td>
+              <td><svg width="80" height="22" viewBox="0 0 80 22"><polyline fill="none" stroke="#10B981" stroke-width="1.5" points="2,12 12,11 22,10 32,8 42,7 52,6 62,5 72,4"/></svg></td>
+            </tr>
+            <tr>
+              <td class="repo-name">analytics-batch<span class="sub">helios-banking/analytics-batch</span></td>
+              <td>Python</td>
+              <td><span class="score-chip B">B+</span></td>
+              <td><span class="pill pill-pass">0</span></td>
+              <td><span class="pill pill-warn">2</span></td>
+              <td>6m ago</td>
+              <td><svg width="80" height="22" viewBox="0 0 80 22"><polyline fill="none" stroke="#10B981" stroke-width="1.5" points="2,10 12,9 22,9 32,8 42,8 52,7 62,7 72,6"/></svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================ FINDINGS -->
+    <section class="page" data-page="findings">
+      <div class="page-head">
+        <div>
+          <h1>Findings</h1>
+          <p class="subhead">26 active findings across 7 repos. AI assessment + suggested patch shown for each. Mark as accepted-risk or false-positive — feedback flows back into the AI training set.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Severity: any ▾</button>
+          <button class="btn btn-ghost">Framework: any ▾</button>
+          <button class="btn btn-ghost">Repo: any ▾</button>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="head">
+          <span class="severity critical">CRITICAL</span>
+          <span class="name">P-103 Money idempotency<span class="sub">payments-api · src/transfer.ts:142 · OWASP-API4 · PCI-DSS 6.5.5</span></span>
+          <div class="actions">
+            <button class="btn btn-ghost">False positive</button>
+            <button class="btn btn-accent">Apply patch</button>
+          </div>
+        </div>
+        <div class="code">
+          <span class="file">src/transfer.ts</span>:<span class="line">142</span>:  app.post('/transfer', async (req, res) =&gt; { const { amount, to } = req.body; ...
+        </div>
+        <div class="ai">
+          <div class="ai-eyebrow">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5c.8 3 2 4.2 5 5-3 .8-4.2 2-5 5-.8-3-2-4.2-5-5 3-.8 4.2-2 5-5Z"/><path d="M18.5 14.5c.4 1.4 1 2 2.5 2.5-1.4.4-2 1-2.5 2.5-.4-1.4-1-2-2.5-2.5 1.4-.4 2-1 2.5-2.5Z"/></svg>
+            AI assessment
+            <span class="conf">confidence: 0.94 · real vulnerability</span>
+          </div>
+          The /transfer endpoint accepts client-supplied amount and recipient with no idempotency key — a network retry or accidental double-click will execute the transfer twice. The fix is a server-side dedup window keyed on (caller_id, request_id, amount_hash) with a TTL ≥ the client retry budget.
+          <div class="fix"><span class="del">- app.post('/transfer', async (req, res) =&gt; {</span>
+<span class="add">+ app.post('/transfer', requireIdempotencyKey, async (req, res) =&gt; {</span>
+<span class="add">+   const dedupHit = await redis.set(`dedup:${req.idempotencyKey}`, '1', 'EX', 300, 'NX');</span>
+<span class="add">+   if (!dedupHit) return res.status(200).json(await getStoredResult(req.idempotencyKey));</span>
+   const { amount, to } = req.body;</div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="head">
+          <span class="severity critical">CRITICAL</span>
+          <span class="name">P-712 Refund / claim authorization missing<span class="sub">htlc-bridge · contracts/HTLCEscrow.sol:228 · OWASP-SC02 · CWE-284</span></span>
+          <div class="actions">
+            <button class="btn btn-ghost">False positive</button>
+            <button class="btn btn-accent">Apply patch</button>
+          </div>
+        </div>
+        <div class="code">
+          <span class="file">contracts/HTLCEscrow.sol</span>:<span class="line">228</span>:  function refund(bytes32 htlcId) external nonReentrant whenNotPaused { ...
+        </div>
+        <div class="ai">
+          <div class="ai-eyebrow">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5c.8 3 2 4.2 5 5-3 .8-4.2 2-5 5-.8-3-2-4.2-5-5 3-.8 4.2-2 5-5Z"/><path d="M18.5 14.5c.4 1.4 1 2 2.5 2.5-1.4.4-2 1-2.5 2.5-.4-1.4-1-2-2.5-2.5 1.4-.4 2-1 2.5-2.5Z"/></svg>
+            AI assessment
+            <span class="conf">confidence: 0.91 · real vulnerability</span>
+          </div>
+          refund() doesn't enforce that the caller is the original sender. Funds still go to the original sender, but anyone can grief the swap by triggering refunds before the legitimate counterparty claims. This breaks atomic-swap semantics. Pattern matches the digital_escrow SC-C1 finding — see P-712 for the canonical fix.
+          <div class="fix">   function refund(bytes32 htlcId) external nonReentrant whenNotPaused {
+       HTLC storage htlc = htlcs[htlcId];
+       if (htlc.sender == address(0)) revert HTLCNotFound();
+<span class="add">+     if (msg.sender != htlc.sender) revert UnauthorizedRefund();</span>
+       if (htlc.claimed) revert AlreadyClaimed();</div>
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="head">
+          <span class="severity high">HIGH</span>
+          <span class="name">P-308 Bridge replay protection<span class="sub">htlc-bridge · contracts/Relayer.sol:84 · CCSS:9.0:Level2</span></span>
+          <div class="actions">
+            <button class="btn btn-ghost">False positive</button>
+            <button class="btn btn-accent">Apply patch</button>
+          </div>
+        </div>
+        <div class="code">
+          <span class="file">contracts/Relayer.sol</span>:<span class="line">84</span>:  function relay(bytes calldata message, bytes calldata sig) external { ...
+        </div>
+        <div class="ai">
+          <div class="ai-eyebrow">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5c.8 3 2 4.2 5 5-3 .8-4.2 2-5 5-.8-3-2-4.2-5-5 3-.8 4.2-2 5-5Z"/><path d="M18.5 14.5c.4 1.4 1 2 2.5 2.5-1.4.4-2 1-2.5 2.5-.4-1.4-1-2-2.5-2.5 1.4-.4 2-1 2.5-2.5Z"/></svg>
+            AI assessment
+            <span class="conf">confidence: 0.86 · real vulnerability</span>
+          </div>
+          The relay() function accepts a signed cross-chain message but does not bind block.chainid into the signed payload. An attacker who captures a message on chain A can replay it on chain B at the same contract address. Wormhole lost $320M to a structurally similar bug in February 2022.
+        </div>
+      </div>
+
+      <div class="finding">
+        <div class="head">
+          <span class="severity high">HIGH</span>
+          <span class="name">P-12 Balance validation<span class="sub">wallet-svc · internal/withdraw.go:67 · OWASP-API3</span></span>
+          <div class="actions">
+            <button class="btn btn-ghost">False positive</button>
+            <button class="btn btn-accent">Apply patch</button>
+          </div>
+        </div>
+        <div class="code">
+          <span class="file">internal/withdraw.go</span>:<span class="line">67</span>:  func (s *Service) Withdraw(ctx context.Context, accountID string, amount decimal.Decimal) error {
+        </div>
+        <div class="ai">
+          <div class="ai-eyebrow">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5c.8 3 2 4.2 5 5-3 .8-4.2 2-5 5-.8-3-2-4.2-5-5 3-.8 4.2-2 5-5Z"/><path d="M18.5 14.5c.4 1.4 1 2 2.5 2.5-1.4.4-2 1-2.5 2.5-.4-1.4-1-2-2.5-2.5 1.4-.4 2-1 2.5-2.5Z"/></svg>
+            AI assessment
+            <span class="conf">confidence: 0.78 · needs review</span>
+          </div>
+          Withdraw() reads balance and decrements without a SELECT FOR UPDATE or advisory lock. Under concurrent withdrawals from the same account, the balance check can succeed twice before either decrement persists. Add a row-level lock or atomic UPDATE-WHERE for safety.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ COMPLIANCE -->
+    <section class="page" data-page="compliance">
+      <div class="page-head">
+        <div>
+          <h1>Compliance</h1>
+          <p class="subhead">Framework-control rollups across all 7 repos. Click any framework for the per-control breakdown and a one-click evidence bundle for your auditor.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Export all</button>
+          <button class="btn btn-primary">Generate audit pack</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-tile"><span class="label">Frameworks evaluated</span><span class="value">12</span><span class="delta up">+2 this quarter</span></div>
+        <div class="kpi-tile"><span class="label">Total controls</span><span class="value">241</span><span class="delta flat">across all frameworks</span></div>
+        <div class="kpi-tile"><span class="label">Passing</span><span class="value">214</span><span class="delta up">+11</span></div>
+        <div class="kpi-tile"><span class="label">Evidence bundles ready</span><span class="value">8</span><span class="delta up">+3</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>Frameworks</h2></div>
+        <div class="framework-grid">
+          <div class="framework"><div class="name"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg><h3>PCI-DSS v4.0</h3></div><div class="progress"><div class="fill" style="width: 92%;"></div></div><div class="meta"><span>Card payments</span><strong>34 / 37</strong></div></div>
+          <div class="framework"><div class="name"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg><h3>SOC 2 (TSC 2017)</h3></div><div class="progress"><div class="fill" style="width: 88%;"></div></div><div class="meta"><span>Trust Services Criteria</span><strong>52 / 59</strong></div></div>
+          <div class="framework"><div class="name"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg><h3>ISO 27001:2022</h3></div><div class="progress"><div class="fill" style="width: 86%;"></div></div><div class="meta"><span>InfoSec management</span><strong>78 / 91</strong></div></div>
+          <div class="framework"><div class="name"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg><h3>MiCA (EU 2024)</h3></div><div class="progress"><div class="fill" style="width: 76%; background: var(--warn);"></div></div><div class="meta"><span>EU crypto-asset</span><strong>13 / 17</strong></div></div>
+          <div class="framework"><div class="name"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg><h3>DORA (EU 2025)</h3></div><div class="progress"><div class="fill" style="width: 82%;"></div></div><div class="meta"><span>Digital operational resilience</span><strong>22 / 27</strong></div></div>
+          <div class="framework"><div class="name"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg><h3>NIST CSF 2.0</h3></div><div class="progress"><div class="fill" style="width: 91%;"></div></div><div class="meta"><span>Govern · Identify · Protect</span><strong>20 / 22</strong></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================ SETTINGS -->
+    <section class="page" data-page="settings">
+      <div class="page-head">
+        <div>
+          <h1>Settings</h1>
+          <p class="subhead">Organization, team, billing, license, API tokens, notifications, data export.</p>
+        </div>
+      </div>
+
+      <div class="settings-shell">
+        <aside class="settings-tabs">
+          <a href="#/settings" class="active">Organization</a>
+          <a href="#/settings">Team</a>
+          <a href="#/settings">Billing</a>
+          <a href="#/settings">License</a>
+          <a href="#/settings">API tokens</a>
+          <a href="#/settings">Notifications</a>
+          <a href="#/settings">Data export</a>
+        </aside>
+
+        <div class="card">
+          <div class="card-head"><h2>Organization</h2></div>
+          <div class="form-row">
+            <div class="label">Organization name<small>Shown on branded reports.</small></div>
+            <div><input type="text" value="Helios Banking"/></div>
+          </div>
+          <div class="form-row">
+            <div class="label">Logo<small>SVG or PNG, displayed on PDF cover pages and the customer portal.</small></div>
+            <div>
+              <button class="btn btn-ghost">Upload logo</button>
+              <div class="helper">Current: helios-banking.svg (140 × 36 px) · uploaded 2026-04-12</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="label">Primary color<small>Used as the accent color on branded PDFs.</small></div>
+            <div>
+              <input type="text" value="#003B7F" style="font-family: var(--mono); max-width: 160px;"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="label">Plan<small>Current billing plan. Change at any time; pro-rated to today.</small></div>
+            <div>
+              <span class="pill pill-info">Enterprise · 24 seats</span>
+              <div class="helper">$29,999/yr · renews 2027-04-12</div>
+              <button class="btn btn-ghost" style="margin-top: 8px;">Manage plan</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="label">Region<small>Where Preston-Check stores your scan history. Cannot be changed without re-issuing licenses.</small></div>
+            <div>
+              <select>
+                <option>EU (Frankfurt)</option>
+                <option>US (Virginia)</option>
+                <option>APAC (Singapore)</option>
+              </select>
+            </div>
+          </div>
+          <div style="text-align: right; padding-top: 16px;">
+            <button class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
