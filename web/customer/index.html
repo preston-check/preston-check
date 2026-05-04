@@ -432,55 +432,185 @@
 
       <div class="settings-shell">
         <aside class="settings-tabs">
-          <a href="#/settings" class="active">Organization</a>
-          <a href="#/settings">Team</a>
-          <a href="#/settings">Billing</a>
-          <a href="#/settings">License</a>
-          <a href="#/settings">API tokens</a>
-          <a href="#/settings">Notifications</a>
-          <a href="#/settings">Data export</a>
+          <a href="#" data-tab="organization" class="active">Organization</a>
+          <a href="#" data-tab="team">Team</a>
+          <a href="#" data-tab="billing">Billing</a>
+          <a href="#" data-tab="license">License</a>
+          <a href="#" data-tab="api-tokens">API tokens</a>
+          <a href="#" data-tab="notifications">Notifications</a>
+          <a href="#" data-tab="data-export">Data export</a>
         </aside>
 
-        <div class="card">
-          <div class="card-head"><h2>Organization</h2></div>
-          <div class="form-row">
-            <div class="label">Organization name<small>Shown on branded reports.</small></div>
-            <div><input type="text" value="Helios Banking"/></div>
-          </div>
-          <div class="form-row">
-            <div class="label">Logo<small>SVG or PNG, displayed on PDF cover pages and the customer portal.</small></div>
-            <div>
-              <button class="btn btn-ghost">Upload logo</button>
-              <div class="helper">Current: helios-banking.svg (140 × 36 px) · uploaded 2026-04-12</div>
+        <div class="settings-content">
+
+          <!-- ============================ Organization tab -->
+          <div class="settings-pane is-active" data-pane="organization">
+            <div class="card">
+              <div class="card-head"><h2>Organization</h2></div>
+              <div class="form-row">
+                <div class="label">Organization name<small>Shown on branded reports.</small></div>
+                <div><input type="text" value="Helios Banking"/></div>
+              </div>
+              <div class="form-row">
+                <div class="label">Logo<small>SVG or PNG, displayed on PDF cover pages and the customer portal.</small></div>
+                <div>
+                  <button class="btn btn-ghost">Upload logo</button>
+                  <div class="helper">Current: helios-banking.svg (140 × 36 px) · uploaded 2026-04-12</div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="label">Primary color<small>Used as the accent color on branded PDFs.</small></div>
+                <div>
+                  <input type="text" value="#003B7F" style="font-family: var(--mono); max-width: 160px;"/>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="label">Region<small>Where Preston-Check stores your scan history. Cannot be changed without re-issuing licenses.</small></div>
+                <div>
+                  <select>
+                    <option>EU (Frankfurt)</option>
+                    <option>US (Virginia)</option>
+                    <option>APAC (Singapore)</option>
+                  </select>
+                </div>
+              </div>
+              <div style="text-align: right; padding-top: 16px;">
+                <button class="btn btn-primary">Save changes</button>
+              </div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="label">Primary color<small>Used as the accent color on branded PDFs.</small></div>
-            <div>
-              <input type="text" value="#003B7F" style="font-family: var(--mono); max-width: 160px;"/>
+
+          <!-- ============================ Billing tab -->
+          <div class="settings-pane" data-pane="billing">
+
+            <!-- Success banner shown after Stripe redirects back from a completed checkout -->
+            <div class="card" id="billing-success" style="display: none; border-color: var(--accent); background: rgba(16,185,129,0.06);">
+              <div class="card-head"><h2 style="color: var(--accent-d);">✓ Subscription activated</h2></div>
+              <p style="margin: 0; color: var(--ink); font-size: 14px;">
+                Your Preston-Check Pro subscription is now active. The license file has been emailed to the address on file. Within 24 hours your repos start receiving Pro-tier features automatically.
+              </p>
+            </div>
+
+            <!-- Current plan card -->
+            <div class="card">
+              <div class="card-head">
+                <h2>Current plan</h2>
+                <div class="actions">
+                  <button class="btn btn-ghost" id="manage-plan-btn">Manage plan / payment method</button>
+                </div>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; padding: 8px 0;">
+                <div>
+                  <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--mute-2); font-weight: 600;">Plan</div>
+                  <div style="font-family: var(--serif); font-size: 22px; color: var(--ink); margin-top: 4px; font-weight: 600;" id="plan-name">Free</div>
+                  <div style="color: var(--mute); font-size: 13px; margin-top: 2px;" id="plan-detail">No paid subscription · OSS exemption auto-grants Pro on OSS repos</div>
+                </div>
+                <div>
+                  <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--mute-2); font-weight: 600;">Status</div>
+                  <div style="margin-top: 8px;"><span class="pill pill-good" id="plan-status">Active</span></div>
+                </div>
+                <div>
+                  <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--mute-2); font-weight: 600;">Next renewal</div>
+                  <div style="font-family: var(--mono); font-size: 14px; color: var(--ink); margin-top: 8px;" id="plan-renewal">—</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upgrade tiers -->
+            <div class="card">
+              <div class="card-head"><h2>Upgrade or change plan</h2></div>
+              <p style="color: var(--mute); font-size: 14px; margin-bottom: 16px;">
+                Stripe Checkout opens in a new flow; once payment completes you're returned here automatically.
+              </p>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+
+                <!-- Pro per repo -->
+                <div class="card" style="margin: 0; border-color: var(--rule);">
+                  <h3 style="margin: 0 0 8px; font-family: var(--sans); font-size: 16px; font-weight: 600;">Pro · per repo</h3>
+                  <div style="font-family: var(--serif); font-size: 30px; font-weight: 600; color: var(--ink);">$999</div>
+                  <div style="font-size: 12px; color: var(--mute); margin-bottom: 12px;">/ repository / year</div>
+                  <ul style="list-style: none; padding: 0; margin: 0 0 16px; font-size: 13px; color: var(--mute);">
+                    <li style="padding: 4px 0;">Branded PDF reports</li>
+                    <li style="padding: 4px 0;">Compliance evidence bundling</li>
+                    <li style="padding: 4px 0;">Multi-repo dashboard</li>
+                    <li style="padding: 4px 0;">Priority email support</li>
+                  </ul>
+                  <button class="btn btn-primary" data-checkout-plan="pro_per_repo" style="width: 100%; justify-content: center;">Upgrade · $999</button>
+                </div>
+
+                <!-- Pro unlimited (featured) -->
+                <div class="card" style="margin: 0; border-color: var(--ink); background: var(--ink); color: var(--paper); position: relative;">
+                  <span style="position: absolute; top: -12px; right: 16px; background: var(--accent); color: var(--ink); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; font-weight: 700;">Most popular</span>
+                  <h3 style="margin: 0 0 8px; color: var(--paper); font-family: var(--sans); font-size: 16px; font-weight: 600;">Pro · unlimited</h3>
+                  <div style="font-family: var(--serif); font-size: 30px; font-weight: 600; color: var(--paper);">$4,999</div>
+                  <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 12px;">/ year · unlimited repos</div>
+                  <ul style="list-style: none; padding: 0; margin: 0 0 16px; font-size: 13px; color: rgba(255,255,255,0.85);">
+                    <li style="padding: 4px 0;">Everything in Pro</li>
+                    <li style="padding: 4px 0;">Unlimited repositories</li>
+                    <li style="padding: 4px 0;">Best value for &gt; 5 repos</li>
+                    <li style="padding: 4px 0;">Same compliance bundles</li>
+                  </ul>
+                  <button class="btn" data-checkout-plan="pro_unlimited" style="width: 100%; justify-content: center; background: var(--accent); color: var(--ink); border: 0;">Upgrade · $4,999</button>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="card" style="margin: 0; border-color: var(--rule);">
+                  <h3 style="margin: 0 0 8px; font-family: var(--sans); font-size: 16px; font-weight: 600;">Enterprise</h3>
+                  <div style="font-family: var(--serif); font-size: 30px; font-weight: 600; color: var(--ink);">$29,999+</div>
+                  <div style="font-size: 12px; color: var(--mute); margin-bottom: 12px;">/ year · sales-led</div>
+                  <ul style="list-style: none; padding: 0; margin: 0 0 16px; font-size: 13px; color: var(--mute);">
+                    <li style="padding: 4px 0;">Everything in Pro</li>
+                    <li style="padding: 4px 0;">SSO (SAML / OIDC)</li>
+                    <li style="padding: 4px 0;">White-label reports</li>
+                    <li style="padding: 4px 0;">Custom check authoring</li>
+                    <li style="padding: 4px 0;">SLA-backed support</li>
+                  </ul>
+                  <a class="btn btn-ghost" href="mailto:sales@preston-check.com" style="width: 100%; justify-content: center;">Talk to sales</a>
+                </div>
+
+              </div>
+
+              <p style="font-size: 12px; color: var(--mute-2); margin: 16px 0 0; text-align: center;">
+                Annual billing · cancel anytime · prorated refund for downgrades
+              </p>
+            </div>
+
+            <!-- Invoice history -->
+            <div class="card">
+              <div class="card-head">
+                <h2>Invoice history</h2>
+                <div class="actions"><button class="btn btn-ghost" id="invoices-refresh">Refresh</button></div>
+              </div>
+              <div id="invoices-empty" style="text-align: center; padding: 32px; color: var(--mute-2);">
+                No invoices yet. Once you subscribe to a paid plan, invoices appear here within minutes of payment.
+              </div>
+              <table class="table" id="invoices-table" style="display: none;">
+                <thead>
+                  <tr><th>Date</th><th>Amount</th><th>Status</th><th class="right"></th></tr>
+                </thead>
+                <tbody id="invoices-rows"></tbody>
+              </table>
             </div>
           </div>
-          <div class="form-row">
-            <div class="label">Plan<small>Current billing plan. Change at any time; pro-rated to today.</small></div>
-            <div>
-              <span class="pill pill-info">Enterprise · 24 seats</span>
-              <div class="helper">$29,999/yr · renews 2027-04-12</div>
-              <button class="btn btn-ghost" style="margin-top: 8px;">Manage plan</button>
-            </div>
+
+          <!-- Other tabs use placeholder content for now -->
+          <div class="settings-pane" data-pane="team">
+            <div class="card empty">Team management lands in Q3 2026 — magic-link invite, role assignment (Owner/Admin/Auditor/Member), 2FA enforcement.</div>
           </div>
-          <div class="form-row">
-            <div class="label">Region<small>Where Preston-Check stores your scan history. Cannot be changed without re-issuing licenses.</small></div>
-            <div>
-              <select>
-                <option>EU (Frankfurt)</option>
-                <option>US (Virginia)</option>
-                <option>APAC (Singapore)</option>
-              </select>
-            </div>
+          <div class="settings-pane" data-pane="license">
+            <div class="card empty">License keys lands in Q3 2026 — view current license, regenerate, revoke. Until then, license issuance is operator-side via <code>tools/issue-license.sh</code>.</div>
           </div>
-          <div style="text-align: right; padding-top: 16px;">
-            <button class="btn btn-primary">Save changes</button>
+          <div class="settings-pane" data-pane="api-tokens">
+            <div class="card empty">API tokens lands in Q3 2026 — issue scoped tokens for the GitHub Action and CLI integrations.</div>
           </div>
+          <div class="settings-pane" data-pane="notifications">
+            <div class="card empty">Notifications lands in Q3 2026 — Slack webhook, email digest cadence, threshold alerts.</div>
+          </div>
+          <div class="settings-pane" data-pane="data-export">
+            <div class="card empty">Data export lands in Q3 2026 — full org-wide JSON dump of every scan, finding, and audit-log entry.</div>
+          </div>
+
         </div>
       </div>
     </section>

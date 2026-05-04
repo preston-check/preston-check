@@ -524,6 +524,8 @@ a:hover { text-decoration: underline; }
   border-radius: 12px;
   padding: 8px;
   height: fit-content;
+  position: sticky;
+  top: 80px;
 }
 .settings-tabs a {
   display: block;
@@ -533,12 +535,49 @@ a:hover { text-decoration: underline; }
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 2px;
+  cursor: pointer;
 }
 .settings-tabs a:hover { background: var(--paper-3); color: var(--ink); text-decoration: none; }
 .settings-tabs a.active {
   background: var(--ink);
   color: var(--paper);
   font-weight: 600;
+}
+
+/* Settings panes — only one visible at a time */
+.settings-content { min-width: 0; }
+.settings-pane { display: none; animation: fade-in 0.18s ease-out; }
+.settings-pane.is-active { display: block; }
+
+/* "Coming soon" empty state for unwired sub-tabs */
+.settings-pane .card.empty {
+  text-align: center;
+  padding: 48px 32px;
+  color: var(--mute);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Toast for inert buttons that are still mock */
+.pc-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(11,31,58,0.25);
+  z-index: 100;
+  animation: toast-in 0.25s ease-out;
+}
+.pc-toast .icon { width: 18px; height: 18px; vertical-align: middle; margin-right: 8px; color: var(--accent); }
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 /* Form rows */
