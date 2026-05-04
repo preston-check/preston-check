@@ -31,6 +31,9 @@ jobs:
         run: |
           VERSION="${{ steps.meta.outputs.version }}"
           ARCHIVE="preston-check-${VERSION}.tar.gz"
+          # Write the archive into ../ so tar isn't reading the directory
+          # it's currently writing to (which causes "file changed as we read
+          # it" errors and aborts the build).
           tar --exclude='.git' \
               --exclude='cycles' \
               --exclude='configs/bloxcross.yml' \
@@ -38,7 +41,8 @@ jobs:
               --exclude='configs/robbie.yml' \
               --exclude='blox-logo*' \
               --exclude='*.docx' \
-              -czf "$ARCHIVE" .
+              -czf "../${ARCHIVE}" .
+          mv "../${ARCHIVE}" "./${ARCHIVE}"
           SHA=$(sha256sum "$ARCHIVE" | cut -d' ' -f1)
           echo "$SHA  $ARCHIVE" > "${ARCHIVE}.sha256"
           echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
