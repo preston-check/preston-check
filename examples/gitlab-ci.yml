@@ -1,0 +1,19 @@
+# Example: run Preston-Check on GitLab CI as a pre-merge gate.
+# Add the contents of this file to your project's .gitlab-ci.yml.
+
+stages:
+  - security
+
+preston-check:
+  stage: security
+  image: prestoncheck/scan:latest
+  script:
+    - /preston-check/preston-check.sh --ci --high-and-up --report preston-check-report.md
+  artifacts:
+    when: always
+    paths:
+      - preston-check-report.md
+    expire_in: 30 days
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

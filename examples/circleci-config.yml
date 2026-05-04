@@ -1,0 +1,22 @@
+# Example: run Preston-Check on CircleCI.
+# Save as .circleci/config.yml.
+
+version: 2.1
+
+jobs:
+  preston-check:
+    docker:
+      - image: prestoncheck/scan:latest
+    steps:
+      - checkout
+      - run:
+          name: Preston-Check security audit
+          command: /preston-check/preston-check.sh --ci --high-and-up --report preston-check-report.md
+      - store_artifacts:
+          path: preston-check-report.md
+          destination: preston-check-report.md
+
+workflows:
+  pre-deploy:
+    jobs:
+      - preston-check

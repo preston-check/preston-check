@@ -40,7 +40,7 @@ CI_SOFT_MODE=false             # --ci-soft: never exit 1 (CI handles its own thr
 FRAMEWORK_FILTER=""            # --framework FILTER: only run checks whose metadata frameworks contain FILTER
 CATEGORY_FILTER=""             # --category VAL[,VAL...]: filter by metadata category
 SEVERITY_FILTER=""             # --severity VAL[,VAL...]: filter by severity
-PRESTON_VERSION="1.7.1"
+PRESTON_VERSION="1.7.2"
 
 export AIRGAP_MODE PRESTON_VERSION
 
@@ -73,6 +73,7 @@ while [[ $# -gt 0 ]]; do
     --ai-augment) AI_AUGMENT=true; export AI_AUGMENT; shift ;;
     --ai-fix) AI_FIX=true; AI_AUGMENT=true; export AI_FIX AI_AUGMENT; shift ;;
     --include-proposed) INCLUDE_PROPOSED=true; shift ;;
+    --version|-V) echo "preston-check $PRESTON_VERSION"; exit 0 ;;
     --ci-soft) CI_SOFT_MODE=true; shift ;;
     --framework) FRAMEWORK_FILTER="$2"; shift 2 ;;
     --category) CATEGORY_FILTER="$2"; shift 2 ;;
@@ -118,6 +119,7 @@ while [[ $# -gt 0 ]]; do
       echo "  --high-and-up        Alias: --severity critical,high (CI-blocking severity)"
       echo "  --list               List available checks"
       echo "  --verbose            Show check details"
+      echo "  --version, -V        Print version and exit"
       echo "  --help               Show this help"
       exit 0
       ;;
@@ -326,7 +328,10 @@ else
       [[ -f "$check_file" ]] || continue
       # In light mode, only run P-01 through P-20
       if [[ "$RUN_MODE" == "light" ]]; then
+        # Strip leading zeros so bash doesn't try to parse "08"/"09" as octal.
         check_num=$(basename "$check_file" | grep -oE '^[0-9]+' || echo "99")
+        check_num="${check_num#"${check_num%%[!0]*}"}"
+        : "${check_num:=0}"
         if [[ "$check_num" -gt 20 ]]; then
           continue
         fi
@@ -379,6 +384,9 @@ if [[ -n "$REPORT_FILE" ]]; then
     echo "Source: ${SOURCE_DIR:-.}"
     echo "Mode: $RUN_MODE"
     echo "Tier: ${EFFECTIVE_TIER:-free}"
+    [[ -n "$FRAMEWORK_FILTER" ]] && echo "Framework: $FRAMEWORK_FILTER"
+    [[ -n "$CATEGORY_FILTER"  ]] && echo "Category: $CATEGORY_FILTER"
+    [[ -n "$SEVERITY_FILTER"  ]] && echo "Severity: $SEVERITY_FILTER"
     [[ -n "${LICENSE_CUSTOMER:-}" ]] && echo "Customer: $LICENSE_CUSTOMER"
     [[ -n "${LICENSE_WARNING:-}" ]] && echo "Renewal: $LICENSE_WARNING"
     echo "Version: ${PRESTON_VERSION:-1.0.0}"

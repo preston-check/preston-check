@@ -1,0 +1,40 @@
+# Example: run Preston-Check as a GitHub Action on every PR.
+# Drop this file into your repo at .github/workflows/preston-check.yml.
+
+name: Security Audit
+
+on:
+  pull_request:
+    branches: [main, master]
+  push:
+    branches: [main, master]
+
+jobs:
+  preston-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: preston-check/scan-action@v1
+        with:
+          # 'full' runs the entire catalog (~3 min). 'light' runs P-01..P-20
+          # only and finishes in seconds — good for branch protection on PRs.
+          mode: full
+
+          # Severity threshold above which the action fails the check.
+          # 'critical' / 'high' / 'medium' / 'any' / 'never'.
+          fail-on: high
+
+          # Where to save the markdown report. The action uploads it as a
+          # workflow artifact automatically.
+          report-path: preston-check-report.md
+
+          # Airgap mode: no network calls (telemetry, AI augmentation, etc.)
+          # default 'true' on CI for hygiene.
+          airgap: true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: preston-check-report
+          path: preston-check-report.md

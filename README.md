@@ -1,6 +1,10 @@
 # Preston-Check — Pre-Deployment Security Audit Tool
 
-Apache 2.0 open-source, community-grown, fintech-focused. **236 automated security checks** spanning **27 reputable frameworks** run locally against your source code. Your code never leaves your machine.
+[![Tests](https://github.com/preston-check/preston-check/actions/workflows/test.yml/badge.svg)](https://github.com/preston-check/preston-check/actions/workflows/test.yml)
+[![Release](https://github.com/preston-check/preston-check/actions/workflows/release.yml/badge.svg)](https://github.com/preston-check/preston-check/releases/latest)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+Apache 2.0 open-source, community-grown, fintech-focused. **294 automated security checks** spanning **33 reputable frameworks** run locally against your source code (284 main catalog + 10 deep smart-contract audit). Your code never leaves your machine unless you opt in. AI-augmented finding analysis and patch suggestions are available via `--ai-augment` / `--ai-fix`.
 
 Named after Preston Braswell, a real hacker who created multiple fake accounts, bypassed 2FA, ran 21,201 automated session polling calls, and probed for race conditions and information leakage on a production fintech platform. This tool codifies the lessons learned from that attack — and from the broader fintech security catalog — into automated checks you can run before every deployment.
 
@@ -67,7 +71,23 @@ preston-check --telemetry-opt-in
 
 # Run unreviewed community-contributed checks
 preston-check --include-proposed
+
+# AI-augment findings (requires ANTHROPIC_API_KEY or OPENAI_API_KEY)
+preston-check --ai-augment
+
+# AI-augment AND emit suggested patches per finding
+preston-check --ai-fix
 ```
+
+## Examples
+
+Production-ready usage patterns live in [`examples/`](examples/):
+
+* [`examples/github-action.yml`](examples/github-action.yml) — drop-in PR security gate
+* [`examples/gitlab-ci.yml`](examples/gitlab-ci.yml) — GitLab CI integration
+* [`examples/circleci-config.yml`](examples/circleci-config.yml) — CircleCI integration
+* [`examples/pre-commit-hook.sh`](examples/pre-commit-hook.sh) — local pre-commit gate
+
 
 ## Filter by framework, category, or severity
 
