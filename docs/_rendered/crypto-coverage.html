@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>crypto-coverage</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">crypto-coverage</h1>
+</header>
+<h1 id="crypto-defi-suite-coverage">Crypto / DeFi Suite Coverage</h1>
+<p>Preston-Check ships a dedicated crypto-business security suite
+spanning IDs <strong>P-301 through P-360</strong> — sixty checks
+organized into six thematic groups covering smart contract security, key
+custody and storage, outbound transaction safety, inbound asset hygiene,
+source-wallet integrity, and regulatory compliance.</p>
+<p>The suite is informed by current authoritative frameworks: OWASP
+Smart Contract Top 10 (2025), CryptoCurrency Security Standard v9.0
+(December 2024), NIST Cybersecurity Framework 2.0, FATF Recommendation
+16 (Travel Rule), MiCA (EU 2024-2026), OFAC sanctions guidance (2024),
+NIST FIPS 203/204/205 post-quantum standards, OWASP MASVS 2.0, and OWASP
+API Top 10 (2023). The full source registry with version pins is in
+<code>docs/crypto-sources.md</code>. The framework-to-check mapping for
+compliance- driven runs is in
+<code>docs/crypto-frameworks.md</code>.</p>
+<h2 id="smart-contract-security-p-301..p-310">Smart Contract Security
+(P-301..P-310)</h2>
+<p>These ten checks target the on-chain attack surface: reentrancy,
+integer arithmetic safety, authorization patterns, gas-DoS via unbounded
+loops, DEX slippage, oracle manipulation, token approvals, cross-chain
+bridge replay protection, stablecoin peg monitoring, and governance
+time-locks. The catalog mirrors the highest-impact OWASP Smart Contract
+Top 10 (2025) categories ranked by 2025 financial losses.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P-301</td>
+<td>Smart Contract Reentrancy Protection</td>
+<td>critical</td>
+</tr>
+<tr>
+<td>P-302</td>
+<td>Integer Overflow Protection (pre-0.8 Solidity)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-303</td>
+<td>tx.origin Authorization Anti-Pattern</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-304</td>
+<td>Unbounded Loops / Gas DoS</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-305</td>
+<td>DEX Slippage Protection</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-306</td>
+<td>Oracle Manipulation Resistance</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-307</td>
+<td>Unbounded Token Approvals</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-308</td>
+<td>Bridge Replay Protection</td>
+<td>critical</td>
+</tr>
+<tr>
+<td>P-309</td>
+<td>Stablecoin Peg Monitoring</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-310</td>
+<td>Governance Time-Locks on Privileged Operations</td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-custody-and-storage-p-311..p-320">Key Custody and Storage
+(P-311..P-320)</h2>
+<p>The custody group covers private-key handling end-to-end: exposure
+prevention, hardware-backed signing, KMS integration, MPC and threshold
+signature schemes, cold-wallet air-gap discipline, hot-wallet
+concentration caps, key ceremony evidence, seed phrase logging hygiene,
+key rotation policies, and multi-signature approval workflow
+discipline.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P-311</td>
+<td>Private Key / Mnemonic Exposure</td>
+<td>critical</td>
+</tr>
+<tr>
+<td>P-312</td>
+<td>HSM Integration for Production Signing</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-313</td>
+<td>KMS-Only Key Operations</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-314</td>
+<td>MPC / Threshold Signature Scheme Usage</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-315</td>
+<td>Cold Wallet Air-Gap Discipline</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-316</td>
+<td>Hot Wallet Concentration Limits</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-317</td>
+<td>Key Ceremony Documentation</td>
+<td>low</td>
+</tr>
+<tr>
+<td>P-318</td>
+<td>Seed Phrase Handling Hygiene</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-319</td>
+<td>Key Rotation Schedule</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-320</td>
+<td>Multi-Sig Approval Discipline</td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<h2 id="outbound-transaction-safety-p-321..p-330">Outbound Transaction
+Safety (P-321..P-330)</h2>
+<p>This group covers everything between a withdrawal request and the
+broadcast: address validation, whitelist enforcement,
+blockchain-analytics risk scoring, OFAC and sanctions screening
+freshness, community-maintained scam-address checks, address-poisoning
+detection, mixer / privacy-tool provenance, FATF Travel Rule compliance,
+new-address cooldowns, and high-value step-up authentication.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P-321</td>
+<td>Crypto Address Format and Checksum Validation</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-322</td>
+<td>Withdrawal Address Whitelist Enforcement</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-323</td>
+<td>Pre-Send Risk Scoring (Blockchain Analytics)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-324</td>
+<td>OFAC SDN Live Screening Freshness</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-325</td>
+<td>Hacker / Scam Address Screening</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-326</td>
+<td>Address Poisoning Detection</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-327</td>
+<td>Mixer / Privacy Tool Provenance Check</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-328</td>
+<td>Travel Rule Compliance (FATF Recommendation 16)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-329</td>
+<td>New-Address Withdrawal Cooldown</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-330</td>
+<td>High-Value Transaction Step-Up Authentication</td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<h2 id="inbound-asset-hygiene-p-331..p-335">Inbound Asset Hygiene
+(P-331..P-335)</h2>
+<p>Receiving assets is its own attack surface: dust-attack consolidation
+risks, scam token honeypots, unverified contract quarantine, NFT
+phishing patterns, and counterparty reputation pre-checks before
+crediting balance.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P-331</td>
+<td>Dust Attack Detection</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-332</td>
+<td>Scam / Honeypot Token Detection</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-333</td>
+<td>Unverified Contract Quarantine</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-334</td>
+<td>NFT Phishing and Spam Detection</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-335</td>
+<td>Counterparty Reputation Pre-Check</td>
+<td>medium</td>
+</tr>
+</tbody>
+</table>
+<h2 id="source-wallet-integrity-p-336..p-340">Source Wallet Integrity
+(P-336..P-340)</h2>
+<p>Five checks for the funding source itself: multi-hop tainted-funds
+tracing on incoming flows, behavioral compromise indicators on the
+wallet account, outstanding-approval audit surfaces in wallet UIs,
+drainer- pattern detection on signTypedData/Permit/setApprovalForAll
+signatures, and reorg confirmation depth on credit decisions.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P-336</td>
+<td>Tainted Funds Source Trace</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-337</td>
+<td>Wallet Compromise Behavioral Indicators</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-338</td>
+<td>Outstanding Token Approval Audit</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-339</td>
+<td>Wallet Drainer Pattern Detection</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-340</td>
+<td>Reorg Confirmation Depth Enforcement</td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<h2 id="extended-key-storage-and-token-semantics-p-341..p-350">Extended
+Key Storage and Token Semantics (P-341..P-350)</h2>
+<p>Deeper key-handling controls (hardware wallets, secure enclaves,
+BIP-44 derivation paths, backup encryption, Shamir’s Secret Sharing,
+in-process memory hygiene) plus token semantics where naive accounting
+fails (fee- on-transfer, proxy upgrade safety, EIP-2612 Permit replay,
+ERC-4337 account abstraction).</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P-341</td>
+<td>Hardware Wallet Integration</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-342</td>
+<td>Secure Enclave / TPM-Backed Key Storage</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-343</td>
+<td>BIP-44 Derivation Path Correctness</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-344</td>
+<td>Wallet Backup Encryption At Rest</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-345</td>
+<td>Shamir’s Secret Sharing for Backup Distribution</td>
+<td>low</td>
+</tr>
+<tr>
+<td>P-346</td>
+<td>In-Process Key Memory Hygiene</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-347</td>
+<td>Fee-on-Transfer / Rebasing Token Handling</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-348</td>
+<td>Proxy Upgrade Safety and Initializer Protection</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-349</td>
+<td>EIP-2612 Permit Replay Protection</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-350</td>
+<td>Account Abstraction (ERC-4337) Safety</td>
+<td>medium</td>
+</tr>
+</tbody>
+</table>
+<h2 id="owasp-bybit-pqc-ccss-closure-p-351..p-360">OWASP / Bybit / PQC /
+CCSS Closure (P-351..P-360)</h2>
+<p>The final ten checks close gaps identified by current research: the
+OWASP Smart Contract Top 10 (2025) categories that aren’t in earlier
+groups (comprehensive access control as the #1 loss category, flash loan
+attack resistance, unchecked external call returns), the lessons from
+the Bybit February 2025 cold-to-hot transfer attack (signing- interface
+verification, blind-signing prevention), DeFi-specific liquidation
+safety, stablecoin admin freeze handling, CCSS v9.0 compliance evidence
+verification, emergency pause patterns, and post-quantum cryptography
+readiness assessment.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P-351</td>
+<td>Smart Contract Access Control (OWASP SC1:2025)</td>
+<td>critical</td>
+</tr>
+<tr>
+<td>P-352</td>
+<td>Flash Loan Attack Resistance</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-353</td>
+<td>Unchecked External Call Returns (OWASP SC7:2025)</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-354</td>
+<td>Cold-to-Hot Transfer Interface Verification</td>
+<td>critical</td>
+</tr>
+<tr>
+<td>P-355</td>
+<td>Blind Signing Prevention</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-356</td>
+<td>DeFi Liquidation Safety</td>
+<td>high</td>
+</tr>
+<tr>
+<td>P-357</td>
+<td>Token Admin Freeze / Blacklist Handling</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-358</td>
+<td>CryptoCurrency Security Standard (CCSS) Evidence</td>
+<td>low</td>
+</tr>
+<tr>
+<td>P-359</td>
+<td>Emergency Pause / Circuit Breaker Pattern</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>P-360</td>
+<td>Post-Quantum Cryptography Readiness Assessment</td>
+<td>low</td>
+</tr>
+</tbody>
+</table>
+<h2 id="running-the-suite">Running the suite</h2>
+<p>To run the full crypto suite against a project:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--config</span> configs/myapp.yml</span></code></pre></div>
+<p>The suite runs as part of every full scan. To run only crypto
+checks:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n <span class="kw">in</span> <span class="va">$(</span><span class="fu">seq</span> 301 360<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">preston-check</span> <span class="at">--check</span> <span class="va">$(</span><span class="bu">printf</span> <span class="st">&#39;%03d&#39;</span> <span class="va">$n)</span>-<span class="pp">*</span> <span class="at">--config</span> configs/myapp.yml</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<p>To run crypto checks scoped to a specific compliance framework, use
+the <code>--framework</code> flag introduced in v1.1.0:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> MiCA              <span class="co"># all MiCA-mapped checks</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> <span class="st">&quot;CCSS:9.0:Level2&quot;</span> <span class="co"># CCSS Level 2 controls</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> <span class="st">&quot;OWASP-SC-Top-10:2025&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> FATF              <span class="co"># FATF Travel Rule + sanctions</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> OFAC</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> FIPS              <span class="co"># NIST PQC migration readiness</span></span></code></pre></div>
+<p>See <code>docs/crypto-frameworks.md</code> for the canonical
+framework-to-check mapping.</p>
+<h2 id="severity-distribution">Severity distribution</h2>
+<p>The 60-check crypto suite breaks down as follows by severity:
+critical (3), high (28), medium (22), low (7). Critical findings are
+deployment-blockers in CI (use <code>--ci</code>); high findings are
+deployment- blockers for fintech production with regulatory exposure;
+medium and low findings are improvements that strengthen
+defense-in-depth without necessarily blocking releases.</p>
+<h2 id="tier-and-trust-tier">Tier and trust tier</h2>
+<p>All sixty checks default to <code>min_tier: free</code> so that
+crypto businesses of any size can validate their controls without a
+license. The Pro and Enterprise tiers add value through the
+audit-package layer (compliance evidence bundling, branded reports,
+multi-repo dashboard), not by gating the scanning. Trust tier for the
+full P-301..P-360 range is core (maintainer-authored).</p>
+<h2 id="roadmap">Roadmap</h2>
+<p>Coverage is comprehensive but additive, and the catalog grows with
+the threat landscape and the regulatory landscape. Tracked priorities
+for v1.2+:</p>
+<ul>
+<li>DORA (EU Digital Operational Resilience Act) crypto-asset service
+provider obligations.</li>
+<li>Solana / Move (Sui, Aptos) language-specific checks; the current
+smart-contract-focused checks are Solidity-first.</li>
+<li>Bridge-specific replay protection extending P-308 with
+chain-specific validator-set verification patterns (LayerZero, Wormhole,
+IBC).</li>
+<li>Post-quantum migration tracking — graduating P-360 from a readiness
+assessment to specific algorithm checks once FIPS 203/204/205 are
+routinely deployed.</li>
+<li>MAS TRM (Singapore), APRA CPS 234 (Australia), Reserve Bank of India
+IT Framework — Asia-Pacific compliance overlays.</li>
+<li>Account abstraction (ERC-4337) as the bundler/paymaster ecosystem
+matures; expand P-350 with paymaster-specific checks.</li>
+</ul>
+<p>Community contributions targeting any of these are welcome via the
+trust-tier process described in <code>CONTRIBUTING.md</code>.</p>
+</body>
+</html>

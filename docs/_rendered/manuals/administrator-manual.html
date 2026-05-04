@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2026-05-04" />
+  <title>Preston-Check — Administrator Manual</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Preston-Check — Administrator Manual</h1>
+<p class="subtitle">For operators running the Preston-Check SaaS</p>
+<p class="date">2026-05-04</p>
+</header>
+<h1 id="administrator-manual">Administrator Manual</h1>
+<p>This manual covers what the operator does day-to-day to run the
+Preston-Check business: managing customers, issuing licenses, triaging
+support tickets, reviewing weekly threat-intel drafts, shipping
+releases. For incident-response procedures (rotate token, recover from
+compromise) see <code>docs/operator-runbook.md</code>. For the
+underlying surface-design rationale see
+<code>docs/portals-and-kpis.md</code>.</p>
+<h2 id="daily-checklist">Daily checklist</h2>
+<p>The recommended ten-minute morning loop:</p>
+<ol type="1">
+<li><code>https://admin.preston-check.com/</code> — check the customers
+page for anyone who churned overnight, the sales pipeline for new
+inbound, and the support inbox for P0/P1 tickets.</li>
+<li>Triage any P0/P1 ticket within the SLA window (30 min for P0, 4h for
+P1). Reply via the ticket interface or email — the AI draft response is
+gated and never auto-sent.</li>
+<li>Glance at the System health board. All nine tiles should be green.
+If anything’s amber/red, read the underlying metric (latency, uptime,
+queue depth) and investigate.</li>
+<li>If it’s Monday, check the threat-intel triage queue — the weekly NVD
+ingest landed at 09:00 UTC.</li>
+</ol>
+<p>The daily loop should fit in ten minutes if nothing is on fire. Most
+days it does.</p>
+<h2 id="weekly-checklist">Weekly checklist</h2>
+<p>The recommended thirty-minute Friday review:</p>
+<ol type="1">
+<li><strong>Customers</strong> — sort by MRR; spot-check any customer
+whose MRR delta is non-zero (new, expansion, contraction, churn).
+Annotate the change reason in the customer detail panel.</li>
+<li><strong>Sales pipeline</strong> — review every card in Demo and
+Trial stages. Anything stalled &gt; 14 days gets a check-in email or a
+downgrade to Qualified. Anything stalled &gt; 30 days closes-lost.</li>
+<li><strong>Threat-intel queue</strong> — author grep patterns for any
+draft you haven’t gotten to during the week. Any draft sitting in
+<code>proposed/</code> for &gt; 4 weeks closes with a comment.</li>
+<li><strong>Revenue dashboard</strong> — verify MRR, ARR, NRR, and gross
+margin match Stripe’s source-of-truth. Reconciliation drift &gt; 1%
+means the webhook missed an event; investigate.</li>
+<li><strong>Run the standard health check</strong>
+(<code>docs/operator-runbook.md</code>) — five surfaces, expected codes
+200/200/302/200/405.</li>
+</ol>
+<h2 id="monthly-checklist">Monthly checklist</h2>
+<p>Roughly two hours, end of month:</p>
+<ol type="1">
+<li>Cohort retention review — pull the heat-map from the Revenue page;
+identify any cohort with abnormal early-month decay.</li>
+<li>Per-channel acquisition cost vs. LTV — pull the sales pipeline
+metrics by source channel; compare 90-day LTV vs. estimated acquisition
+spend per channel.</li>
+<li>Catalog growth — count <code>community/proposed/</code> drafts that
+closed accepted vs. rejected; track the acceptance rate as a leading
+indicator of threat-intel pipeline quality.</li>
+<li>AI quality — sample 20 random false-positive flags from the ai-cache
+directory; compare AI classification to your own; track precision/recall
+over time.</li>
+<li>Annual State of Fintech Security report — if Q4, draft the year’s
+narrative pulling from D1 telemetry data.</li>
+</ol>
+<h2 id="quarterly-checklist">Quarterly checklist</h2>
+<p>Once per quarter, half-day deep dive:</p>
+<ol type="1">
+<li>Per-customer expansion conversations — Enterprise customers get a
+quarterly architecture review (a contractual deliverable).</li>
+<li>Competitor scan — what have Snyk Code, Semgrep Pro, CodeQL, Trivy
+shipped this quarter? Where do we lag, where do we lead?</li>
+<li>Strategy doc refresh — <code>docs/strategy/moat-strategy.md</code>
+and <code>docs/strategy/gold-standard-playbook.md</code> get an
+annotation pass marking shipped items, deferring others, adding new
+ones.</li>
+</ol>
+<h2 id="issuing-a-license">Issuing a license</h2>
+<p>License signing requires the operator’s hardware-bound private
+key.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On your local machine where ~/.preston-check/keys/private.pem lives:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./tools/issue-license.sh</span> <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--customer</span> <span class="st">&quot;helios-banking&quot;</span> <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--tier</span> enterprise <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--expires</span> 2027-04-12</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Output: ./out/helios-banking-2026.license</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Email the file to the customer; they install it at</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ~/.preston-check/license or pass via PRESTON_LICENSE env var.</span></span></code></pre></div>
+<p>The license is a PEM-style envelope with a JSON payload (customer ID,
+tier, expiry) signed by the Ed25519 private key. The runner’s open-
+source <code>lib/license.sh</code> verifies the signature offline
+against the public key embedded at <code>lib/license_pubkey.pem</code>.
+If signature fails or expiry has passed, the runner falls back to the
+Free tier with a clear status note.</p>
+<p>The future Admin Portal “License issuance” surface will provide a UI
+wrapper that calls this same script via Touch ID — until then, the
+operator runs it from the terminal.</p>
+<h2 id="revoking-a-license">Revoking a license</h2>
+<p>Three options:</p>
+<ol type="1">
+<li><strong>Wait for expiry</strong> — soft revocation; the license
+stops working on the expiry date. Best for end-of-contract.</li>
+<li><strong>Add to revocation list</strong> — TBD; a future runner
+version will check a published revocation file at startup.</li>
+<li><strong>Rotate the signing key</strong> — hard revocation;
+invalidates every active license. Use only for compromise scenarios; see
+<code>docs/operator-runbook.md</code> “Compromised license signing
+key”.</li>
+</ol>
+<h2 id="handling-support-tickets">Handling support tickets</h2>
+<p>Support tickets arrive via three channels:</p>
+<ul>
+<li><strong>Email</strong> to <code>support@preston-check.com</code> —
+Cloudflare Email Routing forwards to the operator’s actual mailbox;
+ticketing software (TBD) ingests and creates a ticket.</li>
+<li><strong>Slack</strong> in the customer’s shared channel —
+slash-command bot creates a ticket from any thread.</li>
+<li><strong>Direct via the customer portal</strong> — paying customers
+can submit tickets from the portal’s settings page.</li>
+</ul>
+<p>SLA tiers (informal until contracts spell them out):</p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Definition</th>
+<th>Response</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>Production outage; customer cannot scan</td>
+<td>30 min</td>
+<td>4h</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Production degraded; workaround available</td>
+<td>4h</td>
+<td>24h</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Bug, feature request, “how do I…”</td>
+<td>24h</td>
+<td>best effort</td>
+</tr>
+</tbody>
+</table>
+<p>The metric to optimize is <strong>time to first response</strong>
+(TTFR) — that’s what predicts NPS and retention better than time to
+resolution. The admin portal Support page tracks median TTFR as a KPI
+tile.</p>
+<h2 id="triaging-the-threat-intel-queue">Triaging the threat-intel
+queue</h2>
+<p>Every Monday at 09:00 UTC, <code>tools/sync-threat-intel.py</code>
+opens a PR against the repo with new draft check files in
+<code>checks/community/proposed/</code>. Each draft is a candidate check
+auto-generated from a recent CVE that matches fintech-relevance
+keywords.</p>
+<p>The triage flow:</p>
+<ol type="1">
+<li>Open the PR. Read each draft’s <code>description</code> and
+<code>origin</code> metadata. The <code>origin</code> field cites the
+CVE ID and brief description.</li>
+<li>For each draft, decide: <strong>accept</strong>,
+<strong>reject</strong>, or <strong>defer</strong>.</li>
+<li><strong>Accept</strong> — author the actual grep pattern in the
+check body (replacing the auto-generated stub). Move the file from
+<code>checks/community/proposed/</code> to
+<code>checks/community/accepted/</code>. The check ships in the next
+release.</li>
+<li><strong>Reject</strong> — close the draft with a comment explaining
+why (not fintech-relevant, duplicate of existing check, false- positive
+prone, etc.). The CVE is added to the <code>processed_cves</code> list
+so it won’t be re-drafted.</li>
+<li><strong>Defer</strong> — leave the draft in <code>proposed/</code>
+for the week; revisit next Monday. Anything sitting &gt; 4 weeks should
+close-rejected.</li>
+</ol>
+<p>The acceptance rate is a moat-health KPI. Below 10% means the keyword
+list is too broad (lots of irrelevant CVEs surfacing). Above 50% means
+it’s too narrow (we’re missing things).</p>
+<h2 id="releasing-a-new-version">Releasing a new version</h2>
+<p>Standard semver. Patch (1.7.x) for bug fixes, minor (1.8.0) for new
+checks or features, major (2.0.0) reserved for breaking changes.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Bump PRESTON_VERSION in preston-check.sh</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Update CHANGELOG.md with a new entry</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Commit</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;vX.Y.Z: short summary&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Tag + push (release.yml takes over from here)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">-a</span> vX.Y.Z <span class="at">-m</span> <span class="st">&quot;vX.Y.Z: summary&quot;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin master <span class="at">--tags</span></span></code></pre></div>
+<p><code>.github/workflows/release.yml</code> automatically creates the
+GitHub Release with <code>install.sh</code> + tarball + sha256 sidecar.
+If the <code>HOMEBREW_TAP_TOKEN</code> secret is configured, the
+homebrew formula auto-updates too. Docker image push requires
+<code>DOCKERHUB_USERNAME</code> + <code>DOCKERHUB_TOKEN</code>
+secrets.</p>
+<h2 id="adding-a-new-framework-or-check">Adding a new framework or
+check</h2>
+<p>Framework integration is metadata-driven. To add coverage for a new
+framework:</p>
+<ol type="1">
+<li>Identify the controls the framework specifies that map to security
+patterns we already check.</li>
+<li>For existing checks, add the framework citation to the
+<code>frameworks:</code> field in the check’s PRESTON_META heredoc.</li>
+<li>For new checks not yet in the catalog, write the check file
+following the conventions in <code>docs/architecture.md</code>. Place
+under <code>checks/community/proposed/</code> for self-review, then
+promote to <code>community/accepted/</code> after lint passes.</li>
+<li>Update <code>docs/all-frameworks.md</code> and the README’s
+framework table to reflect the new framework name.</li>
+<li>Bump <code>PRESTON_VERSION</code>, write a changelog entry, tag a
+release.</li>
+</ol>
+<p>The lint gate (<code>tools/lint-check.sh</code>) enforces metadata
+validity and the trust-tier path conventions. CI runs it
+automatically.</p>
+<h2 id="customer-onboarding-flow">Customer onboarding flow</h2>
+<p>The intended end-state customer journey (production version still
+incomplete; current state mock-only):</p>
+<ol type="1">
+<li>Customer signs up at
+<code>https://app.preston-check.com/signup</code></li>
+<li>Magic-link email arrives, customer clicks</li>
+<li>Onboarding wizard prompts: org name, primary language, repo URL</li>
+<li>Customer installs the GitHub Action (the wizard generates the YAML
+snippet pre-filled with their license)</li>
+<li>First scan runs; report appears in the customer portal</li>
+<li>Stripe billing starts (free for OSS / 14-day trial / paid plan)</li>
+</ol>
+<p>Until production is wired, manual onboarding looks like:</p>
+<ol type="1">
+<li>Customer emails <code>hello@preston-check.com</code> expressing
+interest</li>
+<li>Operator (you) responds with a Pro license file via DM</li>
+<li>Customer installs Preston-Check, points it at their repo, runs</li>
+<li>Operator follows up after first week to gauge fit</li>
+</ol>
+<h2 id="compliance-and-regulatory-posture">Compliance and regulatory
+posture</h2>
+<p>The SaaS itself is governed by the disclosures in
+<code>SECURITY.md</code>. The Preston-Check brand and the
+“preston-check.com” trademark are owned by the operating LLC (per the
+anonymity strategy in
+<code>docs/strategy/anonymity-and-mystique.md</code>). The scanner code
+is Apache 2.0 forever; the SaaS layer (admin portal, customer portal,
+billing, license issuance) is proprietary.</p>
+<p>Customer-data residency: by default, scan reports remain on the
+customer’s machine. Telemetry that has been opted into is anonymized and
+stored in Cloudflare D1 (ENAM region) with a 90-day TTL on raw records
+and unlimited TTL on aggregates.</p>
+<p>GDPR / CCPA stance: because telemetry contains no personally-
+identifiable information (only a salted SHA-256 hash of the repo URL),
+no data-subject access requests apply. Customers operating in the
+EU/UK/CA who want a data-processing agreement can request one through
+sales@preston-check.com.</p>
+<h2 id="where-things-live">Where things live</h2>
+<ul>
+<li><strong>Public repo</strong> —
+<code>https://github.com/preston-check/preston-check</code></li>
+<li><strong>Customer-facing docs</strong> — <code>docs/manuals/</code>,
+<code>docs/getting-started.md</code></li>
+<li><strong>Operator-facing docs</strong> —
+<code>docs/operator-runbook.md</code>,
+<code>docs/administrator-manual.md</code> (this file),
+<code>docs/portals-and-kpis.md</code></li>
+<li><strong>Strategy</strong> — <code>docs/strategy/</code></li>
+<li><strong>Source</strong> — <code>preston-check.sh</code>,
+<code>lib/</code>, <code>checks/</code>, <code>modules/</code>,
+<code>web/</code>, <code>workers/</code>, <code>tools/</code></li>
+</ul>
+<p>This file is the operator’s daily-use admin reference. Update it as
+the SaaS surface grows.</p>
+</body>
+</html>

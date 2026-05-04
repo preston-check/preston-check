@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2026-05-04" />
+  <title>Customer Portal Manual</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Customer Portal Manual</h1>
+<p class="date">2026-05-04</p>
+</header>
+<h1 id="customer-portal">Customer Portal</h1>
+<p>The SaaS dashboard where paying customers (Pro, Enterprise) consume
+scanner output and produce auditor-ready deliverables.</p>
+<h2 id="url">URL</h2>
+<p><code>https://app.preston-check.com/</code></p>
+<p>Mirror at <code>https://preston-check-customer.pages.dev/</code>
+(Cloudflare’s internal Pages URL — always reachable).</p>
+<h2 id="status">Status</h2>
+<p><strong>Skeleton with mock data.</strong> The clickable shell is live
+and demonstrates every surface, but no real customer data flows through
+it yet. The production wiring (auth, billing, scan-result ingestion,
+license issuance) lands per the Q3 2026 build sequence in
+<code>docs/commercial-roadmap.md</code>.</p>
+<h2 id="the-five-surfaces">The five surfaces</h2>
+<h3 id="home-home-default-route">Home (<code>#/home</code>, default
+route)</h3>
+<p>Score-as-hero panel: the customer’s current letter grade (A–F) and
+numeric score in a navy-emerald gradient panel. Below it: four KPI
+tiles, a 90-day score sparkline, top-2 critical findings preview,
+framework-coverage progress bars across PCI-DSS / SOC 2 / MiCA / OWASP
+API.</p>
+<p>The score-as-headline pattern is the single most underrated UX move
+in security tooling — see
+<code>docs/strategy/moat-strategy.md</code>.</p>
+<h3 id="repos-repos">Repos (<code>#/repos</code>)</h3>
+<p>Connected-repository list with one row per repo. Columns: name,
+language, current letter grade (color-coded chip), critical/high finding
+pills, last-scan timestamp, 30-day mini-sparkline trend. Click any row
+to drill into the repo’s findings + scan history.</p>
+<h3 id="findings-findings">Findings (<code>#/findings</code>)</h3>
+<p>Per-finding cards across the entire org. Each card shows:</p>
+<ul>
+<li>Severity badge + check ID + name</li>
+<li>Filename, line number, code excerpt</li>
+<li>AI assessment in an emerald-themed inline panel — confidence score,
+classification (real / likely-false-positive / needs-review),
+plain-English explanation</li>
+<li>Suggested unified-diff patch with syntax-highlighted +/- lines (when
+<code>--ai-fix</code> is enabled in the scanner)</li>
+<li>Two action buttons: “False positive” (feeds AI training set) and
+“Apply patch”</li>
+</ul>
+<p>Demonstrates the AI moat in the surface where customers actually feel
+it.</p>
+<h3 id="compliance-compliance">Compliance
+(<code>#/compliance</code>)</h3>
+<p>Framework-control rollups. Pick PCI-DSS, SOC 2, ISO 27001, MiCA,
+DORA, NIST CSF, or any of the 33 frameworks; see per-control pass/fail
+status across all repos. The “Generate audit pack” button produces a PDF
++ ZIP bundle mapped to the framework’s control catalog.</p>
+<p>This is the deliverable that justifies Pro/Enterprise pricing — the
+auditor-ready handoff.</p>
+<h3 id="settings-settings">Settings (<code>#/settings</code>)</h3>
+<p>Sub-pages: Organization (name, logo for branded PDFs, primary color),
+Team (invite by email, roles: Owner / Admin / Auditor / Member), Billing
+(Stripe-hosted subscription), License (regenerate, revoke), API tokens
+(one-time-shown, scoped), Notifications (Slack webhook, email digest,
+threshold alerts), Data export.</p>
+<h2 id="how-to-navigate">How to navigate</h2>
+<p>Hash-routed SPA — every surface is reachable via a permalinkable
+URL:</p>
+<ul>
+<li><code>https://app.preston-check.com/#/home</code></li>
+<li><code>https://app.preston-check.com/#/repos</code></li>
+<li><code>https://app.preston-check.com/#/findings</code></li>
+<li><code>https://app.preston-check.com/#/compliance</code></li>
+<li><code>https://app.preston-check.com/#/settings</code></li>
+</ul>
+<p>The left rail is sticky on every surface. Org switcher in the top bar
+lets the operator (you, when impersonating) jump between customer
+accounts; for actual customers it shows their org only.</p>
+<h2 id="source">Source</h2>
+<p><code>web/customer/</code> in the public repo:</p>
+<pre><code>web/customer/index.html         single-page app shell with five sections in DOM
+web/customer/styles.css         design system layered on the landing-page tokens
+web/customer/app.js             hash router (no innerHTML; safe DOM APIs only)
+web/customer/functions/         Cloudflare Pages Functions (server-side)
+  api/v1/telemetry/index.ts     telemetry ingest endpoint
+web/customer/_routes.json       locks /api/* to Functions, no static fallback</code></pre>
+<h2 id="hosted-on">Hosted on</h2>
+<p>Cloudflare Pages, project name <code>preston-check-customer</code>.
+Auto-deploys from <code>web/customer/</code> on every master push that
+touches the source. Custom domain <code>app.preston-check.com</code>
+bound via the Pages dashboard.</p>
+<h2 id="how-to-update">How to update</h2>
+<p>Edit any file under <code>web/customer/</code> and push to master.
+The <code>customer-pages.yml</code> workflow auto-deploys within 60-90
+seconds.</p>
+<p>To preview locally:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> web/customer</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> <span class="at">-m</span> http.server 8082</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># open http://localhost:8082/</span></span></code></pre></div>
+<p>To deploy manually:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> workflow run customer-pages.yml <span class="at">--repo</span> preston-check/preston-check</span></code></pre></div>
+<h2 id="production-roadmap">Production roadmap</h2>
+<p>Q3 2026 brings the four production wires that turn the skeleton into
+a real product:</p>
+<ol type="1">
+<li><strong>Magic-link auth</strong> — passwordless login via email PIN,
+same Cloudflare-Access-style mechanism the admin portal uses</li>
+<li><strong>Stripe billing</strong> — subscription tier selection, plan
+upgrades, self-serve cancellation, invoices</li>
+<li><strong>Scan-result ingestion</strong> — POST endpoint that accepts
+the scanner’s report.json from a CI run, stores it under the customer’s
+org, displays in /repos and /findings</li>
+<li><strong>License issuance</strong> — operator triggers a license
+issue from the Admin Portal; customer sees the new license in /settings
+and can download it as a <code>.license</code> file</li>
+</ol>
+<p>Each of these is documented in <code>docs/portals-and-kpis.md</code>
+(Customer Portal section) and on the build sequence in
+<code>docs/commercial-roadmap.md</code>.</p>
+<h2 id="cross-links">Cross-links</h2>
+<ul>
+<li><strong>User Manual</strong>:
+<code>docs/manuals/user-manual.md</code></li>
+<li><strong>Admin portal</strong>:
+<code>docs/manuals/admin-portal.md</code></li>
+<li><strong>Telemetry endpoint</strong>:
+<code>docs/manuals/telemetry-endpoint.md</code> (lives on this same
+Pages project)</li>
+</ul>
+</body>
+</html>

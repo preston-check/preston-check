@@ -1,0 +1,47 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><title>Preston-Check Documentation</title><style>:root {
+  --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+  --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+  --bad: #DC2626; --warn: #F59E0B;
+  --serif: ui-serif, Georgia, "Times New Roman", serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+       max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+       -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                 letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+     margin-top: 0; }
+h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+h3 { font-size: 20px; }
+h4 { font-size: 17px; }
+p { margin: 0 0 1em; }
+a { color: var(--accent-2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+       padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+      padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+           letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+tbody tr:hover { background: var(--paper-2); }
+ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+li { margin: 0.3em 0; }
+blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+             background: var(--paper-2); color: var(--mute); font-style: italic; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+.title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+.title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+.title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+.title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+@media print {
+  body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+  pre, code { font-size: 10pt; }
+  h1 { page-break-before: auto; }
+  h2 { page-break-after: avoid; }
+}</style></head><body><h1>Preston-Check Documentation</h1><p>Every Markdown doc under <code>docs/</code> rendered to HTML and PDF. Source-of-truth is the Markdown in the repo; this directory is regenerated on every <code>tools/build-docs.sh</code> run.</p><h2>manuals</h2><ul><li><a href="manuals/admin-portal.html">Admin Portal Manual</a> &middot; <a href="manuals/admin-portal.pdf">PDF</a></li><li><a href="manuals/administrator-manual.html">Preston-Check — Administrator Manual</a> &middot; <a href="manuals/administrator-manual.pdf">PDF</a></li><li><a href="manuals/customer-portal.html">Customer Portal Manual</a> &middot; <a href="manuals/customer-portal.pdf">PDF</a></li><li><a href="manuals/d1-dataset.html">D1 Telemetry Dataset Manual</a> &middot; <a href="manuals/d1-dataset.pdf">PDF</a></li><li><a href="manuals/github-release.html">GitHub Release Manual</a> &middot; <a href="manuals/github-release.pdf">PDF</a></li><li><a href="manuals/homebrew-tap.html">Homebrew Tap Manual</a> &middot; <a href="manuals/homebrew-tap.pdf">PDF</a></li><li><a href="manuals/landing-page.html">Public Landing Page Manual</a> &middot; <a href="manuals/landing-page.pdf">PDF</a></li><li><a href="manuals/selling-sheet.html">Preston-Check</a> &middot; <a href="manuals/selling-sheet.pdf">PDF</a></li><li><a href="manuals/standalone-worker.html">Standalone Telemetry Worker Manual</a> &middot; <a href="manuals/standalone-worker.pdf">PDF</a></li><li><a href="manuals/telemetry-endpoint.html">Telemetry Endpoint Manual</a> &middot; <a href="manuals/telemetry-endpoint.pdf">PDF</a></li><li><a href="manuals/user-manual.html">Preston-Check — User Manual</a> &middot; <a href="manuals/user-manual.pdf">PDF</a></li></ul><h2>strategy</h2><ul><li><a href="strategy/anonymity-and-mystique.html">Preston-Check — Anonymity and Mystique</a> &middot; <a href="strategy/anonymity-and-mystique.pdf">PDF</a></li><li><a href="strategy/gold-standard-playbook.html">How Preston-Check Becomes the Gold Standard</a> &middot; <a href="strategy/gold-standard-playbook.pdf">PDF</a></li><li><a href="strategy/moat-strategy.html">Preston-Check Moat-Building Strategy</a> &middot; <a href="strategy/moat-strategy.pdf">PDF</a></li></ul><h2>state-of-fintech-security</h2><ul><li><a href="state-of-fintech-security/2026.html">2026</a> &middot; <a href="state-of-fintech-security/2026.pdf">PDF</a></li></ul><h2>Top-level</h2><ul><li><a href="all-frameworks.html">all-frameworks</a> &middot; <a href="all-frameworks.pdf">PDF</a></li><li><a href="architecture.html">architecture</a> &middot; <a href="architecture.pdf">PDF</a></li><li><a href="commercial-roadmap.html">commercial-roadmap</a> &middot; <a href="commercial-roadmap.pdf">PDF</a></li><li><a href="compliance-coverage.html">compliance-coverage</a> &middot; <a href="compliance-coverage.pdf">PDF</a></li><li><a href="crypto-coverage.html">crypto-coverage</a> &middot; <a href="crypto-coverage.pdf">PDF</a></li><li><a href="crypto-frameworks.html">crypto-frameworks</a> &middot; <a href="crypto-frameworks.pdf">PDF</a></li><li><a href="crypto-sources.html">crypto-sources</a> &middot; <a href="crypto-sources.pdf">PDF</a></li><li><a href="distribution.html">distribution</a> &middot; <a href="distribution.pdf">PDF</a></li><li><a href="financial-coverage.html">financial-coverage</a> &middot; <a href="financial-coverage.pdf">PDF</a></li><li><a href="getting-started.html">getting-started</a> &middot; <a href="getting-started.pdf">PDF</a></li><li><a href="language-coverage.html">language-coverage</a> &middot; <a href="language-coverage.pdf">PDF</a></li><li><a href="license-administration.html">license-administration</a> &middot; <a href="license-administration.pdf">PDF</a></li><li><a href="operator-runbook.html">Preston-Check — Operator Runbook</a> &middot; <a href="operator-runbook.pdf">PDF</a></li>

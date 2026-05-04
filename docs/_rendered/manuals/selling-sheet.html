@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2026-05-04" />
+  <title>Preston-Check</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Preston-Check</h1>
+<p class="subtitle">Pre-deployment security audit for fintech, narrowed
+and curated</p>
+<p class="date">2026-05-04</p>
+</header>
+<h1 id="preston-check">Preston-Check</h1>
+<p><strong>294 hand-curated security checks across 33 reputable
+frameworks. Open source. Your code never leaves your
+machine.</strong></p>
+<p>Pre-deployment security tools have a quality problem: scanners that
+try to cover every domain end up covering none of them well.
+Preston-Check is fintech-narrow on purpose — the catalog is 294 checks
+built from real production audits, not 50,000 generic patterns crawled
+from public repos. Lower noise. Higher signal. Faster scans. Cleaner
+reports your auditor will actually read.</p>
+<h2 id="what-it-covers">What it covers</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Frameworks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Card payments</td>
+<td>PCI-DSS v4.0 · PCI 3DS · EMVCo 3DS 2.x</td>
+</tr>
+<tr>
+<td>EU finance</td>
+<td>MiCA (2024) · TFR · PSD2 · DORA (2025)</td>
+</tr>
+<tr>
+<td>US finance</td>
+<td>NYDFS Part 500 · FinCEN 31 CFR · OFAC SDN</td>
+</tr>
+<tr>
+<td>APAC</td>
+<td>MAS TRM · APRA CPS 234 · RBI CSF</td>
+</tr>
+<tr>
+<td>AML / sanctions</td>
+<td>FATF Recommendations 2023 (incl. Travel Rule)</td>
+</tr>
+<tr>
+<td>General security</td>
+<td>SOC 2 (TSC 2017) · ISO 27001:2022 · ISO 22301:2019</td>
+</tr>
+<tr>
+<td>OWASP families</td>
+<td>API Top 10 · Top 10 · Mobile MAS · LLM · Smart Contract</td>
+</tr>
+<tr>
+<td>US framework</td>
+<td>NIST CSF 2.0 · FIPS 203/204/205 (post-quantum) · SSDF 1.1</td>
+</tr>
+<tr>
+<td>Crypto custody</td>
+<td>CCSS v9.0</td>
+</tr>
+<tr>
+<td>Cyber benchmarks</td>
+<td>CIS Controls v8</td>
+</tr>
+</tbody>
+</table>
+<p>Each check cites the framework control it stems from and (where
+applicable) the real-world incident that motivated it. Wormhole bridge.
+Cetus integer overflow. Beanstalk Farms governance attack. The catalog
+is the post-mortem turned into automated regression tests.</p>
+<h2 id="what-makes-it-different">What makes it different</h2>
+<p><strong>Curated, not crawled.</strong> 294 checks where each has a
+name, a story, and a citation. Not 50,000 patterns scraped from public
+repos.</p>
+<p><strong>AI auto-fix.</strong> Pass <code>--ai-fix</code> and every
+finding comes with a suggested unified-diff patch. Apply with
+<code>git apply</code>, ship the fix.</p>
+<p><strong>Privacy-first.</strong> Open-source scanner. Telemetry is
+opt-in. <code>--airgap</code> blocks every outbound call. The privacy
+promise is auditable in 30 lines of bash.</p>
+<p><strong>One surface, every CI.</strong> Same exit codes and the same
+Markdown report whether you run it as a CLI, GitHub Action, GitLab CI
+job, CircleCI step, Docker image, Homebrew install, or pre-commit
+hook.</p>
+<p><strong>Compliance evidence bundles.</strong> Filter by framework,
+generate a PDF mapped to the control catalog, hand it to your
+auditor.</p>
+<h2 id="how-it-works">How it works</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check/preston-check/preston-check</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--high-and-up</span> <span class="at">--ci</span> <span class="at">--report</span> security-audit.md</span></code></pre></div>
+<p>A typical fintech codebase scan completes in 30 seconds to 3 minutes
+depending on size and severity filter. The report is plain Markdown plus
+a PDF version, with three-tier triage (FAIL must fix, WARN review, PASS
+/ SKIP for context). Drop into your CI; fail the build on any critical
+finding.</p>
+<h2 id="pricing">Pricing</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th></th>
+<th>Free</th>
+<th>Pro</th>
+<th>Enterprise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Price</td>
+<td>$0, no signup</td>
+<td>$999/repo/yr or $4,999/yr unlimited</td>
+<td>$29,999+/yr</td>
+</tr>
+<tr>
+<td>Catalog</td>
+<td>All 294 checks</td>
+<td>All 294 checks</td>
+<td>All 294 checks + custom</td>
+</tr>
+<tr>
+<td>AI augmentation</td>
+<td>Bring your own API key</td>
+<td>Bring your own API key</td>
+<td>Bring your own API key</td>
+</tr>
+<tr>
+<td>Markdown + local PDF reports</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Branded PDF reports</td>
+<td>—</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Multi-repo dashboard</td>
+<td>—</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Compliance evidence bundles</td>
+<td>—</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>SSO (SAML / OIDC)</td>
+<td>—</td>
+<td>—</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>White-label dashboards</td>
+<td>—</td>
+<td>—</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Custom check authoring</td>
+<td>—</td>
+<td>—</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>SLA-backed support</td>
+<td>—</td>
+<td>—</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>On-premise deployment</td>
+<td>—</td>
+<td>—</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<p><strong>OSS exemption</strong> — repositories with a recognized
+open-source license automatically get free Pro tier. Public security
+work makes the community stronger; a fintech maintaining an open-source
+library shouldn’t pay to scan it.</p>
+<h2 id="why-now">Why now</h2>
+<p>The fintech security landscape has gotten harder, not easier. MiCA
+(EU 2024) and DORA (EU 2025) just landed. NYDFS Part 500 amendments
+expanded MFA scope in 2023. Travel Rule enforcement is now active across
+G20 jurisdictions. OWASP shipped a Smart Contract Top 10 in 2025. The
+FATF Recommendations got a substantial update.</p>
+<p>Most security tools haven’t caught up. We have. Preston-Check ships a
+weekly threat-intel auto-ingestion pipeline that drafts new checks from
+CVE feeds and recent breaches, so the catalog grows faster than humans
+alone can write it.</p>
+<h2 id="ready-to-start">Ready to start</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://get.preston-check.com/install.sh <span class="kw">|</span> <span class="fu">sh</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span></span></code></pre></div>
+<p>Free forever. No signup. No telemetry by default. Apache 2.0.</p>
+<p>For enterprise: <code>sales@preston-check.com</code> For technical:
+<code>https://github.com/preston-check/preston-check</code> For media:
+<code>press@preston-check.com</code></p>
+<hr />
+<p><em>Preston-Check — named after the attacker, calibrated against 1.3
+million logged session and request traces from the original incident,
+maintained as a public-good open-source project.</em></p>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>commercial-roadmap</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">commercial-roadmap</h1>
+</header>
+<h1 id="commercial-roadmap">Commercial Roadmap</h1>
+<p>Preston-Check is <strong>fully open source under Apache 2.0</strong>.
+Every check, every framework filter, every report format runs free for
+every user — no license required, no signup, no email gate, no
+tier-locked features in the scanner itself. The 294 checks (284 main
+catalog + 10 deep smart-contract module) across 33 frameworks are yours
+to run on any codebase, any time, with output identical to what paying
+customers get from the scanner alone. AI augmentation
+(<code>--ai-augment</code>, <code>--ai-fix</code>) is also fully open
+source — bring your own API key.</p>
+<p>The commercial product is <strong>not the scanner</strong>. It’s the
+audit-package SaaS at <code>app.preston-check.com</code> (customer
+portal) and <code>admin.preston-check.com</code> (operator portal) that
+consumes scanner output and produces auditor-ready deliverables. This
+document describes that SaaS at a high level; the detailed surface
+design and KPI catalog live in <a
+href="portals-and-kpis.md"><code>docs/portals-and-kpis.md</code></a>.</p>
+<h2 id="why-open-core">Why open core</h2>
+<p>Modern dev-tools companies (Snyk, Semgrep, Trivy, Vercel, Supabase,
+GitLab) all use this model: the scanner / engine / framework is
+genuinely free, and the commercial product is a SaaS layer that wraps
+it. The scanner being free is what makes adoption viral. The SaaS being
+closed is what funds the engineering team that maintains both.</p>
+<p>Generously free open-source isn’t a sustainability problem — it’s the
+acquisition channel that fills the SaaS funnel. The Snyk playbook
+(10,000 free users → 200 paying SaaS customers → $50M ARR) only works
+because the scanner has zero adoption friction.</p>
+<h2 id="what-the-audit-package-saas-does">What the audit-package SaaS
+does</h2>
+<p>The scanner produces <code>report.md</code> locally. The SaaS at
+<code>preston-check.com/dashboard</code> takes that report (paste,
+upload, or POST via API from the GitHub Action) and produces
+deliverables that auditors and CISOs actually buy:</p>
+<p><strong>Branded PDF reports.</strong> Your company logo, your color
+scheme, your contact information on the cover. Designed for handing to a
+SOC 2 / PCI / ISO auditor as evidence. Free output is markdown /
+unbranded PDF; paid output is a polished deliverable on your
+letterhead.</p>
+<p><strong>Multi-repo aggregation.</strong> Roll up scanner output
+across every repository in your organization into a single dashboard.
+Trends over time. Heat map of which checks are failing where. Compare
+your scores to anonymized benchmarks across other fintechs in your size
+class.</p>
+<p><strong>Compliance-evidence bundling.</strong> Group findings by
+framework control (PCI-DSS 6.5.1, SOC 2 CC6.1, etc.) and produce
+evidence packets — the format auditors expect. The framework metadata in
+the open scanner is what makes this possible; the SaaS is what packages
+it.</p>
+<p><strong>Customer portal.</strong> License management, team-member
+access, billing, history of past scans, exportable evidence archives.
+Pay-by-credit-card self-serve up to Pro tier; sales-led for
+Enterprise.</p>
+<p><strong>SSO and audit logs.</strong> SAML / OIDC integration for
+Enterprise customers whose security teams require it. Per-user access
+controls. Tamper-evident audit logs of who scanned what and when.</p>
+<p><strong>Custom check authoring service.</strong> Enterprise customers
+can request custom checks tailored to their internal compliance program.
+Maintainer team builds, tests, and includes them privately for that
+customer.</p>
+<p><strong>SLA and dedicated support.</strong> Email and Slack support
+for Pro; dedicated success contact and quarterly architecture reviews
+for Enterprise.</p>
+<h2 id="pricing">Pricing</h2>
+<p><strong>Free</strong> — $0, no license, no email. Full scanner.
+Markdown reports. PDF reports via local pandoc. Manually-uploaded scan
+results to the public scorecard if opted in. Forever, no expiry.</p>
+<p><strong>Pro</strong> — $999/repo/yr or $4,999/yr unlimited repos.
+Adds: branded PDF generation in the SaaS, multi-repo dashboard,
+compliance-evidence bundling, customer portal, priority email support.
+Most fintechs preparing for SOC 2 or PCI audits land here.</p>
+<p><strong>Enterprise</strong> — $29,999+/yr starting. Adds: SSO,
+white-label reports (your logo replaces Preston-Check), custom check
+authoring service, signed audit packages, dedicated customer-success
+contact, on-premise deployment options for the dashboard, SLA-backed
+support.</p>
+<h2 id="oss-exemption-pro-free-for-oss-repos">OSS exemption (Pro free
+for OSS repos)</h2>
+<p>Repositories with a recognized OSS LICENSE file (MIT, Apache, BSD,
+GPL, MPL, ISC, Unlicense) automatically receive free Pro-tier dashboard
+access. Public security work makes the community stronger; a fintech
+that maintains an open-source library shouldn’t pay to scan their own
+community contribution.</p>
+<h2 id="roadmap-by-quarter">Roadmap by quarter</h2>
+<p><strong>Q3 2026 — Customer Portal v1.</strong> Repos list, latest
+scan view, Stripe billing integration, manual scan upload, branded PDF
+generation. Magic-link auth. Launch goal: first paying Pro customer.</p>
+<p><strong>Q4 2026 — Admin Portal v1.</strong> Customer list, license
+issuance UI (replacing the current <code>tools/issue-license.sh</code>
+shell flow), revenue dashboard mirroring Stripe, support ticket inbox.
+Launch goal: operator runs the entire business from the portal without
+shell access. SSO (SAML + OIDC) and white-label complete the Enterprise
+feature surface for first-contract conversations.</p>
+<p><strong>Q1 2027 — Compliance v2 + multi-repo aggregation + State of
+Fintech Security report.</strong> Framework-control rollups,
+evidence-bundle generation, multi-repo trends, peer percentiles (once
+telemetry has volume). Annual report aggregates opt-in anonymized
+telemetry into an industry benchmark — free download with email gate.
+Goal: first Enterprise contract.</p>
+<p><strong>Q2 2027 — Threat-intel triage UI + AI feedback loop +
+compliance-platform integrations.</strong> Move
+<code>checks/community/proposed/</code> review into the Admin Portal
+with a regex-tester. Capture user “false-positive” / “fix accepted”
+signals into the AI training set so model quality improves quarter over
+quarter. Drata, Vanta, Secureframe, Tugboat Logic push Preston-Check
+evidence directly into compliance platforms as evidence-of-control.</p>
+<p><strong>Q3 2027 — SSO + advanced enterprise.</strong> Audit logs,
+on-premise deploy option for high-regulation customers. Goal: 5+
+Enterprise customers running mission-critical compliance through the
+portal.</p>
+<h2 id="project-identity">Project identity</h2>
+<p>The maintainers run Preston-Check pseudonymously. Customer-facing
+communications, releases, conference talks, and the State of Fintech
+Security report attribute to “Preston” (or the collective “Preston-Check
+Maintainers”). The legal operating entity that signs contracts and
+receives Stripe payouts is a separate, publicly-registered LLC; no
+public-facing artifact links the pseudonym to the underlying individual.
+The full strategy is documented at <a
+href="strategy/anonymity-and-mystique.md"><code>docs/strategy/anonymity-and-mystique.md</code></a>.
+Customers, auditors, and partners interact with the LLC through normal
+commercial channels — KYC, contract signing, Stripe billing — without
+the pseudonymity ever being load-bearing on their side.</p>
+<h2 id="whats-never-paid">What’s never paid</h2>
+<p>The scanner itself. Every check. Framework filtering. Severity
+filtering. Findings format. The lib/ modules. Markdown and PDF output.
+The GitHub Action. The Docker image. The Homebrew formula. The community
+contribution model. Apache 2.0 forever.</p>
+<p>Forking the scanner is welcome and explicitly fine. Anyone can run a
+forked scanner privately or commercially. The Preston-Check trademark
+and the audit-package SaaS are what’s protected — your fork can’t call
+itself “Preston-Check Pro” and it can’t access the dashboard or issue
+licenses.</p>
+<h2 id="how-to-support-sustainability">How to support
+sustainability</h2>
+<p>The audit-package SaaS funds the maintenance team that keeps the
+scanner current as new frameworks publish, new attack patterns emerge,
+and new languages mature. The most direct way to support continued
+open-source development is to subscribe at Pro or Enterprise tier and
+get the SaaS deliverables in return. The second-most-direct way is to
+contribute checks via the trust-tier system in
+<code>CONTRIBUTING.md</code> — verified-tier authors are eligible for
+the bounty program.</p>
+<p>Bug reports, feature requests, framework suggestions, and PRs are
+always welcome regardless of tier.</p>
+</body>
+</html>

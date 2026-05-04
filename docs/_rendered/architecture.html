@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>architecture</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">architecture</h1>
+</header>
+<h1 id="architecture">Architecture</h1>
+<p>Preston-Check is a bash-based pre-deployment security scanner with an
+open-core commercial model. This document describes the runtime
+architecture, the open-source / commercial split, the component layout,
+and the data flow during a scan.</p>
+<h2 id="component-overview">Component overview</h2>
+<p>The scanner has five layers, four of them open-source.</p>
+<p>The <strong>engine</strong> is <code>preston-check.sh</code> plus the
+<code>lib/</code> modules. It loads the license, detects the source
+language, parses check metadata, filters by tier, runs the selected
+checks, aggregates results, and renders the report. All of this runs
+locally on the user’s machine; no source code ever leaves the host
+without an explicit opt-in flag.</p>
+<p>The <strong>check catalog</strong> is the collection of bash scripts
+under <code>checks/</code>. Each script is sourced into the runner’s
+shell, and exposes its findings via the <code>record</code> function the
+runner exports. Checks live in one of six locations: the legacy
+<code>checks/</code> root (treated as core for backward compatibility),
+<code>checks/core/</code> (canonical maintainer-authored checks), and
+the community trust-tier directories
+<code>checks/community/{verified, accepted,proposed}/</code>. As of
+v1.7.3 the catalog totals 294 checks: 284 in the main suite plus the 10
+deep checks in the smart-contract module.</p>
+<p>The <strong>smart-contract audit module</strong> at
+<code>modules/smart-contract-audit/</code> is a separate runner for deep
+contract audits. It reuses the engine’s <code>record</code> function and
+metadata parser but ships its own <code>audit.sh</code> entrypoint, its
+own check directory, and three integration wrappers (Slither, Mythril,
+Echidna) that opt-in via flags. Runtime profile is explicitly different
+from the main scanner — minutes per contract, not seconds per repo.</p>
+<p>The <strong>AI augmentation libs</strong> at
+<code>lib/ai_analyze.sh</code> and <code>lib/ai_autofix.sh</code> attach
+to the engine via <code>--ai-augment</code> and <code>--ai-fix</code>.
+They speak Anthropic, OpenAI, or local Ollama, cache responses
+per-finding under <code>~/.preston-check/ai-cache/</code>, and attach
+analysis + suggested patches to the report addendum next to the
+file:line:content findings. Both are strict no-ops under
+<code>--airgap</code> and graceful no-ops without API keys
+configured.</p>
+<p>The <strong>commercial layer</strong> is a separate proprietary
+product not included in this repository. It receives generated reports
+from Pro/Enterprise customers and produces the auditor-ready packaging:
+compliance evidence bundling, branded PDF generation, multi-repo
+dashboards, customer portal, license issuance backend, and SSO
+integration. Designed in <code>docs/portals-and-kpis.md</code>.</p>
+<h2 id="distribution-surface">Distribution surface</h2>
+<p>The same engine ships through five channels, each of which is
+exercised on every release tag via
+<code>.github/workflows/release.yml</code>:</p>
+<ul>
+<li><strong>Source tarball</strong> —
+<code>preston-check-${VERSION}.tar.gz</code> plus a sha256 sidecar
+published as a GitHub Release asset.</li>
+<li><strong>POSIX-sh installer</strong> — <code>install.sh</code>
+published alongside the tarball. Verifies sha256 before extraction;
+installs to <code>$PREFIX/share/preston-check</code> with a thin shim at
+<code>$PREFIX/bin/preston-check</code>.</li>
+<li><strong>Homebrew tap</strong> —
+<code>preston-check/homebrew-tap</code> formula auto-bumped on release
+when <code>HOMEBREW_TAP_TOKEN</code> secret is present.</li>
+<li><strong>Docker image</strong> —
+<code>prestoncheck/scan:latest</code> plus version tags built multi-arch
+(amd64 + arm64) on each release when DockerHub creds are
+configured.</li>
+<li><strong>GitHub Action</strong> —
+<code>preston-check/scan-action@v1</code>, defined by
+<code>action.yml</code> at the repo root. Used as a drop-in PR security
+gate per <code>examples/github-action.yml</code>.</li>
+</ul>
+<h2 id="data-flow-during-a-scan">Data flow during a scan</h2>
+<p>The runner starts by parsing CLI flags, then sources each
+<code>lib/*.sh</code> module in order. License verification happens
+first because subsequent checks may need to know the effective tier.
+License loading reads <code>~/.preston-check/license</code> (overridable
+via <code>PRESTON_LICENSE</code>), extracts the PEM-style payload and
+signature blocks, base64-decodes both, and verifies the Ed25519
+signature against the embedded public key at
+<code>lib/license_pubkey.pem</code>. If any of these steps fail, the
+tool falls back to the Free tier with a clear status note printed in the
+header.</p>
+<p>Configuration loads next via the existing <code>load_config</code>
+function, which extracts simple <code>key: value</code> pairs from the
+YAML-ish config file. Language detection uses
+<code>lang/detect.sh</code> to find the dominant source language by file
+count, then loads a language profile that exposes pattern variables like
+<code>AUTH_ANNOTATION</code> and <code>BIG_DECIMAL_TYPE</code> for
+downstream checks.</p>
+<p>OSS detection scans the source directory’s LICENSE file to identify
+recognized OSS licenses; if found, it bumps the effective tier from Free
+to Pro for that scan. Branding configuration applies only at Enterprise
+tier; at lower tiers, brand override fields are ignored with a stderr
+note.</p>
+<p>The scan loop iterates over the six check directories. For each
+candidate check file, the runner parses its metadata block and consults
+<code>tier_allows_check</code> to decide whether to execute. Checks in
+directories above the user’s tier are silently skipped (or surfaced as
+<code>SKIP</code> entries in <code>--verbose</code> mode). Each executed
+check sources into the runner’s shell, emits findings via
+<code>record</code>, and the runner accumulates pass/fail/warn/skip
+counts.</p>
+<p>Once all checks run, the runner prints a summary and (if
+<code>--report</code> was passed) writes a markdown report. If
+<code>pandoc</code> and a PDF renderer are available, it also generates
+a PDF. Finally, if telemetry is opted in and airgap is off, the runner
+sends an anonymous score payload to the telemetry endpoint as a
+best-effort background task.</p>
+<h2 id="open-source-commercial-split">Open-source / commercial
+split</h2>
+<p>Everything in this repository is under Apache 2.0. The
+<code>lib/license.sh</code> module is open-source — anyone can read it,
+audit it, fork it. The <em>signing private key</em> and the
+<em>audit-package layer</em> are not in the repository and constitute
+the commercial moat.</p>
+<p>The audit-package layer is what Pro and Enterprise customers actually
+pay for. Free customers get the markdown report. Pro customers get the
+report plus compliance-evidence bundling, multi-repo aggregation, and
+branded packaging. Enterprise customers get all of that plus
+white-label, auditor-ready signed PDF deliverables, custom-check
+authoring support, SSO, and a dedicated success contact.</p>
+<p>Because the engine is open-source, customers can verify the privacy
+claim themselves: there are no hidden network calls, the only optional
+outbound request is the opt-in telemetry, and the license verification
+is fully offline. This is intentionally counterintuitive — closing the
+engine would weaken the trust story that makes the paid tier
+sellable.</p>
+<h2 id="trust-tiers-and-the-safety-perimeter">Trust tiers and the safety
+perimeter</h2>
+<p>Community contributions go through four trust tiers tied to
+filesystem location. A check in <code>checks/community/proposed/</code>
+runs only with <code>--include-proposed</code> and is treated as
+untrusted until reviewed. A check in
+<code>checks/community/accepted/</code> has passed two maintainer
+reviews plus the automated lint gates. A check in
+<code>checks/community/verified/</code> has been promoted after at least
+six months of field validation and a positive core-team vote. Checks in
+<code>checks/core/</code> are maintainer-authored.</p>
+<p>The runner derives <code>trust_tier</code> from path, never from
+declared metadata. This means a malicious contributor cannot bypass
+review by writing <code>trust_tier: verified</code> in the metadata
+block — the runner ignores that field entirely. The
+<code>tools/lint-check.sh</code> linter enforces additional constraints
+at the directory level: community checks must use IDs in the 200-999
+range, must declare <code>runtime_class: static-grep</code>, and must
+not contain network calls, <code>eval</code>, <code>exec</code>, or file
+writes outside <code>/tmp</code>. At runtime, the recommended hardening
+(not yet implemented) is to wrap community-tier check execution in
+<code>bwrap</code> or <code>firejail</code> on Linux to enforce the
+read-only filesystem invariant.</p>
+<h2 id="license-signing-model">License signing model</h2>
+<p>A single Ed25519 keypair is generated by the operator (you) once, via
+<code>tools/setup-signing-key.sh</code>. The private key lives at
+<code>~/.preston-check/keys/private.pem</code> and never leaves your
+machine. The public half is committed to the repository at
+<code>lib/license_pubkey.pem</code> so every customer instance can
+verify licenses offline.</p>
+<p>To issue a license, you run <code>tools/issue-license.sh</code> with
+the customer ID, tier, and expiry date. The tool builds a JSON payload,
+signs it with the private key, and emits a PEM-style
+<code>.license</code> file the customer can install at
+<code>~/.preston-check/license</code> or pass via the
+<code>PRESTON_LICENSE</code> environment variable.</p>
+<p>Rotating the signing key invalidates every existing license, so plan
+rotations carefully: re-issue all licenses, then push the new public
+key, then publish a new release. Back up the private key to an offline
+secure location.</p>
+<h2 id="telemetry-as-one-of-three-optional-outbound-calls">Telemetry as
+one of three optional outbound calls</h2>
+<p>The tool makes up to three optional network calls — all opt-in, all
+disabled unconditionally by <code>--airgap</code>:</p>
+<ol type="1">
+<li><strong>Telemetry</strong> — anonymous score ping to
+<code>app.preston-check.com/api/v1/telemetry</code>. Triggered by
+<code>--telemetry-opt-in</code>, <code>PRESTON_TELEMETRY=1</code>, or
+<code>telemetry: opt_in</code> in the config. Payload: tool version,
+license tier, primary language, aggregate counts, a SHA-256 hash of the
+git remote origin URL (or source path), UTC timestamp. Never includes
+source code, file paths, file names, customer details, or specific check
+IDs. See <code>docs/telemetry.md</code>.</li>
+<li><strong>AI augmentation</strong> — finding context
+(file:line:content + ~10 surrounding lines) sent to Anthropic, OpenAI,
+or local Ollama for classification and explanation. Triggered by
+<code>--ai-augment</code> or <code>PRESTON_AI=1</code> plus an API
+key.</li>
+<li><strong>AI auto-fix</strong> — same scope as augmentation but with
+~30 surrounding lines (15 before, 15 after) sent so the model can
+produce a safe unified diff. Triggered by <code>--ai-fix</code> (which
+implies <code>--ai-augment</code>).</li>
+</ol>
+<p>All three are short, auditable, and live in dedicated lib files so
+the privacy story is verifiable by reading the source.</p>
+<p>The aggregate telemetry data feeds the annual State of Fintech
+Security report, which is the tentpole content marketing artifact. The
+first edition’s methodology and template ships at
+<code>docs/state-of-fintech-security/2026.md</code>.</p>
+<h2 id="threat-intel-auto-ingestion">Threat-intel auto-ingestion</h2>
+<p>The catalog grows automatically through a weekly GitHub Actions run
+of <code>tools/sync-threat-intel.py</code>
+(<code>.github/workflows/threat-intel-sync.yml</code>, Mondays 09:00
+UTC). The pipeline pulls fintech-relevant CVEs from NIST NVD, drafts
+community-tier check files into <code>checks/community/proposed/</code>,
+persists processed-CVE state in
+<code>.preston-check/threat-intel-state.json</code>, and opens a PR via
+<code>peter-evans/create-pull-request@v6</code> when there are changes.
+Maintainer review converts drafts to authored grep patterns and promotes
+them to <code>checks/community/accepted/</code>. Designed for
+triage-via-Admin-Portal in the SaaS layer (see
+<code>docs/portals-and-kpis.md</code>).</p>
+</body>
+</html>

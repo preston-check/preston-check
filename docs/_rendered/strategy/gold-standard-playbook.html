@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Preston-Check Maintainers" />
+  <meta name="dcterms.date" content="2026-05-04" />
+  <title>How Preston-Check Becomes the Gold Standard</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">How Preston-Check Becomes the Gold Standard</h1>
+<p class="subtitle">The 3-7 year playbook for canonical fintech-security
+positioning</p>
+<p class="author">Preston-Check Maintainers</p>
+<p class="date">2026-05-04</p>
+</header>
+<h1 id="how-preston-check-becomes-the-gold-standard">How Preston-Check
+Becomes the Gold Standard</h1>
+<h2 id="the-thesis">The thesis</h2>
+<p>Gold-standard positioning is not won by having the best tool. It is
+won by being the most embedded in the ecosystem that surrounds it.
+PCI-DSS, OWASP Top 10, CIS Benchmarks, NIST CSF — none of them are “the
+best.” They are the ones everyone defers to. Becoming Preston-Check the
+canonical reference for fintech security is a 3-7 year campaign with
+very specific moves.</p>
+<h2 id="the-five-stages">The five stages</h2>
+<p><strong>Stage 1 — Discovered.</strong> People try the tool. Free
+adoption. Viral mechanics. Today’s launch is this stage. As of v1.7.3
+the catalog is at 294 checks across 33 frameworks, the GitHub Releases
+pipeline is live (<code>brew install preston-check</code> and
+<code>curl … install.sh | sh</code> both work), and the threat-intel
+cron is committing weekly draft checks to
+<code>checks/community/proposed/</code>.</p>
+<p><strong>Stage 2 — Recommended.</strong> Practitioners tell each other
+in Slack channels, Hacker News comments, internal docs. “We use
+Preston-Check for our pre-deploy security gate.” This emerges naturally
+from a generous free tier plus quality output. Reach this stage in
+months 6-12.</p>
+<p><strong>Stage 3 — Required.</strong> Auditors say “do you have a
+Preston-Check report?” Compliance platforms (Drata, Vanta, Secureframe)
+accept Preston-Check evidence. Buyers write it into RFPs. This stage is
+where revenue compounds — you go from a free tool to a customer-mandated
+tool. Year 2.</p>
+<p><strong>Stage 4 — Cited.</strong> Regulators reference Preston-Check
+in guidance documents. NIST cites it as a reference implementation for
+the framework controls. OWASP names it the canonical scanner for the
+Smart Contract Top 10. Annual industry reports (Verizon DBIR, Mandiant
+M-Trends) cite Preston-Check telemetry. Year 3.</p>
+<p><strong>Stage 5 — Embedded.</strong> Preston-Check checks become the
+<em>de facto</em> spec. When a new framework like DORA gets implemented,
+the implementation maps to Preston-Check checks rather than the other
+way around. Treasury departments adopt it for their own oversight.
+Universities teach with it. Year 4-6.</p>
+<h2 id="the-eight-moves-that-drive-stage-transitions">The eight moves
+that drive stage transitions</h2>
+<h3 id="the-annual-state-of-fintech-security-report">1. The annual State
+of Fintech Security report</h3>
+<p>Highest-leverage single artifact. Verizon’s Data Breach
+Investigations Report (DBIR) became the gold-standard threat
+intelligence document because they published it every year for 17 years
+with clean data and good narrative. Preston-Check’s anonymized opt-in
+telemetry becomes the data source. Compile in Q4 each year, publish in
+February. Free PDF download with email gate. Press releases. Conference
+talk circuit around its findings. Within 3 annual editions, journalists
+and regulators cite it as the canonical fintech security benchmark.</p>
+<p>Cost: approximately $30k/year for a writer plus designer once you
+have data. Impact: the single largest stage-transition lever you
+have.</p>
+<p>The first edition shipped in v1.6.0 as
+<code>docs/state-of-fintech-security/2026.md</code>. It establishes the
+methodology and template. Subsequent editions become quantitative as
+telemetry accumulates.</p>
+<h3 id="standards-body-engagement">2. Standards-body engagement</h3>
+<p>The pattern that worked for HashiCorp, Sigstore, and similar: engage
+early, contribute substantively, become a working-group member,
+eventually become the reference implementation. Specifically: propose
+Preston-Check checks be officially adopted by OWASP Smart Contract Top
+10, OWASP API Top 10, OWASP Mobile MAS. Submit RFCs. Volunteer to
+maintain framework-mapping documents. Sponsor working group lunches.</p>
+<p>The OWASP Foundation will accept tools that are open source,
+well-maintained, and have a maintainer willing to do the unglamorous
+coordination work — most security tool vendors will not. NIST publishes
+a Cybersecurity Tools page that accepts free submissions from
+open-source tools meeting the inclusion criteria.</p>
+<h3 id="auditor-partnerships">3. Auditor partnerships</h3>
+<p>The actual inflection point. Stage 3 happens when Big Four or
+mid-tier audit firms accept Preston-Check evidence packets in their
+workflow. Specific path: pick one mid-tier firm first (BDO, Crowe,
+Plante Moran are realistic targets — Big Four is harder), offer free
+Enterprise licenses for their entire audit team, build a custom evidence
+template that matches their internal documentation format, hand-hold
+their first 5-10 engagements. After 6 months they have a “Preston-Check
+rapid audit prep” service line. After 12 months, your name shows up in
+their RFP responses.</p>
+<p><strong>One firm partnership unlocks 50-200 customer adoptions over
+18 months.</strong></p>
+<h3 id="compliance-platform-integrations">4. Compliance platform
+integrations</h3>
+<p>Force-multiplier. Drata, Vanta, Secureframe, Tugboat Logic — each
+pushes Preston-Check evidence directly into their compliance workflows
+as evidence-of-control. They have approximately 5,000 customers each
+going through SOC 2 / ISO 27001 / HIPAA prep. Each integration is 4-8
+weeks of engineering work and a co-marketing agreement. After the first
+integration ships, customers of that platform start asking for
+Preston-Check. After three integrations ship, you are on every modern
+fintech’s compliance stack by default.</p>
+<p><strong>Drata alone could 10x your TAM in year 2.</strong></p>
+<p>The integration adapters shipped in v1.6.0 as
+<code>tools/integrations/{drata,vanta,secureframe}/</code>. The next
+step is submitting them to each platform’s marketplace.</p>
+<h3 id="conference-speaker-circuit">5. Conference speaker circuit</h3>
+<p>The reputation engine. The Preston X founding story is genuinely
+compelling and gives you a hook journalists and conference programs find
+irresistible. Submit talks to: RSA Conference, BlackHat USA, DefCon
+AppSec Village, OWASP Global AppSec, FS-ISAC Summit, FATF working
+groups, central bank cyber conferences. Three accepted talks per year
+for three years gets you to approximately 5,000 in-person practitioner
+exposures. Recordings live on YouTube indefinitely and rank well in
+fintech-security searches.</p>
+<p>Speaker fees and travel are real costs (around $15k/year), but the
+brand-building ROI is unmatched.</p>
+<h3 id="the-preston-check-certified-credential-program">6. The
+“Preston-Check Certified” credential program</h3>
+<p>Free training plus paid certification exam. People put “Preston-Check
+Certified Auditor” on LinkedIn. Companies hire for it. Universities
+include it in fintech-security curricula. The pattern that worked for
+AWS Certified, CompTIA Security+, CISSP. <strong>In year 2-3, this
+becomes a self-sustaining ecosystem of practitioners whose careers
+depend on Preston-Check existing.</strong></p>
+<p>Multi-year compounding effect.</p>
+<h3 id="regulator-engagement">7. Regulator engagement</h3>
+<p>Small-jurisdiction-first strategy. US and EU regulators are slow and
+will not engage with new tools. But smaller jurisdictions actively look
+for ways to upgrade their regulatory tech: Bermuda Monetary Authority,
+Bahamas Securities Commission, Lithuania Bank, Singapore MAS Innovation
+Hub, Saudi Central Bank. Offer free Enterprise licenses, host their
+fintech sandbox programs, get Preston-Check listed as a recommended tool
+in one of their guidance documents. After two of those, US and EU
+regulators take you seriously. First regulator citation: 12-18 months.
+Each subsequent citation: cumulative reinforcement.</p>
+<h3 id="open-source-positioning">8. Open-source positioning</h3>
+<p>The discoverability engine. Submit Preston-Check to every
+“awesome-security” GitHub list. Publish on every relevant subreddit
+(r/devsecops, r/netsec, r/fintech, r/AskNetsec). Pull-request the OWASP
+project listings. Engage in fintech-security Twitter and LinkedIn
+discussions. Sponsor relevant OSS projects (sigstore, in-toto, OWASP
+MASVS). Background ambient work that compounds organic discovery.</p>
+<h2 id="what-you-control-and-what-you-do-not">What you control and what
+you do not</h2>
+<p><strong>You control:</strong> product quality, content output,
+integration velocity, conference submissions, partnership outreach,
+certification program design, telemetry data collection, annual report
+production. All execution-side.</p>
+<p><strong>You do not control:</strong> which regulators pick up
+references to Preston-Check, which Big Four firm bites first, which
+conferences accept your talks, which OWASP working groups agree to
+formalize your suggestions. These require <em>patience and
+consistency</em>, not hustle. The companies that became gold standards
+(HashiCorp, Snyk, Vercel, MongoDB) all have stories of years of “we
+tried, nothing happened, kept trying, eventually it tipped.”</p>
+<p>The single most underrated discipline in becoming a gold standard is
+<strong>showing up the same way for 5+ years</strong>. Snyk published
+quarterly vulnerability reports starting in 2017 when they had ~50
+paying customers. Most weren’t read by anyone for the first 2 years. By
+year 4 those reports were cited in every JavaScript security article. By
+year 6 they were the canonical reference. The compounding only works if
+you keep going through the long stretch where nobody seems to be paying
+attention. Most companies stop the report at year 2 because it “isn’t
+working.” That’s exactly when the work starts paying off if you
+persist.</p>
+<p><strong>Commit to the State of Fintech Security report annually for 5
+years before evaluating whether it is working.</strong></p>
+<h2 id="realistic-timeline-and-milestones">Realistic timeline and
+milestones</h2>
+<p><strong>Year 1 — Discovery and Recommended.</strong> 1,000 active
+free users. First three Drata-class compliance integrations shipped.
+First conference talk accepted (RSA Innovation Sandbox or BlackHat
+Briefings). First mid-tier audit firm partnership signed. First annual
+State of Fintech Security report published with whatever data you have.
+Brand recognition within fintech-security Twitter. Goal: 50 paying Pro
+customers, 3 Enterprise.</p>
+<p><strong>Year 2 — Required.</strong> 10,000 active free users. Big
+Four partnership conversations active (one signed). State of Fintech
+Security report v2 published with year-over-year trends, becoming a
+referenced industry artifact. Preston-Check Certified launched. First
+regulator citation (small jurisdiction). OWASP working-group
+participation visible. 250 Pro customers, 15 Enterprise. Sales-led
+motion has started for Enterprise tier.</p>
+<p><strong>Year 3 — Cited.</strong> 50,000 active free users. NIST
+cybersecurity-tools page lists Preston-Check. Annual report cited in 10+
+industry publications. Big Four partnership operational. Preston-Check
+Certified has 1,000+ practitioners on LinkedIn with the credential.
+Compliance platform integrations now bidirectional. Telemetry data is
+the largest curated fintech-security dataset publicly cited. 1,000 Pro,
+100 Enterprise. Approaching $20M ARR.</p>
+<p><strong>Year 4-6 — Embedded.</strong> OWASP, FATF, NIST regularly
+cite Preston-Check. Universities teach with it. Federal regulators in
+three jurisdictions use it for their own oversight. Annual report
+becomes the canonical “what’s the state of fintech security right now”
+reference. Preston-Check is the obvious answer to “what scanner should
+we use for fintech compliance?” — competitors have to argue against it
+rather than for themselves. Brand is now genuinely defensible. $50M+ ARR
+with 70% gross margin.</p>
+<h2 id="what-to-not-chase">What to NOT chase</h2>
+<p><strong>Do not chase enterprise sales pipeline before integrations
+exist.</strong> A direct sales motion at $30k/yr ACV requires 5+ touches
+to close; a Drata integration brings 50 inbound qualified leads
+automatically. The latter has 10x the ROI in the first 18 months.</p>
+<p><strong>Do not chase Big Four partnerships first.</strong> They are
+slow, political, and will not return your emails until you have customer
+references they recognize. Mid-tier first (6-month sales cycle), then
+Big Four (12-18 month cycle).</p>
+<p><strong>Do not chase international expansion before US/EU
+traction.</strong> Localization, regulatory variation, and cross-border
+legal complexity will eat 6 months of engineering for marginal revenue.
+The US and EU markets alone support a $1B company.</p>
+<p><strong>Do not add features that are not either viral levers or moat
+builders.</strong> Every feature shipped past a quality threshold has
+opportunity cost. The features to ship: AI auto-fix (✅ shipped v1.7.1,
+viral), peer-comparison percentiles (moat via data; depends on telemetry
+volume), Drata integration (channel partner), branded PDF (table-stakes
+for paid). The features to skip in year 1: SSO (defer until Enterprise
+demands it), custom on-prem (huge engineering cost), more frameworks
+(you have 33; quality of curation matters more than count from
+here).</p>
+<h2 id="the-headline">The headline</h2>
+<p>The work that makes Preston-Check the gold standard is not building a
+better scanner — it is <strong>building the ecosystem of auditors,
+regulators, integrations, and content that makes Preston-Check the only
+one that <em>matters</em>.</strong> Five years of consistent investment
+in the right boring things gets you there. Most competitors will get
+distracted; consistency wins.</p>
+</body>
+</html>

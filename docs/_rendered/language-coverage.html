@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>language-coverage</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">language-coverage</h1>
+</header>
+<h1 id="language-coverage">Language Coverage</h1>
+<p>Preston-Check scans source code by <code>grep</code>-ing for
+language-specific patterns. Coverage varies significantly across
+languages because the catalog grew organically from a
+Java/TypeScript-heavy fintech codebase. This document audits current
+coverage, identifies gaps, and lays out the roadmap.</p>
+<h2 id="current-coverage-matrix">Current coverage matrix</h2>
+<p>The numbers below count distinct check scripts that include patterns
+for each language (via <code>grep --include="*.&lt;ext&gt;"</code>). A
+single check can target multiple languages.</p>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Extension</th>
+<th>Checks targeting it</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Java</td>
+<td><code>*.java</code></td>
+<td>195</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td>TypeScript</td>
+<td><code>*.ts</code>, <code>*.tsx</code></td>
+<td>108</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td>SQL</td>
+<td><code>*.sql</code></td>
+<td>36</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>*.py</code></td>
+<td>11</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td>Go</td>
+<td><code>*.go</code></td>
+<td>11</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td><code>*.js</code>, <code>*.jsx</code></td>
+<td>5</td>
+<td>Sparse</td>
+</tr>
+<tr>
+<td>Rust</td>
+<td><code>*.rs</code></td>
+<td>3</td>
+<td>Sparse</td>
+</tr>
+<tr>
+<td>Dart</td>
+<td><code>*.dart</code></td>
+<td>2</td>
+<td>Mobile-only</td>
+</tr>
+<tr>
+<td>Terraform</td>
+<td><code>*.tf</code></td>
+<td>6</td>
+<td>Infra-only</td>
+</tr>
+<tr>
+<td>YAML</td>
+<td><code>*.yml</code>/<code>*.yaml</code></td>
+<td>73</td>
+<td>Config-wide</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td><code>*.properties</code></td>
+<td>4</td>
+<td>JVM config</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td><code>*.kt</code></td>
+<td>0</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Ruby</td>
+<td><code>*.rb</code></td>
+<td>0</td>
+<td>None</td>
+</tr>
+<tr>
+<td>C#/.NET</td>
+<td><code>*.cs</code></td>
+<td>0</td>
+<td>None</td>
+</tr>
+<tr>
+<td>PHP</td>
+<td><code>*.php</code></td>
+<td>0</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Solidity</td>
+<td><code>*.sol</code></td>
+<td>0</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>Language profiles in <code>lang/detect.sh</code> exist for
+<code>java</code>, <code>go</code>, <code>python</code>,
+<code>typescript</code>/<code>javascript</code>, with a generic
+fallback. There is no Rust profile, which means the auto-detected
+pattern variables for Rust codebases default to the fallback — most
+checks then look for Java patterns and find nothing.</p>
+<h2 id="gap-analysis">Gap analysis</h2>
+<p>The user’s stated requirement is coverage for Node.js, Java, Go, and
+Rust. Java is solid. Node.js TypeScript is solid; pure JavaScript is
+thin but the patterns largely overlap with TypeScript. <strong>Go and
+Rust are real gaps</strong> that need investment before launch claims of
+“polyglot fintech security scanner” hold up.</p>
+<p>Beyond the user’s stated four, three more languages deserve
+coverage:</p>
+<p>Kotlin is increasingly common in JVM-based fintechs (notably across
+Singapore, Korea, and the European neobank stack). Many Kotlin checks
+can re-use Java patterns by widening file extensions to
+<code>*.java *.kt</code>.</p>
+<p>Ruby matters because Stripe, Square Cash, and several major US
+fintechs are Ruby-on-Rails-heavy. Adding <code>*.rb</code> to existing
+patterns where applicable is low-effort.</p>
+<p>Solidity opens the crypto/DeFi vertical. This is a separate scanning
+domain (smart-contract specific vulnerabilities — reentrancy, integer
+overflow, oracle manipulation, MEV exposure) and warrants a dedicated
+sub-suite rather than retrofitting existing checks.</p>
+<h2 id="roadmap">Roadmap</h2>
+<h3 id="v1.3-go-and-rust-polyglot-parity-delivered">v1.3 — Go and Rust
+polyglot parity (DELIVERED)</h3>
+<p>Polyglot parity for Go and Rust shipped in v1.3.0 (P-490..P-505).</p>
+<p><strong>Go suite (P-490..P-495):</strong> P-490 ignored error
+returns, P-491 float64 for money (anti-pattern detection plus
+shopspring/decimal / math/big.Rat recognition), P-492 race conditions on
+shared state with sync.Mutex / atomic awareness, P-493 constant-time
+comparison via crypto/subtle, P-494 context cancellation on HTTP and DB
+calls, P-495 SQL injection via fmt.Sprintf string interpolation.</p>
+<p><strong>Rust suite (P-500..P-505):</strong> P-500 unwrap()/expect()
+in production code, P-501 integer overflow without checked_* /
+saturating_*, P-502 unsafe blocks without SAFETY justification comments,
+P-503 weak crypto crates (md5, sha-1, deprecated rust-crypto), P-504
+unverified serde deserialization, P-505 insecure rand::thread_rng for
+cryptographic purposes.</p>
+<p>These complement Solidity detection added in v1.1.0 and the Solidity-
+focused crypto suite (P-301..P-310). Combined with
+<code>lang/detect.sh</code> language profiles for Java, TypeScript,
+JavaScript, Python, Go, Rust, and Solidity, Preston-Check now provides
+first-class polyglot coverage for the most universal vulnerability
+classes across the seven languages.</p>
+<h3 id="v1.2-jvm-neighbors-q4-2026">v1.2 — JVM neighbors (Q4 2026)</h3>
+<p>Kotlin patterns added to Java-targeting checks. Most checks can
+simply add <code>*.kt</code> to their <code>--include</code> lists;
+checks that look for Java-specific annotations (e.g.,
+<code>@Secured</code>) need Kotlin equivalents
+(<code>@PreAuthorize</code>, <code>@Authenticated</code>).</p>
+<p>Scala coverage as a fast-follower — the JVM stack is similar enough
+that most checks port over with minor pattern adjustments.</p>
+<h3 id="v1.3-ruby-and-php-q1-2027">v1.3 — Ruby and PHP (Q1 2027)</h3>
+<p>Ruby on Rails patterns: strong-parameter bypass, <code>eval</code> of
+user input, ActiveRecord SQL injection, ActionController without
+authentication filters, secrets in
+<code>Rails.application.credentials.yml.enc</code>.</p>
+<p>PHP for legacy fintechs: <code>unserialize()</code> of user input,
+weak password hashing (<code>md5($password)</code>), magic quotes
+assumptions, missing CSRF tokens in form handlers.</p>
+<h3 id="v1.4-defi-and-smart-contracts-q2-2027">v1.4 — DeFi and smart
+contracts (Q2 2027)</h3>
+<p>A dedicated <code>checks/defi/</code> namespace with
+Solidity-specific checks: reentrancy patterns, integer overflow in
+pre-0.8 contracts, <code>tx.origin</code> authorization, unbounded loops
+(DoS via gas exhaustion), unchecked external calls, oracle manipulation
+patterns, missing access controls on <code>selfdestruct</code>, and
+slippage protection on swaps.</p>
+<p>This is a meaningful expansion in scope and audience. Worth treating
+as its own product line within Preston-Check rather than a routine
+extension.</p>
+<h2 id="contributing-language-support">Contributing language
+support</h2>
+<p>The community model is well-suited to growing language coverage. A
+contributor who writes Rust day-to-day at a fintech can author a single
+high-quality Rust check, get it through review, and immediately benefit
+every other Rust fintech in the ecosystem. The
+<code>tools/lint-check.sh</code> linter validates that contributions
+follow the metadata schema; the maintainer review focuses on correctness
+and false-positive rates.</p>
+<p>To contribute a check for a new language: copy
+<code>templates/check.sh</code>, declare the appropriate
+<code>languages</code> field in the metadata block, and target the
+language-specific file extension in your <code>grep --include</code>
+pattern. If your language warrants a full profile, also add a
+<code>lang/profiles/&lt;language&gt;.sh</code> file that mirrors the
+structure of the existing Java and Python profiles.</p>
+<h2 id="how-language-detection-affects-what-runs">How language detection
+affects what runs</h2>
+<p>The runner uses the dominant-language detection from
+<code>lang/detect.sh</code> to load one language profile via
+<code>load_language_profile</code>. The profile sets pattern variables
+that some checks consult through <code>$AUTH_ANNOTATION</code>,
+<code>$BIG_DECIMAL_TYPE</code>, etc. Checks that hardcode their own
+patterns ignore the profile entirely.</p>
+<p>This means even if your codebase is dominantly Rust, a Java-pattern
+check runs anyway — it just finds nothing matching, reports
+<code>PASS</code>, and moves on. False negatives are the common failure
+mode: a check claims <code>PASS</code> because it found no Java code,
+when in fact the equivalent vulnerability exists in your Rust code with
+different syntax. The roadmap addresses this by adding language-specific
+sister-checks rather than relying on the profile-variable abstraction
+alone.</p>
+</body>
+</html>

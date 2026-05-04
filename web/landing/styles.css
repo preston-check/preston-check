@@ -108,8 +108,11 @@ header.site .wrap {
   padding-bottom: 16px;
 }
 header.site nav { display: flex; gap: 28px; align-items: center; }
-header.site nav a { color: var(--ink); font-size: 15px; }
-header.site nav a:hover { color: var(--accent-2); text-decoration: none; }
+/* Scope the nav-link color to non-button anchors. Without :not(.btn),
+   this rule's higher specificity beats .btn-primary and the button
+   text disappears against the matching navy background. */
+header.site nav a:not(.btn) { color: var(--ink); font-size: 15px; }
+header.site nav a:not(.btn):hover { color: var(--accent-2); text-decoration: none; }
 
 .logo { display: flex; align-items: center; gap: 10px; }
 .logo img { height: 32px; width: auto; }

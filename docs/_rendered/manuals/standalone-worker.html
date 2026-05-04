@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2026-05-04" />
+  <title>Standalone Telemetry Worker Manual</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Standalone Telemetry Worker Manual</h1>
+<p class="date">2026-05-04</p>
+</header>
+<h1 id="standalone-telemetry-worker">Standalone Telemetry Worker</h1>
+<p>A Cloudflare Worker dedicated to telemetry ingestion. Same payload
+schema and same backing storage (D1 + KV) as the Pages Function on the
+customer portal — different code surface.</p>
+<h2 id="url">URL</h2>
+<p><code>https://preston-check-telemetry.preston-check-edge.workers.dev/</code></p>
+<p>This is the production endpoint that <code>lib/telemetry.sh</code>
+defaults to.</p>
+<h2 id="why-two-endpoints">Why two endpoints</h2>
+<p>We have two implementations of the same telemetry logic:</p>
+<ol type="1">
+<li><strong>Standalone Worker</strong> (this one) —
+<code>workers/telemetry/</code>, deployed via
+<code>wrangler deploy</code> to a <code>*.workers.dev</code> URL</li>
+<li><strong>Pages Function</strong> —
+<code>web/customer/functions/api/v1/telemetry/</code>, deployed
+alongside the customer portal at
+<code>app.preston-check.com/api/v1/telemetry</code></li>
+</ol>
+<p>Both write to the same D1 + KV instances. The standalone Worker is
+the canonical production endpoint; the Pages Function is an alternative
+for customers who prefer a <code>preston-check.com</code>-branded URL
+once the Pages Function regression is fully resolved.</p>
+<p>Self-hosted Enterprise deployments typically prefer the standalone
+Worker pattern because it’s a clean, single-purpose endpoint that
+doesn’t share infrastructure with any UI.</p>
+<h2 id="source">Source</h2>
+<pre><code>workers/telemetry/
+  src/index.ts                  TypeScript Worker
+  wrangler.toml                 project config + D1/KV bindings
+  schema.sql                    D1 schema
+  README.md                     deploy + dev notes
+.github/workflows/telemetry-deploy.yml   CI auto-deploy on push</code></pre>
+<h2 id="how-it-works">How it works</h2>
+<p>The Worker exports a single <code>fetch</code> handler with three
+branches:</p>
+<ul>
+<li><code>OPTIONS</code> — CORS preflight</li>
+<li><code>POST</code> — schema-validate, rate-limit, write to D1+KV</li>
+<li>anything else → <code>405 method not allowed</code></li>
+</ul>
+<p>The full implementation is ~140 lines of TypeScript. Privacy-relevant
+properties (no source-code accepted, no IP stored, schema-strict
+validation) are auditable inline.</p>
+<h2 id="bindings">Bindings</h2>
+<p>The Worker requires three bindings configured in
+<code>wrangler.toml</code>:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode toml"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[[d1_databases]]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">binding</span>       <span class="op">=</span> <span class="st">&quot;DB&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">database_name</span> <span class="op">=</span> <span class="st">&quot;preston-check-telemetry&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">database_id</span>   <span class="op">=</span> <span class="st">&quot;e206e1e4-1c78-4a5e-a983-bc47104d1b3c&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">[[kv_namespaces]]</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">binding</span> <span class="op">=</span> <span class="st">&quot;AGGREGATE&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">id</span>      <span class="op">=</span> <span class="st">&quot;330983ec5b464dab8ae2f338d40512f5&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">[vars]</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">RATE_LIMIT_PER_HOUR</span> <span class="op">=</span> <span class="st">&quot;1000&quot;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dt">ALLOW_ORIGIN</span>        <span class="op">=</span> <span class="st">&quot;*&quot;</span></span></code></pre></div>
+<p>(IDs are public identifiers, not credentials. The token to access
+them lives only in repo secrets.)</p>
+<h2 id="deploying">Deploying</h2>
+<p>CI auto-deploys on every push that touches
+<code>workers/telemetry/**</code>. Manual deploy:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> workflow run telemetry-deploy.yml <span class="at">--repo</span> preston-check/preston-check</span></code></pre></div>
+<p>Or from a local checkout (requires <code>CLOUDFLARE_API_TOKEN</code>
++ <code>CLOUDFLARE_ACCOUNT_ID</code> env vars):</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> workers/telemetry</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> deploy</span></code></pre></div>
+<h2 id="provisioning-from-scratch">Provisioning from scratch</h2>
+<p>For a fresh self-hosted setup:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create the D1 database</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 create preston-check-telemetry</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (capture the returned database_id and put it in wrangler.toml)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Create the KV namespace</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> kv namespace create AGGREGATE</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># (capture the namespace id and put it in wrangler.toml)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Apply the schema (remote — runs on the actual Cloudflare D1)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="dt">\</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--file</span><span class="op">=</span>workers/telemetry/schema.sql</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Deploy the Worker</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> deploy</span></code></pre></div>
+<p>The Worker is reachable at
+<code>&lt;worker-name&gt;.&lt;account-subdomain&gt;.workers.dev</code>
+within seconds. Optional: bind a custom domain in the Cloudflare
+dashboard if your account’s zone is on Cloudflare.</p>
+<h2 id="health-check">Health check</h2>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">HASH</span><span class="op">=</span><span class="va">$(</span><span class="bu">printf</span> <span class="st">&#39;test&#39;</span> <span class="kw">|</span> <span class="ex">shasum</span> <span class="at">-a</span> 256 <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-d</span><span class="st">&#39; &#39;</span> <span class="at">-f1</span><span class="va">)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-X</span> POST <span class="st">&#39;https://preston-check-telemetry.preston-check-edge.workers.dev/&#39;</span> <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&quot;Content-Type: application/json&quot;</span> <span class="dt">\</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&quot;{</span><span class="dt">\&quot;</span><span class="st">version</span><span class="dt">\&quot;</span><span class="st">:</span><span class="dt">\&quot;</span><span class="st">1.7.5</span><span class="dt">\&quot;</span><span class="st">,</span><span class="dt">\&quot;</span><span class="st">tier</span><span class="dt">\&quot;</span><span class="st">:</span><span class="dt">\&quot;</span><span class="st">free</span><span class="dt">\&quot;</span><span class="st">,</span><span class="dt">\&quot;</span><span class="st">lang</span><span class="dt">\&quot;</span><span class="st">:</span><span class="dt">\&quot;</span><span class="st">bash</span><span class="dt">\&quot;</span><span class="st">,</span><span class="dt">\&quot;</span><span class="st">repo_hash</span><span class="dt">\&quot;</span><span class="st">:</span><span class="dt">\&quot;</span><span class="va">$HASH</span><span class="dt">\&quot;</span><span class="st">,</span><span class="dt">\&quot;</span><span class="st">pass</span><span class="dt">\&quot;</span><span class="st">:1,</span><span class="dt">\&quot;</span><span class="st">fail</span><span class="dt">\&quot;</span><span class="st">:0,</span><span class="dt">\&quot;</span><span class="st">warn</span><span class="dt">\&quot;</span><span class="st">:0,</span><span class="dt">\&quot;</span><span class="st">skip</span><span class="dt">\&quot;</span><span class="st">:0,</span><span class="dt">\&quot;</span><span class="st">total</span><span class="dt">\&quot;</span><span class="st">:1,</span><span class="dt">\&quot;</span><span class="st">timestamp</span><span class="dt">\&quot;</span><span class="st">:</span><span class="dt">\&quot;</span><span class="st">2026-05-04T12:00:00Z</span><span class="dt">\&quot;</span><span class="st">}&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected: {&quot;ok&quot;:true}</span></span></code></pre></div>
+<h2 id="cross-links">Cross-links</h2>
+<ul>
+<li><strong>Telemetry endpoint manual</strong>:
+<code>docs/manuals/telemetry-endpoint.md</code></li>
+<li><strong>D1 dataset manual</strong>:
+<code>docs/manuals/d1-dataset.md</code></li>
+<li><strong>Privacy + telemetry overview</strong>:
+<code>docs/telemetry.md</code></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>getting-started</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">getting-started</h1>
+</header>
+<h1 id="getting-started">Getting Started</h1>
+<p>Preston-Check runs a battery of pre-deployment security checks
+against your source code, on your machine, with no signup or telemetry
+by default. This guide walks you through installation, your first scan,
+CI integration, and the upgrade paths to Pro and Enterprise tiers.</p>
+<h2 id="install">Install</h2>
+<p>Pick the channel that fits your environment.</p>
+<p><strong>Homebrew</strong> (macOS or Linux with brew):</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> tap preston-check/preston-check</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check</span></code></pre></div>
+<p><strong>Docker</strong> (any system with Docker):</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="st">&quot;</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">:/src&quot;</span> prestoncheck/scan:latest</span></code></pre></div>
+<p>Mount your project at <code>/src</code> and the scanner runs against
+it. Add <code>-v ~/.preston-check:/home/preston/.preston-check</code> to
+share license files into the container.</p>
+<p><strong>Curl-bash installer</strong> (works anywhere with curl):</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://get.preston-check.com/install.sh <span class="kw">|</span> <span class="fu">sh</span></span></code></pre></div>
+<p>The installer fetches the latest release tarball, verifies its
+SHA-256 against the <code>.sha256</code> sidecar published alongside,
+and installs the catalog under <code>$PREFIX/share/preston-check</code>
+with a thin shim at <code>$PREFIX/bin/preston-check</code>. Defaults to
+<code>/usr/local</code>; override with
+<code>PRESTON_PREFIX=$HOME/.local</code>. Pin a specific version with
+<code>PRESTON_VERSION=v1.7.3</code>.</p>
+<p><strong>GitHub Action</strong> (in your CI):</p>
+<p>Add to <code>.github/workflows/preston-check.yml</code>:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> preston-check/scan-action@v1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">fail-on</span><span class="kw">:</span><span class="at"> high</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">report-path</span><span class="kw">:</span><span class="at"> preston-check-report.md</span></span></code></pre></div>
+<p>See <code>.github/workflows/preston-check.yml</code> in the
+repository for a complete example.</p>
+<h2 id="run-your-first-scan">Run your first scan</h2>
+<p>In your project directory:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span></span></code></pre></div>
+<p>You will see a banner identifying the detected language, license tier
+(Free if you have no license), and OSS exemption (Pro features are
+granted free for repositories with a recognized OSS LICENSE). Each check
+prints a colored line — green PASS, red FAIL, yellow WARN, blue SKIP —
+and a final summary shows totals.</p>
+<p>To save a report:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--report</span> security-audit.md</span></code></pre></div>
+<p>The markdown report is suitable for code review attachments and PR
+comments. If <code>pandoc</code> and Chrome are available, Preston-Check
+also generates a PDF version next to the markdown file.</p>
+<p>To run a faster check focused on the original 20 categories
+(approximately 30 seconds):</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--light</span></span></code></pre></div>
+<p>To run a single check by ID:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--check</span> 07-blacklist-check</span></code></pre></div>
+<p>To list all available checks:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--list</span></span></code></pre></div>
+<h2 id="ai-augmented-findings">AI-augmented findings</h2>
+<p>When <code>ANTHROPIC_API_KEY</code> or <code>OPENAI_API_KEY</code> is
+set, the runner can attach a per-finding AI assessment (false-positive
+classification, plain-English explanation, suggested fix) to the report
+addendum.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Analysis only — adds explanations and false-positive flags</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--ai-augment</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Analysis plus suggested unified-diff patches per finding</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--ai-fix</span></span></code></pre></div>
+<p>Both flags are no-ops under <code>--airgap</code> and graceful no-ops
+without a configured API key. Per-finding responses are cached under
+<code>~/.preston-check/ai-cache/</code> so reruns over unchanged code
+are free. Local Ollama is also supported via
+<code>PRESTON_AI_PROVIDER=ollama</code>.</p>
+<h2 id="examples">Examples</h2>
+<p>Drop-in usage patterns for the four most-requested CI surfaces live
+at <a href="../examples/"><code>examples/</code></a>:</p>
+<ul>
+<li><code>examples/github-action.yml</code> — PR security gate</li>
+<li><code>examples/gitlab-ci.yml</code> — GitLab CI integration</li>
+<li><code>examples/circleci-config.yml</code> — CircleCI
+integration</li>
+<li><code>examples/pre-commit-hook.sh</code> — local pre-commit
+gate</li>
+</ul>
+<h2 id="project-configuration">Project configuration</h2>
+<p>For repeatable runs, create a config file (e.g.,
+<code>.preston-check.yml</code> at your repo root):</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">app_name</span><span class="kw">:</span><span class="at"> my-payment-service</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source_dir</span><span class="kw">:</span><span class="at"> .</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">log_dir</span><span class="kw">:</span><span class="at"> /var/log/myapp</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh_host</span><span class="kw">:</span><span class="at"> prod-server-01</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">api_base_url</span><span class="kw">:</span><span class="at"> https://api.example.com</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">redis_host</span><span class="kw">:</span><span class="at"> localhost</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">db_host</span><span class="kw">:</span><span class="at"> db.example.com</span></span></code></pre></div>
+<p>Then run:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--config</span> .preston-check.yml</span></code></pre></div>
+<p>The only required field is <code>source_dir</code>. Live-monitoring
+checks (P-10) require <code>ssh_host</code>. Other fields are used by
+specific check categories and degrade to SKIP when missing.</p>
+<h2 id="ci-integration">CI integration</h2>
+<p>For GitHub Actions, drop the example workflow from this repository
+into your project. The Action posts a security-score summary as a PR
+comment by default and uploads the full markdown report as a build
+artifact.</p>
+<p>For GitLab CI:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">preston_check</span><span class="kw">:</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span><span class="at"> prestoncheck/scan:latest</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> preston-check --ci --report preston-check-report.md</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">when</span><span class="kw">:</span><span class="at"> always</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">preston-check-report.md</span><span class="kw">]</span></span></code></pre></div>
+<p>For pre-push git hooks:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&#39;preston-check --light --ci&#39;</span> <span class="op">&gt;&gt;</span> .git/hooks/pre-push</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x .git/hooks/pre-push</span></code></pre></div>
+<p>The <code>--ci</code> flag exits with code 1 on any FAIL, blocking
+the push. Use <code>--ci-soft</code> if you want the scanner to never
+exit non-zero (useful when the calling system applies its own threshold
+logic).</p>
+<h2 id="privacy-and-airgap-mode">Privacy and airgap mode</h2>
+<p>Preston-Check reads source files locally and makes no network calls
+unless you explicitly opt in to anonymous telemetry. For environments
+that require absolute network isolation (e.g., regulated production
+infrastructure), pass <code>--airgap</code>:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--airgap</span> <span class="at">--report</span> report.md</span></code></pre></div>
+<p>This disables every potential outbound code path including the opt-in
+telemetry. The scanner is open-source so you can verify these guarantees
+in <code>lib/telemetry.sh</code> directly — every network call goes
+through that file, and <code>--airgap</code> short-circuits it.</p>
+<h2 id="filter-by-framework-severity-or-category">Filter by framework,
+severity, or category</h2>
+<p>The catalog of 236 checks can be scoped at runtime. The four filter
+flags compose freely:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Audit prep for a specific regulator</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> MiCA <span class="at">--report</span> mica.md</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> DORA <span class="at">--report</span> dora.md</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> NYDFS <span class="at">--report</span> nydfs.md</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> <span class="st">&quot;PCI-DSS&quot;</span> <span class="at">--report</span> pci.md</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter by check type</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--code-only</span>       <span class="co"># only static source-code analysis</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--docs-only</span>       <span class="co"># only documentation / evidence verification</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--infra-only</span>      <span class="co"># only infrastructure / config scans</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--live-only</span>       <span class="co"># only SSH-based production log checks</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter by severity</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--critical-only</span>   <span class="co"># ~8 checks, ~12 second runtime</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--high-and-up</span>     <span class="co"># critical + high (~73 checks, CI gating)</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--severity</span> medium <span class="co"># only medium-severity checks</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Combinations</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> DORA <span class="at">--docs-only</span>         <span class="co"># DORA evidence prep only</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--framework</span> <span class="st">&quot;OWASP-LLM-Top-10&quot;</span> <span class="at">--code-only</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--critical-only</span> <span class="at">--ci</span>                 <span class="co"># fast CI gate</span></span></code></pre></div>
+<p>See <code>docs/all-frameworks.md</code> for the full list of
+supported framework filters with per-check coverage.</p>
+<h2 id="free-tier-vs.-pro-vs.-enterprise">Free tier vs. Pro
+vs. Enterprise</h2>
+<p>The Free tier requires no license, no email, and no signup. It covers
+all 100+ scanning categories — every P-XX check that examines source
+code. This is the same scanner that paying customers use; the difference
+is in what surrounds it.</p>
+<p>Pro tier ($999/repo/yr or $4,999/yr unlimited) adds the compliance-
+evidence layer (P-83 through P-95 evidence verification, plus the
+auditor-ready packaging that bundles findings into a deliverable),
+multi-repo dashboard for tracking score across an organization, and
+branded reports with priority email support. Most fintechs preparing for
+SOC 2 or PCI-DSS audits land here.</p>
+<p>Enterprise tier ($29,999+/yr starting) adds white-label reports (your
+branding instead of Preston-Check), SSO, custom check authoring with
+maintainer support, signed audit packages, and a dedicated
+customer-success contact.</p>
+<p>If your repository has a recognized OSS LICENSE file (MIT, Apache,
+BSD, GPL, MPL, ISC, Unlicense), the scanner automatically grants you Pro
+features for free. Public security work makes the community
+stronger.</p>
+<p>To install a Pro/Enterprise license:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> ~/.preston-check</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /path/to/your.license ~/.preston-check/license</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span>  <span class="co"># license is auto-detected</span></span></code></pre></div>
+<p>Or set <code>PRESTON_LICENSE=/path/to/your.license</code> in your
+environment.</p>
+<h2 id="contributing">Contributing</h2>
+<p>If you find a security pattern Preston-Check doesn’t catch, the
+community contribution path is documented in
+<code>CONTRIBUTING.md</code>. The short version: copy
+<code>templates/check.sh</code> to
+<code>checks/community/proposed/&lt;NUMBER&gt;-&lt;short-name&gt;.sh</code>,
+fill in the metadata block, write your detection logic, run
+<code>tools/lint-check.sh path/to/your-check.sh</code>, and open a pull
+request. Maintainer review promotes the check from <code>proposed</code>
+to <code>accepted</code>, and field validation eventually promotes it to
+<code>verified</code>. Author attribution appears in every report that
+fires your check.</p>
+</body>
+</html>

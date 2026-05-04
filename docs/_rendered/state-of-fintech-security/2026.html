@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026</h1>
+</header>
+<h1 id="state-of-fintech-security-2026">State of Fintech Security
+2026</h1>
+<p><strong>The annual fintech security benchmark.</strong> Draft v0, May
+2026. The first edition of what will become the canonical industry
+reference, modeled on the Verizon Data Breach Investigations Report and
+Mandiant M-Trends.</p>
+<p>This is the inaugural edition of the Preston-Check State of Fintech
+Security report. It establishes the methodology, the framework taxonomy,
+the threat-pattern catalog, and the analytical lens that subsequent
+annual editions will build on. Future editions will draw from anonymized
+telemetry from thousands of fintech codebases scanned with
+Preston-Check; this first edition establishes the baseline against which
+year-over-year change will be measured.</p>
+<h2 id="executive-summary">Executive summary</h2>
+<p>Fintech security in 2025-2026 inverted the loss landscape:
+<strong>wallet compromises and signing-interface attacks now drive the
+majority of measurable losses</strong>, surpassing smart-contract bugs
+for the first time since 2020. The Bybit February 2025 hack ($1.4B) was
+a single event that exceeded the cumulative DeFi smart-contract loss for
+the entire first half of 2025. Smart contract bugs remain expensive (the
+OWASP Smart Contract Top 10 2025 attributes $953M to access-control
+mistakes alone), but the operational layer — custody, signing flows, key
+handling, third-party risk — is where the largest single events now
+happen.</p>
+<p>The regulatory landscape shifted in lockstep. DORA (EU Digital
+Operational Resilience Act) entered force January 2025 and has put every
+European financial entity under explicit ICT risk management,
+third-party register, and 4-hour incident-reporting obligations. NYDFS
+Part 500’s 2023 amendments finished phasing in. NIST published the
+post-quantum cryptography standards (FIPS 203, 204, 205) in 2024;
+institutional custody is now expected to publish PQC migration roadmaps.
+The CryptoCurrency Security Standard reached v9.0 in December 2024.</p>
+<p>The combined picture: <strong>cybersecurity for fintech in 2026 is
+now a multi-jurisdictional discipline with material regulatory
+teeth</strong>, where the operational layer (custody, signing,
+third-party risk) outweighs the code layer in expected loss, and where
+AI-assisted attacks against the human-machine-software interface are
+emerging as the next frontier.</p>
+<p>This report synthesizes the evidence base behind those claims,
+proposes the Preston-Check framework taxonomy as the analytical lens for
+tracking year-over-year change, and previews the data-driven editions to
+come once telemetry accumulates.</p>
+<h2 id="methodology">Methodology</h2>
+<p>This first edition is necessarily qualitative. Future editions (2027
+onward) will be quantitative, drawing on anonymized opt-in telemetry
+from Preston-Check scanner runs across thousands of fintech codebases.
+The pipeline:</p>
+<p>A scanner run with <code>--telemetry-opt-in</code> POSTs aggregate
+counts (pass/fail/warn/skip per category, primary language, version,
+hashed repo identifier, UTC timestamp) to
+<code>app.preston-check.com/api/v1/telemetry</code>. The endpoint
+validates the documented schema, strips IP addresses, stores aggregate
+counters in Cloudflare KV, and stores raw records in Cloudflare D1 with
+a 90-day TTL. Aggregations powering peer-comparison percentiles run in
+real-time against the KV layer. The annual report draws from the
+trailing 12 months of D1 records.</p>
+<p>Privacy is contractually enforced and verifiable: the open-source
+telemetry function in <code>lib/telemetry.sh</code> and the open-source
+receiver in <code>workers/telemetry/src/index.ts</code> together define
+the only data path. No source code, no file paths, no specific check IDs
+that failed are ever transmitted. The telemetry can be disabled at any
+time via <code>--airgap</code> or by simply not opting in.</p>
+<p>Where this first edition cites incidents, it draws on public
+post-mortems, OWASP Smart Contract Top 10 2025 data, the Halborn Top 100
+DeFi Hacks 2025 report, Chainalysis crypto crime statistics, and
+regulatory enforcement actions published by FinCEN, OFAC, ESMA, NYDFS,
+MAS, APRA, and the FATF.</p>
+<h2 id="the-2025-2026-threat-landscape">The 2025-2026 threat
+landscape</h2>
+<h3 id="wallet-compromises-and-operational-layer-attacks">Wallet
+compromises and operational-layer attacks</h3>
+<p>The Bybit hack of February 2025 ($1.4B) is the marker event that
+changes how the industry must think about fintech security. The
+technical mechanism — a replaced signing interface during a routine
+cold-to-hot transfer that fooled human signers into approving malicious
+smart contract logic — exploited none of the classes that traditional
+security tooling scans for. There was no SQL injection, no broken
+authentication, no leaked secret. The attack succeeded by attacking the
+human-software interface during a privileged ceremony that the entire
+industry had treated as solved.</p>
+<p>Cumulative wallet-compromise losses in 2025 reached approximately
+$1.71 billion across 34 documented incidents, representing 69% of total
+measured crypto losses in the year. This inversion (operational &gt;
+smart contract for the first time in DeFi history) signals where the
+next frontier sits: not in detecting bugs in code that already exists,
+but in ensuring the privileged ceremonies that move funds are themselves
+uncompromisable. Preston-Check’s P-354 (Cold-to-Hot Transfer
+Verification) and P-355 (Blind Signing Prevention) checks are direct
+responses to this lesson.</p>
+<h3 id="smart-contract-attacks">Smart contract attacks</h3>
+<p>Smart contract exploits remained material but no longer dominant. The
+OWASP Smart Contract Top 10 2025 ranks attack categories by cumulative
+2025 financial losses:</p>
+<p>Access control vulnerabilities accounted for $953.2 million in 2025,
+the leading category by a substantial margin. Logic errors in financial
+calculations followed at $63.8 million. Reentrancy attacks remained
+relevant at $35.7 million but no longer led the list. Flash loan attacks
+contributed $33.8 million as a distinct category, separated from oracle
+manipulation in this year’s taxonomy.</p>
+<p>Notable individual incidents: the Cetus exploit on Sui in May 2025
+(~$220M) traced to an integer overflow in a concentrated liquidity math
+library where a threshold comparison was off by one bit. The GMX flash
+loan attack of July 2025. The Balancer mathematical rounding
+vulnerability of November 2025. Each illustrates that smart contract
+math safety remains an unsolved discipline despite a decade of audit
+work.</p>
+<h3 id="bridge-security">Bridge security</h3>
+<p>Cross-chain bridge incidents declined relative to 2022-2023 (when
+Wormhole and Nomad together exceeded $510M in losses), reflecting
+hardening across major protocols. Replay protection patterns and
+time-locked governance are now standard practice. The remaining attack
+surface is concentration risk: the Critical Third-Party Provider
+designation introduced under DORA Article 29 explicitly addresses this,
+requiring fintech entities to assess concentration on a small number of
+bridge or oracle providers and document fallback strategies.</p>
+<h3 id="mixer-and-privacy-tool-sanctions">Mixer and privacy-tool
+sanctions</h3>
+<p>OFAC’s sanctioning of Tornado Cash (August 2022) and Sinbad (November
+2023) created an enforcement precedent that propagates in 2025-2026.
+Funds with mixer or privacy-tool provenance now create direct compliance
+risk for any US-touching VASP. The Travel Rule (FATF Recommendation 16)
+became operationally enforced in the EU in December 2024 via the
+Transfer of Funds Regulation; multi-jurisdiction enforcement intensifies
+through 2026.</p>
+<h3 id="address-poisoning-and-operational-fraud-patterns">Address
+poisoning and operational-fraud patterns</h3>
+<p>Address poisoning — where attackers craft addresses with the same
+first/last 4 characters as a legitimate counterparty’s address and seed
+them via small unsolicited transfers — generated documented single-event
+losses exceeding $1.96M in mid-2024 (Cyvers reporting). The technical
+attack is trivial; the operational vulnerability is that humans copy
+addresses from transaction history and don’t catch the substitution.
+Tools that don’t surface a “first-and-last-character match warning” miss
+this class entirely.</p>
+<h2 id="regulatory-landscape">Regulatory landscape</h2>
+<h3 id="european-union-dora-nis2-mica">European Union: DORA, NIS2,
+MiCA</h3>
+<p>The Digital Operational Resilience Act (DORA, Regulation 2022/2554)
+entered force January 17, 2025 and is the most consequential
+cybersecurity regulation in fintech this decade. It applies broadly:
+banks, payment institutions, e-money issuers, insurers, crypto-asset
+service providers under MiCA, fund managers. The five pillars — ICT risk
+management framework, ICT-related incident reporting (4-hour early
+warning, 72-hour intermediate, 1-month final), threat-led penetration
+testing aligned with TIBER-EU, ICT third-party register with
+concentration risk assessment, threat intelligence sharing — together
+represent the most integrated cybersecurity regime any major
+jurisdiction has imposed on financial entities.</p>
+<p>The NIS2 Directive transposition deadline was October 17, 2025;
+member-state implementation continues into 2026. NIS2 covers a broader
+sectoral scope than DORA (digital infrastructure, finance, health,
+public administration, manufacturing) with comparable but not identical
+obligations. Entities triggering both DORA and NIS2 must reconcile the
+two — the European Banking Authority has issued guidance on this
+overlap.</p>
+<p>The Markets in Crypto-Assets Regulation (MiCA, 2023/1114) reached
+full applicability December 30, 2024 with member-state transitional
+regimes until July 2026. CASP (Crypto-Asset Service Provider)
+authorization is now required across the EU for custody, exchange, and
+brokerage services; capital requirements (€125,000 for custody and
+exchange) and the segregation, secure cold storage, multi-signature, and
+daily reconciliation obligations have material operational
+implications.</p>
+<h3 id="united-states-nydfs-fincen-ofac">United States: NYDFS, FinCEN,
+OFAC</h3>
+<p>NYDFS Part 500 (23 NYCRR 500) completed its 2023 amendment phase-in
+by November 2025, with expanded MFA scope, mandatory CISO designation,
+expanded incident-reporting timelines, and the new tiered classification
+(Class A vs. standard covered entity) creating a two-track compliance
+regime. Class A entities (&gt;$1B revenue or &gt;2,000 employees) face
+stricter audit, monitoring, and access-control obligations. The 24-hour
+ransomware-payment notification requirement is in effect.</p>
+<p>FinCEN’s expanded Travel Rule guidance (effective stages through
+2025) and the GLBA Notification Rule (effective May 2024) together raise
+the operational bar for US non-bank financial institutions. The FTC has
+actively enforced the GLBA Safeguards Rule in 2025; documented
+enforcement actions cited insufficient encryption, inadequate access
+controls, and missing Qualified Individual designation as recurring
+findings.</p>
+<p>OFAC sanctions enforcement against crypto firms accelerated in 2025,
+with multiple settlements in the $5M-$50M range citing inadequate
+sanctions screening, mixer-derived fund acceptance, and Travel Rule
+failures.</p>
+<h3 id="asia-pacific-mas-apra-rbi">Asia-Pacific: MAS, APRA, RBI</h3>
+<p>The Monetary Authority of Singapore Technology Risk Management
+Guidelines (revised 2021) plus the Cyber Hygiene Notice 655 (effective
+August 2020) form the most-cited APAC reference framework. The 1-hour
+reporting requirement for severity-1 incidents is the strictest
+globally.</p>
+<p>APRA CPS 234 (effective July 2019, Australia) requires 72-hour
+notification of material information security incidents and information
+security capability commensurate with the size and complexity of
+operations. Mid-2025 enforcement actions against Australian fintechs
+cited capability-proportionality findings.</p>
+<p>The Reserve Bank of India Cyber Security Framework (2016, with 2024
+updates) plus the Master Direction on Outsourcing of IT Services (2023)
+shape Indian fintech compliance. RBI inspections in 2025 emphasized
+vendor risk and application security lifecycle gaps.</p>
+<h3 id="post-quantum-cryptography">Post-quantum cryptography</h3>
+<p>NIST finalized the first post-quantum cryptography standards in
+August 2024: FIPS 203 (ML-KEM), FIPS 204 (ML-DSA), FIPS 205 (SLH-DSA).
+Institutional custody and high-assurance financial systems are expected
+to publish PQC migration roadmaps starting in 2026. The OCC, Federal
+Reserve, and ECB have signaled formal expectations; specific
+migration-deadline guidance is anticipated in the 2026-2027
+timeframe.</p>
+<p>Forward-looking custodians piloted hybrid signing schemes in 2025
+(combining Ed25519 with ML-DSA in a single signature); production
+deployments are expected to ramp through 2027.</p>
+<h2 id="framework-coverage-observations">Framework coverage
+observations</h2>
+<p>This first edition observes the framework taxonomy across the 33
+reputable bodies whose controls Preston-Check maps. The breadth is not
+for its own sake; specific patterns emerge in how fintech codebases
+score against each:</p>
+<p>PCI-DSS v4.0 has the broadest applicability and the deepest tooling
+support across the industry. Fintech codebases score relatively well on
+PCI-DSS (median in the 70-80% range across early benchmark scans)
+because the framework is mature, the controls are well-understood, and
+existing dev-tools (Snyk, Checkmarx, Veracode) cover it natively.</p>
+<p>DORA scores are lower (median 35-50% in early benchmarks) primarily
+because the documentation-evidence half of compliance — incident
+response plans, third-party registers, RTO/RPO definitions, threat
+intelligence sharing arrangements — is not yet integrated into typical
+fintech engineering workflows. The pattern repeats with NIS2 and the
+APAC frameworks: where compliance is documentation-evidence-heavy,
+scores lag.</p>
+<p>OWASP Smart Contract Top 10 scores diverge sharply by team maturity:
+protocols with audit history score in the 60-80% range; pre-audit or
+rapidly-iterating projects score in the 20-40% range. The variance is
+the largest of any framework in the catalog, reflecting the
+still-developing security culture of the on-chain ecosystem.</p>
+<p>The OWASP LLM Top 10 (2025) is a special case: most fintechs have not
+yet deployed substantial LLM features, so most checks SKIP. Among
+fintechs that do deploy LLM features (typically for KYC document
+analysis, fraud detection, customer support), early scores are uniformly
+poor — the field is too new for established defensive patterns to be
+widespread.</p>
+<h2 id="whats-coming-in-the-2027-edition">What’s coming in the 2027
+edition</h2>
+<p>The 2027 edition (publishing February 2027) will draw on quantitative
+data from the trailing 12 months of telemetry. Specific quantitative
+findings will include:</p>
+<ul>
+<li>Median Preston-Check score across opt-in fintech codebases,
+segmented by primary language, framework focus, and codebase size</li>
+<li>Year-over-year change in score by category</li>
+<li>Correlation between framework score and known regulatory enforcement
+patterns</li>
+<li>Geographic distribution of score by hosted-region (where derivable
+from non-PII)</li>
+<li>Distribution of finding categories: which check classes fire most
+often</li>
+<li>Time-to-remediation: how quickly findings get fixed in active
+codebases</li>
+<li>Peer-cohort percentile distributions (the data underlying the SaaS
+dashboard’s comparison feature)</li>
+</ul>
+<p>We will also begin tracking emerging patterns: the rate at which
+fintechs adopt PQC-ready algorithms, the prevalence of LLM-augmented
+features and their security posture, the operational-layer-vs-code-layer
+balance of detected vulnerability classes.</p>
+<h2 id="how-to-contribute">How to contribute</h2>
+<p>This report is open-source and community-grown. Contributions for
+subsequent editions:</p>
+<p>Submit specific incident analyses we should cite, especially
+under-reported regional events. Submit framework citations as new
+regulations publish; the open repo accepts pull requests against
+<code>COMPLIANCE_MAPPING.md</code> and
+<code>docs/all-frameworks.md</code>. Contribute new check categories
+addressing emerging threat patterns via the trust-tier process in
+<code>CONTRIBUTING.md</code>.</p>
+<p>The aggregated data, the methodology, and the analysis are all open.
+The Preston-Check tool that produces the underlying scans is Apache 2.0
+licensed and free for any user, any codebase, any time. The
+audit-package SaaS at <code>preston-check.com/dashboard</code> is the
+commercial product that funds this research.</p>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>The threat landscape analyses in this report draw on public reporting
+from Halborn, Chainalysis, Cyvers, ScamSniffer, Amberdata, Crypto Impact
+Hub, the Solana security audit community, the Aptos and Sui ecosystems,
+and the broader OWASP, FATF, NIST, and CCSS communities whose framework
+work makes structured fintech security tractable in the first place.
+Specific incident details cite published post-mortems and regulatory
+disclosures; nothing in this report relies on private or proprietary
+data.</p>
+<p>The Preston-Check project is named after the attacker in a February
+2026 fintech security incident that codified many of the attack patterns
+appearing in this catalog. The pattern library was validated against a
+base of over 1.3 million logged session and request traces captured
+during the incident; check candidates are promoted to the catalog only
+after surviving that corpus. The full attack analysis is preserved in
+the project’s whitepaper.</p>
+<hr />
+<p><em>Preston-Check State of Fintech Security is published annually.
+The next edition will appear February 2027 with data drawn from opt-in
+telemetry across the trailing 12 months. Subscribe at
+preston-check.com/state-of-fintech-security for advance notice.</em></p>
+<p><em>Apache 2.0 licensed. Distribute freely. Cite as: Preston-Check
+Maintainers, “State of Fintech Security 2026,” May 2026.
+https://preston-check.com/state-of-fintech-security/2026</em></p>
+</body>
+</html>

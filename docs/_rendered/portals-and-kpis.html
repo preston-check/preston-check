@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Preston-Check Maintainers" />
+  <meta name="dcterms.date" content="2026-05-04" />
+  <title>Preston-Check — Customer Portal, Admin Portal, and KPI Catalog</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Preston-Check — Customer Portal, Admin Portal, and KPI
+Catalog</h1>
+<p class="subtitle">Design doc for the SaaS surfaces that wrap the open
+scanner</p>
+<p class="author">Preston-Check Maintainers</p>
+<p class="date">2026-05-04</p>
+</header>
+<h1 id="customer-portal-admin-portal-and-kpi-catalog">Customer Portal,
+Admin Portal, and KPI Catalog</h1>
+<p>The open scanner is the funnel. The portals are where the money is
+made and the operator sees the business. This document specs both
+surfaces and the metric system that ties them together.</p>
+<h2 id="architecture-overview">Architecture overview</h2>
+<p>There are two portals and three backend services:</p>
+<p>The <strong>Customer Portal</strong> at
+<code>app.preston-check.com</code> is what paying customers use. It is a
+multi-tenant Next.js app that consumes scanner output (markdown + JSON)
+posted from CI or uploaded manually. It renders dashboards, evidence
+bundles, branded PDFs, and history; it does not run the scanner
+itself.</p>
+<p>The <strong>Admin Portal</strong> at
+<code>admin.preston-check.com</code> is what the operator (you) uses to
+run the business. Customer accounts, license issuance, sales pipeline,
+revenue, support tickets, threat-intel triage, system health. Same
+Next.js app shell as the Customer Portal but a different role +
+side-nav.</p>
+<p>The <strong>API</strong> at <code>api.preston-check.com</code> is the
+shared Cloudflare Worker backend. It speaks to D1 (Postgres-compatible
+relational data) and KV (aggregations + cache), authenticates customer
+requests with a JWT, and gates admin requests behind
+hardware-token-bound sessions.</p>
+<p>The <strong>Telemetry collector</strong> at
+<code>telemetry.preston-check.com</code> is the existing Cloudflare
+Worker in <code>workers/telemetry/</code>. It is the only public ingest
+endpoint and feeds the data moat.</p>
+<p>The <strong>Stripe integration</strong> handles billing webhooks via
+the API. Stripe holds the source of truth for subscriptions, invoices,
+refunds; the API mirrors enough state to render the customer’s billing
+page and the operator’s revenue dashboard without round-tripping to
+Stripe on every request.</p>
+<h2 id="customer-portal">Customer Portal</h2>
+<p>Five primary surfaces, each a single screen. Aggressive simplicity is
+the goal — security-tool dashboards over-stuff and lose people.</p>
+<h3 id="home-the-score-view">1. Home (the score view)</h3>
+<p>Above the fold: a single grade letter (A–F) and the numeric score.
+Below it, three callouts: top critical findings, scan history sparkline,
+peer percentile (when available). Right rail: which framework controls
+are covered vs. failing. This is the ten-second view a CTO or CISO opens
+once a week to know whether things are okay.</p>
+<h3 id="repos">2. Repos</h3>
+<p>A table of every repo the customer has connected. Columns: name,
+language, last scan timestamp, score, score-30d-trend, blocking-finding
+count. Click any row to drill into the repo’s latest report.
+Connect-new-repo flow uses a CI install token rather than OAuth — fewer
+permissions, less surface area.</p>
+<h3 id="findings">3. Findings</h3>
+<p>Per-finding view across the entire org. Filter by severity,
+framework, file pattern, age. Each finding shows file:line:content, the
+AI assessment (when AI augmentation is enabled), the suggested patch
+(when auto-fix is enabled), the originating check ID with its OWASP /
+framework citations, and real-world incident references. “Mark as
+accepted risk” with reason required. “Mark as false positive” with
+reason required and feedback flows back into the AI training
+pipeline.</p>
+<h3 id="compliance">4. Compliance</h3>
+<p>Framework-control rollups. Pick a framework (PCI-DSS v4, SOC 2, MiCA,
+etc.) and see every control with the checks that map to it, the latest
+pass/fail status across all repos, and a “generate evidence bundle”
+button. Output is a PDF + a ZIP of the underlying scanner reports
+cross-linked to the control catalog. This is the deliverable a customer
+hands to their auditor.</p>
+<h3 id="settings">5. Settings</h3>
+<p>Sub-pages for: organization (name, logo for Pro/Enterprise
+white-label), team members (invite by email, roles: Owner / Admin /
+Auditor / Member), billing (Stripe-hosted subscription, plan
+upgrade/downgrade, invoices, seats), license keys (regenerate, revoke),
+API tokens (one-time-shown, scoped to a single repo or all),
+notifications (Slack webhook, email digest, threshold alerts), and data
+export (download every scan ever).</p>
+<h2 id="admin-portal">Admin Portal</h2>
+<p>The operator’s daily driver. Side-nav: Customers, Sales, Revenue,
+Users, Licenses, Threat-Intel, Support, System.</p>
+<h3 id="customers">Customers</h3>
+<p>The master list. One row per organization. Columns: name, plan,
+seats, MRR, signup date, last-scan date, churn-risk score, account
+owner. Click through to the customer detail view: every user under that
+org, every repo, every license issued, billing history, support tickets,
+audit log of admin actions taken on the account. “Impersonate” button
+(logged, time-limited, read-only) for support cases — never used for
+sales or marketing without explicit consent.</p>
+<h3 id="sales">Sales</h3>
+<p>A simple pipeline kanban: Lead → Qualified → Demo → Trial →
+Closed-won / Closed-lost. Each card pulls from inbound channels:
+free-tier signups flagged by usage, GitHub Action installations,
+Slack-channel mentions, inbound email. Click to add notes, schedule
+follow-ups, attach documents, move stages. Forecast view: weighted
+pipeline by stage probability × ACV. Win-rate chart by source
+channel.</p>
+<h3 id="revenue">Revenue</h3>
+<p>The CFO view. Top of page: MRR, ARR, runway, gross margin, net
+retention, quick-ratio. Below: monthly cohort retention heatmap, revenue
+waterfall (new + expansion + reactivation - churn - contraction).
+Sub-pages: per-customer billing history, refunds, dunning queue, dispute
+resolution. Stripe is source of truth; this surface mirrors for fast
+queries and offline drill-down.</p>
+<h3 id="users">Users</h3>
+<p>Every individual user across every customer. Filter by org, role,
+last login. Suspend, reset password (sends magic link), unlock. Bulk
+actions for cleanup. Audit log of every user-affecting admin action.</p>
+<h3 id="licenses">Licenses</h3>
+<p>License issuance dashboard. Currently this happens via
+<code>tools/issue-license.sh</code> from the operator’s terminal — the
+Admin Portal should provide a UI wrapper that enforces the same Ed25519
+signing and emits the PEM-style envelope. Columns: customer, tier,
+issued, expires, status (active / expired / revoked). One-click revoke;
+one-click reissue with new expiry. The signing key never leaves the
+operator’s machine — the portal’s issuance UI either calls a local
+helper via a hardware-key-authenticated push, or staff initiate from a
+HSM-backed signing server. (See “What lives where” below.)</p>
+<h3 id="threat-intel">Threat-intel</h3>
+<p>Triage queue for the weekly cron. Each row is a draft check that
+landed in <code>checks/community/proposed/</code> from the NIST NVD
+ingest. Columns: CVE ID, fintech-relevance score, languages affected,
+draft check link, status (pending / accepted / rejected / promoted).
+Click to author the grep pattern in a Monaco-style editor with live
+regex-tester against a fixture corpus, then promote to
+<code>checks/community/accepted/</code> with one button. This is what
+makes the catalog grow weekly without consuming the maintainer’s flow
+time.</p>
+<h3 id="support">Support</h3>
+<p>Inbox of customer tickets. Email → ticket. Slack thread → ticket via
+slash command. Each ticket has SLA timer, priority, status, assigned
+owner, AI draft response (gated, never auto-sent). Sub-pages: SLA
+dashboard (response time per priority), customer-effort score (CSAT +
+1-5 scale), backlog by age. The metric to optimize is “time from ticket
+creation to first human-authored response” — that is what predicts NPS
+and retention better than resolution time.</p>
+<h3 id="system">System</h3>
+<p>Operational health. Telemetry endpoint p95 latency. D1 / KV size.
+GitHub Actions usage rate (stale runs flagged). Docker Hub pulls/day.
+Homebrew tap install rate. Threat-intel cron last-success timestamp.
+Background-job queue depth. The single most useful thing on this page is
+the <strong>build attestation panel</strong> showing the SHA-256 of the
+latest published scanner release tarball, when it was published, and
+which signing key authored it — this is what the operator points an
+auditor at to demonstrate supply-chain hygiene.</p>
+<h2 id="what-lives-where-security-boundaries">What lives where (security
+boundaries)</h2>
+<p>The operator’s signing keypair — the most sensitive secret in the
+entire system — never lives in any portal or database. It stays on a
+single hardware-bound machine (operator laptop with FileVault + Touch
+ID, or an HSM). License issuance from the Admin Portal triggers a
+hardware-prompt- authenticated signature; if the operator is not at the
+machine, no licenses can be issued. This is the right tradeoff: license
+issuance is a low- frequency event (handful per week at peak), and the
+alternative — hot signing keys in a cloud HSM — broadens the blast
+radius if the cloud account is compromised.</p>
+<p>PII (customer emails, names, payment methods) lives in D1 with
+row-level encryption on the email column. Stripe holds payment method
+tokens; the portal never sees PAN or CVV. JWT signing key for the
+customer portal is distinct from the Ed25519 license-issuance key.</p>
+<p>The Admin Portal sits behind a separate Cloudflare Access policy. Two
+named operators with hardware tokens. Every admin action is logged with
+the acting operator, the timestamp, and the targeted resource — and the
+log is append-only.</p>
+<h2 id="kpi-catalog">KPI Catalog</h2>
+<p>KPIs are organized in five tiers. The North-Star tier is what you
+check weekly. The other tiers feed into it.</p>
+<h3 id="north-star">North Star</h3>
+<p>The four metrics that define whether the business is working.</p>
+<ul>
+<li><strong>MRR</strong> — monthly recurring revenue. Ground truth:
+Stripe.</li>
+<li><strong>ARR</strong> — MRR × 12, plus annual-prepaid contracts at
+full annualized value. The number the board sees.</li>
+<li><strong>Net Revenue Retention (NRR)</strong> — (starting MRR +
+expansion + reactivation − contraction − churn) / starting MRR, on a
+trailing-12-month basis. Above 110% is healthy; above 130% is
+exceptional.</li>
+<li><strong>Gross margin</strong> — (revenue − cost of revenue) /
+revenue. For a SaaS layered on an open scanner, this should be ≥ 75% by
+year 2.</li>
+</ul>
+<h3 id="adoption-funnel">Adoption funnel</h3>
+<p>How the open scanner converts to a paid customer.</p>
+<ul>
+<li><strong>Weekly active scanners</strong> — distinct repo hashes that
+emit telemetry per week. Telemetry is opt-in; assume 30–40% opt-in rate
+at scale, so weekly scans are 2.5–3.3× the telemetry count.</li>
+<li><strong>Brew installs</strong> — Homebrew analytics. Daily and
+30-day.</li>
+<li><strong>Docker pulls</strong> — Docker Hub analytics for
+<code>prestoncheck/scan</code>.</li>
+<li><strong>GitHub Action invocations</strong> —
+<code>preston-check/scan-action</code> usage stats.</li>
+<li><strong>GitHub stars</strong> — vanity but correlated; track the
+30-day delta.</li>
+<li><strong>Free → Pro conversion rate</strong> — (new Pro signups in
+period) / (free- tier active scanners 90 days prior). Snyk’s published
+rate is around 2%; early targets should be 0.5–1% with a steady
+climb.</li>
+<li><strong>Time-to-first-scan</strong> — install timestamp to first
+scan timestamp, p50. Indicates onboarding friction.</li>
+<li><strong>Time-to-first-paid-conversion</strong> — first scan to first
+paid invoice, p50, only over converted accounts.</li>
+</ul>
+<h3 id="product-quality">Product quality</h3>
+<p>The features that drive retention.</p>
+<ul>
+<li><strong>AI false-positive rate</strong> — (findings marked
+false-positive by users) / (total AI-classified findings). Lower is
+better.</li>
+<li><strong>AI auto-fix acceptance rate</strong> — (patches applied) /
+(patches generated). Snyk’s number is around 35%; we should beat that on
+fintech-narrow contexts.</li>
+<li><strong>Mean check runtime</strong> — p50 and p99 across the
+catalog. If p99 climbs above 200 ms, audit the catalog.</li>
+<li><strong>Findings density</strong> — average critical+high findings
+per repo at first scan. Trends down across the customer base over time
+means our customers are getting better — and that is the story for the
+State of Fintech Security report.</li>
+</ul>
+<h3 id="moat-health">Moat health</h3>
+<p>The metrics that grow the assets competitors cannot copy.</p>
+<ul>
+<li><strong>Telemetry volume</strong> — scans/week emitting opt-in
+telemetry. The data moat compounds with this number.</li>
+<li><strong>Threat-intel drafts merged/week</strong> — promoted from
+<code>checks/community/proposed/</code> to
+<code>checks/community/accepted/</code>. This is the “catalog updates
+faster than humans can write” indicator.</li>
+<li><strong>Catalog growth rate</strong> — net new checks per quarter.
+Caveat: not all growth is good, quality &gt; count past 300.</li>
+<li><strong>Peer-comparison data points per segment</strong> — telemetry
+counts grouped by industry × scale × geography. Below ~50 per cell,
+percentiles are noisy; above ~200, they’re crisp.</li>
+<li><strong>Auditor partnerships signed</strong> — count of mid-tier and
+Big Four firms that accept Preston-Check evidence packets. The single
+best leading indicator of “Required” stage transition.</li>
+<li><strong>Compliance-platform integrations live</strong> — Drata,
+Vanta, Secureframe, Tugboat. Each is a 10x leverage channel.</li>
+</ul>
+<h3 id="customer-success">Customer success</h3>
+<p>The metrics that prevent churn.</p>
+<ul>
+<li><strong>Weekly active customers (WAC)</strong> — distinct paid orgs
+that ran at least one scan in the past 7 days.</li>
+<li><strong>Scans per customer per week (SCPW)</strong> — average across
+paid customers. Below 1 means they are not integrated into CI; above 5
+means they’re using the tool in their actual flow.</li>
+<li><strong>Churn rate</strong> — (orgs that didn’t renew) / (orgs
+eligible to renew), monthly. Single best leading indicator of
+product-market-fit problems.</li>
+<li><strong>Expansion revenue rate</strong> — (revenue from existing
+customers added in period) / (starting revenue from those customers).
+Healthy SaaS: ≥ 0.5% per month.</li>
+<li><strong>NPS</strong> — collected via in-app survey at 30, 90, and
+365 days.</li>
+<li><strong>Time to first response (TTFR)</strong> on support tickets —
+strongest single predictor of NPS at 90 days.</li>
+</ul>
+<h3 id="reporting-cadence">Reporting cadence</h3>
+<ul>
+<li><strong>Weekly</strong>: North-Star + adoption funnel + churn.
+30-min Monday review.</li>
+<li><strong>Monthly</strong>: full KPI roll-up shared with the team.
+Cohort retention. Per-channel acquisition cost vs. LTV.</li>
+<li><strong>Quarterly</strong>: revenue + moat-health deep dive.
+Customer cohort cohort analysis. Competitor scan (open-source competitor
+catalogs, what they’ve shipped, what we’ve shipped).</li>
+<li><strong>Annually</strong>: State of Fintech Security report (data
+dump from telemetry). Yearly board deck.</li>
+</ul>
+<h2 id="build-sequence">Build sequence</h2>
+<p>The portal work has its own roadmap. Cheapest highest-leverage moves
+first. Two-developer-quarter assumptions throughout.</p>
+<p><strong>Q3 2026 — Customer Portal v1 (MVP).</strong> Repos list,
+latest scan view, Stripe billing integration, manual scan upload. Auth
+via magic link. Branded PDF generation. Goal: first paying Pro
+customer.</p>
+<p><strong>Q4 2026 — Admin Portal v1.</strong> Customer list, license
+issuance UI, revenue dashboard mirroring Stripe, support ticket inbox.
+Goal: operator runs the entire business from the portal without shell
+access.</p>
+<p><strong>Q1 2027 — Compliance v2 + multi-repo aggregation.</strong>
+Framework-control rollups, evidence-bundle generation, multi-repo
+trends, peer percentiles (once telemetry has volume). Goal: first
+Enterprise contract.</p>
+<p><strong>Q2 2027 — Threat-intel triage UI + AI feedback loop.</strong>
+Move <code>checks/community/proposed/</code> review into the Admin
+Portal with regex tester. Capture user “false-positive” / “fix accepted”
+signals into the training set for the AI layer. Goal: AI quality
+measurably improves quarter over quarter.</p>
+<p><strong>Q3 2027 — SSO + advanced enterprise.</strong> SAML / OIDC,
+audit logs, on-premise deploy option for high-regulation customers.
+Goal: 5+ Enterprise customers running mission-critical compliance
+through the portal.</p>
+<p>The portal is the monetization layer. The scanner stays free,
+growing, and viral; the portal is the proprietary surface that converts
+adoption into recurring revenue. Build sequence is therefore
+“money-first”: billing + multi-repo before any feature that doesn’t
+directly affect revenue or churn.</p>
+</body>
+</html>

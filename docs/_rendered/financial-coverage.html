@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>financial-coverage</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">financial-coverage</h1>
+</header>
+<h1 id="financial-application-coverage">Financial Application
+Coverage</h1>
+<p>Preston-Check is positioned as a financial-systems security scanner,
+so the catalog goes well beyond generic web-application security into
+fintech-specific patterns. This document audits what’s currently covered
+in the value-handling domain and surfaces gaps worth closing for
+v1.1+.</p>
+<h2 id="whats-covered-today">What’s covered today</h2>
+<p>The financial-system catalog spans roughly fifty check categories.
+The strongest current coverage is in the categories that map directly to
+the originating attack pattern that gave the project its name.</p>
+<p><strong>Money type and arithmetic safety</strong> is well covered:
+P-50 (Transaction Integrity) catches
+<code>float</code>/<code>double</code> for monetary values and missing
+<code>RoundingMode</code> declarations; P-101 (Money Type Precision)
+extends this to multi-language (Java <code>BigDecimal</code>, Python
+<code>Decimal</code>, Go <code>decimal.Decimal</code>, Rust
+<code>rust_decimal::Decimal</code>, TypeScript <code>Decimal.js</code>);
+P-102 (Financial Math Accuracy) checks for division without scale,
+premature truncation, and unsafe rounding modes; P-81 (Financial Input
+Guards) catches negative amounts, integer overflow, NaN/Infinity,
+zero-amount edge cases.</p>
+<p><strong>Settlement and ledger correctness</strong> is strong: P-70
+(Settlement Finality) verifies append-only ledgers, no transaction
+deletion, no status rewinds; P-74 (Proof of Reserves) checks balance
+reconciliation, overdraft prevention, and double-entry patterns; P-78
+(Ledger Consistency) catches atomic balance updates, drift detection,
+orphaned entries; P-103 (Double-Spend Race) detects missing locking on
+financial mutations.</p>
+<p><strong>Transaction lifecycle controls</strong> are well covered:
+P-65 (Transaction Velocity) catches rapid-fire transactions and
+structuring patterns; P-73 (Transaction Limits) verifies per-transaction
+and rolling limits; P-76 (Payment State Machine) validates state
+transitions and terminal states; P-77 (Withdrawal Controls) checks
+limits, address whitelists, cooldowns, 2FA on withdrawals.</p>
+<p><strong>KYC, AML, and sanctions</strong> are present: P-22 (AML
+Transaction Monitoring), P-23 (KYC Document Security), P-71 (Beneficial
+Ownership), P-72 (Sanctions Screening) covering OFAC, PEP, country
+restrictions; P-66 (Dormant Account Monitoring) detects reactivation
+anomalies.</p>
+<p><strong>Fee and rate manipulation</strong> are caught by P-68 (Fee
+Manipulation) for negative fees and client-supplied fees, plus P-69
+(Exchange Rate Safety) for stale rates, rate bounds, and spread
+limits.</p>
+<p><strong>Audit and event sourcing</strong>: P-09 (Audit Trail), P-75
+(Audit Immutability), P-80 (Financial Event Sourcing) cover append-only
+event logs, history tables, and point-in-time queries.</p>
+<p><strong>Withdrawal and approval workflows</strong>: P-56
+(Multi-Signature Approval) verifies dual-approval workflows and
+Fireblocks co-signer/TAP integration.</p>
+<p><strong>Crypto-specific</strong>: P-55 (Crypto Address Security) for
+address validation, whitelisting, and AML screening on outbound
+crypto.</p>
+<h2 id="gap-analysis-value-handling">Gap analysis — value-handling</h2>
+<p>Despite the strong catalog, there are several material gaps when
+scanning applications that move money:</p>
+<p><strong>PSD2 Strong Customer Authentication (SCA)</strong> is not
+explicitly checked. European fintechs are required to enforce SCA on
+payment initiation and account access; absence of dynamic linking,
+two-factor enforcement on transaction signatures, and inherence-element
+use are common audit findings.</p>
+<p><strong>3DS / 3D Secure 2 integration</strong> is uncovered. CNP
+(card-not-present) transactions in Europe and increasingly the US
+require 3DS2 with proper exemption handling (TRA, low-value, recurring).
+Missing or misconfigured 3DS integrations create both fraud exposure and
+regulatory exposure.</p>
+<p><strong>Chargeback and dispute handling</strong> is uncovered.
+Improperly written chargeback workflows can leak customer PII, fail to
+apply representment deadlines, or miscalculate dispute reserves. PSD2
+and Reg E require specific timelines and notifications.</p>
+<p><strong>Recurring billing safety</strong> is uncovered. Subscription
+mutations (quantity changes, plan upgrades, mid-cycle proration) are a
+common vector for revenue leakage and customer-facing billing errors.
+Specific checks: idempotency on plan-change endpoints, proration math
+correctness, trial-to-paid transitions.</p>
+<p><strong>Slippage and MEV protection</strong> for crypto fintechs is
+uncovered. Decentralized exchange integrations need slippage limits,
+deadlines on swap transactions, and protection against sandwich
+attacks.</p>
+<p><strong>Bridge and cross-chain security</strong> is uncovered. The
+largest crypto exploits in 2022–2024 were bridge hacks; checks for
+replay protection across chains, validator-set verification, and
+time-locked governance are absent.</p>
+<p><strong>Stablecoin peg verification</strong> is uncovered. Stablecoin
+issuers and exchanges need automated peg deviation detection and circuit
+breakers.</p>
+<p><strong>Oracle manipulation resistance</strong> for DeFi pricing is
+uncovered.</p>
+<p><strong>Reserve and capital adequacy reporting</strong> beyond P-74
+is light. Basel III banks and major non-bank financials need automated
+capital ratio calculations, liquidity coverage ratio (LCR), and net
+stable funding ratio (NSFR) checks.</p>
+<p><strong>Tax calculation correctness</strong> is uncovered.
+Multi-jurisdiction fintechs need automated tests for VAT/GST handling,
+withholding tax deductions, and 1099/T5 reporting accuracy.</p>
+<p><strong>Algorithmic discrimination in credit underwriting</strong> is
+uncovered. Fair-lending regulations (ECOA, Reg B in the US; FCA
+principles in the UK) require demonstrable evenhandedness in credit
+decisions. Static checks for prohibited-basis variables in model
+features and absence of adverse-action explanation paths would catch
+many issues.</p>
+<p><strong>Travel Rule compliance</strong> for crypto remittances over
+thresholds is partially covered (P-77 references Travel Rule) but lacks
+dedicated checks for FATF Recommendation 16 originator/beneficiary
+information fields.</p>
+<p><strong>Card tokenization quality</strong> beyond P-21’s PAN-storage
+check is uncovered. PCI 4.0 and the Software Security Framework (SSF)
+require validation that tokenization vendors are PCI-listed, tokens
+cannot be detokenized outside the secure environment, and replacement
+values follow PAN-format-preserving rules where claimed.</p>
+<p><strong>Open Banking API security</strong> is uncovered. PSD2 RTS for
+Account Information Service Providers (AISPs) and Payment Initiation
+Service Providers (PISPs) requires specific OAuth 2.0 + PSD2 flows that
+are often misconfigured.</p>
+<p><strong>Wallet custody patterns</strong>: HSM integration
+verification, MPC threshold signature scheme validation, and air-gapped
+key ceremony evidence are uncovered. P-36 (Key Management) catches some
+patterns but not custody- specific concerns.</p>
+<h2 id="gap-analysis-broader-payment-ecosystem">Gap analysis — broader
+payment ecosystem</h2>
+<p><strong>SEPA payment compliance</strong> for European fintechs:
+missing IBAN validation, missing SEPA Instant Payment 10-second SLA
+awareness, and SEPA Direct Debit mandate handling.</p>
+<p><strong>Real-time payment systems</strong> (FedNow in US, FPS in UK,
+UPI in India, PIX in Brazil): each has distinct requirements around
+irrevocability, fraud screening, and dispute timelines. None are
+explicitly checked.</p>
+<p><strong>Card scheme compliance</strong>: Visa CFRP and Mastercard
+fraud reduction program rules. Specific dispute volume thresholds, fraud
+volume thresholds, and reporting cadences.</p>
+<p><strong>Refund integrity</strong>: detection of refunds that exceed
+original payment, refunds without matching capture, and refund reuse
+attacks. Touched in P-78 (Ledger Consistency) but not explicit.</p>
+<p><strong>Pre-authorization handling</strong>: holds that exceed
+authorization windows, void-vs-refund correctness, capture-after-expiry.
+Common fintech bug class.</p>
+<h2 id="roadmap-financial-coverage">Roadmap — financial coverage</h2>
+<h3 id="v1.1-payment-ecosystem-priority">v1.1 — Payment ecosystem
+(priority)</h3>
+<p>Target categories: PSD2 SCA enforcement, 3DS2 integration,
+chargeback/dispute workflows, recurring-billing safety, refund
+integrity, pre-authorization correctness. These map to the most common
+payment- provider integrations and address the largest fintech buyer
+audience.</p>
+<p>Estimated check count: 12–15 categories.</p>
+<h3 id="v1.2-defi-and-crypto-specific">v1.2 — DeFi and
+crypto-specific</h3>
+<p>Target categories: slippage protection, MEV/sandwich resistance,
+bridge replay protection, oracle manipulation resistance, stablecoin peg
+verification, smart contract reentrancy (Solidity), integer overflow in
+pre-0.8 Solidity, governance time-locks. This is a larger expansion that
+warrants the dedicated <code>checks/defi/</code> namespace described in
+the language coverage document.</p>
+<p>Estimated check count: 15–20 categories.</p>
+<h3 id="v1.3-capital-and-tax">v1.3 — Capital and tax</h3>
+<p>Target categories: Basel III LCR/NSFR calculations, capital ratio
+reporting, multi-jurisdiction tax (VAT, GST, withholding, 1099/T5),
+fair-lending model checks for prohibited-basis variables.</p>
+<p>Estimated check count: 8–12 categories.</p>
+<h3 id="v1.4-custody-and-wallet">v1.4 — Custody and wallet</h3>
+<p>Target categories: HSM integration verification, MPC threshold
+signature scheme validation, key-ceremony evidence, air-gap signing
+process documentation, hot/warm/cold wallet ratio policies.</p>
+<p>Estimated check count: 6–10 categories.</p>
+<h2 id="contributing-financial-checks">Contributing financial
+checks</h2>
+<p>Financial checks are particularly well-suited to community
+contribution because expertise is concentrated in people who actually
+work in payments, treasury, and risk teams. A contributor with PSD2
+experience can ship a pair of high-quality SCA-enforcement checks faster
+than an outside maintainer could research the regulatory text.</p>
+<p>When authoring financial checks, always include the
+<code>regulatory_basis</code> or <code>frameworks</code> metadata field
+with specific regulation citations (e.g., <code>PSD2 Art. 97</code>,
+<code>12 CFR § 1005.6</code>). Auditors use these citations to map
+findings to their evidence requirements, so accuracy matters more than
+for generic-security checks.</p>
+</body>
+</html>

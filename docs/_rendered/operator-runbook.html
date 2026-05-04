@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Preston-Check Maintainers" />
+  <meta name="dcterms.date" content="2026-05-04" />
+  <title>Preston-Check — Operator Runbook</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Preston-Check — Operator Runbook</h1>
+<p class="subtitle">Deployed URLs, resource IDs, deploy procedures,
+emergency response</p>
+<p class="author">Preston-Check Maintainers</p>
+<p class="date">2026-05-04</p>
+</header>
+<h1 id="operator-runbook">Operator Runbook</h1>
+<p>The single-page reference for everything deployed. Bookmark this file
+and the page-rendered version at
+<code>https://admin.preston-check.com/</code> (once admin portal
+includes it).</p>
+<p>This file is intentionally in the public repo because it contains
+zero credentials — only public URLs, non-sensitive resource identifiers,
+and procedures. The actual secrets (Cloudflare API token, license
+signing private key) live only in repo secrets and the operator’s
+hardware-bound machine.</p>
+<h2 id="production-urls">Production URLs</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Surface</th>
+<th>URL</th>
+<th>Hosted on</th>
+<th>Auth</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public landing</td>
+<td><code>https://preston-check.com/</code></td>
+<td>GitHub Pages (custom domain via Route 53 A records)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>GitHub Pages mirror</td>
+<td><code>https://preston-check.github.io/preston-check/</code></td>
+<td>GitHub Pages (default subdomain)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>Customer portal</td>
+<td><code>https://app.preston-check.com/</code></td>
+<td>Cloudflare Pages (<code>preston-check-customer</code> project)</td>
+<td>none yet (production will add magic-link)</td>
+</tr>
+<tr>
+<td>Admin portal</td>
+<td><code>https://admin.preston-check.com/</code></td>
+<td>Cloudflare Pages (<code>preston-check-admin</code> project)</td>
+<td>Cloudflare Access — operator email + 6-digit PIN</td>
+</tr>
+<tr>
+<td>Telemetry endpoint</td>
+<td><code>https://app.preston-check.com/api/v1/telemetry</code></td>
+<td>Cloudflare Pages Function on customer-portal project</td>
+<td>none (public POST endpoint by design)</td>
+</tr>
+<tr>
+<td>Standalone telemetry Worker</td>
+<td><code>https://preston-check-telemetry.preston-check-edge.workers.dev/</code></td>
+<td>Cloudflare Workers</td>
+<td>none (alternative endpoint, same D1+KV)</td>
+</tr>
+</tbody>
+</table>
+<p><code>*.pages.dev</code> mirrors (also serve, but use the custom
+domains in production): -
+<code>https://preston-check-admin.pages.dev/</code> -
+<code>https://preston-check-customer.pages.dev/</code></p>
+<h2 id="cloudflare-resources">Cloudflare resources</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Type</th>
+<th>ID / Name</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pages project</td>
+<td>Customer portal</td>
+<td><code>preston-check-customer</code></td>
+<td>Auto-deploys from <code>web/customer/</code> on each master
+push</td>
+</tr>
+<tr>
+<td>Pages project</td>
+<td>Admin portal</td>
+<td><code>preston-check-admin</code></td>
+<td>Auto-deploys from <code>web/admin/</code></td>
+</tr>
+<tr>
+<td>Workers script</td>
+<td>Telemetry collector</td>
+<td><code>preston-check-telemetry</code></td>
+<td>Standalone Worker; deploys from <code>workers/telemetry/</code></td>
+</tr>
+<tr>
+<td>D1 database</td>
+<td>Telemetry storage</td>
+<td><code>preston-check-telemetry</code>
+(<code>e206e1e4-1c78-4a5e-a983-bc47104d1b3c</code>)</td>
+<td>ENAM region. Schema in
+<code>workers/telemetry/schema.sql</code>.</td>
+</tr>
+<tr>
+<td>KV namespace</td>
+<td>Aggregations + rate-limit</td>
+<td><code>AGGREGATE</code>
+(<code>330983ec5b464dab8ae2f338d40512f5</code>)</td>
+<td>Used by both the Worker and the Pages Function</td>
+</tr>
+<tr>
+<td>Workers subdomain</td>
+<td>Account</td>
+<td><code>preston-check-edge.workers.dev</code></td>
+<td>Renamed from default to be anonymity-clean</td>
+</tr>
+<tr>
+<td>Access app</td>
+<td>Operator gate</td>
+<td>“Preston-Check Admin” → <code>admin.preston-check.com</code></td>
+<td>One-time PIN to operator email; 24h sessions</td>
+</tr>
+<tr>
+<td>Pages bindings</td>
+<td>DB + AGGREGATE + env</td>
+<td>On customer-portal project (production env)</td>
+<td>Set via Cloudflare API; visible in dashboard → Pages →
+preston-check-customer → Settings → Functions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dns-records">DNS records</h2>
+<p>In Route 53 hosted zone <code>preston-check.com.</code>:</p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Record</th>
+<th>Type</th>
+<th>Value</th>
+<th>TTL</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>preston-check.com.</code></td>
+<td>A (×4)</td>
+<td><code>185.199.108–111.153</code></td>
+<td>default</td>
+<td>GitHub Pages apex</td>
+</tr>
+<tr>
+<td><code>admin.preston-check.com.</code></td>
+<td>CNAME</td>
+<td><code>preston-check-admin.pages.dev</code></td>
+<td>300</td>
+<td>Admin portal</td>
+</tr>
+<tr>
+<td><code>app.preston-check.com.</code></td>
+<td>CNAME</td>
+<td><code>preston-check-customer.pages.dev</code></td>
+<td>300</td>
+<td>Customer portal</td>
+</tr>
+</tbody>
+</table>
+<p>(Hosted zone ID <code>Z05163633TTJD7W45GALS</code>. The domain itself
+is registered at Route 53, separate from the hosted zone.)</p>
+<h2 id="github-repository">GitHub repository</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Org / repo</td>
+<td><code>preston-check/preston-check</code></td>
+</tr>
+<tr>
+<td>Default branch</td>
+<td><code>master</code></td>
+</tr>
+<tr>
+<td>Visibility</td>
+<td>Public (since 2026-05-04)</td>
+</tr>
+<tr>
+<td>Latest tag</td>
+<td><code>v1.7.5</code></td>
+</tr>
+<tr>
+<td>License</td>
+<td>Apache 2.0</td>
+</tr>
+<tr>
+<td>Homebrew tap</td>
+<td><code>preston-check/homebrew-tap</code> (separate repo)</td>
+</tr>
+<tr>
+<td>GitHub Action</td>
+<td><code>preston-check/scan-action</code> (separate repo)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="repository-secrets">Repository secrets</h2>
+<p>Set under repo Settings → Secrets and variables → Actions. Never
+logged, never echoed in workflow output.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Secret</th>
+<th>Used by</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CLOUDFLARE_API_TOKEN</code></td>
+<td>admin-pages, customer-pages, telemetry-deploy</td>
+<td>Scoped to Cloudflare Pages + Workers + KV + D1; rotate via dashboard
+→ My Profile → API Tokens → Roll</td>
+</tr>
+<tr>
+<td><code>CLOUDFLARE_ACCOUNT_ID</code></td>
+<td>same workflows</td>
+<td>Not a credential — Cloudflare account identifier</td>
+</tr>
+<tr>
+<td><code>HOMEBREW_TAP_TOKEN</code></td>
+<td>release.yml (homebrew job)</td>
+<td>Optional — if absent, formula is bumped manually. PAT with write
+access to <code>preston-check/homebrew-tap</code></td>
+</tr>
+<tr>
+<td><code>DOCKERHUB_USERNAME</code></td>
+<td>release.yml (docker job)</td>
+<td>Optional — if absent, Docker image is not pushed</td>
+</tr>
+<tr>
+<td><code>DOCKERHUB_TOKEN</code></td>
+<td>release.yml (docker job)</td>
+<td>Optional</td>
+</tr>
+</tbody>
+</table>
+<h2 id="github-actions-workflows">GitHub Actions workflows</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Trigger</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pages.yml</code></td>
+<td>Push to master touching <code>web/landing/**</code></td>
+<td>Deploys public landing to GitHub Pages</td>
+</tr>
+<tr>
+<td><code>admin-pages.yml</code></td>
+<td>Push touching <code>web/admin/**</code> or shared assets</td>
+<td>Deploys admin portal to Cloudflare Pages</td>
+</tr>
+<tr>
+<td><code>customer-pages.yml</code></td>
+<td>Push touching <code>web/customer/**</code> or shared assets</td>
+<td>Deploys customer portal + Pages Function (telemetry endpoint)</td>
+</tr>
+<tr>
+<td><code>telemetry-deploy.yml</code></td>
+<td>Push touching <code>workers/telemetry/**</code></td>
+<td>Deploys standalone Worker (alternative to Pages Function)</td>
+</tr>
+<tr>
+<td><code>release.yml</code></td>
+<td>Tag push (<code>v*</code>)</td>
+<td>Build tarball + sha256 + GitHub Release; Docker image; Homebrew
+bump</td>
+</tr>
+<tr>
+<td><code>test.yml</code></td>
+<td>Every push + PR</td>
+<td>Shell syntax check + smoke scans + framework filter test</td>
+</tr>
+<tr>
+<td><code>lint-community.yml</code></td>
+<td>PR touching <code>checks/community/**</code></td>
+<td>Shellcheck + lint-check.sh on community contributions</td>
+</tr>
+<tr>
+<td><code>threat-intel-sync.yml</code></td>
+<td>Mondays 09:00 UTC + manual dispatch</td>
+<td>Pulls fintech-relevant CVEs from NIST NVD; opens PR with draft
+checks</td>
+</tr>
+</tbody>
+</table>
+<h2 id="health-checks">Health checks</h2>
+<p>A trivial bash one-liner that confirms every public surface is
+up:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> u <span class="kw">in</span> <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  https://preston-check.com/ <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  https://app.preston-check.com/ <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  https://admin.preston-check.com/ <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  https://app.preston-check.com/api/v1/telemetry<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">printf</span> <span class="st">&quot;%-55s &quot;</span> <span class="st">&quot;</span><span class="va">$u</span><span class="st">&quot;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">curl</span> <span class="at">-so</span> /dev/null <span class="at">-w</span> <span class="st">&quot;%{http_code}\n&quot;</span> <span class="st">&quot;</span><span class="va">$u</span><span class="st">&quot;</span> <span class="at">--max-time</span> 6</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<p>Expected codes: <code>200 200 302 405</code> (admin → 302 because
+Access redirect; telemetry → 405 because GET without POST is
+method-not-allowed).</p>
+<h2 id="deploy-procedures">Deploy procedures</h2>
+<h3 id="standard-release-flow">Standard release flow</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Bump PRESTON_VERSION in preston-check.sh</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Update CHANGELOG.md</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Commit</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;vX.Y.Z: ...&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Tag + push</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">-a</span> vX.Y.Z <span class="at">-m</span> <span class="st">&quot;vX.Y.Z: short summary&quot;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin master <span class="at">--tags</span></span></code></pre></div>
+<p>The <code>release.yml</code> workflow then auto-creates the GitHub
+Release with <code>install.sh</code> + tarball + sha256 sidecar. If
+<code>HOMEBREW_TAP_TOKEN</code> is set, the homebrew formula is also
+bumped automatically.</p>
+<h3 id="manual-homebrew-bump-if-auto-bump-unavailable">Manual homebrew
+bump (if auto-bump unavailable)</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">SHA</span><span class="op">=</span><span class="va">$(</span><span class="ex">curl</span> <span class="at">-fsSL</span> https://github.com/preston-check/preston-check/releases/download/vX.Y.Z/preston-check-X.Y.Z.tar.gz.sha256 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{print $1}&#39;</span><span class="va">)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> /tmp/homebrew-tap pull</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit Formula/preston-check.rb: url, sha256, version</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> /tmp/homebrew-tap commit <span class="at">-am</span> <span class="st">&quot;preston-check X.Y.Z&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> /tmp/homebrew-tap push</span></code></pre></div>
+<h3 id="one-off-cloudflare-admin-tasks">One-off Cloudflare admin
+tasks</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_API_TOKEN</span><span class="op">=</span><span class="st">&quot;...&quot;</span>   <span class="co"># from repo secrets, or operator&#39;s local</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_ACCOUNT_ID</span><span class="op">=</span><span class="st">&quot;...&quot;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all Pages projects</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-H</span> <span class="st">&quot;Authorization: Bearer </span><span class="va">$CLOUDFLARE_API_TOKEN</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://api.cloudflare.com/client/v4/accounts/</span><span class="va">$CLOUDFLARE_ACCOUNT_ID</span><span class="st">/pages/projects&quot;</span> <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="ex">python3</span> <span class="at">-m</span> json.tool</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Query the telemetry D1 directly</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="at">--command</span> <span class="st">&quot;SELECT count(*) FROM scans&quot;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Tail the customer-portal Function logs</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> pages deployment tail <span class="at">--project-name</span><span class="op">=</span>preston-check-customer</span></code></pre></div>
+<h2 id="emergency-response">Emergency response</h2>
+<h3 id="compromised-cloudflare-api-token">Compromised Cloudflare API
+token</h3>
+<ol type="1">
+<li><code>https://dash.cloudflare.com/profile/api-tokens</code> → click
+“…” next to the token → <strong>Revoke</strong></li>
+<li>Create a new token with the same scopes (Cloudflare Pages: Edit,
+Workers Scripts: Edit, Account Settings: Read, Workers KV Storage: Edit,
+D1: Edit)</li>
+<li><code>gh secret set CLOUDFLARE_API_TOKEN --repo preston-check/preston-check</code>
+→ paste new value</li>
+<li>Verify next deploy still succeeds (push a no-op or run
+<code>gh workflow run</code>)</li>
+</ol>
+<h3 id="compromised-license-signing-key">Compromised license signing
+key</h3>
+<p>The Ed25519 keypair lives at
+<code>~/.preston-check/keys/private.pem</code> on the operator’s
+hardware-bound machine. If compromised:</p>
+<ol type="1">
+<li>Generate a new keypair via
+<code>tools/setup-signing-key.sh</code></li>
+<li>Replace <code>lib/license_pubkey.pem</code> with the new public
+half</li>
+<li>Re-issue every active license against the new key</li>
+<li>Push a new release (any vX.Y.Z) so customers get the updated public
+key</li>
+<li>The old private key file gets deleted; old licenses no longer verify
+after the next pull</li>
+</ol>
+<h3 id="customer-portal-compromised-data-leak">Customer portal
+compromised / data leak</h3>
+<p>Customer portal currently has no real customer data — mock skeleton
+only. If real data has been migrated and a leak is suspected:</p>
+<ol type="1">
+<li>Cloudflare dashboard → Workers &amp; Pages → preston-check-customer
+→ temporarily delete or pause the deployment</li>
+<li>Investigate logs via Cloudflare Pages → Functions → Logs</li>
+<li>Rotate any database credentials referenced in the project
+bindings</li>
+<li>Issue customer notifications via the published security disclosure
+policy in <code>SECURITY.md</code></li>
+</ol>
+<h3 id="lost-operator-access-to-admin-portal">Lost operator access to
+admin portal</h3>
+<p>Cloudflare Access is the gate. If the operator’s email is no longer
+accessible:</p>
+<ol type="1">
+<li>Cloudflare Zero Trust dashboard → Access → Applications →
+Preston-Check Admin → edit the policy</li>
+<li>Change the Allow rule’s email to the new operator address</li>
+<li>Save — next visit to <code>admin.preston-check.com</code> prompts
+for the new email</li>
+</ol>
+<p>If the entire Zero Trust account is locked:</p>
+<ol type="1">
+<li>Use the backup recovery contact email if one is configured</li>
+<li>If not, follow Cloudflare’s account recovery flow at
+<code>https://dash.cloudflare.com/sign-in</code></li>
+<li>The deploy infrastructure continues working without admin portal
+access (admin is only needed for operator UI; deploys go through GitHub
+Actions independently)</li>
+</ol>
+<h2 id="monitoring-observability">Monitoring &amp; observability</h2>
+<p>What’s currently in place:</p>
+<ul>
+<li><strong>Cloudflare Pages dashboard</strong> — deploy history,
+function logs, custom domain status. Per-project at
+<code>dash.cloudflare.com/&lt;account&gt;/pages/view/&lt;project&gt;</code>.</li>
+<li><strong>GitHub Actions tab</strong> — every workflow run, with logs.
+<code>https://github.com/preston-check/preston-check/actions</code></li>
+<li><strong>D1 query interface</strong> —
+<code>wrangler d1 execute preston-check-telemetry --remote --command "..."</code>
+for ad-hoc queries against the telemetry dataset.</li>
+<li><strong>Cloudflare Web Analytics</strong> — not yet enabled; the
+bound projects’ “Web analytics” tab in the Pages dashboard activates
+it.</li>
+</ul>
+<p>What’s not in place yet:</p>
+<ul>
+<li>Sentry / Honeycomb / Datadog integration — the eventual goal but the
+project is too low-volume to justify yet</li>
+<li>Status page — public uptime monitor at
+<code>https://status.preston-check.com/</code></li>
+<li>Daily KPI digest email — pulls from D1 + the GitHub stats API, lands
+in operator inbox</li>
+</ul>
+<h2 id="anonymity-pseudonymity-notes">Anonymity / pseudonymity
+notes</h2>
+<p>The current Cloudflare account is registered to the operator’s
+pre-pseudonym email. Long-term hygiene per
+<code>docs/strategy/anonymity-and-mystique.md</code>:</p>
+<ol type="1">
+<li>Form a Wyoming LLC (“Catalog Holdings LLC” or similar)</li>
+<li>Register a fresh Cloudflare account using
+<code>operator@&lt;llc-domain&gt;</code> or
+<code>preston@preston-check.com</code></li>
+<li>Migrate Pages projects + Worker + D1 + KV to the new account</li>
+<li>Update <code>CLOUDFLARE_ACCOUNT_ID</code> repo secret with the new
+account’s ID</li>
+<li>Delete the old account once everything is verified on the new
+one</li>
+</ol>
+<p>Until then: the workers.dev subdomain has been renamed from a
+personal one to <code>preston-check-edge.workers.dev</code>
+(anonymity-clean), and operator-facing emails are role-based
+(<code>hello@</code>, <code>security@</code>, <code>support@</code>,
+<code>press@</code>, <code>preston@</code> all forward to the operator’s
+actual mailbox via Cloudflare Email Routing or equivalent).</p>
+<h2 id="where-things-live-file-system-map">Where things live
+(file-system map)</h2>
+<pre><code>/web/landing/    — public landing page (deploys to preston-check.com via GitHub Pages)
+/web/landing/icons/    — proprietary 23-icon SVG set, shared by all surfaces
+/web/landing/assets/    — logomark, wordmark, score-badge, watermark
+/web/admin/      — admin portal SPA (deploys to admin.preston-check.com via Cloudflare Pages)
+/web/customer/   — customer portal SPA (deploys to app.preston-check.com via Cloudflare Pages)
+/web/customer/functions/api/v1/telemetry/index.ts   — telemetry endpoint (Pages Function)
+/workers/telemetry/   — standalone telemetry Worker (alternative to Pages Function)
+
+/lib/   — runner libraries (license, telemetry, ai_analyze, ai_autofix, branding, oss_detection)
+/checks/   — catalog (294 checks total: core + community/{verified,accepted,proposed})
+/modules/smart-contract-audit/   — separate runner for deep contract audits
+/tools/   — operator scripts (issue-license, setup-signing-key, sync-threat-intel, integrations)
+/.github/workflows/   — eight CI workflows (pages, admin-pages, customer-pages, telemetry-deploy, release, test, lint-community, threat-intel-sync)
+/docs/   — design docs (architecture, portals-and-kpis, strategy/, etc.)</code></pre>
+<h2 id="updating-this-runbook">Updating this runbook</h2>
+<p>This file lives at <code>docs/operator-runbook.md</code> in the
+public repo. Keep it current — every time a new resource is provisioned,
+a URL changes, or an emergency procedure needs adjustment, update this
+file in the same commit. The file is intentionally short on prose and
+long on tables so it stays scannable at 3am during an incident.</p>
+</body>
+</html>
