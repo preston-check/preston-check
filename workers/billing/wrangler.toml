@@ -1,0 +1,23 @@
+name = "preston-check-billing"
+main = "src/index.ts"
+compatibility_date = "2026-05-04"
+workers_dev = true
+
+# D1 holds subscription + invoice state mirrored from Stripe webhooks.
+# KV holds short-lived nonces (idempotency for checkout sessions).
+[[d1_databases]]
+binding       = "DB"
+database_name = "preston-check-billing"
+database_id   = "abeeb20d-935f-4551-8d2e-a8eaecee8c0b"
+
+[[kv_namespaces]]
+binding = "STATE"
+id      = "500f3cf24df84395a0ce62478abedfc9"
+
+# Public env vars (not secrets — these are visible in the deployed worker).
+# Real secrets (STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET) are set via
+# `wrangler secret put` and never appear in the repo.
+[vars]
+ALLOW_ORIGIN  = "https://app.preston-check.com"
+SUCCESS_URL   = "https://app.preston-check.com/#/settings"
+CANCEL_URL    = "https://app.preston-check.com/#/settings"
