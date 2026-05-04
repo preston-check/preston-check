@@ -19,7 +19,7 @@ brew install preston-check
 **Docker** (any system with Docker):
 
 ```bash
-docker run --rm -v "$(pwd):/src" prestoncheck/scan:latest
+docker run --rm -v "$(pwd):/src" ghcr.io/preston-check/scan:latest
 ```
 
 Mount your project at `/src` and the scanner runs against it. Add
@@ -161,7 +161,7 @@ For GitLab CI:
 
 ```yaml
 preston_check:
-  image: prestoncheck/scan:latest
+  image: ghcr.io/preston-check/scan:latest
   script:
     - preston-check --ci --report preston-check-report.md
   artifacts:

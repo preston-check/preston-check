@@ -6,7 +6,7 @@ version: 2.1
 jobs:
   preston-check:
     docker:
-      - image: prestoncheck/scan:latest
+      - image: ghcr.io/preston-check/scan:latest
     steps:
       - checkout
       - run:

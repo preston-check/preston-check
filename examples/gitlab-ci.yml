@@ -6,7 +6,7 @@ stages:
 
 preston-check:
   stage: security
-  image: prestoncheck/scan:latest
+  image: ghcr.io/preston-check/scan:latest
   script:
     - /preston-check/preston-check.sh --ci --high-and-up --report preston-check-report.md
   artifacts:

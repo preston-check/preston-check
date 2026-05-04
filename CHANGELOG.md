@@ -4,6 +4,36 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.7.7] — 2026-05-04 — Container registry switched to GHCR
+
+### Changed
+
+- Docker image moved from `prestoncheck/scan` (Docker Hub, never
+  published) to `ghcr.io/preston-check/scan` (GitHub Container Registry,
+  pushed on every release). Auth uses the workflow-issued
+  `GITHUB_TOKEN` plus the `packages: write` permission — no separate
+  Docker Hub account or credentials required.
+- All public references swapped: README, getting-started, distribution,
+  user-manual, portals-and-kpis, architecture, examples (gitlab-ci,
+  circleci-config), web/admin landing image alt-text. The path
+  `ghcr.io/preston-check/scan:latest` is the canonical Docker image
+  reference going forward.
+
+### Added
+
+- `HOMEBREW_TAP_TOKEN` repo secret landed — homebrew formula now
+  auto-bumps on every future release. Manual bump remains in
+  `docs/operator-runbook.md` as the fallback.
+
+### Why
+
+The Docker Hub path required the operator to create a personal account
+or org, then a personal access token, then expose the username in every
+public reference. GHCR uses the existing `preston-check` GitHub org
+(already public, already pseudonymous) and the existing
+`GITHUB_TOKEN` — strictly fewer moving parts and strictly cleaner for
+the anonymity strategy.
+
 ## [1.7.6] — 2026-05-04 — Manuals + HTML/PDF renderer + landing button fix
 
 ### Added

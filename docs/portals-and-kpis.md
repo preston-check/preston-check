@@ -218,7 +218,7 @@ How the open scanner converts to a paid customer.
   week. Telemetry is opt-in; assume 30–40% opt-in rate at scale, so weekly
   scans are 2.5–3.3× the telemetry count.
 * **Brew installs** — Homebrew analytics. Daily and 30-day.
-* **Docker pulls** — Docker Hub analytics for `prestoncheck/scan`.
+* **Docker pulls** — Docker Hub analytics for `ghcr.io/preston-check/scan`.
 * **GitHub Action invocations** — `preston-check/scan-action` usage stats.
 * **GitHub stars** — vanity but correlated; track the 30-day delta.
 * **Free → Pro conversion rate** — (new Pro signups in period) / (free-

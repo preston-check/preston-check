@@ -59,7 +59,7 @@ every release tag via `.github/workflows/release.yml`:
   `$PREFIX/share/preston-check` with a thin shim at `$PREFIX/bin/preston-check`.
 * **Homebrew tap** — `preston-check/homebrew-tap` formula auto-bumped on
   release when `HOMEBREW_TAP_TOKEN` secret is present.
-* **Docker image** — `prestoncheck/scan:latest` plus version tags built
+* **Docker image** — `ghcr.io/preston-check/scan:latest` plus version tags built
   multi-arch (amd64 + arm64) on each release when DockerHub creds are
   configured.
 * **GitHub Action** — `preston-check/scan-action@v1`, defined by

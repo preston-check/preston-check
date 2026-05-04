@@ -31,7 +31,7 @@ brew install preston-check
 **Docker** (any system with Docker):
 
 ```bash
-docker run --rm -v "$(pwd):/src" prestoncheck/scan:latest
+docker run --rm -v "$(pwd):/src" ghcr.io/preston-check/scan:latest
 ```
 
 Mount your project at `/src`. Add `-v ~/.preston-check:/home/preston/.preston-check`

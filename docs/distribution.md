@@ -18,8 +18,8 @@ specific release URL and SHA-256. On every tagged release, the formula
 is updated and pushed to the `preston-check/homebrew-tap` repository.
 
 The **Docker image** is built from `docker/Dockerfile` against the
-release commit and tagged as both `prestoncheck/scan:vX.Y.Z` and
-`prestoncheck/scan:latest`. Images are pushed to Docker Hub.
+release commit and tagged as both `ghcr.io/preston-check/scan:vX.Y.Z` and
+`ghcr.io/preston-check/scan:latest`. Images are pushed to Docker Hub.
 
 The **GitHub Action** uses `action.yml` and is published as the
 `preston-check/scan-action` repository. Users reference it as
@@ -111,10 +111,10 @@ jobs:
           DOCKER_PASS: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
           echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-          docker build -t prestoncheck/scan:${GITHUB_REF_NAME#v} -f docker/Dockerfile .
-          docker tag prestoncheck/scan:${GITHUB_REF_NAME#v} prestoncheck/scan:latest
-          docker push prestoncheck/scan:${GITHUB_REF_NAME#v}
-          docker push prestoncheck/scan:latest
+          docker build -t ghcr.io/preston-check/scan:${GITHUB_REF_NAME#v} -f docker/Dockerfile .
+          docker tag ghcr.io/preston-check/scan:${GITHUB_REF_NAME#v} ghcr.io/preston-check/scan:latest
+          docker push ghcr.io/preston-check/scan:${GITHUB_REF_NAME#v}
+          docker push ghcr.io/preston-check/scan:latest
       - name: Update Homebrew tap
         run: |
           # Push updated formula to preston-check/homebrew-tap
@@ -139,9 +139,9 @@ preston-check --help
 For Docker, on a fresh system:
 
 ```bash
-docker rmi prestoncheck/scan:latest 2>/dev/null
-docker pull prestoncheck/scan:vX.Y.Z
-docker run --rm prestoncheck/scan:vX.Y.Z --help
+docker rmi ghcr.io/preston-check/scan:latest 2>/dev/null
+docker pull ghcr.io/preston-check/scan:vX.Y.Z
+docker run --rm ghcr.io/preston-check/scan:vX.Y.Z --help
 ```
 
 For the curl-bash installer, in a clean directory:

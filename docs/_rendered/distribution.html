@@ -306,9 +306,9 @@ and SHA-256. On every tagged release, the formula is updated and pushed
 to the <code>preston-check/homebrew-tap</code> repository.</p>
 <p>The <strong>Docker image</strong> is built from
 <code>docker/Dockerfile</code> against the release commit and tagged as
-both <code>prestoncheck/scan:vX.Y.Z</code> and
-<code>prestoncheck/scan:latest</code>. Images are pushed to Docker
-Hub.</p>
+both <code>ghcr.io/preston-check/scan:vX.Y.Z</code> and
+<code>ghcr.io/preston-check/scan:latest</code>. Images are pushed to
+Docker Hub.</p>
 <p>The <strong>GitHub Action</strong> uses <code>action.yml</code> and
 is published as the <code>preston-check/scan-action</code> repository.
 Users reference it as <code>uses: preston-check/scan-action@v1</code>
@@ -397,10 +397,10 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="
 <span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">DOCKER_PASS</span><span class="kw">:</span><span class="at"> ${{ secrets.DOCKERHUB_TOKEN }}</span></span>
 <span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
 <span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>          echo &quot;$DOCKER_PASS&quot; | docker login -u &quot;$DOCKER_USER&quot; --password-stdin</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>          docker build -t prestoncheck/scan:${GITHUB_REF_NAME#v} -f docker/Dockerfile .</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>          docker tag prestoncheck/scan:${GITHUB_REF_NAME#v} prestoncheck/scan:latest</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>          docker push prestoncheck/scan:${GITHUB_REF_NAME#v}</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>          docker push prestoncheck/scan:latest</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>          docker build -t ghcr.io/preston-check/scan:${GITHUB_REF_NAME#v} -f docker/Dockerfile .</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>          docker tag ghcr.io/preston-check/scan:${GITHUB_REF_NAME#v} ghcr.io/preston-check/scan:latest</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>          docker push ghcr.io/preston-check/scan:${GITHUB_REF_NAME#v}</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>          docker push ghcr.io/preston-check/scan:latest</span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Update Homebrew tap</span></span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">        run</span><span class="kw">: </span><span class="ch">|</span></span>
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>          # Push updated formula to preston-check/homebrew-tap</span>
@@ -417,9 +417,9 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--help</span></span></code></pre></div>
 <p>For Docker, on a fresh system:</p>
 <div class="sourceCode" id="cb4"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> rmi prestoncheck/scan:latest <span class="dv">2</span><span class="op">&gt;</span>/dev/null</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull prestoncheck/scan:vX.Y.Z</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> prestoncheck/scan:vX.Y.Z <span class="at">--help</span></span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> rmi ghcr.io/preston-check/scan:latest <span class="dv">2</span><span class="op">&gt;</span>/dev/null</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull ghcr.io/preston-check/scan:vX.Y.Z</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> ghcr.io/preston-check/scan:vX.Y.Z <span class="at">--help</span></span></code></pre></div>
 <p>For the curl-bash installer, in a clean directory:</p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> ~/.preston-check/install</span>

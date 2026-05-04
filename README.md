@@ -30,7 +30,7 @@ Named after Preston X, a real hacker who created multiple fake accounts, bypasse
 brew tap preston-check/preston-check && brew install preston-check
 
 # Docker
-docker run --rm -v $(pwd):/src prestoncheck/scan:latest
+docker run --rm -v $(pwd):/src ghcr.io/preston-check/scan:latest
 
 # curl | bash
 curl -fsSL https://get.preston-check.com/install.sh | sh
