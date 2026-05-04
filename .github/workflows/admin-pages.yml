@@ -1,0 +1,79 @@
+name: Deploy admin portal to Cloudflare Pages
+
+# Publishes web/admin/ to the Cloudflare Pages project
+# 'preston-check-admin' on every master push that touches the admin
+# bundle or any shared brand asset.
+#
+# This workflow does not interpolate any untrusted input (issue/PR
+# bodies, commit messages, branch names) into run: blocks. Only
+# secrets and static file paths are referenced; user input has zero
+# attack surface against this pipeline.
+#
+# One-time setup steps live in web/admin/DEPLOY.md.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'web/admin/**'
+      - 'web/landing/icons/**'
+      - 'web/landing/assets/**'
+      - '.github/workflows/admin-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Cloudflare credentials
+        id: check
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [[ -n "$CF_TOKEN" && -n "$CF_ACCT" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Cloudflare secrets not configured -- skipping admin deploy."
+            echo "::notice::Set CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID in repo secrets to enable."
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.configured == 'true'
+
+      - name: Stage admin bundle
+        if: steps.check.outputs.configured == 'true'
+        run: |
+          set -eu
+          mkdir -p out/landing/icons out/landing/assets
+          cp web/admin/index.html  out/index.html
+          cp web/admin/styles.css  out/styles.css
+          cp web/admin/app.js      out/app.js
+          cp web/admin/README.md   out/README.md
+          cp -R web/landing/icons/. out/landing/icons/
+          cp -R web/landing/assets/. out/landing/assets/
+          # Rewrite '../landing/...' references so the staged 'out/' is
+          # self-contained. Both .html and .css inherit shared assets.
+          sed -i 's|\.\./landing/|landing/|g' out/index.html out/styles.css || true
+          # Cache headers so brand SVGs and CSS get a long cache while
+          # index.html stays fresh.
+          {
+            printf '/landing/*\n  Cache-Control: public, max-age=2592000, immutable\n'
+            printf '/styles.css\n  Cache-Control: public, max-age=86400\n'
+            printf '/app.js\n  Cache-Control: public, max-age=86400\n'
+            printf '/index.html\n  Cache-Control: public, max-age=300\n'
+          } > out/_headers
+          ls -R out/ | head -30
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.check.outputs.configured == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name=preston-check-admin --branch=master
