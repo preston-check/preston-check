@@ -56,7 +56,7 @@ The integration adapters shipped in v1.6.0 as `tools/integrations/{drata,vanta,s
 
 ### 5. Conference speaker circuit
 
-The reputation engine. The Preston Braswell founding story is genuinely compelling and gives you a hook journalists and conference programs find irresistible. Submit talks to: RSA Conference, BlackHat USA, DefCon AppSec Village, OWASP Global AppSec, FS-ISAC Summit, FATF working groups, central bank cyber conferences. Three accepted talks per year for three years gets you to approximately 5,000 in-person practitioner exposures. Recordings live on YouTube indefinitely and rank well in fintech-security searches.
+The reputation engine. The Preston X founding story is genuinely compelling and gives you a hook journalists and conference programs find irresistible. Submit talks to: RSA Conference, BlackHat USA, DefCon AppSec Village, OWASP Global AppSec, FS-ISAC Summit, FATF working groups, central bank cyber conferences. Three accepted talks per year for three years gets you to approximately 5,000 in-person practitioner exposures. Recordings live on YouTube indefinitely and rank well in fintech-security searches.
 
 Speaker fees and travel are real costs (around $15k/year), but the brand-building ROI is unmatched.
 

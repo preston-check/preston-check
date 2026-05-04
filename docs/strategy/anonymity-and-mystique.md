@@ -65,11 +65,11 @@ is a mononym or initialed handle that resists curiosity and ages well.
 Suggested options, in order of mystique-density:
 
 * **"Preston"** as a mononym. Overlays the project name. Plays with the
-  ambiguity of whether this is the original Preston Braswell, an heir, or
+  ambiguity of whether this is the original Preston X, an heir, or
   a third-party voice speaking through the persona. Highest mystique
   density; also the highest "cute" risk if it reads as a costume.
-* **"P. Braswell"** — half-revealing, half-claiming the heritage. The
-  archivist-of-the-attack persona. Risky if a real Preston Braswell
+* **"P. X"** (the surname-redacted form) — half-revealing,
+  half-claiming the heritage. The archivist-of-the-attack persona. Risky if a real Preston X
   surfaces and objects.
 * **"PCM"** (Preston-Check Maintainer) — austere, functional, signals the
   collective rather than the individual. Lowest cute risk, lowest

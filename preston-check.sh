@@ -2,7 +2,7 @@
 ###############################################################################
 # preston-check — Pre-deployment security audit tool
 #
-# Named after Preston Braswell, a hacker who created multiple fake accounts,
+# Named after Preston X, a hacker who created multiple fake accounts,
 # bypassed 2FA, ran 21,201 automated session polling calls, and probed for
 # race conditions and information leakage. This tool codifies the lessons
 # learned from that attack into an automated, reusable security check.

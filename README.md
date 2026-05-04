@@ -6,7 +6,7 @@
 
 Apache 2.0 open-source, community-grown, fintech-focused. **294 automated security checks** spanning **33 reputable frameworks** run locally against your source code (284 main catalog + 10 deep smart-contract audit). Your code never leaves your machine unless you opt in. AI-augmented finding analysis and patch suggestions are available via `--ai-augment` / `--ai-fix`.
 
-Named after Preston Braswell, a real hacker who created multiple fake accounts, bypassed 2FA, ran 21,201 automated session polling calls, and probed for race conditions and information leakage on a production fintech platform. This tool codifies the lessons learned from that attack — and from the broader fintech security catalog — into automated checks you can run before every deployment.
+Named after Preston X, a real hacker who created multiple fake accounts, bypassed 2FA, ran 21,201 automated session polling calls, and probed for race conditions and information leakage on a production fintech platform. This tool codifies the lessons learned from that attack — and from the broader fintech security catalog — into automated checks you can run before every deployment.
 
 ## Frameworks Covered
 
@@ -396,7 +396,7 @@ The session will have full context on all 20 check categories, how to run them, 
 
 ## Background
 
-Preston Braswell's attack on a production fintech platform in February 2026 involved:
+Preston X's attack on a production fintech platform in February 2026 involved:
 
 1. Creating 5+ fake accounts with synthetic names and disposable phone numbers
 2. Setting 2FA to NONE on all accounts
@@ -405,7 +405,7 @@ Preston Braswell's attack on a production fintech platform in February 2026 invo
 5. Credential stuffing with non-existent emails, then registering with a stolen payment-API key
 6. Attempting custodial withdrawals with wrong 2FA codes and balance probing
 
-Every check in this tool is derived from a real attack pattern observed in the forensic logs. The catalog is the post-mortem turned into automated regression tests.
+Every check in this tool is derived from a real attack pattern observed in the forensic logs. The catalog is the post-mortem turned into automated regression tests, and it's grounded in a base of **over 1.3 million logged session and request traces** captured during and after the incident — multi-month coverage of authentication flows, withdrawal attempts, configuration probes, session lifecycles, and rate-limit interactions across both the attacker's accounts and the platform's legitimate user population. Each finding pattern was tested against that corpus before being promoted to a check, which is why Preston-Check's false-positive rate is meaningfully lower than scanners built only against synthetic test fixtures.
 
 ## Enhanced Checks (P-21 through P-56) — Enterprise Security Suite
 

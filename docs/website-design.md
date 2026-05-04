@@ -147,7 +147,7 @@ reads as one continuous artifact rather than a stack of cards.
 6. **Pricing** — three-tier table (Free / Pro / Enterprise). Goal:
    honest pricing without dark patterns; "Most fintechs" ribbon on
    the Pro tier where the conversion is.
-7. **Origin story** — the Preston Braswell narrative + four headline
+7. **Origin story** — the Preston X narrative + four headline
    stats. Goal: a story that makes the tool feel earned. Stories
    travel further than feature lists.
 8. **Final CTA + footer** — one more clear ask, plus a footer with
