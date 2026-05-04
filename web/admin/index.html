@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Preston-Check · Admin</title>
+  <link rel="icon" href="../landing/assets/logomark.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<div class="app">
+
+  <header class="topbar">
+    <a href="#/" class="logo" aria-label="Preston-Check Admin">
+      <img src="../landing/assets/wordmark.svg" alt="Preston-Check"/>
+      <span class="env">PROD · ADMIN</span>
+    </a>
+    <div class="search">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+      <input type="text" placeholder="Search customers, repos, CVEs, tickets…"/>
+      <kbd>⌘K</kbd>
+    </div>
+    <div class="actions">
+      <button class="icon-btn" aria-label="Notifications">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2H4.5Z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+        <span class="dot"></span>
+      </button>
+      <div class="me" tabindex="0">
+        <span class="avatar">P</span>
+        <span class="name">Preston</span>
+        <span class="role">· Founder</span>
+      </div>
+    </div>
+  </header>
+
+  <aside class="rail">
+    <div class="section-label">Run the business</div>
+    <nav>
+      <a href="#/customers" data-route="customers" class="active">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+        Customers <span class="badge-tiny">42</span>
+      </a>
+      <a href="#/sales" data-route="sales">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="6" height="16" rx="1.5"/><rect x="11" y="4" width="6" height="11" rx="1.5"/><rect x="19" y="4" width="2" height="6" rx="1"/></svg>
+        Sales <span class="badge-tiny">17</span>
+      </a>
+      <a href="#/revenue" data-route="revenue">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="7" rx="7" ry="2.5"/><path d="M5 7v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V7"/><path d="M5 11v4c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-4"/><path d="M5 15v2c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-2"/></svg>
+        Revenue
+      </a>
+    </nav>
+
+    <div class="section-label">Operate</div>
+    <nav>
+      <a href="#/users" data-route="users">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
+        Users
+      </a>
+      <a href="#/licenses" data-route="licenses">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="4"/><path d="M12 12h9"/><path d="M17 12v3"/><path d="M20 12v2"/></svg>
+        Licenses
+      </a>
+      <a href="#/threat-intel" data-route="threat-intel">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 0 1 17 0"/><path d="M6.5 12a5.5 5.5 0 0 1 11 0"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg>
+        Threat-Intel <span class="badge-tiny">9</span>
+      </a>
+      <a href="#/support" data-route="support">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4Z"/><path d="M12 7v1"/><path d="M12 11v2"/><path d="M12 16v1"/></svg>
+        Support <span class="badge-tiny">3</span>
+      </a>
+      <a href="#/system" data-route="system">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><circle cx="7" cy="7" r="0.6" fill="currentColor"/><path d="M10 7h7"/><circle cx="7" cy="17" r="0.6" fill="currentColor"/><path d="M10 17h7"/></svg>
+        System
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <!-- ================================================ CUSTOMERS -->
+    <section class="page is-active" data-page="customers">
+      <div class="page-head">
+        <div>
+          <h1>Customers</h1>
+          <p class="subhead">42 organizations across Free, Pro, and Enterprise. Filter by plan, last-scan recency, or churn-risk score.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Export CSV</button>
+          <button class="btn btn-primary">+ New customer</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-tile"><span class="label">Active customers</span><span class="value">42</span><span class="delta up">+5 last 30d</span></div>
+        <div class="kpi-tile"><span class="label">Pro</span><span class="value">28</span><span class="delta up">+3</span></div>
+        <div class="kpi-tile"><span class="label">Enterprise</span><span class="value">3</span><span class="delta flat">—</span></div>
+        <div class="kpi-tile"><span class="label">Churn risk (red)</span><span class="value">2</span><span class="delta down">+1 this week</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2>All customers · sorted by MRR</h2>
+          <div class="actions">
+            <button class="btn btn-ghost">Plan: any ▾</button>
+            <button class="btn btn-ghost">Status: active ▾</button>
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr><th>Organization</th><th>Plan</th><th>Seats</th><th class="right">MRR</th><th>Last scan</th><th>Churn risk</th><th class="right"></th></tr>
+          </thead>
+          <tbody id="customer-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================================================ SALES -->
+    <section class="page" data-page="sales">
+      <div class="page-head">
+        <div>
+          <h1>Sales pipeline</h1>
+          <p class="subhead">Inbound from free-tier signups, GitHub Action installs, Slack mentions, and direct email. Drag cards between stages — weighted forecast updates in real time.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Source: any ▾</button>
+          <button class="btn btn-primary">+ Log opportunity</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-tile"><span class="label">Pipeline ACV</span><span class="value">$1.42M</span><span class="delta up">+$280K WoW</span></div>
+        <div class="kpi-tile"><span class="label">Weighted forecast</span><span class="value">$418K</span><span class="delta up">+12%</span></div>
+        <div class="kpi-tile"><span class="label">Win rate (90d)</span><span class="value">23%</span><span class="delta up">+4pp</span></div>
+        <div class="kpi-tile"><span class="label">Avg cycle</span><span class="value">38 d</span><span class="delta down">−6d</span></div>
+      </div>
+
+      <div class="kanban">
+        <div class="kanban-col"><h3>Lead <span class="count">12</span></h3>
+          <div class="kanban-card"><div class="org">Aperture Capital</div><div class="meta">Inbound · GH Action install</div><div class="acv">$4,999 / yr</div></div>
+          <div class="kanban-card"><div class="org">RaifPay GmbH</div><div class="meta">Slack mention · DACH region</div><div class="acv">$29K · Ent</div></div>
+          <div class="kanban-card"><div class="org">NorthSpire FinTech</div><div class="meta">Inbound · /signup</div><div class="acv">$999 / repo</div></div>
+          <div class="kanban-card"><div class="org">Solace Treasury</div><div class="meta">Email · referral</div><div class="acv">$4,999 / yr</div></div>
+        </div>
+        <div class="kanban-col"><h3>Qualified <span class="count">8</span></h3>
+          <div class="kanban-card"><div class="org">Helios Banking</div><div class="meta">Demo scheduled May 8</div><div class="acv">$45K · Ent</div></div>
+          <div class="kanban-card"><div class="org">Cardinal Pay</div><div class="meta">SOC 2 prep · 80 repos</div><div class="acv">$4,999 / yr</div></div>
+          <div class="kanban-card"><div class="org">Mistwood Custody</div><div class="meta">Compliance-led</div><div class="acv">$32K · Ent</div></div>
+        </div>
+        <div class="kanban-col"><h3>Demo <span class="count">5</span></h3>
+          <div class="kanban-card"><div class="org">Yatahay Custodians</div><div class="meta">Demo done · pricing review</div><div class="acv">$60K · Ent</div></div>
+          <div class="kanban-card"><div class="org">Beacon Markets</div><div class="meta">Demo May 6 · MiCA-driven</div><div class="acv">$39K · Ent</div></div>
+        </div>
+        <div class="kanban-col"><h3>Trial <span class="count">3</span></h3>
+          <div class="kanban-card"><div class="org">Citrine Bank</div><div class="meta">Trial day 9 of 14</div><div class="acv">$4,999 / yr</div></div>
+          <div class="kanban-card"><div class="org">Levante Pay</div><div class="meta">Trial day 12 of 14</div><div class="acv">$999 / repo</div></div>
+        </div>
+        <div class="kanban-col"><h3>Closed-won <span class="count">11 MTD</span></h3>
+          <div class="kanban-card" style="border-color: var(--accent); background: rgba(16,185,129,0.05);"><div class="org">Sentry Treasuries</div><div class="meta">Won May 2 · 18-day cycle</div><div class="acv">$29K · Ent</div></div>
+          <div class="kanban-card" style="border-color: var(--accent); background: rgba(16,185,129,0.05);"><div class="org">Triple-A Custody</div><div class="meta">Won Apr 30</div><div class="acv">$4,999 / yr</div></div>
+          <div class="kanban-card" style="border-color: var(--accent); background: rgba(16,185,129,0.05);"><div class="org">PerennialFi</div><div class="meta">Won Apr 28</div><div class="acv">$4,999 / yr</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================ REVENUE -->
+    <section class="page" data-page="revenue">
+      <div class="page-head">
+        <div>
+          <h1>Revenue</h1>
+          <p class="subhead">Stripe is source of truth. Mirror updates on webhook; reconcile nightly. Cohort retention is computed from paid_invoices joined to customer_signed_at.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Period: trailing 12mo ▾</button>
+          <button class="btn btn-ghost">Export</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-tile"><span class="label">MRR</span><span class="value">$84.2K</span><span class="delta up">+11.4% MoM</span></div>
+        <div class="kpi-tile"><span class="label">ARR</span><span class="value">$1.01M</span><span class="delta up">+$104K MoM</span></div>
+        <div class="kpi-tile"><span class="label">NRR (TTM)</span><span class="value">118%</span><span class="delta up">+3pp</span></div>
+        <div class="kpi-tile"><span class="label">Gross margin</span><span class="value">82%</span><span class="delta flat">—</span></div>
+      </div>
+
+      <div class="split-2">
+        <div class="card">
+          <div class="card-head">
+            <h2>MRR · trailing 12 months</h2>
+            <div class="actions"><button class="btn btn-ghost">Bar + line ▾</button></div>
+          </div>
+          <svg class="chart" viewBox="0 0 800 240" preserveAspectRatio="none">
+            <line x1="0" y1="60"  x2="800" y2="60"  stroke="#E2E8F0" stroke-width="1"/>
+            <line x1="0" y1="120" x2="800" y2="120" stroke="#E2E8F0" stroke-width="1"/>
+            <line x1="0" y1="180" x2="800" y2="180" stroke="#E2E8F0" stroke-width="1"/>
+            <g fill="#0B1F3A">
+              <rect x="20"  y="200" width="40" height="20"/>
+              <rect x="80"  y="190" width="40" height="30"/>
+              <rect x="140" y="180" width="40" height="40"/>
+              <rect x="200" y="170" width="40" height="50"/>
+              <rect x="260" y="155" width="40" height="65"/>
+              <rect x="320" y="140" width="40" height="80"/>
+              <rect x="380" y="120" width="40" height="100"/>
+              <rect x="440" y="105" width="40" height="115"/>
+              <rect x="500" y="92"  width="40" height="128"/>
+              <rect x="560" y="78"  width="40" height="142"/>
+              <rect x="620" y="60"  width="40" height="160"/>
+              <rect x="680" y="38"  width="40" height="182"/>
+            </g>
+            <polyline fill="none" stroke="#10B981" stroke-width="2.5"
+              points="40,210 100,200 160,190 220,180 280,165 340,150 400,130 460,115 520,100 580,86 640,70 700,48"/>
+            <circle cx="700" cy="48" r="5" fill="#10B981" stroke="#fff" stroke-width="2"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mute-2);font-family:var(--mono);margin-top:8px;">
+            <span>Jun '25</span><span>Sep</span><span>Dec</span><span>Mar</span><span>May '26</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Revenue waterfall · this month</h2></div>
+          <div style="display:flex; flex-direction:column; gap:8px; font-size: 13px;">
+            <div style="display:flex; justify-content:space-between;"><span>Starting MRR</span><strong style="font-family:var(--mono);">$75.6K</strong></div>
+            <div style="display:flex; justify-content:space-between; color: var(--accent);"><span>+ New</span><strong style="font-family:var(--mono);">+$9.2K</strong></div>
+            <div style="display:flex; justify-content:space-between; color: var(--accent);"><span>+ Expansion</span><strong style="font-family:var(--mono);">+$2.4K</strong></div>
+            <div style="display:flex; justify-content:space-between; color: var(--accent-2);"><span>+ Reactivation</span><strong style="font-family:var(--mono);">+$0.5K</strong></div>
+            <div style="display:flex; justify-content:space-between; color: var(--bad);"><span>− Contraction</span><strong style="font-family:var(--mono);">−$1.2K</strong></div>
+            <div style="display:flex; justify-content:space-between; color: var(--bad);"><span>− Churn</span><strong style="font-family:var(--mono);">−$2.3K</strong></div>
+            <div style="display:flex; justify-content:space-between; padding-top: 12px; border-top: 1px solid var(--rule); font-weight: 700;"><span>Ending MRR</span><strong style="font-family:var(--mono); color: var(--accent);">$84.2K</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><h2>Monthly cohort retention · % of starting cohort still active</h2></div>
+        <div class="heat">
+          <div class="cell label">Jun '25</div>
+          <div class="cell h4">100</div><div class="cell h4">94</div><div class="cell h3">88</div><div class="cell h3">85</div><div class="cell h3">82</div><div class="cell h3">80</div><div class="cell h3">78</div><div class="cell h3">76</div><div class="cell h3">75</div><div class="cell h3">74</div><div class="cell h3">73</div><div class="cell h3">73</div>
+          <div class="cell label">Jul '25</div>
+          <div class="cell h4">100</div><div class="cell h3">90</div><div class="cell h3">85</div><div class="cell h3">82</div><div class="cell h3">80</div><div class="cell h3">79</div><div class="cell h3">78</div><div class="cell h3">77</div><div class="cell h3">76</div><div class="cell h3">75</div><div class="cell h3">75</div><div class="cell future">—</div>
+          <div class="cell label">Aug '25</div>
+          <div class="cell h4">100</div><div class="cell h4">95</div><div class="cell h3">89</div><div class="cell h3">85</div><div class="cell h3">83</div><div class="cell h3">81</div><div class="cell h3">80</div><div class="cell h3">79</div><div class="cell h3">78</div><div class="cell h3">78</div><div class="cell future">—</div><div class="cell future">—</div>
+          <div class="cell label">Sep '25</div>
+          <div class="cell h4">100</div><div class="cell h3">88</div><div class="cell h3">82</div><div class="cell h3">79</div><div class="cell h3">77</div><div class="cell h3">76</div><div class="cell h3">75</div><div class="cell h3">74</div><div class="cell h3">74</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div>
+          <div class="cell label">Oct '25</div>
+          <div class="cell h4">100</div><div class="cell h3">91</div><div class="cell h3">86</div><div class="cell h3">82</div><div class="cell h3">80</div><div class="cell h3">78</div><div class="cell h3">77</div><div class="cell h3">76</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div>
+          <div class="cell label">Nov '25</div>
+          <div class="cell h4">100</div><div class="cell h4">93</div><div class="cell h3">87</div><div class="cell h3">84</div><div class="cell h3">82</div><div class="cell h3">81</div><div class="cell h3">80</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div>
+          <div class="cell label">Dec '25</div>
+          <div class="cell h4">100</div><div class="cell h3">89</div><div class="cell h3">84</div><div class="cell h3">81</div><div class="cell h3">79</div><div class="cell h3">78</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div>
+          <div class="cell label">Jan '26</div>
+          <div class="cell h4">100</div><div class="cell h4">95</div><div class="cell h4">90</div><div class="cell h3">86</div><div class="cell h3">84</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div><div class="cell future">—</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================ USERS -->
+    <section class="page" data-page="users">
+      <div class="page-head">
+        <div>
+          <h1>Users</h1>
+          <p class="subhead">Every individual user across every customer organization. Filter by org, role, last-login. Audit log captures every admin action.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Export</button>
+          <button class="btn btn-primary">+ Invite user</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr><th>Email</th><th>Org</th><th>Role</th><th>Last login</th><th>2FA</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr><td>cto@helios-banking.example</td><td class="org">Helios Banking</td><td>Owner</td><td>2026-05-04 09:22 UTC</td><td><span class="pill pill-good">YES</span></td><td><span class="pill pill-active">Active</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button></td></tr>
+            <tr><td>secops@cardinalpay.example</td><td class="org">Cardinal Pay</td><td>Admin</td><td>2026-05-04 08:11 UTC</td><td><span class="pill pill-good">YES</span></td><td><span class="pill pill-active">Active</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button></td></tr>
+            <tr><td>auditor@beacon-markets.example</td><td class="org">Beacon Markets</td><td>Auditor</td><td>2026-05-03 17:45 UTC</td><td><span class="pill pill-good">YES</span></td><td><span class="pill pill-active">Active</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button></td></tr>
+            <tr><td>dev@aperture-capital.example</td><td class="org">Aperture Capital</td><td>Member</td><td>2026-05-02 14:30 UTC</td><td><span class="pill pill-warn">NO</span></td><td><span class="pill pill-active">Active</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button></td></tr>
+            <tr><td>compliance@yatahay.example</td><td class="org">Yatahay Custodians</td><td>Owner</td><td>2026-04-29 11:09 UTC</td><td><span class="pill pill-good">YES</span></td><td><span class="pill pill-active">Active</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button></td></tr>
+            <tr><td>legacy@perennialfi.example</td><td class="org">PerennialFi</td><td>Member</td><td>2026-03-15 — 50 days ago</td><td><span class="pill pill-warn">NO</span></td><td><span class="pill pill-warn">Stale</span></td><td class="actions-cell"><button class="btn btn-danger">Suspend</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================================================ LICENSES -->
+    <section class="page" data-page="licenses">
+      <div class="page-head">
+        <div>
+          <h1>Licenses</h1>
+          <p class="subhead">Issuance is bound to the Ed25519 hardware signing key. Each issue triggers a Touch-ID prompt on the operator's machine; the signing key never leaves it.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Export PEM bundle</button>
+          <button class="btn btn-primary">+ Issue license</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-tile"><span class="label">Active licenses</span><span class="value">31</span><span class="delta up">+4</span></div>
+        <div class="kpi-tile"><span class="label">Expiring 30d</span><span class="value">2</span><span class="delta flat">renewals queued</span></div>
+        <div class="kpi-tile"><span class="label">Revoked (TTM)</span><span class="value">1</span><span class="delta flat">—</span></div>
+        <div class="kpi-tile"><span class="label">Pending</span><span class="value">1</span><span class="delta flat">issuance approval</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <h2>Issued licenses</h2>
+          <div class="actions"><button class="btn btn-ghost">Tier: any ▾</button><button class="btn btn-ghost">Status: active ▾</button></div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr><th>Customer</th><th>Tier</th><th>Key fingerprint</th><th>Issued</th><th>Expires</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="org">Helios Banking<span class="sub">helios-banking-2026</span></td><td><span class="pill pill-ent">ENT</span></td><td><span class="license-key">ed25:9a4f…1c2b</span></td><td>2026-04-12</td><td>2027-04-12</td><td><span class="pill pill-active">Active</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button> <button class="btn btn-danger">Revoke</button></td></tr>
+            <tr><td class="org">Cardinal Pay<span class="sub">cardinal-pay-pro-26</span></td><td><span class="pill pill-pro">PRO</span></td><td><span class="license-key">ed25:8c12…f409</span></td><td>2026-03-28</td><td>2027-03-28</td><td><span class="pill pill-active">Active</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button> <button class="btn btn-danger">Revoke</button></td></tr>
+            <tr><td class="org">Beacon Markets<span class="sub">beacon-mica</span></td><td><span class="pill pill-ent">ENT</span></td><td><span class="license-key">ed25:fe5b…7d44</span></td><td>2026-02-14</td><td>2027-02-14</td><td><span class="pill pill-active">Active</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button> <button class="btn btn-danger">Revoke</button></td></tr>
+            <tr><td class="org">Sentry Treasuries<span class="sub">sentry-trust</span></td><td><span class="pill pill-ent">ENT</span></td><td><span class="license-key">ed25:2d31…b8a7</span></td><td>2026-05-02</td><td>2027-05-02</td><td><span class="pill pill-active">Active</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button> <button class="btn btn-danger">Revoke</button></td></tr>
+            <tr><td class="org">PerennialFi<span class="sub">perennial-fi-pro</span></td><td><span class="pill pill-pro">PRO</span></td><td><span class="license-key">ed25:7b09…5e10</span></td><td>2025-05-21</td><td>2026-05-21 <small style="color:var(--warn);">(17d)</small></td><td><span class="pill pill-warn">Expiring</span></td><td class="actions-cell"><button class="btn btn-accent">Renew</button></td></tr>
+            <tr><td class="org">Citrine Bank<span class="sub">citrine-trial</span></td><td><span class="pill pill-trial">TRIAL</span></td><td><span class="license-key">ed25:1a4f…ccc2</span></td><td>2026-04-25</td><td>2026-05-09 <small>(5d)</small></td><td><span class="pill pill-trial">Trial</span></td><td class="actions-cell"><button class="btn btn-ghost">View</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================================================ THREAT INTEL -->
+    <section class="page" data-page="threat-intel">
+      <div class="page-head">
+        <div>
+          <h1>Threat-intel triage</h1>
+          <p class="subhead">Drafts emitted by the weekly NIST NVD ingest land here. Each row is a candidate check awaiting maintainer pattern authoring before promotion to <code>checks/community/accepted/</code>.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Source: NVD ▾</button>
+          <button class="btn btn-primary">Run sync now</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-tile"><span class="label">Pending review</span><span class="value">9</span><span class="delta up">+3 this week</span></div>
+        <div class="kpi-tile"><span class="label">Promoted (TTM)</span><span class="value">42</span><span class="delta up">+6</span></div>
+        <div class="kpi-tile"><span class="label">Last sync</span><span class="value">2d</span><span class="delta flat">scheduled Mon 09:00 UTC</span></div>
+        <div class="kpi-tile"><span class="label">Catalog size</span><span class="value">294</span><span class="delta up">+20 (v1.7.x)</span></div>
+      </div>
+
+      <div class="card" style="padding: 0;">
+        <div class="intel-row" style="background: var(--paper-2);">
+          <div><div class="cve">CVE</div><div class="langs">LANGS</div></div>
+          <div class="desc" style="font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--mute-2);">Description / draft</div>
+          <div class="relevance" style="font-size: 11px; font-family: var(--sans); font-weight: 600; color: var(--mute-2); text-transform: uppercase; letter-spacing: 1px;">Score</div>
+          <div></div>
+        </div>
+        <div class="intel-row">
+          <div><div class="cve">CVE-2026-3142</div><div class="langs">JavaScript · Node</div></div>
+          <div class="desc">Prototype-pollution in <code>fast-redact</code> &lt;3.5.1 enables modification of Object.prototype via crafted JSON. <small>Affects Express middleware that uses fast-redact for log scrubbing in fintech APIs.</small></div>
+          <div class="relevance">9.2</div>
+          <div><button class="btn btn-primary">Author pattern</button></div>
+        </div>
+        <div class="intel-row">
+          <div><div class="cve">CVE-2026-2987</div><div class="langs">Solidity</div></div>
+          <div class="desc">UniswapV4 hook authorization bypass — pre-execute hook can be re-entered to skip access control. <small>Pattern: hook callbacks without nonReentrant + storage write before external call.</small></div>
+          <div class="relevance">8.7</div>
+          <div><button class="btn btn-primary">Author pattern</button></div>
+        </div>
+        <div class="intel-row">
+          <div><div class="cve">CVE-2026-2811</div><div class="langs">Java · Spring</div></div>
+          <div class="desc">Spring Security ACL race condition under high concurrency permits brief 2-3ms window of unauthorized access. <small>Affects fintech APIs with synchronized cache invalidation.</small></div>
+          <div class="relevance">8.1</div>
+          <div><button class="btn btn-primary">Author pattern</button></div>
+        </div>
+        <div class="intel-row">
+          <div><div class="cve">CVE-2026-2654</div><div class="langs">Python · FastAPI</div></div>
+          <div class="desc">Pydantic v3 validator ordering allows skipping <code>Field(gt=0)</code> constraint when alias is supplied. <small>Money-validation regressions where alias-based model constructors bypass positive-amount checks.</small></div>
+          <div class="relevance">7.9</div>
+          <div><button class="btn btn-primary">Author pattern</button></div>
+        </div>
+        <div class="intel-row">
+          <div><div class="cve">CVE-2026-2401</div><div class="langs">Go · stdlib</div></div>
+          <div class="desc">Time-of-check time-of-use in <code>os.Rename</code> on Linux mounts. <small>Relevant to fintech batch-processors that rename audit-log files atomically.</small></div>
+          <div class="relevance">7.4</div>
+          <div><button class="btn btn-primary">Author pattern</button></div>
+        </div>
+        <div class="intel-row">
+          <div><div class="cve">CVE-2026-2298</div><div class="langs">Rust · sqlx</div></div>
+          <div class="desc">Query-builder concatenates user input when reflection mode is enabled. SQL injection if <code>SQLX_REFLECT=1</code> in dev that ships to prod.</div>
+          <div class="relevance">6.8</div>
+          <div><button class="btn btn-ghost">Snooze</button> <button class="btn btn-primary">Author pattern</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================ SUPPORT -->
+    <section class="page" data-page="support">
+      <div class="page-head">
+        <div>
+          <h1>Support inbox</h1>
+          <p class="subhead">Email and Slack sources. SLA timer per priority. AI draft response is gated — never auto-sent.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">SLA dashboard</button>
+          <button class="btn btn-primary">+ New ticket</button>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-tile"><span class="label">Open tickets</span><span class="value">3</span><span class="delta down">−2</span></div>
+        <div class="kpi-tile"><span class="label">Median TTFR</span><span class="value">42m</span><span class="delta up">−18m</span></div>
+        <div class="kpi-tile"><span class="label">CSAT (30d)</span><span class="value">4.8 / 5</span><span class="delta up">+0.2</span></div>
+        <div class="kpi-tile"><span class="label">P0 breaches (30d)</span><span class="value">0</span><span class="delta flat">—</span></div>
+      </div>
+
+      <div class="card" style="padding: 0;">
+        <ul class="inbox">
+          <li>
+            <div class="who">HB</div>
+            <div>
+              <div class="subject">P-712 false positive on our HTLC implementation? <span class="pill pill-warn" style="margin-left: 6px;">P1</span></div>
+              <div class="preview">Helios Banking · cto@helios-banking.example · "We pass msg.sender check via modifier, but P-712 reports FAIL. Can you take a look?"</div>
+            </div>
+            <div class="age">14m</div>
+          </li>
+          <li>
+            <div class="who">CP</div>
+            <div>
+              <div class="subject">Branded PDF — logo not rendering for SOC 2 evidence bundle</div>
+              <div class="preview">Cardinal Pay · secops@cardinalpay.example · "PNG transparency seems off when exported from the dashboard."</div>
+            </div>
+            <div class="age">2h</div>
+          </li>
+          <li>
+            <div class="who">YC</div>
+            <div>
+              <div class="subject">Multi-repo aggregation showing only 4 of 7 repos</div>
+              <div class="preview">Yatahay Custodians · compliance@yatahay.example · "Three private repos aren't appearing in the rollup. Webhook stuck?"</div>
+            </div>
+            <div class="age">5h</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================================================ SYSTEM -->
+    <section class="page" data-page="system">
+      <div class="page-head">
+        <div>
+          <h1>System health</h1>
+          <p class="subhead">Operational pulse across the SaaS, the open-source distribution channels, and the build-attestation chain.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn btn-ghost">Status page</button>
+          <button class="btn btn-ghost">Run incident drill</button>
+        </div>
+      </div>
+
+      <div class="health">
+        <div class="health-tile"><div class="name">API · api.preston-check.com</div><div class="uptime">99.997% · p95 47ms</div><div class="status"><span class="led"></span>Operational</div></div>
+        <div class="health-tile"><div class="name">Customer portal · app.preston-check.com</div><div class="uptime">99.94% · p95 312ms</div><div class="status"><span class="led"></span>Operational</div></div>
+        <div class="health-tile"><div class="name">Telemetry · telemetry.preston-check.com</div><div class="uptime">100% · 218 reqs/min</div><div class="status"><span class="led"></span>Operational</div></div>
+        <div class="health-tile"><div class="name">D1 (relational)</div><div class="uptime">8.4 GB · 12 idx · p95 8ms</div><div class="status"><span class="led"></span>Operational</div></div>
+        <div class="health-tile"><div class="name">KV (aggregations)</div><div class="uptime">412 keys · 78 MB</div><div class="status"><span class="led"></span>Operational</div></div>
+        <div class="health-tile"><div class="name">Stripe webhook</div><div class="uptime">last delivery 3m ago</div><div class="status"><span class="led"></span>Operational</div></div>
+        <div class="health-tile"><div class="name">Threat-intel cron</div><div class="uptime">last success 2d 4h · next Mon 09:00 UTC</div><div class="status"><span class="led"></span>On schedule</div></div>
+        <div class="health-tile"><div class="name">Docker Hub · prestoncheck/scan</div><div class="uptime">v1.7.4 · 8.4K pulls / 30d</div><div class="status warn"><span class="led"></span>2 deprecated tags</div></div>
+        <div class="health-tile"><div class="name">Homebrew tap</div><div class="uptime">v1.7.3 published · 2.1K installs / 30d</div><div class="status"><span class="led"></span>Synced</div></div>
+      </div>
+
+      <div class="card" style="margin-top: 16px;">
+        <div class="card-head">
+          <h2>Build attestation · latest release</h2>
+          <div class="actions"><button class="btn btn-ghost">Verify SHA</button></div>
+        </div>
+        <table class="table">
+          <tbody>
+            <tr><td style="width: 200px; color: var(--mute);">Tag</td><td><span class="license-key">v1.7.4</span></td></tr>
+            <tr><td style="color: var(--mute);">Tarball</td><td><span class="license-key">preston-check-1.7.4.tar.gz</span></td></tr>
+            <tr><td style="color: var(--mute);">SHA-256</td><td><span class="license-key">27e9c51d1d217074dc93c50692709795e627ec1f686e5bc77d8b28f58a43e847</span></td></tr>
+            <tr><td style="color: var(--mute);">Published by</td><td>github-actions[bot] · attested run #25294820946</td></tr>
+            <tr><td style="color: var(--mute);">Signed with</td><td><span class="license-key">ed25519: 9a4f…1c2b</span> (Preston-Check release key)</td></tr>
+            <tr><td style="color: var(--mute);">Distribution</td><td>GitHub Releases · Homebrew · Docker Hub · install.sh</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
