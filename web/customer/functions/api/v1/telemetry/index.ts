@@ -145,8 +145,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   });
 };
 
-// Reject all other methods (GET, PUT, DELETE, etc.)
-export const onRequest: PagesFunction<Env> = async ({ env }) => {
-  const origin = env.ALLOW_ORIGIN || '*';
-  return new Response('method not allowed', { status: 405, headers: corsHeaders(origin) });
-};
+// Other methods (GET, PUT, DELETE, ...) get an automatic 405 from
+// Cloudflare Pages Functions because no handler is exported for them.
+// Do NOT export a generic `onRequest` here — when both `onRequest` and
+// method-specific handlers exist, the generic export wins for all
+// methods and breaks POST. The auto-405 path is the right pattern.
