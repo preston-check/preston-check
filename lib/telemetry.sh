@@ -24,7 +24,13 @@
 ###############################################################################
 
 TELEMETRY_OPT_IN="false"
-TELEMETRY_ENDPOINT="${PRESTON_TELEMETRY_ENDPOINT:-https://preston-check.com/api/v1/telemetry}"
+# Production endpoint: a Cloudflare Pages Function on the customer-portal
+# project (preston-check-customer), reachable at app.preston-check.com.
+# Pages Functions support D1 + KV bindings, which lets the telemetry path
+# write directly to the canonical preston-check-telemetry D1 database
+# without requiring a separate Workers deployment or DNS migration of
+# preston-check.com to Cloudflare.
+TELEMETRY_ENDPOINT="${PRESTON_TELEMETRY_ENDPOINT:-https://app.preston-check.com/api/v1/telemetry}"
 
 is_telemetry_enabled() {
   [[ "$TELEMETRY_OPT_IN" == "true" ]] && return 0

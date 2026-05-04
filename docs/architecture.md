@@ -168,7 +168,7 @@ The tool makes up to three optional network calls — all opt-in, all
 disabled unconditionally by `--airgap`:
 
 1. **Telemetry** — anonymous score ping to
-   `preston-check.com/api/v1/telemetry`. Triggered by `--telemetry-opt-in`,
+   `app.preston-check.com/api/v1/telemetry`. Triggered by `--telemetry-opt-in`,
    `PRESTON_TELEMETRY=1`, or `telemetry: opt_in` in the config.
    Payload: tool version, license tier, primary language, aggregate
    counts, a SHA-256 hash of the git remote origin URL (or source path),

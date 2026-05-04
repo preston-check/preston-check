@@ -59,12 +59,19 @@ jobs:
           cp web/customer/README.md  out/README.md
           cp -R web/landing/icons/. out/landing/icons/
           cp -R web/landing/assets/. out/landing/assets/
+          # Pages Functions: copy the entire functions/ tree so Cloudflare
+          # Pages picks it up at deploy time. This is what makes the
+          # /api/v1/telemetry endpoint work as a server-side function.
+          if [[ -d web/customer/functions ]]; then
+            cp -R web/customer/functions out/functions
+          fi
           sed -i 's|\.\./landing/|landing/|g' out/index.html out/styles.css || true
           {
             printf '/landing/*\n  Cache-Control: public, max-age=2592000, immutable\n'
             printf '/styles.css\n  Cache-Control: public, max-age=86400\n'
             printf '/app.js\n  Cache-Control: public, max-age=86400\n'
             printf '/index.html\n  Cache-Control: public, max-age=300\n'
+            printf '/api/*\n  Cache-Control: no-store\n'
           } > out/_headers
 
       - uses: actions/setup-node@v4
