@@ -335,9 +335,18 @@ a:hover { text-decoration: underline; }
   border: 1px solid var(--rule);
   border-radius: 12px;
   padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
+/* The KPI children are <span>s in markup; force block layout so the
+   label / value / delta stack vertically instead of running together
+   on one baseline. */
+.kpi-tile > .label,
+.kpi-tile > .value,
+.kpi-tile > .delta { display: block; }
 .kpi-tile .label { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--mute-2); font-weight: 600; }
-.kpi-tile .value { font-family: var(--serif); font-size: 28px; font-weight: 600; color: var(--ink); line-height: 1.2; margin: 6px 0 4px; }
+.kpi-tile .value { font-family: var(--serif); font-size: 28px; font-weight: 600; color: var(--ink); line-height: 1.2; margin: 4px 0 2px; }
 .kpi-tile .delta { font-size: 12px; font-weight: 600; }
 .kpi-tile .delta.up   { color: var(--accent-d); }
 .kpi-tile .delta.down { color: var(--bad); }
