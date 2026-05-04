@@ -51,3 +51,7 @@ Preston-Check_Selling_Sheet.docx
 Preston-Check_Whitepaper.docx
 Preston-Check_Whitepaper-full_info.docx
 .claude/
+
+# Wrangler local cache (created when wrangler runs locally during
+# Cloudflare resource provisioning). Account metadata only, not secrets.
+.wrangler/
