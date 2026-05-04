@@ -62,6 +62,11 @@ jobs:
           # Pages Functions: copy the entire functions/ tree so Cloudflare
           # Pages picks it up at deploy time. This is what makes the
           # /api/v1/telemetry endpoint work as a server-side function.
+          # Wrangler 'pages deploy' auto-compiles 'functions/' into a
+          # Workers bundle ONLY if the deploy dir does not already
+          # contain a _worker.js file (which would short-circuit the
+          # functions build). Defensive cleanup just in case.
+          rm -f out/_worker.js out/_worker.bundle.js
           if [[ -d web/customer/functions ]]; then
             cp -R web/customer/functions out/functions
           fi
