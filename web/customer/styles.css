@@ -525,31 +525,39 @@ a:hover { text-decoration: underline; }
 }
 .framework .meta strong { color: var(--ink); font-family: var(--mono); }
 
-/* Settings — left tabs + right panel */
-.settings-shell { display: grid; grid-template-columns: 220px 1fr; gap: 24px; }
+/* Settings — horizontal tabs on top, full-width content below.
+   Avoids the double-sidebar feel that vertical settings tabs create
+   when there's already a global left rail on every page. */
+.settings-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 .settings-tabs {
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  padding: 8px;
-  height: fit-content;
-  position: sticky;
-  top: 80px;
+  display: flex;
+  gap: 4px;
+  padding: 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;          /* allow horizontal scroll on narrow viewports */
+  scrollbar-width: thin;
 }
 .settings-tabs a {
-  display: block;
-  padding: 8px 12px;
-  border-radius: 8px;
+  display: inline-block;
+  padding: 10px 14px;
+  border-bottom: 2px solid transparent;
   color: var(--mute);
   font-size: 14px;
   font-weight: 500;
-  margin-bottom: 2px;
+  margin-bottom: -1px;       /* overlap parent border so active state aligns */
+  white-space: nowrap;
   cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease;
 }
-.settings-tabs a:hover { background: var(--paper-3); color: var(--ink); text-decoration: none; }
+.settings-tabs a:hover { color: var(--ink); text-decoration: none; }
 .settings-tabs a.active {
-  background: var(--ink);
-  color: var(--paper);
+  color: var(--ink);
+  border-bottom-color: var(--accent);
   font-weight: 600;
 }
 
