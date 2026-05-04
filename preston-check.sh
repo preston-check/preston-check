@@ -40,7 +40,7 @@ CI_SOFT_MODE=false             # --ci-soft: never exit 1 (CI handles its own thr
 FRAMEWORK_FILTER=""            # --framework FILTER: only run checks whose metadata frameworks contain FILTER
 CATEGORY_FILTER=""             # --category VAL[,VAL...]: filter by metadata category
 SEVERITY_FILTER=""             # --severity VAL[,VAL...]: filter by severity
-PRESTON_VERSION="1.7.7"
+PRESTON_VERSION="1.7.8"
 
 export AIRGAP_MODE PRESTON_VERSION
 

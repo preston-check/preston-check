@@ -4,6 +4,49 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.7.8] — 2026-05-04 — Sales-readiness kit + Stripe billing UI live
+
+### Added
+
+- `docs/sales/playbook.md` — operator-only sales playbook covering
+  pre-flight checklist, ICP, outreach templates (cold email × 2,
+  warm intro, LinkedIn DM), 4-question discovery script, 6-act demo
+  recipe, 8-row objection-handling table, first-customer playbook,
+  metrics to track, and what to NOT do in the first 90 days.
+- `docs/sales/promo-codes.md` — registry of the five live promo
+  codes (FOUNDING100, CONFERENCE, EARLY50, SOC2READY, PARTNER25)
+  with use cases and operator commands to manage them.
+- `docs/sales/first-five-targets.md` — the diagnostic exercise of
+  contacting five fintech-adjacent contacts in your existing
+  network before any cold outreach. 1-2 hours of operator time
+  produces near-perfect calibration of whether the product solves
+  a real problem.
+- Customer portal Settings → Billing surface (committed in earlier
+  commits, marked here for changelog completeness): three pricing
+  tier cards, real Stripe Checkout buttons, post-redirect success
+  banner, "coming soon" toast for inert mock buttons across the
+  portal.
+
+### Changed
+
+- Customer portal Settings sub-tabs converted from vertical sidebar
+  to horizontal underline-tabs above the content. The previous
+  layout had a double-sidebar feel (global rail + settings tabs);
+  horizontal tabs use Linear / Vercel / GitHub Settings pattern.
+- Customer portal KPI tiles fixed: label / value / delta were
+  rendering on the same baseline because the tile lacked
+  display:flex direction:column.
+
+### Stripe — production state
+
+- 5 live promotion codes registered in Stripe (live mode):
+  FOUNDING100 (100% off, 1 use, 30d), CONFERENCE (100% off, 5 uses,
+  14d), EARLY50 (50% off, 20 uses, 90d), SOC2READY (33% off, 20
+  uses, 60d), PARTNER25 (25% off perpetual, 50 uses, 365d).
+- Smoke-test subscription canceled.
+- Webhook fully wired against snapshots event format; D1
+  preston-check-billing has 4 tables receiving real events.
+
 ## [1.7.7] — 2026-05-04 — Container registry switched to GHCR
 
 ### Changed

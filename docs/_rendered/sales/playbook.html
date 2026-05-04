@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2026-05-04" />
+  <title>Preston-Check — Sales Playbook</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+  :root {
+    --ink: #0B1F3A; --paper: #FFFFFF; --paper-2: #F8FAFC; --rule: #E2E8F0;
+    --mute: #475569; --mute-2: #94A3B8; --accent: #10B981; --accent-2: #2563EB;
+    --bad: #DC2626; --warn: #F59E0B;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: var(--sans); font-size: 16px; line-height: 1.65; color: var(--ink);
+         max-width: 780px; margin: 48px auto; padding: 0 32px; background: var(--paper);
+         -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 600; color: var(--ink);
+                   letter-spacing: -0.01em; line-height: 1.2; margin: 1.4em 0 0.5em; }
+  h1 { font-size: 38px; border-bottom: 2px solid var(--rule); padding-bottom: 0.3em;
+       margin-top: 0; }
+  h2 { font-size: 26px; border-bottom: 1px solid var(--rule); padding-bottom: 0.2em; }
+  h3 { font-size: 20px; }
+  h4 { font-size: 17px; }
+  p { margin: 0 0 1em; }
+  a { color: var(--accent-2); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--paper-2);
+         padding: 1px 6px; border-radius: 4px; border: 1px solid var(--rule); }
+  pre { font-family: var(--mono); font-size: 13px; background: var(--ink); color: #E2E8F0;
+        padding: 16px 20px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+  pre code { background: transparent; padding: 0; border: 0; color: inherit; font-size: inherit; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 14px; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--paper-2); font-weight: 600; font-size: 12px; text-transform: uppercase;
+             letter-spacing: 1px; color: var(--mute-2); border-bottom: 2px solid var(--rule); }
+  tbody tr:hover { background: var(--paper-2); }
+  ul, ol { margin: 0.6em 0 1em 1.6em; padding: 0; }
+  li { margin: 0.3em 0; }
+  blockquote { margin: 1em 0; padding: 0.5em 1.2em; border-left: 4px solid var(--accent);
+               background: var(--paper-2); color: var(--mute); font-style: italic; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2em 0; }
+  .title-block-header { padding-bottom: 16px; margin-bottom: 24px; border-bottom: 2px solid var(--ink); }
+  .title-block-header h1 { border-bottom: 0; padding-bottom: 0; }
+  .title-block-header .subtitle { color: var(--mute); font-size: 17px; font-style: italic; }
+  .title-block-header .author, .title-block-header .date { color: var(--mute-2); font-size: 13px; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 24px; font-size: 11pt; }
+    pre, code { font-size: 10pt; }
+    h1 { page-break-before: auto; }
+    h2 { page-break-after: avoid; }
+  }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Preston-Check — Sales Playbook</h1>
+<p class="subtitle">Outreach to first paying customer in 4 weeks</p>
+<p class="date">2026-05-04</p>
+</header>
+<h1 id="sales-playbook">Sales Playbook</h1>
+<p>This is the operator-only playbook for converting the first ~10
+paying customers. Everything in this doc is opinionated; deviate when
+something obvious applies. The general shape is: 5 outbound
+conversations per week → 1-2 demos → 1 closed deal in the first month,
+ramping to 2-3 per month by month three.</p>
+<h2 id="pre-flight-checklist-before-the-first-call">Pre-flight checklist
+(before the first call)</h2>
+<p>Verify these are working — five-minute check, blocks all sales:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> u <span class="kw">in</span> https://preston-check.com/ <span class="dt">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>         https://app.preston-check.com/ <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>         https://app.preston-check.com/#/settings<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">printf</span> <span class="st">&quot;%-50s &quot;</span> <span class="st">&quot;</span><span class="va">$u</span><span class="st">&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">curl</span> <span class="at">-so</span> /dev/null <span class="at">-w</span> <span class="st">&quot;%{http_code}\n&quot;</span> <span class="st">&quot;</span><span class="va">$u</span><span class="st">&quot;</span> <span class="at">--max-time</span> 6</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Stripe Checkout reachability</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-X</span> POST <span class="st">&#39;https://preston-check-billing.preston-check-edge.workers.dev/checkout&#39;</span> <span class="dt">\</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="dt">\</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;plan&quot;: &quot;pro_unlimited&quot;, &quot;email&quot;: &quot;test@example.com&quot;}&#39;</span> <span class="dt">\</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-q</span> <span class="st">&#39;&quot;url&quot;&#39;</span> <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;checkout: OK&quot;</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">&quot;checkout: FAIL&quot;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Homebrew formula points at latest tag</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> info preston-check/preston-check/preston-check <span class="dv">2</span><span class="op">&gt;</span>/dev/null <span class="kw">|</span> <span class="fu">grep</span> version</span></code></pre></div>
+<p>All four should report green. If any fail, fix before reaching
+out.</p>
+<h2 id="promo-codes-live-ready-to-use">Promo codes (live, ready to
+use)</h2>
+<p>Five codes in your Stripe account. Pick the right one for the
+conversation:</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Code</th>
+<th>Discount</th>
+<th>Use case</th>
+<th>Uses left</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FOUNDING100</code></td>
+<td>100% off first year</td>
+<td>The first customer ever — give it away to anchor the launch
+story</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>CONFERENCE</code></td>
+<td>100% off first year</td>
+<td>Booth / event giveaway, expires 14 days</td>
+<td>5</td>
+</tr>
+<tr>
+<td><code>EARLY50</code></td>
+<td>50% off first year</td>
+<td>Early adopter pricing for outbound (months 1-3)</td>
+<td>20</td>
+</tr>
+<tr>
+<td><code>SOC2READY</code></td>
+<td>33% off first year</td>
+<td>“We’re prepping SOC 2” cold-email response</td>
+<td>20</td>
+</tr>
+<tr>
+<td><code>PARTNER25</code></td>
+<td>25% off perpetually</td>
+<td>Referral / partner program — cuts forever</td>
+<td>50</td>
+</tr>
+</tbody>
+</table>
+<p>Customer applies the code on the Stripe Checkout page
+(<code>+ Add promotion code</code> link near the price). All codes work
+for both Pro tiers.</p>
+<p>To create more codes: use the Stripe dashboard → Products →
+Coupons.</p>
+<h2 id="ideal-customer-profile">Ideal customer profile</h2>
+<p>Don’t sell to everyone. Three concentric circles:</p>
+<p><strong>Bullseye (highest conversion):</strong> - US/EU fintech with
+<strong>5–50 engineers</strong> - Currently preparing for <strong>SOC 2
+/ PCI-DSS / MiCA / DORA audit</strong> - Has a CTO or Head of Security
+who reads pull requests - Stack involves at least one of: Solidity,
+Java, TypeScript, Go (the four languages with deepest catalog
+coverage)</p>
+<p><strong>Adjacent (medium conversion):</strong> - Crypto custody /
+DeFi protocol with public smart contracts - Series A-C startup with
+active VC pressure on security - Compliance-led organization that’s done
+one audit and is preparing the next</p>
+<p><strong>Long tail (low conversion, defer):</strong> - &lt; 5
+engineers (no time to integrate any tooling) - &gt; 500 engineers (long
+enterprise sales cycle, not where to start) - Pre-seed (no budget yet,
+will pay later when revenue arrives) - Banks / FIs with mature internal
+AppSec teams (high friction; come back at year 2)</p>
+<h2 id="outreach-templates">Outreach templates</h2>
+<h3 id="cold-email-fintech-founder">Cold email — fintech founder</h3>
+<p>Subject:
+<code>&lt;Name&gt;, 294 fintech-specific security checks for ~10 mins of your time</code></p>
+<pre><code>Hi &lt;Name&gt;,
+
+I built Preston-Check for the gap I kept hitting at &lt;fintech-vertical&gt;:
+generic security scanners flag 50 issues per scan and 45 are noise.
+
+It&#39;s 294 hand-curated checks scoped specifically to fintech compliance —
+PCI-DSS, MiCA, DORA, NYDFS, OWASP API + Smart Contract Top 10, FATF Travel
+Rule. Open-source under Apache 2.0. The catalog is built from real
+incident post-mortems (Wormhole, Cetus, Beanstalk Farms, the 21,201-call
+session-polling attack that named the project), not regex pulled from
+public repos.
+
+Three install paths:
+  brew install preston-check/preston-check/preston-check
+  docker run --rm -v $(pwd):/src ghcr.io/preston-check/scan:latest
+  curl -fsSL https://get.preston-check.com/install.sh | sh
+
+Free forever for the scanner. The SaaS tier ($999/repo or $4,999/year
+unlimited) adds branded compliance evidence bundles that go straight to
+your auditor.
+
+Worth a 10-minute demo? I can show you a real findings report from a
+fintech codebase including the AI-generated patches.
+
+— Preston (preston@preston-check.com)</code></pre>
+<h3 id="cold-email-fintech-cto">Cold email — fintech CTO</h3>
+<p>Subject:
+<code>Cutting your SOC 2 evidence-prep time by ~70%</code></p>
+<pre><code>&lt;Name&gt;,
+
+Most pre-deployment scanners produce reports SOC 2 auditors won&#39;t accept
+without manual reformatting. Preston-Check ships compliance evidence
+bundles mapped directly to PCI-DSS / SOC 2 / ISO 27001 / MiCA / DORA
+control catalogs — the bundle IS the evidence document.
+
+Open-source scanner (294 checks). Closed SaaS layer wraps the output as
+the auditor-ready PDF. $4,999/year unlimited repos.
+
+I&#39;ve got 5 founding-customer slots at 50% off the first year. Code:
+EARLY50 on the Stripe checkout. 14-day refund-no-questions-asked.
+
+Demo (10 min): https://calendly.com/preston-check/intro
+Try it now: brew install preston-check/preston-check/preston-check
+
+— Preston</code></pre>
+<h3 id="warm-intro-referral">Warm intro — referral</h3>
+<p>Subject:
+<code>&lt;Mutual contact&gt; mentioned you might find this useful</code></p>
+<pre><code>&lt;Name&gt;,
+
+&lt;Mutual&gt; mentioned you&#39;re &lt;preparing for X audit / shipping a new fintech
+product / dealing with security tooling fatigue&gt;. Preston-Check might
+help.
+
+It&#39;s a fintech-narrow pre-deployment security scanner — 294 hand-curated
+checks scoped to PCI-DSS, MiCA, DORA, OWASP API + Smart Contract Top 10,
+FATF, etc. Open-source under Apache 2.0, scans run locally (no source
+code leaves your machine), AI-augmented findings include suggested
+patches.
+
+Easy to try: `brew install preston-check/preston-check/preston-check`
+then run `preston-check --high-and-up` in any repo.
+
+Happy to do a 15-min walk-through of the kind of findings + suggested
+patches it produces if useful. Otherwise enjoy.
+
+— Preston</code></pre>
+<h3 id="linkedin-dm-security-engineer">LinkedIn DM — security
+engineer</h3>
+<pre><code>Hey &lt;Name&gt;, saw your post about &lt;recent SOC 2 / MiCA / Solidity audit
+topic&gt;. Built Preston-Check (preston-check.com) — 294 fintech-narrow
+security checks + AI auto-fix, open source. Worth a look if you&#39;re
+preparing for an audit.</code></pre>
+<h2 id="discovery-call-script">Discovery call script</h2>
+<p>15-minute call. Four questions, in order. Each answer determines
+whether to proceed.</p>
+<p><strong>Q1 — context</strong> (2 min) &gt; “Walk me through your
+current pre-deployment security setup. What scanners do you run, and
+what do you do with the output?”</p>
+<p>Listen for: Snyk Code, Semgrep, GitHub Advanced Security, manual code
+review, nothing. Anyone running nothing → high-conversion. Anyone
+running 3+ tools → fatigue, our positioning works. Anyone running just
+GitHub Advanced Security → easy switch.</p>
+<p><strong>Q2 — compliance</strong> (3 min) &gt; “When was your last SOC
+2 / PCI-DSS audit and what’s the next one?”</p>
+<p>Listen for: actively preparing → highest urgency. Last one was rough
+→ highest pain. Never had one → too early; defer 6 months.</p>
+<p><strong>Q3 — pain</strong> (5 min) &gt; “What’s the most painful part
+of your current security tooling?”</p>
+<p>Listen for any of: - “False positives” → emphasize AI false-positive
+filter - “Auditors don’t trust the output” → emphasize compliance
+evidence bundles - “Too noisy / too many alerts” → emphasize
+fintech-narrow curation - “Hard to integrate with our CI” → demo the
+GitHub Action right then - “Cost is too high” → segue into pricing tiers
++ early-adopter promo</p>
+<p><strong>Q4 — close</strong> (5 min) &gt; “If I could show you a real
+Preston-Check report on your codebase right now, would that be
+useful?”</p>
+<p>Three answers:</p>
+<ul>
+<li><strong>“Yes, let’s do it”</strong> → schedule a follow-up demo for
+tomorrow. Don’t try to do it on this first call.</li>
+<li><strong>“Send me a link, I’ll try it myself”</strong> → send the
+install command + EARLY50 promo code. Follow up 48h later asking what
+they saw.</li>
+<li><strong>“Not now”</strong> → ask “what would change that?” and
+respect the answer. Add to a 90-day follow-up list.</li>
+</ul>
+<p>Don’t pitch pricing on the first call unless they ask. Pricing is the
+fastest way to lose a deal that hasn’t surfaced the value yet.</p>
+<h2 id="demo-recipe-15-min-after-first-call">Demo recipe (15 min, after
+first call)</h2>
+<p>The wow-moment sequence in order. Don’t deviate; this is what
+works.</p>
+<p><strong>Setup</strong> (90 sec) - Screen-share your terminal at any
+large fintech repo (Bloxcross, digital_escrow, or a public fintech
+project on GitHub) - Have <code>preston-check --version</code> ready to
+show v1.7.x - Have the customer portal
+<code>app.preston-check.com/#/findings</code> open in a tab - Have a
+real Stripe Checkout URL ready (use FOUNDING100 if it’s the right
+close)</p>
+<p><strong>Act 1 — install + scan</strong> (3 min)</p>
+<pre><code>brew install preston-check/preston-check/preston-check
+preston-check --high-and-up</code></pre>
+<p>Let it run. Talk while the output streams: explain the 294 checks,
+the catalog curation, the 1.3M traces it was validated against. By the
+time you’re done explaining, the scan is done.</p>
+<p><strong>Act 2 — score-as-headline</strong> (1 min) The terminal
+output ends with a score and a letter grade. Stop. Read the grade aloud.
+<em>“This codebase is at A−. That’s the top quartile of fintechs your
+size.”</em></p>
+<p><strong>Act 3 — the AI moat</strong> (3 min)</p>
+<pre><code>preston-check --ai-fix --high-and-up | head -100</code></pre>
+<p>Find one critical finding with a suggested patch. Read the patch
+aloud. <em>“This isn’t just ‘you have SQL injection at line 142.’ It’s
+the actual fix, ready to git apply. That’s the difference.”</em></p>
+<p><strong>Act 4 — compliance evidence</strong> (3 min)</p>
+<pre><code>preston-check --framework &quot;PCI-DSS&quot; --report pci-evidence.md</code></pre>
+<p>Open the resulting PDF. Show the framework-citation column on every
+finding. <em>“This is what your auditor wants. Right now most tools
+produce JSON your auditor’s intake person has to manually reformat. We
+produce the evidence bundle directly.”</em></p>
+<p><strong>Act 5 — pricing</strong> (3 min) - Free forever for the
+scanner - $4,999/year unlimited repos for branded reports + multi-repo
+dashboard - 50% off first year via EARLY50 (or 100% off first year for
+founding customers via FOUNDING100) - 14-day refund window, no
+questions</p>
+<p><strong>Act 6 — close</strong> (1.5 min) &gt; “Want me to send you
+the EARLY50 link now so you can play with it &gt; on your team’s
+repos?”</p>
+<p>Send the Stripe Checkout URL. Stay on the call until they’ve clicked
+through and seen the dashboard if they’re high-intent.</p>
+<h2 id="objection-handling">Objection handling</h2>
+<p>The eight most common objections and the one-line responses that
+work:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Objection</th>
+<th>Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“We already use Snyk”</td>
+<td>“Snyk is excellent for general-purpose. We’re fintech-narrow —
+different cohort. Customers run both. Want to compare reports?”</td>
+</tr>
+<tr>
+<td>“We don’t have budget”</td>
+<td>“Free tier is the same scanner — you only pay for the audit-ready
+packaging. Try the free version first.”</td>
+</tr>
+<tr>
+<td>“We don’t want our code leaving our machines”</td>
+<td>“It doesn’t. Scans run locally. The opt-in telemetry is aggregate
+scores only, no source.”</td>
+</tr>
+<tr>
+<td>“Too many tools already”</td>
+<td>“Replaces Semgrep + Snyk Code + a manual fintech-checklist
+spreadsheet for the 294 fintech-specific checks. Reduces your stack,
+doesn’t add to it.”</td>
+</tr>
+<tr>
+<td>“We need SSO / SOC 2 / Enterprise features”</td>
+<td>“All on the Enterprise tier — let’s get on a call with
+sales@preston-check.com.”</td>
+</tr>
+<tr>
+<td>“Open source — what’s your moat?”</td>
+<td>“The catalog is curated, not crawled. AI auto-fix improves with scan
+volume. The annual State of Fintech Security report is the canonical
+industry benchmark in 2-3 years. Open source IS the funnel.”</td>
+</tr>
+<tr>
+<td>“We need a security review of your tool first”</td>
+<td>“Read the source — it’s all on GitHub. Apache 2.0. SECURITY.md has
+our disclosure policy. Happy to answer specific questions.”</td>
+</tr>
+<tr>
+<td>“Can we self-host?”</td>
+<td>“Enterprise tier includes on-premise deployment. Pro is SaaS-only
+because the audit-package layer needs the dashboard.”</td>
+</tr>
+</tbody>
+</table>
+<h2 id="first-customer-playbook-after-they-pay">First-customer playbook
+(after they pay)</h2>
+<p>Once a Stripe webhook fires for the first paying customer:</p>
+<p><strong>Within 1 hour:</strong> 1. Stripe email arrives confirming
+the subscription 2. Generate a license file:
+<code>tools/issue-license.sh --customer &lt;slug&gt; --tier pro --expires +1y</code>
+3. Email the customer: - Welcome message - Attach the
+<code>.license</code> file - Install path reminder:
+<code>brew install preston-check/preston-check/preston-check</code> -
+License install location: <code>~/.preston-check/license</code> -
+Quick-start command:
+<code>preston-check --high-and-up --report security-audit.md</code> -
+Direct link to schedule a 30-min onboarding call</p>
+<p><strong>Within 7 days:</strong> 4. Schedule and run a 30-min
+onboarding call 5. Walk through their first scan together 6. Identify
+their top three pain points; address what’s actionable 7. Set
+expectations on AI augmentation (bring your own key) 8. Add them to the
+founding-customer Slack / email list</p>
+<p><strong>Within 30 days:</strong> 9. Check in: did they integrate into
+CI? See any value? 10. Ask for a written quote / testimonial if they’re
+happy 11. Invite them to be cited in the State of Fintech Security 2026
+report</p>
+<p><strong>Within 90 days:</strong> 12. Renewal-prep call: any change
+requests, anything they’d build differently 13. Discuss expansion (more
+repos, Enterprise tier, custom checks) 14. Ask for one referral</p>
+<h2 id="metrics-that-matter-track-in-spreadsheet-for-now">Metrics that
+matter (track in spreadsheet for now)</h2>
+<p>Forget complex CRM until you have 10+ customers:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Where it’s tracked</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Outbound emails sent / week</td>
+<td>Manual Google Sheet</td>
+<td>25</td>
+</tr>
+<tr>
+<td>Reply rate</td>
+<td>same</td>
+<td>&gt; 8%</td>
+</tr>
+<tr>
+<td>Discovery calls / week</td>
+<td>Calendly + Sheet</td>
+<td>3-5</td>
+</tr>
+<tr>
+<td>Demo calls / week</td>
+<td>Calendly + Sheet</td>
+<td>1-3</td>
+</tr>
+<tr>
+<td>Closed deals / month</td>
+<td>Stripe dashboard</td>
+<td>month 1: 1 / month 3: 3 / month 6: 5</td>
+</tr>
+<tr>
+<td>Free-tier scan volume</td>
+<td>D1 telemetry table</td>
+<td>grow weekly</td>
+</tr>
+<tr>
+<td>Free → Pro conversion</td>
+<td>Stripe + telemetry repo_hash join</td>
+<td>track from month 3</td>
+</tr>
+</tbody>
+</table>
+<p>Replace the Google Sheet with the admin portal Sales tab once that
+ships with real data persistence (Q4 2026 per the build sequence).</p>
+<h2 id="what-to-not-do-in-the-first-90-days">What to NOT do in the first
+90 days</h2>
+<ul>
+<li>Build new product features in response to one customer’s “would be
+nice”</li>
+<li>Hire a sales rep</li>
+<li>Sign up for HubSpot / Salesforce / a “sales-stack-of-the-week”</li>
+<li>Pursue Enterprise pipeline (those have 6-month sales cycles; you
+need cash and feedback faster than that)</li>
+<li>Run paid ads</li>
+<li>Pay for any “we’ll generate leads for you” service</li>
+<li>Underprice — early-adopter pricing is 50% off, not 90%</li>
+</ul>
+<p>The cheapest, fastest, highest-signal path is <strong>20 personal
+cold emails to fintech CTOs in your network plus 5 discovery calls per
+week</strong>. Two months of that produces enough conversation to
+validate or invalidate the entire thesis.</p>
+<h2 id="when-to-come-back-to-this-playbook">When to come back to this
+playbook</h2>
+<p>Re-read at: 5 closed customers, 25 closed customers, 100 closed
+customers. Each milestone is a different sales motion; this doc covers
+the first one.</p>
+</body>
+</html>
