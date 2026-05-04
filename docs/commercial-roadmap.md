@@ -1,8 +1,8 @@
 # Commercial Roadmap
 
-Preston-Check is **fully open source under Apache 2.0**. Every check, every framework filter, every report format runs free for every user — no license required, no signup, no email gate, no tier-locked features in the scanner itself. The 284 checks across 33 frameworks are yours to run on any codebase, any time, with output identical to what paying customers get from the scanner alone.
+Preston-Check is **fully open source under Apache 2.0**. Every check, every framework filter, every report format runs free for every user — no license required, no signup, no email gate, no tier-locked features in the scanner itself. The 294 checks (284 main catalog + 10 deep smart-contract module) across 33 frameworks are yours to run on any codebase, any time, with output identical to what paying customers get from the scanner alone. AI augmentation (`--ai-augment`, `--ai-fix`) is also fully open source — bring your own API key.
 
-The commercial product is **not the scanner**. It's the audit-package SaaS at `preston-check.com/dashboard` that consumes scanner output and produces auditor-ready deliverables. This document describes that SaaS, what's planned, and how Preston-Check sustains open-source maintenance.
+The commercial product is **not the scanner**. It's the audit-package SaaS at `app.preston-check.com` (customer portal) and `admin.preston-check.com` (operator portal) that consumes scanner output and produces auditor-ready deliverables. This document describes that SaaS at a high level; the detailed surface design and KPI catalog live in [`docs/portals-and-kpis.md`](portals-and-kpis.md).
 
 ## Why open core
 
@@ -42,13 +42,19 @@ Repositories with a recognized OSS LICENSE file (MIT, Apache, BSD, GPL, MPL, ISC
 
 ## Roadmap by quarter
 
-**Q3 2026 — v1 SaaS dashboard.** Multi-repo upload, branded PDF generator, framework-citation evidence rollup, Stripe-backed Pro tier billing, customer portal. Launch goal: 50 paying Pro customers.
+**Q3 2026 — Customer Portal v1.** Repos list, latest scan view, Stripe billing integration, manual scan upload, branded PDF generation. Magic-link auth. Launch goal: first paying Pro customer.
 
-**Q4 2026 — Enterprise tier.** SSO (SAML + OIDC), white-label, custom-check authoring intake, on-premise dashboard option for highly-regulated customers. Launch goal: 5 Enterprise contracts.
+**Q4 2026 — Admin Portal v1.** Customer list, license issuance UI (replacing the current `tools/issue-license.sh` shell flow), revenue dashboard mirroring Stripe, support ticket inbox. Launch goal: operator runs the entire business from the portal without shell access. SSO (SAML + OIDC) and white-label complete the Enterprise feature surface for first-contract conversations.
 
-**Q1 2027 — Annual State of Fintech Security report.** Aggregate the (opt-in, anonymized) telemetry from public Preston-Check usage into an industry report. Free download with email gate. Becomes the content-marketing tentpole and the canonical industry benchmark.
+**Q1 2027 — Compliance v2 + multi-repo aggregation + State of Fintech Security report.** Framework-control rollups, evidence-bundle generation, multi-repo trends, peer percentiles (once telemetry has volume). Annual report aggregates opt-in anonymized telemetry into an industry benchmark — free download with email gate. Goal: first Enterprise contract.
 
-**Q2 2027 — Compliance-platform integrations.** Drata, Vanta, Secureframe, Tugboat Logic. Push Preston-Check evidence directly into compliance platforms as evidence-of-control. Reduces customer effort during audit prep.
+**Q2 2027 — Threat-intel triage UI + AI feedback loop + compliance-platform integrations.** Move `checks/community/proposed/` review into the Admin Portal with a regex-tester. Capture user "false-positive" / "fix accepted" signals into the AI training set so model quality improves quarter over quarter. Drata, Vanta, Secureframe, Tugboat Logic push Preston-Check evidence directly into compliance platforms as evidence-of-control.
+
+**Q3 2027 — SSO + advanced enterprise.** Audit logs, on-premise deploy option for high-regulation customers. Goal: 5+ Enterprise customers running mission-critical compliance through the portal.
+
+## Project identity
+
+The maintainers run Preston-Check pseudonymously. Customer-facing communications, releases, conference talks, and the State of Fintech Security report attribute to "Preston" (or the collective "Preston-Check Maintainers"). The legal operating entity that signs contracts and receives Stripe payouts is a separate, publicly-registered LLC; no public-facing artifact links the pseudonym to the underlying individual. The full strategy is documented at [`docs/strategy/anonymity-and-mystique.md`](strategy/anonymity-and-mystique.md). Customers, auditors, and partners interact with the LLC through normal commercial channels — KYC, contract signing, Stripe billing — without the pseudonymity ever being load-bearing on their side.
 
 ## What's never paid
 

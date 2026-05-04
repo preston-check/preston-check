@@ -1,0 +1,15 @@
+<!-- Preston-Check logomark: shield containing a faceted diamond with an embedded check tick.
+     Single-color, scales cleanly from 16px favicon to 256px hero badge. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-label="Preston-Check">
+  <!-- Outer shield -->
+  <path d="M32 4 8 11v17.5C8 41 18 53.5 32 58c14-4.5 24-17 24-29.5V11Z"
+        fill="#0B1F3A" stroke="#0B1F3A" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Internal diamond facet — the brand motif. -->
+  <path d="M32 18 46 32 32 46 18 32Z"
+        fill="none" stroke="#10B981" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M24 32 32 24 40 32 32 40Z"
+        fill="#10B981" stroke="#10B981" stroke-width="1.5" stroke-linejoin="round"/>
+  <!-- Check tick across the inner facet -->
+  <path d="m26.5 32 4 4 7-7"
+        fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

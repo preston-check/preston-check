@@ -1,0 +1,18 @@
+<!-- Wordmark for header: logomark + custom letterform "PRESTON-CHECK" rendered as outlined geometry. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" aria-label="Preston-Check">
+  <!-- Mark, scaled and translated -->
+  <g transform="translate(0,0) scale(0.66)">
+    <path d="M48 6 12 16.5v26.25C12 61.5 27 80.25 48 87c21-6.75 36-25.5 36-44.25V16.5Z"
+          fill="#0B1F3A"/>
+    <path d="M48 27 69 48 48 69 27 48Z" fill="none" stroke="#10B981" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M36 48 48 36 60 48 48 60Z" fill="#10B981" stroke="#10B981" stroke-width="2" stroke-linejoin="round"/>
+    <path d="m39.75 48 6 6 10.5-10.5" fill="none" stroke="#FFFFFF" stroke-width="3.9" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- Wordmark text — set in a clean weight via SVG <text>; system stack avoids CDN deps. -->
+  <text x="76" y="42"
+        font-family="ui-serif, Georgia, 'Times New Roman', serif"
+        font-size="26"
+        font-weight="600"
+        letter-spacing="0.5"
+        fill="#0B1F3A">Preston<tspan fill="#10B981">·</tspan>Check</text>
+</svg>

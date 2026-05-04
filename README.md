@@ -396,16 +396,16 @@ The session will have full context on all 20 check categories, how to run them, 
 
 ## Background
 
-Preston Braswell's attack on the Bloxcross platform in February 2026 involved:
+Preston Braswell's attack on a production fintech platform in February 2026 involved:
 
-1. Creating 5+ fake accounts with names like "whizzy jo", "test user" using Idaho phone numbers
+1. Creating 5+ fake accounts with synthetic names and disposable phone numbers
 2. Setting 2FA to NONE on all accounts
-3. Running 21,201 automated calls to `/client/config` at 1-2 second intervals
-4. Exploiting session responses that leaked Vouched API keys, fee structures, and internal permissions
-5. Credential stuffing with non-existent emails, then registering with a stolen DirectPay API key
-6. Attempting Fireblocks withdrawals with wrong 2FA codes and balance probing
+3. Running 21,201 automated calls to a configuration endpoint at 1-2 second intervals
+4. Exploiting session responses that leaked third-party API keys, fee structures, and internal permissions
+5. Credential stuffing with non-existent emails, then registering with a stolen payment-API key
+6. Attempting custodial withdrawals with wrong 2FA codes and balance probing
 
-Every check in this tool is derived from a real attack pattern observed in the forensic logs. The full analysis is at `docs/HACK_FORENSIC_ANALYSIS.md` in the bloxcross repository.
+Every check in this tool is derived from a real attack pattern observed in the forensic logs. The catalog is the post-mortem turned into automated regression tests.
 
 ## Enhanced Checks (P-21 through P-56) — Enterprise Security Suite
 

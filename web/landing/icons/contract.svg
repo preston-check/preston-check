@@ -1,0 +1,8 @@
+<!-- Smart contract: scroll page with a code chevron. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M6 3h11l3 3v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/>
+  <path d="M16 3v3h3"/>
+  <path d="m9 12 -1.5 1.5L9 15"/>
+  <path d="m13 12 1.5 1.5L13 15"/>
+  <path d="m11.5 11-1 5"/>
+</svg>

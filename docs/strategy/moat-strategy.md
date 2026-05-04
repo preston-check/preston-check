@@ -2,7 +2,7 @@
 title: "Preston-Check Moat-Building Strategy"
 subtitle: "Building defensible IP, AI leverage, and best-in-class UX"
 author: "Preston-Check Maintainers"
-date: "2026-05-03"
+date: "2026-05-04"
 geometry: margin=1in
 ---
 
@@ -10,7 +10,7 @@ geometry: margin=1in
 
 ## What is actually defensible in an open-source security tool?
 
-The catalog itself is not a moat. Anyone can copy 284 bash scripts. The framework citations are not a moat — they come from public regulations. The brand and trademark provide some defense but are weak alone. The real moats compound over time and have to be built deliberately, starting now, to have anything in 18 months.
+The catalog itself is not a moat. Anyone can copy 294 bash scripts. The framework citations are not a moat — they come from public regulations. The brand and trademark provide some defense but are weak alone. The real moats compound over time and have to be built deliberately, starting now, to have anything in 18 months.
 
 Five categories of moat in order of leverage:
 
@@ -30,11 +30,11 @@ Specific list, ordered by ROI. The first three are cheap and ship fast; the last
 
 ### Tier 1: Ship in the first 6 weeks
 
-**False-positive filter** (~2 weeks). Every finding goes through a small LLM that takes the file context plus the finding and judges "real vulnerability" / "likely false positive" / "needs human review." Cuts alert fatigue by 30-50% based on what Snyk Code, Semgrep Pro, and CodeQL deliver. Lowest cost (a single API call to Claude or GPT per finding, or a fine-tuned 7B model running locally), highest immediate UX impact. Customers feel this on first scan. *This is shipped in v1.6.0 as `lib/ai_analyze.sh`.*
+**False-positive filter** (✅ shipped v1.6.0, wired in v1.7.1). Every finding goes through a small LLM that takes the file context plus the finding and judges "real vulnerability" / "likely false positive" / "needs human review." Cuts alert fatigue by 30-50% based on what Snyk Code, Semgrep Pro, and CodeQL deliver. Lowest cost (a single API call to Claude or GPT per finding, or a fine-tuned 7B model running locally), highest immediate UX impact. Customers feel this on first scan. *Shipped as `lib/ai_analyze.sh`; activated via `--ai-augment` after the v1.7.1 runner wiring.*
 
-**Auto-fix generator** (~3-4 weeks). Given a finding plus surrounding code, generate a patch that resolves the issue. Critical UX moment: not just "you have SQL injection at line 42" but "click here to apply the fix" with a diff preview. Verify the patch with the same scanner before suggesting it. This is the feature that makes developers personally love the tool — when it fixes their bug instead of just complaining about it. **Auto-fix is the number one feature converting Snyk free users to paid.**
+**Auto-fix generator** (✅ shipped v1.7.1). Given a finding plus surrounding code, generate a patch that resolves the issue. Critical UX moment: not just "you have SQL injection at line 42" but "click here to apply the fix" with a diff preview. **Auto-fix is the number one feature converting Snyk free users to paid.** *Shipped as `lib/ai_autofix.sh`; activated via `--ai-fix` (which implies `--ai-augment`). Capped at 5 findings per check to bound scan time, per-finding cached, gracefully no-ops without API keys.*
 
-**Custom check synthesizer** (~3 weeks). Natural language to working `.sh` check file. "Write me a check that detects when a transaction's idempotency key uses Math.random() instead of crypto.randomUUID()." The LLM generates the check, runs it against a fixture corpus, iterates until it passes the lint gate, then opens a PR to `checks/community/proposed/`. Lowers the barrier for community contributions enormously and is itself a viral lever.
+**Custom check synthesizer** (~3 weeks, not yet started). Natural language to working `.sh` check file. "Write me a check that detects when a transaction's idempotency key uses Math.random() instead of crypto.randomUUID()." The LLM generates the check, runs it against a fixture corpus, iterates until it passes the lint gate, then opens a PR to `checks/community/proposed/`. Lowers the barrier for community contributions enormously and is itself a viral lever.
 
 ### Tier 2: Six-month roadmap
 
@@ -42,7 +42,7 @@ Specific list, ordered by ROI. The first three are cheap and ship fast; the last
 
 **Risk-scoring model with peer comparison** (~6 weeks, requires telemetry data). Combines findings plus codebase metadata (industry, stack, exposure) and outputs a calibrated risk score. Compares to anonymized cohort: "your fintech is in the bottom-quartile for sanctions screening among similar-size US payment processors." This becomes the headline number on the dashboard and the executive-summary stat in CISO reports. **It only works if you have telemetry volume**, which is why the data moat is foundational.
 
-**Threat-intel auto-synthesis** (~4 months). Daily ingest of CVE feeds, regulatory enforcement actions, fintech post-mortems, breach disclosures. LLM extracts the attack pattern, generates a candidate check, runs it against the test corpus, surfaces it for maintainer review. After 6 months of operation, the catalog updates itself faster than humans can write checks. *Foundation shipped in v1.6.0 as `tools/sync-threat-intel.py`.*
+**Threat-intel auto-synthesis** (✅ pipeline shipped v1.6.0, automation wired v1.7.1). Daily ingest of CVE feeds, regulatory enforcement actions, fintech post-mortems, breach disclosures. LLM extracts the attack pattern, generates a candidate check, runs it against the test corpus, surfaces it for maintainer review. After 6 months of operation, the catalog updates itself faster than humans can write checks. *Foundation shipped as `tools/sync-threat-intel.py`. Cron + auto-PR shipped as `.github/workflows/threat-intel-sync.yml`. Verified end-to-end against live NIST NVD: 339 CVEs in a 2-day window, 135 fintech-relevant, drafts emit cleanly into `checks/community/proposed/`. The next leverage point is the Admin Portal's triage UI — see `docs/portals-and-kpis.md`.*
 
 ## UX: Instant Gratification, Then the Rabbit Hole
 
@@ -64,20 +64,20 @@ The local browser-based dashboard at `preston-check web` opens a Next.js app ser
 
 ## What is next, in priority order
 
-**Weeks 1-3 — finish the launch.** Public repos, logo, landing page, production keypair, GitHub Marketplace listing, soft launch to fintech communities, coordinated Hacker News and Product Hunt launch. This is the *adoption* phase — get to 1000 free users.
+**Weeks 1-3 — finish the launch.** Public repos ✅, landing page (in progress, see `web/landing/`), production keypair, GitHub Marketplace listing, soft launch to fintech communities, coordinated Hacker News and Product Hunt launch. This is the *adoption* phase — get to 1000 free users.
 
-**Months 2-3 — ship the AI false-positive filter and auto-fix generator.** Both are features customers feel immediately. Both compound the viral effect (users tell each other "the AI explanations are weirdly good"). The filter is shipped; the auto-fix generator is the next deliverable.
+**Months 2-3 — AI false-positive filter and auto-fix generator.** ✅ Both shipped in v1.7.1. The filter wires through `--ai-augment`; the auto-fix wires through `--ai-fix`. Both customers tell each other about ("the AI explanations are weirdly good", "it actually wrote the patch for me") — that is the viral compounder.
 
-**Months 3-5 — SaaS dashboard v1.** The browser-based "rabbit hole" experience. Instant gratification (score, grade, top issues) front-and-center; rabbit-hole drill-downs progressively disclosed. Stripe billing. Multi-repo aggregation. Branded PDF export. **First paying customers go through this.**
+**Months 3-5 — SaaS dashboard v1.** The browser-based "rabbit hole" experience. Instant gratification (score, grade, top issues) front-and-center; rabbit-hole drill-downs progressively disclosed. Stripe billing. Multi-repo aggregation. Branded PDF export. **First paying customers go through this.** *Designed in `docs/portals-and-kpis.md`; build sequence Q3 2026.*
 
-**Months 5-8 — proprietary intelligence layer.** Telemetry pipeline live. Threat-intel auto-synthesis generating new check candidates daily. Peer-comparison percentiles in dashboard. First annual State of Fintech Security report drafted from accumulating data.
+**Months 5-8 — proprietary intelligence layer.** Telemetry pipeline live (Worker exists at `workers/telemetry/`; needs `wrangler deploy`). Threat-intel auto-synthesis generating new check candidates weekly ✅ (`.github/workflows/threat-intel-sync.yml`). Peer-comparison percentiles in dashboard. First annual State of Fintech Security report drafted from accumulating data — methodology and template shipped as `docs/state-of-fintech-security/2026.md`.
 
-**Months 8-12 — integrations and auditor relationships.** Drata, Vanta, Secureframe push Preston-Check evidence into their compliance workflows. Big Four partnership conversations open. Custom-check authoring service rolls out for Enterprise tier.
+**Months 8-12 — integrations and auditor relationships.** Drata, Vanta, Secureframe push Preston-Check evidence into their compliance workflows. Big Four partnership conversations open. Custom-check authoring service rolls out for Enterprise tier. Adapter scaffolds shipped at `tools/integrations/{drata,vanta,secureframe}/`.
 
 The strategic logic: **adoption first, AI second, dashboard third, data moat fourth, integrations fifth.** Reversing that order — building the dashboard before users exist, or chasing integrations before AI quality is good — is how most open-core companies fail. Snyk did it in roughly this order. So did Vercel, Supabase, GitLab.
 
 ## The single highest-leverage move you can make today
 
-Deploy the telemetry endpoint. Even with zero analysis on day one, every scan from a free user is permanent data accumulation toward the moat. Three days of work for the highest-leverage long-term asset. The scaffolding is shipped in `workers/telemetry/`; the deployment is `wrangler deploy` once Cloudflare credentials are configured.
+Deploy the telemetry endpoint to Cloudflare and emit the first opt-in scan. The plumbing is shipped (Worker, schema, KV+D1) and the documentation is done (`docs/telemetry.md`); the only missing step is `wrangler deploy` against the Cloudflare account, plus DNS for `telemetry.preston-check.com`. Day one of telemetry collection is day one of the data moat compounding.
 
 The competitive position becomes inarguable around month 12 once you have AI-curated checks fed by anonymized industry data. At that point Preston-Check is no longer "another scanner with regex patterns" but the canonical fintech-security intelligence layer — with the open scanner as the funnel and the SaaS as the monetization.

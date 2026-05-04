@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Preston-Check — Pre-Deployment Security Audit for Fintech</title>
+  <meta name="description" content="294 automated security checks across 33 frameworks. Apache 2.0. Run locally — your code never leaves your machine. AI-augmented findings and patches."/>
+  <link rel="icon" href="assets/logomark.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <meta property="og:title" content="Preston-Check — Pre-Deployment Security Audit for Fintech"/>
+  <meta property="og:description" content="294 checks across 33 frameworks. Open source. Your code never leaves your machine."/>
+  <meta property="og:image" content="assets/score-badge.svg"/>
+</head>
+<body>
+
+<!-- ============================================================ HEADER -->
+<header class="site">
+  <div class="wrap">
+    <a href="/" class="logo" aria-label="Preston-Check home">
+      <img src="assets/wordmark.svg" alt="Preston-Check"/>
+    </a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#frameworks">Frameworks</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://github.com/preston-check/preston-check">GitHub</a>
+      <a href="#install" class="btn btn-primary">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================== HERO -->
+<section class="hero">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Open-source · Apache 2.0 · v1.7.3</p>
+      <h1>Pre-deployment security audits for fintech that <strong>actually catch the bugs that ship money to attackers</strong>.</h1>
+      <p class="lede">294 hand-curated checks across 33 reputable frameworks — PCI-DSS, MiCA, DORA, NYDFS, OWASP, NIST, CCSS, FATF — with AI-augmented findings and one-click patch suggestions. Runs in seconds. Your code never leaves your machine.</p>
+      <div class="ctas">
+        <a href="#install" class="btn btn-primary">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8h18"/><path d="m7 13 2.5 2L7 17"/><path d="M12 17h5"/></svg>
+          Quick start
+        </a>
+        <a href="https://github.com/preston-check/preston-check" class="btn btn-ghost">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a1 1 0 0 1 1-1h6v15H5a1 1 0 0 1-1-1Z"/><path d="M20 5a1 1 0 0 0-1-1h-6v15h6a1 1 0 0 0 1-1Z"/></svg>
+          Read the catalog
+        </a>
+      </div>
+      <div class="install" id="install">brew install preston-check/preston-check/preston-check</div>
+    </div>
+    <div class="badge-wrap">
+      <img src="assets/score-badge.svg" alt="Sample score badge: A-, 87 of 100"/>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== PILLARS -->
+<section class="pillars">
+  <div class="wrap">
+    <p class="eyebrow">Three commitments</p>
+    <h2>Built around the rules fintech actually has to follow.</h2>
+    <p class="lede">Most security scanners are general-purpose. Preston-Check is fintech-narrow — its catalog is curated, not crawled, and every check cites the framework control or real-world incident it stems from.</p>
+
+    <div class="grid" style="margin-top:48px;">
+      <div class="pillar">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 4 5.5v6c0 4.6 3.3 8.6 8 10 4.7-1.4 8-5.4 8-10v-6Z"/><path d="m8.5 12 2.5 2.5L15.5 9"/></svg></span>
+        <h3>Open scanner, paid SaaS layer.</h3>
+        <p>Every check, every framework filter, every report format runs free. The commercial product wraps the output, not the engine.</p>
+      </div>
+      <div class="pillar">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3.5c.8 3 2 4.2 5 5-3 .8-4.2 2-5 5-.8-3-2-4.2-5-5 3-.8 4.2-2 5-5Z"/><path d="M18.5 14.5c.4 1.4 1 2 2.5 2.5-1.4.4-2 1-2.5 2.5-.4-1.4-1-2-2.5-2.5 1.4-.4 2-1 2.5-2.5Z"/></svg></span>
+        <h3>AI-augmented, never AI-only.</h3>
+        <p>The grep catalog runs first. Then an LLM filters false positives, explains in plain English, and (with <code>--ai-fix</code>) writes the patch.</p>
+      </div>
+      <div class="pillar">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M7.5 10V7a4.5 4.5 0 0 1 9 0v3"/><path d="M12 14v3"/></svg></span>
+        <h3>Your code never leaves your machine.</h3>
+        <p>Telemetry is opt-in. AI calls are opt-in. <code>--airgap</code> kills every outbound request. The privacy promise is auditable in 30 lines of bash.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================= TERMINAL -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">In your terminal</p>
+    <h2>What a scan actually looks like.</h2>
+    <p class="lede">Colored pass/fail/warn output, a final score, and a markdown report your auditor can sign off on. Same engine in the CLI, GitHub Action, Docker image, and Homebrew formula.</p>
+
+    <div class="terminal" style="margin-top:32px;">
+      <div class="bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="title">~/payments-api · preston-check --high-and-up</span>
+      </div>
+<pre>
+============================================================================
+  Preston-Check — Pre-Deployment Security Audit
+  2026-05-04 14:22:08
+============================================================================
+
+  App:     payments-api
+  Lang:    typescript (primary) | TypeScript(118) Solidity(7)
+  Mode:    FULL (all enterprise security checks)
+  License: free tier (no license installed)
+  OSS: detected (Apache-2.0) — Pro features granted free for this repo
+  Telemetry: opt-in (anonymous score reported)
+
+----------------------------------------------------------------------------
+
+P-01: Hardcoded Secrets
+<span class="t-pass">[PASS]</span> P-01 Hardcoded secrets             No hardcoded secrets in source
+P-05: Idempotency Guards
+<span class="t-pass">[PASS]</span> P-05 Webhook idempotency           Idempotency middleware present
+P-12: Balance Validation
+<span class="t-fail">[FAIL]</span> P-12 Balance validation            No balance validation before withdrawals
+P-103: Double-Spend Prevention
+<span class="t-fail">[FAIL]</span> P-103 Money idempotency           Transfer endpoint missing dedup key
+P-308: Bridge Replay Protection
+<span class="t-warn">[WARN]</span> P-308 Bridge replay                Cross-chain handler accepts unsigned msgs
+P-712: Refund / Claim Authorization Missing
+<span class="t-pass">[PASS]</span> P-712 Refund authorization         msg.sender enforced
+
+  <span class="t-pass">PASS: 261</span>  <span class="t-fail">FAIL: 5</span>  <span class="t-warn">WARN: 21</span>  <span class="t-skip">SKIP: 7</span>
+  <span class="t-mute">Score: 88%   Grade: A−</span>
+</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================= FEATURES -->
+<section class="features" id="features">
+  <div class="wrap">
+    <p class="eyebrow">What ships in the box</p>
+    <h2>Nine surfaces, one engine.</h2>
+
+    <div class="grid" style="margin-top:48px;">
+      <div class="feature">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/><path d="m11 8 3 3-3 3-3-3z"/></svg></span>
+        <div><h3>Catalog of 294 checks</h3><p>284 main + 10 deep smart-contract. Each check cites its framework control and the real-world incident it traces back to.</p></div>
+      </div>
+      <div class="feature">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4a4 4 0 0 1 4.7 4.9l-9.6 9.6a3 3 0 0 1-4.2-4.2L15 4.7"/><path d="M18.5 14.5 20 13l1.5 1.5L20 16Z"/></svg></span>
+        <div><h3>AI auto-fix</h3><p>Pass <code>--ai-fix</code>, get a unified diff per finding. Applies cleanly with <code>git apply</code>. Cached per finding so reruns are free.</p></div>
+      </div>
+      <div class="feature">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 0 1 17 0"/><path d="M6.5 12a5.5 5.5 0 0 1 11 0"/><circle cx="12" cy="12" r="0.6" fill="currentColor"/></svg></span>
+        <div><h3>Threat-intel pipeline</h3><p>Weekly NIST NVD ingest drafts new checks into <code>community/proposed/</code>. The catalog grows without you babysitting it.</p></div>
+      </div>
+      <div class="feature">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><rect x="5" y="13" width="3" height="6"/><rect x="10.5" y="9" width="3" height="10"/><rect x="16" y="5" width="3" height="14"/></svg></span>
+        <div><h3>Score and grade</h3><p>Single A–F letter grade plus 0–100 numeric score. Calibrated against opt-in telemetry from peer fintechs.</p></div>
+      </div>
+      <div class="feature">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 12 9 8.5l3.5 3.5L9 15.5Z"/><path d="M11.5 12 15 8.5l3.5 3.5L15 15.5Z"/><path d="M11 12h2"/></svg></span>
+        <div><h3>Smart-contract module</h3><p>10 deep checks (P-700 to P-719) traced to real production audit findings — HTLC, cross-chain replay, governance attacks, oracle manipulation.</p></div>
+      </div>
+      <div class="feature">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 14 4 16 3.4 17 5l1.7.5-.2 1.8 1.5 1.2-1 1.6.4 1.8-1.7.6-.4 1.8-1.8-.2-1.2 1.4-1.5-.9-1.5.9-1.2-1.4-1.8.2-.4-1.8-1.7-.6.4-1.8-1-1.6 1.5-1.2-.2-1.8L7 5l1-1.6L10 4Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div><h3>Compliance evidence bundles</h3><p>Group findings by framework control (PCI-DSS 6.5.1, SOC 2 CC6.1, MiCA Art 27). Hand the PDF to your auditor.</p></div>
+      </div>
+      <div class="feature">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h3a2 2 0 1 0 4 0h3v3a2 2 0 1 1 0 4v3h-3a2 2 0 1 0-4 0H4v-4a2 2 0 1 1 0-4Z"/></svg></span>
+        <div><h3>CI integrations</h3><p>GitHub Action, GitLab CI, CircleCI, pre-commit hook, Docker image, Homebrew, raw shell. Same exit codes, same report.</p></div>
+      </div>
+      <div class="feature">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3.5 2"/></svg></span>
+        <div><h3>Severity / framework filters</h3><p><code>--critical-only</code>, <code>--high-and-up</code>, <code>--framework MiCA</code>. Run the slice that matches the gate you're protecting.</p></div>
+      </div>
+      <div class="feature">
+        <span class="icon-frame"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V11a7 7 0 0 1 14 0v10"/><path d="M5 21h14"/><path d="m12 8 1.5 1.5L12 11l-1.5-1.5Z"/></svg></span>
+        <div><h3>Customer + admin portals</h3><p>SaaS layer for multi-repo aggregation, branded PDFs, billing, license issuance, threat-intel triage. Free scanner stays free.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================== FRAMEWORKS -->
+<section class="frameworks" id="frameworks">
+  <div class="wrap">
+    <p class="eyebrow" style="color: var(--accent);">33 reputable frameworks</p>
+    <h2>Curated, not crawled.</h2>
+    <p>Every check carries the framework citation in its metadata. Filter by <code>--framework "PCI-DSS"</code> to produce a PCI-only audit; same for any other.</p>
+    <div class="strip">
+      <span class="fw-pill accent">PCI-DSS v4.0</span>
+      <span class="fw-pill accent">PCI 3DS</span>
+      <span class="fw-pill accent">EMVCo 3DS 2.x</span>
+      <span class="fw-pill accent">MiCA (2024)</span>
+      <span class="fw-pill accent">TFR (2023)</span>
+      <span class="fw-pill accent">PSD2 + PSD2-RTS</span>
+      <span class="fw-pill accent">DORA (2025)</span>
+      <span class="fw-pill">NYDFS Part 500</span>
+      <span class="fw-pill">FinCEN 31 CFR</span>
+      <span class="fw-pill">OFAC SDN</span>
+      <span class="fw-pill">MAS TRM</span>
+      <span class="fw-pill">APRA CPS 234</span>
+      <span class="fw-pill">RBI CSF</span>
+      <span class="fw-pill">FATF Rec. 2023</span>
+      <span class="fw-pill">Travel Rule Rec. 16</span>
+      <span class="fw-pill">SOC 2 (TSC 2017)</span>
+      <span class="fw-pill">ISO 27001:2022</span>
+      <span class="fw-pill">ISO 22301:2019</span>
+      <span class="fw-pill">OWASP API Top 10 2023</span>
+      <span class="fw-pill">OWASP Top 10 2021</span>
+      <span class="fw-pill">OWASP Mobile MAS 2024</span>
+      <span class="fw-pill">OWASP LLM 2025</span>
+      <span class="fw-pill">OWASP SC Top 10 2025</span>
+      <span class="fw-pill">NIST CSF 2.0</span>
+      <span class="fw-pill">NIST SSDF 1.1</span>
+      <span class="fw-pill">FIPS 203 / 204 / 205</span>
+      <span class="fw-pill">CCSS v9.0</span>
+      <span class="fw-pill">CIS Controls v8</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ PRICING -->
+<section class="pricing" id="pricing">
+  <div class="wrap">
+    <p class="eyebrow">Pricing</p>
+    <h2>Free forever. Pay when the SaaS pays you back.</h2>
+    <p class="lede">The scanner — every check, every framework filter, every report format — is Apache 2.0. The portal is what you pay for: branded PDFs, multi-repo dashboards, compliance evidence, license management.</p>
+
+    <div class="grid" style="margin-top:48px;">
+      <div class="tier">
+        <h3>Free</h3>
+        <div class="price">$0<small> · no signup, no email</small></div>
+        <ul>
+          <li>Full 294-check catalog</li>
+          <li>All framework filters</li>
+          <li>Markdown + local PDF reports</li>
+          <li>GitHub Action, Docker, Homebrew</li>
+          <li>AI augmentation (bring your own key)</li>
+          <li>Free Pro features for OSS repos</li>
+        </ul>
+        <a class="btn btn-ghost" href="#install">Install →</a>
+      </div>
+
+      <div class="tier featured">
+        <span class="ribbon">Most fintechs</span>
+        <h3>Pro</h3>
+        <div class="price">$999<small> / repo / yr · $4,999 unlimited</small></div>
+        <ul>
+          <li>Branded PDF reports</li>
+          <li>Multi-repo dashboard + trend</li>
+          <li>Compliance evidence bundling</li>
+          <li>Customer portal + team seats</li>
+          <li>Priority email support</li>
+          <li>Stripe self-serve billing</li>
+        </ul>
+        <a class="btn btn-primary" href="https://app.preston-check.com/signup" style="background: var(--accent); color: var(--ink);">Start 14-day trial →</a>
+      </div>
+
+      <div class="tier">
+        <h3>Enterprise</h3>
+        <div class="price">$29,999+<small> / yr · sales-led</small></div>
+        <ul>
+          <li>SSO (SAML + OIDC)</li>
+          <li>White-label dashboards</li>
+          <li>Custom check authoring service</li>
+          <li>Signed audit packages</li>
+          <li>Dedicated success contact + SLA</li>
+          <li>On-premise deployment option</li>
+        </ul>
+        <a class="btn btn-ghost" href="mailto:sales@preston-check.com">Talk to sales →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================== ORIGIN -->
+<section class="origin">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Why "Preston-Check"</p>
+      <h2>Named after the attacker.</h2>
+      <p>Preston Braswell created multiple fake accounts on a production fintech platform. Bypassed 2FA. Ran 21,201 automated session-polling calls. Probed for race conditions and information leakage. Every check in the catalog traces back to a lesson from that attack — or one like it.</p>
+      <div class="stats">
+        <div class="stat"><div class="n">21,201</div><div class="l">Polling calls observed</div></div>
+        <div class="stat"><div class="n">294</div><div class="l">Checks in catalog</div></div>
+        <div class="stat"><div class="n">33</div><div class="l">Frameworks covered</div></div>
+        <div class="stat"><div class="n">12</div><div class="l">Languages supported</div></div>
+      </div>
+    </div>
+    <blockquote>The catalog is curated, not crawled. Every check is grounded in a real incident, a real framework control, or a real production audit finding — which is why Preston-Check produces fewer false positives than tools five times its size.</blockquote>
+  </div>
+</section>
+
+<!-- ============================================================== CTA -->
+<section class="cta-final">
+  <div class="wrap">
+    <h2>Run a full security audit in your project today.</h2>
+    <p>One command. No signup. No telemetry by default. Apache 2.0 forever.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="#install" style="background: var(--accent); color: var(--ink);">brew install preston-check</a>
+      <a class="btn btn-ghost" href="https://github.com/preston-check/preston-check">Star on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FOOTER -->
+<footer class="site">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <a href="/" class="logo"><img src="assets/wordmark.svg" alt="Preston-Check"/></a>
+        <p style="margin-top:16px; max-width: 32ch; font-size:14px;">Pre-deployment security audits for fintech. Open source under Apache 2.0.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/tree/master/docs">Docs</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/CHANGELOG.md">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="https://github.com/preston-check/preston-check">GitHub</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/docs/strategy/moat-strategy.md">Moat strategy</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/docs/state-of-fintech-security/2026.md">State of Fintech Security 2026</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/SECURITY.md">Security policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="mailto:hello@preston-check.com">Contact</a></li>
+          <li><a href="mailto:sales@preston-check.com">Sales</a></li>
+          <li><a href="mailto:security@preston-check.com">Security</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/LICENSE">License</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>© 2026 Preston-Check Maintainers · Apache-2.0</span>
+      <span>Proprietary icon set drawn from scratch · no third-party iconography</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

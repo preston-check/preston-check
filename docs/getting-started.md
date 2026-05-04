@@ -32,8 +32,12 @@ files into the container.
 curl -fsSL https://get.preston-check.com/install.sh | sh
 ```
 
-This installs to `~/.preston-check/install` and (if writable)
-symlinks `/usr/local/bin/preston-check`.
+The installer fetches the latest release tarball, verifies its
+SHA-256 against the `.sha256` sidecar published alongside, and
+installs the catalog under `$PREFIX/share/preston-check` with a thin
+shim at `$PREFIX/bin/preston-check`. Defaults to `/usr/local`;
+override with `PRESTON_PREFIX=$HOME/.local`. Pin a specific version
+with `PRESTON_VERSION=v1.7.3`.
 
 **GitHub Action** (in your CI):
 
@@ -91,6 +95,35 @@ To list all available checks:
 ```bash
 preston-check --list
 ```
+
+## AI-augmented findings
+
+When `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` is set, the runner can
+attach a per-finding AI assessment (false-positive classification,
+plain-English explanation, suggested fix) to the report addendum.
+
+```bash
+# Analysis only — adds explanations and false-positive flags
+preston-check --ai-augment
+
+# Analysis plus suggested unified-diff patches per finding
+preston-check --ai-fix
+```
+
+Both flags are no-ops under `--airgap` and graceful no-ops without a
+configured API key. Per-finding responses are cached under
+`~/.preston-check/ai-cache/` so reruns over unchanged code are free.
+Local Ollama is also supported via `PRESTON_AI_PROVIDER=ollama`.
+
+## Examples
+
+Drop-in usage patterns for the four most-requested CI surfaces live at
+[`examples/`](../examples/):
+
+- `examples/github-action.yml` — PR security gate
+- `examples/gitlab-ci.yml` — GitLab CI integration
+- `examples/circleci-config.yml` — CircleCI integration
+- `examples/pre-commit-hook.sh` — local pre-commit gate
 
 ## Project configuration
 

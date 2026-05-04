@@ -9,7 +9,7 @@ in the value-handling domain and surfaces gaps worth closing for v1.1+.
 
 The financial-system catalog spans roughly fifty check categories. The
 strongest current coverage is in the categories that map directly to
-the Bloxcross attack pattern that originated this project.
+the originating attack pattern that gave the project its name.
 
 **Money type and arithmetic safety** is well covered: P-50 (Transaction
 Integrity) catches `float`/`double` for monetary values and missing

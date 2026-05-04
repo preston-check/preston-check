@@ -2,7 +2,7 @@
 title: "How Preston-Check Becomes the Gold Standard"
 subtitle: "The 3-7 year playbook for canonical fintech-security positioning"
 author: "Preston-Check Maintainers"
-date: "2026-05-03"
+date: "2026-05-04"
 geometry: margin=1in
 ---
 
@@ -14,7 +14,7 @@ Gold-standard positioning is not won by having the best tool. It is won by being
 
 ## The five stages
 
-**Stage 1 — Discovered.** People try the tool. Free adoption. Viral mechanics. Today's launch is this stage.
+**Stage 1 — Discovered.** People try the tool. Free adoption. Viral mechanics. Today's launch is this stage. As of v1.7.3 the catalog is at 294 checks across 33 frameworks, the GitHub Releases pipeline is live (`brew install preston-check` and `curl … install.sh | sh` both work), and the threat-intel cron is committing weekly draft checks to `checks/community/proposed/`.
 
 **Stage 2 — Recommended.** Practitioners tell each other in Slack channels, Hacker News comments, internal docs. "We use Preston-Check for our pre-deploy security gate." This emerges naturally from a generous free tier plus quality output. Reach this stage in months 6-12.
 
@@ -102,7 +102,7 @@ The single most underrated discipline in becoming a gold standard is **showing u
 
 **Do not chase international expansion before US/EU traction.** Localization, regulatory variation, and cross-border legal complexity will eat 6 months of engineering for marginal revenue. The US and EU markets alone support a $1B company.
 
-**Do not add features that are not either viral levers or moat builders.** Every feature shipped past a quality threshold has opportunity cost. The features to ship: AI auto-fix (viral), peer-comparison percentiles (moat via data), Drata integration (channel partner), branded PDF (table-stakes for paid). The features to skip in year 1: SSO (defer until Enterprise demands it), custom on-prem (huge engineering cost), more frameworks (you have 33; quality of curation matters more than count from here).
+**Do not add features that are not either viral levers or moat builders.** Every feature shipped past a quality threshold has opportunity cost. The features to ship: AI auto-fix (✅ shipped v1.7.1, viral), peer-comparison percentiles (moat via data; depends on telemetry volume), Drata integration (channel partner), branded PDF (table-stakes for paid). The features to skip in year 1: SSO (defer until Enterprise demands it), custom on-prem (huge engineering cost), more frameworks (you have 33; quality of curation matters more than count from here).
 
 ## The headline
 

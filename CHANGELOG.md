@@ -4,6 +4,129 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.7.3] — 2026-05-04 — Release pipeline validated end-to-end
+
+### Fixed
+
+- `release.yml` was silently failing on every prior tag. Two job-level
+  `if: ${{ secrets.X != '' }}` expressions are not actually permitted by
+  GitHub Actions (the `secrets` context is unavailable at job-level `if`),
+  so the workflow file was rejected before any step ran. Restructured the
+  docker and homebrew jobs so secret-gating is a step-level guard that
+  exits cleanly when secrets are absent. v1.7.3 is the first GitHub
+  Release in the project's history.
+- `tar -czf preston-check-${VERSION}.tar.gz .` aborted with "file changed
+  as we read it" because the archive was being written into the directory
+  it was reading. Tarball now lands in `../` then moves into place.
+- `[[ $check_num -gt 20 ]]` after extracting filename prefixes like "08"
+  or "09" caused bash to throw "value too great for base" warnings (octal
+  parsing). Strip leading zeros before integer comparison.
+- `--framework` filter wasn't reflected in the report header, so
+  test workflow's `grep -q "PCI-DSS" fw-scan.md` always failed. Added
+  Framework / Category / Severity lines to the report header.
+
+### Added
+
+- `--version` / `-V` flag.
+- Homebrew tap formula bumped to v1.7.3 with verified sha256.
+
+## [1.7.2] — 2026-05-04 — Deployment readiness
+
+### Added
+
+- `install.sh` — POSIX-sh sha256-verifying installer at the repo root,
+  matching the README's `https://get.preston-check.com/install.sh`
+  promise. Installs the catalog under `$PREFIX/share/preston-check` and
+  a thin shim at `$PREFIX/bin/preston-check`.
+- `SECURITY.md` — vulnerability disclosure policy, supported-versions
+  table, scope list, hardening defaults summary.
+- `examples/{github-action,gitlab-ci,circleci-config}.yml` and
+  `examples/pre-commit-hook.sh` — drop-in usage patterns covering the
+  four most-requested CI surfaces.
+- `release.yml` — `install.sh` is now uploaded as a release asset, and a
+  new `homebrew` job auto-bumps the tap formula when a `HOMEBREW_TAP_TOKEN`
+  secret is configured.
+- README — CI / Release / License badges; refreshed check count
+  (236 → 294); surfaces `--ai-augment` / `--ai-fix`; links to `examples/`.
+
+## [1.7.1] — 2026-05-03 — AI wired, threat-intel cron, telemetry docs
+
+### Added
+
+- `.github/workflows/threat-intel-sync.yml` — runs
+  `tools/sync-threat-intel.py` weekly (Mondays 09:00 UTC) and on manual
+  dispatch. Pulls fintech-relevant CVEs from NIST NVD, drafts checks under
+  `checks/community/proposed/`, opens a PR via
+  `peter-evans/create-pull-request@v6`. Verified end-to-end: 339 CVEs in
+  a 2-day window, 135 fintech-relevant, drafts emit cleanly.
+- `tools/sync-threat-intel.py` — new `--state-file` flag so CI can
+  persist the processed-CVE state in `.preston-check/threat-intel-state.json`
+  inside the repo, instead of the runner's home directory.
+- `lib/ai_autofix.sh` — given a finding, produces a unified-diff patch
+  via the same LLM provider as `ai_analyze.sh` (Anthropic / OpenAI /
+  local Ollama). Per-finding cache so reruns don't re-bill. Conservative
+  diff validation (only emits if response parses as a real diff).
+- `--ai-augment` and `--ai-fix` flags on the runner. `--ai-fix` implies
+  `--ai-augment`. Each FAIL/WARN finding gets analysis + (optional) patch
+  in the report addendum, capped at 5 findings per check to bound scan
+  time. Both flags are no-ops under `--airgap`.
+- `docs/telemetry.md` — full privacy story, three opt-in mechanisms
+  (flag, env, config), verification recipe with
+  `PRESTON_TELEMETRY_ENDPOINT` override, self-hosting pointer for
+  Enterprise air-gapped deployments.
+
+### Fixed
+
+- `lib/ai_analyze.sh` shipped in v1.6.0 but was never invoked from
+  `preston-check.sh` — the runner had it sourced for nothing. Now
+  actually called per finding when `--ai-augment` is on.
+
+## [1.7.0] — 2026-05-03 — Smart Contract Audit Module + digital_escrow lessons
+
+### Added — Smart Contract Audit Module (`modules/smart-contract-audit/`)
+
+A separate runner for deep contract audits (longer runtimes,
+narrative-friendly output, optional Slither/Mythril/Echidna integration)
+parallel to the main pre-deploy gate. 20 deep checks across two phases
+plus three integration wrappers.
+
+- **Phase 2 catalog (P-700..P-709)** — proxy storage collision,
+  initializer protection, selfdestruct, delegatecall abuse, front-running,
+  cross-contract reentrancy, ERC-20 approve race, ERC-721/1155 callback
+  reentrancy, token-economics math, governance attack vectors.
+- **Phase 2 catalog (P-710..P-719)** — derived from production findings
+  on a real HTLC + atomic-swap stack the maintainer audited:
+  P-710 cross-chain replay (HTLC IDs without chainid + address(this)),
+  P-711 on-chain preimage storage (cross-chain front-run),
+  P-712 refund/claim authorization missing,
+  P-713 timelock bypass via `&&` instead of `||`,
+  P-714 emergency pause missing on fund-holding contract,
+  P-715 critical immutable address without rotation path,
+  P-716 unbounded array iteration (gas DoS),
+  P-717 abi.encodePacked collision risk,
+  P-718 untrusted bytes storage without length cap,
+  P-719 insecure randomness from block data.
+- **Integration wrappers** — `integrations/{slither,mythril,echidna}.sh`,
+  opt-in via `--slither`, `--mythril`, `--echidna`.
+
+Verified end-to-end against the digital_escrow contracts: P-712 PASSes
+on the fixed `HTLCEscrow.sol` (recognizes the SC-C1 sender check),
+P-710 correctly flags Tron HTLC variants missing chainid binding,
+P-714 catches MPCShardStorage / TronSwapEscrow lacking pause paths.
+
+### Added — strategy
+
+- `docs/strategy/moat-strategy.md` + PDF — five-moat framework, AI
+  roadmap by tier, UX two-act pattern, priority sequencing.
+- `docs/strategy/gold-standard-playbook.md` + PDF — five-stage maturity
+  model, eight specific moves, realistic timeline.
+
+### Fixed
+
+- `audit.sh` was inadvertently sourcing `preston-check.sh --help`, which
+  has an `exit 0` in the help handler — that was silently killing the
+  audit before any check ran. Removed the dead source line.
+
 ## [1.3.0] — 2026-05-03 — Roadmap completion: 8 frameworks + Go/Rust polyglot + severity filter
 
 ### Added — eight framework suites and polyglot parity (56 new checks)

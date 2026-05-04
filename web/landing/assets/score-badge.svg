@@ -1,0 +1,33 @@
+<!-- Hero "score badge" mock — letter grade + numeric score, designed as
+     an example of what the scanner UX surfaces in reports. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" aria-label="Score: A- (87)">
+  <!-- Outer ring -->
+  <circle cx="140" cy="140" r="128" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <!-- Progress arc — 87% of full circle, emerald accent. -->
+  <circle cx="140" cy="140" r="120" fill="none"
+          stroke="#10B981" stroke-width="14"
+          stroke-dasharray="656 754" stroke-dashoffset="0"
+          stroke-linecap="round"
+          transform="rotate(-90 140 140)"/>
+  <!-- Center grade -->
+  <text x="140" y="160"
+        text-anchor="middle"
+        font-family="ui-serif, Georgia, 'Times New Roman', serif"
+        font-size="120"
+        font-weight="600"
+        fill="#0B1F3A">A−</text>
+  <!-- Sub-label -->
+  <text x="140" y="200"
+        text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="20"
+        letter-spacing="2"
+        fill="#475569">SCORE 87 / 100</text>
+  <!-- Top label -->
+  <text x="140" y="80"
+        text-anchor="middle"
+        font-family="ui-sans-serif, system-ui, sans-serif"
+        font-size="13"
+        letter-spacing="3"
+        fill="#94A3B8">PRESTON·CHECK</text>
+</svg>

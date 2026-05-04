@@ -7,13 +7,13 @@ during a scan.
 
 ## Component overview
 
-The scanner has three layers:
+The scanner has five layers, four of them open-source.
 
 The **engine** is `preston-check.sh` plus the `lib/` modules. It loads the
 license, detects the source language, parses check metadata, filters by
 tier, runs the selected checks, aggregates results, and renders the report.
 All of this runs locally on the user's machine; no source code ever leaves
-the host.
+the host without an explicit opt-in flag.
 
 The **check catalog** is the collection of bash scripts under `checks/`.
 Each script is sourced into the runner's shell, and exposes its findings
@@ -21,13 +21,50 @@ via the `record` function the runner exports. Checks live in one of six
 locations: the legacy `checks/` root (treated as core for backward
 compatibility), `checks/core/` (canonical maintainer-authored checks),
 and the community trust-tier directories `checks/community/{verified,
-accepted,proposed}/`.
+accepted,proposed}/`. As of v1.7.3 the catalog totals 294 checks: 284 in
+the main suite plus the 10 deep checks in the smart-contract module.
+
+The **smart-contract audit module** at `modules/smart-contract-audit/` is
+a separate runner for deep contract audits. It reuses the engine's
+`record` function and metadata parser but ships its own `audit.sh`
+entrypoint, its own check directory, and three integration wrappers
+(Slither, Mythril, Echidna) that opt-in via flags. Runtime profile is
+explicitly different from the main scanner — minutes per contract, not
+seconds per repo.
+
+The **AI augmentation libs** at `lib/ai_analyze.sh` and `lib/ai_autofix.sh`
+attach to the engine via `--ai-augment` and `--ai-fix`. They speak Anthropic,
+OpenAI, or local Ollama, cache responses per-finding under
+`~/.preston-check/ai-cache/`, and attach analysis + suggested patches to
+the report addendum next to the file:line:content findings. Both are
+strict no-ops under `--airgap` and graceful no-ops without API keys
+configured.
 
 The **commercial layer** is a separate proprietary product not included in
 this repository. It receives generated reports from Pro/Enterprise customers
 and produces the auditor-ready packaging: compliance evidence bundling,
 branded PDF generation, multi-repo dashboards, customer portal, license
-issuance backend, and SSO integration.
+issuance backend, and SSO integration. Designed in
+`docs/portals-and-kpis.md`.
+
+## Distribution surface
+
+The same engine ships through five channels, each of which is exercised on
+every release tag via `.github/workflows/release.yml`:
+
+* **Source tarball** — `preston-check-${VERSION}.tar.gz` plus a sha256
+  sidecar published as a GitHub Release asset.
+* **POSIX-sh installer** — `install.sh` published alongside the tarball.
+  Verifies sha256 before extraction; installs to
+  `$PREFIX/share/preston-check` with a thin shim at `$PREFIX/bin/preston-check`.
+* **Homebrew tap** — `preston-check/homebrew-tap` formula auto-bumped on
+  release when `HOMEBREW_TAP_TOKEN` secret is present.
+* **Docker image** — `prestoncheck/scan:latest` plus version tags built
+  multi-arch (amd64 + arm64) on each release when DockerHub creds are
+  configured.
+* **GitHub Action** — `preston-check/scan-action@v1`, defined by
+  `action.yml` at the repo root. Used as a drop-in PR security gate per
+  `examples/github-action.yml`.
 
 ## Data flow during a scan
 
@@ -125,17 +162,43 @@ rotations carefully: re-issue all licenses, then push the new public key,
 then publish a new release. Back up the private key to an offline
 secure location.
 
-## Telemetry as the only outbound call
+## Telemetry as one of three optional outbound calls
 
-The tool makes exactly one optional network call: an anonymous score
-ping to `preston-check.com/api/v1/telemetry`, sent only when the user
-opts in via `--telemetry-opt-in` or the config flag, and disabled
-unconditionally by `--airgap`. The payload contains tool version, license
-tier, primary language, aggregate counts, a SHA-256 hash of the git remote
-origin URL (or source path), and a UTC timestamp. It never includes source
-code, file paths, file names, customer details, or specific check IDs
-that failed. The telemetry function in `lib/telemetry.sh` is intentionally
-short and easy to audit because the privacy claim depends on you reading it.
+The tool makes up to three optional network calls — all opt-in, all
+disabled unconditionally by `--airgap`:
+
+1. **Telemetry** — anonymous score ping to
+   `preston-check.com/api/v1/telemetry`. Triggered by `--telemetry-opt-in`,
+   `PRESTON_TELEMETRY=1`, or `telemetry: opt_in` in the config.
+   Payload: tool version, license tier, primary language, aggregate
+   counts, a SHA-256 hash of the git remote origin URL (or source path),
+   UTC timestamp. Never includes source code, file paths, file names,
+   customer details, or specific check IDs. See `docs/telemetry.md`.
+2. **AI augmentation** — finding context (file:line:content + ~10
+   surrounding lines) sent to Anthropic, OpenAI, or local Ollama for
+   classification and explanation. Triggered by `--ai-augment` or
+   `PRESTON_AI=1` plus an API key.
+3. **AI auto-fix** — same scope as augmentation but with ~30 surrounding
+   lines (15 before, 15 after) sent so the model can produce a safe
+   unified diff. Triggered by `--ai-fix` (which implies `--ai-augment`).
+
+All three are short, auditable, and live in dedicated lib files so the
+privacy story is verifiable by reading the source.
 
 The aggregate telemetry data feeds the annual State of Fintech Security
-report, which is the planned tentpole content marketing artifact.
+report, which is the tentpole content marketing artifact. The first
+edition's methodology and template ships at
+`docs/state-of-fintech-security/2026.md`.
+
+## Threat-intel auto-ingestion
+
+The catalog grows automatically through a weekly GitHub Actions run of
+`tools/sync-threat-intel.py` (`.github/workflows/threat-intel-sync.yml`,
+Mondays 09:00 UTC). The pipeline pulls fintech-relevant CVEs from NIST
+NVD, drafts community-tier check files into
+`checks/community/proposed/`, persists processed-CVE state in
+`.preston-check/threat-intel-state.json`, and opens a PR via
+`peter-evans/create-pull-request@v6` when there are changes. Maintainer
+review converts drafts to authored grep patterns and promotes them to
+`checks/community/accepted/`. Designed for triage-via-Admin-Portal in
+the SaaS layer (see `docs/portals-and-kpis.md`).
