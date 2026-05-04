@@ -4,6 +4,44 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.7.6] — 2026-05-04 — Manuals + HTML/PDF renderer + landing button fix
+
+### Added
+
+- `docs/manuals/` — eleven manuals scoped to specific audiences:
+  user-manual, administrator-manual, selling-sheet, landing-page,
+  customer-portal, admin-portal, telemetry-endpoint, standalone-worker,
+  d1-dataset, github-release, homebrew-tap.
+- `tools/build-docs.sh` — pandoc + Chrome renderer that produces
+  HTML + PDF for every Markdown file under `docs/`. Output lands in
+  `docs/_rendered/` (committed) so consumers don't need pandoc locally.
+- `docs/operator-runbook.md` — single-page operator reference with
+  every URL, resource ID, deploy procedure, and emergency runbook.
+
+### Fixed
+
+- Public landing page "Get started" button text was invisible due to
+  CSS specificity — `header.site nav a { color: var(--ink); }` (0,1,3)
+  beat `.btn-primary { color: var(--paper); }` (0,1,0). Scoped the
+  nav-link rule to `:not(.btn)`.
+
+### Removed
+
+- `web/customer/functions/api/v1/telemetry/` and `_routes.json` —
+  attempted Pages Function alternative for telemetry. Cloudflare's
+  method dispatch fought us in ways the standalone Worker doesn't.
+  The Worker is simpler, faster, and verified end-to-end. Single
+  endpoint going forward.
+
+### Changed
+
+- `lib/telemetry.sh` default endpoint pinned to the standalone Worker
+  at `preston-check-telemetry.preston-check-edge.workers.dev` (the
+  workers.dev subdomain was renamed from a personal one to be
+  anonymity-clean). `PRESTON_TELEMETRY_ENDPOINT` env var still
+  honored for self-hosted overrides.
+
+
 ## [1.7.3] — 2026-05-04 — Release pipeline validated end-to-end
 
 ### Fixed

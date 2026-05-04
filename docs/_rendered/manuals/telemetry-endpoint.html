@@ -295,41 +295,17 @@
 <p>The HTTP POST endpoint that ingests opt-in anonymous scores from
 Preston-Check scans. Data feeds the annual State of Fintech Security
 report and the peer-comparison percentiles in the SaaS dashboard.</p>
-<h2 id="urls">URLs</h2>
-<p>There are <strong>two endpoints</strong> that share the same D1 + KV
-instances:</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr>
-<th>URL</th>
-<th>Hosted as</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>https://preston-check-telemetry.preston-check-edge.workers.dev/</code></td>
-<td>Standalone Cloudflare Worker</td>
-<td>✅ Production endpoint (the one <code>lib/telemetry.sh</code>
-defaults to)</td>
-</tr>
-<tr>
-<td><code>https://app.preston-check.com/api/v1/telemetry</code></td>
-<td>Cloudflare Pages Function</td>
-<td>🟡 Co-located with customer portal; intermittent issue with
-onRequestPost dispatch under investigation</td>
-</tr>
-</tbody>
-</table>
-<p>Either endpoint accepts the same payload schema and writes to the
-same backing storage. The runner defaults to the standalone Worker
-because it’s the surface that’s been most thoroughly verified end-to-
-end (rows 1–4 in the dataset all came through it).</p>
+<h2 id="url">URL</h2>
+<pre><code>https://preston-check-telemetry.preston-check-edge.workers.dev/</code></pre>
+<p>Single production endpoint. Standalone Cloudflare Worker, on the
+anonymity-clean account subdomain
+<code>preston-check-edge.workers.dev</code>. This is the URL
+<code>lib/telemetry.sh</code> defaults to.</p>
+<p>A Pages Function alternative at
+<code>app.preston-check.com/api/v1/telemetry</code> was attempted and
+removed — Cloudflare’s Pages Function method dispatch fought us in ways
+the standalone Worker doesn’t. The Worker is simpler, faster, and
+verified end-to-end.</p>
 <h2 id="privacy-contract">Privacy contract</h2>
 <p>The endpoint validates the documented schema and stores nothing else.
 Specifically:</p>
@@ -350,19 +326,19 @@ Function at
 <h2 id="schema">Schema</h2>
 <p>POST <code>Content-Type: application/json</code> with this exact
 payload shape:</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;version&quot;</span><span class="fu">:</span>   <span class="st">&quot;1.7.5&quot;</span><span class="fu">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tier&quot;</span><span class="fu">:</span>      <span class="st">&quot;free&quot;</span><span class="fu">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;lang&quot;</span><span class="fu">:</span>      <span class="st">&quot;typescript&quot;</span><span class="fu">,</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;repo_hash&quot;</span><span class="fu">:</span> <span class="st">&quot;sha256-hex-string-64-chars&quot;</span><span class="fu">,</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;pass&quot;</span><span class="fu">:</span>      <span class="dv">268</span><span class="fu">,</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fail&quot;</span><span class="fu">:</span>      <span class="dv">7</span><span class="fu">,</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;warn&quot;</span><span class="fu">:</span>      <span class="dv">14</span><span class="fu">,</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;skip&quot;</span><span class="fu">:</span>      <span class="dv">5</span><span class="fu">,</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;total&quot;</span><span class="fu">:</span>     <span class="dv">294</span><span class="fu">,</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;timestamp&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-05-04T12:00:00Z&quot;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;version&quot;</span><span class="fu">:</span>   <span class="st">&quot;1.7.5&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;tier&quot;</span><span class="fu">:</span>      <span class="st">&quot;free&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;lang&quot;</span><span class="fu">:</span>      <span class="st">&quot;typescript&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;repo_hash&quot;</span><span class="fu">:</span> <span class="st">&quot;sha256-hex-string-64-chars&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;pass&quot;</span><span class="fu">:</span>      <span class="dv">268</span><span class="fu">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;fail&quot;</span><span class="fu">:</span>      <span class="dv">7</span><span class="fu">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;warn&quot;</span><span class="fu">:</span>      <span class="dv">14</span><span class="fu">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;skip&quot;</span><span class="fu">:</span>      <span class="dv">5</span><span class="fu">,</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;total&quot;</span><span class="fu">:</span>     <span class="dv">294</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;timestamp&quot;</span><span class="fu">:</span> <span class="st">&quot;2026-05-04T12:00:00Z&quot;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
 <p>Validation rules:</p>
 <table>
 <colgroup>
@@ -458,58 +434,58 @@ features in the customer dashboard with sub-50ms latency.</p>
 <p><strong>D1 (raw records)</strong> — one row inserted into the
 <code>scans</code> table with the full payload + computed score.
 Schema:</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode sql"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> scans (</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span>          <span class="dt">INTEGER</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span> AUTOINCREMENT,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  repo_hash   TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  version     TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  tier        TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  lang        TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  pass        <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  fail        <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  warn        <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">skip</span>        <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  total       <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  score       <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">timestamp</span>   TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  inserted_at <span class="dt">INTEGER</span> <span class="kw">DEFAULT</span> (strftime(<span class="st">&#39;%s&#39;</span>,<span class="st">&#39;now&#39;</span>))</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>);</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_scans_repo_hash <span class="kw">ON</span> scans(repo_hash);</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode sql"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> scans (</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">id</span>          <span class="dt">INTEGER</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span> AUTOINCREMENT,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  repo_hash   TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  version     TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  tier        TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  lang        TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  pass        <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  fail        <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  warn        <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">skip</span>        <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  total       <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  score       <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">timestamp</span>   TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  inserted_at <span class="dt">INTEGER</span> <span class="kw">DEFAULT</span> (strftime(<span class="st">&#39;%s&#39;</span>,<span class="st">&#39;now&#39;</span>))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>);</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">INDEX</span> idx_scans_repo_hash <span class="kw">ON</span> scans(repo_hash);</span></code></pre></div>
 <p>Retention: 90 days on raw rows. Aggregates kept indefinitely.</p>
 <h2 id="self-hosting">Self-hosting</h2>
 <p>Air-gapped or on-premise customers can stand up their own endpoint
 and point the runner at it:</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PRESTON_TELEMETRY_ENDPOINT</span><span class="op">=</span><span class="st">&quot;https://telemetry.acme.internal/v1/ingest&quot;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--telemetry-opt-in</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PRESTON_TELEMETRY_ENDPOINT</span><span class="op">=</span><span class="st">&quot;https://telemetry.acme.internal/v1/ingest&quot;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--telemetry-opt-in</span></span></code></pre></div>
 <p>The reference implementation (Worker + schema + workflow) lives in
 <code>workers/telemetry/</code> and is Apache 2.0. Roughly 30 minutes to
 fork + deploy to your own Cloudflare account.</p>
 <h2 id="how-customers-opt-in">How customers opt in</h2>
 <p>Three equivalent paths, off by default:</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--telemetry-opt-in</span>            <span class="co"># per-run flag</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PRESTON_TELEMETRY</span><span class="op">=</span>1                  <span class="co"># env var</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&#39;telemetry: opt_in&#39;</span> <span class="op">&gt;&gt;</span> .preston-check.yml   <span class="co"># config file</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--telemetry-opt-in</span>            <span class="co"># per-run flag</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PRESTON_TELEMETRY</span><span class="op">=</span>1                  <span class="co"># env var</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">&#39;telemetry: opt_in&#39;</span> <span class="op">&gt;&gt;</span> .preston-check.yml   <span class="co"># config file</span></span></code></pre></div>
 <p><code>--airgap</code> overrides every opt-in.</p>
 <h2 id="querying-the-dataset">Querying the dataset</h2>
 <p>Operator-only — requires Cloudflare API token:</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_API_TOKEN</span><span class="op">=</span><span class="st">&quot;...&quot;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_ACCOUNT_ID</span><span class="op">=</span><span class="st">&quot;...&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Total scan count</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="at">--command</span> <span class="dt">\</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SELECT count(*) FROM scans&quot;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Daily volume last 7 days</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="at">--command</span> <span class="dt">\</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SELECT substr(timestamp,1,10) AS day, count(*) FROM scans</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">   WHERE timestamp &gt; datetime(&#39;now&#39;,&#39;-7 days&#39;) GROUP BY day&quot;</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Score distribution by language</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="at">--command</span> <span class="dt">\</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SELECT lang, avg(score) FROM scans GROUP BY lang ORDER BY avg(score) DESC&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_API_TOKEN</span><span class="op">=</span><span class="st">&quot;...&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_ACCOUNT_ID</span><span class="op">=</span><span class="st">&quot;...&quot;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Total scan count</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="at">--command</span> <span class="dt">\</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SELECT count(*) FROM scans&quot;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Daily volume last 7 days</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="at">--command</span> <span class="dt">\</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SELECT substr(timestamp,1,10) AS day, count(*) FROM scans</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">   WHERE timestamp &gt; datetime(&#39;now&#39;,&#39;-7 days&#39;) GROUP BY day&quot;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Score distribution by language</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="at">--command</span> <span class="dt">\</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;SELECT lang, avg(score) FROM scans GROUP BY lang ORDER BY avg(score) DESC&quot;</span></span></code></pre></div>
 <h2 id="source">Source</h2>
 <pre><code>workers/telemetry/                           standalone Worker (production endpoint)
   src/index.ts                               TypeScript Worker implementation

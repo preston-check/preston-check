@@ -10,19 +10,20 @@ The HTTP POST endpoint that ingests opt-in anonymous scores from
 Preston-Check scans. Data feeds the annual State of Fintech Security
 report and the peer-comparison percentiles in the SaaS dashboard.
 
-## URLs
+## URL
 
-There are **two endpoints** that share the same D1 + KV instances:
+```
+https://preston-check-telemetry.preston-check-edge.workers.dev/
+```
 
-| URL | Hosted as | Status |
-|---|---|---|
-| `https://preston-check-telemetry.preston-check-edge.workers.dev/` | Standalone Cloudflare Worker | ✅ Production endpoint (the one `lib/telemetry.sh` defaults to) |
-| `https://app.preston-check.com/api/v1/telemetry` | Cloudflare Pages Function | 🟡 Co-located with customer portal; intermittent issue with onRequestPost dispatch under investigation |
+Single production endpoint. Standalone Cloudflare Worker, on the
+anonymity-clean account subdomain `preston-check-edge.workers.dev`.
+This is the URL `lib/telemetry.sh` defaults to.
 
-Either endpoint accepts the same payload schema and writes to the
-same backing storage. The runner defaults to the standalone Worker
-because it's the surface that's been most thoroughly verified end-to-
-end (rows 1–4 in the dataset all came through it).
+A Pages Function alternative at `app.preston-check.com/api/v1/telemetry`
+was attempted and removed — Cloudflare's Pages Function method
+dispatch fought us in ways the standalone Worker doesn't. The Worker
+is simpler, faster, and verified end-to-end.
 
 ## Privacy contract
 

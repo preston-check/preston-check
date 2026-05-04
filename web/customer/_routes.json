@@ -1,6 +1,0 @@
-{
-  "version": 1,
-  "description": "Tell Cloudflare Pages to always invoke Functions for /api/* paths instead of falling back to static assets. Without this, GET /api/v1/telemetry returns the customer-portal SPA HTML instead of 405. The catch-all functions/_middleware.ts isn't reliable for this — _routes.json is the canonical mechanism.",
-  "include": ["/api/*"],
-  "exclude": []
-}

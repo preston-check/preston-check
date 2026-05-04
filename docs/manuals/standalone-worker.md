@@ -6,34 +6,22 @@ date: "2026-05-04"
 
 # Standalone Telemetry Worker
 
-A Cloudflare Worker dedicated to telemetry ingestion. Same payload
-schema and same backing storage (D1 + KV) as the Pages Function on
-the customer portal — different code surface.
+The single production telemetry endpoint. A Cloudflare Worker dedicated
+to ingesting opt-in anonymous scan scores.
 
 ## URL
 
 `https://preston-check-telemetry.preston-check-edge.workers.dev/`
 
-This is the production endpoint that `lib/telemetry.sh` defaults to.
+This is what `lib/telemetry.sh` defaults to and what every opt-in
+scanner POSTs to.
 
-## Why two endpoints
-
-We have two implementations of the same telemetry logic:
-
-1. **Standalone Worker** (this one) — `workers/telemetry/`, deployed via
-   `wrangler deploy` to a `*.workers.dev` URL
-2. **Pages Function** — `web/customer/functions/api/v1/telemetry/`,
-   deployed alongside the customer portal at
-   `app.preston-check.com/api/v1/telemetry`
-
-Both write to the same D1 + KV instances. The standalone Worker is
-the canonical production endpoint; the Pages Function is an
-alternative for customers who prefer a `preston-check.com`-branded URL
-once the Pages Function regression is fully resolved.
-
-Self-hosted Enterprise deployments typically prefer the standalone
-Worker pattern because it's a clean, single-purpose endpoint that
-doesn't share infrastructure with any UI.
+A Pages Function alternative was attempted on
+`app.preston-check.com/api/v1/telemetry` and removed — Cloudflare's
+Pages Function method dispatch fought us on routing in ways the
+standalone Worker doesn't. The Worker is simpler, faster, and
+verified end-to-end. Self-hosted Enterprise deployments use the same
+single-Worker pattern.
 
 ## Source
 

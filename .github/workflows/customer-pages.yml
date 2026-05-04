@@ -66,14 +66,11 @@ jobs:
           # Workers bundle ONLY if the deploy dir does not already
           # contain a _worker.js file (which would short-circuit the
           # functions build). Defensive cleanup just in case.
+          # The customer portal is a pure static SPA. Telemetry runs on the
+          # standalone Worker (workers/telemetry/) — see docs/manuals/standalone-worker.md.
+          # If we ever want a Pages Function alongside the static portal, restore
+          # the conditional cp of web/customer/functions/ here.
           rm -f out/_worker.js out/_worker.bundle.js
-          if [[ -d web/customer/functions ]]; then
-            cp -R web/customer/functions out/functions
-          fi
-          # _routes.json — locks /api/* to Functions-only, no static fallback.
-          if [[ -f web/customer/_routes.json ]]; then
-            cp web/customer/_routes.json out/_routes.json
-          fi
           sed -i 's|\.\./landing/|landing/|g' out/index.html out/styles.css || true
           {
             printf '/landing/*\n  Cache-Control: public, max-age=2592000, immutable\n'
