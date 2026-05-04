@@ -1,21 +1,26 @@
-name: Deploy landing page to GitHub Pages
+name: Deploy landing + admin to GitHub Pages
 
-# Publishes web/landing/ to GitHub Pages on every push to master that
-# touches the page sources. The repo's Pages "Source" setting must be set
-# to "GitHub Actions" (Settings -> Pages -> Source). Once that's done the
-# site is served at https://preston-check.com via the CNAME file in
-# web/landing/.
+# Publishes web/landing/ at the site root and web/admin/ under /admin/
+# on every master push that touches either source tree. Site serves at
+# https://preston-check.com via the CNAME file in web/landing/.
 #
-# Security note: this workflow does not consume any untrusted input
-# (no issue titles, PR bodies, commit messages, or branch names are
-# interpolated into run: blocks). The only refs are the static path
-# './web/landing' and the workflow trigger metadata.
+# Note on /admin/: the admin portal is currently a clickable skeleton
+# with mock data only — no real customer PII, no billing, no license
+# signing. It's safe to expose publicly while it remains in this state.
+# When real data starts flowing through, the production deployment moves
+# to admin.preston-check.com behind Cloudflare Access (see admin-pages.yml
+# and web/admin/DEPLOY.md).
+#
+# Security note: this workflow does not interpolate any untrusted input
+# (issue/PR/commit-message) into run: blocks. Only static file paths and
+# trigger metadata are referenced.
 
 on:
   push:
     branches: [master]
     paths:
       - 'web/landing/**'
+      - 'web/admin/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -33,11 +38,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Stage combined site
+        run: |
+          set -eu
+          mkdir out
+          # Landing page at site root (includes CNAME for the custom domain).
+          cp -R web/landing/. out/
+          # Admin portal under /admin/ as a self-contained subtree.
+          # The admin's source HTML/CSS reference shared brand assets via
+          # '../landing/...'; we stage them as './landing/...' inside /admin/
+          # and rewrite the references so the deploy is self-contained.
+          mkdir -p out/admin/landing/icons out/admin/landing/assets
+          cp web/admin/index.html out/admin/index.html
+          cp web/admin/styles.css out/admin/styles.css
+          cp web/admin/app.js     out/admin/app.js
+          cp web/admin/README.md  out/admin/README.md
+          cp -R web/landing/icons/. out/admin/landing/icons/
+          cp -R web/landing/assets/. out/admin/landing/assets/
+          sed -i 's|\.\./landing/|landing/|g' out/admin/index.html out/admin/styles.css || true
+          find out -maxdepth 2 -type d
+
       - uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./web/landing
+          path: ./out
 
   deploy:
     needs: build

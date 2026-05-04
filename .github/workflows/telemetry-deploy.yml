@@ -1,0 +1,61 @@
+name: Deploy telemetry Worker to Cloudflare
+
+# Publishes workers/telemetry/ as the Cloudflare Worker
+# 'preston-check-telemetry' on every master push that touches the Worker
+# source. Skips cleanly when CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID
+# secrets are absent.
+#
+# This workflow consumes no untrusted input. Only repository secrets and
+# static file paths are referenced inside run: blocks.
+#
+# One-time setup before the first successful deploy (run locally with
+# wrangler authenticated to your Cloudflare account):
+#   wrangler d1 create preston-check-telemetry
+#   wrangler kv:namespace create AGGREGATE
+#   # paste the returned IDs into workers/telemetry/wrangler.toml
+#   wrangler d1 execute preston-check-telemetry --file=workers/telemetry/schema.sql
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'workers/telemetry/**'
+      - '.github/workflows/telemetry-deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Cloudflare credentials
+        id: check
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [[ -n "$CF_TOKEN" && -n "$CF_ACCT" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Cloudflare secrets not configured -- skipping telemetry deploy."
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.configured == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.check.outputs.configured == 'true'
+        with:
+          node-version: '20'
+
+      - name: Deploy Worker
+        if: steps.check.outputs.configured == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: workers/telemetry
+          command: deploy
