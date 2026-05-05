@@ -43,6 +43,11 @@ LICENSE_ERROR=""
 LICENSE_REPOS=""
 
 LICENSE_PUBKEY="${PRESTON_PUBKEY:-${SCRIPT_DIR:-.}/lib/license_pubkey.pem}"
+# Secondary public key for licenses issued by the SaaS billing Worker
+# (the operator's hardware-bound private key never goes near the cloud,
+# so the Worker uses a separate Ed25519 keypair). The runner accepts
+# licenses signed by either key — operator-issued or SaaS-issued.
+LICENSE_PUBKEY_SAAS="${PRESTON_PUBKEY_SAAS:-${SCRIPT_DIR:-.}/lib/license_saas_pubkey.pem}"
 LICENSE_FILE="${PRESTON_LICENSE:-${HOME}/.preston-check/license}"
 
 date_to_epoch() {
@@ -132,13 +137,21 @@ load_license() {
   sig_file=$(mktemp /tmp/preston-sig.XXXXXX)
   printf '%s' "$sig_b64" | b64_decode > "$sig_file"
 
-  if ! verify_signature "$payload" "$sig_file" "$LICENSE_PUBKEY"; then
-    rm -f "$sig_file"
+  # Try the operator-side key first, then the SaaS-side key. Either
+  # signature is acceptable — operator key is for hand-issued contracts,
+  # SaaS key is for automated Stripe-driven issuance.
+  local sig_ok="false"
+  if verify_signature "$payload" "$sig_file" "$LICENSE_PUBKEY"; then
+    sig_ok="true"
+  elif [[ -f "$LICENSE_PUBKEY_SAAS" ]] && verify_signature "$payload" "$sig_file" "$LICENSE_PUBKEY_SAAS"; then
+    sig_ok="true"
+  fi
+  rm -f "$sig_file"
+  if [[ "$sig_ok" != "true" ]]; then
     LICENSE_TIER="free"
     LICENSE_ERROR="invalid license signature"
     return 0
   fi
-  rm -f "$sig_file"
 
   local tier customer expires_at
   tier=$(json_string_field "tier" "$payload")

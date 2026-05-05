@@ -1,0 +1,21 @@
+name = "preston-check-auth"
+main = "src/index.ts"
+compatibility_date = "2026-05-04"
+workers_dev = true
+
+# D1 stores sessions + accounts; KV stores short-lived 6-digit codes.
+[[d1_databases]]
+binding       = "DB"
+database_name = "preston-check-auth"
+database_id   = "fb99b043-dd02-4a84-b264-07ae4aa766d1"
+
+[[kv_namespaces]]
+binding = "CODES"
+id      = "29537c75a6424519b1ccfe748aae7fd9"
+
+[vars]
+ALLOW_ORIGIN     = "https://app.preston-check.com"
+SESSION_TTL_DAYS = "30"
+CODE_TTL_MINUTES = "10"
+FROM_EMAIL       = "preston@preston-check.com"
+FROM_NAME        = "Preston-Check"

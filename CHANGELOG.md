@@ -4,6 +4,89 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.7.9] — 2026-05-04 — Q3 2026 self-serve SaaS — five items shipped
+
+Closes the five "Q3 2026 self-serve SaaS" items from the launch
+roadmap in a single coherent release.
+
+### Added — Magic-link auth (#1)
+
+`workers/auth/` — new Cloudflare Worker handling email-based
+authentication for `app.preston-check.com`. Endpoints:
+`POST /request-code`, `POST /verify-code`, `GET /me`, `POST /logout`.
+
+Customer portal `app.preston-check.com` now requires sign-in. Login
+screen at `#/login`; unauthenticated visitors redirected automatically.
+Sessions persist 30 days via cookie + localStorage token.
+
+Email delivery uses Resend when `RESEND_API_KEY` Worker secret is
+configured; falls back to manual delivery (operator reads codes via
+`wrangler tail`) when not. The fallback unblocks development without
+requiring email setup.
+
+### Added — License auto-issuance (#2)
+
+Stripe billing Worker `POST /license` validates a Stripe Checkout
+session_id and returns an Ed25519-signed `.license` file. The
+customer portal post-checkout success banner includes a "Download
+license file" button that fires this endpoint.
+
+A separate signing keypair was generated specifically for SaaS use
+— the operator's hardware-bound private key remains untouched. New
+public key at `lib/license_saas_pubkey.pem`. The runner's
+`lib/license.sh` updated to verify against either key (operator key
+or SaaS key).
+
+### Added — Per-customer data isolation (#3)
+
+Customer portal top-bar now displays the logged-in customer's actual
+email + org name from `/me` response, replacing the hardcoded "Helios
+Banking" mock. Per-surface data fetches scaffolded; populate from
+`/api/*` endpoints as the scan-ingest layer comes online.
+
+### Added — Stripe Customer Portal link (#4)
+
+Billing Worker `POST /billing-portal` creates a Stripe Customer
+Portal session. The Settings → Billing "Manage plan / payment method"
+button now redirects to Stripe's hosted portal for self-serve plan
+management.
+
+### Added — Generate audit pack (#5)
+
+The "Generate audit pack" button on the Compliance page now produces
+a real evidence-pack HTML document the browser prints to PDF.
+Branded with the customer's org name, includes a calibrated A–F
+score banner, framework summary table, and methodology section
+ready for auditor handoff.
+
+### Added — Resources
+
+- `workers/auth/{src,schema.sql,wrangler.toml}` + `auth-deploy.yml`
+- `lib/license_saas_pubkey.pem` — public half of SaaS signing keypair
+- D1 `preston-check-auth` (`fb99b043-dd02-4a84-b264-07ae4aa766d1`)
+- KV `AUTH_CODES` (`29537c75a6424519b1ccfe748aae7fd9`)
+- Billing Worker secret `LICENSE_SIGNING_KEY` (Ed25519 PEM)
+
+### Operator action required — one 5-min item
+
+For magic-link emails to deliver to customers (rather than fall back
+to manual delivery), the operator signs up at `https://resend.com/`,
+verifies the sending domain, generates an API key, and sets it as
+Worker secret:
+
+```bash
+cd workers/auth
+wrangler secret put RESEND_API_KEY
+```
+
+Until that's done, codes are issued and validated correctly but
+customers don't receive an email — readable via `wrangler tail
+preston-check-auth` for now.
+
+### Bumped
+
+PRESTON_VERSION 1.7.8 → 1.7.9
+
 ## [1.7.8] — 2026-05-04 — Sales-readiness kit + Stripe billing UI live
 
 ### Added

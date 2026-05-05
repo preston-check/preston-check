@@ -73,6 +73,39 @@
   </aside>
 
   <!-- ====================================================== MAIN -->
+  <!-- ====================================================== LOGIN -->
+  <div id="login-screen" style="display:none; grid-column: 1 / -1; grid-row: 2; min-height: 80vh; align-items: center; justify-content: center; padding: 48px 24px;">
+    <div style="max-width: 420px; width: 100%; background: var(--paper); border: 1px solid var(--rule); border-radius: 16px; padding: 40px;">
+      <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+        <img src="../landing/assets/wordmark.svg" alt="Preston-Check" style="height: 32px;"/>
+      </div>
+      <h2 style="font-family: var(--serif); font-size: 24px; margin: 0 0 8px; text-align: center;">Sign in to your portal</h2>
+      <p style="text-align: center; color: var(--mute); font-size: 14px; margin: 0 0 32px;">
+        Enter your email; we'll send you a 6-digit sign-in code.
+      </p>
+
+      <form id="login-email-form">
+        <input id="login-email" type="email" placeholder="you@your-fintech.com" required
+          style="width: 100%; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 8px; font-size: 15px; margin-bottom: 12px; box-sizing: border-box;"/>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Send sign-in code</button>
+      </form>
+
+      <form id="login-code-form" style="display: none;">
+        <input id="login-code" type="text" inputmode="numeric" pattern="\d{6}" maxlength="6" placeholder="6-digit code"
+          style="width: 100%; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 8px; font-size: 18px; letter-spacing: 4px; text-align: center; font-family: var(--mono); margin-bottom: 12px; box-sizing: border-box;"/>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Verify &amp; sign in</button>
+      </form>
+
+      <p id="login-status" style="margin: 16px 0 0; text-align: center; color: var(--mute); font-size: 13px; min-height: 20px;"></p>
+
+      <p style="margin: 32px 0 0; text-align: center; color: var(--mute-2); font-size: 12px;">
+        Don't have an account? Subscribe via
+        <a href="https://preston-check.com/#pricing">preston-check.com/pricing</a>
+        — your account is created on first checkout.
+      </p>
+    </div>
+  </div>
+
   <main class="main">
 
     <!-- ============================================ HOME -->
@@ -397,7 +430,7 @@
         </div>
         <div class="head-actions">
           <button class="btn btn-ghost">Export all</button>
-          <button class="btn btn-primary">Generate audit pack</button>
+          <button class="btn btn-primary" id="generate-audit-pack-btn">Generate audit pack</button>
         </div>
       </div>
 
@@ -486,9 +519,10 @@
             <!-- Success banner shown after Stripe redirects back from a completed checkout -->
             <div class="card" id="billing-success" style="display: none; border-color: var(--accent); background: rgba(16,185,129,0.06);">
               <div class="card-head"><h2 style="color: var(--accent-d);">✓ Subscription activated</h2></div>
-              <p style="margin: 0; color: var(--ink); font-size: 14px;">
-                Your Preston-Check Pro subscription is now active. The license file has been emailed to the address on file. Within 24 hours your repos start receiving Pro-tier features automatically.
+              <p style="margin: 0 0 16px; color: var(--ink); font-size: 14px;">
+                Your Preston-Check Pro subscription is now active. Download your license file below and install it at <code>~/.preston-check/license</code>.
               </p>
+              <button class="btn btn-accent" id="license-download-btn">Download license file</button>
             </div>
 
             <!-- Current plan card -->

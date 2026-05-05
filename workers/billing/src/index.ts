@@ -40,6 +40,7 @@ interface Env {
   STRIPE_WEBHOOK_SECRET: string;
   STRIPE_PRICE_PRO_PER_REPO: string;
   STRIPE_PRICE_PRO_UNLIMITED: string;
+  LICENSE_SIGNING_KEY: string;     // PEM-encoded Ed25519 private key (set via wrangler secret)
 }
 
 const PLAN_TO_PRICE_KEY: Record<string, keyof Env> = {
@@ -289,6 +290,137 @@ async function onInvoiceChanged(env: Env, inv: any): Promise<void> {
   ).run();
 }
 
+// ---------------- /billing-portal ----------------
+//
+// Creates a Stripe Customer Portal session and returns the URL.
+// Customer portal opens this in a redirect; Stripe shows their hosted
+// UI for managing payment method, downloading invoices, switching
+// plans, canceling. Closes the loop on subscription self-service.
+
+async function handleBillingPortal(request: Request, env: Env): Promise<Response> {
+  const origin = env.ALLOW_ORIGIN;
+  let body: any;
+  try { body = await request.json(); } catch {
+    return new Response('invalid json', { status: 400, headers: corsHeaders(origin) });
+  }
+  const email = String(body.email || '').trim().toLowerCase();
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    return new Response('invalid email', { status: 400, headers: corsHeaders(origin) });
+  }
+
+  const cust = await env.DB.prepare(
+    'SELECT stripe_customer_id FROM customers WHERE email = ? LIMIT 1'
+  ).bind(email).first<{ stripe_customer_id: string }>();
+  if (!cust) {
+    return new Response('no Stripe customer for that email', { status: 404, headers: corsHeaders(origin) });
+  }
+
+  const session = await stripeRequest(env, 'billing_portal/sessions', {
+    'customer': cust.stripe_customer_id,
+    'return_url': env.SUCCESS_URL,
+  });
+  if (!session.url) {
+    return new Response(JSON.stringify({ error: session.error || session }), {
+      status: 502, headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' },
+    });
+  }
+  return new Response(JSON.stringify({ url: session.url }), {
+    status: 200, headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' },
+  });
+}
+
+// ---------------- /license ----------------
+//
+// Generates an Ed25519-signed license file for a paid subscription.
+// Validated against the Stripe Checkout session_id (caller must have
+// completed checkout). Signed with LICENSE_SIGNING_KEY (Worker secret;
+// the corresponding public key is at lib/license_saas_pubkey.pem).
+
+async function importPrivateKey(pem: string): Promise<CryptoKey> {
+  const b64 = pem.replace(/-----BEGIN [^-]+-----/g, '')
+                 .replace(/-----END [^-]+-----/g, '')
+                 .replace(/\s+/g, '');
+  const der = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+  return crypto.subtle.importKey('pkcs8', der, { name: 'Ed25519' }, false, ['sign']);
+}
+
+async function signPayload(privateKeyPem: string, payload: string): Promise<string> {
+  const key = await importPrivateKey(privateKeyPem);
+  const sig = await crypto.subtle.sign('Ed25519', key, new TextEncoder().encode(payload));
+  return btoa(String.fromCharCode(...new Uint8Array(sig)));
+}
+
+function pemBase64(s: string): string {
+  const out: string[] = [];
+  for (let i = 0; i < s.length; i += 64) out.push(s.slice(i, i + 64));
+  return out.join('\n');
+}
+
+async function generateLicenseFile(env: Env, customerId: string, email: string, tier: string, expiresIso: string): Promise<string> {
+  const payload = JSON.stringify({
+    license_id:     'PC-' + new Date().getFullYear() + '-' + customerId.slice(-6).toUpperCase(),
+    customer_id:    customerId,
+    customer_email: email,
+    tier:           tier,
+    issued_at:      new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+    expires_at:     expiresIso,
+    schema_version: 1,
+  });
+  const sig = await signPayload(env.LICENSE_SIGNING_KEY, payload);
+  const payloadB64 = btoa(payload);
+  return [
+    '-----BEGIN PRESTON-CHECK LICENSE-----',
+    pemBase64(payloadB64),
+    '-----END PRESTON-CHECK LICENSE-----',
+    '-----BEGIN PRESTON-CHECK SIGNATURE-----',
+    pemBase64(sig),
+    '-----END PRESTON-CHECK SIGNATURE-----',
+    '',
+  ].join('\n');
+}
+
+async function handleLicenseDownload(request: Request, env: Env): Promise<Response> {
+  const origin = env.ALLOW_ORIGIN;
+  let body: any;
+  try { body = await request.json(); } catch {
+    return new Response('invalid json', { status: 400, headers: corsHeaders(origin) });
+  }
+  const sessionId = String(body.session_id || '');
+  if (!sessionId.startsWith('cs_')) {
+    return new Response('invalid session_id', { status: 400, headers: corsHeaders(origin) });
+  }
+
+  const params = new URLSearchParams({ 'expand[0]': 'subscription' });
+  const sessResp = await fetch(`https://api.stripe.com/v1/checkout/sessions/${sessionId}?${params}`, {
+    headers: { 'Authorization': `Bearer ${env.STRIPE_SECRET_KEY}` },
+  });
+  const sess: any = await sessResp.json();
+  if (!sessResp.ok || sess.status !== 'complete' || !sess.subscription) {
+    return new Response('checkout not complete', { status: 400, headers: corsHeaders(origin) });
+  }
+
+  const customerId = sess.customer;
+  const email = sess.customer_email || sess.customer_details?.email || '';
+  const subscription = typeof sess.subscription === 'string' ? null : sess.subscription;
+  const periodEnd = subscription?.current_period_end || (Math.floor(Date.now() / 1000) + 365 * 86400);
+  const expiresIso = new Date(periodEnd * 1000).toISOString().replace(/\.\d{3}Z$/, 'Z');
+
+  if (!env.LICENSE_SIGNING_KEY) {
+    return new Response('license signing not configured', { status: 503, headers: corsHeaders(origin) });
+  }
+
+  const license = await generateLicenseFile(env, customerId, email, 'pro', expiresIso);
+  const filename = `preston-check-${customerId.slice(-12)}.license`;
+  return new Response(license, {
+    status: 200,
+    headers: {
+      ...corsHeaders(origin),
+      'Content-Type': 'application/x-pem-file',
+      'Content-Disposition': `attachment; filename="${filename}"`,
+    },
+  });
+}
+
 // ---------------------- entry point ----------------------
 
 export default {
@@ -306,6 +438,14 @@ export default {
 
     if (url.pathname === '/webhook' && request.method === 'POST') {
       return handleWebhook(request, env);
+    }
+
+    if (url.pathname === '/billing-portal' && request.method === 'POST') {
+      return handleBillingPortal(request, env);
+    }
+
+    if (url.pathname === '/license' && request.method === 'POST') {
+      return handleLicenseDownload(request, env);
     }
 
     return new Response('not found', { status: 404, headers: corsHeaders(origin) });
