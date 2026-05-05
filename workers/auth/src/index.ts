@@ -18,11 +18,16 @@
  *  POST /logout                                  → 200 { ok }
  *    Deletes the session row and clears the cookie.
  *
- * Email delivery:
- *  When RESEND_API_KEY is set, codes are sent via the Resend API.
- *  When RESEND_API_KEY is absent, codes are written to D1 with a marker
- *  for operator-side delivery (debug log via `wrangler tail`). This keeps
- *  development unblocked when no email service is configured.
+ * Email delivery (in priority order):
+ *  1. AWS SES via SigV4 — when SES_AWS_ACCESS_KEY_ID is set. Anonymous-
+ *     friendly: domain identity preston-check.com is verified separately
+ *     from any operator-personal identities, IAM user is scoped to
+ *     ses:SendEmail on that one identity only.
+ *  2. Resend — when RESEND_API_KEY is set. Used as fallback during the
+ *     transition; safe to remove once SES is fully validated.
+ *  3. Manual log — when neither is set, codes are written to console for
+ *     operator-side delivery (visible via `wrangler tail`). Keeps dev
+ *     unblocked when no email service is configured.
  */
 
 interface Env {
@@ -34,6 +39,9 @@ interface Env {
   FROM_EMAIL: string;
   FROM_NAME: string;
   RESEND_API_KEY?: string;
+  SES_AWS_ACCESS_KEY_ID?: string;
+  SES_AWS_SECRET_ACCESS_KEY?: string;
+  SES_AWS_REGION?: string;
   SESSION_SECRET?: string;
 }
 
@@ -74,14 +82,141 @@ async function sha256Hex(s: string): Promise<string> {
 
 // ---------------- Email delivery ----------------
 
-async function sendCodeEmail(env: Env, email: string, code: string): Promise<{ delivered: boolean; via: string }> {
-  // If Resend is configured, use it. Otherwise write a "manual delivery"
-  // marker that the operator can read via `wrangler tail` in dev.
-  if (!env.RESEND_API_KEY) {
-    console.log(`[manual-delivery] code=${code} email=${email}`);
-    return { delivered: false, via: 'manual' };
-  }
+const EMAIL_SUBJECT = 'Your Preston-Check sign-in code';
+function emailTextBody(code: string, ttlMinutes: string): string {
+  return `Your Preston-Check sign-in code is: ${code}\n\nThis code expires in ${ttlMinutes} minutes. If you did not request it, you can ignore this email.\n\n— Preston-Check`;
+}
+function emailHtmlBody(code: string, ttlMinutes: string): string {
+  return `<p style="font-family: ui-sans-serif, system-ui, sans-serif; color:#0B1F3A; max-width: 480px; margin: 32px auto; line-height: 1.6;">Your Preston-Check sign-in code:</p><p style="font-family: ui-monospace, monospace; font-size: 32px; letter-spacing: 8px; font-weight: 700; color:#10B981; max-width: 480px; margin: 16px auto 32px; text-align: center;">${code}</p><p style="font-family: ui-sans-serif, system-ui, sans-serif; color:#475569; max-width: 480px; margin: 0 auto; font-size: 14px; line-height: 1.6;">This code expires in ${ttlMinutes} minutes. If you did not request it, you can ignore this email.</p><p style="font-family: ui-sans-serif, system-ui, sans-serif; color:#94A3B8; max-width: 480px; margin: 32px auto 0; font-size: 12px;">— Preston-Check<br/>https://preston-check.com</p>`;
+}
 
+// ---- AWS SigV4 (minimal, SES v2 only) ----
+// Implements just enough SigV4 to call POST /v2/email/outbound-emails on
+// the SES API. We do NOT include a generic SDK because Workers have a
+// 1 MB script limit and aws-sdk-js would dwarf the rest of the Worker.
+
+async function hmacSha256(key: ArrayBuffer | Uint8Array, data: string): Promise<ArrayBuffer> {
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw',
+    key instanceof Uint8Array ? key : new Uint8Array(key),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  );
+  return crypto.subtle.sign('HMAC', cryptoKey, new TextEncoder().encode(data));
+}
+async function sha256HexBytes(data: string): Promise<string> {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function bytesToHex(buf: ArrayBuffer): string {
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function sigV4Sign(opts: {
+  accessKeyId: string;
+  secretAccessKey: string;
+  region: string;
+  service: string;
+  method: string;
+  host: string;
+  path: string;
+  body: string;
+  amzDate: string; // YYYYMMDDTHHMMSSZ
+  dateStamp: string; // YYYYMMDD
+}): Promise<{ authorization: string }> {
+  const payloadHash = await sha256HexBytes(opts.body);
+  // SES v2 expects content-type and host as signed headers at minimum.
+  // Header names sorted, lowercased.
+  const canonicalHeaders =
+    `content-type:application/json\nhost:${opts.host}\nx-amz-content-sha256:${payloadHash}\nx-amz-date:${opts.amzDate}\n`;
+  const signedHeaders = 'content-type;host;x-amz-content-sha256;x-amz-date';
+  const canonicalRequest = [
+    opts.method,
+    opts.path,
+    '', // canonical query string (empty)
+    canonicalHeaders,
+    signedHeaders,
+    payloadHash,
+  ].join('\n');
+  const credentialScope = `${opts.dateStamp}/${opts.region}/${opts.service}/aws4_request`;
+  const stringToSign = [
+    'AWS4-HMAC-SHA256',
+    opts.amzDate,
+    credentialScope,
+    await sha256HexBytes(canonicalRequest),
+  ].join('\n');
+
+  const kDate = await hmacSha256(new TextEncoder().encode('AWS4' + opts.secretAccessKey), opts.dateStamp);
+  const kRegion = await hmacSha256(kDate, opts.region);
+  const kService = await hmacSha256(kRegion, opts.service);
+  const kSigning = await hmacSha256(kService, 'aws4_request');
+  const signature = bytesToHex(await hmacSha256(kSigning, stringToSign));
+
+  const authorization =
+    `AWS4-HMAC-SHA256 Credential=${opts.accessKeyId}/${credentialScope}, ` +
+    `SignedHeaders=${signedHeaders}, Signature=${signature}`;
+  return { authorization };
+}
+
+async function sendCodeEmailViaSES(env: Env, email: string, code: string): Promise<{ delivered: boolean; via: string }> {
+  const region = env.SES_AWS_REGION || 'us-east-1';
+  const host = `email.${region}.amazonaws.com`;
+  const path = '/v2/email/outbound-emails';
+  const ttlMin = env.CODE_TTL_MINUTES;
+  const body = JSON.stringify({
+    FromEmailAddress: `${env.FROM_NAME} <${env.FROM_EMAIL}>`,
+    Destination: { ToAddresses: [email] },
+    Content: {
+      Simple: {
+        Subject: { Data: EMAIL_SUBJECT, Charset: 'UTF-8' },
+        Body: {
+          Text: { Data: emailTextBody(code, ttlMin), Charset: 'UTF-8' },
+          Html: { Data: emailHtmlBody(code, ttlMin), Charset: 'UTF-8' },
+        },
+      },
+    },
+  });
+
+  const now = new Date();
+  const iso = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  const amzDate = iso; // YYYYMMDDTHHMMSSZ
+  const dateStamp = amzDate.slice(0, 8);
+
+  const payloadHash = await sha256HexBytes(body);
+  const { authorization } = await sigV4Sign({
+    accessKeyId: env.SES_AWS_ACCESS_KEY_ID!,
+    secretAccessKey: env.SES_AWS_SECRET_ACCESS_KEY!,
+    region,
+    service: 'ses',
+    method: 'POST',
+    host,
+    path,
+    body,
+    amzDate,
+    dateStamp,
+  });
+
+  const r = await fetch(`https://${host}${path}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Host': host,
+      'X-Amz-Content-Sha256': payloadHash,
+      'X-Amz-Date': amzDate,
+      'Authorization': authorization,
+    },
+    body,
+  });
+  if (!r.ok) {
+    const text = await r.text();
+    console.log(`[ses-error] status=${r.status} body=${text}`);
+    return { delivered: false, via: 'ses-error' };
+  }
+  return { delivered: true, via: 'ses' };
+}
+
+async function sendCodeEmailViaResend(env: Env, email: string, code: string): Promise<{ delivered: boolean; via: string }> {
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -91,18 +226,29 @@ async function sendCodeEmail(env: Env, email: string, code: string): Promise<{ d
     body: JSON.stringify({
       from: `${env.FROM_NAME} <${env.FROM_EMAIL}>`,
       to: [email],
-      subject: 'Your Preston-Check sign-in code',
-      text: `Your Preston-Check sign-in code is: ${code}\n\nThis code expires in ${env.CODE_TTL_MINUTES} minutes. If you did not request it, you can ignore this email.\n\n— Preston-Check`,
-      html: `<p style="font-family: ui-sans-serif, system-ui, sans-serif; color:#0B1F3A; max-width: 480px; margin: 32px auto; line-height: 1.6;">Your Preston-Check sign-in code:</p><p style="font-family: ui-monospace, monospace; font-size: 32px; letter-spacing: 8px; font-weight: 700; color:#10B981; max-width: 480px; margin: 16px auto 32px; text-align: center;">${code}</p><p style="font-family: ui-sans-serif, system-ui, sans-serif; color:#475569; max-width: 480px; margin: 0 auto; font-size: 14px; line-height: 1.6;">This code expires in ${env.CODE_TTL_MINUTES} minutes. If you did not request it, you can ignore this email.</p><p style="font-family: ui-sans-serif, system-ui, sans-serif; color:#94A3B8; max-width: 480px; margin: 32px auto 0; font-size: 12px;">— Preston-Check<br/>https://preston-check.com</p>`,
+      subject: EMAIL_SUBJECT,
+      text: emailTextBody(code, env.CODE_TTL_MINUTES),
+      html: emailHtmlBody(code, env.CODE_TTL_MINUTES),
     }),
   });
-
   if (!r.ok) {
     const text = await r.text();
     console.log(`[resend-error] status=${r.status} body=${text}`);
     return { delivered: false, via: 'resend-error' };
   }
   return { delivered: true, via: 'resend' };
+}
+
+async function sendCodeEmail(env: Env, email: string, code: string): Promise<{ delivered: boolean; via: string }> {
+  // Priority: SES (preferred — anonymous-friendly, scoped IAM) → Resend → manual log
+  if (env.SES_AWS_ACCESS_KEY_ID && env.SES_AWS_SECRET_ACCESS_KEY) {
+    return sendCodeEmailViaSES(env, email, code);
+  }
+  if (env.RESEND_API_KEY) {
+    return sendCodeEmailViaResend(env, email, code);
+  }
+  console.log(`[manual-delivery] code=${code} email=${email}`);
+  return { delivered: false, via: 'manual' };
 }
 
 // ---------------- Endpoints ----------------
