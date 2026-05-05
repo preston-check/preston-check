@@ -4,6 +4,64 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.7.10] — 2026-05-05 — Launch hardening: legal, observability, durability
+
+Closes the remaining hard and soft blockers from the launch checklist.
+With this release, the self-serve loop runs end-to-end without manual
+operator intervention and the platform survives infrastructure faults
+without losing the audit trail.
+
+### Added — Magic-link email via AWS SES
+
+`workers/auth/` now sends 6-digit sign-in codes via SES with inline
+SigV4 signing (~70 lines of Web Crypto, no aws-sdk-js). Domain identity
+`preston-check.com` verified in `us-east-1` with DKIM, SPF, and DMARC
+in Route 53. Dedicated IAM user `preston-check-ses` is scoped to
+`ses:SendEmail` on a single identity ARN. Delivery priority chain:
+SES → Resend → manual log; controlled by which Worker secrets are set.
+
+### Added — Legal pages on the public site
+
+`web/landing/terms.html`, `web/landing/privacy.html`, and
+`web/landing/refund.html` — full Terms of Service, Privacy Policy, and
+14-day money-back-guarantee Refund Policy. Footer on every public-site
+page links to all three. Required for Stripe live-mode operation and
+sets the legal floor under customer relationships.
+
+### Added — Support inbox via SES inbound + S3
+
+Mail to `*@preston-check.com` now lands in
+`s3://preston-check-inbound-mail/incoming/` via an SES receipt rule
+(merged into the existing `INBOUND_MAIL` rule set so the operator's
+WorkMail traffic on other domains continues unaffected). MX record in
+Route 53 points to `inbound-smtp.us-east-1.amazonaws.com`. The
+operator-side destination address is never exposed in public DNS.
+
+### Added — Daily D1 backup to R2
+
+`.github/workflows/d1-backup.yml` exports the auth and billing
+databases nightly at 03:00 UTC and uploads `.sql` dumps to R2 bucket
+`preston-check-d1-backups` (created on first run). Read-only against
+D1. Account, session, and webhook event history is now recoverable
+within the last 24 hours.
+
+### Added — Structured Worker error logging
+
+Both auth and billing Workers wrap their `fetch` handler in a global
+try/catch that emits JSON log lines to Cloudflare Workers Logs and
+returns a stable 500 with a `request_id` for correlation. Bodies and
+the Stripe signature header are never logged. No third-party service
+dependency.
+
+### Fixed — Stripe webhook idempotency race
+
+The webhook handler previously did SELECT-then-INSERT on
+`webhook_events`; two concurrent deliveries of the same event could
+both pass the SELECT and the loser would 500 on the
+UNIQUE(`stripe_event_id`) constraint, causing Stripe to retry forever.
+Replaced with `INSERT OR IGNORE` + row-count check so the INSERT
+itself is the dedupe primitive.
+
 ## [1.7.9] — 2026-05-04 — Q3 2026 self-serve SaaS — five items shipped
 
 Closes the five "Q3 2026 self-serve SaaS" items from the launch
