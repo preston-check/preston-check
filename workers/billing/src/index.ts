@@ -189,19 +189,19 @@ async function handleWebhook(request: Request, env: Env): Promise<Response> {
     return new Response('invalid json', { status: 400 });
   }
 
-  // Idempotency: skip if we've already processed this event.
-  const seen = await env.DB.prepare('SELECT id FROM webhook_events WHERE stripe_event_id = ?')
-    .bind(event.id).first();
-  if (seen) {
+  // Atomic idempotency: rely on the UNIQUE(stripe_event_id) constraint
+  // rather than a SELECT-then-INSERT pattern. Two concurrent deliveries
+  // of the same event would both pass a SELECT but only one INSERT can
+  // succeed; using INSERT OR IGNORE we get a 0-rows-changed signal for
+  // the duplicate without needing application-level locking.
+  const insertResult = await env.DB.prepare(
+    'INSERT OR IGNORE INTO webhook_events (stripe_event_id, type, livemode, payload) VALUES (?, ?, ?, ?)'
+  ).bind(event.id, event.type, event.livemode ? 1 : 0, payload).run();
+  if (!insertResult.meta || insertResult.meta.changes === 0) {
     return new Response(JSON.stringify({ ok: true, duplicate: true }), {
       status: 200, headers: { 'Content-Type': 'application/json' },
     });
   }
-
-  // Persist the raw event before processing — gives us replay capability.
-  await env.DB.prepare(
-    'INSERT INTO webhook_events (stripe_event_id, type, livemode, payload) VALUES (?, ?, ?, ?)'
-  ).bind(event.id, event.type, event.livemode ? 1 : 0, payload).run();
 
   // Dispatch on event type. Only the events we actually use are wired;
   // others are recorded in webhook_events but otherwise ignored.
