@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Privacy Policy — Preston-Check</title>
+  <meta name="description" content="Privacy Policy for Preston-Check. Your code never leaves your machine; the SaaS layer collects only what is needed to deliver service."/>
+  <link rel="icon" href="assets/logomark.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a href="/" class="logo" aria-label="Preston-Check home">
+      <img src="assets/wordmark.svg" alt="Preston-Check"/>
+    </a>
+    <nav>
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="https://github.com/preston-check/preston-check">GitHub</a>
+      <a href="/#install" class="btn btn-primary">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main class="legal">
+  <div class="wrap">
+    <p class="eyebrow">Legal</p>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: 5 May 2026 &middot; Effective: 5 May 2026</p>
+
+    <p>Preston-Check is built around a simple principle: your code never leaves your machine. The scanner is a local command-line tool that produces local output. The SaaS layer at <code>preston-check.com</code> consumes only what you choose to upload, and collects only what is needed to deliver the service. This Privacy Policy explains what is collected, why, where it lives, and how to exercise your rights over it.</p>
+
+    <h2>1. Local scanner — what stays on your machine</h2>
+    <p>When you run the open-source scanner, source code, dependency manifests, environment variables, and findings are processed entirely on your local machine and written to your local filesystem. Nothing is uploaded to us. This includes intermediate AST representations, secret-detection matches, and report HTML/PDF artifacts. You can run the scanner air-gapped without any network access and it will function fully.</p>
+
+    <h2>2. Optional telemetry</h2>
+    <p>Telemetry is off by default and only activates when you pass <code>--telemetry</code> or set <code>PRESTON_TELEMETRY=1</code>. When enabled, the scanner sends a small JSON payload at the end of each run containing: scanner version, OS family (linux/macos/windows), language detected, framework count, scan duration, total findings count by severity, and a randomly-generated install ID that you can rotate at any time by deleting <code>~/.preston-check/install_id</code>. Telemetry never includes file paths, code snippets, finding details, repository names, or any personally identifying information.</p>
+
+    <h2>3. SaaS account data</h2>
+    <p>When you sign in to <code>app.preston-check.com</code> or purchase a subscription, we store: your email address (used as the account identifier and for magic-link sign-in), your organisation name (optional, shown on report PDFs), the timestamp of your last sign-in, an SHA-256 hash of your IP address combined with a server-side secret (used for session anomaly detection; the original IP is not retrievable from the hash), your browser&rsquo;s <code>User-Agent</code> string truncated to 200 characters, and session identifiers tied to a 30-day expiry. Subscription state (plan, status, period end, invoice history) is mirrored from Stripe so the customer portal can render without round-tripping to Stripe on every page load.</p>
+
+    <h2>4. Audit packages and uploaded artifacts</h2>
+    <p>If you generate an audit package PDF through the customer portal, the report is rendered client-side in your browser and the resulting PDF is downloaded directly to your machine; the report content does not transit our servers. If you upload a scanner-generated JSON report to the SaaS for branded PDF generation or multi-repository analytics, that JSON is stored in your account&rsquo;s isolated D1 partition for the duration of your subscription and is deleted within 30 days of subscription cancellation, sooner on request.</p>
+
+    <h2>5. Payment information</h2>
+    <p>Payments are processed by Stripe, Inc. We never see your card number, CVC, or full bank account details; Stripe gives us a customer ID, the last four digits of your card (for the Customer Portal display only), the billing country and postal code (for tax compliance), and tax ID if you provided one. Stripe&rsquo;s privacy policy applies to data they hold: <a href="https://stripe.com/privacy">stripe.com/privacy</a>.</p>
+
+    <h2>6. Email delivery</h2>
+    <p>Magic-link sign-in codes are delivered via Amazon SES from the <code>preston-check.com</code> domain. SES processes your email address and the code body to deliver the message; SES does not retain message content beyond the delivery attempt and the standard SES bounce/complaint feedback loop. We do not send marketing email; you may receive transactional emails (sign-in codes, billing receipts via Stripe, security notifications about your account) only.</p>
+
+    <h2>7. Hosting and edge infrastructure</h2>
+    <p>The SaaS layer runs on Cloudflare Workers, Cloudflare Pages, Cloudflare D1 (SQLite), and Cloudflare KV. Cloudflare receives request metadata (IP, headers, timing) for delivery and DDoS protection; their privacy policy applies: <a href="https://www.cloudflare.com/privacypolicy/">cloudflare.com/privacypolicy</a>. We use Cloudflare Web Analytics for aggregate, cookie-free pageview counts on the public site.</p>
+
+    <h2>8. Cookies and similar technologies</h2>
+    <p>The customer portal sets a single first-party HttpOnly session cookie (<code>pc_session</code>) on <code>app.preston-check.com</code> for 30 days, used solely to maintain your sign-in state. We do not set tracking, advertising, analytics, or third-party cookies. The public marketing site sets no cookies at all.</p>
+
+    <h2>9. Data retention</h2>
+    <p>Sign-in codes are deleted from KV within 10 minutes of issuance or immediately on use. Sessions expire after 30 days and are purged. Account records are retained for the lifetime of your subscription plus 90 days after cancellation, then deleted on request or after 12 additional months. Webhook event logs are retained for 1 year for billing reconciliation. Stripe-side data follows Stripe&rsquo;s retention policies independently.</p>
+
+    <h2>10. Your rights</h2>
+    <p>You can request access to, correction of, export of, or deletion of your account data at any time by emailing <a href="mailto:privacy@preston-check.com">privacy@preston-check.com</a>. We respond within 30 days. Deletion of an active subscription requires cancellation first; we will not retain account data beyond what is needed to honour an active subscription. EU/UK customers have additional rights under the GDPR, California residents under the CCPA/CPRA; we honour both. You may also lodge a complaint with your local data protection authority.</p>
+
+    <h2>11. International transfers</h2>
+    <p>Cloudflare runs in regions worldwide; data may be processed at the edge nearest you. Stripe processes payments primarily in the United States. Amazon SES sends from <code>us-east-1</code>. Where applicable, we rely on standard contractual clauses for cross-border transfers.</p>
+
+    <h2>12. Security</h2>
+    <p>Sessions are stored only as random 64-character hex tokens, never as JWTs containing claims; revoking access is a single-row delete. License files are signed with Ed25519 and verified offline. Stripe webhook signatures are HMAC-SHA256 verified before any state mutation. We follow least-privilege for cloud credentials (e.g., the SES IAM user is scoped to <code>ses:SendEmail</code> on a single domain identity).</p>
+
+    <h2>13. Children</h2>
+    <p>The Service is intended for businesses and professionals; we do not knowingly collect data from anyone under 18.</p>
+
+    <h2>14. Changes</h2>
+    <p>If we make material changes to this Policy we will email subscribers at least 30 days before the changes take effect. The current version is always available at <a href="/privacy.html">/privacy.html</a>.</p>
+
+    <h2>15. Contact</h2>
+    <p>Privacy questions or rights requests: <a href="mailto:privacy@preston-check.com">privacy@preston-check.com</a>.</p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <a href="/" class="logo"><img src="assets/wordmark.svg" alt="Preston-Check"/></a>
+        <p style="margin-top:16px; max-width: 32ch; font-size:14px;">Pre-deployment security audits for fintech. Open source under Apache 2.0.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/tree/master/docs">Docs</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/CHANGELOG.md">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/refund.html">Refund Policy</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/SECURITY.md">Security policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="mailto:hello@preston-check.com">Contact</a></li>
+          <li><a href="mailto:sales@preston-check.com">Sales</a></li>
+          <li><a href="mailto:security@preston-check.com">Security</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/LICENSE">Open-source license</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>&copy; 2026 Preston-Check Maintainers &middot; Apache-2.0</span>
+      <span>Proprietary icon set drawn from scratch &middot; no third-party iconography</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

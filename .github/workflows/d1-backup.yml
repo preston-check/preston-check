@@ -1,0 +1,74 @@
+name: D1 daily backup
+
+# Exports auth and billing D1 databases nightly to an R2 bucket. The
+# bucket is created on first run if missing. This workflow takes no
+# untrusted input (only schedule and manual workflow_dispatch with no
+# declared inputs), and references only repo secrets in run: blocks.
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  R2_BUCKET: preston-check-d1-backups
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Cloudflare credentials
+        id: check
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ACCT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [[ -n "$CF_TOKEN" && -n "$CF_ACCT" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Cloudflare secrets not configured -- skipping D1 backup."
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.check.outputs.configured == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.check.outputs.configured == 'true'
+        with:
+          node-version: '20'
+
+      - name: Ensure R2 bucket exists
+        if: steps.check.outputs.configured == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx -y wrangler@4 r2 bucket create "$R2_BUCKET" 2>&1 | tee /tmp/bucket.log || true
+
+      - name: Export and upload auth DB
+        if: steps.check.outputs.configured == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          STAMP=$(date -u +%Y%m%dT%H%M%SZ)
+          OUT=/tmp/auth-${STAMP}.sql
+          npx -y wrangler@4 d1 export preston-check-auth --output "$OUT"
+          ls -la "$OUT"
+          npx -y wrangler@4 r2 object put "$R2_BUCKET/auth/${STAMP}.sql" --file "$OUT"
+
+      - name: Export and upload billing DB
+        if: steps.check.outputs.configured == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          STAMP=$(date -u +%Y%m%dT%H%M%SZ)
+          OUT=/tmp/billing-${STAMP}.sql
+          npx -y wrangler@4 d1 export preston-check-billing --output "$OUT"
+          ls -la "$OUT"
+          npx -y wrangler@4 r2 object put "$R2_BUCKET/billing/${STAMP}.sql" --file "$OUT"

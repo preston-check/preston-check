@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Terms of Service — Preston-Check</title>
+  <meta name="description" content="Terms of Service for Preston-Check open-source scanner and paid SaaS audit-package."/>
+  <link rel="icon" href="assets/logomark.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a href="/" class="logo" aria-label="Preston-Check home">
+      <img src="assets/wordmark.svg" alt="Preston-Check"/>
+    </a>
+    <nav>
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="https://github.com/preston-check/preston-check">GitHub</a>
+      <a href="/#install" class="btn btn-primary">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main class="legal">
+  <div class="wrap">
+    <p class="eyebrow">Legal</p>
+    <h1>Terms of Service</h1>
+    <p class="meta">Last updated: 5 May 2026 &middot; Effective: 5 May 2026</p>
+
+    <p>These Terms of Service govern your use of Preston-Check (the &ldquo;Service&rdquo;), comprising the open-source command-line scanner published at <a href="https://github.com/preston-check/preston-check">github.com/preston-check/preston-check</a> and the hosted SaaS components at <code>preston-check.com</code> (including the customer portal at <code>app.preston-check.com</code> and any paid features such as audit-package generation, multi-repository dashboards, and license issuance). By installing the scanner, creating an account, or making payment, you (the &ldquo;Customer&rdquo;) agree to these Terms.</p>
+
+    <h2>1. The two layers</h2>
+    <p>The scanner itself is open source under Apache License 2.0; that license, not these Terms, governs your use of the source code, binaries, and any local execution. These Terms apply to the SaaS layer that consumes scanner output: hosted dashboards, audit-package PDF generation, the license-issuance Worker, and the customer/admin portals. Free-tier scanning runs entirely on your machine and requires no agreement with us beyond the Apache 2.0 license.</p>
+
+    <h2>2. Accounts</h2>
+    <p>You access the SaaS layer using a magic-link sign-in code delivered by email. You are responsible for keeping the email account associated with your subscription secure; anyone who can read sign-in codes from that inbox can sign in. We do not offer multi-factor authentication on the magic-link flow at present. Sessions last 30 days unless you explicitly sign out.</p>
+
+    <h2>3. Subscriptions and payment</h2>
+    <p>Paid plans are billed via Stripe and renew automatically unless cancelled. Pricing is shown at <a href="/#pricing">preston-check.com/#pricing</a> and may change with at least 30 days&rsquo; notice for existing subscribers. You can cancel at any time through the Stripe Customer Portal, which we link to from the customer portal&rsquo;s Billing tab; cancellation takes effect at the end of the current billing period. Refund eligibility is described in our <a href="/refund.html">Refund Policy</a>.</p>
+
+    <h2>4. License grant and restrictions</h2>
+    <p>For the duration of your paid subscription, we grant you a non-exclusive, non-transferable license to use the SaaS layer for the number of repositories permitted by your plan. The Ed25519-signed license file we issue is bound to the subscription and may not be redistributed. You may not reverse-engineer, decompile, or otherwise attempt to extract source code from the SaaS components; you may not benchmark the Service for the purpose of publishing comparative claims without prior written consent.</p>
+
+    <h2>5. Acceptable use</h2>
+    <p>You agree not to use the Service to scan code you do not own or are not authorised to scan, to attempt to disrupt the Service for other users, to circumvent rate limits or license enforcement, or for any unlawful purpose. We may suspend access for violations after a single warning, except where the violation is severe or recurring, in which case suspension may be immediate.</p>
+
+    <h2>6. Open-source contributions</h2>
+    <p>If you submit a pull request, issue, or other contribution to the open-source repository, you do so under the project&rsquo;s contribution licence (Apache 2.0 unless an explicit Developer Certificate of Origin sign-off says otherwise). Contributions to the SaaS components, where invited, are governed by a separate Contributor License Agreement linked from the relevant repository.</p>
+
+    <h2>7. Telemetry and privacy</h2>
+    <p>The scanner runs locally and does not transmit your code or findings to us. Optional telemetry (opt-in only via <code>--telemetry</code>) sends anonymised counters: language detected, framework count, scan duration, scanner version. The SaaS layer collects what is necessary to deliver service, as described in our <a href="/privacy.html">Privacy Policy</a>.</p>
+
+    <h2>8. Warranty disclaimer</h2>
+    <p>The Service is provided &ldquo;as is&rdquo; and &ldquo;as available.&rdquo; While we work hard to surface meaningful security findings, the Service is not a substitute for human security review or formal penetration testing. We do not warrant that the Service will identify every vulnerability in your code, that it will be uninterrupted, or that it will be free of bugs. To the maximum extent permitted by applicable law, all implied warranties (including merchantability, fitness for a particular purpose, and non-infringement) are disclaimed.</p>
+
+    <h2>9. Limitation of liability</h2>
+    <p>To the maximum extent permitted by applicable law, our aggregate liability under these Terms (whether in contract, tort, or otherwise) is limited to the amount you paid us in the 12 months preceding the event giving rise to the claim. We are not liable for indirect, incidental, special, consequential, or punitive damages, including lost profits, lost data, or business interruption. Some jurisdictions do not allow these limitations; in those jurisdictions our liability is limited to the maximum extent permitted.</p>
+
+    <h2>10. Termination</h2>
+    <p>You may terminate your subscription at any time through the Customer Portal. We may terminate or suspend access for material breach of these Terms, non-payment after a 14-day grace period, or for any reason on 30 days&rsquo; notice (in which case we will refund any prepaid amounts for service not yet delivered). On termination, your account is retained for 90 days for re-activation, then deleted on request or at our discretion.</p>
+
+    <h2>11. Governing law and disputes</h2>
+    <p>These Terms are governed by the laws applicable at the Customer&rsquo;s principal place of business, except where mandatory consumer-protection law in the Customer&rsquo;s jurisdiction provides otherwise. The parties agree to attempt good-faith resolution of any dispute by direct correspondence to <a href="mailto:legal@preston-check.com">legal@preston-check.com</a> for at least 30 days before initiating formal proceedings.</p>
+
+    <h2>12. Changes</h2>
+    <p>We may update these Terms; material changes are notified by email to the address on your subscription at least 30 days before they take effect. Continued use after the effective date constitutes acceptance.</p>
+
+    <h2>13. Contact</h2>
+    <p>Questions about these Terms: <a href="mailto:legal@preston-check.com">legal@preston-check.com</a>. Security disclosure: <a href="mailto:security@preston-check.com">security@preston-check.com</a>. Billing or account questions: <a href="mailto:support@preston-check.com">support@preston-check.com</a>.</p>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <a href="/" class="logo"><img src="assets/wordmark.svg" alt="Preston-Check"/></a>
+        <p style="margin-top:16px; max-width: 32ch; font-size:14px;">Pre-deployment security audits for fintech. Open source under Apache 2.0.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/tree/master/docs">Docs</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/CHANGELOG.md">Changelog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="/refund.html">Refund Policy</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/SECURITY.md">Security policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="mailto:hello@preston-check.com">Contact</a></li>
+          <li><a href="mailto:sales@preston-check.com">Sales</a></li>
+          <li><a href="mailto:security@preston-check.com">Security</a></li>
+          <li><a href="https://github.com/preston-check/preston-check/blob/master/LICENSE">Open-source license</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>&copy; 2026 Preston-Check Maintainers &middot; Apache-2.0</span>
+      <span>Proprietary icon set drawn from scratch &middot; no third-party iconography</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

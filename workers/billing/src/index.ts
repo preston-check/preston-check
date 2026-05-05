@@ -423,31 +423,54 @@ async function handleLicenseDownload(request: Request, env: Env): Promise<Respon
 
 // ---------------------- entry point ----------------------
 
+// Structured error logging: every uncaught handler exception becomes a JSON
+// log line in Cloudflare Workers Logs (dashboard Live Logs). No external
+// service needed. We never log request bodies (PII risk) or the Stripe
+// signature header.
+function logError(reqId: string, request: Request, err: unknown): void {
+  const e = err instanceof Error ? { name: err.name, message: err.message, stack: err.stack } : { message: String(err) };
+  console.error(JSON.stringify({
+    level: 'error',
+    worker: 'billing',
+    req_id: reqId,
+    method: request.method,
+    path: new URL(request.url).pathname,
+    err: e,
+    ts: new Date().toISOString(),
+  }));
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const origin = env.ALLOW_ORIGIN;
+    const reqId = crypto.randomUUID();
 
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders(origin) });
+    try {
+      if (request.method === 'OPTIONS') {
+        return new Response(null, { headers: corsHeaders(origin) });
+      }
+
+      if (url.pathname === '/checkout' && request.method === 'POST') {
+        return await handleCheckout(request, env);
+      }
+      if (url.pathname === '/webhook' && request.method === 'POST') {
+        return await handleWebhook(request, env);
+      }
+      if (url.pathname === '/billing-portal' && request.method === 'POST') {
+        return await handleBillingPortal(request, env);
+      }
+      if (url.pathname === '/license' && request.method === 'POST') {
+        return await handleLicenseDownload(request, env);
+      }
+
+      return new Response('not found', { status: 404, headers: corsHeaders(origin) });
+    } catch (err) {
+      logError(reqId, request, err);
+      return new Response(JSON.stringify({ error: 'internal', request_id: reqId }), {
+        status: 500,
+        headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' },
+      });
     }
-
-    if (url.pathname === '/checkout' && request.method === 'POST') {
-      return handleCheckout(request, env);
-    }
-
-    if (url.pathname === '/webhook' && request.method === 'POST') {
-      return handleWebhook(request, env);
-    }
-
-    if (url.pathname === '/billing-portal' && request.method === 'POST') {
-      return handleBillingPortal(request, env);
-    }
-
-    if (url.pathname === '/license' && request.method === 'POST') {
-      return handleLicenseDownload(request, env);
-    }
-
-    return new Response('not found', { status: 404, headers: corsHeaders(origin) });
   },
 };

@@ -401,28 +401,54 @@ async function handleLogout(request: Request, env: Env): Promise<Response> {
 
 // ---------------- Entry point ----------------
 
+// Global error wrapper: any handler exception becomes a structured log line
+// + a stable 5xx with a request-correlation id. Cloudflare Workers Logs
+// surfaces the JSON in the dashboard Live Logs view without requiring
+// any third-party service.
+function logError(reqId: string, request: Request, err: unknown): void {
+  const e = err instanceof Error ? { name: err.name, message: err.message, stack: err.stack } : { message: String(err) };
+  console.error(JSON.stringify({
+    level: 'error',
+    worker: 'auth',
+    req_id: reqId,
+    method: request.method,
+    path: new URL(request.url).pathname,
+    err: e,
+    ts: new Date().toISOString(),
+  }));
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const origin = env.ALLOW_ORIGIN;
+    const reqId = crypto.randomUUID();
 
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders(origin) });
-    }
+    try {
+      if (request.method === 'OPTIONS') {
+        return new Response(null, { headers: corsHeaders(origin) });
+      }
 
-    if (url.pathname === '/request-code' && request.method === 'POST') {
-      return handleRequestCode(request, env);
-    }
-    if (url.pathname === '/verify-code' && request.method === 'POST') {
-      return handleVerifyCode(request, env);
-    }
-    if (url.pathname === '/me' && request.method === 'GET') {
-      return handleMe(request, env);
-    }
-    if (url.pathname === '/logout' && request.method === 'POST') {
-      return handleLogout(request, env);
-    }
+      if (url.pathname === '/request-code' && request.method === 'POST') {
+        return await handleRequestCode(request, env);
+      }
+      if (url.pathname === '/verify-code' && request.method === 'POST') {
+        return await handleVerifyCode(request, env);
+      }
+      if (url.pathname === '/me' && request.method === 'GET') {
+        return await handleMe(request, env);
+      }
+      if (url.pathname === '/logout' && request.method === 'POST') {
+        return await handleLogout(request, env);
+      }
 
-    return new Response('not found', { status: 404, headers: corsHeaders(origin) });
+      return new Response('not found', { status: 404, headers: corsHeaders(origin) });
+    } catch (err) {
+      logError(reqId, request, err);
+      return new Response(JSON.stringify({ error: 'internal', request_id: reqId }), {
+        status: 500,
+        headers: { ...corsHeaders(origin), 'Content-Type': 'application/json' },
+      });
+    }
   },
 };
