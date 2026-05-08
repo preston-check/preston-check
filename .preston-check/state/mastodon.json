@@ -1,10 +1,11 @@
 {
-  "last_run": null,
+  "last_run": "2026-05-08T15:46:20.557190+00:00",
   "last_successful_fetch": null,
   "processed_ids": [],
   "source_id": "mastodon",
   "stats": {
     "total_fetched": 0,
     "total_relevant": 0
-  }
+  },
+  "status": "skipped \u2014 MASTODON_TOKEN not configured"
 }
