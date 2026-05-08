@@ -56,11 +56,15 @@ Preston-Check_Whitepaper-full_info.docx
 # Cloudflare resource provisioning). Account metadata only, not secrets.
 .wrangler/
 
-# Threat-intel pipeline runtime state (regenerable; some subdirs are
-# committed by the workflows for state persistence — see paths below)
-.preston-check/synth-cache/
-.preston-check/candidates/
-.preston-check/queue/*-empty.json
+# Threat-intel pipeline runtime state. Default-deny everything, then
+# explicitly allow the paths the workflows commit for state persistence
+# across runs (state/, drift/, telemetry-feedback/, correlated.json).
+.preston-check/*
+!.preston-check/state/
+!.preston-check/drift/
+!.preston-check/telemetry-feedback/
+!.preston-check/correlated.json
+!.preston-check/orchestrate-summary.json
 corpus/snapshots/
 
 # Python local-test virtual envs and caches
