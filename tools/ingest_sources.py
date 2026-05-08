@@ -34,6 +34,7 @@ from __future__ import annotations
 
 import html
 import re
+import sys
 from typing import Any
 
 from ingest_common import (
@@ -186,6 +187,9 @@ def _ghsa_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
             state.setdefault("processed_ids", []).append(adv_id)
             continue
         sev = (adv.get("severity") or "medium").lower()
+        cwes_list = adv.get("cwes", []) or []
+        vulns_list = adv.get("vulnerabilities", []) or []
+        refs_list = adv.get("references", []) or []
         rec: CandidateRecord = {
             "source": "ghsa",
             "source_id": adv_id,
@@ -193,10 +197,16 @@ def _ghsa_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
             "title": adv.get("summary") or adv_id,
             "description": desc,
             "severity": sev,
-            "cwe": [w.get("cwe_id", "") for w in adv.get("cwes", [])],
+            "cwe": [w.get("cwe_id", "") for w in cwes_list if isinstance(w, dict)],
             "languages": [],
-            "frameworks": [v.get("package", {}).get("ecosystem", "") for v in adv.get("vulnerabilities", [])],
-            "references": [r.get("url", "") for r in adv.get("references", [])],
+            "frameworks": [
+                v.get("package", {}).get("ecosystem", "")
+                for v in vulns_list
+                if isinstance(v, dict)
+            ],
+            "references": [
+                r if isinstance(r, str) else r.get("url", "") for r in refs_list
+            ],
             "raw": adv,
             "confidence": 0.85,
             "proactive": False,
@@ -282,29 +292,74 @@ def _nvd_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
 
 
 def _osv_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
-    ecosystems = ["Maven", "npm", "PyPI", "Go", "RubyGems", "crates.io", "Packagist"]
+    """OSV.dev's /v1/query endpoint requires POST with a specific package.
+    There is no list-recent endpoint; instead we query a curated list of
+    fintech-relevant packages on each run and pull their latest vulns. The
+    package list is biased toward frameworks Preston-Check actually targets;
+    expand it to broaden coverage."""
+    import json as _json
+    import urllib.request as _ur
+
+    fintech_packages = [
+        ("Maven", "org.springframework:spring-core"),
+        ("Maven", "org.springframework.boot:spring-boot"),
+        ("Maven", "org.springframework.security:spring-security-core"),
+        ("Maven", "com.fasterxml.jackson.core:jackson-databind"),
+        ("npm", "express"),
+        ("npm", "next"),
+        ("npm", "react"),
+        ("npm", "stripe"),
+        ("npm", "ethers"),
+        ("npm", "web3"),
+        ("PyPI", "django"),
+        ("PyPI", "fastapi"),
+        ("PyPI", "stripe"),
+        ("PyPI", "cryptography"),
+        ("Go", "github.com/gin-gonic/gin"),
+        ("Go", "github.com/gorilla/mux"),
+        ("RubyGems", "rails"),
+        ("crates.io", "openssl"),
+        ("crates.io", "ring"),
+    ]
+
     records: list[CandidateRecord] = []
     seen = set(state.get("processed_ids", []))
     state["last_run"] = now_iso()
     any_success = False
-    for eco in ecosystems:
-        url = "https://api.osv.dev/v1/query"
-        data = http_get_json(
-            url,
-            headers={"Content-Type": "application/json"},
+
+    for ecosystem, package in fintech_packages:
+        body = _json.dumps({"package": {"ecosystem": ecosystem, "name": package}}).encode("utf-8")
+        req = _ur.Request(
+            "https://api.osv.dev/v1/query",
+            data=body,
+            headers={
+                "Content-Type": "application/json",
+                "User-Agent": "preston-check-ingest/1.0",
+                "Accept": "application/json",
+            },
+            method="POST",
         )
-        if data is None:
+        try:
+            with _ur.urlopen(req, timeout=30) as resp:
+                data = _json.loads(resp.read())
+            any_success = True
+        except Exception as exc:
+            print(
+                f"[ingest_sources] osv query failed for {ecosystem}/{package}: {exc}",
+                file=sys.stderr,
+            )
             continue
-        any_success = True
-        for vuln in data.get("vulns", [])[:50]:
+
+        for vuln in data.get("vulns", [])[:25]:
             vid = vuln.get("id")
             if not vid or vid in seen:
                 continue
-            summary = vuln.get("summary", "") or vuln.get("details", "")[:200]
-            if not _is_fintech_relevant(summary + " " + vuln.get("details", "")):
+            summary = vuln.get("summary", "") or (vuln.get("details", "") or "")[:200]
+            if not _is_fintech_relevant(summary + " " + (vuln.get("details", "") or "")):
                 seen.add(vid)
                 state.setdefault("processed_ids", []).append(vid)
                 continue
+            refs_list = vuln.get("references", []) or []
             rec: CandidateRecord = {
                 "source": "osv",
                 "source_id": vid,
@@ -314,8 +369,10 @@ def _osv_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
                 "severity": "medium",
                 "cwe": [],
                 "languages": [],
-                "frameworks": [eco],
-                "references": [r.get("url", "") for r in vuln.get("references", [])],
+                "frameworks": [f"{ecosystem}:{package}"],
+                "references": [
+                    r if isinstance(r, str) else r.get("url", "") for r in refs_list
+                ],
                 "raw": vuln,
                 "confidence": 0.75,
                 "proactive": False,
@@ -323,6 +380,7 @@ def _osv_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
             records.append(rec)
             seen.add(vid)
             state.setdefault("processed_ids", []).append(vid)
+
     if any_success:
         state["last_successful_fetch"] = now_iso()
     _cap_processed(state)
