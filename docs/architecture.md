@@ -66,6 +66,119 @@ every release tag via `.github/workflows/release.yml`:
   `action.yml` at the repo root. Used as a drop-in PR security gate per
   `examples/github-action.yml`.
 
+## Production SaaS deployment
+
+The runner above is what ships to customers; the commercial side runs a
+small SaaS that handles self-serve sign-up, billing, license issuance,
+and operator administration. The deployment splits across three trust
+tiers — public static surfaces on GitHub Pages, gated UIs on Cloudflare
+Pages, and stateful backends on Cloudflare Workers — so a compromise of
+any tier cannot reach the next one's secrets. All resource identifiers,
+secrets, deploy procedures, and rotation runbooks live in
+`docs/operator-runbook.md`; this section describes the topology and the
+dependency graph between systems.
+
+### Public landing — `preston-check.com`
+
+A static site served by GitHub Pages from `web/landing/`, including the
+legal pages at `/terms.html`, `/privacy.html`, and `/refund.html`. It
+depends only on GitHub Pages, on the Route 53 apex A records, and on
+the `pages.yml` workflow that publishes on every push touching
+`web/landing/**`. It holds no secrets and has no runtime backend.
+
+### Customer portal — `app.preston-check.com`
+
+A Cloudflare Pages SPA (`preston-check-customer`) sourced from
+`web/customer/` and deployed by `customer-pages.yml`. At runtime it
+calls the auth Worker for magic-link sign-in and the billing Worker for
+checkout, customer-portal links, and license downloads. Pages bindings
+expose the billing D1 database and the shared `AGGREGATE` KV namespace
+to the project's edge functions. The custom domain is wired through a
+Route 53 CNAME pointing at the `pages.dev` mirror.
+
+### Admin portal — `admin.preston-check.com`
+
+A Cloudflare Pages SPA (`preston-check-admin`) sourced from `web/admin/`
+and deployed by `admin-pages.yml`. Access is gated by Cloudflare Access
+("Preston-Check Admin" app) using operator email plus a 6-digit PIN
+with 24-hour sessions. The admin portal sits off the customer code path
+— outages here do not affect billing or license issuance.
+
+### Auth Worker — `preston-check-auth`
+
+A Cloudflare Workers script in `workers/auth/`, deployed by
+`auth-deploy.yml`. It handles magic-link sign-in across `/request-code`,
+`/verify-code`, `/me`, and `/logout`, with persistence split between
+the auth D1 database (accounts and sessions) and the `CODES` KV
+namespace (6-digit codes on a 10-minute TTL plus per-email rate
+limits). Outbound email goes through AWS SES on the `preston-check.com`
+domain identity, signed inline with SigV4 using the `preston-check-ses`
+IAM user's keys held as Worker secrets. The deploy workflow re-syncs
+those keys into the Worker on every push so the GitHub Actions secret
+remains the single source of truth.
+
+### Billing Worker — `preston-check-billing`
+
+A Cloudflare Workers script in `workers/billing/`, deployed by
+`billing-deploy.yml`. It exposes `/checkout`, `/webhook`,
+`/billing-portal`, and `/license`. The billing D1 database stores
+customers, subscriptions, invoices, and the `webhook_events` table that
+backs atomic idempotency via `INSERT OR IGNORE`; the `STATE` KV
+namespace holds short-lived nonces and per-email rate limits. Stripe is
+the source of truth for billing state and D1 is a denormalised mirror
+populated by the webhook handler. License signing uses an Ed25519
+private key held only as the `LICENSE_SIGNING_KEY` Worker secret; the
+public half is checked into `lib/license_saas_pubkey.pem` and verified
+by the runner at scan time.
+
+### Telemetry Worker — `preston-check-telemetry`
+
+A Cloudflare Workers script in `workers/telemetry/`, deployed by
+`telemetry-deploy.yml`. It accepts opt-in scan statistics on a public
+POST endpoint with rate limiting only — no auth, by design. State
+splits between the telemetry D1 database and the `AGGREGATE` KV
+namespace, the latter shared with the customer portal so it can render
+aggregates without round-tripping to D1.
+
+### Inbound mail — `support@preston-check.com`
+
+A push-to-S3 path: Route 53's MX record routes to SES inbound in
+`us-east-1`, the `INBOUND_MAIL` rule set's `support-to-s3` rule writes
+matching messages to `s3://preston-check-inbound-mail/incoming/`, and
+the bucket policy restricts PutObject to SES from the project's AWS
+account. The operator currently polls the bucket; the planned Lambda
+S3-to-email forwarder is tracked in the launch state.
+
+### Backups — R2 bucket `preston-check-d1-backups`
+
+The `d1-backup.yml` workflow runs daily at 03:00 UTC plus manual
+dispatch and exports the auth and billing D1 databases as timestamped
+`.sql` dumps under `auth/` and `billing/` prefixes. Restores run
+`wrangler d1 execute --remote --file <dump>` against an empty target
+database. The telemetry database is not backed up — it is rebuildable
+from incoming events.
+
+### Cross-cutting dependencies
+
+Every custom domain routes through the Route 53 hosted zone for
+`preston-check.com.`, which also holds the SES SPF, DKIM, and DMARC
+records that authorise outbound auth email and the MX record that
+delivers inbound support mail. Every Worker and Pages project deploys
+from the `preston-check/preston-check` GitHub repository via
+path-filtered Actions workflows authenticated with the
+`CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repo secrets. The
+AWS footprint runs in account `356697059290`, region `us-east-1`, and
+is scoped narrowly to `preston-check.com` so it can be migrated to a
+project-only AWS account later without unwinding unrelated identities.
+
+The customer-facing dependency chain reads as one path: a request to
+`app.preston-check.com` (Cloudflare Pages, custom-domain CNAME via
+Route 53) calls the auth Worker (Cloudflare Workers + auth D1 +
+`CODES` KV + AWS SES) and the billing Worker (Cloudflare Workers +
+billing D1 + `STATE` KV + Stripe live mode + the Ed25519 signing key
+as a Worker secret), with each of those components deployed from the
+GitHub repository through a dedicated path-filtered Actions workflow.
+
 ## Data flow during a scan
 
 The runner starts by parsing CLI flags, then sources each `lib/*.sh` module
