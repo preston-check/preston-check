@@ -2,29 +2,30 @@
   "candidate_count": 1,
   "candidates": [
     {
-      "canonical_id": "CVE-2025-68463",
-      "composite_confidence": 0.65,
+      "canonical_id": "CVE-2026-42208",
+      "composite_confidence": 0.99,
       "cwe": [],
-      "description": "\nBioPython 1.87 fixes CVE-2025-68463 (XXE, SSRF)",
-      "first_seen": "2026-05-08T17:43:44.758388+00:00",
+      "description": "BerriAI LiteLLM contains a SQL injection vulnerability that allows an attacker to read data from the proxy's database and potentially modify it, leading to unauthorised access to the proxy and the credentials it manages.",
+      "first_seen": "2026-05-08T18:00:29.832410+00:00",
       "frameworks": [
-        "oss-security"
+        "BerriAI",
+        "LiteLLM"
       ],
       "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-08T17:43:44.758388+00:00",
+      "last_seen": "2026-05-08T18:00:29.832410+00:00",
       "merged_sources": [
-        "mailing_list"
+        "kev"
       ],
-      "proactive_only": true,
+      "proactive_only": false,
       "raw_records_count": 1,
       "references": [
-        "https://www.openwall.com/lists/oss-security/2026/05/08/16"
+        "https://github.com/BerriAI/litellm/security/advisories/GHSA-r75f-5x8p-qvmc ; https://nvd.nist.gov/vuln/detail/CVE-2026-42208"
       ],
-      "severity": "medium",
+      "severity": "critical",
       "source_count": 1,
-      "title": "\nBioPython 1.87 fixes CVE-2025-68463 (XXE, SSRF)"
+      "title": "BerriAI LiteLLM SQL Injection Vulnerability"
     }
   ],
-  "correlated_at": "2026-05-08T17:43:44.810564+00:00"
+  "correlated_at": "2026-05-08T18:00:29.889984+00:00"
 }
