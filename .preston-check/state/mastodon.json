@@ -1,0 +1,10 @@
+{
+  "last_run": null,
+  "last_successful_fetch": null,
+  "processed_ids": [],
+  "source_id": "mastodon",
+  "stats": {
+    "total_fetched": 0,
+    "total_relevant": 0
+  }
+}
