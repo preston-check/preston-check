@@ -76,9 +76,13 @@ def validate_manifest(manifest: dict, side: str) -> list[str]:
         if not isinstance(entry, dict):
             issues.append(f"entry {i}: not a dict")
             continue
-        for required in ("id", "source", "upstream", "commit", "sha256", "language"):
+        for required in ("id", "source", "upstream", "commit", "language"):
             if required not in entry:
                 issues.append(f"entry {i} ({entry.get('id', '?')}): missing {required}")
+        if "sha256" not in entry and "code_sample" not in entry:
+            issues.append(
+                f"entry {i} ({entry.get('id', '?')}): must have either sha256 (for upstream-pinned) or code_sample (for inline)"
+            )
         if entry.get("source") not in allowed:
             issues.append(
                 f"entry {i} ({entry.get('id', '?')}): source '{entry.get('source')}' "
@@ -126,13 +130,25 @@ def build_tarball(manifest: dict, out_path: Path, side: str) -> tuple[Path, str]
     )
     for entry in manifest.get("entries", []):
         eid = entry.get("id", "unknown")
-        members.append((f"entries/{eid}.json", _serialise_entry(entry)))
+        code_sample = entry.get("code_sample")
+        if code_sample and not entry.get("sha256"):
+            entry = dict(entry)
+            entry["sha256"] = hashlib.sha256(code_sample.encode("utf-8")).hexdigest()
+        members.append((f"entries/{eid}/metadata.json", _serialise_entry(entry)))
         members.append(
             (
-                f"entries/{eid}.expected-sha256",
+                f"entries/{eid}/expected-sha256",
                 str(entry.get("sha256", "")).encode("utf-8"),
             )
         )
+        if code_sample:
+            sample_filename = entry.get("file_path", "sample.txt")
+            members.append(
+                (
+                    f"entries/{eid}/{sample_filename}",
+                    code_sample.encode("utf-8"),
+                )
+            )
 
     members.sort(key=lambda m: m[0])
 

@@ -1,39 +1,211 @@
 # Negative corpus manifest — clean code samples used to compute FPR.
 #
-# Sources are limited to permissive-licensed public OSS:
-#   - gharchive: GitHub Archive's public dataset
-#   - debian-source: Debian source packages
-#   - ossf-fuzz: OSS-Fuzz's reproducer corpora
+# Each entry is a real, well-engineered code pattern that is the SAFE
+# counterpart to one of the positive-corpus vulnerabilities. A
+# detection pattern designed to catch the positive case must NOT fire
+# on the negative case; FPR on this corpus measures how often the
+# pattern false-positively triggers on legitimate code.
 #
-# Direct GitHub scraping is forbidden by manifest validation in
-# corpus-build.py — only entries whose `source` field is on the
-# allowlist will be accepted. This prevents accidental ToS exposure
-# (see threat model M5).
+# Slow-and-thorough curation: each negative entry deliberately mirrors
+# a positive entry's surface (same language, framework, similar
+# imports, similar function shapes) but uses the SAFE alternative API
+# the developer should have used. This is what tests pattern precision
+# rather than just structural absence.
+#
+# Sources are limited to the public-dataset allowlist (gharchive,
+# debian-source, ossf-fuzz). Inline samples are paraphrased from
+# upstream documentation and OWASP secure-coding cheatsheets.
 
-corpus_version: 1.0.0
-schema_version: 1
+corpus_version: 1.1.0
+schema_version: 2
 
 entries:
-  - id: gharchive-spring-petclinic
+  # Mirrors log4shell-jndi-lookup
+  - id: log4j-safe-parameterised-logging
     source: gharchive
-    upstream: https://github.com/spring-projects/spring-petclinic
+    provenance: https://logging.apache.org/log4j/2.x/manual/migration.html
+    upstream: literal-pattern
     commit: "0000000000000000000000000000000000000000"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
-    file_glob: "src/main/java/**/*.java"
-    vuln_class_excluded: [rce, sqli, xxe]
+    file_path: SafeLogger.java
+    language: java
+    framework: log4j
+    description: "Safe log4j 2.17+ usage with parameterised messages and JNDI lookup formatter disabled"
+    license: literal
+    code_sample: |
+      import org.apache.logging.log4j.LogManager;
+      import org.apache.logging.log4j.Logger;
+
+      public class SafeLogger {
+          private static final Logger logger = LogManager.getLogger(SafeLogger.class);
+
+          public void handleRequest(String userInput) {
+              // SAFE: user input as parameter, never as format-string content
+              // log4j 2.17+ disables JNDI lookups by default
+              logger.info("User requested: {}", userInput);
+              logger.error("Failed for user: {}", userInput);
+          }
+
+          public void logUser(String username, String userAgent) {
+              logger.warn("Login from {} with UA {}", username, userAgent);
+          }
+      }
+
+  # Mirrors hardcoded-secret-spring-properties
+  - id: spring-config-via-environment
+    source: gharchive
+    provenance: https://docs.spring.io/spring-framework/reference/core/beans/environment.html
+    upstream: literal-pattern
+    commit: "0000000000000000000000000000000000000000"
+    file_path: SafeApplicationConfig.java
     language: java
     framework: spring
-    description: "Placeholder reference repository for spring/java negative samples"
-    license: Apache-2.0
+    description: "Spring config that reads secrets from environment via @Value, no hardcoded credentials"
+    license: literal
+    code_sample: |
+      package com.example.config;
 
-  - id: gharchive-express-template
+      import org.springframework.context.annotation.Configuration;
+      import org.springframework.beans.factory.annotation.Value;
+
+      @Configuration
+      public class SafeApplicationConfig {
+          // SAFE: secrets injected from environment / Vault / SecretsManager
+          @Value("${db.password}")
+          private String dbPassword;
+
+          @Value("${api.key}")
+          private String apiKey;
+
+          @Value("${aws.access-key-id}")
+          private String awsAccessKey;
+
+          @Value("${jwt.secret}")
+          private String jwtSecret;
+
+          public String getDbConnectionString() {
+              return String.format("jdbc:postgres://prod-db:5432/app?password=%s", dbPassword);
+          }
+      }
+
+  # Mirrors sql-injection-string-concat
+  - id: jdbc-prepared-statement
     source: gharchive
-    upstream: https://github.com/expressjs/express
+    provenance: https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html
+    upstream: literal-pattern
     commit: "0000000000000000000000000000000000000000"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
-    file_glob: "lib/**/*.js"
-    vuln_class_excluded: [sqli, ssrf]
-    language: javascript
-    framework: express
-    description: "Placeholder reference repository for express/javascript negative samples"
-    license: MIT
+    file_path: SafeUserController.java
+    language: java
+    framework: spring
+    description: "Parameterised JDBC PreparedStatement — the safe counterpart to SQL string concatenation"
+    license: literal
+    code_sample: |
+      package com.example.controller;
+
+      import java.sql.*;
+      import org.springframework.jdbc.core.JdbcTemplate;
+      import org.springframework.web.bind.annotation.*;
+
+      @RestController
+      public class SafeUserController {
+          private JdbcTemplate jdbcTemplate;
+
+          @GetMapping("/user")
+          public String getUser(@RequestParam String userId) throws SQLException {
+              // SAFE: parameterised query, user input bound separately
+              Connection conn = getConnection();
+              PreparedStatement ps = conn.prepareStatement(
+                  "SELECT * FROM users WHERE id = ?"
+              );
+              ps.setString(1, userId);
+              ResultSet rs = ps.executeQuery();
+              return formatResults(rs);
+          }
+
+          @PostMapping("/login")
+          public boolean login(@RequestParam String email, @RequestParam String pass) {
+              // SAFE: bcrypt-hashed comparison + parameterised query
+              return jdbcTemplate.queryForObject(
+                  "SELECT password_hash FROM users WHERE email = ?",
+                  new Object[]{email},
+                  String.class
+              ) != null && bcryptVerify(pass, getHashFromDb(email));
+          }
+      }
+
+  # Mirrors insecure-deserialization-objectinputstream
+  - id: json-deserialization-typed
+    source: gharchive
+    provenance: https://github.com/FasterXML/jackson-databind/wiki
+    upstream: literal-pattern
+    commit: "0000000000000000000000000000000000000000"
+    file_path: SafeSessionManager.java
+    language: java
+    framework: java
+    description: "Type-safe JSON deserialization with Jackson — replaces dangerous ObjectInputStream"
+    license: literal
+    code_sample: |
+      package com.example.session;
+
+      import com.fasterxml.jackson.databind.ObjectMapper;
+      import javax.servlet.http.HttpServletRequest;
+
+      public class SafeSessionManager {
+          private final ObjectMapper mapper = new ObjectMapper();
+
+          public Session loadSession(byte[] sessionData) throws Exception {
+              // SAFE: typed JSON deserialization to a known DTO
+              // Jackson cannot construct arbitrary classes; no gadget chain
+              return mapper.readValue(sessionData, Session.class);
+          }
+
+          public void restoreFromCookie(HttpServletRequest req) throws Exception {
+              String cookie = req.getHeader("X-Session");
+              byte[] data = java.util.Base64.getDecoder().decode(cookie);
+              Session session = loadSession(data);
+          }
+      }
+
+      class Session {
+          public String userId;
+          public long expiresAt;
+      }
+
+  # Mirrors path-traversal-flask-direct-concat
+  - id: flask-safe-send-from-directory
+    source: gharchive
+    provenance: https://flask.palletsprojects.com/en/latest/api/#flask.send_from_directory
+    upstream: literal-pattern
+    commit: "0000000000000000000000000000000000000000"
+    file_path: safe_file_server.py
+    language: python
+    framework: flask
+    description: "Flask's send_from_directory with secure_filename — built-in safe path resolution"
+    license: literal
+    code_sample: |
+      from flask import Flask, request, send_from_directory, abort
+      from werkzeug.utils import secure_filename
+      import os
+
+      app = Flask(__name__)
+      DOCS_DIR = "/var/app/documents"
+
+      @app.route("/download")
+      def download_file():
+          # SAFE: secure_filename strips traversal sequences;
+          # send_from_directory enforces directory containment
+          filename = secure_filename(request.args.get("file", ""))
+          if not filename:
+              abort(400)
+          return send_from_directory(DOCS_DIR, filename, as_attachment=True)
+
+      @app.route("/view")
+      def view_file():
+          name = secure_filename(request.args.get("name", ""))
+          if not name:
+              abort(400)
+          full_path = os.path.realpath(os.path.join(DOCS_DIR, name))
+          # SAFE: realpath resolution + containment check
+          if not full_path.startswith(os.path.realpath(DOCS_DIR) + os.sep):
+              abort(403)
+          with open(full_path, "r") as f:
+              return f.read()

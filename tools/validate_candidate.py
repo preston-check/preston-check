@@ -124,36 +124,69 @@ def shlex_quote(s: str) -> str:
 
 
 def _extract_corpus_to_tmpdir(tarball: Path, tmp: Path, side: str) -> Path:
-    """Extract a corpus tarball to a tempdir. Returns the dir to use as
-    SOURCE_DIR per file (each entry is realised as one file in a subdir)."""
+    """Extract a corpus tarball to a tempdir. Returns the parent directory
+    containing one subdirectory per entry. Each entry directory contains
+    the materialised code_sample (as the entry's file_path) plus a
+    metadata.json describing the entry — the validator runs candidates
+    against this directory tree as if it were a real source repository.
+
+    Schema v1 entries (no code_sample, just metadata) get a synthetic
+    sample.txt with metadata-as-comments — the legacy behaviour preserved
+    for backward compatibility with placeholder manifests.
+    """
     out_dir = tmp / side
     out_dir.mkdir(parents=True, exist_ok=True)
     if not tarball.is_file():
         return out_dir
+
+    metadata_by_id: dict[str, dict] = {}
+    code_sample_by_id: dict[str, tuple[str, bytes]] = {}
+
     with tarfile.open(tarball, "r:*") as tf:
         for member in tf.getmembers():
             if not member.isfile():
                 continue
-            if not member.name.startswith("entries/") or not member.name.endswith(".json"):
+            name = member.name
+            parts = name.split("/")
+            if len(parts) < 2 or parts[0] != "entries":
                 continue
+            eid = parts[1]
+            tail = "/".join(parts[2:]) if len(parts) > 2 else parts[1]
+
             try:
                 fobj = tf.extractfile(member)
                 if not fobj:
                     continue
-                entry = json.loads(fobj.read().decode("utf-8"))
+                data = fobj.read()
             except Exception:
                 continue
 
-            entry_dir = out_dir / entry.get("id", "unknown")
-            entry_dir.mkdir(parents=True, exist_ok=True)
-            file_path = entry_dir / "sample.txt"
+            if tail == "metadata.json" or name.endswith(f"{eid}.json"):
+                try:
+                    metadata_by_id[eid] = json.loads(data.decode("utf-8"))
+                except Exception:
+                    continue
+            elif tail == "expected-sha256" or name.endswith(".expected-sha256"):
+                continue
+            elif tail and not tail.endswith(".json"):
+                code_sample_by_id[eid] = (tail, data)
+
+    for eid, entry in metadata_by_id.items():
+        entry_dir = out_dir / eid
+        entry_dir.mkdir(parents=True, exist_ok=True)
+
+        if eid in code_sample_by_id:
+            filename, data = code_sample_by_id[eid]
+            (entry_dir / filename).write_bytes(data)
+        else:
             content = (
                 f"// {entry.get('id', '')} — {entry.get('language', '')}/{entry.get('framework', '')}\n"
                 f"// vuln_class: {entry.get('vuln_class', 'n/a')}\n"
                 f"// upstream: {entry.get('upstream', '')}\n"
                 f"// description: {entry.get('description', '')}\n"
             )
-            file_path.write_text(content)
+            (entry_dir / "sample.txt").write_text(content)
+
     return out_dir
 
 
