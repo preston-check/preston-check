@@ -388,10 +388,12 @@ def _osv_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
 
 
 def _github_trending_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
+    import urllib.parse as _up
+
     queries = [
         "topic:exploit topic:poc",
         "topic:vulnerability topic:rce",
-        "CVE in:name created:>2026-01-01",
+        "CVE in:name",
         "0day in:description",
     ]
     records: list[CandidateRecord] = []
@@ -399,7 +401,8 @@ def _github_trending_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
     state["last_run"] = now_iso()
     any_success = False
     for q in queries:
-        url = f"https://api.github.com/search/repositories?q={q}&sort=updated&per_page=30"
+        encoded_q = _up.quote(q)
+        url = f"https://api.github.com/search/repositories?q={encoded_q}&sort=updated&per_page=30"
         data = http_get_json(url, headers={"Accept": "application/vnd.github+json"})
         if not data:
             continue
@@ -488,10 +491,21 @@ def _abuse_ch_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
 
 
 def _reddit_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
+    """Reddit requires OAuth for cloud-IP requests as of 2024. To activate
+    this ingester, register a Reddit app at https://www.reddit.com/prefs/apps,
+    set REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET as repo secrets, and
+    extend this function to do the OAuth flow. Until then, return empty.
+    """
+    import os as _os
+
+    state["last_run"] = now_iso()
+    if not _os.environ.get("REDDIT_CLIENT_ID") or not _os.environ.get("REDDIT_CLIENT_SECRET"):
+        state["status"] = "skipped — REDDIT_CLIENT_ID / REDDIT_CLIENT_SECRET not configured"
+        return [], state
+
     subs = ["netsec", "AskNetsec", "redteamsec", "Malware"]
     records: list[CandidateRecord] = []
     seen = set(state.get("processed_ids", []))
-    state["last_run"] = now_iso()
     any_success = False
     for sub in subs:
         url = f"https://www.reddit.com/r/{sub}/new.json?limit=50"
@@ -541,11 +555,22 @@ def _reddit_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
 
 
 def _mastodon_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
+    """infosec.exchange's tag-timeline endpoint requires authentication as of
+    2024. To activate, create a Mastodon application at
+    https://infosec.exchange/settings/applications and set MASTODON_TOKEN as a
+    repo secret. Without the token, we skip rather than fail."""
+    import os as _os
+
+    state["last_run"] = now_iso()
+    token = _os.environ.get("MASTODON_TOKEN", "")
+    if not token:
+        state["status"] = "skipped — MASTODON_TOKEN not configured"
+        return [], state
+
     url = "https://infosec.exchange/api/v1/timelines/tag/infosec?limit=40"
-    data = http_get_json(url)
+    data = http_get_json(url, headers={"Authorization": f"Bearer {token}"})
     if not data:
         return [], state
-    state["last_run"] = now_iso()
     records: list[CandidateRecord] = []
     seen = set(state.get("processed_ids", []))
     for status in data if isinstance(data, list) else []:
