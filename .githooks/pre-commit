@@ -1,0 +1,91 @@
+#!/bin/bash
+# Pre-commit hook: warn before committing changes to .github/workflows/**
+#
+# Phase 9 substitute for rulesets-based path protection. Workflow file
+# changes are higher-impact than ordinary commits because the workflows
+# orchestrate the auto-merge pipeline; a careless edit can change merge
+# gates without going through review. This hook adds a "pause and
+# confirm" gate locally.
+#
+# Bypass: set PRESTON_ALLOW_WORKFLOW_EDITS=1 in your environment for the
+# session. Useful for legitimate rapid iteration; the variable is
+# cleared between sessions so the protection re-activates on the next
+# shell.
+#
+# Install: git config --local core.hooksPath .githooks
+# (one-time per clone; the config is local, not committed)
+#
+# To skip checks for a single commit, you can also use:
+#   PRESTON_ALLOW_WORKFLOW_EDITS=1 git commit ...
+
+set -euo pipefail
+
+if [[ "${PRESTON_ALLOW_WORKFLOW_EDITS:-0}" == "1" ]]; then
+    exit 0
+fi
+
+# Find staged files matching .github/workflows/ (bash 3.2-compatible — no mapfile)
+WORKFLOW_CHANGES=()
+while IFS= read -r line; do
+    [[ -n "$line" ]] && WORKFLOW_CHANGES+=("$line")
+done < <(git diff --cached --name-only --diff-filter=ACMR | grep -E '^\.github/workflows/' || true)
+
+if [[ ${#WORKFLOW_CHANGES[@]} -eq 0 ]]; then
+    exit 0
+fi
+
+# At least one workflow file is staged — warn explicitly
+RED=$'\033[0;31m'
+YELLOW=$'\033[1;33m'
+GREEN=$'\033[0;32m'
+RESET=$'\033[0m'
+
+cat >&2 <<EOF
+
+${YELLOW}========================================================${RESET}
+${YELLOW}  WORKFLOW FILE EDIT — Phase 9 protection${RESET}
+${YELLOW}========================================================${RESET}
+
+You are about to commit changes to one or more GitHub Actions
+workflow files:
+
+EOF
+
+for f in "${WORKFLOW_CHANGES[@]}"; do
+    printf "  ${RED}•${RESET} %s\n" "$f" >&2
+done
+
+cat >&2 <<EOF
+
+These workflows orchestrate the auto-merge pipeline. Workflow
+edits change which gates run, how candidates are validated, and
+who can sign attestations. Review the diff carefully:
+
+  ${GREEN}git diff --cached .github/workflows/${RESET}
+
+If the changes look correct, type ${GREEN}yes${RESET} (and Enter) to proceed.
+Anything else aborts the commit.
+
+To skip this prompt for legitimate rapid iteration, set
+${YELLOW}PRESTON_ALLOW_WORKFLOW_EDITS=1${RESET} in your environment.
+
+EOF
+
+# Read confirmation from terminal even if stdin is redirected
+if [[ -t 0 ]]; then
+    read -r -p "Confirm workflow edit (type 'yes' to proceed): " response
+elif [[ -e /dev/tty ]]; then
+    read -r -p "Confirm workflow edit (type 'yes' to proceed): " response < /dev/tty
+else
+    echo "${RED}No terminal available for confirmation; aborting commit.${RESET}" >&2
+    echo "${RED}Set PRESTON_ALLOW_WORKFLOW_EDITS=1 to bypass in non-interactive contexts.${RESET}" >&2
+    exit 1
+fi
+
+if [[ "$response" == "yes" ]]; then
+    echo "${GREEN}Confirmed. Proceeding with commit.${RESET}" >&2
+    exit 0
+fi
+
+echo "${RED}Aborted by operator. No commit created.${RESET}" >&2
+exit 1
