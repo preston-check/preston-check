@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-08T21:13:11.772800+00:00",
-  "last_successful_fetch": "2026-05-08T21:13:16.991576+00:00",
+  "last_run": "2026-05-08T23:04:53.724342+00:00",
+  "last_successful_fetch": "2026-05-08T23:04:57.306883+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -154,7 +154,15 @@
     "github:adminlove520/github_cve_monitor",
     "github:roomme13/cveupdate",
     "github:AgileAdaptiveTools/sadp-cves",
-    "github:Sonisi5085/CVE-2026-XNU-AIO-KEVENT-UAF"
+    "github:Sonisi5085/CVE-2026-XNU-AIO-KEVENT-UAF",
+    "github:iXeor/NVD-CVE-Checker",
+    "github:jcastanedacano/cve-sentry",
+    "github:Zain3311/CVE-2025-49844",
+    "github:siddu7575/CVE-2025-61882-CVE-2025-61884",
+    "github:mark-Aryan/Codexploit-cve-threat-intelligence",
+    "github:ZeroPathAI/nifi-CVE-2026-39816-poc",
+    "github:adminlove520/CVE",
+    "github:prashantdangi1/cve_radar"
   ],
   "source_id": "github_trending",
   "stats": {
