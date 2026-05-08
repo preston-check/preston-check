@@ -1,0 +1,102 @@
+name: Threat-intel ingest
+
+# Unified ingestion workflow. Each source has its own cron schedule but
+# uses the same workflow body — the ingest_runner.py dispatches to the
+# named source. Per-source state isolation prevents concurrent runs from
+# corrupting each other (threat model M1).
+#
+# Cadences (per docs/threat-intel-pipeline-design.md):
+#   KEV          every 15 minutes
+#   GHSA         hourly
+#   GitHub trending hourly
+#   abuse.ch     hourly
+#   Reddit       hourly
+#   Mastodon     hourly
+#   mailing list every 2 hours
+#   NVD/OSV/ZDI  every 6 hours
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+    - cron: '7 * * * *'
+    - cron: '11 */2 * * *'
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Source to run (or "all-tier1" / "all-reactive")'
+        required: true
+        default: 'kev'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: threat-intel-ingest-${{ github.event.schedule || github.event.inputs.source || 'manual' }}
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    env:
+      INPUT_SOURCE: ${{ github.event.inputs.source }}
+      EVENT_SCHEDULE: ${{ github.event.schedule }}
+      EVENT_NAME: ${{ github.event_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install bashlex pyyaml cryptography requests
+
+      - name: Decide which sources to run
+        id: decide
+        run: |
+          set -e
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            case "$INPUT_SOURCE" in
+              all-tier1) echo "sources=github_trending,abuse_ch,reddit,mastodon,mailing_list,conference_zdi" >> "$GITHUB_OUTPUT" ;;
+              all-reactive) echo "sources=kev,ghsa,nvd,osv" >> "$GITHUB_OUTPUT" ;;
+              *) echo "sources=$INPUT_SOURCE" >> "$GITHUB_OUTPUT" ;;
+            esac
+          else
+            case "$EVENT_SCHEDULE" in
+              '*/15 * * * *') echo "sources=kev" >> "$GITHUB_OUTPUT" ;;
+              '7 * * * *') echo "sources=ghsa,github_trending,abuse_ch,reddit,mastodon" >> "$GITHUB_OUTPUT" ;;
+              '11 */2 * * *') echo "sources=mailing_list" >> "$GITHUB_OUTPUT" ;;
+              '17 */6 * * *') echo "sources=nvd,osv,conference_zdi" >> "$GITHUB_OUTPUT" ;;
+              *) echo "sources=kev" >> "$GITHUB_OUTPUT" ;;
+            esac
+          fi
+
+      - name: Run ingesters
+        env:
+          SOURCES: ${{ steps.decide.outputs.sources }}
+        run: |
+          IFS=',' read -ra SRCS <<< "$SOURCES"
+          for src in "${SRCS[@]}"; do
+            echo "::group::Ingest $src"
+            python3 tools/ingest_runner.py --source "$src" || echo "  (failure on $src — non-fatal, will retry next cycle)"
+            echo "::endgroup::"
+          done
+
+      - name: Correlate signals across sources
+        run: python3 tools/correlator.py
+
+      - name: Commit state changes if any
+        env:
+          SOURCES: ${{ steps.decide.outputs.sources }}
+        run: |
+          git config user.name "preston-check-bot"
+          git config user.email "bot@preston-check.com"
+          if [[ -n "$(git status --porcelain .preston-check/state .preston-check/queue .preston-check/correlated.json 2>/dev/null)" ]]; then
+            git add .preston-check/state .preston-check/queue .preston-check/correlated.json 2>/dev/null || true
+            git diff --cached --quiet || git commit -m "ingest: scheduled run $SOURCES"
+            git push origin HEAD:master || true
+          else
+            echo "No state changes to commit"
+          fi

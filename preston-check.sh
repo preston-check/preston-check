@@ -40,7 +40,7 @@ CI_SOFT_MODE=false             # --ci-soft: never exit 1 (CI handles its own thr
 FRAMEWORK_FILTER=""            # --framework FILTER: only run checks whose metadata frameworks contain FILTER
 CATEGORY_FILTER=""             # --category VAL[,VAL...]: filter by metadata category
 SEVERITY_FILTER=""             # --severity VAL[,VAL...]: filter by severity
-PRESTON_VERSION="1.7.9"
+PRESTON_VERSION="1.8.0"
 
 export AIRGAP_MODE PRESTON_VERSION
 
@@ -264,6 +264,81 @@ if [[ "$INCLUDE_PROPOSED" == "true" && -d "$CHECKS_DIR/community/proposed" ]]; t
   CHECK_DIRS+=("$CHECKS_DIR/community/proposed")
 fi
 
+# run_check: dual-mode invocation. Maintainer-authored checks are sourced
+# (preserves backward compatibility with checks that share runner state).
+# Auto-generated checks (provenance: auto in PRESTON_META) are run in a
+# fresh bash subshell with a restricted environment. This is what makes
+# auto-merge safe — see docs/threat-intel-pipeline-design.md.
+#
+# Shadow-deploy: a check whose META_SHADOW_UNTIL is in the future has
+# its findings recorded but suppressed from user-facing output. The
+# original record() function is replaced with a wrapper that routes
+# FAIL/WARN to telemetry-only logging.
+run_check() {
+  local check_file="$1"
+  local provenance="${META_PROVENANCE:-maintainer}"
+  local shadow_until="${META_SHADOW_UNTIL:-}"
+  local in_shadow="false"
+
+  if [[ -n "$shadow_until" ]]; then
+    local now_ts shadow_ts
+    now_ts=$(date -u +%s)
+    shadow_ts=$(date -u -j -f "%Y-%m-%dT%H:%M:%SZ" "$shadow_until" +%s 2>/dev/null \
+      || date -u -d "$shadow_until" +%s 2>/dev/null \
+      || echo 0)
+    if [[ "$shadow_ts" -gt "$now_ts" ]]; then
+      in_shadow="true"
+    fi
+  fi
+
+  if [[ "$in_shadow" == "true" ]]; then
+    if declare -f record_real >/dev/null; then :; else
+      eval "$(declare -f record | sed 's/^record /record_real /')"
+    fi
+    record() {
+      local status="$1" name="$2" detail="$3"
+      if [[ "$status" == "FAIL" || "$status" == "WARN" ]]; then
+        if [[ "$VERBOSE" == "true" ]]; then
+          echo "[shadow-suppressed] $status $name: $detail" >&2
+        fi
+        SHADOW_SUPPRESSED=$((${SHADOW_SUPPRESSED:-0} + 1))
+        return 0
+      fi
+      record_real "$status" "$name" "$detail"
+    }
+  fi
+
+  if [[ "$provenance" == "auto" ]]; then
+    local body status_record_path
+    status_record_path=$(mktemp -t preston-record.XXXXXX)
+    PATH=/usr/bin:/bin SOURCE_DIR="${SOURCE_DIR:-.}" bash -c '
+      set -uo pipefail
+      unset IFS
+      record() {
+        printf "%s\t%s\t%s\n" "$1" "$2" "$3" >> "'"$status_record_path"'"
+      }
+      export -f record
+      source "'"$check_file"'"
+    ' || true
+    if [[ -f "$status_record_path" ]]; then
+      while IFS=$'\t' read -r st nm det; do
+        [[ -n "$st" ]] && record "$st" "$nm" "$det"
+      done < "$status_record_path"
+      rm -f "$status_record_path"
+    fi
+  else
+    source "$check_file"
+  fi
+
+  if [[ "$in_shadow" == "true" ]]; then
+    unset -f record
+    if declare -f record_real >/dev/null; then
+      eval "$(declare -f record_real | sed 's/^record_real /record /')"
+      unset -f record_real
+    fi
+  fi
+}
+
 # Decide whether a single check should run, based on metadata + tier + framework filter
 should_run_check() {
   local check_file="$1"
@@ -311,7 +386,7 @@ if [[ -n "$SINGLE_CHECK" ]]; then
   done
   if [[ -n "$found" ]]; then
     if should_run_check "$found"; then
-      source "$found"
+      run_check "$found"
     else
       echo "Check $SINGLE_CHECK is gated to a higher tier than your current license ($EFFECTIVE_TIER)."
       exit 2
@@ -344,7 +419,7 @@ else
         fi
         continue
       fi
-      source "$check_file"
+      run_check "$check_file"
       echo ""
     done
   done

@@ -1,0 +1,39 @@
+# Negative corpus manifest — clean code samples used to compute FPR.
+#
+# Sources are limited to permissive-licensed public OSS:
+#   - gharchive: GitHub Archive's public dataset
+#   - debian-source: Debian source packages
+#   - ossf-fuzz: OSS-Fuzz's reproducer corpora
+#
+# Direct GitHub scraping is forbidden by manifest validation in
+# corpus-build.py — only entries whose `source` field is on the
+# allowlist will be accepted. This prevents accidental ToS exposure
+# (see threat model M5).
+
+corpus_version: 1.0.0
+schema_version: 1
+
+entries:
+  - id: gharchive-spring-petclinic
+    source: gharchive
+    upstream: https://github.com/spring-projects/spring-petclinic
+    commit: "0000000000000000000000000000000000000000"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    file_glob: "src/main/java/**/*.java"
+    vuln_class_excluded: [rce, sqli, xxe]
+    language: java
+    framework: spring
+    description: "Placeholder reference repository for spring/java negative samples"
+    license: Apache-2.0
+
+  - id: gharchive-express-template
+    source: gharchive
+    upstream: https://github.com/expressjs/express
+    commit: "0000000000000000000000000000000000000000"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    file_glob: "lib/**/*.js"
+    vuln_class_excluded: [sqli, ssrf]
+    language: javascript
+    framework: express
+    description: "Placeholder reference repository for express/javascript negative samples"
+    license: MIT

@@ -1,0 +1,81 @@
+name: Threat-intel orchestrate
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: threat-intel-orchestrate
+  cancel-in-progress: false
+
+jobs:
+  orchestrate:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PRESTON_AUTOMERGE_ENABLED: ${{ secrets.PRESTON_AUTOMERGE_ENABLED }}
+      ATTESTATION_PRIVATE_KEY_PATH: /tmp/attestation-key.pem
+      RUN_ID: ${{ github.run_id }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install bashlex pyyaml cryptography requests
+
+      - name: Place attestation key
+        env:
+          ATT_KEY: ${{ secrets.ATTESTATION_PRIVATE_KEY }}
+        run: |
+          if [ -n "$ATT_KEY" ]; then
+            printf '%s' "$ATT_KEY" > /tmp/attestation-key.pem
+            chmod 600 /tmp/attestation-key.pem
+          else
+            echo "ATTESTATION_PRIVATE_KEY not set; running unsigned"
+          fi
+
+      - name: Build corpus snapshots
+        run: |
+          mkdir -p corpus/snapshots
+          python3 tools/corpus_build.py --manifest corpus/manifests/positive.yaml --side positive --out-dir corpus/snapshots --tag run
+          python3 tools/corpus_build.py --manifest corpus/manifests/negative.yaml --side negative --out-dir corpus/snapshots --tag run
+
+      - name: Synthesize candidates
+        run: python3 tools/synthesize.py --max 5
+
+      - name: Orchestrate gates plus auto-merge
+        run: |
+          python3 tools/orchestrate.py \
+            --positive-corpus corpus/snapshots/positive-run.tar.gz \
+            --negative-corpus corpus/snapshots/negative-run.tar.gz \
+            --max-candidates 5
+
+      - name: Open promotion PR
+        if: env.PRESTON_AUTOMERGE_ENABLED == 'true'
+        run: |
+          set -e
+          git config user.name "preston-check-bot"
+          git config user.email "bot@preston-check.com"
+          BRANCH="threat-intel/automerge-$RUN_ID"
+          git checkout -b "$BRANCH" || true
+          git add checks/community/accepted attestations 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "nothing to promote"
+            exit 0
+          fi
+          git commit -m "auto: promoted candidates from orchestrate run $RUN_ID"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "auto: threat-intel orchestrate $RUN_ID" \
+            --body "Auto-generated promotion. See orchestrate-summary.json and attestations/." \
+            --label threat-intel,auto-merge

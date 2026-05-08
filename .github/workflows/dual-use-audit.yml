@@ -1,0 +1,35 @@
+name: Dual-use audit
+
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dual-use-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install bashlex pyyaml cryptography requests
+      - name: Run dual-use audit
+        run: python3 tools/dual_use_audit.py
+      - name: Commit scorecard updates
+        if: always()
+        run: |
+          git config user.name "preston-check-bot"
+          git config user.email "bot@preston-check.com"
+          if [ -n "$(git status --porcelain docs/security-scorecard.md docs/security-scorecard.json)" ]; then
+            git add docs/security-scorecard.md docs/security-scorecard.json
+            git commit -m "audit: daily dual-use audit scorecard"
+            git push origin HEAD:master || true
+          fi

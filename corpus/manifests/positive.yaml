@@ -1,0 +1,51 @@
+# Positive corpus manifest — vulnerable code samples used to compute TPR.
+#
+# Each entry pins a specific public source (commit SHA or release tag) so the
+# corpus rebuild is reproducible: same manifest -> same SHA256 of the built
+# tarball, regardless of when or where it's built.
+#
+# Sources are limited to public datasets that explicitly permit research and
+# verification use:
+#   - exploit-db: Offensive Security's public exploits archive
+#   - osv-pocs: PoC repos referenced from OSV.dev advisories (only those
+#     whose own LICENSE is permissive)
+#   - cve-public-pocs: PoC repos referenced from CVE record references
+#     (filtered the same way)
+#
+# `vuln_class` and `language` tags drive corpus-subset selection during
+# validation: a candidate check declared for `java/spring` only runs against
+# entries tagged with that combination.
+#
+# Adding a new entry is a normal commit going through the same auto-merge
+# pipeline as catalog changes. The corpus manifest itself is part of the
+# attestation provenance for every check validated against it.
+
+corpus_version: 1.0.0
+schema_version: 1
+
+entries:
+  - id: poc-cve-2025-spring-rce-001
+    source: cve-public-pocs
+    upstream: https://github.com/example-public-pocs/spring-rce-2025
+    commit: "0000000000000000000000000000000000000000"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    file_path: vulnerable.java
+    vuln_class: rce
+    language: java
+    framework: spring
+    cve: CVE-2025-EXAMPLE
+    description: "Placeholder entry — replace with real PoC once corpus bootstrap completes"
+    license: MIT
+
+  - id: poc-cve-2025-sqli-node-001
+    source: osv-pocs
+    upstream: https://github.com/example-public-pocs/node-sqli-2025
+    commit: "0000000000000000000000000000000000000000"
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    file_path: vulnerable.js
+    vuln_class: sqli
+    language: javascript
+    framework: express
+    cve: CVE-2025-EXAMPLE-2
+    description: "Placeholder entry"
+    license: MIT

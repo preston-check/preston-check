@@ -30,6 +30,7 @@ reset_check_metadata() {
   META_AUTHOR_NAME=""; META_AUTHOR_GITHUB=""; META_AUTHOR_ORG=""
   META_FRAMEWORKS=""; META_CWE=""; META_OWASP=""; META_NIST_CSF=""
   META_FALSE_POSITIVE_RATE=""; META_PERFORMANCE_CLASS=""; META_ORIGIN=""
+  META_PROVENANCE=""; META_SHADOW_UNTIL=""
 }
 
 # Portable uppercase (works on bash 3.2, no ${var^^} required)
@@ -143,6 +144,8 @@ parse_check_metadata() {
           false_positive_rate) META_FALSE_POSITIVE_RATE="$value" ;;
           performance_class) META_PERFORMANCE_CLASS="$value" ;;
           origin) META_ORIGIN="$value" ;;
+          provenance) META_PROVENANCE="$value" ;;
+          shadow_until) META_SHADOW_UNTIL="$value" ;;
         esac
         ;;
     esac

@@ -1,0 +1,44 @@
+name: Drift detection
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: drift-detection
+  cancel-in-progress: false
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install bashlex pyyaml cryptography requests
+      - name: Build corpora
+        run: |
+          mkdir -p corpus/snapshots
+          python3 tools/corpus_build.py --manifest corpus/manifests/positive.yaml --side positive --out-dir corpus/snapshots --tag drift
+          python3 tools/corpus_build.py --manifest corpus/manifests/negative.yaml --side negative --out-dir corpus/snapshots --tag drift
+      - name: Run drift detection
+        run: |
+          python3 tools/drift_detect.py \
+            --positive corpus/snapshots/positive-drift.tar.gz \
+            --negative corpus/snapshots/negative-drift.tar.gz
+      - name: Commit drift report
+        if: always()
+        run: |
+          git config user.name "preston-check-bot"
+          git config user.email "bot@preston-check.com"
+          if [ -n "$(git status --porcelain docs/drift-report-*.md .preston-check/drift)" ]; then
+            git add docs/drift-report-*.md .preston-check/drift 2>/dev/null || true
+            git commit -m "drift: weekly catalog vs corpus check"
+            git push origin HEAD:master || true
+          fi

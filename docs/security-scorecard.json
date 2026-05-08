@@ -1,0 +1,58 @@
+{
+  "audit_hash": "e1a4e7c9c24159fbcd96ed27c621ee32d95b10b76c102594ef2357893cc6a05d",
+  "audit_version": "1.0",
+  "campaigns": [
+    {
+      "campaign": "sandbox_evasive_bash",
+      "metric_name": "catch_rate",
+      "metric_value": 1.0,
+      "passes": true,
+      "raw": {
+        "attacks_caught": 320,
+        "attacks_total": 320,
+        "legit_pass_rate": 1.0
+      },
+      "threshold": 0.995
+    },
+    {
+      "campaign": "prompt_injection",
+      "metric_name": "pass_through_rate",
+      "metric_value": 0.0,
+      "passes": true,
+      "raw": {
+        "pass_throughs": 0,
+        "total_attempts": 3
+      },
+      "threshold": 0.0
+    },
+    {
+      "campaign": "telemetry_quorum",
+      "metric_name": "hold_rate_25pct",
+      "metric_value": 1.0,
+      "passes": true,
+      "raw": {
+        "holds": 3,
+        "poison_ratios_tested": [
+          0.05,
+          0.25,
+          0.5
+        ],
+        "total": 3
+      },
+      "threshold": 0.99
+    },
+    {
+      "campaign": "corpus_poisoning",
+      "metric_name": "reject_rate",
+      "metric_value": 1.0,
+      "passes": true,
+      "raw": {
+        "rejected": 2,
+        "total": 2
+      },
+      "threshold": 0.95
+    }
+  ],
+  "overall_pass": true,
+  "ts": "2026-05-08T06:31:49.195439+00:00"
+}

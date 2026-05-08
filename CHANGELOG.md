@@ -4,6 +4,211 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.8.0] — 2026-05-08 — Auto-evolving threat-intel pipeline
+
+The most significant architectural addition since launch. Preston-Check now
+ingests threat intelligence from eleven sources (four reactive: KEV, GHSA,
+NVD, OSV; six proactive tier-1: GitHub trending, abuse.ch, Reddit, Mastodon,
+oss-security mailing list, ZDI; one tier-3 stub for commercial partner
+feeds), correlates weak signals across sources, synthesises detection
+patterns via LLM, validates them against reproducible corpora, red-teams
+them adversarially with model-diverse evasion attempts, attests every
+catalog change publicly with Ed25519 signatures, gathers field telemetry
+under a quorum gate, and continuously audits its own verification gates
+so any decay is detected before it can be exploited.
+
+### Added — Verification wall (mechanical safety perimeter)
+
+`tools/sandbox_validate.py` is the bash AST walker enforcing a strict
+capability allowlist. Permitted: record, grep, rg, find, echo, printf,
+basename, dirname, head, tail, wc, sort, uniq, tr, awk, sed (no -i), cat,
+test, [, [[. Denied: eval, exec, source, network commands, file mutation,
+indirect parameter expansion, printf -v, IFS manipulation, process
+substitution, backticks, dangerous flags (grep -P, rg --pre, find -exec).
+Layered design: regex denylist always runs, AST allowlist enforces precise
+command extraction when bashlex parses, regex fallback covers parsing edge
+cases. 100% catch rate on 320 synthetic adversarial fixtures, 100% pass
+rate on legitimate patterns.
+
+`tools/sandbox_redteam.py` is the daily red-team harness that generates
+mutated adversarial bash and verifies the AST walker catches it. Catch
+rate below 99.5% pages the operator and pauses auto-merge.
+
+`preston-check.sh` runner gains a `run_check()` dispatcher: maintainer-
+authored checks continue to be sourced (preserves backward compatibility
+with checks that share runner state), auto-generated checks
+(`provenance: auto` in PRESTON_META) are run in a fresh `bash -c` subshell
+with reset PATH, unset IFS, dropped BASH_ENV. A malicious auto-generated
+check cannot mutate the runner's state for subsequent checks.
+
+### Added — Reproducible corpora
+
+`corpus/manifests/{positive,negative}.yaml` pin specific public-dataset
+sources by commit + SHA256. Source allowlist enforced by
+`tools/corpus_build.py`: positive corpus from cve-public-pocs / osv-pocs /
+exploit-db; negative corpus from gharchive / debian-source / ossf-fuzz.
+Direct GitHub scraping prevented by manifest validation.
+
+`tools/corpus_build.py` produces deterministic SHA256-stable tarballs
+(no embedded mtime, no embedded filename in gzip envelope). Same manifest,
+same hash, every build, anywhere. `tools/corpus_verify.py` re-derives the
+corpus from the manifest and compares hash; this is the reproducibility
+check that lets attestations cite a corpus hash and have any third party
+verify validation provenance independently.
+
+### Added — Public attestation log
+
+`tools/attest.py` provides sign / verify / genkey subcommands. Every
+catalog change ships with a signed JSON attestation recording: source
+CVE/advisory id, synthesis model + prompt template hash, sandbox validator
+result, corpus hashes, TPR/FPR/stability metrics, adversarial-loop
+transcript hash, gate effectiveness scores at merge time, Ed25519
+signature. Public verifier supports independent third-party validation
+of any attestation. Tamper detection via payload-sha256 cross-check.
+
+### Added — Multi-source ingestion (eleven sources)
+
+`tools/ingest_runner.py` + `tools/ingest_sources.py` + `tools/ingest_common.py`
+implement the unified runner that dispatches by source ID. Reactive
+sources: kev (15-min cadence, uncapped budget — actively-exploited highest
+signal), ghsa (hourly, $50/d), nvd (6-hourly, $30/d), osv (6-hourly,
+$30/d). Proactive tier-1: github_trending (hourly), abuse_ch ThreatFox
+(hourly), reddit (hourly), mastodon (hourly), mailing_list oss-security
+(2-hourly), conference_zdi Pwn2Own/ZDI (6-hourly). Tier-3 stub
+`partner_feed` for future commercial vendor integration. Per-source
+budget caps prevent flooding attacks; per-source state files prevent race
+conditions across concurrent runs.
+
+`tools/correlator.py` is the weak-signal correlator. Single-source
+proactive signals are noisy; clusters across multiple sources within a
+window are high-signal. Correlator groups by canonical CVE id when
+present, otherwise by source-id; emits composite confidence with cross-
+source agreement boost. Reactive sources skip correlation (already
+validated). Proactive-only single-source signals filtered out below
+threshold.
+
+### Added — LLM synthesis with multi-variant generation
+
+`tools/synthesize.py` calls the Anthropic API (PRESTON_SYNTH_MODEL env
+var, defaults to claude-opus-4-7) with structural separation between
+instructions and data: CVE description text passed strictly as tool-call
+argument under fixed schema, never inline in system prompt. Three variants
+per candidate (strict / middle / permissive) with synthetic positive and
+negative test fixtures. Cache keyed by (canonical_id, prompt_hash,
+candidate_hash, model). When ANTHROPIC_API_KEY is unset, deterministic
+placeholder synthesis lets the pipeline run end-to-end in test
+environments without LLM budget.
+
+### Added — Validation + adversarial loop
+
+`tools/validate_candidate.py` runs the candidate's bash body in fresh
+subshells against the positive corpus (TPR), negative corpus (FPR), and
+perturbed positive corpus (stability). Defaults: TPR ≥ 0.85, FPR ≤ 0.02,
+stability ≥ 0.90. Self-fixture roundtrip checked first; failure short-
+circuits.
+
+`tools/adversarial_loop.py` is the model-diverse evasion challenge.
+Synthesizer uses Anthropic, adversarial uses OpenAI (gpt-4-turbo by
+default, configurable via PRESTON_ADV_MODEL). Same-provider configuration
+is refused as monoculture risk. Up to N=3 rounds; promotion requires final
+round to produce zero successful evasions. Full transcript hashed and
+recorded in the attestation.
+
+### Added — Auto-merge orchestration with kill switch
+
+`tools/orchestrate.py` runs the synthesis → sandbox → validation →
+adversarial → attestation pipeline. Auto-merge gated on the repo secret
+PRESTON_AUTOMERGE_ENABLED == "true"; otherwise dry-run mode. Failed
+candidates route to `.preston-check/retry-queue/` with their failure modes
+preserved as feedback for the next synthesis attempt.
+
+`.github/workflows/threat-intel-orchestrate.yml` runs the full pipeline
+every 30 minutes. Opens a promotion PR labeled threat-intel/auto-merge
+when candidates are ready and the kill switch is enabled.
+
+### Added — Shadow deploy
+
+The runner gains shadow-deploy logic: a check whose `shadow_until`
+metadata is in the future runs but its findings are recorded only to
+telemetry (suppressed from the user-facing report). This lets new checks
+observe field behaviour for 7 days before they can produce visible noise.
+Promotion to surfaced-output is auto-PR'd by the telemetry feedback loop
+after the shadow window passes acceptance.
+
+### Added — Telemetry feedback loop with quorum gate
+
+`tools/telemetry_aggregate.py` performs nightly aggregation of opt-in
+scan telemetry. Quorum gate (N≥10 distinct installations, M≥14 days)
+required for any signal to trigger catalog action. Three feedback streams:
+retire candidates (zero hits over 90 days), tune candidates (FP rate
+above threshold), coverage gaps (language/framework absent from current
+catalog). Auto-revert on aggregate error spike within 48h of merge.
+
+### Added — Drift detection
+
+`tools/drift_detect.py` does weekly re-validation of the entire catalog
+against current corpora. TPR drop >10% flags decayed checks for re-
+synthesis; FPR rise >0.02 flags noisy checks for tuning. Does not silently
+retire — retirement requires telemetry confirmation, not just corpus
+drift.
+
+### Added — Dual-use audit + meta-verification scorecards
+
+`tools/dual_use_audit.py` runs daily synthetic adversarial campaigns
+against the system itself: sandbox-evasive bash (320 generated variants),
+prompt-injection-laced CVE descriptions, telemetry poisoning at 5%/25%/50%
+scales, corpus-poisoning manifest entries. Scores tracked in
+`docs/security-scorecard.md` (committed daily). Drops below thresholds
+page the operator. This is the layer the "no human could compete with"
+claim rests on — continuous red-teaming at scale of every gate.
+
+### Added — Documentation
+
+`docs/threat-intel-pipeline-design.md` (canonical design — verification
+wall philosophy, seven loops, dual-mode runner, performance envelopes,
+migration sequence). `docs/threat-intel-pipeline-threat-model.md` (risk
+register: 4 critical, 5 high, 6 medium, 3 low — with mitigations, threat-
+actor map, operational invariants, review cadence).
+`docs/ip-moat-strategy.md` (six categories of IP, draft patent claim
+language for five candidate filings: LLM-vs-detector adversarial loop,
+quorum-gated telemetry feedback, continuous meta-verification, reproducible
+corpus validation, shadow-deploy with quorum-gated promotion; trade-secret
+vs open-source split, four-phase filing sequence with budgets, trademark
+candidates). `docs/architecture.md` (new "Production SaaS deployment"
+section describing per-system topology and dependency graph).
+
+### Added — Workflows
+
+Five new GitHub Actions workflows: `threat-intel-ingest.yml` (unified
+ingester runner with per-source cron schedules), `threat-intel-orchestrate.yml`
+(synthesis + gates + auto-merge every 30 min), `drift-detection.yml`
+(weekly), `dual-use-audit.yml` (daily), `telemetry-aggregate.yml` (daily).
+All workflows install dependencies from `tools/requirements.txt`.
+
+### Removed
+
+`.github/workflows/threat-intel-sync.yml` — superseded by the unified
+`threat-intel-ingest.yml`. The old workflow's NVD-only weekly sync is now
+one of eleven sources running on appropriate cadences.
+
+### Changed
+
+`preston-check.sh` — added `run_check()` dispatcher between
+`should_run_check()` and the source/loop call sites. Existing maintainer-
+authored checks continue working unchanged. Only checks with
+`provenance: auto` in PRESTON_META route through the subshell-isolated
+path. `lib/check_metadata.sh` — added `META_PROVENANCE` and
+`META_SHADOW_UNTIL` fields to the parsed-metadata vocabulary.
+
+### Tests
+
+`tests/threat-intel/test_pipeline.py` — 17 unit and integration tests
+covering the sandbox validator, redteam harness, corpus build/verify
+roundtrip + reproducibility, attestation sign/verify + tamper detection,
+synthesizer placeholder path, correlator multi-source grouping, dual-use
+audit, ingester runner, and runner-integration of the provenance-auto
+path.
+
 ## [1.7.10] — 2026-05-05 — Launch hardening: legal, observability, durability
 
 Closes the remaining hard and soft blockers from the launch checklist.
