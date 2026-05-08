@@ -45,7 +45,7 @@ CORRELATED = ROOT / ".preston-check" / "correlated.json"
 CANDIDATES_DIR = ROOT / ".preston-check" / "candidates"
 CACHE_DIR = ROOT / ".preston-check" / "synth-cache"
 
-DEFAULT_MODEL = os.environ.get("PRESTON_SYNTH_MODEL", "claude-opus-4-7")
+DEFAULT_MODEL = os.environ.get("PRESTON_SYNTH_MODEL", "claude-haiku-4-5-20251001")
 ANTHROPIC_ENDPOINT = "https://api.anthropic.com/v1/messages"
 
 PROMPT_TEMPLATE_VERSION = "1.0.0"

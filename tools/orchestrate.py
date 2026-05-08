@@ -122,7 +122,7 @@ def _build_attestation(
             "fetched_at": candidate.get("first_seen", datetime.now(timezone.utc).isoformat()),
         },
         "synthesis": {
-            "model": os.environ.get("PRESTON_SYNTH_MODEL", "claude-opus-4-7"),
+            "model": os.environ.get("PRESTON_SYNTH_MODEL", "claude-haiku-4-5-20251001"),
             "prompt_template_hash": "synthesis-v1.0.0",
             "ts": datetime.now(timezone.utc).isoformat(),
         },

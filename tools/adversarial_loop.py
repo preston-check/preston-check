@@ -40,8 +40,8 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 
 DEFAULT_ROUNDS = 3
-DEFAULT_ADV_MODEL = os.environ.get("PRESTON_ADV_MODEL", "gpt-4-turbo")
-DEFAULT_SYNTH_MODEL = os.environ.get("PRESTON_SYNTH_MODEL", "claude-opus-4-7")
+DEFAULT_ADV_MODEL = os.environ.get("PRESTON_ADV_MODEL", "gpt-4o-mini")
+DEFAULT_SYNTH_MODEL = os.environ.get("PRESTON_SYNTH_MODEL", "claude-haiku-4-5-20251001")
 
 OPENAI_ENDPOINT = "https://api.openai.com/v1/chat/completions"
 
