@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T22:58:33.343752+00:00",
-  "last_successful_fetch": "2026-05-09T22:58:36.736512+00:00",
+  "last_run": "2026-05-09T23:58:44.931414+00:00",
+  "last_successful_fetch": "2026-05-09T23:58:47.896891+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -225,7 +225,8 @@
     "github:api-evangelist/cvent-social-tables",
     "github:api-evangelist/cvent-platform",
     "github:api-evangelist/cvent-event-cloud",
-    "github:api-evangelist/cvent-community"
+    "github:api-evangelist/cvent-community",
+    "github:aneeshmurthy56/cve-morning-brief-agent"
   ],
   "source_id": "github_trending",
   "stats": {

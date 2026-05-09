@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T22:58:37.025763+00:00",
-  "last_successful_fetch": "2026-05-09T22:58:37.026070+00:00",
+  "last_run": "2026-05-09T23:58:48.125904+00:00",
+  "last_successful_fetch": "2026-05-09T23:58:48.126274+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1067,7 +1067,28 @@
     "threatfox:api.netinfrahubsys.pics",
     "threatfox:vpsrunproc.technodesupply.pics",
     "threatfox:webcdnstat.netinfrahubsys.pics",
-    "threatfox:dnswebsrvs.technodesupply.pics"
+    "threatfox:dnswebsrvs.technodesupply.pics",
+    "threatfox:apidocserv.systemcorelinkx.pics",
+    "threatfox:jobadmmgrs.datalinkcenter.pics",
+    "threatfox:dbinst.systemcorelinkx.pics",
+    "threatfox:isobougie.com",
+    "threatfox:rawdatamap.datalinkcenter.pics",
+    "threatfox:skyvpnnodehub.systemcorelinkx.pics",
+    "threatfox:ziparkview.datalinkcenter.pics",
+    "threatfox:cmdset.systemcorelinkx.pics",
+    "threatfox:osbasesyst.cloudstackproc.pics",
+    "threatfox:tmpdirsetsys.cloudstacklogic.pics",
+    "threatfox:metaltscfg.cloudstackproc.pics",
+    "threatfox:sshbin.cloudstacklogic.pics",
+    "threatfox:apidocserv.cloudstackproc.pics",
+    "threatfox:sslkeybasepoint.cloudstacklogic.pics",
+    "threatfox:dbinstlist.cloudstackproc.pics",
+    "threatfox:getcfghub.cloudstacklogic.pics",
+    "threatfox:skyvpnnode.cloudstackproc.pics",
+    "threatfox:ipnodeclisys.cloudstacklogic.pics",
+    "threatfox:cmdsetproc.cloudstackproc.pics",
+    "threatfox:hotfix.cloudstacklogic.pics",
+    "threatfox:tmpdirsets.webcfgmanager.pics"
   ],
   "source_id": "abuse_ch",
   "stats": {
