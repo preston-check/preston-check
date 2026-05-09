@@ -1,0 +1,45 @@
+name: Notify self-test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notify-self-test
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      PRESTON_NOTIFY_EMAIL: ${{ secrets.PRESTON_NOTIFY_EMAIL }}
+      SES_AWS_ACCESS_KEY_ID: ${{ secrets.SES_AWS_ACCESS_KEY_ID }}
+      SES_AWS_SECRET_ACCESS_KEY: ${{ secrets.SES_AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Render synthetic summary and send
+        run: |
+          mkdir -p .preston-check
+          cat > .preston-check/orchestrate-summary.json <<'EOF'
+          {
+            "ts": "self-test — Preston-Check notification path verification",
+            "automerge_enabled": true,
+            "dry_run": false,
+            "processed": 1,
+            "summaries": [
+              {
+                "candidate_check": "self-test",
+                "check_id": "TEST",
+                "canonical_id": "SELF-TEST-CVE",
+                "outcome": "promoted",
+                "validate": {"metrics": {"tpr": 0.99, "fpr": 0.001, "stability": 1.0, "fixture_roundtrip": true}}
+              }
+            ]
+          }
+          EOF
+          python3 tools/notify_promotion.py --pr-url "self-test, not a real PR"
