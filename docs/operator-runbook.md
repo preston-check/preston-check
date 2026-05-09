@@ -80,7 +80,7 @@ The domain itself is registered at Route 53, separate from the hosted zone.
 | Latest tag | `v1.7.10` |
 | License | Apache 2.0 |
 | Homebrew tap | `preston-check/homebrew-tap` (separate repo) |
-| GitHub Action | `preston-check/scan-action` (separate repo, currently a placeholder — referenced by self-audit workflow which therefore fails harmlessly) |
+| GitHub Action | `preston-check/scan-action` (separate repo, still a placeholder — not yet referenced by any active workflow; reserved for the eventual published action) |
 | Container registry | GitHub Container Registry (`ghcr.io/preston-check/preston-check`) — replaced Docker Hub on 2026-05-04 |
 
 ## Repository secrets
@@ -124,7 +124,7 @@ These live inside Cloudflare and never appear in the repo or in GH Actions logs.
 | `test.yml` | Every push + PR | Shell syntax check + smoke scans + framework filter test |
 | `lint-community.yml` | PR touching `checks/community/**` | Shellcheck + lint-check.sh on community contributions |
 | `threat-intel-sync.yml` | Mondays 09:00 UTC + manual dispatch | Pulls fintech-relevant CVEs from NIST NVD; opens PR with draft checks |
-| `preston-check.yml` | Every push (currently failing harmlessly) | Self-audit using `preston-check/scan-action`; the action repo is a placeholder so the workflow fails on action resolution. Not a production blocker. |
+| `preston-check.yml` | Every push + PR to master | Self-audit: runs the in-repo `./preston-check.sh --full --airgap --ci-soft` and uploads the markdown report as an artifact. Soft mode means findings don't fail the build (yet); promote to `--ci` once the catalog is tuned for self-application. |
 
 ## Health checks
 
