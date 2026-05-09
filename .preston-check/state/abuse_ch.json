@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T08:48:06.060490+00:00",
-  "last_successful_fetch": "2026-05-09T08:48:06.061066+00:00",
+  "last_run": "2026-05-09T10:15:07.880362+00:00",
+  "last_successful_fetch": "2026-05-09T10:15:07.880590+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -762,7 +762,23 @@
     "threatfox:proxy.vpsgateway.pics",
     "threatfox:web.clouditapp.pics",
     "threatfox:lan.vpsgateway.pics",
-    "threatfox:sub.vpsgateway.pics"
+    "threatfox:sub.vpsgateway.pics",
+    "threatfox:steri-data.nanovo5kull.pics",
+    "threatfox:67b0njwj.velorix.life",
+    "threatfox:wildmerg.nanovo5kull.pics",
+    "threatfox:iscx3.velorix.life",
+    "threatfox:sorix8el.digital",
+    "threatfox:fox-glow.nanovo5kull.pics",
+    "threatfox:j88vm.com",
+    "threatfox:geo-gu1d3.velorix.life",
+    "threatfox:fllegi2j.nanovo5kull.pics",
+    "threatfox:mramn.velorix.life",
+    "threatfox:9rtfhxav.nanovo5kull.pics",
+    "threatfox:mercore7is.velorix.life",
+    "threatfox:memory-tone.nanovo5kull.pics",
+    "threatfox:dsff.softwincli.pics",
+    "threatfox:sshpro.skynodecfg.pics",
+    "threatfox:tcp.skynodecfg.pics"
   ],
   "source_id": "abuse_ch",
   "stats": {

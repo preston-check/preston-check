@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T08:48:02.700449+00:00",
-  "last_successful_fetch": "2026-05-09T08:48:05.789474+00:00",
+  "last_run": "2026-05-09T10:15:04.072854+00:00",
+  "last_successful_fetch": "2026-05-09T10:15:07.554117+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -190,7 +190,15 @@
     "github:Dr-Savage/CVE-BAR",
     "github:deancooreman/CVE-2024-47176",
     "github:sakthivel10q/CVE-2025-14847",
-    "github:wsjjllk/cve"
+    "github:wsjjllk/cve",
+    "github:akuma-QAQ/CVEreport",
+    "github:u1tr0nex/CVE-2022-30190-Follina-Lab",
+    "github:leocybersecapps/cve-threat-lookup",
+    "github:m00nk0d3/cvelectronic",
+    "github:adminlove520/cve_monitor",
+    "github:Helios973/CVE-2026-31431_exp.c",
+    "github:RogoLabs/GhostCVEs",
+    "github:BadGhost520/ESurfingClient-CVersion"
   ],
   "source_id": "github_trending",
   "stats": {
