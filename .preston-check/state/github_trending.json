@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T17:07:59.863889+00:00",
-  "last_successful_fetch": "2026-05-09T17:08:04.118867+00:00",
+  "last_run": "2026-05-09T19:17:19.451543+00:00",
+  "last_successful_fetch": "2026-05-09T19:17:22.630834+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -218,7 +218,9 @@
     "github:hrykx-zy/CVEReq",
     "github:mosciidev/CVEStorage",
     "github:alexgar207/Shellshock-Attack-CVE--2014-6271-",
-    "github:rootdz1337/APXScanner"
+    "github:rootdz1337/APXScanner",
+    "github:BastianXploited/CVE-2026-0740",
+    "github:BastianXploited/CVE-2025-15030"
   ],
   "source_id": "github_trending",
   "stats": {
