@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T13:46:13.344571+00:00",
-  "last_successful_fetch": "2026-05-09T13:46:16.625243+00:00",
+  "last_run": "2026-05-09T15:04:21.807091+00:00",
+  "last_successful_fetch": "2026-05-09T15:04:24.929258+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -209,7 +209,9 @@
     "github:haydenjames/CVE-2026-31431-check",
     "github:xgfurb/cve-agent",
     "github:mohidqx/cvedb",
-    "github:ben-slates/CVE-FINDER"
+    "github:ben-slates/CVE-FINDER",
+    "github:OWASP/cve-lite-cli",
+    "github:jintile/CVE-Daily-Update"
   ],
   "source_id": "github_trending",
   "stats": {
