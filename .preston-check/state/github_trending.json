@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T10:15:04.072854+00:00",
-  "last_successful_fetch": "2026-05-09T10:15:07.554117+00:00",
+  "last_run": "2026-05-09T11:57:26.901766+00:00",
+  "last_successful_fetch": "2026-05-09T11:57:30.452379+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -198,7 +198,13 @@
     "github:adminlove520/cve_monitor",
     "github:Helios973/CVE-2026-31431_exp.c",
     "github:RogoLabs/GhostCVEs",
-    "github:BadGhost520/ESurfingClient-CVersion"
+    "github:BadGhost520/ESurfingClient-CVersion",
+    "github:ToxicRootVip/CVE-2007-2447",
+    "github:Creeeeger/CVE-2024-56426",
+    "github:0xSIGILL/CVE-2017-14187_PoC_ARMv7",
+    "github:Nishab-Khatiwada/cve_2024_4367_poc.pdf",
+    "github:denimoll/CVE-PaaS",
+    "github:mohid0x01/cvedb"
   ],
   "source_id": "github_trending",
   "stats": {
