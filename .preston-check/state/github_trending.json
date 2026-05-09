@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T00:07:13.438304+00:00",
-  "last_successful_fetch": "2026-05-09T00:07:16.505862+00:00",
+  "last_run": "2026-05-09T03:53:09.894707+00:00",
+  "last_successful_fetch": "2026-05-09T03:53:14.035835+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -172,7 +172,15 @@
     "github:obrunolima1910/CVE-2026-24061",
     "github:jim2478/CVE-Archive",
     "github:salman5230/CVE-2025-59287",
-    "github:dvjnelsonia/SourceCodester-Banking-CVE"
+    "github:dvjnelsonia/SourceCodester-Banking-CVE",
+    "github:Katirinata/CMD-Exploit-CVE-2024-RCE-AboRady-FUD-25765-Injection",
+    "github:secnotes/daily-cve-nvd",
+    "github:minhngoc9119/cve-poc-dashboard",
+    "github:babyshen/freebsd-CVE-2026-7270",
+    "github:adminlove520/CVE-Poc_All_in_One",
+    "github:suominen/CVE-2026-43284",
+    "github:disncp100/cve_test",
+    "github:0xintruder/cve-radar"
   ],
   "source_id": "github_trending",
   "stats": {

