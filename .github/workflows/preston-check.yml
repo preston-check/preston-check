@@ -1,6 +1,6 @@
-# Example workflow showing how to wire Preston-Check into your own repository.
-# Copy this file into your project at .github/workflows/preston-check.yml and
-# adjust the inputs to match your needs.
+# Self-audit: runs Preston-Check against this repository on every push and PR.
+# For an example showing how downstream projects can wire Preston-Check into
+# their CI, see examples/github-action.yml.
 
 name: Preston-Check Security Audit
 
@@ -13,7 +13,11 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write   # required if pr-comment is enabled
+  pull-requests: write
+
+concurrency:
+  group: preston-check-self-audit-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   preston-check:
@@ -21,16 +25,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Preston-Check
-        uses: preston-check/scan-action@v1
-        with:
-          mode: full
-          fail-on: high
-          report-path: preston-check-report.md
-          airgap: 'true'
-          telemetry-opt-in: 'false'
-          # For Pro/Enterprise tier, paste your license content as a secret:
-          # license: ${{ secrets.PRESTON_CHECK_LICENSE }}
+      - name: Run Preston-Check self-audit
+        run: |
+          chmod +x ./preston-check.sh
+          ./preston-check.sh --full --airgap --ci-soft --report preston-check-report.md
 
       - name: Upload report
         if: always()
