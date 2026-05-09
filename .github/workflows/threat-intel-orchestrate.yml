@@ -23,6 +23,9 @@ jobs:
       ATTESTATION_PRIVATE_KEY_PATH: /tmp/attestation-key.pem
       RUN_ID: ${{ github.run_id }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PRESTON_NOTIFY_EMAIL: ${{ secrets.PRESTON_NOTIFY_EMAIL }}
+      SES_AWS_ACCESS_KEY_ID: ${{ secrets.SES_AWS_ACCESS_KEY_ID }}
+      SES_AWS_SECRET_ACCESS_KEY: ${{ secrets.SES_AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v4
 
@@ -61,6 +64,7 @@ jobs:
             --max-candidates 5
 
       - name: Open promotion PR
+        id: open_pr
         if: env.PRESTON_AUTOMERGE_ENABLED == 'true'
         run: |
           set -e
@@ -71,11 +75,24 @@ jobs:
           git add checks/community/accepted attestations 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "nothing to promote"
+            echo "pr_url=" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git commit -m "auto: promoted candidates from orchestrate run $RUN_ID"
           git push origin "$BRANCH"
-          gh pr create \
+          PR_URL=$(gh pr create \
             --title "auto: threat-intel orchestrate $RUN_ID" \
             --body "Auto-generated promotion. See orchestrate-summary.json and attestations/." \
-            --label threat-intel,auto-merge
+            --label threat-intel,auto-merge)
+          echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Send promotion notification
+        if: env.PRESTON_AUTOMERGE_ENABLED == 'true'
+        env:
+          PR_URL: ${{ steps.open_pr.outputs.pr_url }}
+        run: |
+          if [ -z "$PR_URL" ]; then
+            echo "No PR opened this cycle — skipping notification"
+            exit 0
+          fi
+          python3 tools/notify_promotion.py --pr-url "$PR_URL" || echo "(notification failed; non-fatal)"
