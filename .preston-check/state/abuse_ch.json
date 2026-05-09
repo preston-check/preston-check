@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T20:57:30.217307+00:00",
-  "last_successful_fetch": "2026-05-09T20:57:30.217692+00:00",
+  "last_run": "2026-05-09T21:56:36.511619+00:00",
+  "last_successful_fetch": "2026-05-09T21:56:36.511895+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1024,7 +1024,28 @@
     "threatfox:link.fastlinkprovider.pics",
     "threatfox:rim.looprim.pics",
     "threatfox:tab.rowlocks.pics",
-    "threatfox:fast.fastlinkprovider.pics"
+    "threatfox:fast.fastlinkprovider.pics",
+    "threatfox:srvnode.netinfrahubsys.pics",
+    "threatfox:appboxdata.globalnetviewer.pics",
+    "threatfox:main.coderlaptechnical.pics",
+    "threatfox:devbitscfg.globalnetviewer.pics",
+    "threatfox:api.coderlaptechnical.pics",
+    "threatfox:logviewsys.globalnetviewer.pics",
+    "threatfox:web.coderlaptechnical.pics",
+    "threatfox:netapiprot.globalnetviewer.pics",
+    "threatfox:run.coderlaptechnical.pics",
+    "threatfox:webcdnstat.globalnetviewer.pics",
+    "threatfox:tech.coderlaptechnical.pics",
+    "threatfox:srvnodehub.globalnetviewer.pics",
+    "threatfox:code.coderlaptechnical.pics",
+    "threatfox:cache.flushgot.pics",
+    "threatfox:core.infrastructurerun.pics",
+    "threatfox:out.flushgot.pics",
+    "threatfox:base.infrastructurerun.pics",
+    "threatfox:flush.flushgot.pics",
+    "threatfox:setup.infrastructurerun.pics",
+    "threatfox:sync.flushgot.pics",
+    "threatfox:net.infrastructurerun.pics"
   ],
   "source_id": "abuse_ch",
   "stats": {
