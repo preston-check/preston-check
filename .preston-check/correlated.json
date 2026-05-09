@@ -1,28 +1,5 @@
 {
-  "candidate_count": 1,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2022-30190",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "Full exploit chain lab and Suricata IDS detection for CVE-2022-30190 (Follina) - MSDT RCE",
-      "first_seen": "2026-05-09T10:15:06.502710+00:00",
-      "frameworks": [],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-09T10:15:06.502710+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/u1tr0nex/CVE-2022-30190-Follina-Lab"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2022-30190-Follina-Lab"
-    }
-  ],
-  "correlated_at": "2026-05-09T10:15:08.049557+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-09T10:58:12.369265+00:00"
 }
