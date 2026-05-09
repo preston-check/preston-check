@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T11:57:26.901766+00:00",
-  "last_successful_fetch": "2026-05-09T11:57:30.452379+00:00",
+  "last_run": "2026-05-09T13:46:13.344571+00:00",
+  "last_successful_fetch": "2026-05-09T13:46:16.625243+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -204,7 +204,12 @@
     "github:0xSIGILL/CVE-2017-14187_PoC_ARMv7",
     "github:Nishab-Khatiwada/cve_2024_4367_poc.pdf",
     "github:denimoll/CVE-PaaS",
-    "github:mohid0x01/cvedb"
+    "github:mohid0x01/cvedb",
+    "github:kaleth4/CVE-2019-7711",
+    "github:haydenjames/CVE-2026-31431-check",
+    "github:xgfurb/cve-agent",
+    "github:mohidqx/cvedb",
+    "github:ben-slates/CVE-FINDER"
   ],
   "source_id": "github_trending",
   "stats": {
