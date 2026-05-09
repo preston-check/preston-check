@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-09T03:53:09.894707+00:00",
-  "last_successful_fetch": "2026-05-09T03:53:14.035835+00:00",
+  "last_run": "2026-05-09T06:25:00.206206+00:00",
+  "last_successful_fetch": "2026-05-09T06:25:03.749718+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -180,7 +180,12 @@
     "github:adminlove520/CVE-Poc_All_in_One",
     "github:suominen/CVE-2026-43284",
     "github:disncp100/cve_test",
-    "github:0xintruder/cve-radar"
+    "github:0xintruder/cve-radar",
+    "github:whyrulike/CVE-Flow",
+    "github:topscoder/nuclei-wordfence-cve",
+    "github:whoamiihuh7-cpu/CVE-monitoring-Skill",
+    "github:CVEProject/cve-reference-ingest-data",
+    "github:BadGhost520/ESurfingClient-CVersion-Snapshot"
   ],
   "source_id": "github_trending",
   "stats": {
