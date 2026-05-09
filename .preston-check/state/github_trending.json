@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-08T23:04:53.724342+00:00",
-  "last_successful_fetch": "2026-05-08T23:04:57.306883+00:00",
+  "last_run": "2026-05-09T00:07:13.438304+00:00",
+  "last_successful_fetch": "2026-05-09T00:07:16.505862+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -162,7 +162,17 @@
     "github:mark-Aryan/Codexploit-cve-threat-intelligence",
     "github:ZeroPathAI/nifi-CVE-2026-39816-poc",
     "github:adminlove520/CVE",
-    "github:prashantdangi1/cve_radar"
+    "github:prashantdangi1/cve_radar",
+    "github:hijack1r/CVE_PushService",
+    "github:chmj/cve-feed-tracker",
+    "github:MrOplus/CVE-2026-41940",
+    "github:MAEN1-prog/CVE-2025-2304",
+    "github:Riquelme54322/CVE-2025-5419",
+    "github:hyu164/Terrminus-CVE-2026-2406",
+    "github:obrunolima1910/CVE-2026-24061",
+    "github:jim2478/CVE-Archive",
+    "github:salman5230/CVE-2025-59287",
+    "github:dvjnelsonia/SourceCodester-Banking-CVE"
   ],
   "source_id": "github_trending",
   "stats": {
