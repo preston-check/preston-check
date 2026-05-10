@@ -1,30 +1,5 @@
 {
-  "candidate_count": 1,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2023-34468",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "PoC exploit for CVE-2023-34468 \u2014 RCE via H2 RUNSCRIPT in Apache NiFi <= 1.21.0",
-      "first_seen": "2026-05-10T16:05:39.438113+00:00",
-      "frameworks": [],
-      "key_kind": "cve",
-      "languages": [
-        "Python"
-      ],
-      "last_seen": "2026-05-10T16:05:39.438113+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/Al3xx-sec/CVE-2023-34468-POC"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2023-34468-POC"
-    }
-  ],
-  "correlated_at": "2026-05-10T16:05:40.813081+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-10T16:12:20.738618+00:00"
 }
