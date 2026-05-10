@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-10T13:50:00.730330+00:00",
-  "last_successful_fetch": "2026-05-10T13:50:00.730746+00:00",
+  "last_run": "2026-05-10T15:05:30.634365+00:00",
+  "last_successful_fetch": "2026-05-10T15:05:30.634686+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1355,7 +1355,27 @@
     "threatfox:lfmfi.bytegrid.lat",
     "threatfox:sercresta.mongofixcore.lat",
     "threatfox:narr-isl.bytegrid.lat",
-    "threatfox:5pruce-hold.bytegrid.lat"
+    "threatfox:5pruce-hold.bytegrid.lat",
+    "threatfox:optirni-cast.scriptmesh.ink",
+    "threatfox:devbits.stackpulse.ink",
+    "threatfox:civicvehicl.scriptmesh.ink",
+    "threatfox:logmanagementsys.stackpulse.ink",
+    "threatfox:designdepot.scriptmesh.ink",
+    "threatfox:api.stackpulse.ink",
+    "threatfox:vita-not.scriptmesh.ink",
+    "threatfox:webcdnstat.stackpulse.ink",
+    "threatfox:n0df7.kernelgrid.ink",
+    "threatfox:srvnode.stackpulse.ink",
+    "threatfox:dynmark0on.kernelgrid.ink",
+    "threatfox:sol-tideen.kernelgrid.ink",
+    "threatfox:businessland.io",
+    "threatfox:v1si-sync.kernelgrid.ink",
+    "threatfox:2784kns.kernelgrid.ink",
+    "threatfox:2qjub.logicstack.ink",
+    "threatfox:macroloop.logicstack.ink",
+    "threatfox:njrwmhh.cyberframe.lat",
+    "threatfox:ftscfs.logicstack.ink",
+    "threatfox:m3rg0-sync.cyberframe.lat"
   ],
   "source_id": "abuse_ch",
   "stats": {
