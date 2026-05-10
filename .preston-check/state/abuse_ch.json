@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-10T16:05:40.643305+00:00",
-  "last_successful_fetch": "2026-05-10T16:05:40.643599+00:00",
+  "last_run": "2026-05-10T17:09:22.954438+00:00",
+  "last_successful_fetch": "2026-05-10T17:09:22.954821+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1395,7 +1395,28 @@
     "threatfox:webcdnstat.kernelshift.pics",
     "threatfox:vpsrun.datashift.ink",
     "threatfox:srvnode.kernelshift.pics",
-    "threatfox:dnswebsrvs.datashift.ink"
+    "threatfox:dnswebsrvs.datashift.ink",
+    "threatfox:metaltscfgmgr.logicframe.pics",
+    "threatfox:libsyspathview.framevector.ink",
+    "threatfox:apidocserv.logicframe.pics",
+    "threatfox:jobadm.framevector.ink",
+    "threatfox:dbinst.logicframe.pics",
+    "threatfox:rawdatamapping.framevector.ink",
+    "threatfox:skyvpnnodehub.logicframe.pics",
+    "threatfox:zipark.framevector.ink",
+    "threatfox:cmdset.logicframe.pics",
+    "threatfox:metaltscfgmgr.systemforge.ink",
+    "threatfox:sshbin.cloudstack.pics",
+    "threatfox:apidocserv.systemforge.ink",
+    "threatfox:sslkeybasepoint.cloudstack.pics",
+    "threatfox:dbinst.systemforge.ink",
+    "threatfox:getcfghub.cloudstack.pics",
+    "threatfox:skyvpnnodehub.systemforge.ink",
+    "threatfox:ipnodeclisys.cloudstack.pics",
+    "threatfox:cmdset.systemforge.ink",
+    "threatfox:hotfix.cloudstack.pics",
+    "threatfox:sshbin.cryptowave.ink",
+    "threatfox:topsvc.bytevector.pics"
   ],
   "source_id": "abuse_ch",
   "stats": {
