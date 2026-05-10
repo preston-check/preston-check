@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-10T17:09:17.903507+00:00",
-  "last_successful_fetch": "2026-05-10T17:09:22.556757+00:00",
+  "last_run": "2026-05-10T19:18:35.387755+00:00",
+  "last_successful_fetch": "2026-05-10T19:18:38.952010+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -255,7 +255,12 @@
     "github:DebaA17/CVE-scanner-cli",
     "github:Al3xx-sec/CVE-2023-34468-POC",
     "github:telexintegrations/telex-cve-monitor",
-    "github:hgyc/CVE-stand"
+    "github:hgyc/CVE-stand",
+    "github:fabse-hack/CVE-2024-3829",
+    "github:ycseo-git/CVE-2023-22527",
+    "github:tw181802/CVES",
+    "github:gtamir02-png/cve-ai-agentdashboard",
+    "github:Nwelely/CVE-GENius-2"
   ],
   "source_id": "github_trending",
   "stats": {
