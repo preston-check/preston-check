@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-10T21:58:43.150431+00:00",
-  "last_successful_fetch": "2026-05-10T21:58:47.547307+00:00",
+  "last_run": "2026-05-10T23:00:41.532413+00:00",
+  "last_successful_fetch": "2026-05-10T23:00:44.445841+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -269,7 +269,12 @@
     "github:Karim33z/CVE-2026-31431",
     "github:RaikyHH/CVE-Processor",
     "github:msuiche/gguf_cve2026_7482",
-    "github:0day77/first-project"
+    "github:0day77/first-project",
+    "github:sar1yeva/cve-blog.hbtn",
+    "github:sar1yeva/cve-blog",
+    "github:zycoder0day/CVE-2026-3844",
+    "github:kaleth4/CVE-2026-7482",
+    "github:canomer/CVE-2025-54110-Kernel-EoP-PoC"
   ],
   "source_id": "github_trending",
   "stats": {
