@@ -1,5 +1,1234 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-10T04:07:50.497945+00:00"
+  "candidate_count": 46,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2025-15633",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "An improper authorization vulnerability in HCL BigFix WebUI allows an authenticated user without Master Operator\u00a0privileges to access internal data (site names, versions, and configuration variables) and bypass privilege requirements via unprotected endpoints lacking adequate security headers.",
+      "first_seen": "2026-05-10T04:13:01.708053+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708053+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://support.hcl-software.com/csm?id=kb_article&sysparm_article=KB0130587"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-15633"
+    },
+    {
+      "canonical_id": "CVE-2025-15634",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "A missing authorization vulnerability in HCL BigFix WebUI allows an authenticated user without proper permissions to view sensitive environmental information via direct URL access to the unauthorized page.",
+      "first_seen": "2026-05-10T04:13:01.708069+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708069+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://support.hcl-software.com/csm?id=kb_article&sysparm_article=KB0130587"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-15634"
+    },
+    {
+      "canonical_id": "CVE-2026-41311",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-674"
+      ],
+      "description": "LiquidJS is a Shopify / GitHub Pages compatible template engine in pure JavaScript. Prior to version 10.25.7, a circular block reference in {% layout %} / {% block %} causes an infinite recursive loop, consuming all available memory (~4GB) and crashing the Node.js process with FATAL ERROR: JavaScript heap out of memory. This allows any user who can submit a Liquid template to perform a Denial of Service attack. This issue has been patched in version 10.25.7.",
+      "first_seen": "2026-05-10T04:13:01.707843+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707843+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/harttle/liquidjs/commit/e2311dfd6e82f73509308aa8a3a1fafc92e226f0",
+        "https://github.com/harttle/liquidjs/releases/tag/v10.25.7",
+        "https://github.com/harttle/liquidjs/security/advisories/GHSA-4rc3-7j7w-m548"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-41311"
+    },
+    {
+      "canonical_id": "CVE-2026-41705",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-917"
+      ],
+      "description": "Spring AI's MilvusVectorStore#doDelete(List) implementation is vulnerable to filter-expression injection via unsanitized document IDs.\nSpring AI 1.0.x: affected from 1.0.0 through latest 1.0.x; upgrade to 1.0.7 or greater. Spring AI 1.1.x: affected from 1.1.0 through latest 1.1.x; upgrade to 1.1.6 or greater.",
+      "first_seen": "2026-05-10T04:13:01.707686+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707686+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://spring.io/security/cve-2026-41705"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-41705"
+    },
+    {
+      "canonical_id": "CVE-2026-41893",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-307"
+      ],
+      "description": "Signal K Server is a server application that runs on a central hub in a boat. Prior to version 2.25.0, the HTTP login endpoints (POST /login and POST /signalk/v1/auth/login) are protected by express-rate-limit (default: 100 attempts per 10-minute window, configurable via HTTP_RATE_LIMITS). The WebSocket login path \u2014 sending {login: {username, password}} messages over an established WebSocket connection \u2014 calls app.securityStrategy.login() directly without any rate limiting. An attacker can bypass HTTP rate limiting entirely by opening a WebSocket connection and attempting unlimited password guesses at the speed bcrypt allows (~20 attempts/sec with 10 salt rounds). This issue has been patched in version 2.25.0.",
+      "first_seen": "2026-05-10T04:13:01.708383+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708383+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/SignalK/signalk-server/commit/215d81eb700d5419c3396a0fbf23f2e246dfac2d",
+        "https://github.com/SignalK/signalk-server/pull/2568",
+        "https://github.com/SignalK/signalk-server/releases/tag/v2.25.0",
+        "https://github.com/SignalK/signalk-server/security/advisories/GHSA-vmfm-ch9h-5c7g"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-41893"
+    },
+    {
+      "canonical_id": "CVE-2026-42051",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Kirby is an open-source content management system. Prior to versions 4.9.0 and 5.4.0, the system API endpoint leaks license data and installed version to authenticated users. This issue has been patched in versions 4.9.0 and 5.4.0.",
+      "first_seen": "2026-05-10T04:13:01.707859+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707859+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/getkirby/kirby/releases/tag/4.9.0",
+        "https://github.com/getkirby/kirby/releases/tag/5.4.0",
+        "https://github.com/getkirby/kirby/security/advisories/GHSA-x68m-c7jf-2572"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42051"
+    },
+    {
+      "canonical_id": "CVE-2026-42069",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Kirby is an open-source content management system. Prior to versions 4.9.0 and 5.4.0, read access to site, user and role information is not gated by permissions. This issue has been patched in versions 4.9.0 and 5.4.0.",
+      "first_seen": "2026-05-10T04:13:01.707873+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707873+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/getkirby/kirby/releases/tag/4.9.0",
+        "https://github.com/getkirby/kirby/releases/tag/5.4.0",
+        "https://github.com/getkirby/kirby/security/advisories/GHSA-2h7v-4372-f6x2"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42069"
+    },
+    {
+      "canonical_id": "CVE-2026-42137",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862",
+        "CWE-863"
+      ],
+      "description": "Kirby is an open-source content management system. Prior to versions 4.9.0 and 5.4.0, `pages.access/list` and `files.access/list` permissions are not consistently checked in the Panel and REST API. This issue has been patched in versions 4.9.0 and 5.4.0.",
+      "first_seen": "2026-05-10T04:13:01.707888+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707888+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/getkirby/kirby/releases/tag/4.9.0",
+        "https://github.com/getkirby/kirby/releases/tag/5.4.0",
+        "https://github.com/getkirby/kirby/security/advisories/GHSA-85x2-r8xv-ww8c"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42137"
+    },
+    {
+      "canonical_id": "CVE-2026-42174",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Kirby is an open-source content management system. Prior to versions 4.9.0 and 5.4.0, user avatar creation, replacement and deletion are not gated by user update permissions. This issue has been patched in versions 4.9.0 and 5.4.0.",
+      "first_seen": "2026-05-10T04:13:01.707901+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707901+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/getkirby/kirby/releases/tag/4.9.0",
+        "https://github.com/getkirby/kirby/releases/tag/5.4.0",
+        "https://github.com/getkirby/kirby/security/advisories/GHSA-39cp-6679-8xv2"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42174"
+    },
+    {
+      "canonical_id": "CVE-2026-42183",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-476"
+      ],
+      "description": "Argo Workflows is an open source container-native workflow engine for orchestrating parallel jobs on Kubernetes. From version 4.0.0 to before version 4.0.5, a nil pointer dereference in server/auth/gatekeeper.go rbacAuthorization() causes a panic (denial of service) for SSO users whose claims match a namespace-level RBAC rule but not an SSO-namespace rule, when SSO_DELEGATE_RBAC_TO_NAMESPACE=true. This issue has been patched in version 4.0.5.",
+      "first_seen": "2026-05-10T04:13:01.707911+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707911+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/argoproj/argo-workflows/commit/c4cc17d0c034fa9a9cc01ef1af6c8016c93071d4",
+        "https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5",
+        "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-p4gq-3vxj-f4jq"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42183"
+    },
+    {
+      "canonical_id": "CVE-2026-42245",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-407"
+      ],
+      "description": "Net::IMAP implements Internet Message Access Protocol (IMAP) client functionality in Ruby. Prior to versions 0.4.24, 0.5.14, and 0.6.4, Net::IMAP::ResponseReader has quadratic time complexity when reading large responses containing many string literals. A hostile server can send responses which are crafted to exhaust the client's CPU for a denial of service attack. This issue has been patched in versions 0.4.24, 0.5.14, and 0.6.4.",
+      "first_seen": "2026-05-10T04:13:01.708395+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708395+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/ruby/net-imap/commit/6091f7d6b1f3514cafbfe39c76f2b5d73de3ca96",
+        "https://github.com/ruby/net-imap/commit/88d95231fc8afef11c1f074453f7d75b68c9dfda",
+        "https://github.com/ruby/net-imap/commit/de685f91a4a4cc75eb80da898c2bf8af08d34819",
+        "https://github.com/ruby/net-imap/releases/tag/v0.4.24",
+        "https://github.com/ruby/net-imap/releases/tag/v0.5.14",
+        "https://github.com/ruby/net-imap/releases/tag/v0.6.4",
+        "https://github.com/ruby/net-imap/security/advisories/GHSA-q2mw-fvj9-vvcw"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42245"
+    },
+    {
+      "canonical_id": "CVE-2026-42246",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-392",
+        "CWE-393",
+        "CWE-636",
+        "CWE-754",
+        "CWE-841"
+      ],
+      "description": "Net::IMAP implements Internet Message Access Protocol (IMAP) client functionality in Ruby. Prior to versions 0.3.10, 0.4.24, 0.5.14, and 0.6.4, a man-in-the-middle attacker can cause Net::IMAP#starttls to return \"successfully\", without starting TLS. This issue has been patched in versions 0.3.10, 0.4.24, 0.5.14, and 0.6.4.",
+      "first_seen": "2026-05-10T04:13:01.708404+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708404+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/ruby/net-imap/commit/0ede4c40b1523dfeaf95777b2678e54cc0fd9618",
+        "https://github.com/ruby/net-imap/commit/24a4e770b43230286a05aa2a9746cdbb3eb8485e",
+        "https://github.com/ruby/net-imap/commit/97e2488fb5401a1783bddd959dde007d9fbce42c",
+        "https://github.com/ruby/net-imap/commit/f79d35bf5833f186e81044c57c843eda30c873da",
+        "https://github.com/ruby/net-imap/releases/tag/v0.3.10",
+        "https://github.com/ruby/net-imap/releases/tag/v0.4.24",
+        "https://github.com/ruby/net-imap/releases/tag/v0.5.14",
+        "https://github.com/ruby/net-imap/security/advisories/GHSA-vcgp-9326-pqcp"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42246"
+    },
+    {
+      "canonical_id": "CVE-2026-42256",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1322",
+        "CWE-770"
+      ],
+      "description": "Net::IMAP implements Internet Message Access Protocol (IMAP) client functionality in Ruby. From versions 0.4.0 to before 0.4.24, 0.5.0 to before 0.5.14, and 0.6.0 to before 0.6.4, when authenticating a connection with SCRAM-SHA1 or SCRAM-SHA256, a hostile server can perform a computational denial-of-service attack on the client process by sending a big iteration count value. This issue has been patched in versions 0.4.24, 0.5.14, and 0.6.4.",
+      "first_seen": "2026-05-10T04:13:01.708414+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708414+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/ruby/net-imap/commit/158d0b505074397cdb5ceb58935e42dd2bcfa612",
+        "https://github.com/ruby/net-imap/commit/808001bc45c06f7297a7e96d341279e041a7f7f4",
+        "https://github.com/ruby/net-imap/commit/99f59eab6064955a23debd95410263ad144df758",
+        "https://github.com/ruby/net-imap/releases/tag/v0.4.24",
+        "https://github.com/ruby/net-imap/releases/tag/v0.5.14",
+        "https://github.com/ruby/net-imap/releases/tag/v0.6.4",
+        "https://github.com/ruby/net-imap/security/advisories/GHSA-87pf-fpwv-p7m7"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42256"
+    },
+    {
+      "canonical_id": "CVE-2026-42257",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-77",
+        "CWE-93"
+      ],
+      "description": "Net::IMAP implements Internet Message Access Protocol (IMAP) client functionality in Ruby. Prior to versions 0.4.24, 0.5.14, and 0.6.4, several Net::IMAP commands accept a raw string argument that is sent to the server without validation or escaping. If this string is derived from user-controlled input, it may contain contain CRLF sequences, which an attacker can use to inject arbitrary IMAP commands. This issue has been patched in versions 0.4.24, 0.5.14, and 0.6.4.",
+      "first_seen": "2026-05-10T04:13:01.708423+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708423+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/ruby/net-imap/releases/tag/v0.4.24",
+        "https://github.com/ruby/net-imap/releases/tag/v0.5.14",
+        "https://github.com/ruby/net-imap/releases/tag/v0.6.4",
+        "https://github.com/ruby/net-imap/security/advisories/GHSA-hm49-wcqc-g2xg"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42257"
+    },
+    {
+      "canonical_id": "CVE-2026-42258",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-77",
+        "CWE-93"
+      ],
+      "description": "Net::IMAP implements Internet Message Access Protocol (IMAP) client functionality in Ruby. Prior to versions 0.4.24, 0.5.14, and 0.6.4, symbol arguments to commands are vulnerable to a CRLF Injection / IMAP Command injection via Symbol arguments passed to IMAP commands. This issue has been patched in versions 0.4.24, 0.5.14, and 0.6.4.",
+      "first_seen": "2026-05-10T04:13:01.708431+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708431+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/ruby/net-imap/releases/tag/v0.4.24",
+        "https://github.com/ruby/net-imap/releases/tag/v0.5.14",
+        "https://github.com/ruby/net-imap/releases/tag/v0.6.4",
+        "https://github.com/ruby/net-imap/security/advisories/GHSA-75xq-5h9v-w6px"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42258"
+    },
+    {
+      "canonical_id": "CVE-2026-42294",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "Argo Workflows is an open source container-native workflow engine for orchestrating parallel jobs on Kubernetes. Prior to versions 3.7.14 and 4.0.5, the Webhook Interceptor loads the entire request body into memory before authenticating the request or verifying its signature. This occurs on the /api/v1/events/ endpoint, which is publicly accessible (albeit intended for webhooks). An attacker can send a request with an extremely large body (e.g., multiple gigabytes), causing the Argo Server to allocate excessive memory, potentially leading to an Out-Of-Memory (OOM) crash and denial of service. This issue has been patched in versions 3.7.14 and 4.0.5.",
+      "first_seen": "2026-05-10T04:13:01.707920+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707920+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/argoproj/argo-workflows/commit/7abb4de6c3599e2d5d960ba4d5de4cf1df109965",
+        "https://github.com/argoproj/argo-workflows/releases/tag/v3.7.14",
+        "https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5",
+        "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-jcc8-g2q4-9fxq"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42294"
+    },
+    {
+      "canonical_id": "CVE-2026-42295",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-522"
+      ],
+      "description": "Argo Workflows is an open source container-native workflow engine for orchestrating parallel jobs on Kubernetes. From version 4.0.0 to before version 4.0.5, the workflow executor logs all artifact repository credentials (S3 access keys, secret keys, GCS service account keys, Azure account keys, Git passwords, etc.) in plaintext on artifact operation. Any user with read access to workflow pod logs can extract these credentials. This issue has been patched in version 4.0.5.",
+      "first_seen": "2026-05-10T04:13:01.707928+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707928+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5",
+        "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-7vf8-2cr6-54mf"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42295"
+    },
+    {
+      "canonical_id": "CVE-2026-42296",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "Argo Workflows is an open source container-native workflow engine for orchestrating parallel jobs on Kubernetes. Prior to versions 3.7.14 and 4.0.5, a user with create Workflow permission can bypass templateReferencing: Strict to get host network access, switch service accounts, override pod security context, add tolerations to schedule on control-plane nodes, or enable SA token mounting. This defeats the stated purpose of the feature. The practical impact depends on what Kubernetes-level controls are in place. Clusters with PodSecurity admission or OPA/Gatekeeper would independently block some of these (like hostNetwork). Clusters that rely on Argo's Strict mode as the primary enforcement layer are fully exposed. This issue has been patched in versions 3.7.14 and 4.0.5.",
+      "first_seen": "2026-05-10T04:13:01.707935+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707935+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/argoproj/argo-workflows/commit/534f4ff1cbd86908e8ff76d97d553ad5a49a950d",
+        "https://github.com/argoproj/argo-workflows/releases/tag/v3.7.14",
+        "https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5",
+        "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-3775-99mw-8rp4"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-42296"
+    },
+    {
+      "canonical_id": "CVE-2026-42297",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Argo Workflows is an open source container-native workflow engine for orchestrating parallel jobs on Kubernetes. From version 4.0.0 to before version 4.0.5, the Sync Service's ConfigMap-backed provider (server/sync/sync_cm.go) performs zero authorization checks on all CRUD operations (create, read, update, delete). Any authenticated user \u2014 including those using fake Bearer tokens \u2014 can create, read, update, and delete Kubernetes ConfigMaps containing synchronization limits. This issue has been patched in version 4.0.5.",
+      "first_seen": "2026-05-10T04:13:01.707951+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707951+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/argoproj/argo-workflows/commit/09fff05e0830c14a5e36cc40597ad84881db1ab6",
+        "https://github.com/argoproj/argo-workflows/releases/tag/v4.0.5",
+        "https://github.com/argoproj/argo-workflows/security/advisories/GHSA-xchc-cqwg-g76q"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42297"
+    },
+    {
+      "canonical_id": "CVE-2026-42301",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-20",
+        "CWE-94"
+      ],
+      "description": "pyp2spec generates working Fedora RPM spec file for Python projects. Prior to version 0.14.1, pyp2spec was writing PyPI package metadata (e.g. the summary field) into the generated spec file without escaping RPM macro directives. When a packager then runs rpmbuild, those directives get evaluated, so a malicious package can execute arbitrary commands on the build machine. This issue has been patched in version 0.14.1.",
+      "first_seen": "2026-05-10T04:13:01.707959+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707959+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/befeleme/pyp2spec/releases/tag/v0.14.1",
+        "https://github.com/befeleme/pyp2spec/security/advisories/GHSA-r35x-v8p8-xvhw"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-42301"
+    },
+    {
+      "canonical_id": "CVE-2026-42308",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-190"
+      ],
+      "description": "Pillow is a Python imaging library. Prior to version 12.2.0, if a font advances for each glyph by an exceeding large amount, when Pillow keeps track of the current position, it may lead to an integer overflow. This issue has been patched in version 12.2.0.",
+      "first_seen": "2026-05-10T04:13:01.708075+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708075+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-wjx4-4jcj-g98j"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42308"
+    },
+    {
+      "canonical_id": "CVE-2026-42309",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-122"
+      ],
+      "description": "Pillow is a Python imaging library. From version 11.2.1 to before version 12.2.0, passing nested lists as coordinates to APIs that accept coordinates such as ImagePath.Path, ImageDraw.ImageDraw.polygon and ImageDraw.ImageDraw.line could cause a heap buffer overflow, as nested lists were recursively unpacked beyond the allocated buffer. Coordinate lists are now validated to contain exactly two numeric coordinates. This issue has been patched in version 12.2.0.",
+      "first_seen": "2026-05-10T04:13:01.708082+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708082+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-5xmw-vc9v-4wf2"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42309"
+    },
+    {
+      "canonical_id": "CVE-2026-42310",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-835"
+      ],
+      "description": "Pillow is a Python imaging library. From version 4.2.0 to before version 12.2.0, an attacker can supply a malicious PDF that causes the process to hang indefinitely, consuming 100% CPU and making the application unresponsive. This issue has been patched in version 12.2.0.",
+      "first_seen": "2026-05-10T04:13:01.708090+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708090+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/python-pillow/Pillow/commit/3bf614e4b8615d0ce1d5039efaf6db447fe7c468",
+        "https://github.com/python-pillow/Pillow/pull/9519",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-r73j-pqj5-w3x7"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42310"
+    },
+    {
+      "canonical_id": "CVE-2026-42311",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-190",
+        "CWE-787"
+      ],
+      "description": "Pillow is a Python imaging library. From version 10.3.0 to before version 12.2.0, processing a malicious PSD file could lead to memory corruption, potentially resulting in a crash or arbitrary code execution. This issue has been patched in version 12.2.0.",
+      "first_seen": "2026-05-10T04:13:01.708097+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708097+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/python-pillow/Pillow/commit/58f9a1d166dcb0c274807d4423522d205b0c35ea",
+        "https://github.com/python-pillow/Pillow/pull/9520",
+        "https://github.com/python-pillow/Pillow/releases/tag/12.2.0",
+        "https://github.com/python-pillow/Pillow/security/advisories/GHSA-pwv6-vv43-88gr"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42311"
+    },
+    {
+      "canonical_id": "CVE-2026-42455",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Linkwarden is a self-hosted, open-source collaborative bookmark manager to collect, organize and archive webpages. In versions 2.14.0 and prior, the archive upload endpoint (POST /api/v1/archives/[linkId]?format=4) accepts HTML files (text/html) without sanitizing JavaScript content. When the archive is later accessed via GET /api/v1/archives/[linkId]?format=4, the HTML is served with Content-Type: text/html from the Linkwarden origin, without any Content-Security-Policy header. This allows arbitrary JavaScript execution in the context of the authenticated Linkwarden sessio. At time of publication, there are no publicly available patches.",
+      "first_seen": "2026-05-10T04:13:01.707639+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707639+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/linkwarden/linkwarden/security/advisories/GHSA-fjvg-mch3-j3vg"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42455"
+    },
+    {
+      "canonical_id": "CVE-2026-42461",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Arcane is an interface for managing Docker containers, images, networks, and volumes. Prior to version 1.18.0, four GET endpoints under /api/templates* in Arcane's Huma backend are registered without any Security requirement, allowing any unauthenticated network client to list and read the full Compose YAML and .env content of every custom template stored in the instance. Because Arcane's UI exposes a \"Save as Template\" flow on the project / swarm-stack creation pages that persists the operator's real env content (database passwords, API keys, etc.) verbatim, this missing authorization is an unauthenticated read of operator secrets in practice \u2014 not a theoretical info-disclosure. The frontend explicitly treats /customize/templates/* as an authenticated area (PROTECTED_PREFIXES in frontend/src/lib/utils/redirect.util.ts), and every CRUD operation (POST/PUT/DELETE) on the same paths requires a Bearer/API key, so this is a clear backend authorization gap, not intended public access. This issue has been patched in version 1.18.0.",
+      "first_seen": "2026-05-10T04:13:01.708015+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708015+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/getarcaneapp/arcane/releases/tag/v1.18.0",
+        "https://github.com/getarcaneapp/arcane/security/advisories/GHSA-cxx3-hr75-4q96"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42461"
+    },
+    {
+      "canonical_id": "CVE-2026-42560",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-287"
+      ],
+      "description": "auth provides authentication via oauth2, direct and email. From versions 1.18.0 to before 1.25.2 and 2.0.0 to before 2.1.2, the Patreon OAuth provider maps every authenticated Patreon account to the same local user.ID, instead of deriving a unique ID from the Patreon account returned by Patreon. In practice, this means all Patreon-authenticated users of an application using this library are collapsed into a single local identity. Any application that trusts token.User.ID as the stable account key can end up mixing or fully merging unrelated Patreon users, which can lead to cross-account access, privilege confusion, and subscription-state leakage. This issue has been patched in versions 1.25.2 and 2.1.2.",
+      "first_seen": "2026-05-10T04:13:01.708109+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708109+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/go-pkgz/auth/commit/c0b15ee72a8401da83c01781c16636c521f42698",
+        "https://github.com/go-pkgz/auth/releases/tag/v1.25.2",
+        "https://github.com/go-pkgz/auth/releases/tag/v2.1.2",
+        "https://github.com/go-pkgz/auth/security/advisories/GHSA-f6qq-3m3h-4g42"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-42560"
+    },
+    {
+      "canonical_id": "CVE-2026-42562",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-269"
+      ],
+      "description": "Plainpad is a self hosted note taking app. Prior to version 1.1.1, Plainpad allows a low-privilege authenticated user to self-escalate to administrator by submitting admin=true in PUT /api.php/v1/users/{id}. The endpoint directly persists the admin attribute from user input, and the escalated account can immediately access admin-only routes. This issue has been patched in version 1.1.1.",
+      "first_seen": "2026-05-10T04:13:01.708471+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708471+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/alextselegidis/plainpad/commit/9216a876d27b22c3d9259551636d803f7cb075fc",
+        "https://github.com/alextselegidis/plainpad/issues/138",
+        "https://github.com/alextselegidis/plainpad/releases/tag/1.1.1",
+        "https://github.com/alextselegidis/plainpad/security/advisories/GHSA-pvfv-wvpm-q6f6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-42562"
+    },
+    {
+      "canonical_id": "CVE-2026-42569",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-284",
+        "CWE-306",
+        "CWE-862"
+      ],
+      "description": "phpVMS is a PHP application to run and simulate an airline. Prior to version 7.0.6, a critical vulnerability in phpVMS allowed unauthenticated access to a legacy import feature. This issue has been patched in version 7.0.6.",
+      "first_seen": "2026-05-10T04:13:01.708479+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708479+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/phpvms/phpvms/commit/f59ba8e0e8fc25c60c3faf14e526cfd49df3f7dc",
+        "https://github.com/phpvms/phpvms/releases/tag/7.0.6",
+        "https://github.com/phpvms/phpvms/releases/tag/7.0.7",
+        "https://github.com/phpvms/phpvms/security/advisories/GHSA-fv26-4939-62fh"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-42569"
+    },
+    {
+      "canonical_id": "CVE-2026-42576",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-704"
+      ],
+      "description": "apko allows users to build and publish OCI container images built from apk packages. Prior to version 1.2.7, DiscoverKeys in pkg/apk/apk/implementation.go unconditionally type-asserts JWKS keys as *rsa.PublicKey without checking the key type. If a repository JWKS endpoint returns a non-RSA key (e.g. EC), the unchecked assertion panics and crashes apko. This affects any workflow that initializes the APK database and fetches repository keys. This issue has been patched in version 1.2.7.",
+      "first_seen": "2026-05-10T04:13:01.708620+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708620+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/chainguard-dev/apko/commit/6604826b19e36e9bc6e196592800fad93738f4a1",
+        "https://github.com/chainguard-dev/apko/releases/tag/v1.2.7",
+        "https://github.com/chainguard-dev/apko/security/advisories/GHSA-m7hm-vm4x-28jf"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42576"
+    },
+    {
+      "canonical_id": "CVE-2026-42601",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-88"
+      ],
+      "description": "ArchiveBox is an open source self-hosted web archiving system. In versions 0.8.6rc0 and prior, the /add/ endpoint (AddView in core/views.py) accepts a config JSON field that gets merged into the crawl config without validation. This config is exported as environment variables when archive plugins run, allowing injection of arbitrary tool arguments to achieve RCE. At time of publication, there are no publicly available patches.",
+      "first_seen": "2026-05-10T04:13:01.708642+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708642+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/ArchiveBox/ArchiveBox/security/advisories/GHSA-3h23-7824-pj8r"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42601"
+    },
+    {
+      "canonical_id": "CVE-2026-42605",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "AzuraCast is a self-hosted, all-in-one web radio management suite. Prior to version 0.23.6, the currentDirectory request parameter in the Flow.js media upload endpoint (POST /api/station/{station_id}/files/upload) is not sanitized for path traversal sequences. When combined with a local filesystem storage backend (the default), an authenticated user with media management permissions can write arbitrary files outside the station's media storage directory, achieving remote code execution by writing a PHP webshell to the web root. This issue has been patched in version 0.23.6.",
+      "first_seen": "2026-05-10T04:13:01.708654+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708654+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/AzuraCast/AzuraCast/commit/18c793b4427eb49e67a2fea99a89f1c9d9dd808d",
+        "https://github.com/AzuraCast/AzuraCast/releases/tag/0.23.6",
+        "https://github.com/AzuraCast/AzuraCast/security/advisories/GHSA-vp2f-cqqp-478j"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-42605"
+    },
+    {
+      "canonical_id": "CVE-2026-42606",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-640"
+      ],
+      "description": "AzuraCast is a self-hosted, all-in-one web radio management suite. Prior to version 0.23.6, the ApplyXForwarded middleware unconditionally trusts the client-supplied X-Forwarded-Host HTTP header with no trusted proxy allowlist. An unauthenticated attacker can poison the password reset URL sent to any user by injecting this header when triggering the forgot-password flow. When the victim clicks the poisoned link, their reset token is exfiltrated to the attacker's server. The attacker then uses the token on the real instance to reset the victim's password and destroy their 2FA configuration, achieving full account takeover. This issue has been patched in version 0.23.6.",
+      "first_seen": "2026-05-10T04:13:01.708667+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708667+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/AzuraCast/AzuraCast/commit/7c622a18b451533de317e53862b1f84acf4efd85",
+        "https://github.com/AzuraCast/AzuraCast/releases/tag/0.23.6",
+        "https://github.com/AzuraCast/AzuraCast/security/advisories/GHSA-gv7r-3mr9-h5x8"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-42606"
+    },
+    {
+      "canonical_id": "CVE-2026-44313",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Linkwarden is a self-hosted, open-source collaborative bookmark manager to collect, organize and archive webpages. Prior to version 2.13.0, a Server-Side Request Forgery (SSRF) vulnerability in the fetchTitleAndHeaders function allows authenticated users to make arbitrary HTTP requests to internal services due to insufficient URL validation that only checks for \"http://\" or \"https://\" prefixes. This issue has been patched in version 2.13.0.",
+      "first_seen": "2026-05-10T04:13:01.707673+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707673+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/linkwarden/linkwarden/security/advisories/GHSA-5qpc-x7rv-hvmp"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-44313"
+    },
+    {
+      "canonical_id": "CVE-2026-6667",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "PgBouncer before 1.25.2 did not perform an appropriate authorization check for the KILL_CLIENT admin command. All users with access to the administration console (which itself requires authorization) could run this command. It would have been correct to allow only users listed in the admin_users parameter.",
+      "first_seen": "2026-05-10T04:13:01.707745+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707745+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.pgbouncer.org/changelog.html#pgbouncer-125x"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6667"
+    },
+    {
+      "canonical_id": "CVE-2026-8187",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-400",
+        "CWE-404"
+      ],
+      "description": "A flaw has been found in Open5GS up to 2.7.7. This impacts the function _gtpv1_u_recv_cb of the file src/upf/gtp-path.c of the component UPF. Executing a manipulation can lead to resource consumption. The attack may be performed from remote. The project was informed of the problem early through an issue report but has not responded yet.",
+      "first_seen": "2026-05-10T04:13:01.708203+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708203+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open5gs/open5gs/",
+        "https://github.com/open5gs/open5gs/issues/4492",
+        "https://vuldb.com/submit/800025",
+        "https://vuldb.com/vuln/362339",
+        "https://vuldb.com/vuln/362339/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8187"
+    },
+    {
+      "canonical_id": "CVE-2026-8193",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "A weakness has been identified in Akaunting 3.1.21. This issue affects some unknown processing of the file config/dompdf.php of the component Invoice PDF Rendering. Executing a manipulation can lead to server-side request forgery. The attack may be launched remotely. The exploit has been made available to the public and could be used for attacks. The vendor was contacted early about this disclosure but did not respond in any way.",
+      "first_seen": "2026-05-10T04:13:01.708360+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708360+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://drive.google.com/file/d/1zC8gMYeIfZi3CsK6RXBQINU_mllXH_6n/view?usp=drive_link",
+        "https://vuldb.com/submit/800984",
+        "https://vuldb.com/vuln/362345",
+        "https://vuldb.com/vuln/362345/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8193"
+    },
+    {
+      "canonical_id": "CVE-2026-8194",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-352",
+        "CWE-862"
+      ],
+      "description": "A security vulnerability has been detected in osTicket up to 1.18.3. Impacted is an unknown function of the file include/class.dispatcher.php of the component Dispatcher. The manipulation of the argument _method leads to cross-site request forgery. Remote exploitation of the attack is possible. The exploit has been disclosed publicly and may be used. The project was informed of the problem early through a pull request but has not reacted yet.",
+      "first_seen": "2026-05-10T04:13:01.708678+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708678+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/az10b/security-advisories/blob/main/csrf_bypass_osTicket.md",
+        "https://github.com/osTicket/osTicket/",
+        "https://github.com/osTicket/osTicket/pull/6945",
+        "https://vuldb.com/submit/802755",
+        "https://vuldb.com/vuln/362346",
+        "https://vuldb.com/vuln/362346/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8194"
+    },
+    {
+      "canonical_id": "CVE-2026-8195",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79",
+        "CWE-94"
+      ],
+      "description": "A vulnerability was detected in JeecgBoot up to 3.9.1. The affected element is an unknown function of the file jeecg-module-system/jeecg-system-biz/src/main/java/org/jeecg/modules/system/controller/CommonController.java of the component SVG File Handler. The manipulation results in cross site scripting. The attack can be executed remotely. The exploit is now public and may be used. The vendor was contacted early about this disclosure but did not respond in any way.",
+      "first_seen": "2026-05-10T04:13:01.708683+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708683+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/xpp3901/CVE_APPLY/blob/main/V-006_SVG_Stored_XSS/README.md",
+        "https://vuldb.com/submit/803528",
+        "https://vuldb.com/vuln/362347",
+        "https://vuldb.com/vuln/362347/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8195"
+    },
+    {
+      "canonical_id": "CVE-2026-8196",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-285",
+        "CWE-639"
+      ],
+      "description": "A flaw has been found in JeecgBoot 3.9.1. The impacted element is an unknown function of the file jeecg-module-system/jeecg-system-biz/src/main/java/org/jeecg/modules/system/controller/LoginController.java of the component mLogin Endpoint. This manipulation causes authorization bypass. The attack is possible to be carried out remotely. The attack is considered to have high complexity. The exploitability is regarded as difficult. The exploit has been published and may be used. The vendor was contacted early about this disclosure but did not respond in any way.",
+      "first_seen": "2026-05-10T04:13:01.708688+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708688+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/xpp3901/CVE_APPLY/tree/main/V-009_mLogin_Captcha_Bypass",
+        "https://vuldb.com/submit/803529",
+        "https://vuldb.com/vuln/362348",
+        "https://vuldb.com/vuln/362348/cti"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "CVE-2026-8196"
+    },
+    {
+      "canonical_id": "CVE-2026-8198",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200"
+      ],
+      "description": "The Activity Logs, User Activity Tracking, Multisite Activity Log from Logtivity plugin for WordPress is vulnerable to Authentication Bypass to Information Disclosure in versions up to, and including, 3.3.6. This is due to a logic flaw in the verifyAuthorization method where requests without an Authorization header skip Bearer token validation and fall through to an unconditional return true statement, bypassing all authentication checks. This makes it possible for unauthenticated attackers to access the /wp-json/logtivity/v1/options REST API endpoint and retrieve all plugin configuration options, including the logtivity_site_api_key which can be used to impersonate the site in API calls to the Logtivity service.",
+      "first_seen": "2026-05-10T04:13:01.708254+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708254+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/logtivity/tags/3.3.6/Core/Services/Logtivity_Rest_Endpoints.php#L47",
+        "https://plugins.trac.wordpress.org/browser/logtivity/tags/3.3.6/Core/Services/Logtivity_Rest_Endpoints.php#L78",
+        "https://plugins.trac.wordpress.org/browser/logtivity/tags/3.3.7/Core/Services/Logtivity_Rest_Endpoints.php#L47",
+        "https://plugins.trac.wordpress.org/browser/logtivity/tags/3.3.7/Core/Services/Logtivity_Rest_Endpoints.php#L78",
+        "https://plugins.trac.wordpress.org/changeset/3507386/",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/65ca20b0-0831-4f60-9021-679be6c145ef?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8198"
+    },
+    {
+      "canonical_id": "CVE-2026-8207",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "Gibbon versions before\u00a0v30.0.01 are affected by an authenticated SQL Injection vulnerability by abusing the  Tracking/graphing https://github.com/GibbonEdu/core/blob/c431e25fdc874adece5d2dc7e408e9aa2d1abadb/modules/Tracking/graphing.php#L145  feature. Successful exploitation requires Teacher or higher privileges. Exploitation could result in unintended read/write activities to the underlying database.",
+      "first_seen": "2026-05-10T04:13:01.707811+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.707811+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/GibbonEdu/core/releases/tag/v30.0.01",
+        "https://projectblack.io/blog/gibbon-v30-authenticated-sql-injection-and-rce/#sql-injectiongetting-warmed-up"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8207"
+    },
+    {
+      "canonical_id": "CVE-2026-8208",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-98"
+      ],
+      "description": "Gibbon versions before v30.0.01 are affected by a local file inclusion vulnerability resulting in RCE by changing the report archive directory and forcing interpretation of a user provided .zip as PHP. Successful exploitation requires Teacher or higher privileges. Exploitation could result in compromise of the underlying web server.",
+      "first_seen": "2026-05-10T04:13:01.708025+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708025+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/GibbonEdu/core/releases/tag/v30.0.01",
+        "https://projectblack.io/blog/gibbon-v30-authenticated-sql-injection-and-rce/#local-file-inclusionthe-next-shiny-new-thing"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8208"
+    },
+    {
+      "canonical_id": "CVE-2026-8209",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-23"
+      ],
+      "description": "Gibbon versions before v30.0.01 are affected by a path traversal vulnerability resulting in DOS by attempting extraction of web application PHP files, failed .zip extraction results in deletion of the file and a DOS condition. Successful exploitation requires Teacher or higher privileges. Exploitation could result in loss of availability of the web application.",
+      "first_seen": "2026-05-10T04:13:01.708034+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708034+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/GibbonEdu/core/releases/tag/v30.0.01",
+        "https://projectblack.io/blog/gibbon-v30-authenticated-sql-injection-and-rce/#denial-of-service-via-path-traversal"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8209"
+    },
+    {
+      "canonical_id": "CVE-2026-8210",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-74",
+        "CWE-77"
+      ],
+      "description": "A security vulnerability has been detected in aandrew-me tgpt up to 2.11.1 on Linux/macOS. Affected by this vulnerability is the function helper.Update of the file helper.go of the component Update Handler. The manipulation leads to command injection. Local access is required to approach this attack. The exploit has been disclosed publicly and may be used. The vendor was contacted early about this disclosure but did not respond in any way.",
+      "first_seen": "2026-05-10T04:13:01.708697+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708697+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://drive.google.com/file/d/19wRsehbhotZXgE1TjenFtS3w-zRtp-PW/view?usp=sharing",
+        "https://vuldb.com/submit/803594",
+        "https://vuldb.com/vuln/362418",
+        "https://vuldb.com/vuln/362418/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8210"
+    },
+    {
+      "canonical_id": "CVE-2026-8211",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-74",
+        "CWE-94"
+      ],
+      "description": "A vulnerability was detected in codelibs Fess up to 15.5.1. Affected by this issue is the function update of the file org/codelibs/fess/app/web/admin/design/AdminDesignAction.java of the component JSP File Handler. The manipulation of the argument content results in code injection. The attack may be performed from remote. The exploit is now public and may be used. The vendor was contacted early about this disclosure but did not respond in any way.",
+      "first_seen": "2026-05-10T04:13:01.708741+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-10T04:13:01.708741+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://bv3acdnplbr.feishu.cn/docx/Kk1tdEAfAoV6kZxVozUc8UA4nog?from=from_copylink",
+        "https://vuldb.com/submit/804293",
+        "https://vuldb.com/vuln/362419",
+        "https://vuldb.com/vuln/362419/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8211"
+    }
+  ],
+  "correlated_at": "2026-05-10T04:13:17.237689+00:00"
 }
