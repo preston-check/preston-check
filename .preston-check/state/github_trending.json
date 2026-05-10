@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-10T09:45:43.272813+00:00",
-  "last_successful_fetch": "2026-05-10T09:45:56.759708+00:00",
+  "last_run": "2026-05-10T11:08:32.865802+00:00",
+  "last_successful_fetch": "2026-05-10T11:08:35.788640+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -237,7 +237,14 @@
     "github:jgamblin/KalmanCVE",
     "github:0xMarcio/cve",
     "github:rsnakeactual/cvedata",
-    "github:Johnnyzhou666/langgrinch-cve-2025-68664-analysis"
+    "github:Johnnyzhou666/langgrinch-cve-2025-68664-analysis",
+    "github:BillyAfro/vuln-scanner-cve-mapper.py",
+    "github:Wanghuidi/CVE",
+    "github:cybot555/LODi-cvevp",
+    "github:Wise-Security/CVE-2026-38945",
+    "github:QianBoShuo-HDC/cve",
+    "github:Morton-Li/copy-fail-CVE-2026-31431",
+    "github:rain777y/SynCVE"
   ],
   "source_id": "github_trending",
   "stats": {
