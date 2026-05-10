@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-10T19:18:35.387755+00:00",
-  "last_successful_fetch": "2026-05-10T19:18:38.952010+00:00",
+  "last_run": "2026-05-10T21:00:09.428361+00:00",
+  "last_successful_fetch": "2026-05-10T21:00:13.306244+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -260,7 +260,13 @@
     "github:ycseo-git/CVE-2023-22527",
     "github:tw181802/CVES",
     "github:gtamir02-png/cve-ai-agentdashboard",
-    "github:Nwelely/CVE-GENius-2"
+    "github:Nwelely/CVE-GENius-2",
+    "github:canomer/CVE-2026-36980-Kernel-BSOD-DoS-PoC",
+    "github:canomer/CVE-2026-36981-Kernel-EoP-PoC",
+    "github:keerthanap8898/CveToad",
+    "github:AndyVale/CVEtoLabels",
+    "github:ossf/cve-bin-tool",
+    "github:Karim33z/CVE-2026-31431"
   ],
   "source_id": "github_trending",
   "stats": {

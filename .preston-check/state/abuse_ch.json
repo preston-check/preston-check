@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-10T19:18:39.310417+00:00",
-  "last_successful_fetch": "2026-05-10T19:18:39.311326+00:00",
+  "last_run": "2026-05-10T21:00:13.765894+00:00",
+  "last_successful_fetch": "2026-05-10T21:00:13.766264+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1616,7 +1616,24 @@
     "threatfox:178.208.87.109:443",
     "threatfox:9be2cd1308cfbb403db283c6fa1ac0aa37cdbe301e3768804170420c4a3ae38b",
     "threatfox:144.48.124.94:8888",
-    "threatfox:http://144.48.124.94:8888/supershell/login/"
+    "threatfox:http://144.48.124.94:8888/supershell/login/",
+    "threatfox:ok99.jp.net",
+    "threatfox:http://marconiliqhting.com/emma/encode.php",
+    "threatfox:64.23.231.32:9001",
+    "threatfox:5.78.110.145:7989",
+    "threatfox:46.109.239.103:8808",
+    "threatfox:44.206.172.239:7443",
+    "threatfox:31.57.184.154:443",
+    "threatfox:24.134.4.221:4714",
+    "threatfox:209.99.188.44:7443",
+    "threatfox:195.123.240.236:443",
+    "threatfox:195.123.240.236:8274",
+    "threatfox:189.34.188.6:5406",
+    "threatfox:189.34.188.6:5407",
+    "threatfox:178.16.55.171:444",
+    "threatfox:178.105.40.204:443",
+    "threatfox:138.9.237.106:8015",
+    "threatfox:130.49.214.74:50194"
   ],
   "source_id": "abuse_ch",
   "stats": {
