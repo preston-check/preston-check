@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-10T15:05:30.634365+00:00",
-  "last_successful_fetch": "2026-05-10T15:05:30.634686+00:00",
+  "last_run": "2026-05-10T16:05:40.643305+00:00",
+  "last_successful_fetch": "2026-05-10T16:05:40.643599+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1375,7 +1375,27 @@
     "threatfox:macroloop.logicstack.ink",
     "threatfox:njrwmhh.cyberframe.lat",
     "threatfox:ftscfs.logicstack.ink",
-    "threatfox:m3rg0-sync.cyberframe.lat"
+    "threatfox:m3rg0-sync.cyberframe.lat",
+    "threatfox:run.bytevector.pics",
+    "threatfox:fix.cryptowave.ink",
+    "threatfox:opsmgr.bytevector.pics",
+    "threatfox:sslkeybasepoint.cryptowave.ink",
+    "threatfox:cpuprocessormgr.bytevector.pics",
+    "threatfox:getcfghub.cryptowave.ink",
+    "threatfox:vpsrun.bytevector.pics",
+    "threatfox:ipnodeclisys.cryptowave.ink",
+    "threatfox:hotfix.cryptowave.ink",
+    "threatfox:dnswebsrvs.bytevector.pics",
+    "threatfox:devbits.kernelshift.pics",
+    "threatfox:topsvc.datashift.ink",
+    "threatfox:logmanagementsys.kernelshift.pics",
+    "threatfox:opsmgr.datashift.ink",
+    "threatfox:api.kernelshift.pics",
+    "threatfox:cpuprocessormgr.datashift.ink",
+    "threatfox:webcdnstat.kernelshift.pics",
+    "threatfox:vpsrun.datashift.ink",
+    "threatfox:srvnode.kernelshift.pics",
+    "threatfox:dnswebsrvs.datashift.ink"
   ],
   "source_id": "abuse_ch",
   "stats": {

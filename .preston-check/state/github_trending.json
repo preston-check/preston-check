@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-10T15:05:26.885429+00:00",
-  "last_successful_fetch": "2026-05-10T15:05:30.339996+00:00",
+  "last_run": "2026-05-10T16:05:37.173167+00:00",
+  "last_successful_fetch": "2026-05-10T16:05:40.232185+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -252,7 +252,9 @@
     "github:AndyVale/CVEvsCWE",
     "github:Crihexe/v8-poc-CVE-2026-5865",
     "github:0xBlackash/CVE-2026-20131",
-    "github:DebaA17/CVE-scanner-cli"
+    "github:DebaA17/CVE-scanner-cli",
+    "github:Al3xx-sec/CVE-2023-34468-POC",
+    "github:telexintegrations/telex-cve-monitor"
   ],
   "source_id": "github_trending",
   "stats": {
