@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-11T16:09:55.131969+00:00",
-  "last_successful_fetch": "2026-05-11T16:09:55.132268+00:00",
+  "last_run": "2026-05-11T19:05:21.426047+00:00",
+  "last_successful_fetch": "2026-05-11T19:05:21.426352+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1726,7 +1726,22 @@
     "threatfox:xty75g4b.encryption5hadow.digital",
     "threatfox:qzxcwp8k.encryption5hadow.digital",
     "threatfox:mikelle.beer",
-    "threatfox:glokchapigui.co"
+    "threatfox:glokchapigui.co",
+    "threatfox:sys.open-system-infra-logic-base.wiki",
+    "threatfox:pi.open-system-infra-logic-base.wiki",
+    "threatfox:logmansys.open-system-infra-logic-base.wiki",
+    "threatfox:taskidview.scriptnode.pics",
+    "threatfox:api.open-system-infra-logic-base.wiki",
+    "threatfox:comwebstat.scriptnode.pics",
+    "threatfox:webcdnstat.open-system-infra-logic-base.wiki",
+    "threatfox:refidcorex.scriptnode.pics",
+    "threatfox:srvnode.open-system-infra-logic-base.wiki",
+    "threatfox:autboxserv.scriptnode.pics",
+    "threatfox:https://brc.loniluekegerman.com/",
+    "threatfox:brc.loniluekegerman.com",
+    "threatfox:vipbookssearch.radio.fm",
+    "threatfox:af88.run",
+    "threatfox:777x.you"
   ],
   "source_id": "abuse_ch",
   "stats": {

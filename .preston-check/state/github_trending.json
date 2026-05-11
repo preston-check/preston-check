@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-11T16:09:50.664705+00:00",
-  "last_successful_fetch": "2026-05-11T16:09:54.681450+00:00",
+  "last_run": "2026-05-11T19:05:16.317755+00:00",
+  "last_successful_fetch": "2026-05-11T19:05:21.030510+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -303,7 +303,11 @@
     "github:rjcrowderschaefer/Cvent_Code_Files",
     "github:KendraMar/CVE-copy-paste-agentic-flow",
     "github:anchore/cve-data-enrichment",
-    "github:c2dc/cve-reported"
+    "github:c2dc/cve-reported",
+    "github:strategistae0-ias/CVE_Monitoring",
+    "github:CVEProject/cve-website",
+    "github:dgrobinson0/CopyFile_CVE-2026-31431",
+    "github:cisagov/cyhy-cvesync-lambda"
   ],
   "source_id": "github_trending",
   "stats": {

