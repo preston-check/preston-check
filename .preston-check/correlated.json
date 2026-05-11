@@ -1,5 +1,35 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-11T00:09:29.332479+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-43500",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "CVE-2026-43500 / CVE-2026-31431 / CVE-2026-43284 golang hotfix",
+      "first_seen": "2026-05-11T04:18:06.838225+00:00",
+      "frameworks": [
+        "cve-2026-31431",
+        "cve-2026-43284",
+        "cve-2026-43500",
+        "hotfix"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "Go"
+      ],
+      "last_seen": "2026-05-11T04:18:06.838225+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/attaattaatta/CVE-2026-43500"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-43500"
+    }
+  ],
+  "correlated_at": "2026-05-11T04:18:08.577032+00:00"
 }

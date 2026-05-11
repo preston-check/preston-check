@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-11T00:02:21.089853+00:00",
-  "last_successful_fetch": "2026-05-11T00:02:21.090178+00:00",
+  "last_run": "2026-05-11T04:18:08.406620+00:00",
+  "last_successful_fetch": "2026-05-11T04:18:08.406910+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1639,7 +1639,11 @@
     "threatfox:199.247.14.16:80",
     "threatfox:150.158.109.61:9090",
     "threatfox:112.213.106.53:18443",
-    "threatfox:robodomain.sbs"
+    "threatfox:robodomain.sbs",
+    "threatfox:https://aeroflexsealing.com/",
+    "threatfox:holidayonid.com.co",
+    "threatfox:cooltool.jp.net",
+    "threatfox:testerlau.lat"
   ],
   "source_id": "abuse_ch",
   "stats": {
