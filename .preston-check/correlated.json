@@ -1,144 +1,31 @@
 {
-  "candidate_count": 5,
+  "candidate_count": 1,
   "candidates": [
     {
-      "canonical_id": "CVE-2026-44572",
-      "composite_confidence": 0.85,
+      "canonical_id": "CVE-2026-7210",
+      "composite_confidence": 0.65,
       "cwe": [],
-      "description": "### Impact\n\nNext.js uses the `x-nextjs-data` request header for internal data requests. On affected versions, an external client could send this header on a normal request to a path handled by middleware that returns a redirect.\n\nWhen that happened, the middleware/proxy could treat the request as a data request and replace the standard `Location` redirect header with the internal `x-nextjs-redirect` header. Browsers do not follow `x-nextjs-redirect`, so the response became an unusable redirect for normal clients.\n\nIf the application was deployed behind a CDN or reverse proxy that caches 3xx responses without varying on this header, a single attacker request could poison the cached redirect response for the affected path. Subsequent visitors could then receive a cached redirect response without a `Location` header, causing a denial of service for that redirect path until the cache entry expired or was purged.\n\n### Affected scenarios\n\nThis affects applications that:\n- use middleware or proxy redirects\n- are deployed behind a caching CDN or reverse proxy\n- allow 3xx responses on those paths to be cached without differentiating internal data requests from normal requests\n\n### Fix\n\nThe fix stops trusting `x-nextjs-data` by itself for middleware redirect handling. A request is now treated as an internal data request only when it is validated as such by internal routing state, preserving legitimate data-request redirect behavior while preventing external header injection from changing normal redirect responses.\n\n### Workarounds\n\nBefore upgrading, users can reduce risk by:\n- configuring the CDN or reverse proxy to vary its cache key on `x-nextjs-data` for affected responses",
-      "first_seen": "2026-05-11T20:02:42.553837+00:00",
+      "description": "\nRe: [CVE-2026-7210] Cpython: The expat and elementtree\n parsers use insufficient entropy for XML hash-flooding protectio\u2026",
+      "first_seen": "2026-05-11T20:03:34.324125+00:00",
       "frameworks": [
-        "npm:next"
+        "oss-security"
       ],
       "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-11T20:02:42.553837+00:00",
+      "last_seen": "2026-05-11T20:03:34.324192+00:00",
       "merged_sources": [
-        "osv"
+        "mailing_list"
       ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/vercel/next.js",
-        "https://github.com/vercel/next.js/releases/tag/v15.5.16",
-        "https://github.com/vercel/next.js/releases/tag/v16.2.5",
-        "https://github.com/vercel/next.js/security/advisories/GHSA-3g8h-86w9-wvmq"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Next.js's Middleware / Proxy redirects can be cache-poisoned"
-    },
-    {
-      "canonical_id": "CVE-2026-44573",
-      "composite_confidence": 0.85,
-      "cwe": [],
-      "description": "### Impact\n\nApplications using the Pages Router with `i18n` configured and middleware/proxy-based authorization can allow unauthorized access to protected page data through locale-less `/_next/data/<buildId>/<page>.json` requests. In affected configurations, middleware does not run for the unprefixed data route, allowing an attacker to retrieve SSR JSON for protected pages without passing the intended authorization checks.\n\n### Fix\nThe matcher logic was updated to perform the same match as it would on a non-i18n data route.\n\n### Workarounds\n\nIf you cannot upgrade immediately, enforce authorization in the page's server-side data path instead of relying solely on middleware.",
-      "first_seen": "2026-05-11T20:02:42.553815+00:00",
-      "frameworks": [
-        "npm:next"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-11T20:02:42.553815+00:00",
-      "merged_sources": [
-        "osv"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/vercel/next.js",
-        "https://github.com/vercel/next.js/releases/tag/v15.5.16",
-        "https://github.com/vercel/next.js/releases/tag/v16.2.5",
-        "https://github.com/vercel/next.js/security/advisories/GHSA-36qx-fr4f-26g5"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Next.js has a Middleware / Proxy bypass in Pages Router applications using i18n"
-    },
-    {
-      "canonical_id": "CVE-2026-44574",
-      "composite_confidence": 0.85,
-      "cwe": [],
-      "description": "### Impact\n\nApplications that rely on middleware to protect dynamic routes can be vulnerable to authorization bypass. In affected deployments, specially crafted query parameters can alter the dynamic route value seen by the page while leaving the visible path unchanged, which can allow protected content to be rendered without passing the expected middleware check.\n\n### Fix\n\nWe now only honor internal route-parameter normalization in trusted routing flows and ignore externally supplied parameter encodings that should never have been accepted from ordinary requests.\n\n### Workarounds\n\nIf you cannot upgrade immediately, enforce authorization in route or page logic instead of relying solely on middleware path matching.",
-      "first_seen": "2026-05-11T20:02:42.553851+00:00",
-      "frameworks": [
-        "npm:next"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-11T20:02:42.553851+00:00",
-      "merged_sources": [
-        "osv"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/vercel/next.js",
-        "https://github.com/vercel/next.js/releases/tag/v15.5.16",
-        "https://github.com/vercel/next.js/releases/tag/v16.2.5",
-        "https://github.com/vercel/next.js/security/advisories/GHSA-492v-c6pp-mqqv"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Next.js has a Middleware / Proxy bypass through dynamic route parameter injection"
-    },
-    {
-      "canonical_id": "CVE-2026-44575",
-      "composite_confidence": 0.85,
-      "cwe": [],
-      "description": "### Impact\n\nApp Router applications that rely on middleware or proxy-based checks for authorization can allow unauthorized access through transport-specific route variants used for segment prefetching. In affected configurations, specially crafted `.rsc` and segment-prefetch URLs can resolve to the same page without being matched by the intended middleware rule, which can allow protected content to be reached without the expected authorization check.\n\n### Fix\n\nWe now include App Router transport variants when generating middleware matchers, so middleware protections are applied consistently to those requests as well as to the normal page URL.\n\n### Workarounds\n\nIf you cannot upgrade immediately, enforce authorization in the underlying route or page logic instead of relying solely on middleware.",
-      "first_seen": "2026-05-11T20:02:42.553755+00:00",
-      "frameworks": [
-        "npm:next"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-11T20:02:42.553793+00:00",
-      "merged_sources": [
-        "osv"
-      ],
-      "proactive_only": false,
+      "proactive_only": true,
       "raw_records_count": 2,
       "references": [
-        "https://github.com/vercel/next.js",
-        "https://github.com/vercel/next.js/releases/tag/v15.5.16",
-        "https://github.com/vercel/next.js/releases/tag/v15.5.18",
-        "https://github.com/vercel/next.js/releases/tag/v16.2.5",
-        "https://github.com/vercel/next.js/releases/tag/v16.2.6",
-        "https://github.com/vercel/next.js/security/advisories/GHSA-267c-6grr-h53f",
-        "https://github.com/vercel/next.js/security/advisories/GHSA-26hh-7cqf-hhc6"
+        "https://www.openwall.com/lists/oss-security/2026/05/11/13",
+        "https://www.openwall.com/lists/oss-security/2026/05/11/8"
       ],
       "severity": "medium",
       "source_count": 1,
-      "title": "Next.js has a Middleware / Proxy bypass in App Router applications via segment-prefetch routes"
-    },
-    {
-      "canonical_id": "CVE-2026-44578",
-      "composite_confidence": 0.85,
-      "cwe": [],
-      "description": "### Impact\n\nSelf-hosted applications using the built-in Node.js server can be vulnerable to server-side request forgery through crafted WebSocket upgrade requests. An attacker can cause the server to proxy requests to arbitrary internal or external destinations, which may expose internal services or cloud metadata endpoints. Vercel-hosted deployments are not affected.\n\n### Fix\n\nWe now apply the same safety checks to WebSocket upgrade handling that already existed for normal HTTP requests, so upgrade requests are only proxied when routing has explicitly marked them as safe external rewrites.\n\n### Workarounds\n\nIf you cannot upgrade immediately, do not expose the origin server directly to untrusted networks. If WebSocket upgrades are not required, block them at your reverse proxy or load balancer, and restrict origin egress to internal networks and metadata services where possible.",
-      "first_seen": "2026-05-11T20:02:42.553861+00:00",
-      "frameworks": [
-        "npm:next"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-11T20:02:42.553861+00:00",
-      "merged_sources": [
-        "osv"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/vercel/next.js",
-        "https://github.com/vercel/next.js/releases/tag/v15.5.16",
-        "https://github.com/vercel/next.js/releases/tag/v16.2.5",
-        "https://github.com/vercel/next.js/security/advisories/GHSA-c4j6-fc7j-m34r"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Next.js vulnerable to server-side request forgery in applications using WebSocket upgrades"
+      "title": "\nRe: [CVE-2026-7210] Cpython: The expat and elementtree\n parsers use insufficient entropy for XML hash-flooding protectio\u2026"
     }
   ],
-  "correlated_at": "2026-05-11T20:02:54.282819+00:00"
+  "correlated_at": "2026-05-11T20:03:34.376860+00:00"
 }
