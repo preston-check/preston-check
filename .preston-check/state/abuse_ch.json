@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-11T04:18:08.406620+00:00",
-  "last_successful_fetch": "2026-05-11T04:18:08.406910+00:00",
+  "last_run": "2026-05-11T08:31:39.583078+00:00",
+  "last_successful_fetch": "2026-05-11T08:31:39.583388+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1643,7 +1643,17 @@
     "threatfox:https://aeroflexsealing.com/",
     "threatfox:holidayonid.com.co",
     "threatfox:cooltool.jp.net",
-    "threatfox:testerlau.lat"
+    "threatfox:testerlau.lat",
+    "threatfox:seriesblog.tv",
+    "threatfox:192.3.171.227:8823",
+    "threatfox:104.168.5.18:8823",
+    "threatfox:u888n.info",
+    "threatfox:subsieuvip9.com",
+    "threatfox:x88-km88k.com",
+    "threatfox:x88.diy",
+    "threatfox:lankbos.nl",
+    "threatfox:2mdj56rl.sa.com",
+    "threatfox:app.qq8893.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
