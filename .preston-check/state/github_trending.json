@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-11T12:20:01.480230+00:00",
-  "last_successful_fetch": "2026-05-11T12:20:05.779223+00:00",
+  "last_run": "2026-05-11T16:09:50.664705+00:00",
+  "last_successful_fetch": "2026-05-11T16:09:54.681450+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -297,7 +297,13 @@
     "github:Mohd5L/cve-assistant",
     "github:patrickmgarrity/Anthropic-Credited-CVEs",
     "github:0xBlackash/CVE-2026-42569",
-    "github:olowostandard1/CVE-2023-38831-WinRAR-Vulnerability-Analysis"
+    "github:olowostandard1/CVE-2023-38831-WinRAR-Vulnerability-Analysis",
+    "github:ycseo-git/CVE-2020-11800",
+    "github:anach-ai/CVE-2026-41940",
+    "github:rjcrowderschaefer/Cvent_Code_Files",
+    "github:KendraMar/CVE-copy-paste-agentic-flow",
+    "github:anchore/cve-data-enrichment",
+    "github:c2dc/cve-reported"
   ],
   "source_id": "github_trending",
   "stats": {
