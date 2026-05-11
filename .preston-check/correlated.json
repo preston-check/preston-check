@@ -1,5 +1,34 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-11T22:08:41.442252+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-45046",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-212"
+      ],
+      "description": "Gryph implements logging levels that determine what content is logged to a local sqlite database. The README incorrectly mentions that the default log level is minimal while it is standard.  Source code review shows sensitive `file-write` content remains in the stored `payload` as `ContentPreview`, `OldString`, or `NewString` at the default `standard` logging level and at `full`. This leads to logging of potentially sensitive file content in the local sqlite database, violating Gryphs sensitive file filter and log level contracts. \n\n### Impact\n\nPotentially sensitive data accessed or written by coding agents may be logged to local sqlite database. Users of Gryph are affected ONLY if their local sqlite database is stolen or exported to remote system with the assumption that no sensitive data is logged.\n\n### Patches\n\nFixed in v0.7.0",
+      "first_seen": "2026-05-11T22:16:28.320238+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-11T22:16:28.320238+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-f3jg-756w-gm35",
+        "https://github.com/safedep/gryph/releases/tag/v0.7.0",
+        "https://github.com/safedep/gryph/security/advisories/GHSA-f3jg-756w-gm35"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Gryph Agents Payload Filter Fails to Strip Tool Payload for Sensitive Content"
+    }
+  ],
+  "correlated_at": "2026-05-11T22:16:32.763443+00:00"
 }

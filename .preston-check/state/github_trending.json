@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-11T20:52:28.643334+00:00",
-  "last_successful_fetch": "2026-05-11T20:52:32.399956+00:00",
+  "last_run": "2026-05-11T22:16:28.383406+00:00",
+  "last_successful_fetch": "2026-05-11T22:16:32.306895+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -310,7 +310,10 @@
     "github:cisagov/cyhy-cvesync-lambda",
     "github:ByteWraith1/CVE-2026-0300",
     "github:EntroVyx/CVE-2026-33657",
-    "github:Chittu13/cve-research"
+    "github:Chittu13/cve-research",
+    "github:cve415/cve-core-agent",
+    "github:mamutstudios/CVEQUIPO8",
+    "github:anurag-saran/cve-comparator"
   ],
   "source_id": "github_trending",
   "stats": {
