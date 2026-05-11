@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-11T08:31:35.495771+00:00",
-  "last_successful_fetch": "2026-05-11T08:31:39.268614+00:00",
+  "last_run": "2026-05-11T12:20:01.480230+00:00",
+  "last_successful_fetch": "2026-05-11T12:20:05.779223+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -289,7 +289,15 @@
     "github:wattamaa/cvens-dashboard",
     "github:dinesh-murugan-h/CVEraptor",
     "github:Wo0h0o/CvetitaPlatform",
-    "github:rosvik/cve-import"
+    "github:rosvik/cve-import",
+    "github:joshuavanderpoll/CVE-2021-3129",
+    "github:mikhailartamonov/router-cve-audit",
+    "github:TalhaChougle/cveradar",
+    "github:foreztgump/cve_json",
+    "github:Mohd5L/cve-assistant",
+    "github:patrickmgarrity/Anthropic-Credited-CVEs",
+    "github:0xBlackash/CVE-2026-42569",
+    "github:olowostandard1/CVE-2023-38831-WinRAR-Vulnerability-Analysis"
   ],
   "source_id": "github_trending",
   "stats": {
