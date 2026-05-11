@@ -1,45 +1,5 @@
 {
-  "candidate_count": 1,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2021-3129",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "Laravel RCE Exploit PoC - CVE-2021-3129 (user-friendly with automatic log path detection)",
-      "first_seen": "2026-05-11T12:20:03.639292+00:00",
-      "frameworks": [
-        "cve",
-        "cve-2021-3129",
-        "exploit",
-        "exploits",
-        "laravel",
-        "pentest-tool",
-        "pentesting",
-        "python",
-        "rce",
-        "scanner",
-        "security",
-        "security-tools",
-        "vulnerabilities",
-        "vulnerability"
-      ],
-      "key_kind": "cve",
-      "languages": [
-        "Python"
-      ],
-      "last_seen": "2026-05-11T12:20:03.639292+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/joshuavanderpoll/CVE-2021-3129"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2021-3129"
-    }
-  ],
-  "correlated_at": "2026-05-11T12:20:06.191691+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-11T12:50:08.553417+00:00"
 }
