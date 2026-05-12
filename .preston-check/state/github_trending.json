@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-12T06:44:57.461523+00:00",
-  "last_successful_fetch": "2026-05-12T06:45:01.664007+00:00",
+  "last_run": "2026-05-12T09:47:38.757252+00:00",
+  "last_successful_fetch": "2026-05-12T09:47:47.053517+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -321,7 +321,11 @@
     "github:benedictleong/CVE-Automation",
     "github:zmh2000829/cve_backporting",
     "github:murrez/CVE-2026-41940",
-    "github:has2lab/RISCV_CVE_Dashboard"
+    "github:has2lab/RISCV_CVE_Dashboard",
+    "github:studiogangster/CVE-2026-31431",
+    "github:cisselec10-bit/CVE",
+    "github:raneishajustin/CVE",
+    "github:Maxime-BRIN/win10-cve-observatory"
   ],
   "source_id": "github_trending",
   "stats": {
