@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-12T00:06:51.454969+00:00",
-  "last_successful_fetch": "2026-05-12T00:06:55.391674+00:00",
+  "last_run": "2026-05-12T04:02:35.769985+00:00",
+  "last_successful_fetch": "2026-05-12T04:02:39.662687+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -313,7 +313,12 @@
     "github:Chittu13/cve-research",
     "github:cve415/cve-core-agent",
     "github:mamutstudios/CVEQUIPO8",
-    "github:anurag-saran/cve-comparator"
+    "github:anurag-saran/cve-comparator",
+    "github:yuezhaoshanmu/cve",
+    "github:adelie-ai/cve-mcp",
+    "github:skraft9/my-cve-publications",
+    "github:CVEU/cveu.github.io",
+    "github:benedictleong/CVE-Automation"
   ],
   "source_id": "github_trending",
   "stats": {
