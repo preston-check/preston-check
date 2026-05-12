@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-12T21:37:47.788831+00:00",
-  "last_successful_fetch": "2026-05-12T21:37:47.789190+00:00",
+  "last_run": "2026-05-12T23:12:33.794887+00:00",
+  "last_successful_fetch": "2026-05-12T23:12:33.795193+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2204,7 +2204,18 @@
     "threatfox:34.75.35.194:8808",
     "threatfox:softwarefile.wiki",
     "threatfox:supplyflash.wiki",
-    "threatfox:screencard.wiki"
+    "threatfox:screencard.wiki",
+    "threatfox:glarsitttrain.wiki",
+    "threatfox:168.222.97.93:443",
+    "threatfox:168.222.97.93:80",
+    "threatfox:161.248.87.10:443",
+    "threatfox:angelpatter.wiki",
+    "threatfox:dnmjbsbqsb.com",
+    "threatfox:27.124.44.80:443",
+    "threatfox:45.197.237.53:9000",
+    "threatfox:girlytrans-fusion.wiki",
+    "threatfox:http://cx802615.tw1.ru/L1nc0In.php",
+    "threatfox:passoverphysiqclass.wiki"
   ],
   "source_id": "abuse_ch",
   "stats": {

