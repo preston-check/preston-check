@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-12T20:05:21.105032+00:00",
-  "last_successful_fetch": "2026-05-12T20:05:25.377828+00:00",
+  "last_run": "2026-05-12T21:37:43.799570+00:00",
+  "last_successful_fetch": "2026-05-12T21:37:47.322841+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -344,7 +344,13 @@
     "github:SystemVll/CVE-2026-31431-copyfail-aarch64",
     "github:Lopseg/cve-2026-33067",
     "github:MichaelHeu4/CVE3PO",
-    "github:tomerpeled92/CVE"
+    "github:tomerpeled92/CVE",
+    "github:nanabingies/CVE-2024-0582",
+    "github:liamromanis101/Dead.Letter-CVE-2026-45185",
+    "github:FAHDCHH/CVE_WatchDog_BE",
+    "github:rcribelar-nucleus/demo-php-cve-2024-2961",
+    "github:therohantilwani/Reddit_CVE_detection",
+    "github:azefzafyoussef/CVE-2026-34621"
   ],
   "source_id": "github_trending",
   "stats": {

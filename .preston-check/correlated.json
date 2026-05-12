@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-12T20:15:07.186216+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2024-2961",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "PHP RCE CVE-2024-2961 Nucleus Hackathon Demo",
+      "first_seen": "2026-05-12T21:37:46.385607+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [
+        "PHP"
+      ],
+      "last_seen": "2026-05-12T21:37:46.385607+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/rcribelar-nucleus/demo-php-cve-2024-2961"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "demo-php-cve-2024-2961"
+    }
+  ],
+  "correlated_at": "2026-05-12T21:37:47.960557+00:00"
 }
