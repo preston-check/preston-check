@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-11T22:16:32.595526+00:00",
-  "last_successful_fetch": "2026-05-11T22:16:32.595848+00:00",
+  "last_run": "2026-05-12T00:06:55.766157+00:00",
+  "last_successful_fetch": "2026-05-12T00:06:55.766431+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1830,7 +1830,17 @@
     "threatfox:https://chauvet.club/c",
     "threatfox:https://chauvet.club/g",
     "threatfox:https://chauvet.club/t",
-    "threatfox:https://chauvet.club/file.js"
+    "threatfox:https://chauvet.club/file.js",
+    "threatfox:https://dba.loniluekegerman.com/",
+    "threatfox:dba.loniluekegerman.com",
+    "threatfox:cloud-stack-run-base.co",
+    "threatfox:brc.chriskendall.media",
+    "threatfox:https://brc.chriskendall.media/",
+    "threatfox:mpd.pegasus-77.biz.id",
+    "threatfox:https://mpd.pegasus-77.biz.id/",
+    "threatfox:117.50.184.221:10080",
+    "threatfox:112.124.71.123:55555",
+    "threatfox:system-core-set.co"
   ],
   "source_id": "abuse_ch",
   "stats": {
