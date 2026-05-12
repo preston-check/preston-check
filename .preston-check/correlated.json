@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-12T04:07:21.934346+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-41940",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "PoC for CVE-2026-41940: WHM/cPanel authentication bypass chain (Python 2.7). For authorized security research and testing only.",
+      "first_seen": "2026-05-12T06:45:00.463312+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [
+        "Python"
+      ],
+      "last_seen": "2026-05-12T06:45:00.463312+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/murrez/CVE-2026-41940"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-41940"
+    }
+  ],
+  "correlated_at": "2026-05-12T06:45:02.362122+00:00"
 }
