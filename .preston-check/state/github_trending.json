@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-12T17:19:49.668263+00:00",
-  "last_successful_fetch": "2026-05-12T17:19:54.360831+00:00",
+  "last_run": "2026-05-12T20:05:21.105032+00:00",
+  "last_successful_fetch": "2026-05-12T20:05:25.377828+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -339,7 +339,12 @@
     "github:katmin13/CVENDE",
     "github:shinkbr/weekly-cve-report",
     "github:gbonacini/CVE-2026-31431",
-    "github:SpeatX/ChamiloLMS-cve-2023-4220"
+    "github:SpeatX/ChamiloLMS-cve-2023-4220",
+    "github:KauaDeja/CONSULTA_CVE_NIST",
+    "github:SystemVll/CVE-2026-31431-copyfail-aarch64",
+    "github:Lopseg/cve-2026-33067",
+    "github:MichaelHeu4/CVE3PO",
+    "github:tomerpeled92/CVE"
   ],
   "source_id": "github_trending",
   "stats": {
