@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-12T12:05:29.255984+00:00",
-  "last_successful_fetch": "2026-05-12T12:05:29.256311+00:00",
+  "last_run": "2026-05-12T14:51:06.349283+00:00",
+  "last_successful_fetch": "2026-05-12T14:51:06.349542+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -1969,7 +1969,17 @@
     "threatfox:155.103.71.115:14549",
     "threatfox:146.185.233.71:41254",
     "threatfox:104.243.248.63:1803",
-    "threatfox:103.143.207.71:443"
+    "threatfox:103.143.207.71:443",
+    "threatfox:b5fdl2mw.hor1inka-lonely.digital",
+    "threatfox:ox18mx54.hor1inka-lonely.digital",
+    "threatfox:p9015zuh.unp2idvalk.digital",
+    "threatfox:5hx0aygl.unp2idvalk.digital",
+    "threatfox:134.122.163.220:7880",
+    "threatfox:134.122.163.220:7881",
+    "threatfox:http://cdntestconnect.com",
+    "threatfox:http://wwnbslklfdsrf.cn:8880/getinstall64",
+    "threatfox:103.45.65.107:10102",
+    "threatfox:http://ch375962.tw1.ru/L1nc0In.php"
   ],
   "source_id": "abuse_ch",
   "stats": {

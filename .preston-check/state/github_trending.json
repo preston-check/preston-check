@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-12T12:05:24.603875+00:00",
-  "last_successful_fetch": "2026-05-12T12:05:28.926367+00:00",
+  "last_run": "2026-05-12T14:51:01.379313+00:00",
+  "last_successful_fetch": "2026-05-12T14:51:05.952158+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -326,7 +326,16 @@
     "github:cisselec10-bit/CVE",
     "github:raneishajustin/CVE",
     "github:Maxime-BRIN/win10-cve-observatory",
-    "github:gui-ying233/CVE-2025-61638"
+    "github:gui-ying233/CVE-2025-61638",
+    "github:tc4dy/CVE-2026-41940-POC-Exploit",
+    "github:johnumorujo/published-cves",
+    "github:sandip-sec/Syntecxhub_Project_CVE-Scanner",
+    "github:Danya11111/cvetochniy21_clone",
+    "github:CarolinaCVeloso/CarolinaCVeloso",
+    "github:CVEProject/cve-user-registry-client",
+    "github:Darknowledge313/CVE-Reports",
+    "github:0x5t4l1n/CVE",
+    "github:jgamblin/cvelint-action"
   ],
   "source_id": "github_trending",
   "stats": {
