@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-13T22:38:30.396733+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-8500",
+      "composite_confidence": 0.65,
+      "cwe": [],
+      "description": "\nCVE-2026-8500: Web::Passwd versions through 0.03 for Perl is\n vulnerable to RCE",
+      "first_seen": "2026-05-13T23:20:36.906831+00:00",
+      "frameworks": [
+        "oss-security"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-13T23:20:36.906831+00:00",
+      "merged_sources": [
+        "mailing_list"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.openwall.com/lists/oss-security/2026/05/13/8"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "\nCVE-2026-8500: Web::Passwd versions through 0.03 for Perl is\n vulnerable to RCE"
+    }
+  ],
+  "correlated_at": "2026-05-13T23:20:36.958596+00:00"
 }
