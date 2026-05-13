@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-13T10:05:42.152491+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-41651",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "",
+      "first_seen": "2026-05-13T10:40:40.186719+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [
+        "Python"
+      ],
+      "last_seen": "2026-05-13T10:40:40.186719+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mawussid/CVE-2026-41651-Python"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-41651-Python"
+    }
+  ],
+  "correlated_at": "2026-05-13T10:40:42.160238+00:00"
 }

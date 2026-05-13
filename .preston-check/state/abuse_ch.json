@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-13T08:07:03.149731+00:00",
-  "last_successful_fetch": "2026-05-13T08:07:03.150086+00:00",
+  "last_run": "2026-05-13T10:40:41.993958+00:00",
+  "last_successful_fetch": "2026-05-13T10:40:41.994241+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2250,7 +2250,20 @@
     "threatfox:task.777x.you",
     "threatfox:prime-object-container-task-archive.wiki",
     "threatfox:secure-remote-access-method-file.wiki",
-    "threatfox:virtual-compute-engine-template-doc.wiki"
+    "threatfox:virtual-compute-engine-template-doc.wiki",
+    "threatfox:lyapissvebechkopassword.wiki",
+    "threatfox:handout-voivodeshiplink.wiki",
+    "threatfox:91.134.139.176:8443",
+    "threatfox:5zcnyldj.unp2idvalk.digital",
+    "threatfox:62.169.31.177:80",
+    "threatfox:45.92.1.175:5220",
+    "threatfox:203.202.232.22:3131",
+    "threatfox:194.33.48.221:8081",
+    "threatfox:147.124.216.58:80",
+    "threatfox:101.109.237.93:7443",
+    "threatfox:accoun-table-unleash-soft.wiki",
+    "threatfox:sub-substituteunfeignedflash.wiki",
+    "threatfox:au88-mobile.com"
   ],
   "source_id": "abuse_ch",
   "stats": {

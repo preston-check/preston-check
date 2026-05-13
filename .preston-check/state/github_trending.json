@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-13T08:06:59.297000+00:00",
-  "last_successful_fetch": "2026-05-13T08:07:02.927692+00:00",
+  "last_run": "2026-05-13T10:40:37.075330+00:00",
+  "last_successful_fetch": "2026-05-13T10:40:41.477024+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -365,7 +365,12 @@
     "github:cve-security-ost/cve-platform",
     "github:lucacapacci/cve_news",
     "github:masjadaan/CVE-2025-29338",
-    "github:rosvik/cve.li"
+    "github:rosvik/cve.li",
+    "github:hanifahhanundz/bug-bounty-hunting-agent",
+    "github:deden000/cve-interview-repo",
+    "github:Gvte-Kali/AirGappedCVE",
+    "github:JafarAkhondali/cve-and-cybersec-research",
+    "github:mawussid/CVE-2026-41651-Python"
   ],
   "source_id": "github_trending",
   "stats": {
