@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-13T20:52:41.287700+00:00",
-  "last_successful_fetch": "2026-05-13T20:52:41.288102+00:00",
+  "last_run": "2026-05-13T22:22:00.754910+00:00",
+  "last_successful_fetch": "2026-05-13T22:22:00.755238+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2331,7 +2331,20 @@
     "threatfox:https://sil.chriskendall.media/",
     "threatfox:sil.loniluekegerman.com",
     "threatfox:https://sil.loniluekegerman.com/",
-    "threatfox:sil.chriskendall.media"
+    "threatfox:sil.chriskendall.media",
+    "threatfox:https://ostatniaposlugarumia.pl/",
+    "threatfox:scalpingstillephemer-natorel.wiki",
+    "threatfox:m1rz16og.poles-wrinkle.digital",
+    "threatfox:4yfkm8cm.poles-wrinkle.digital",
+    "threatfox:op1h26r1.exhaustoverwint.digital",
+    "threatfox:packetdistributionmesh.wiki",
+    "threatfox:0vads2og.exhaustoverwint.digital",
+    "threatfox:hypervisorresourcecontroller.wiki",
+    "threatfox:https://mme.dusapp.com.br/",
+    "threatfox:mme.dusapp.com.br",
+    "threatfox:mme.chriskendallvo.com",
+    "threatfox:https://mme.chriskendallvo.com/",
+    "threatfox:telemetry-observability-core.wiki"
   ],
   "source_id": "abuse_ch",
   "stats": {

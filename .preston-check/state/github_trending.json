@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-13T20:52:36.489971+00:00",
-  "last_successful_fetch": "2026-05-13T20:52:40.796053+00:00",
+  "last_run": "2026-05-13T22:21:56.476036+00:00",
+  "last_successful_fetch": "2026-05-13T22:22:00.425572+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -396,7 +396,10 @@
     "github:gscariott/ansible-cve-copyfail",
     "github:cdkovacs/HelloCVE",
     "github:anahitpapoyan08-lab/cvetiii",
-    "github:jayanth52926-ux/Vulnerability-CVE-Scanner"
+    "github:jayanth52926-ux/Vulnerability-CVE-Scanner",
+    "github:orinimron123/CVE-2026-40369-EXPLOIT",
+    "github:cesargeier-png/cventas-bot",
+    "github:JMVEH/cvedashboard"
   ],
   "source_id": "github_trending",
   "stats": {
