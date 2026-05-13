@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-13T10:40:41.993958+00:00",
-  "last_successful_fetch": "2026-05-13T10:40:41.994241+00:00",
+  "last_run": "2026-05-13T13:24:08.755725+00:00",
+  "last_successful_fetch": "2026-05-13T13:24:08.756071+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2263,7 +2263,16 @@
     "threatfox:101.109.237.93:7443",
     "threatfox:accoun-table-unleash-soft.wiki",
     "threatfox:sub-substituteunfeignedflash.wiki",
-    "threatfox:au88-mobile.com"
+    "threatfox:au88-mobile.com",
+    "threatfox:asyncpipelinehub.wiki",
+    "threatfox:virtual-packet-gateway.wiki",
+    "threatfox:103.67.163.0:2404",
+    "threatfox:bula-silomercitationlaptop.wiki",
+    "threatfox:utl1juep.estradaannivers.digital",
+    "threatfox:l6lv36qw.estradaannivers.digital",
+    "threatfox:tertsiyavocalsunseenfile.wiki",
+    "threatfox:obese-uzousweb-play.wiki",
+    "threatfox:43.139.170.200:443"
   ],
   "source_id": "abuse_ch",
   "stats": {
