@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-12T23:12:29.730682+00:00",
-  "last_successful_fetch": "2026-05-12T23:12:33.443242+00:00",
+  "last_run": "2026-05-13T04:08:49.480569+00:00",
+  "last_successful_fetch": "2026-05-13T04:08:53.983666+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -354,7 +354,11 @@
     "github:CamilaCristina3/Cverde-agro-ecommerce-",
     "github:couchcryptid/cve-intelligence-aggregator",
     "github:s-ccs/2025_FaPra_cVEP",
-    "github:OmarElfarouk00/CyberWatch-CVE-Version-SPA"
+    "github:OmarElfarouk00/CyberWatch-CVE-Version-SPA",
+    "github:hijrahassalam/bug-bounty-hunting-agent",
+    "github:KaiSanch/csc131-cve-project",
+    "github:Arushi1092/NIST-CVE-Intelligence-System",
+    "github:UBC-ORCA/cve2-tinyrvv"
   ],
   "source_id": "github_trending",
   "stats": {
