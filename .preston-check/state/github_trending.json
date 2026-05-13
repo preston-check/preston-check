@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-13T04:08:49.480569+00:00",
-  "last_successful_fetch": "2026-05-13T04:08:53.983666+00:00",
+  "last_run": "2026-05-13T08:06:59.297000+00:00",
+  "last_successful_fetch": "2026-05-13T08:07:02.927692+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -358,7 +358,14 @@
     "github:hijrahassalam/bug-bounty-hunting-agent",
     "github:KaiSanch/csc131-cve-project",
     "github:Arushi1092/NIST-CVE-Intelligence-System",
-    "github:UBC-ORCA/cve2-tinyrvv"
+    "github:UBC-ORCA/cve2-tinyrvv",
+    "github:kikechans/CVE-2024-32019-Netdata-ndsudo-PrivEsc",
+    "github:jun2e0/CVE-2025-26788",
+    "github:bitbcybr/way2poc_cve-2026-34475",
+    "github:cve-security-ost/cve-platform",
+    "github:lucacapacci/cve_news",
+    "github:masjadaan/CVE-2025-29338",
+    "github:rosvik/cve.li"
   ],
   "source_id": "github_trending",
   "stats": {
