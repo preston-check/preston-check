@@ -1,5 +1,65 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-13T20:08:47.940505+00:00"
+  "candidate_count": 2,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2025-64526",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-307"
+      ],
+      "description": "### Summary of CVE-2025-64526 Vulnerability Details\n\n- CVE: CVE-2025-64526\n- CVSS v3.1 Vector: `CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N` (6.9 \u2014 Medium)\n- Affected Versions: `@strapi/plugin-users-permissions` <=5.44.0\n- How to Patch: Immediately update your Strapi to >=5.45.0\n\n### Description of CVE-2025-64526\n\nIn Strapi versions prior to 5.45.0, the rate-limit middleware in the users-permissions plugin derived its rate-limit key in part from `ctx.request.body.email`, including on routes whose body schema does not contain an `email` field (`/auth/local`, `/auth/reset-password`, `/auth/change-password`). An unauthenticated attacker could include an arbitrary `email` value in the request body to obtain a fresh rate-limit key per request, effectively bypassing per-IP throttling on those routes and enabling high-volume credential brute-force, password-reset code brute-force, and credential-stuffing attempts.\n\nThe rate-limit key was constructed as `${userIdentifier}:${requestPath}:${ctx.request.ip}`, where `userIdentifier = ctx.request.body.email`. On routes that legitimately use email as their identifier (e.g. `/auth/forgot-password`, `/auth/local/register`), this scoping is correct. On routes that use a different identifier (`identifier` for login, `code` for password reset, `currentPassword` for password change), the email field was not part of the route contract, but the middleware still incorporated it into the key, allowing a caller to rotate the value and obtain a unique key on every request.\n\nThe patch maintains an allow-list of routes that legitimately key on the email field and excludes that key component on every other route the middleware is mounted on. OAuth callback paths (`/connect/*`) are treated identifier-less. On routes outside the allow-list, the middleware now falls back to a fixed identifier-less key, ensuring per-IP throttling remains effective even when the request body is attacker-controlled.\n\n### IoC's for CVE-2025-64526\n\nIndicators that an instance running an unpatched version may have been exploited:\n\n- Unusually high volumes of `POST` requests to `/api/auth/local`, `/api/auth/reset-password`, or `/api/auth/change-password` from a single IP within a 5-minute window without 429 (Too Many Requests) responses\n- Request bodies on `/api/auth/local` containing both `identifier` AND `email` fields where `email` varies per request. Body shape regex: `\"identifier\"\\s*:\\s*\"[^\"]*\",\\s*\"email\"\\s*:\\s*\"[^\"]*\"`\n- Request bodies on `/api/auth/reset-password` containing an unexpected `email` field alongside `code`. Body shape regex: `\"code\"\\s*:\\s*\"[^\"]*\",.*\"email\"\\s*:`\n- Server logs showing many distinct rate-limit key prefixes for the same IP+route combination within the rate-limit window\n- Successful authentication or password reset following hundreds of preceding 401/400 responses from the same IP",
+      "first_seen": "2026-05-13T20:52:36.411443+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-13T20:52:36.411443+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-7mqx-wwh4-f9fw",
+        "https://github.com/strapi/strapi/commit/5e0d243cba9830e6f791de6a94798bcde51468db",
+        "https://github.com/strapi/strapi/pull/24818",
+        "https://github.com/strapi/strapi/releases/tag/v5.45.0",
+        "https://github.com/strapi/strapi/security/advisories/GHSA-7mqx-wwh4-f9fw"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Strapi has a rate limit bypass on users-permissions plugin via attacker-controlled email keying"
+    },
+    {
+      "canonical_id": "CVE-2026-22599",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "### Summary of CVE-2026-22599 Vulnerability Details\n\n- CVE: CVE-2026-22599\n- CVSS v3.1 Vector: `CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:H/VA:N/SC:H/SI:H/SA:N` (9.3 \u2014 Critical)\n- Affected Versions: `@strapi/content-type-builder` <=5.33.1 (v5), `@strapi/plugin-content-type-builder` <=4.26.0 (v4)\n- How to Patch: Immediately update your Strapi to >=5.33.2 (v5) or >=4.26.1 (v4)\n\n### Description of CVE-2026-22599\n\nA database-query injection vulnerability existed in the Strapi Content-Type Builder write API. An authenticated administrator could inject arbitrary database statements through the `column.defaultTo` attribute when creating or modifying a content type. Setting `defaultTo` as a tuple `[value, { isRaw: true }]` caused the value to be passed directly into Knex's `db.connection.raw()` during schema migration without sanitization, allowing arbitrary statement execution at the database layer. Depending on the database engine, this enabled arbitrary file read via database utility functions, denial of service via forced server crash on schema-migration error, and on engines that permit external program execution, remote code execution against the database server.\n\nThe patch addresses this by restricting all Content-Type Builder write APIs to development mode only. Production deployments running v5.33.2 or later return 404 for requests against `/content-type-builder/content-types` and related endpoints, removing the network-reachable attack surface entirely.\n\n### IoC's for CVE-2026-22599\n\nIndicators that an instance running an unpatched version may have been exploited:\n\n- HTTP access logs containing POST or PUT requests to `/content-type-builder/content-types` from a non-internal source. Regex pattern: `(POST|PUT)\\s+/content-type-builder/`\n- Database server logs containing unexpected DEFAULT clause values that reference filesystem-access or program-execution helper functions of your database engine\n- Strapi server crashes immediately following a content-type creation or update, observed as the Node process exiting during the schema-migration step\n- Files appearing under unexpected paths on the database host that match content-type DEFAULT values from the application\n- Newly-created content-types named or shaped to extract specific data (attribute names like `passwd`, `etc`, `env`, `config`)",
+      "first_seen": "2026-05-13T20:52:36.411295+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-13T20:52:36.411295+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-3xcq-8mjw-h6mx",
+        "https://github.com/strapi/strapi/releases/tag/v4.26.1",
+        "https://github.com/strapi/strapi/releases/tag/v5.33.2",
+        "https://github.com/strapi/strapi/security/advisories/GHSA-3xcq-8mjw-h6mx"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Strapi Vulnerable to SQL Injection in Content Type Builder"
+    }
+  ],
+  "correlated_at": "2026-05-13T20:52:41.476235+00:00"
 }
