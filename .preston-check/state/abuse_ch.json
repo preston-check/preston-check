@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-14T00:12:00.502587+00:00",
-  "last_successful_fetch": "2026-05-14T00:12:00.502895+00:00",
+  "last_run": "2026-05-14T04:54:40.318901+00:00",
+  "last_successful_fetch": "2026-05-14T04:54:40.319240+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2349,7 +2349,25 @@
     "threatfox:64bc33vp.chequecholeric.digital",
     "threatfox:435z0hbc.chequecholeric.digital",
     "threatfox:patenttag.wiki",
-    "threatfox:hemorrhoid-daydark.wiki"
+    "threatfox:hemorrhoid-daydark.wiki",
+    "threatfox:kernel-patch-update-release-history.wiki",
+    "threatfox:meta-data-shredding-cleanup-utility.wiki",
+    "threatfox:remote-sensor-proxy-tunnel-config.wiki",
+    "threatfox:9xbc3jzp.disorientbreak.digital",
+    "threatfox:amo9xzld.disorientbreak.digital",
+    "threatfox:stat-collection-engine-performance-view.wiki",
+    "threatfox:binary-buffer-overflow-protection-lab.wiki",
+    "threatfox:analytical-traffic-audit-record-file.wiki",
+    "threatfox:hardware-resource-monitor-tool-box.wiki",
+    "threatfox:https://bible.maweb.eu/",
+    "threatfox:crypt-algorithm-analysis-expert-board.wiki",
+    "threatfox:i0zaakp5.monotheism-sled.digital",
+    "threatfox:ymv70dbd.monotheism-sled.digital",
+    "threatfox:brightestprocexchange.wiki",
+    "threatfox:antiq-telegraphyproduct.wiki",
+    "threatfox:beacontweezersbinge.wiki",
+    "threatfox:medicin-morisomtobeafraid.wiki",
+    "threatfox:immersevocalistidleness.wiki"
   ],
   "source_id": "abuse_ch",
   "stats": {

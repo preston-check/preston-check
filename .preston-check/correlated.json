@@ -1,30 +1,5 @@
 {
-  "candidate_count": 1,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2026-8328",
-      "composite_confidence": 0.65,
-      "cwe": [],
-      "description": "\n[CVE-2026-8328] CPython: FTP PASV SSRF, ftpcp() does\n not use actual peer address, trusts server-supplied PASV host addr\u2026",
-      "first_seen": "2026-05-14T04:12:12.812518+00:00",
-      "frameworks": [
-        "oss-security"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-14T04:12:12.812518+00:00",
-      "merged_sources": [
-        "mailing_list"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://www.openwall.com/lists/oss-security/2026/05/14/1"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "\n[CVE-2026-8328] CPython: FTP PASV SSRF, ftpcp() does\n not use actual peer address, trusts server-supplied PASV host addr\u2026"
-    }
-  ],
-  "correlated_at": "2026-05-14T04:12:12.865392+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-14T04:54:40.498530+00:00"
 }
