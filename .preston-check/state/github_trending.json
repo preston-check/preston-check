@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-14T13:00:41.643975+00:00",
-  "last_successful_fetch": "2026-05-14T13:00:47.023889+00:00",
+  "last_run": "2026-05-14T15:27:35.340258+00:00",
+  "last_successful_fetch": "2026-05-14T15:27:39.479547+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -420,7 +420,10 @@
     "github:MeesoPost/cve-digest",
     "github:J-Dheeraj/AI-exploit-CVE",
     "github:nanwinata/nginxrift-CVE-2026-42945",
-    "github:zeemanmemon/cve-lookup"
+    "github:zeemanmemon/cve-lookup",
+    "github:k8gege/k8gege.github.io",
+    "github:gihc-org/cved",
+    "github:Hann1bl3L3ct3r/CVE-2026-6145"
   ],
   "source_id": "github_trending",
   "stats": {
