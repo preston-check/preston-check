@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-14T04:54:36.874425+00:00",
-  "last_successful_fetch": "2026-05-14T04:54:40.059897+00:00",
+  "last_run": "2026-05-14T07:51:05.123183+00:00",
+  "last_successful_fetch": "2026-05-14T07:51:08.821783+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -406,7 +406,12 @@
     "github:bradyjmcl/cve-2026-46391",
     "github:Galeax/CVE2CAPEC",
     "github:KatrielMoses/CVEs",
-    "github:SecurityTapestry-Queen/nvd-cve-api-search"
+    "github:SecurityTapestry-Queen/nvd-cve-api-search",
+    "github:chndlrx/vulnerability-disclosures",
+    "github:kh4sh3i/CVE-2023-22515",
+    "github:Sentebale/CVE-2026-46300",
+    "github:imzanggg/CVE-2026-24055-OAuth-Langfuse",
+    "github:HORKimhab/CVE-2026-46300"
   ],
   "source_id": "github_trending",
   "stats": {
