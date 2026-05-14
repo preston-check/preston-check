@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-14T07:51:08.995611+00:00",
-  "last_successful_fetch": "2026-05-14T07:51:08.995980+00:00",
+  "last_run": "2026-05-14T10:29:37.546511+00:00",
+  "last_successful_fetch": "2026-05-14T10:29:37.546801+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2381,7 +2381,17 @@
     "threatfox:binary-block-state-collection.wiki",
     "threatfox:1jyk1gm9.unseen-zorenka.digital",
     "threatfox:byte-stream-encryption-standard-base.wiki",
-    "threatfox:trace-route-diagnostic-signal-map.wiki"
+    "threatfox:trace-route-diagnostic-signal-map.wiki",
+    "threatfox:microservice-control-plane-node.wiki",
+    "threatfox:cloud-infrastructure-management-platform.wiki",
+    "threatfox:84.46.251.62:4321",
+    "threatfox:192.159.99.34:6606",
+    "threatfox:edge-processing-network.wiki",
+    "threatfox:serverless-runtime-orchestration-engine.wiki",
+    "threatfox:t7osftz9.estat-goldilock.digital",
+    "threatfox:25vrwhcd.estat-goldilock.digital",
+    "threatfox:e1zwzngt.unseen-zorenka.digital",
+    "threatfox:bq99ksyi.unseen-zorenka.digital"
   ],
   "source_id": "abuse_ch",
   "stats": {
