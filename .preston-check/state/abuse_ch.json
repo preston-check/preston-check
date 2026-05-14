@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-14T15:27:39.809160+00:00",
-  "last_successful_fetch": "2026-05-14T15:27:39.809626+00:00",
+  "last_run": "2026-05-14T18:04:07.149732+00:00",
+  "last_successful_fetch": "2026-05-14T18:04:07.150046+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2658,7 +2658,16 @@
     "threatfox:43.129.88.120:23451",
     "threatfox:94.154.35.73:3333",
     "threatfox:75.119.154.8:8888",
-    "threatfox:https://datakeluaransgp.cfd/"
+    "threatfox:https://datakeluaransgp.cfd/",
+    "threatfox:system-analytics-pro-guide.courses",
+    "threatfox:masteringdigital-arch.courses",
+    "threatfox:logic-buffer-skills.courses",
+    "threatfox:expert-trading-academy.courses",
+    "threatfox:jmlzwn2l.limous-nitout.digital",
+    "threatfox:ws09ax4h.limous-nitout.digital",
+    "threatfox:smartworkflowmanagement.courses",
+    "threatfox:pro-cyber-defense.courses",
+    "threatfox:obese-table-usweb-play.wiki"
   ],
   "source_id": "abuse_ch",
   "stats": {
