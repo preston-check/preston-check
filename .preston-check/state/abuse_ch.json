@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-14T19:59:37.897738+00:00",
-  "last_successful_fetch": "2026-05-14T19:59:37.898191+00:00",
+  "last_run": "2026-05-14T21:19:27.377304+00:00",
+  "last_successful_fetch": "2026-05-14T21:19:27.377638+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2680,7 +2680,15 @@
     "threatfox:sd9arw2r.flos-strip.digital",
     "threatfox:3az65saf.flos-strip.digital",
     "threatfox:enterprise-security-log.courses",
-    "threatfox:quickwebdevops.courses"
+    "threatfox:quickwebdevops.courses",
+    "threatfox:edge-processing-network.courses",
+    "threatfox:p4l3fctz.bitter-salty.digital",
+    "threatfox:1y9a9xkq.bitter-salty.digital",
+    "threatfox:serverless-mesh-core.courses",
+    "threatfox:microservicehub.courses",
+    "threatfox:sup.dusapp.com.br",
+    "threatfox:https://sup.dusapp.com.br/",
+    "threatfox:packet-routing-lab.courses"
   ],
   "source_id": "abuse_ch",
   "stats": {
