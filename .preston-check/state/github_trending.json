@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-15T08:11:37.487145+00:00",
-  "last_successful_fetch": "2026-05-15T08:11:42.685595+00:00",
+  "last_run": "2026-05-15T11:27:33.031898+00:00",
+  "last_successful_fetch": "2026-05-15T11:27:36.872341+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -442,7 +442,14 @@
     "github:chenqin231/CVE-2026-42945",
     "github:mrk336/DNS-Mayhem-CVE-2026-41096-Deep-Dive",
     "github:HORKimhab/CVE-2026-0745",
-    "github:Ez4rd1x1/CVE-2026-0770"
+    "github:Ez4rd1x1/CVE-2026-0770",
+    "github:intelseclab/poc-archive",
+    "github:atiilla/CVE-2026-42897",
+    "github:sofronievm/cveti-geo-autism-game",
+    "github:Rahul-Budhan-Xebia/CVENT",
+    "github:sPROFFEs/cve-parser",
+    "github:dinhvaren/cve-2021-23369",
+    "github:nhh9905/CVE-2022-37969"
   ],
   "source_id": "github_trending",
   "stats": {
