@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-14T23:07:12.836503+00:00",
-  "last_successful_fetch": "2026-05-14T23:07:12.836829+00:00",
+  "last_run": "2026-05-15T00:08:24.264532+00:00",
+  "last_successful_fetch": "2026-05-15T00:08:24.264807+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2697,7 +2697,9 @@
     "threatfox:wsfzy3vb.ripples-shark.digital",
     "threatfox:inherittruckdoge.courses",
     "threatfox:telemetrycore.courses",
-    "threatfox:cartwell-pastphantom.courses"
+    "threatfox:cartwell-pastphantom.courses",
+    "threatfox:gnashhusks.courses",
+    "threatfox:distributedcache.courses"
   ],
   "source_id": "abuse_ch",
   "stats": {

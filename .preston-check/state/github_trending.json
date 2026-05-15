@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-14T23:07:08.076662+00:00",
-  "last_successful_fetch": "2026-05-14T23:07:11.602180+00:00",
+  "last_run": "2026-05-15T00:08:19.722625+00:00",
+  "last_successful_fetch": "2026-05-15T00:08:23.913405+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -432,7 +432,9 @@
     "github:ArloL/nvd-cves",
     "github:junius-sec/Remote_CVE_Scanner",
     "github:riddhinsanghvi/CVE_Patch_Finder",
-    "github:MoriondoTommaso/cve_arro_server"
+    "github:MoriondoTommaso/cve_arro_server",
+    "github:abgache/abgache-cve",
+    "github:enimeapps1900/byteguard-cve-legal"
   ],
   "source_id": "github_trending",
   "stats": {
