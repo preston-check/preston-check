@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-15T17:52:20.567815+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-42897",
+      "composite_confidence": 0.99,
+      "cwe": [],
+      "description": "Microsoft Exchange Server contains a cross-site scripting vulnerability during web page generation in Outlook Web Access and when certain interaction conditions are met, arbitrary JavaScript can be executed in the browser context.",
+      "first_seen": "2026-05-15T18:07:39.763562+00:00",
+      "frameworks": [
+        "Microsoft"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-15T18:07:39.763562+00:00",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2026-42897 ; https://learn.microsoft.com/en-us/exchange/plan-and-deploy/post-installation-tasks/security-best-practices/exchange-emergency-mitigation-service ; https://nvd.nist.gov/vuln/detail/CVE-2026-42897"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Microsoft Exchange Server Cross-Site Scripting Vulnerability"
+    }
+  ],
+  "correlated_at": "2026-05-15T18:07:39.814639+00:00"
 }
