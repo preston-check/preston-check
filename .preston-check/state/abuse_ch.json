@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-15T18:47:02.379789+00:00",
-  "last_successful_fetch": "2026-05-15T18:47:02.380228+00:00",
+  "last_run": "2026-05-15T20:21:13.526971+00:00",
+  "last_successful_fetch": "2026-05-15T20:21:13.527386+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3114,7 +3114,25 @@
     "threatfox:runtime-atlas.digital",
     "threatfox:bottom-less-waiter-natural.courses",
     "threatfox:donutinsulinphilosophy.courses",
-    "threatfox:proxy-matrix-kernel-on.courses"
+    "threatfox:proxy-matrix-kernel-on.courses",
+    "threatfox:95.231.168.143:4483",
+    "threatfox:65.21.21.227:6666",
+    "threatfox:65.21.21.227:8888",
+    "threatfox:4.235.114.15:1024",
+    "threatfox:34.69.130.10:80",
+    "threatfox:31.57.187.91:1337",
+    "threatfox:217.30.169.67:8015",
+    "threatfox:2.26.160.75:4984",
+    "threatfox:178.236.252.244:3333",
+    "threatfox:163.245.216.78:8080",
+    "threatfox:137.184.102.191:80",
+    "threatfox:107.175.148.68:8080",
+    "threatfox:103.147.228.13:8015",
+    "threatfox:aqge8umy.khudrukrantingmanic.digital",
+    "threatfox:c6e051x9.khudrukrantingmanic.digital",
+    "threatfox:wildflower-path-mapping.garden",
+    "threatfox:flora-security-base.garden",
+    "threatfox:hydropower-irrigation.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
