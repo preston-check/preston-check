@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-15T20:21:13.526971+00:00",
-  "last_successful_fetch": "2026-05-15T20:21:13.527386+00:00",
+  "last_run": "2026-05-15T22:08:12.783288+00:00",
+  "last_successful_fetch": "2026-05-15T22:08:12.783699+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3132,7 +3132,12 @@
     "threatfox:c6e051x9.khudrukrantingmanic.digital",
     "threatfox:wildflower-path-mapping.garden",
     "threatfox:flora-security-base.garden",
-    "threatfox:hydropower-irrigation.garden"
+    "threatfox:hydropower-irrigation.garden",
+    "threatfox:greenhousecontrolhub.garden",
+    "threatfox:ysuz4thn.bellow-norushka-pianissimo.digital",
+    "threatfox:cqjqu0zb.bellow-norushka-pianissimo.digital",
+    "threatfox:wildflower-routing-path.garden",
+    "threatfox:botanicalworkflow.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
