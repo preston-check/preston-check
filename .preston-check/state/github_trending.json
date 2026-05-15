@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-15T14:29:40.543026+00:00",
-  "last_successful_fetch": "2026-05-15T14:29:46.263964+00:00",
+  "last_run": "2026-05-15T16:58:18.142309+00:00",
+  "last_successful_fetch": "2026-05-15T16:58:22.674921+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -455,7 +455,14 @@
     "github:entra1337/cve-test",
     "github:fangbarristerbar/CVE-2026-20182-POC",
     "github:Hirokiii/CVE-2023-44487",
-    "github:ComplianceAsCode/cvetool"
+    "github:ComplianceAsCode/cvetool",
+    "github:programmerq/cve-reporter",
+    "github:danieln0bre/rag-cve",
+    "github:caiovenom/cvenom-dashboard",
+    "github:HA5ANT/Silverpeas-AuthBypass-CVE-2024-36042",
+    "github:pablinux87/nginx_check_CVE",
+    "github:yuri-regulus-25/Operate_CVE_Notification",
+    "github:0xBlackash/CVE-2026-46300"
   ],
   "source_id": "github_trending",
   "stats": {
