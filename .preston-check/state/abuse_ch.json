@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-15T04:58:27.923111+00:00",
-  "last_successful_fetch": "2026-05-15T04:58:27.923466+00:00",
+  "last_run": "2026-05-15T08:11:43.148832+00:00",
+  "last_successful_fetch": "2026-05-15T08:11:43.149152+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -2723,7 +2723,22 @@
     "threatfox:5nan0z8w.sniffingviableoffice.digital",
     "threatfox:l9ba13f6.sniffingviableoffice.digital",
     "threatfox:leniniansexualbeginner.courses",
-    "threatfox:runtime-control-plane.courses"
+    "threatfox:runtime-control-plane.courses",
+    "threatfox:federated-node-system.courses",
+    "threatfox:meshcore.courses",
+    "threatfox:runtimefabric.courses",
+    "threatfox:11udvmp9.polestennisplayer.digital",
+    "threatfox:5ij6iw01.polestennisplayer.digital",
+    "threatfox:virtualized-control-plane-network.courses",
+    "threatfox:distributed-storage-layer.courses",
+    "threatfox:packetlattice.courses",
+    "threatfox:virtualgateway.courses",
+    "threatfox:distributed-event-processing-lab.courses",
+    "threatfox:telemetry-stream-core.courses",
+    "threatfox:cggirdg7.neural-routing.digital",
+    "threatfox:m5x2us4u.neural-routing.digital",
+    "threatfox:cloud-sync.courses",
+    "threatfox:edge-network-hub.courses"
   ],
   "source_id": "abuse_ch",
   "stats": {

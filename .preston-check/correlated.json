@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-15T07:41:32.730167+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-0770",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "LangFlow RCE | CVE-2026-0770 | Proof-Of-Concept",
+      "first_seen": "2026-05-15T08:11:41.519747+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [
+        "Python"
+      ],
+      "last_seen": "2026-05-15T08:11:41.519747+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Ez4rd1x1/CVE-2026-0770"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-0770"
+    }
+  ],
+  "correlated_at": "2026-05-15T08:11:43.322306+00:00"
 }
