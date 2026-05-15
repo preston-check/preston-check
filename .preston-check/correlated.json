@@ -1,42 +1,5 @@
 {
-  "candidate_count": 1,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2025-32432",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "Working PoC for CVE-2025-32432 - Craft CMS <= 5.6.16 unauthenticated RCE via Yii2 PhpManager gadget + nginx access.log poisoning",
-      "first_seen": "2026-05-15T14:29:41.831967+00:00",
-      "frameworks": [
-        "craft-cms",
-        "ctf",
-        "cve",
-        "cve-2025-32432",
-        "exploit",
-        "pentest",
-        "poc",
-        "rce",
-        "security",
-        "unauthenticated",
-        "yii2"
-      ],
-      "key_kind": "cve",
-      "languages": [
-        "Python"
-      ],
-      "last_seen": "2026-05-15T14:29:41.831967+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/cd-ratel/CVE-2025-32432"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2025-32432"
-    }
-  ],
-  "correlated_at": "2026-05-15T14:29:47.081224+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-15T14:34:01.097155+00:00"
 }
