@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-15T11:27:33.031898+00:00",
-  "last_successful_fetch": "2026-05-15T11:27:36.872341+00:00",
+  "last_run": "2026-05-15T14:29:40.543026+00:00",
+  "last_successful_fetch": "2026-05-15T14:29:46.263964+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -449,7 +449,13 @@
     "github:Rahul-Budhan-Xebia/CVENT",
     "github:sPROFFEs/cve-parser",
     "github:dinhvaren/cve-2021-23369",
-    "github:nhh9905/CVE-2022-37969"
+    "github:nhh9905/CVE-2022-37969",
+    "github:cd-ratel/CVE-2025-32432",
+    "github:valengiaccaglia/Cvebien",
+    "github:entra1337/cve-test",
+    "github:fangbarristerbar/CVE-2026-20182-POC",
+    "github:Hirokiii/CVE-2023-44487",
+    "github:ComplianceAsCode/cvetool"
   ],
   "source_id": "github_trending",
   "stats": {
