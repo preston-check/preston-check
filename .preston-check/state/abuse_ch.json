@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T19:19:36.135596+00:00",
-  "last_successful_fetch": "2026-05-16T19:19:36.135901+00:00",
+  "last_run": "2026-05-16T21:00:43.391139+00:00",
+  "last_successful_fetch": "2026-05-16T21:00:43.391501+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3233,7 +3233,24 @@
     "threatfox:flora-monitoring-core.garden",
     "threatfox:meadowworkflowplatform.garden",
     "threatfox:federatedgardencluster.garden",
-    "threatfox:irrigation-management-system.garden"
+    "threatfox:irrigation-management-system.garden",
+    "threatfox:wwk6os4i.cloud-atlas.digital",
+    "threatfox:h930qz07.cloud-atlas.digital",
+    "threatfox:dehjcpyw.byte-forge.digital",
+    "threatfox:n9gkcwto.byte-forge.digital",
+    "threatfox:linguistic-puzzle-solver.garden",
+    "threatfox:ancient-parchment-archive.garden",
+    "threatfox:meteorite-crater-safari.garden",
+    "threatfox:91.92.243.63:39850",
+    "threatfox:45.155.69.153:43345",
+    "threatfox:206.81.21.156:443",
+    "threatfox:139.99.131.177:8888",
+    "threatfox:104.236.230.184:443",
+    "threatfox:103.219.153.200:7707",
+    "threatfox:103.219.153.200:8808",
+    "threatfox:103.219.153.200:6606",
+    "threatfox:1.15.221.207:4379",
+    "threatfox:space-debris-trajectory.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {

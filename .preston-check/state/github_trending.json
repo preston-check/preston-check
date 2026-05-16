@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T19:19:33.135468+00:00",
-  "last_successful_fetch": "2026-05-16T19:19:36.013349+00:00",
+  "last_run": "2026-05-16T21:00:39.101557+00:00",
+  "last_successful_fetch": "2026-05-16T21:00:42.879830+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -504,7 +504,12 @@
     "github:csman007/cve-patch-agent",
     "github:eliainnocenti/ebpf-cve-analysis",
     "github:NathanHimself/CVE-2026-38526-PoC",
-    "github:settlegrid/settlegrid-cve-search"
+    "github:settlegrid/settlegrid-cve-search",
+    "github:khalefaemithq2025-hub/cvem-v2888",
+    "github:Maxime288/CVE-2026-31431-Copy-Fail-R-pertoire-de-Pr-vention",
+    "github:bennekrouf/frontend-cvenom",
+    "github:bennekrouf/backend-cvenom",
+    "github:ruslanemrahov/CVE-Writeups"
   ],
   "source_id": "github_trending",
   "stats": {
