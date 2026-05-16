@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T00:02:07.946439+00:00",
-  "last_successful_fetch": "2026-05-16T00:02:14.936040+00:00",
+  "last_run": "2026-05-16T03:54:55.600386+00:00",
+  "last_successful_fetch": "2026-05-16T03:55:00.139262+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -473,7 +473,11 @@
     "github:cvegaz/cvegaz.github.io",
     "github:JaelDS/cve-monitor",
     "github:whosfault/cve-2026-31431",
-    "github:John-Popovici/CVE-2026-31431-CopyFail-Linux-PrivEsc"
+    "github:John-Popovici/CVE-2026-31431-CopyFail-Linux-PrivEsc",
+    "github:barmi/cve-patch-auditor",
+    "github:nmalvankar/patch-cve-grafana-dashboard",
+    "github:vtrmK/CVE-2026-36436-Public-Reference-Pack",
+    "github:HORKimhab/CVE-2026-45091"
   ],
   "source_id": "github_trending",
   "stats": {
