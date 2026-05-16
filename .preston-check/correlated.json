@@ -1,54 +1,5 @@
 {
-  "candidate_count": 2,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2026-44578",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "CVE-2026-44578: Next.js WebSocket Upgrade SSRF \u2014 pre-auth credential theft via localhost:80. Lab + exploit + audit.",
-      "first_seen": "2026-05-16T10:23:38.215226+00:00",
-      "frameworks": [],
-      "key_kind": "cve",
-      "languages": [
-        "Python"
-      ],
-      "last_seen": "2026-05-16T10:23:38.215226+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/dinosn/CVE-2026-44578"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2026-44578"
-    },
-    {
-      "canonical_id": "CVE-2026-6433",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "PoC for CVE-2026-6433: WordPress FlipperCode Custom CSS, JS & PHP (\u22642.0.7) \u2014 unauthenticated SQLi to RCE. Python 3 stdlib; single target or bulk multi-threaded scanning. Authorized testing & research only.",
-      "first_seen": "2026-05-16T10:23:38.215312+00:00",
-      "frameworks": [],
-      "key_kind": "cve",
-      "languages": [
-        "Python"
-      ],
-      "last_seen": "2026-05-16T10:23:38.215312+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/murrez/CVE-2026-6433"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2026-6433"
-    }
-  ],
-  "correlated_at": "2026-05-16T10:23:39.753911+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-16T11:11:40.374285+00:00"
 }
