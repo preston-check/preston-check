@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-16T18:13:23.649887+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-38526",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "CVE-2026-38526 | Krayin CRM v2.2.x Authenticated RCE - Unrestricted PHP File Upload via TinyMCE",
+      "first_seen": "2026-05-16T19:19:35.220893+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [
+        "Python"
+      ],
+      "last_seen": "2026-05-16T19:19:35.220893+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/NathanHimself/CVE-2026-38526-PoC"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-38526-PoC"
+    }
+  ],
+  "correlated_at": "2026-05-16T19:19:36.316012+00:00"
 }

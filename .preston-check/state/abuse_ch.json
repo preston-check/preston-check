@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T17:11:09.933799+00:00",
-  "last_successful_fetch": "2026-05-16T17:11:09.934111+00:00",
+  "last_run": "2026-05-16T19:19:36.135596+00:00",
+  "last_successful_fetch": "2026-05-16T19:19:36.135901+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3223,7 +3223,17 @@
     "threatfox:34.92.160.93:28488",
     "threatfox:gardeninfrastructurelab.garden",
     "threatfox:asynchronouswatering-system.garden",
-    "threatfox:ecosystemmanagementhub.garden"
+    "threatfox:ecosystemmanagementhub.garden",
+    "threatfox:crypticdialect.garden",
+    "threatfox:urban-graffiti-crew.garden",
+    "threatfox:38.14.248.199:80",
+    "threatfox:k2bs9h2k.proxy-horizon.digital",
+    "threatfox:n8o4p1xp.proxy-horizon.digital",
+    "threatfox:containerizedplantmesh.garden",
+    "threatfox:flora-monitoring-core.garden",
+    "threatfox:meadowworkflowplatform.garden",
+    "threatfox:federatedgardencluster.garden",
+    "threatfox:irrigation-management-system.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
