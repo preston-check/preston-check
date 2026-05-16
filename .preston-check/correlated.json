@@ -1,52 +1,5 @@
 {
-  "candidate_count": 2,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2020-3452",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "Safe Python scanner for CVE-2020-3452 (Cisco ASA/FTD WebVPN Directory Traversal)",
-      "first_seen": "2026-05-16T22:59:36.543620+00:00",
-      "frameworks": [],
-      "key_kind": "cve",
-      "languages": [
-        "Python"
-      ],
-      "last_seen": "2026-05-16T22:59:36.543620+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/curtishoughton/CVE-2020-3452-Cisco-Python-Scanner"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2020-3452-Cisco-Python-Scanner"
-    },
-    {
-      "canonical_id": "CVE-2025-20362",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "Safe Python scanner for CVE-2025-20362 (Cisco ASA/FTD WebVPN Authentication Bypass)",
-      "first_seen": "2026-05-16T22:59:36.543705+00:00",
-      "frameworks": [],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-16T22:59:36.543705+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/curtishoughton/CVE-2025-20362-Cisco-Scanner"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2025-20362-Cisco-Scanner"
-    }
-  ],
-  "correlated_at": "2026-05-16T22:59:38.240638+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-16T23:08:25.621250+00:00"
 }
