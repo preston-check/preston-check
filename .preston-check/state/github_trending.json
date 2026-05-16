@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T12:00:19.048298+00:00",
-  "last_successful_fetch": "2026-05-16T12:00:22.554288+00:00",
+  "last_run": "2026-05-16T13:53:38.074994+00:00",
+  "last_successful_fetch": "2026-05-16T13:53:42.549793+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -488,7 +488,10 @@
     "github:whattheslime/CVE-2026-8181",
     "github:dirge-7/cve",
     "github:hollabharath/cveda-project.org",
-    "github:uid4oe/cve-agent-eval"
+    "github:uid4oe/cve-agent-eval",
+    "github:1475210817/Axis1.4-CVE-2019-0227",
+    "github:puglia-ryan/S-V-Project-Implementation-of-CVE-2015-3256",
+    "github:fovepig/CVE-NVD-TO-RAG"
   ],
   "source_id": "github_trending",
   "stats": {

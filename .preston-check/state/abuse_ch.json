@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T12:00:22.740648+00:00",
-  "last_successful_fetch": "2026-05-16T12:00:22.741016+00:00",
+  "last_run": "2026-05-16T13:53:42.946828+00:00",
+  "last_successful_fetch": "2026-05-16T13:53:42.947128+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3202,7 +3202,13 @@
     "threatfox:m1ub6qaj.kabardinskymonasticismradicalism.digital",
     "threatfox:wozk99ql.kabardinskymonasticismradicalism.digital",
     "threatfox:kabardinskymonasticismradicalism.digital",
-    "threatfox:virtual-gate-way.garden"
+    "threatfox:virtual-gate-way.garden",
+    "threatfox:botanicalresourceengine.garden",
+    "threatfox:wildfloragrowthsystem.garden",
+    "threatfox:petal-distribution-hub.garden",
+    "threatfox:fkpsfevx.culling-posture-schnitzel.digital",
+    "threatfox:uauc3i2w.culling-posture-schnitzel.digital",
+    "threatfox:serverless-print-control-plane.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
