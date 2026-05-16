@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T21:00:39.101557+00:00",
-  "last_successful_fetch": "2026-05-16T21:00:42.879830+00:00",
+  "last_run": "2026-05-16T21:58:45.581591+00:00",
+  "last_successful_fetch": "2026-05-16T21:58:48.506656+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -509,7 +509,9 @@
     "github:Maxime288/CVE-2026-31431-Copy-Fail-R-pertoire-de-Pr-vention",
     "github:bennekrouf/frontend-cvenom",
     "github:bennekrouf/backend-cvenom",
-    "github:ruslanemrahov/CVE-Writeups"
+    "github:ruslanemrahov/CVE-Writeups",
+    "github:arif-s3d0/cve",
+    "github:nmayock/CVE-Searcher"
   ],
   "source_id": "github_trending",
   "stats": {

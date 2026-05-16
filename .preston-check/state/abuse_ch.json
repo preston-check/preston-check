@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T21:00:43.391139+00:00",
-  "last_successful_fetch": "2026-05-16T21:00:43.391501+00:00",
+  "last_run": "2026-05-16T21:58:48.838859+00:00",
+  "last_successful_fetch": "2026-05-16T21:58:48.839167+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3250,7 +3250,10 @@
     "threatfox:103.219.153.200:8808",
     "threatfox:103.219.153.200:6606",
     "threatfox:1.15.221.207:4379",
-    "threatfox:space-debris-trajectory.garden"
+    "threatfox:space-debris-trajectory.garden",
+    "threatfox:wildflorainfrastructure.garden",
+    "threatfox:petal-routing-platform.garden",
+    "threatfox:greenhouseoperationshub.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
