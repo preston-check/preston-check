@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-15T22:08:12.783288+00:00",
-  "last_successful_fetch": "2026-05-15T22:08:12.783699+00:00",
+  "last_run": "2026-05-16T00:02:15.087982+00:00",
+  "last_successful_fetch": "2026-05-16T00:02:15.088306+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3137,7 +3137,15 @@
     "threatfox:ysuz4thn.bellow-norushka-pianissimo.digital",
     "threatfox:cqjqu0zb.bellow-norushka-pianissimo.digital",
     "threatfox:wildflower-routing-path.garden",
-    "threatfox:botanicalworkflow.garden"
+    "threatfox:botanicalworkflow.garden",
+    "threatfox:telemetrygardenmesh.garden",
+    "threatfox:hxuznl6x.biennial-polovauniverse.digital",
+    "threatfox:qhorn8o5.biennial-polovauniverse.digital",
+    "threatfox:meadow-processing-engine.garden",
+    "threatfox:federatedgrowframework.garden",
+    "threatfox:irrigation-management-core.garden",
+    "threatfox:microfloraobservatory.garden",
+    "threatfox:distributed-petal-network.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {

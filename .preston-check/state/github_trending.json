@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-15T22:08:06.950455+00:00",
-  "last_successful_fetch": "2026-05-15T22:08:12.304608+00:00",
+  "last_run": "2026-05-16T00:02:07.946439+00:00",
+  "last_successful_fetch": "2026-05-16T00:02:14.936040+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -472,7 +472,8 @@
     "github:jmckee27/cve-dashboard-final",
     "github:cvegaz/cvegaz.github.io",
     "github:JaelDS/cve-monitor",
-    "github:whosfault/cve-2026-31431"
+    "github:whosfault/cve-2026-31431",
+    "github:John-Popovici/CVE-2026-31431-CopyFail-Linux-PrivEsc"
   ],
   "source_id": "github_trending",
   "stats": {
