@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T06:30:30.652512+00:00",
-  "last_successful_fetch": "2026-05-16T06:30:35.211281+00:00",
+  "last_run": "2026-05-16T08:55:31.810162+00:00",
+  "last_successful_fetch": "2026-05-16T08:55:34.613193+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -477,7 +477,9 @@
     "github:barmi/cve-patch-auditor",
     "github:nmalvankar/patch-cve-grafana-dashboard",
     "github:vtrmK/CVE-2026-36436-Public-Reference-Pack",
-    "github:HORKimhab/CVE-2026-45091"
+    "github:HORKimhab/CVE-2026-45091",
+    "github:nedlir/Security-Research",
+    "github:augustin0808/Cyber-attacker-CVE"
   ],
   "source_id": "github_trending",
   "stats": {
