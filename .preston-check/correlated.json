@@ -1,5 +1,2554 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-16T03:55:00.811887+00:00"
+  "candidate_count": 101,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2021-26380",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-190"
+      ],
+      "description": "A compromised Trusted OS (TOS) driver could issue a malformed call that could potentially allow  memory access outside the intended range resulting in loss of integrity.",
+      "first_seen": "2026-05-16T03:59:24.031674+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.031674+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-4017.html",
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-6027.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2021-26380"
+    },
+    {
+      "canonical_id": "CVE-2021-47958",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "CouchCMS 2.2.1 contains a server-side request forgery vulnerability that allows authenticated attackers to make arbitrary HTTP requests by uploading malicious SVG files. Attackers can upload SVG files containing external entity references through the browse.php endpoint to access internal services and resources.",
+      "first_seen": "2026-05-16T03:59:24.033435+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033435+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/CouchCMS/CouchCMS",
+        "https://www.exploit-db.com/exploits/49675",
+        "https://www.vulncheck.com/advisories/couchcms-server-side-request-forgery-via-svg-upload"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2021-47958"
+    },
+    {
+      "canonical_id": "CVE-2021-47959",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "WordPress Plugin WPGraphQL 1.3.5 contains a denial of service vulnerability that allows unauthenticated attackers to exhaust server resources by sending batched GraphQL queries with duplicated fields. Attackers can send POST requests to the GraphQL endpoint with amplified field duplication payloads to trigger server out-of-memory conditions and MySQL connection errors.",
+      "first_seen": "2026-05-16T03:59:24.033457+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033457+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.exploit-db.com/exploits/49807",
+        "https://www.vulncheck.com/advisories/wordpress-plugin-wpgraphql-denial-of-service",
+        "https://www.wpgraphql.com/"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47959"
+    },
+    {
+      "canonical_id": "CVE-2021-47962",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Savsoft Quiz 5.0 contains a persistent cross-site scripting vulnerability in the user account settings page that allows authenticated attackers to inject malicious HTML and JavaScript code. Attackers can inject script payloads into user profile fields at the edit_user endpoint, which execute in the browsers of users viewing the affected profile after submission.",
+      "first_seen": "2026-05-16T03:59:24.033461+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033461+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/savsofts/savsoftquiz_v5",
+        "https://savsoftquiz.com",
+        "https://www.exploit-db.com/exploits/49825",
+        "https://www.vulncheck.com/advisories/savsoft-quiz-persistent-cross-site-scripting-via-user-settings"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2021-47962"
+    },
+    {
+      "canonical_id": "CVE-2021-47963",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Anote 1.0 contains a persistent cross-site scripting vulnerability that allows attackers to execute arbitrary code by injecting malicious payloads into markdown files stored within the application. Attackers can craft malicious markdown files with embedded JavaScript that executes system commands when opened, enabling remote code execution on the victim's computer.",
+      "first_seen": "2026-05-16T03:59:24.033487+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033487+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/AnotherNote/anote",
+        "https://www.exploit-db.com/exploits/49836",
+        "https://www.vulncheck.com/advisories/anote-persistent-cross-site-scripting-remote-code-execution"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47963"
+    },
+    {
+      "canonical_id": "CVE-2021-47964",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "Schlix CMS 2.2.6-6 contains a remote code execution vulnerability that allows authenticated attackers to execute arbitrary PHP code by uploading malicious extension packages through the block manager. Attackers can upload a crafted ZIP file containing PHP code in the packageinfo.inc file and trigger execution by accessing the About tab of the installed extension.",
+      "first_seen": "2026-05-16T03:59:24.033499+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033499+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.exploit-db.com/exploits/49838",
+        "https://www.schlix.com/",
+        "https://www.schlix.com/downloads/schlix-cms/schlix-cms-v2.2.6-6.zip",
+        "https://www.vulncheck.com/advisories/schlix-cms-6-remote-code-execution-via-core-blockmanager"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47964"
+    },
+    {
+      "canonical_id": "CVE-2021-47966",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "PHP Timeclock 1.04 contains time-based and boolean-based blind SQL injection vulnerabilities in the login_userid parameter of login.php that allows unauthenticated attackers to extract database contents. Attackers can submit crafted POST requests with SQL payloads using SLEEP functions or RLIKE conditional statements to dump sensitive database information including employee names and credentials.",
+      "first_seen": "2026-05-16T03:59:24.033526+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033526+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://timeclock.sourceforge.net",
+        "https://sourceforge.net/projects/timeclock/files/PHP%20Timeclock/PHP%20Timeclock%201.04/",
+        "https://www.exploit-db.com/exploits/49849",
+        "https://www.vulncheck.com/advisories/php-timeclock-sql-injection-via-login-php"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47966"
+    },
+    {
+      "canonical_id": "CVE-2021-47967",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "PHP Timeclock 1.04 contains multiple cross-site scripting vulnerabilities that allow unauthenticated attackers to inject arbitrary JavaScript by manipulating URL paths and POST parameters. Attackers can append malicious payloads to login.php, timeclock.php, audit.php, and timerpt.php endpoints, or inject code through from_date and to_date parameters in report requests to execute scripts in user browsers.",
+      "first_seen": "2026-05-16T03:59:24.033531+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033531+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://timeclock.sourceforge.net",
+        "https://sourceforge.net/projects/timeclock/files/PHP%20Timeclock/PHP%20Timeclock%201.04/",
+        "https://www.exploit-db.com/exploits/49853",
+        "https://www.vulncheck.com/advisories/php-timeclock-multiple-cross-site-scripting-via-parameters"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2021-47967"
+    },
+    {
+      "canonical_id": "CVE-2021-47968",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Podcast Generator 3.1 contains a persistent cross-site scripting vulnerability that allows authenticated attackers to inject malicious scripts by submitting unfiltered JavaScript code in the long_description parameter. Attackers can inject script tags through episode creation or editing requests to execute arbitrary JavaScript when other users view the episode details.",
+      "first_seen": "2026-05-16T03:59:24.033536+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033536+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://podcastgenerator.net/demoV2/",
+        "https://podcastgenerator.net/download",
+        "https://www.exploit-db.com/exploits/49866",
+        "https://www.vulncheck.com/advisories/podcast-generator-persistent-cross-site-scripting-via-long-description"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2021-47968"
+    },
+    {
+      "canonical_id": "CVE-2022-23826",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-367"
+      ],
+      "description": "A TOCTOU (Time-Of-Check to Time-Of-Use) in the graphics interface may allow an attacker to load registers repeatedly creating a race condition potentially leading to a loss of integrity.",
+      "first_seen": "2026-05-16T03:59:24.031691+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.031691+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-4017.html",
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-6027.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2022-23826"
+    },
+    {
+      "canonical_id": "CVE-2023-31316",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1304"
+      ],
+      "description": "Improperly preserved integrity of hardware configuration state during a power save/restore operation in the AMD Secure Processor (ASP) could allow an attacker with the ability to write outside the trusted memory range (TMR) to change the execution flow of the Video Core Next (VCN) firmware potentially impacting confidentiality, integrity, or availability.",
+      "first_seen": "2026-05-16T03:59:24.031714+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.031714+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-4017.html",
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-6027.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2023-31316"
+    },
+    {
+      "canonical_id": "CVE-2025-48513",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-908"
+      ],
+      "description": "Use of uninitialized resource within the AMD Platform Management Framework (PMF) could allow an attacker to read a uninitialized kernel memory resulting in loss of confidentiality or availability.",
+      "first_seen": "2026-05-16T03:59:24.031866+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.031866+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-4015.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-48513"
+    },
+    {
+      "canonical_id": "CVE-2025-52532",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-367"
+      ],
+      "description": "A race condition in the MxGPU-Virtualization driver\u2019s ioctl path caused by concurrent unsynchronized access to the global variable amdgv_cmd in an unlocked ioctl handler could be exploited by an attacker to trigger a heap-based buffer overflow, potentially resulting in denial-of-service within the vulnerable system context.",
+      "first_seen": "2026-05-16T03:59:24.032075+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032075+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-6027.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-52532"
+    },
+    {
+      "canonical_id": "CVE-2025-54518",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1189"
+      ],
+      "description": "Improper isolation of shared resources within the CPU operation cache on Zen 2-based products could allow an attacker to corrupt instructions executed at a different privilege level, potentially resulting in privilege escalation.",
+      "first_seen": "2026-05-16T03:59:24.032090+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032090+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/12/15",
+        "http://xenbits.xen.org/xsa/advisory-490.html",
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-7052.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-54518"
+    },
+    {
+      "canonical_id": "CVE-2025-67031",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "ORSEE (Online Recruitment System for Economic Experiments) 3.1.0 contains an authenticated Remote Code Execution vulnerability in the participant profile field processing subsystem. Certain field configurations accept values beginning with the prefix \"func:\" which are passed directly into an eval() call inside tagsets/participant.php and tagsets/options.php.",
+      "first_seen": "2026-05-16T03:59:24.033906+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033906+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/orsee/orsee/archive/refs/tags/orsee_3.1.0.zip",
+        "https://medium.com/@erabhishekshroti/cve-2025-67031-remote-code-execution-in-orsee-3-1-0-2bfc71d6d5eb"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-67031"
+    },
+    {
+      "canonical_id": "CVE-2026-0427",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-459"
+      ],
+      "description": "Improper cleanup of shared register resources in GPU firmware could allow an admin-privileged attacker from a Guest Virtual machine (VM) to access these shared resources from another Guest VM, potentially resulting in the loss of confidentiality, integrity, or availability.",
+      "first_seen": "2026-05-16T03:59:24.031951+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.031951+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-6027.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-0427"
+    },
+    {
+      "canonical_id": "CVE-2026-0438",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1072"
+      ],
+      "description": "A System Management Mode (SMM) handler could perform a callout to code located in non-SMM/untrusted memory. A highly privileged attacker could, with active user interaction and under high complexity and present preconditions, trigger execution of attacker-controlled code in SMM, potentially compromising the system\u2019s confidentiality, integrity, and availability.",
+      "first_seen": "2026-05-16T03:59:24.031616+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.031616+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-3030.html",
+        "https://www.amd.com/en/resources/product-security/bulletin/AMD-SB-4017.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-0438"
+    },
+    {
+      "canonical_id": "CVE-2026-23695",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Cockpit CMS through version 2.14.0, patched in commit 72a83fc, contains a stored cross-site scripting vulnerability in the Set field type's Display template option, where the template string is processed by the $interpolate function using new Function() and rendered via Vue's v-html directive without sanitization. An attacker with content/:models/manage permission can inject arbitrary JavaScript into the Display template, which executes in the browser of any user viewing the collection items list.",
+      "first_seen": "2026-05-16T03:59:24.032980+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032980+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Cockpit-HQ/Cockpit/commit/72a83fcfe85ad8330e9ae834bc02fa517b5749e9",
+        "https://www.vulncheck.com/advisories/cockpit-cms-stored-xss-via-set-field-display-template"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-23695"
+    },
+    {
+      "canonical_id": "CVE-2026-2652",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-305"
+      ],
+      "description": "A vulnerability in mlflow/mlflow versions 3.9.0 and earlier allows unauthenticated access to certain FastAPI routes when the server is started with authentication enabled (`--app-name basic-auth`) and served via uvicorn (ASGI). The FastAPI permission middleware only enforces authentication on `/gateway/` routes, leaving other routes such as the Job API (`/ajax-api/3.0/jobs/*`) and the OpenTelemetry trace ingestion API (`/v1/traces`) unprotected. This allows unauthenticated remote attackers to submit jobs, read job results, cancel running jobs, and inject arbitrary trace data into experiments. The issue arises from an architectural mismatch between Flask and FastAPI authentication mechanisms, where the `_find_fastapi_validator()` function fails to handle non-`/gateway/` paths, resulting in a complete authentication bypass. This vulnerability is fixed in version 3.10.0.",
+      "first_seen": "2026-05-16T03:59:24.031981+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.031981+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mlflow/mlflow/commit/bb62e773263c14e9ba4d1a82fe72d0de2442c6aa",
+        "https://huntr.com/bounties/5aeff5f0-49c7-4180-b5cb-c9a046f16756"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-2652"
+    },
+    {
+      "canonical_id": "CVE-2026-35194",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "Code injection in SQL code generation in Apache Flink 1.15.0 through 1.20.x and 2.0.0 through 2.x allows authenticated users with query submission privileges to execute arbitrary code on TaskManagers via maliciously crafted SQL queries. The vulnerability affects JSON functions (1.15.0+) and LIKE expressions with ESCAPE clauses (1.17.0+). User-controlled strings are interpolated into generated Java code without proper escaping, allowing attackers to break out of string literals and inject arbitrary expressions.\n\nUsers are recommended to upgrade to either version 1.20.4, 2.0.2, 2.1.2 or 2.2.1, which fixes this issue.",
+      "first_seen": "2026-05-16T03:59:24.032909+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032909+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/15/20",
+        "https://lists.apache.org/thread/qh52bw4hhvy7n2owd8b3bt51mz0lvj9x"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-35194"
+    },
+    {
+      "canonical_id": "CVE-2026-38728",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-400"
+      ],
+      "description": "An issue in Nodemailer smtp_server before v.3.18.3 allows a remote attacker to cause a denial of service via the SMTPStream._write, lib/smtp-stream.js components",
+      "first_seen": "2026-05-16T03:59:24.032787+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032787+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://bytecreator.dev/blog/CVE-2026-38728",
+        "https://github.com/nodemailer/smtp-server",
+        "https://github.com/nodemailer/smtp-server/releases/tag/v3.18.3"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-38728"
+    },
+    {
+      "canonical_id": "CVE-2026-39052",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "Oinone Pamirs 7.0.0 contains a code execution vulnerability via ScriptRunner. The method ScriptRunner.run(String expression, String type, Map<String, Object> context) evaluates attacker-controlled script expressions through the underlying script engine without sandboxing or allowlist restrictions.",
+      "first_seen": "2026-05-16T03:59:24.032800+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032800+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/Misakim1/859c3eb9ced699089ee0747dae9bedc1",
+        "https://github.com/oinone/oinone-pamirs",
+        "https://www.oinone.top/changelog"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-39052"
+    },
+    {
+      "canonical_id": "CVE-2026-39053",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-611"
+      ],
+      "description": "Oinone Pamirs 7.0.0 contains an XML External Entity (XXE) issue in its XStream-based XML parsing logic. When attacker-controlled XML is passed to framework parsing entry points such as PamirsXmlUtils.fromXML(...) or ViewXmlUtils.fromXML(...), unsafe XML processing can lead to file disclosure or SSRF.",
+      "first_seen": "2026-05-16T03:59:24.032815+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032815+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/Misakim1/859c3eb9ced699089ee0747dae9bedc1",
+        "https://github.com/oinone/oinone-pamirs",
+        "https://www.oinone.top/changelog"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-39053"
+    },
+    {
+      "canonical_id": "CVE-2026-4053",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-672"
+      ],
+      "description": "Mattermost versions 11.5.x <= 11.5.1, 10.11.x <= 10.11.13 fail to enforce the PostEditTimeLimit on non-message post fields which allows an authenticated user to modify post file attachments, props, and pin status after the edit window has expired via the post patch and update API endpoints.. Mattermost Advisory ID: MMSA-2026-00631",
+      "first_seen": "2026-05-16T03:59:24.033865+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033865+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://mattermost.com/security-updates"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "CVE-2026-4053"
+    },
+    {
+      "canonical_id": "CVE-2026-4094",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "The FOX \u2013 Currency Switcher Professional for WooCommerce plugin for WordPress is vulnerable to unauthorized data loss due to a missing capability check on the 'admin_head' function in all versions up to, and including, 1.4.5. This makes it possible for authenticated attackers, with Contributor-level access and above, to delete the entire multi-currency configuration by visiting any wp-admin page with the `woocs_reset` parameter appended. Additionally, because no nonce is verified, this is also exploitable via Cross-Site Request Forgery against any administrator. The vulnerability may also be exploited by Subscriber-level users if the site is configured to allow Subscriber access to 'wp-admin' pages.",
+      "first_seen": "2026-05-16T03:59:24.032228+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032228+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/woocommerce-currency-switcher/trunk/classes/woocs.php#L1167",
+        "https://plugins.trac.wordpress.org/browser/woocommerce-currency-switcher/trunk/classes/woocs.php#L1168",
+        "https://plugins.trac.wordpress.org/changeset/3483839/",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/6eb9d68c-c081-484e-ad5d-5eabcfa6d6f0?source=cve"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-4094"
+    },
+    {
+      "canonical_id": "CVE-2026-41181",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-201"
+      ],
+      "description": "Traefik is an HTTP reverse proxy and load balancer. Prior to 2.11.44, 3.6.15, and 3.7.0-rc.3, there is an information disclosure vulnerability in Traefik's errors (custom error pages) middleware. When the backend returns a response matching the configured status range, the middleware forwards the original request's complete header set, including Authorization, Cookie, and other authentication material, to the separate error page service rather than only the minimal context needed to render the error page. This behavior is undocumented: the documentation states only that Host is forwarded by default, so operators are not warned that sensitive credentials are shared across service boundaries. Deployments using the errors middleware with a distinct error page service may inadvertently expose end-user credentials to infrastructure that was not intended to receive them. This vulnerability is fixed in 2.11.44, 3.6.15, and 3.7.0-rc.3.",
+      "first_seen": "2026-05-16T03:59:24.033019+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033019+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/traefik/traefik/releases/tag/v2.11.44",
+        "https://github.com/traefik/traefik/releases/tag/v3.6.15",
+        "https://github.com/traefik/traefik/releases/tag/v3.7.0-rc.3",
+        "https://github.com/traefik/traefik/security/advisories/GHSA-p6hg-qh38-555r"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-41181"
+    },
+    {
+      "canonical_id": "CVE-2026-41258",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "OpenMRS is an open source electronic medical record system platform. From 2.7.0 to before 2.7.9 and 2.8.6, the ConceptReferenceRangeUtility.evaluateCriteria() method in OpenMRS Core evaluates database-stored criteria strings as Apache Velocity templates without any sandbox configuration. The VelocityEngine is initialized with only logging properties and noSecureUberspector, leaving the default UberspectImpl in place, which allows unrestricted Java reflection through template expressions. A user with the Manage Concepts privilege can store a malicious Velocity template expression in a concept's reference range criteria field. This payload is then executed automatically whenever a user or API call validates an observation against the affected concept. The Velocity context exposes $patient (the Person / Patient object), $obs (the Obs object), and $fn (the ConceptReferenceRangeUtility instance with access to the full OpenMRS service layer). This vulnerability is fixed in 2.7.9 and 2.8.6.",
+      "first_seen": "2026-05-16T03:59:24.033024+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033024+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openmrs/openmrs-core/security/advisories/GHSA-xj4f-8jjg-vx4q"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-41258"
+    },
+    {
+      "canonical_id": "CVE-2026-41553",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-78"
+      ],
+      "description": "PDF Export Module used in\u00a0DHTMLX's\u00a0products Gantt and Scheduler is vulnerable to Remote Code Execution due to lack of \"data\" parameter sanitization. An unauthenticated attacker\u00a0can inject the malicious JavaScript code to the\u00a0parameter\u00a0whose value is processed by Node.js and subsequently executed. This can lead to server compromise.\n\nThis issue was fixed in PDF Export Module version 0.7.6.",
+      "first_seen": "2026-05-16T03:59:24.032679+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032679+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://cert.pl/en/posts/2026/05/CVE-2026-7182",
+        "https://docs.dhtmlx.com/gantt/guides/pdf-export-module-whatsnew/#076:~:text=Fixed%20Remote%20Code%20Execution%20and%20File%20Read%20vulnerabilities"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-41553"
+    },
+    {
+      "canonical_id": "CVE-2026-42155",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-330",
+        "CWE-331",
+        "CWE-338"
+      ],
+      "description": "Magento Long Term Support (LTS) is an unofficial, community-driven project provides an alternative to the Magento Community Edition e-commerce platform with a high level of backward compatibility. Prior to 20.18.0, the XML-RPC / SOAP API session ID is generated using an outdated, time-based construction rather than a Cryptographically Secure Pseudo-Random Number Generator (CSPRNG). All inputs to the MD5 hash are time-derived and non-secure. Because the resulting digest relies entirely on the timestamp and the PHP internal LCG state, the effective entropy is severely constrained. This violates the OWASP ASVS v4 requirement of \u2265 64 bits of entropy (V3.2.2) and NIST SP 800-63B standards. By narrowing the LCG window (via server state leaks or general predictability) and leveraging the lack of API rate-limiting, an attacker can generate a localized pool of candidate MD5 hashes and execute a high-speed online brute-force attack to hijack active API sessions. This vulnerability is fixed in 20.18.0.",
+      "first_seen": "2026-05-16T03:59:24.033047+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033047+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/OpenMage/magento-lts/security/advisories/GHSA-2cwr-gcf9-pvxr"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42155"
+    },
+    {
+      "canonical_id": "CVE-2026-42207",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-601"
+      ],
+      "description": "Magento Long Term Support (LTS) is an unofficial, community-driven project provides an alternative to the Magento Community Edition e-commerce platform with a high level of backward compatibility. Prior to 20.18.0, Mage_ProductAlert_AddController::stockAction() reads the uenc query parameter and passes it directly to $this->_redirectUrl($backUrl) without calling $this->_isUrlInternal(). When the supplied product_id does not match any catalog product, the server issues an unvalidated HTTP 302 redirect to whatever URL was provided as uenc. This vulnerability is fixed in 20.18.0.",
+      "first_seen": "2026-05-16T03:59:24.033072+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033072+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/OpenMage/magento-lts/security/advisories/GHSA-qpgq-5g92-j5q8"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42207"
+    },
+    {
+      "canonical_id": "CVE-2026-42458",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-87"
+      ],
+      "description": "Magento Long Term Support (LTS) is an unofficial, community-driven project provides an alternative to the Magento Community Edition e-commerce platform with a high level of backward compatibility. Prior to 20.18.0, there is a reflected XSS vulnerability under admin panel -> System -> Import/Export -> Dataflow - Profiles. This vulnerability is fixed in 20.18.0.",
+      "first_seen": "2026-05-16T03:59:24.033089+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033089+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/OpenMage/magento-lts/security/advisories/GHSA-x8jv-q8j2-487c"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42458"
+    },
+    {
+      "canonical_id": "CVE-2026-43490",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nksmbd: validate inherited ACE SID length\n\nsmb_inherit_dacl() walks the parent directory DACL loaded from the\nsecurity descriptor xattr. It verifies that each ACE contains the fixed\nSID header before using it, but does not verify that the variable-length\nSID described by sid.num_subauth is fully contained in the ACE.\n\nA malformed inheritable ACE can advertise more subauthorities than are\npresent in the ACE. compare_sids() may then read past the ACE.\nsmb_set_ace() also clamps the copied destination SID, but used the\nunchecked source SID count to compute the inherited ACE size. That could\nadvance the temporary inherited ACE buffer pointer and nt_size accounting\npast the allocated buffer.\n\nFix this by validating the parent ACE SID count and SID length before\nusing the SID during inheritance. Compute the inherited ACE size from the\ncopied SID so the size matches the bounded destination SID. Reject the\ninherited DACL if size accumulation would overflow smb_acl.size or the\nsecurity descriptor allocation size.",
+      "first_seen": "2026-05-16T03:59:24.032171+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032171+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://git.kernel.org/stable/c/1aa60fea7f637c071f529ad6784aecca2f2f0c5f",
+        "https://git.kernel.org/stable/c/47c6e37a77b10e74f70d845ba4ea5d3cafa00336",
+        "https://git.kernel.org/stable/c/996454bc0da84d5a1dedb1a7861823087e01a7ae",
+        "https://git.kernel.org/stable/c/c1d95c995d5bcb24b639200a899eda59cb1e6d64"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-43490"
+    },
+    {
+      "canonical_id": "CVE-2026-44310",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-129",
+        "CWE-390"
+      ],
+      "description": "Gitsign is a keyless Sigstore to signing tool for Git commits with your a GitHub / OIDC identity. From 0.4.0 to before 0.15.0, CertVerifier.Verify() in pkg/git/verifier.go unconditionally dereferences certs[0] after sd.GetCertificates() without checking the slice length. A CMS/PKCS7 signed message with an empty certificate set is a structurally valid DER payload; GetCertificates() returns an empty slice with no error, causing an immediate index-out-of-range panic. On the gitsign --verify code path (the GPG-compatible mode invoked by git verify-commit), the panic is silently recovered by internal/io/streams.go's Wrap() function, which returns nil instead of an error. main.go then exits with code 0, causing exit-code-only verification callers to interpret the failed verification as success. This vulnerability is fixed in 0.15.0.",
+      "first_seen": "2026-05-16T03:59:24.033134+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033134+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/sigstore/gitsign/security/advisories/GHSA-7c37-gx6w-8vc5"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44310"
+    },
+    {
+      "canonical_id": "CVE-2026-44366",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Vvveb is a powerful and easy to use CMS with page builder to build websites, blogs or ecommerce stores. Prior to 1.0.8.1, a Stored Cross-Site Scripting (XSS) vulnerability exists in the Vvveb CMS comment submission flow. The author field is submitted by an unauthenticated user on any public post page, stored without sanitization, and later rendered unsanitized in two distinct sinks: This vulnerability is fixed in 1.0.8.1.",
+      "first_seen": "2026-05-16T03:59:24.033556+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033556+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/givanz/Vvveb/security/advisories/GHSA-gpmg-pcxr-9wvf"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44366"
+    },
+    {
+      "canonical_id": "CVE-2026-44552",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-668"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, the tool_servers and terminal_servers keys in utils/tools.py do use a prefix. When two or more Open WebUI instances share a Redis database (a supported and documented deployment pattern, e.g., for multi-region deployments, blue-green setups, or cluster topologies), the unprefixed keys collide. An admin on Instance A writing to tool_servers overwrites the value read by Instance B \u2014 causing Instance B's users to receive Instance A's tool server configuration. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.033985+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033985+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-3x8w-4f7p-xxc2"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44552"
+    },
+    {
+      "canonical_id": "CVE-2026-44554",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, the POST /api/v1/retrieval/process/web endpoint accepts a user-supplied collection_name and an overwrite query parameter (default: True). It performs no authorization check on whether the calling user owns or has write access to the target collection. When overwrite=True, save_docs_to_vector_db calls VECTOR_DB_CLIENT.delete_collection() on the target collection before writing new content. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034032+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034032+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-7r82-qhg4-6wvj"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44554"
+    },
+    {
+      "canonical_id": "CVE-2026-44555",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, Open WebUI supports model composition via base_model_id: a user-defined model (e.g., \"Cheap Assistant\") can reference an existing base model (e.g., \"gpt-4-turbo-restricted\") that provides the actual inference capability. When a user queries the composed model, the access control pipeline verifies the user has access to the composed model but never re-verifies access to the chained base model. Additionally, the model creation and import endpoints accept arbitrary base_model_id values without checking that the caller has access to that base model. Combined, this allows any user with the default model creation permission to create a model that chains to a restricted base model \u2014 and then invoke it, causing the server to dispatch the request to the restricted base model using the admin-configured API key. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034072+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034072+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-9vvh-qmjx-p4q8"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44555"
+    },
+    {
+      "canonical_id": "CVE-2026-44557",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, the _validate_collection_access function uses an incomplete allowlist that only enforces ownership checks for collections matching user-memory-* and file-* patterns. All other collection names pass through unchecked \u2014 including the system-level knowledge-bases meta-collection, which stores the IDs, names, and descriptions of every knowledge base on the instance. Any authenticated user can query this meta-collection directly via the retrieval query endpoints to obtain a global index of all knowledge bases across all users. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034137+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034137+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-6c2x-gcp3-gp73"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44557"
+    },
+    {
+      "canonical_id": "CVE-2026-44560",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, the type: \"file\" (non-full-context), type: \"text\" with collection_name, and bare collection_name/collection_names paths in the get_sources_from_items function perform vector store queries without any authorization check, allowing users to extract content from files and knowledge bases they do not have access to.  This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034213+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034213+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-h36f-rqpx-j5wx"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44560"
+    },
+    {
+      "canonical_id": "CVE-2026-44561",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, the is_user_channel_member function checks whether a ChannelMember row exists but does not check the is_active field. When a user is deactivated from a group or DM channel (removed by the channel owner, or leaves voluntarily), their membership row persists with is_active=False and status='left'. Because the authorization check ignores this field, the deactivated user retains full read and write access to the channel via direct API calls. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034222+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034222+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-hmgr-67hw-j2cq"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44561"
+    },
+    {
+      "canonical_id": "CVE-2026-44562",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-283",
+        "CWE-862"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, the POST /api/v1/models/import endpoint allows users with the workspace.models_import permission to overwrite any existing model in the database, regardless of ownership. When an imported model's ID matches an existing model, the endpoint merges the attacker's payload over the existing model data and writes it to the database with no ownership or access grant validation. Additionally, filter_allowed_access_grants is never called, bypassing the access grant restrictions enforced on all other model mutation endpoints. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034250+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034250+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-mqq6-cqcx-38vg"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44562"
+    },
+    {
+      "canonical_id": "CVE-2026-44567",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-602",
+        "CWE-863"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.1.124, the API does not properly validate that the user has an authorized user role of user. By default, when Open WebUI is configured with new sign-ups enabled, the default user role is set to pending. In this configuration, an administrator is required to go into the Admin management panel following a new user registration and reconfigure the user to have a role of either user or admin before that user is able to access the web application. This vulnerability is fixed in 0.1.124.",
+      "first_seen": "2026-05-16T03:59:24.034804+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034804+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-4vg5-rp28-gvjf"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44567"
+    },
+    {
+      "canonical_id": "CVE-2026-44568",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, the AccountPending.svelte component renders the admin-configured \"Pending User Overlay Content\" using marked.parse() inside {@html} with an incorrect DOMPurify application order. An admin can inject arbitrary JavaScript into the Pending User Overlay Content that executes in the browser context of any pending user who views the overlay page. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034304+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034304+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-fq3v-xjjx-95rc"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44568"
+    },
+    {
+      "canonical_id": "CVE-2026-44569",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.6.19, there's an IDOR in the channels message management system that allows authenticated users to modify or delete any message within channels they have read access to. The vulnerability exists in the message update and delete endpoints, which implement channel-level authorization but completely lack message ownership validation. While the frontend correctly implements ownership checks (showing edit/delete buttons only for message owners or admins), the backend APIs bypass these protections by only validating channel access permissions without verifying that the requesting user owns the target message. This creates a client-side security control bypass where attackers can directly call the APIs to modify other users' messages. This vulnerability is fixed in 0.6.19.",
+      "first_seen": "2026-05-16T03:59:24.034840+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034840+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-jxwr-g6r6-j3fx"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44569"
+    },
+    {
+      "canonical_id": "CVE-2026-44570",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.6.19, authorization controls surrounding the memories API were inconsistent, resulting in the ability of a standard user to delete, restore, and view the contents of other users' memories. Using a newly created non-admin user with no existing memories, it is possible to view existing memories via POST /api/v1/memories/query. Similarly, even if a non-admin user cannot modify another user's memory data via POST /api/v1/memories/{memory_id}/update, the endpoint's response improperly leaks the content of that memory if a valid memory_id is known. The DELETE /api/v1/memories/{memory_id} can also be used by any user to delete an existing memory. Deleted memories can then be restored by calling the POST /api/v1/memories/{memory_id}/update endpoint again. This vulnerability is fixed in 0.6.19.",
+      "first_seen": "2026-05-16T03:59:24.034875+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034875+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-hmjq-crxp-7rjw"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44570"
+    },
+    {
+      "canonical_id": "CVE-2026-44571",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.8.6, in standard channels (i.e., channels whose channel.type is neither group nor dm), the endpoint POST /api/v1/channels/{channel_id}/messages/{message_id}/update can be accessed with read permission only. When access_control is set to None, the authorization check has_access(..., type=\"read\") evaluates to True, allowing users who are not the message owner to update messages. As a result, unauthorized modification of other users\u2019 messages is possible. This vulnerability is fixed in 0.8.6.",
+      "first_seen": "2026-05-16T03:59:24.034908+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034908+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-jgj3-r8hr-9pjw"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44571"
+    },
+    {
+      "canonical_id": "CVE-2026-44641",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-22",
+        "CWE-73"
+      ],
+      "description": "Microsoft APM is an open-source, community-driven dependency manager for AI agents. Prior to 0.8.12, Microsoft APM normalizes marketplace plugins by copying plugin components referenced in plugin.json into .apm/. The manifest fields agents, skills, commands, and hooks are attacker-controlled, but the implementation does not enforce that those paths remain inside the plugin directory. A malicious plugin can therefore use absolute paths or ../ traversal paths to copy arbitrary readable host files or directories from the installer's machine during apm install. This vulnerability is fixed in 0.8.12.",
+      "first_seen": "2026-05-16T03:59:24.033162+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033162+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/microsoft/apm/security/advisories/GHSA-xhrw-5qxx-jpwr"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44641"
+    },
+    {
+      "canonical_id": "CVE-2026-44699",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-327",
+        "CWE-347"
+      ],
+      "description": "LibJWT is a C JSON Web Token Library. From 3.0.0 to 3.3.2, libjwt accepts an RSA JWK that does not contain an alg parameter as the verification key for an HS256/HS384/HS512 token. In the OpenSSL backend, this causes HMAC verification to run with a zero-length key, so an attacker can forge a valid JWT without knowing any secret or RSA private key. This is an algorithm-confusion authentication bypass. It affects applications that load RSA keys from JWKS where alg is omitted, which is valid JWK syntax and common in real deployments, and then choose the verification algorithm from the JWT header, for example in a kid lookup callback. This vulnerability is fixed in 3.3.3.",
+      "first_seen": "2026-05-16T03:59:24.033186+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033186+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/benmcollins/libjwt/security/advisories/GHSA-q843-6q5f-w55g"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44699"
+    },
+    {
+      "canonical_id": "CVE-2026-44714",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-347"
+      ],
+      "description": "The bitcoinj library is a Java implementation of the Bitcoin protocol. Prior to 0.17.1, ScriptExecution.correctlySpends() contains two fast-path verification bugs for standard P2PKH and native P2WPKH spends in core/src/main/java/org/bitcoinj/script/ScriptExecution.java. In both branches, bitcoinj verifies an attacker-controlled signature/public-key pair but fails to verify that the public key is the one committed to by the output being spent. As a result, any attacker keypair can satisfy bitcoinj's local verification for arbitrary P2PKH and P2WPKH outputs. This vulnerability is fixed in 0.17.1.",
+      "first_seen": "2026-05-16T03:59:24.033191+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033191+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/bitcoinj/bitcoinj/commit/2bc5653c41d260d840692bc554690d4d79208f9c",
+        "https://github.com/bitcoinj/bitcoinj/commit/b575a682acf614b9ff95cacbdeb48f86c3ababe0",
+        "https://github.com/bitcoinj/bitcoinj/security/advisories/GHSA-hfcf-v2f8-x9pc"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44714"
+    },
+    {
+      "canonical_id": "CVE-2026-44717",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "MCP Calculate Server is a mathematical calculation service based on MCP protocol and SymPy library. Prior to 0.1.1, the use of eval() to evaluate mathematical expressions without proper input sanitization leads to remote code execution. This vulnerability is fixed in 0.1.1.",
+      "first_seen": "2026-05-16T03:59:24.033202+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033202+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/611711Dark/mcp_calculate_server/security/advisories/GHSA-2mgq-7rfg-rwpj"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-44717"
+    },
+    {
+      "canonical_id": "CVE-2026-44718",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639",
+        "CWE-862"
+      ],
+      "description": "Mathesar is a web application that makes working with PostgreSQL databases both simple and powerful. From 0.2.0 to before 0.10.0, explorations.get, explorations.replace, and explorations.delete operate on an exploration_id without verifying that the requesting user was a collaborator on the exploration\u2019s database. An authenticated user on the same Mathesar installation who knew or guessed an exploration ID could read, replace, or delete a saved exploration belonging to a database where they were not a collaborator. This affected Mathesar-managed saved exploration definitions, including names, descriptions, selected columns, display metadata, filters, sorting, and transformations. This vulnerability is fixed in 0.10.0.",
+      "first_seen": "2026-05-16T03:59:24.033584+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033584+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mathesar-foundation/mathesar/security/advisories/GHSA-wf8r-g5rp-w69f"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44718"
+    },
+    {
+      "canonical_id": "CVE-2026-44719",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Mathesar is a web application that makes working with PostgreSQL databases both simple and powerful. From 0.2.0 to before 0.10.0, collaborators.list, tables.metadata.list, explorations.list, and forms.list accept a database_id without verifying that the requesting user was a collaborator on that database. An authenticated user on the same Mathesar installation could use these methods to view Mathesar-managed metadata for databases where they were not a collaborator. Depending on the database and features in use, exposed metadata could include collaborator mappings, table metadata, saved exploration metadata, and form metadata. For forms, the exposed metadata included form tokens. For public forms, possession of the token is equivalent to possession of the public form link, which allows submission to the form under the form\u2019s configured PostgreSQL role. This vulnerability is fixed in 0.10.0.",
+      "first_seen": "2026-05-16T03:59:24.033615+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033615+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mathesar-foundation/mathesar/security/advisories/GHSA-jh9v-hqw8-5cq8"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44719"
+    },
+    {
+      "canonical_id": "CVE-2026-44721",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, a stored cross-site scripting (XSS) vulnerability that allows any authenticated user with model creation permission (workspace.models) to execute arbitrary JavaScript in the browser of any other user (including admins) who views the malicious model in the chat UI. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034451+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034451+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-gf5m-wcrh-7928"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44721"
+    },
+    {
+      "canonical_id": "CVE-2026-44826",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1284"
+      ],
+      "description": "Vvveb is a powerful and easy to use CMS with page builder to build websites, blogs or ecommerce stores. Prior to 1.0.8.2, Vvveb CMS does not validate the sign of the quantity parameter on the cart-add endpoint. Submitting a negative integer is accepted by the server and treated as a normal positive line-item, but with the sign carried through into every downstream computation: line total, sub-total, taxes, and grand total all become negative numbers. The customer-facing cart UI then displays a negative grand total to the user, the checkout flow accepts the negative cart, and the resulting order is persisted in the merchant's database with a negative total column. From the merchant's order management dashboard, this surfaces as a real order with a negative total \u2014 an \"the merchant owes the customer money\" record that no legitimate workflow ever creates. This vulnerability is fixed in 1.0.8.2.",
+      "first_seen": "2026-05-16T03:59:24.033661+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033661+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/givanz/Vvveb/security/advisories/GHSA-75x2-j47j-mg8j"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44826"
+    },
+    {
+      "canonical_id": "CVE-2026-45007",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains missing permission checks in ConfigurationTabController.php where 12 endpoints use userIsAuthenticated() instead of userHasPermission(CONFIGURATION_EDIT). Any authenticated user can enumerate system configuration metadata including permission model, cache backend, mail provider, and translation provider by querying /admin/api/configuration endpoints, violating least privilege access control.",
+      "first_seen": "2026-05-16T03:59:24.033671+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033671+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-rm98-82fr-mcfx",
+        "https://www.vulncheck.com/advisories/phpmyfaq-missing-permission-check-on-12-configuration-api-endpoints-allows-information-disclosure"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45007"
+    },
+    {
+      "canonical_id": "CVE-2026-45008",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-73"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains a path traversal vulnerability in Client::deleteClientFolder that allows admins with INSTANCE_DELETE permission to delete arbitrary directories. Attackers can submit traversal sequences like https://../../../<path> in the client URL parameter to recursively delete directories outside the intended clientFolder scope.",
+      "first_seen": "2026-05-16T03:59:24.033680+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033680+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-gh9p-q46p-57g2",
+        "https://www.vulncheck.com/advisories/phpmyfaq-path-traversal-in-client-deleteclientfolder-via-url-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45008"
+    },
+    {
+      "canonical_id": "CVE-2026-45009",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains an insufficient authorization vulnerability in admin-api routes that allows authenticated ordinary users to access administrative endpoints by only checking login status instead of verifying backend privileges. Attackers with valid frontend user accounts can access sensitive backend operational information including dashboard versions, LDAP configuration, Elasticsearch statistics, and health-check data.",
+      "first_seen": "2026-05-16T03:59:24.033691+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033691+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-jrc5-w569-h7h5",
+        "https://www.vulncheck.com/advisories/phpmyfaq-insufficient-authorization-check-in-admin-api-endpoints"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45009"
+    },
+    {
+      "canonical_id": "CVE-2026-45010",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-307"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains an improper restriction of excessive authentication attempts vulnerability in the /admin/check endpoint, which accepts arbitrary user-id parameters without session binding or rate limiting. Unauthenticated attackers can brute-force any user's six-digit TOTP code by submitting POST requests with sequential token values, bypassing two-factor authentication to gain full administrative access.",
+      "first_seen": "2026-05-16T03:59:24.033700+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033700+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-9pq7-mfwh-xx2j",
+        "https://www.vulncheck.com/advisories/phpmyfaq-unauthenticated-two-factor-authentication-brute-force-via-admin-check-endpoint"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-45010"
+    },
+    {
+      "canonical_id": "CVE-2026-45035",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-78"
+      ],
+      "description": "Tabby (formerly Terminus) is a highly configurable terminal emulator. Prior to 1.0.233, Tabby registers itself as the handler for the tabby:// URL scheme on all platforms. The URL scheme handler supports a run command that directly executes OS commands with no user confirmation, sanitization, or sandboxing. An attacker can craft a malicious link (tabby://run?command=...) and deliver it via a website, email, chat message, or any other medium. When a victim clicks the link, the OS launches Tabby which immediately spawns the specified command as a child process with the user's full privileges. This is a zero-click-after-link-visit RCE vulnerability. This vulnerability is fixed in 1.0.233.",
+      "first_seen": "2026-05-16T03:59:24.033264+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033264+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Eugeny/tabby/security/advisories/GHSA-hf8h-rjrf-3jg6"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45035"
+    },
+    {
+      "canonical_id": "CVE-2026-45331",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, validate_url() in backend/open_webui/retrieval/web/utils.py calls validators.ipv6(ip, private=True), but the validators library does NOT implement the private keyword for IPv6 \u2014 the call raises a ValidationError (which is falsy in a boolean context), so every IPv6 address passes the filter. In addition, IPv4-mapped IPv6 (::ffff:10.0.0.1) bypasses the IPv4 check entirely, and several reserved IPv4 ranges (0.0.0.0/8, 100.64.0.0/10, 192.0.0.0/24, etc.) are not blocked. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034330+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034330+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-4v7r-f4w8-8972"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45331"
+    },
+    {
+      "canonical_id": "CVE-2026-45338",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, a Server-Side Request Forgery (SSRF) vulnerability exists in _process_picture_url() in backend/open_webui/utils/oauth.py (line ~1338). The function fetches arbitrary URLs from OAuth picture claims without applying validate_url(), allowing an attacker to force the server to make HTTP requests to internal resources and exfiltrate the full response. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.035117+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.035117+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-24c9-2m8q-qhmh"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45338"
+    },
+    {
+      "canonical_id": "CVE-2026-45339",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, Open WebUI allows admins to restrict which API endpoints an API key can access. When an API key is restricted from /api/v1/messages, requests using the Authorization: Bearer sk-... header are correctly blocked with 403. However, the same key sent via the x-api-key header bypasses the restriction entirely \u2014 the request is authenticated, the model is invoked, and a full response is returned. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034361+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034361+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-57q6-fvp4-pqmm"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45339"
+    },
+    {
+      "canonical_id": "CVE-2026-45347",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.5.11, there is a blind server side request forgery (SSRF) via the PDF generate function. In the PDF export, user inputs are interpreted as HTML and embedded into the PDF. According to tests, scripts and some potentially dangerous tags (iFrame, Object, etc.) are blocked, preventing server-side content from being read through this vulnerability. However, an image tag can be used to force a server-side request (SSRF), as shown in the following below. This vulnerability is fixed in 0.5.11.",
+      "first_seen": "2026-05-16T03:59:24.035166+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.035166+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-f776-fp4w-266c"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45347"
+    },
+    {
+      "canonical_id": "CVE-2026-45365",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-285"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.8.11, an internal-only bypass_filter parameter is exposed on the /openai/chat/completions and /ollama/api/chat HTTP endpoints via FastAPI query string binding, allowing any authenticated user to append ?bypass_filter=true and bypass model access control checks to invoke admin-restricted models. This vulnerability is fixed in 0.8.11.",
+      "first_seen": "2026-05-16T03:59:24.035327+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.035327+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-v6qf-75pr-p96m"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45365"
+    },
+    {
+      "canonical_id": "CVE-2026-45395",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-269",
+        "CWE-862"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.5, the tool update endpoint (POST /api/v1/tools/id/{id}/update) is missing the workspace.tools permission check that is present on the tool create endpoint. This allows a user who has been explicitly denied tool management capabilities ( and who the administrator considers untrusted for code execution ) to replace a tool's server-side Python content and trigger execution, bypassing the intended workspace.tools security boundary. This vulnerability is fixed in 0.9.5.",
+      "first_seen": "2026-05-16T03:59:24.034531+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034531+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-p4fx-23fq-jfg6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45395"
+    },
+    {
+      "canonical_id": "CVE-2026-45397",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-306"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.5, GET /api/v1/retrieval/ returns live RAG pipeline configuration to any unauthenticated HTTP client. No Authorization header, cookie, or API key is required. Every adjacent endpoint on the same router (/embedding, /config) is correctly guarded by get_admin_user making this a targeted omission. This vulnerability is fixed in 0.9.5.",
+      "first_seen": "2026-05-16T03:59:24.034579+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034579+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-65pg-qhhw-mxwg"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45397"
+    },
+    {
+      "canonical_id": "CVE-2026-45399",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, any authenticated user with low privileges can enumerate active background tasks across the system and stop tasks belonging to other users via the GET /api/tasks and POST /api/tasks/stop/{task_id} methods. This allows a casual user to disrupt system-wide chat usage by continuously canceling other users' active tasks. This is a real authorization vulnerability affecting integrity and usability in multi-user deployments. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034399+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034399+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-8jjp-r2w2-4v22"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45399"
+    },
+    {
+      "canonical_id": "CVE-2026-45400",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.5, a parsing difference between the urlparse and requests libraries led to an SSRF bypass vulnerability. This vulnerability is fixed in 0.9.5.",
+      "first_seen": "2026-05-16T03:59:24.034624+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034624+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-8w7q-q5jp-jvgx"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45400"
+    },
+    {
+      "canonical_id": "CVE-2026-45402",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.5, multiple endpoints accept a user-supplied file_id and attach the referenced file to a resource the caller controls (folder knowledge, knowledge-base contents) without verifying that the caller owns or has been granted access to the file. The file's content then becomes reachable through the downstream RAG / file-content paths, allowing any authenticated user to exfiltrate any other user's private file \u2014 and on the knowledge-base path, also to overwrite it \u2014 given knowledge of the file's UUID. This affects backend/open_webui/routers/folders.py (POST /api/v1/folders/{id}/update), backend/open_webui/routers/knowledge.py (add_file_to_knowledge_by_id), and backend/open_webui/routers/knowledge.py (add_files_to_knowledge_by_id_batch). This vulnerability is fixed in 0.9.5.",
+      "first_seen": "2026-05-16T03:59:24.034701+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034701+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-r472-mw7m-967f"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45402"
+    },
+    {
+      "canonical_id": "CVE-2026-45539",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200",
+        "CWE-59"
+      ],
+      "description": "Microsoft APM is an open-source, community-driven dependency manager for AI agents. From 0.5.4 to 0.12.4, two primitive integrators in apm-cli enumerate package files with bare Path.glob() / Path.rglob() calls and read each match with Path.read_text(), transparently following symbolic links. A symlink committed inside a remote APM dependency under .apm/prompts/<x>.prompt.md or .apm/agents/<x>.agent.md is preserved verbatim into apm_modules/ on clone and then dereferenced during integration, with the resolved content written as a regular file into the project's deploy directories. The package content_hash, the pre-deploy SecurityGate scan, and apm audit do not flag this. The deploy roots are not added to the auto-generated .gitignore, so the resulting files are staged by git add by default. This vulnerability is fixed in 0.13.0.",
+      "first_seen": "2026-05-16T03:59:24.033387+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033387+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/microsoft/apm/security/advisories/GHSA-q5pp-gvjg-h7v4"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45539"
+    },
+    {
+      "canonical_id": "CVE-2026-45616",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Vvveb is a powerful and easy to use CMS with page builder to build websites, blogs or ecommerce stores. Prior to 1.0.8.3,  This vulnerability is fixed in 1.0.8.3.",
+      "first_seen": "2026-05-16T03:59:24.033712+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033712+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/givanz/Vvveb/security/advisories/GHSA-39gc-pjv5-4w4p"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45616"
+    },
+    {
+      "canonical_id": "CVE-2026-45622",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Vvveb is a powerful and easy to use CMS with page builder to build websites, blogs or ecommerce stores. Prior to 1.0.8.3, there is an unauthenticated reflected cross-site scripting (XSS) issue in the public product return form in Vvveb CMS. The customer_order_id POST parameter is inserted into the Order %s not found! error message when the order lookup fails, and that message is rendered in the frontend template without HTML escaping. As a result, attacker-controlled HTML/JavaScript executes in the submitting user's browser. This vulnerability is fixed in 1.0.8.3.",
+      "first_seen": "2026-05-16T03:59:24.033717+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033717+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/givanz/Vvveb/security/advisories/GHSA-3xwm-8f6m-cfc6"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45622"
+    },
+    {
+      "canonical_id": "CVE-2026-45666",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.8.11, the API /api/v1/notes/{note_id} endpoint lacks proper authorization checks, allowing authenticated users to retrieve notes belonging to other users by guessing or enumerating UUIDs. This results in unauthorized disclosure of potentially sensitive or private user data. This vulnerability is fixed in 0.8.11.",
+      "first_seen": "2026-05-16T03:59:24.035379+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.035379+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-x3qm-p8hr-3c3h"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45666"
+    },
+    {
+      "canonical_id": "CVE-2026-45671",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.9.0, any authenticated user can permanently delete files owned by other users via DELETE /api/v1/files/{id} when the target file is referenced in any shared chat. The has_access_to_file() authorization gate unconditionally grants access through its shared-chat branch. It checks neither the requesting user's identity nor the type of operation being performed. File UUIDs (which would otherwise be impractical to guess) are disclosed to any user with read access to a knowledge base via GET /api/v1/knowledge/{id}/files. This vulnerability is fixed in 0.9.0.",
+      "first_seen": "2026-05-16T03:59:24.034425+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034425+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-26g9-27vm-x3q8"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45671"
+    },
+    {
+      "canonical_id": "CVE-2026-45672",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "Open WebUI is a self-hosted artificial intelligence platform designed to operate entirely offline. Prior to 0.8.12, the /api/v1/utils/code/execute endpoint executes arbitrary Python code via Jupyter for any verified user, even when the admin has set ENABLE_CODE_EXECUTION=false. The feature gate is not enforced on the API endpoint \u2014 the configuration says \"disabled\" but code still executes. This vulnerability is fixed in 0.8.12.",
+      "first_seen": "2026-05-16T03:59:24.034711+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.034711+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/open-webui/open-webui/security/advisories/GHSA-482j-2pq6-q5w4"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45672"
+    },
+    {
+      "canonical_id": "CVE-2026-45736",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-908"
+      ],
+      "description": "ws is an open source WebSocket client and server for Node.js. Prior to 8.20.1, the websocket.close() implementation is vulnerable to uninitialized memory disclosure when a TypedArray is passed as the reason argument. This vulnerability is fixed in 8.20.1.",
+      "first_seen": "2026-05-16T03:59:24.032838+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032838+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/websockets/ws/commit/c0327ec15a54d701eb6ccefaa8bef328cfc03086",
+        "https://github.com/websockets/ws/security/advisories/GHSA-58qx-3vcg-4xpx"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45736"
+    },
+    {
+      "canonical_id": "CVE-2026-45772",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-426"
+      ],
+      "description": "Turborepo is a high-performance build system for JavaScript and TypeScript codebases. From 1.1.0 to before 2.9.14, Turborepo can be vulnerable to arbitrary code execution when run in untrusted repositories that contain malicious Yarn configuration. In affected versions, package manager detection executed yarn --version from the project directory, which could cause Yarn to load and execute a project-controlled yarnPath from .yarnrc.yml. An attacker who controls repository contents could cause code execution when a user or CI system runs affected turbo, @turbo/codemod, or @turbo/workspace conversion commands. This vulnerability is fixed in 2.9.14.",
+      "first_seen": "2026-05-16T03:59:24.032914+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032914+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/vercel/turborepo/security/advisories/GHSA-3qcw-2rhx-2726"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45772"
+    },
+    {
+      "canonical_id": "CVE-2026-45773",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-352",
+        "CWE-384"
+      ],
+      "description": "Turborepo is a high-performance build system for JavaScript and TypeScript codebases. Prior to 2.9.14, Turborepo's self-hosted login and SSO browser flows did not validate a CSRF state value on the localhost callback. While the CLI was waiting for authentication, a malicious web page could send a request to the local callback server with an attacker-controlled token. If accepted before the legitimate callback, the CLI could complete login with the wrong credentials. This affects users authenticating the turbo CLI against self-hosted remote cache/auth endpoints. Vercel-hosted login flows using device authorization are not affected. This vulnerability is fixed in 2.9.14.",
+      "first_seen": "2026-05-16T03:59:24.032919+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032919+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/vercel/turborepo/security/advisories/GHSA-hcf7-66rw-9f5r"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45773"
+    },
+    {
+      "canonical_id": "CVE-2026-45800",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "Vvveb is a powerful and easy to use CMS with page builder to build websites, blogs or ecommerce stores. Prior to 1.0.8.3, there is an authenticated SQL injection issue in the frontend user order history page in Vvveb CMS. A normal frontend user can log in and access /user/orders. The order_by and direction request parameters are accepted from the URL, propagated through the Orders component, and directly concatenated into the SQL ORDER BY clause in OrderSQL::getAll(). Because of this, attacker-controlled input reaches SQL structure without a whitelist or safe query construction step. This vulnerability is fixed in 1.0.8.3.",
+      "first_seen": "2026-05-16T03:59:24.033740+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033740+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/givanz/Vvveb/security/advisories/GHSA-vwcx-w4fq-9769"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45800"
+    },
+    {
+      "canonical_id": "CVE-2026-46359",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains a sql injection vulnerability in CurrentUser::setTokenData that allows authenticated attackers to execute arbitrary SQL by injecting malicious OAuth token claims. Attackers with Azure AD accounts containing SQL metacharacters in display names or JWT claims can break out of string literals and execute arbitrary database queries.",
+      "first_seen": "2026-05-16T03:59:24.033749+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033749+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-pm8c-3qq3-72w7",
+        "https://www.vulncheck.com/advisories/phpmyfaq-sql-injection-in-currentuser-settokendata-via-unescaped-oauth-token-fields"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-46359"
+    },
+    {
+      "canonical_id": "CVE-2026-46360",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains a stored cross-site scripting vulnerability in SvgSanitizer::decodeAllEntities() that limits recursive entity decoding to 5 iterations, allowing attackers to bypass sanitization. Authenticated users with FAQ_EDIT permission can upload malicious SVG files with deeply nested ampersand encoding around numeric HTML entities to reconstruct javascript: URLs, which execute arbitrary JavaScript when clicked by other users viewing the uploaded SVG.",
+      "first_seen": "2026-05-16T03:59:24.033753+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033753+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-whqh-9pq5-c7r3",
+        "https://www.vulncheck.com/advisories/phpmyfaq-stored-xss-via-entity-decoding-depth-limit-bypass-in-svg-sanitizer"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46360"
+    },
+    {
+      "canonical_id": "CVE-2026-46361",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains a stored cross-site scripting vulnerability in search.twig where result.question and result.answerPreview are rendered with the raw filter, disabling autoescape protection. Attackers with FAQ editor privileges can inject HTML-entity-encoded payloads that bypass html_entity_decode(strip_tags()) processing in SearchController.php, executing arbitrary JavaScript in every visitor's browser context including administrators.",
+      "first_seen": "2026-05-16T03:59:24.033762+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033762+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-pqh6-8fxf-jx22",
+        "https://www.vulncheck.com/advisories/phpmyfaq-stored-cross-site-scripting-via-raw-filter-in-search-twig"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46361"
+    },
+    {
+      "canonical_id": "CVE-2026-46362",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains an authorization bypass vulnerability in AbstractAdministrationController::userHasPermission() that fails to terminate execution after sending a forbidden response. Attackers can access all permission-protected admin pages by requesting their URLs as authenticated users, exposing admin logs, user data, system information, and application configuration.",
+      "first_seen": "2026-05-16T03:59:24.033770+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033770+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-hpgw-ww76-c68r",
+        "https://www.vulncheck.com/advisories/phpmyfaq-authorization-bypass-in-admin-pages-via-non-terminating-permission-check"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46362"
+    },
+    {
+      "canonical_id": "CVE-2026-46363",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains a stored cross-site scripting vulnerability in FAQ creation and update endpoints that bypass sanitization through encode-decode cycles. The vulnerability allows authenticated attackers with FAQ_ADD permission to inject malicious script tags via question or answer parameters, which execute in every visitor's browser when FAQ content is rendered with the raw Twig filter.",
+      "first_seen": "2026-05-16T03:59:24.033780+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033780+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-f5p7-2c9q-8896",
+        "https://www.vulncheck.com/advisories/phpmyfaq-stored-xss-in-faq-question-answer-via-encode-decode-bypass"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46363"
+    },
+    {
+      "canonical_id": "CVE-2026-46364",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains an unauthenticated SQL injection vulnerability in BuiltinCaptcha::garbageCollector() and BuiltinCaptcha::saveCaptcha() methods that interpolate unsanitized User-Agent headers into DELETE and INSERT queries. Unauthenticated attackers can exploit the public GET /api/captcha endpoint by crafting malicious User-Agent headers to perform time-based blind SQL injection, extracting sensitive data including user credentials, admin tokens, and SMTP credentials from the database.",
+      "first_seen": "2026-05-16T03:59:24.033789+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033789+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/commit/b9f25109fddb38eee19987183798638d07943f92",
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-289f-fq7w-6q2w",
+        "https://www.vulncheck.com/advisories/phpmyfaq-sql-injection-via-user-agent-header-in-builtincaptcha"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-46364"
+    },
+    {
+      "canonical_id": "CVE-2026-46365",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains a missing authorization vulnerability in the DELETE /admin/api/content/tags/{tagId} endpoint that allows any authenticated user to delete tags. Any logged-in user, including regular frontend users, can delete arbitrary tags by sending a DELETE request with a valid session cookie, resulting in permanent data loss and disruption of FAQ organization.",
+      "first_seen": "2026-05-16T03:59:24.033800+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033800+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-7cx3-2qx2-3g6w",
+        "https://www.vulncheck.com/advisories/phpmyfaq-missing-authorization-in-tag-deletion-endpoint"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46365"
+    },
+    {
+      "canonical_id": "CVE-2026-46366",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains an information disclosure vulnerability in the getIdFromSolutionId() method that lacks permission filtering, allowing unauthenticated attackers to enumerate restricted FAQ entries and read their titles via the /solution_id_{id}.html endpoint. Attackers can sequentially iterate solution IDs to discover all FAQs including those restricted to specific users or groups, leaking sensitive metadata through redirect Location headers and page canonical links.",
+      "first_seen": "2026-05-16T03:59:24.033809+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033809+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-99qv-g4x9-mgc3",
+        "https://www.vulncheck.com/advisories/phpmyfaq-unauthenticated-information-disclosure-via-getidfromsolutionid-permission-bypass"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-46366"
+    },
+    {
+      "canonical_id": "CVE-2026-46367",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "phpMyFAQ before 4.1.2 contains a stored cross-site scripting vulnerability in Utils::parseUrl() that allows authenticated users to inject JavaScript via malformed URLs in comments. Attackers can craft URLs with unescaped quotes to inject event handlers, stealing admin session cookies and achieving full application takeover when visitors view affected FAQ pages.",
+      "first_seen": "2026-05-16T03:59:24.033814+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033814+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/thorsten/phpMyFAQ/security/advisories/GHSA-9525-27vj-c8r8",
+        "https://www.vulncheck.com/advisories/phpmyfaq-stored-xss-via-utils-parseurl-in-comment-rendering"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-46367"
+    },
+    {
+      "canonical_id": "CVE-2026-46383",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-22",
+        "CWE-73"
+      ],
+      "description": "Microsoft APM is an open-source, community-driven dependency manager for AI agents. Prior to 0.13.0, Microsoft APM contains a Windows-specific archive extraction boundary failure in the legacy-bundle probe used by apm install <bundle> on supported Python 3.10 and 3.11 runtimes. When apm install is given a local .tar.gz that is not recognized as a plugin-format bundle, APM probes whether it is a legacy --format apm bundle. On Python versions earlier than 3.12, that probe extracts untrusted tar members with raw tar.extractall() without rejecting Windows absolute member names such as D:/.... This vulnerability is fixed in 0.13.0.",
+      "first_seen": "2026-05-16T03:59:24.033395+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033395+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/microsoft/apm/security/advisories/GHSA-mq5j-pw29-jcv3"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46383"
+    },
+    {
+      "canonical_id": "CVE-2026-46407",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Vvveb is a powerful and easy to use CMS with page builder to build websites, blogs or ecommerce stores. Prior to 1.0.8.3, the backend admin/auth-token endpoint allows an authenticated administrator to load another administrator's REST API token list by supplying that user's admin_id. This can disclose sensitive API tokens belonging to other administrators. This vulnerability is fixed in 1.0.8.3.",
+      "first_seen": "2026-05-16T03:59:24.033832+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033832+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/givanz/Vvveb/security/advisories/GHSA-5g3g-x6mf-pwr6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-46407"
+    },
+    {
+      "canonical_id": "CVE-2026-46408",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Vvveb is a powerful and easy to use CMS with page builder to build websites, blogs or ecommerce stores. Prior to 1.0.8.3, the checkout endpoint accepts a user-controlled cart_id and uses it to enter the payment flow without verifying cart ownership. A logged-in attacker can therefore reuse another user's cart data in their own checkout session. This vulnerability is fixed in 1.0.8.3.",
+      "first_seen": "2026-05-16T03:59:24.033849+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.033849+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/givanz/Vvveb/security/advisories/GHSA-rmh2-wv73-xpqh"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-46408"
+    },
+    {
+      "canonical_id": "CVE-2026-46483",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-78",
+        "CWE-88"
+      ],
+      "description": "Vim is an open source, command line text editor. Prior to 9.2.0479, a command injection vulnerability exists in tar#Vimuntar() in\nruntime/autoload/tar.vim when decompressing .tgz archives on Unix-like systems. The function builds :!gunzip and :!gzip -d commands using shellescape(tartail) without the {special} flag, allowing a crafted archive filename to trigger Vim cmdline-special expansion and execute shell commands in the user's context. This vulnerability is fixed in 9.2.0479.",
+      "first_seen": "2026-05-16T03:59:24.032861+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032861+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/vim/vim/commit/3fb5e58fbc63d86a3e65f1a141b0d67af2aa38a1",
+        "https://github.com/vim/vim/releases/tag/v9.2.0479",
+        "https://github.com/vim/vim/security/advisories/GHSA-2fpv-9ff7-xg5w"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "CVE-2026-46483"
+    },
+    {
+      "canonical_id": "CVE-2026-46508",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-77"
+      ],
+      "description": "Turborepo is a high-performance build system for JavaScript and TypeScript codebases. Prior to 2.9.14000, the Turborepo LSP VS Code extension could execute shell commands derived from workspace-controlled values. The extension used string-based command execution for Turborepo daemon commands and task runs. A malicious workspace could provide crafted values through workspace settings or task names in the repository's source code that were interpolated into shell commands. When the extension activated or when a user ran a task through the extension, those values could be interpreted by the user's shell, allowing arbitrary command execution with the privileges of the local VS Code process. This vulnerability is fixed in 2.9.14000.",
+      "first_seen": "2026-05-16T03:59:24.032975+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032975+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/vercel/turborepo/security/advisories/GHSA-5xc8-49mv-x4mm"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46508"
+    },
+    {
+      "canonical_id": "CVE-2026-5229",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-287"
+      ],
+      "description": "The Form Notify plugin for WordPress is vulnerable to Authentication Bypass in versions up to and including 1.1.10. This is due to the plugin trusting user-controlled cookie data to determine which WordPress account to authenticate after a LINE OAuth login. When LINE doesn't provide an email address (which is common), the plugin falls back to reading the 'form_notify_line_email' cookie value without verifying that the LINE account is associated with that email address. This makes it possible for unauthenticated attackers to gain access to any user account on the site, including administrator accounts, by completing a LINE OAuth flow with their own LINE account while injecting a malicious cookie containing the target victim's email address.",
+      "first_seen": "2026-05-16T03:59:24.032316+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032316+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/oberonlai/form-notify/commit/5eab0ea",
+        "https://github.com/oberonlai/form-notify/commit/9780764",
+        "https://plugins.trac.wordpress.org/browser/form-notify/tags/1.1.08/src/APIs/Line/Login/Route.php#L116-L118",
+        "https://plugins.trac.wordpress.org/browser/form-notify/tags/1.1.08/src/APIs/Line/Login/User.php#L53",
+        "https://plugins.trac.wordpress.org/browser/form-notify/tags/1.1.08/src/APIs/Line/Login/User.php#L72",
+        "https://plugins.trac.wordpress.org/browser/form-notify/trunk/src/APIs/Line/Login/Route.php#L116-L118",
+        "https://plugins.trac.wordpress.org/browser/form-notify/trunk/src/APIs/Line/Login/User.php#L53",
+        "https://plugins.trac.wordpress.org/browser/form-notify/trunk/src/APIs/Line/Login/User.php#L72",
+        "https://plugins.trac.wordpress.org/changeset?sfp_email=&sfph_mail=&reponame=&old=3517908%40form-notify&new=3517908%40form-notify&sfp_email=&sfph_mail=",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/2f0a7d6f-9b95-4052-bab3-85aca01f6ab7?source=cve"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-5229"
+    },
+    {
+      "canonical_id": "CVE-2026-6228",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-269"
+      ],
+      "description": "The Frontend Admin by DynamiApps plugin for WordPress is vulnerable to Privilege Escalation in versions up to and including 3.28.36. This is due to insufficient authorization checks in the role field update mechanism combined with overly permissive capabilities for the admin_form post type. The admin_form custom post type uses 'capability_type' => 'page', which grants editors the ability to create and edit forms. When an editor creates an edit_user form, they can manipulate the form configuration to include 'administrator' in the role_options array by directly submitting POST data to wp-admin/post.php, bypassing the UI restrictions in feadmin_get_user_roles(). When the form is subsequently submitted, the pre_update_value() function in class-role.php only validates that the submitted role exists in the form's role_options array (lines 107-110), but fails to verify that the current user has permission to assign that specific role. This makes it possible for unauthenticated attackers to first register as editors (via a public new_user form), then create an edit_user form with administrator in the allowed roles, and finally use that form to escalate their own privileges to administrator.",
+      "first_seen": "2026-05-16T03:59:24.032334+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032334+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/acf-frontend-form-element/trunk/main/admin/admin-pages/forms/post-types.php#L53",
+        "https://plugins.trac.wordpress.org/browser/acf-frontend-form-element/trunk/main/frontend/fields/user/class-role.php#L113",
+        "https://plugins.trac.wordpress.org/browser/acf-frontend-form-element/trunk/main/frontend/forms/actions/user.php#L517",
+        "https://plugins.trac.wordpress.org/changeset/3519460",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/083accd0-8338-47c6-b396-96679b95dd40?source=cve"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-6228"
+    },
+    {
+      "canonical_id": "CVE-2026-6415",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "The Advanced Custom Fields: Font Awesome plugin for WordPress is vulnerable to Stored Cross-Site Scripting in versions up to and including 5.0.2. This is due to insufficient input validation of JSON field values and unsafe client-side HTML construction in the update_preview() JavaScript function. This makes it possible for authenticated attackers, with Subscriber-level access and above, to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page.",
+      "first_seen": "2026-05-16T03:59:24.032372+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032372+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/advanced-custom-fields-font-awesome/tags/5.0.2/assets/js/input-v6.js#L11",
+        "https://plugins.trac.wordpress.org/browser/advanced-custom-fields-font-awesome/tags/5.0.2/assets/js/input-v6.js#L12",
+        "https://plugins.trac.wordpress.org/browser/advanced-custom-fields-font-awesome/trunk/assets/js/input-v6.js#L11",
+        "https://plugins.trac.wordpress.org/browser/advanced-custom-fields-font-awesome/trunk/assets/js/input-v6.js#L12",
+        "https://plugins.trac.wordpress.org/changeset/3525840/",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/a7a53ba2-e983-4821-b3de-105a96b7cb0e?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6415"
+    },
+    {
+      "canonical_id": "CVE-2026-7046",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "The NEX-Forms \u2013 Ultimate Forms Plugin for WordPress plugin for WordPress is vulnerable to time-based blind SQL Injection via the 'table' parameter in all versions up to, and including, 9.1.12 due to insufficient escaping on the user supplied parameter and lack of sufficient preparation on the existing SQL query. This makes it possible for authenticated attackers, with administrator-level access and above, to append additional SQL queries into already existing queries that can be used to extract sensitive information from the database.",
+      "first_seen": "2026-05-16T03:59:24.032406+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032406+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/tags/9.1.12/includes/classes/class.dashboard.php#L4220",
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/tags/9.1.12/includes/classes/class.dashboard.php#L4224",
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/tags/9.1.12/includes/classes/class.dashboard.php#L4344",
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/tags/9.1.13/includes/classes/class.dashboard.php#L4220",
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/tags/9.1.9/includes/classes/class.dashboard.php#L4220",
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/tags/9.1.9/includes/classes/class.dashboard.php#L4224",
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/tags/9.1.9/includes/classes/class.dashboard.php#L4344",
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/trunk/includes/classes/class.dashboard.php#L4220",
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/trunk/includes/classes/class.dashboard.php#L4224",
+        "https://plugins.trac.wordpress.org/browser/nex-forms-express-wp-form-builder/trunk/includes/classes/class.dashboard.php#L4344",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/2f2d8b21-1c25-4cfc-bf62-2e71d6a90d91?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-7046"
+    },
+    {
+      "canonical_id": "CVE-2026-7373",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-284",
+        "CWE-427",
+        "CWE-829"
+      ],
+      "description": "Rapid7 Metasploit Pro is vulnerable to a local privilege escalation attack that allows users to gain SYSTEM level control of a Windows host. Upon startup the metasploitPostgreSQL service the subsequent  postgres.exe service attempts to load an OpenSSL configuration file from a non-existent directory that is writable by standard users. By planting a crafted openssl.cnf file an attacker can trick the high-privilege service into executing arbitrary commands. This effectively permits an unprivileged user to bypass security controls and achieve a full host compromise under the agent's SYSTEM level access.",
+      "first_seen": "2026-05-16T03:59:24.032001+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032001+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://docs.rapid7.com/insight/metasploit-pro-release-notes/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-7373"
+    },
+    {
+      "canonical_id": "CVE-2026-7563",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "The Classified Listing \u2013 AI-Powered Classified ads & Business Directory Plugin plugin for WordPress is vulnerable to unauthorized access in all versions up to, and including, 5.3.10. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for authenticated attackers, with subscriber-level access and above, to add arbitrary notes to any order and trigger unsolicited notification and moderation emails to listing owners without administrative authorization.",
+      "first_seen": "2026-05-16T03:59:24.032437+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032437+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/classified-listing/tags/5.3.10/app/Controllers/Admin/ScriptLoader.php#L672",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/tags/5.3.10/app/Controllers/Ajax/ListingAdminAjax.php#L48",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/tags/5.3.10/app/Controllers/Hooks/Comments.php#L51",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/tags/5.3.10/app/Controllers/Hooks/Comments.php#L63",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/tags/5.3.7/app/Controllers/Admin/ScriptLoader.php#L672",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/tags/5.3.7/app/Controllers/Ajax/ListingAdminAjax.php#L48",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/tags/5.3.7/app/Controllers/Hooks/Comments.php#L51",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/tags/5.3.7/app/Controllers/Hooks/Comments.php#L63",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/trunk/app/Controllers/Admin/ScriptLoader.php#L672",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/trunk/app/Controllers/Ajax/ListingAdminAjax.php#L48",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/trunk/app/Controllers/Hooks/Comments.php#L51",
+        "https://plugins.trac.wordpress.org/browser/classified-listing/trunk/app/Controllers/Hooks/Comments.php#L63",
+        "https://plugins.trac.wordpress.org/changeset/3527717/",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/07cb3d57-d768-49a5-8af0-9dc4384487d5?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-7563"
+    },
+    {
+      "canonical_id": "CVE-2026-8398",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-506"
+      ],
+      "description": "A supply chain attack compromised the official installation packages of DAEMON Tools Lite (Windows versions 12.5.0.2421 through 12.5.0.2434), distributed from the legitimate website daemon-tools.cc between approximately April 8, 2026, and May 5, 2026. Attackers gained unauthorized access to the vendor's (AVB Disc Soft) build or distribution infrastructure and trojanized three binaries: DTHelper.exe, DiscSoftBusServiceLite.exe, and DTShellHlp.exe. These files were digitally signed with the legitimate AVB Disc Soft code-signing certificate, allowing the malicious installers to appear trustworthy and bypass signature-based detection.",
+      "first_seen": "2026-05-16T03:59:24.032450+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032450+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://blog.daemon-tools.cc/post/security-incident",
+        "https://securelist.com/tr/daemon-tools-backdoor/119654/"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-8398"
+    },
+    {
+      "canonical_id": "CVE-2026-8503",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-338",
+        "CWE-340"
+      ],
+      "description": "Apache::Session::Generate::SHA256 versions before 1.3.19 for Perl create insecure session ids.\n\nApache::Session::Generate::SHA256 generated session ids insecurely. The default session id generator returns a SHA-256 hash of the built-in rand() function, the epoch time, and the PID, that is hashed again. These are predictable, low-entropy sources. Predicable session ids could allow an attacker to gain access to systems.\n\nNote that version 1.3.19 has a fallback without warning to use insecure session generation method if the call to Crypt::URandom::urandom fails. However, this is unlikely as Crypt::URandom is a hardcoded requirement of the module.\n\nThis issue is similar to CVE-2025-40931 for Apache::Session::Generate::MD5.",
+      "first_seen": "2026-05-16T03:59:24.032651+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-16T03:59:24.032651+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/LemonLDAPNG/Apache-Session-Browseable/commit/cc915cbbd266776eec3dd8bf4748b15fa827dbd0.patch",
+        "https://metacpan.org/release/GUIMARD/Apache-Session-Browseable-1.3.19/changes",
+        "https://metacpan.org/release/GUIMARD/Apache-Session-Browseable-1.3.19/diff/GUIMARD/Apache-Session-Browseable-1.3.18#lib/Apache/Session/Generate/SHA256.pm",
+        "https://www.cve.org/CVERecord?id=CVE-2025-40931",
+        "https://www.cve.org/CVERecord?id=CVE-2025-40932"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8503"
+    }
+  ],
+  "correlated_at": "2026-05-16T03:59:43.755684+00:00"
 }
