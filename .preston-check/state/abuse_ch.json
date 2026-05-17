@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T00:02:01.486037+00:00",
-  "last_successful_fetch": "2026-05-17T00:02:01.486337+00:00",
+  "last_run": "2026-05-17T04:14:43.824355+00:00",
+  "last_successful_fetch": "2026-05-17T04:14:43.824690+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3261,7 +3261,25 @@
     "threatfox:distributed-growth-network.garden",
     "threatfox:flora-processing-framework.garden",
     "threatfox:gardenworkflowcenter.garden",
-    "threatfox:federatedmeadowcluster.garden"
+    "threatfox:federatedmeadowcluster.garden",
+    "threatfox:handmade-cheese-traveler.garden",
+    "threatfox:predator-hunting-chronicles.garden",
+    "threatfox:47.236.91.172:80",
+    "threatfox:chronicle-archive-keeper.garden",
+    "threatfox:pixelartcanvas.garden",
+    "threatfox:jomn9u8k.cyber-relay.digital",
+    "threatfox:8ucq9gmh.cyber-relay.digital",
+    "threatfox:suboceanic-trench-sonar.garden",
+    "threatfox:vintage-vinyl-restoration.garden",
+    "threatfox:volcanic-magma-chamber.garden",
+    "threatfox:neoncyberpunkcity.garden",
+    "threatfox:abandoned-asylum-expedition.garden",
+    "threatfox:deep-space-artificial-gravity.garden",
+    "threatfox:wz38j642.network-pulse.digital",
+    "threatfox:wkqsof7p.network-pulse.digital",
+    "threatfox:retro-gaming-launcher.garden",
+    "threatfox:ziti-multicooker-hacks.garden",
+    "threatfox:containerizedecosystem.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
