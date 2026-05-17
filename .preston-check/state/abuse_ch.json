@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T22:05:03.226240+00:00",
-  "last_successful_fetch": "2026-05-17T22:05:03.226566+00:00",
+  "last_run": "2026-05-17T23:07:28.144113+00:00",
+  "last_successful_fetch": "2026-05-17T23:07:28.144408+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3663,7 +3663,11 @@
     "threatfox:botanicalmonitoringengine.garden",
     "threatfox:distributedgardenresource.garden",
     "threatfox:tiv2dcd7.cloud-sphere.digital",
-    "threatfox:cloud-sphere.digital"
+    "threatfox:cloud-sphere.digital",
+    "threatfox:containerizedgardenmesh.garden",
+    "threatfox:119.29.112.239:8005",
+    "threatfox:floraobservabilitysystem.garden",
+    "threatfox:meadowautomationplatform.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
