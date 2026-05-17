@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-16T22:59:34.280820+00:00",
-  "last_successful_fetch": "2026-05-16T22:59:37.550839+00:00",
+  "last_run": "2026-05-17T00:01:58.123161+00:00",
+  "last_successful_fetch": "2026-05-17T00:02:01.304178+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -513,7 +513,9 @@
     "github:arif-s3d0/cve",
     "github:nmayock/CVE-Searcher",
     "github:curtishoughton/CVE-2020-3452-Cisco-Python-Scanner",
-    "github:curtishoughton/CVE-2025-20362-Cisco-Scanner"
+    "github:curtishoughton/CVE-2025-20362-Cisco-Scanner",
+    "github:red-cars-io/cve-intelligence-mcp",
+    "github:noopduck/cveapi"
   ],
   "source_id": "github_trending",
   "stats": {
