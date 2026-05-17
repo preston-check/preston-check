@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T11:20:48.695509+00:00",
-  "last_successful_fetch": "2026-05-17T11:20:52.568169+00:00",
+  "last_run": "2026-05-17T13:53:10.600066+00:00",
+  "last_successful_fetch": "2026-05-17T13:53:14.040863+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -526,7 +526,12 @@
     "github:studiogangster/CVE-2026-46333",
     "github:MuharremK0/Info-Sys-Security-CVE-2025-55182",
     "github:tacdm/cve-2025-59536-poc",
-    "github:0xBlackash/CVE-2026-46333"
+    "github:0xBlackash/CVE-2026-46333",
+    "github:mtklein/cve",
+    "github:corey-farley/CVE-2025-59528-Flowise-RCE",
+    "github:sphehlukhele82-commits/Syntecxhub_Vulnerability-CVE-Scanner",
+    "github:cve-security-ost/backend",
+    "github:32BitZ-Studio/Total-POC-CVE"
   ],
   "source_id": "github_trending",
   "stats": {

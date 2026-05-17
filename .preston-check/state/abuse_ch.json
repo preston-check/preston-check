@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T11:20:53.041842+00:00",
-  "last_successful_fetch": "2026-05-17T11:20:53.042184+00:00",
+  "last_run": "2026-05-17T13:53:14.389417+00:00",
+  "last_successful_fetch": "2026-05-17T13:53:14.389762+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3497,7 +3497,16 @@
     "threatfox:4getd0km.script-matrix.digital",
     "threatfox:i4sw7fe8.script-matrix.digital",
     "threatfox:shells-garden-framework.garden",
-    "threatfox:wild-flora-processing-go-system.garden"
+    "threatfox:wild-flora-processing-go-system.garden",
+    "threatfox:great-fauna-tcpipgay-go-system.garden",
+    "threatfox:docktan-flexo-avastpig-engine.garden",
+    "threatfox:glow-hub-herboron-sixoauth-work.garden",
+    "threatfox:nwwwbkkv.network-horizon.digital",
+    "threatfox:23dcbt0c.network-horizon.digital",
+    "threatfox:container-folder-gized-greenhub.garden",
+    "threatfox:flora-observe-ability-engine.garden",
+    "threatfox:coad-meadow-analytics-center.garden",
+    "threatfox:june-fed-plant-workflow.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
