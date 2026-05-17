@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T17:09:40.105843+00:00",
-  "last_successful_fetch": "2026-05-17T17:09:44.449047+00:00",
+  "last_run": "2026-05-17T19:22:48.249726+00:00",
+  "last_successful_fetch": "2026-05-17T19:22:51.384647+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -543,7 +543,10 @@
     "github:lirantal/safe-eval-2-CVE",
     "github:lirantal/vulnerable-nextjs-14-CVE-2025-29927",
     "github:lirantal/safer-eval-cve-CVE-2019-10760",
-    "github:voxgig-sdk/cvedb-sdk"
+    "github:voxgig-sdk/cvedb-sdk",
+    "github:Renison-Gohel/CVE-2026-42945-NGINX-Rift",
+    "github:daniilscaletta/cve-aggregator-bot",
+    "github:RjCrypt/KnowCVE"
   ],
   "source_id": "github_trending",
   "stats": {
