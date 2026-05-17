@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T19:22:48.249726+00:00",
-  "last_successful_fetch": "2026-05-17T19:22:51.384647+00:00",
+  "last_run": "2026-05-17T21:05:00.271932+00:00",
+  "last_successful_fetch": "2026-05-17T21:05:04.089838+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -546,7 +546,11 @@
     "github:voxgig-sdk/cvedb-sdk",
     "github:Renison-Gohel/CVE-2026-42945-NGINX-Rift",
     "github:daniilscaletta/cve-aggregator-bot",
-    "github:RjCrypt/KnowCVE"
+    "github:RjCrypt/KnowCVE",
+    "github:Groppoxx/CVE-2023-2825-PoC",
+    "github:AndrewMohawk/CVEs",
+    "github:ThejVaibhav/CVE-Vulnerability-Intelligence-Agent",
+    "github:b1nslashsh/CVE"
   ],
   "source_id": "github_trending",
   "stats": {
