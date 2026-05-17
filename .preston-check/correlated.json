@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-17T10:51:17.798010+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2025-59536",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "CVE-2025-59536: RCE via Claude Code Project Hooks (PoC)",
+      "first_seen": "2026-05-17T11:20:51.532114+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [
+        "JavaScript"
+      ],
+      "last_seen": "2026-05-17T11:20:51.532114+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/tacdm/cve-2025-59536-poc"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "cve-2025-59536-poc"
+    }
+  ],
+  "correlated_at": "2026-05-17T11:20:53.213792+00:00"
 }

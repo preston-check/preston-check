@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T09:57:06.285417+00:00",
-  "last_successful_fetch": "2026-05-17T09:57:06.285796+00:00",
+  "last_run": "2026-05-17T11:20:53.041842+00:00",
+  "last_successful_fetch": "2026-05-17T11:20:53.042184+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3492,7 +3492,12 @@
     "threatfox:cloud-forge.digital",
     "threatfox:irrigation-control-network.garden",
     "threatfox:greenhouseworkflowhub.garden",
-    "threatfox:distributed-garden-framework.garden"
+    "threatfox:distributed-garden-framework.garden",
+    "threatfox:bots-unical-resource-platform.garden",
+    "threatfox:4getd0km.script-matrix.digital",
+    "threatfox:i4sw7fe8.script-matrix.digital",
+    "threatfox:shells-garden-framework.garden",
+    "threatfox:wild-flora-processing-go-system.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
