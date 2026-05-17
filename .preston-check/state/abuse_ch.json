@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T13:53:14.389417+00:00",
-  "last_successful_fetch": "2026-05-17T13:53:14.389762+00:00",
+  "last_run": "2026-05-17T15:09:39.968562+00:00",
+  "last_successful_fetch": "2026-05-17T15:09:39.968865+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3506,7 +3506,14 @@
     "threatfox:container-folder-gized-greenhub.garden",
     "threatfox:flora-observe-ability-engine.garden",
     "threatfox:coad-meadow-analytics-center.garden",
-    "threatfox:june-fed-plant-workflow.garden"
+    "threatfox:june-fed-plant-workflow.garden",
+    "threatfox:july-feded-plants-workflow.garden",
+    "threatfox:4j0v33ow.cyber-lattice.digital",
+    "threatfox:lx5yiqf8.cyber-lattice.digital",
+    "threatfox:cyber-lattice.digital",
+    "threatfox:it-irrigatn-cntrl-network-go.garden",
+    "threatfox:antbots-uni-resou-plats.garden",
+    "threatfox:get-shell-gard-frame-work.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
