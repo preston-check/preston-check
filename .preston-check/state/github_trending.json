@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T07:40:14.543292+00:00",
-  "last_successful_fetch": "2026-05-17T07:40:18.184773+00:00",
+  "last_run": "2026-05-17T09:57:02.804933+00:00",
+  "last_successful_fetch": "2026-05-17T09:57:05.890579+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -518,7 +518,9 @@
     "github:noopduck/cveapi",
     "github:toshikatu1209-spec/https-docs.google.com-spreadsheets-d-1_LA16Hbr47IWzgsEz2-CveLShD8kPBB5RQNHm5AQiNY-edit-usp-sharing",
     "github:BarAppTeam/nginx-cve-fix",
-    "github:sngrotesque/CVE_Vulnerability_Exploit"
+    "github:sngrotesque/CVE_Vulnerability_Exploit",
+    "github:choichoi2490-source/cve-patch-priority-analysis",
+    "github:VodkaVortex/CVE-Repository"
   ],
   "source_id": "github_trending",
   "stats": {
