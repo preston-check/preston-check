@@ -1,36 +1,5 @@
 {
-  "candidate_count": 1,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2025-59528",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "Authenticated RCE PoC for Flowise version <= 3.0.5 via CustomMCP Node (CVE-2025-59528)",
-      "first_seen": "2026-05-17T13:53:13.148355+00:00",
-      "frameworks": [
-        "cve-2025-59528",
-        "flowise",
-        "flowise-ai",
-        "flowise-rce",
-        "remote-code-execution"
-      ],
-      "key_kind": "cve",
-      "languages": [
-        "Python"
-      ],
-      "last_seen": "2026-05-17T13:53:13.148355+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/corey-farley/CVE-2025-59528-Flowise-RCE"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2025-59528-Flowise-RCE"
-    }
-  ],
-  "correlated_at": "2026-05-17T13:53:14.573936+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-17T13:55:55.942327+00:00"
 }
