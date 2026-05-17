@@ -1,5 +1,671 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-17T04:14:43.995858+00:00"
+  "candidate_count": 25,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2020-37227",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-434"
+      ],
+      "description": "HS Brand Logo Slider 2.1 contains an unrestricted file upload vulnerability that allows authenticated users to bypass client-side file extension validation by uploading arbitrary files. Attackers can intercept upload requests to the logoupload parameter in the admin interface and rename files to executable extensions .php to achieve remote code execution.",
+      "first_seen": "2026-05-17T04:20:18.180674+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180674+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://ms.wordpress.org/plugins/hs-brand-logo-slider/",
+        "https://www.exploit-db.com/exploits/48913",
+        "https://www.heliossolutions.co/",
+        "https://www.vulncheck.com/advisories/wordpress-plugin-hs-brand-logo-slider-unrestricted-file-upload"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2020-37227"
+    },
+    {
+      "canonical_id": "CVE-2020-37228",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-307"
+      ],
+      "description": "iDS6 DSSPro Digital Signage System 6.2 contains a CAPTCHA security bypass vulnerability that allows attackers to bypass authentication by requesting the autoLoginVerifyCode object. Attackers can retrieve valid CAPTCHA codes via the login endpoint and use them to perform brute-force attacks against user accounts.",
+      "first_seen": "2026-05-17T04:20:18.180693+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180693+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.yerootech.com",
+        "https://www.exploit-db.com/exploits/48991",
+        "https://www.vulncheck.com/advisories/ids6-dsspro-digital-signage-system-captcha-security-bypass",
+        "https://www.zeroscience.mk/en/vulnerabilities/ZSL-2020-5607.php"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2020-37228"
+    },
+    {
+      "canonical_id": "CVE-2020-37235",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "WordPress Theme Wibar 1.1.8 contains a stored cross-site scripting vulnerability in the Brand component that allows authenticated users to inject malicious scripts by manipulating the Logo URL parameter. Attackers with editor, administrator, contributor, or author privileges can inject base64-encoded script payloads through the ftc_brand_url input field to execute arbitrary JavaScript when users visit the brand page.",
+      "first_seen": "2026-05-17T04:20:18.180805+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180805+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://demo.themeftc.com/wibar",
+        "https://themeforest.net/item/wibar-responsive-woocommerce-wordpress-theme/20994798",
+        "https://www.exploit-db.com/exploits/49107",
+        "https://www.vulncheck.com/advisories/wordpress-theme-wibar-stored-cross-site-scripting-via-brand-component"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2020-37235"
+    },
+    {
+      "canonical_id": "CVE-2020-37236",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "NewsLister contains an authenticated persistent cross-site scripting vulnerability that allows authenticated administrators to inject malicious scripts through the title parameter in the news addition interface. Attackers can inject JavaScript payloads via the title field in the admin panel that execute when news items are viewed by other users.",
+      "first_seen": "2026-05-17T04:20:18.180811+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180811+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.exploit-db.com/exploits/49160",
+        "https://www.netartmedia.net/newslister.html",
+        "https://www.vulncheck.com/advisories/newslister-authenticated-persistent-cross-site-scripting-via-admin-panel"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2020-37236"
+    },
+    {
+      "canonical_id": "CVE-2020-37238",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "CMS Made Simple 2.2.15 contains a stored cross-site scripting vulnerability that allows authenticated users with Content Manager access to inject malicious scripts through SVG file uploads. Attackers can upload SVG files containing embedded JavaScript to the file manager, which executes when other authenticated users access the uploaded file, enabling cookie theft and session hijacking.",
+      "first_seen": "2026-05-17T04:20:18.180835+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180835+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.cmsmadesimple.org/",
+        "https://www.cmsmadesimple.org/downloads",
+        "https://www.exploit-db.com/exploits/49199",
+        "https://www.vulncheck.com/advisories/cms-made-simple-stored-xss-via-svg-file-upload"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2020-37238"
+    },
+    {
+      "canonical_id": "CVE-2020-37240",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Queue Management System 4.0.0 contains a stored cross-site scripting vulnerability that allows authenticated administrators to inject malicious scripts through user creation fields. Attackers can insert JavaScript payloads in the First Name, Last Name, and Email fields during user creation, which execute when viewing the User List page.",
+      "first_seen": "2026-05-17T04:20:18.180857+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180857+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://codekernel.net/",
+        "https://codecanyon.net/item/queue-management-system/22029961",
+        "https://www.exploit-db.com/exploits/49296",
+        "https://www.vulncheck.com/advisories/queue-management-system-stored-xss-via-add-user"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2020-37240"
+    },
+    {
+      "canonical_id": "CVE-2020-37242",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "Supsystic Ultimate Maps 1.1.12 contains an SQL injection vulnerability that allows unauthenticated attackers to execute arbitrary SQL queries by injecting malicious code through the 'sidx' GET parameter. Attackers can send crafted requests to the getListForTbl action with boolean-based blind or time-based blind SQL injection payloads to extract sensitive database information.",
+      "first_seen": "2026-05-17T04:20:18.180890+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180890+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://downloads.wordpress.org/plugin/ultimate-maps-by-supsystic.1.1.12.zip",
+        "https://supsystic.com/",
+        "https://www.exploit-db.com/exploits/49532",
+        "https://www.vulncheck.com/advisories/wordpress-plugin-supsystic-ultimate-maps-sql-injection-via-sidx"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2020-37242"
+    },
+    {
+      "canonical_id": "CVE-2020-37243",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "Supsystic Pricing Table 1.8.7 contains an SQL injection vulnerability in the 'sidx' GET parameter that allows unauthenticated attackers to execute arbitrary SQL queries through the getListForTbl action. The plugin also contains stored cross-site scripting vulnerabilities in the 'Edit name' and 'Edit HTML' fields that execute malicious scripts when viewing pricing tables.",
+      "first_seen": "2026-05-17T04:20:18.180906+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180906+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://downloads.wordpress.org/plugin/pricing-table-by-supsystic.1.8.7.zip",
+        "https://supsystic.com/",
+        "https://www.exploit-db.com/exploits/49533",
+        "https://www.vulncheck.com/advisories/wordpress-plugin-supsystic-pricing-table-sql-injection-xss"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2020-37243"
+    },
+    {
+      "canonical_id": "CVE-2020-37244",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "Supsystic Membership 1.4.7 contains an SQL injection vulnerability that allows unauthenticated attackers to execute arbitrary SQL queries by injecting malicious code through the 'search' and 'sidx' parameters. Attackers can send GET requests to the badges module with crafted payloads to extract sensitive database information using time-based blind or UNION-based SQL injection techniques.",
+      "first_seen": "2026-05-17T04:20:18.180926+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180926+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://downloads.wordpress.org/plugin/membership-by-supsystic.1.4.7.zip",
+        "https://supsystic.com/",
+        "https://www.exploit-db.com/exploits/49540",
+        "https://www.vulncheck.com/advisories/wordpress-plugin-supsystic-membership-sql-injection-via-sidx"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2020-37244"
+    },
+    {
+      "canonical_id": "CVE-2020-37246",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-98"
+      ],
+      "description": "Supsystic Backup 2.3.9 contains a local file inclusion vulnerability that allows unauthenticated attackers to read and delete arbitrary files by manipulating the download path parameter. Attackers can modify the download parameter in admin.php requests with directory traversal sequences to access sensitive files like /etc/passwd or delete files via the removeAction parameter.",
+      "first_seen": "2026-05-17T04:20:18.180955+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180955+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://downloads.wordpress.org/plugin/backup-by-supsystic.zip",
+        "https://supsystic.com/",
+        "https://www.exploit-db.com/exploits/49545",
+        "https://www.vulncheck.com/advisories/wordpress-plugin-supsystic-backup-local-file-inclusion"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2020-37246"
+    },
+    {
+      "canonical_id": "CVE-2021-47934",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "MyBB Timeline Plugin 1.0 contains cross-site scripting vulnerabilities that allow attackers to inject malicious scripts through thread titles, post content, and user profile fields like Location and Bio. Attackers can also exploit a cross-site request forgery vulnerability in the timeline.php profile action to change a user's cover picture by crafting malicious forms that execute when victims visit affected profiles.",
+      "first_seen": "2026-05-17T04:20:18.180978+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180978+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://community.mybb.com/mods.php?action=view&pid=1428",
+        "https://www.exploit-db.com/exploits/49467",
+        "https://www.vulncheck.com/advisories/mybb-timeline-plugin-cross-site-scripting-and-csrf"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2021-47934"
+    },
+    {
+      "canonical_id": "CVE-2021-47952",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "python jsonpickle 2.0.0 contains a remote code execution vulnerability that allows attackers to execute arbitrary Python commands by deserializing malicious JSON payloads containing py/repr objects. Attackers can craft JSON strings with py/repr directives that invoke the eval function during deserialization to execute system commands and arbitrary code.",
+      "first_seen": "2026-05-17T04:20:18.181003+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181003+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/jsonpickle/jsonpickle",
+        "https://jsonpickle.github.io",
+        "https://www.exploit-db.com/exploits/49585",
+        "https://www.vulncheck.com/advisories/python-jsonpickle-remote-code-execution-via-py-repr"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2021-47952"
+    },
+    {
+      "canonical_id": "CVE-2021-47954",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "LayerBB 1.1.4 contains an SQL injection vulnerability that allows unauthenticated attackers to manipulate database queries by injecting SQL code through the search_query parameter. Attackers can send POST requests to /search.php with malicious search_query values using CASE WHEN statements to extract sensitive database information.",
+      "first_seen": "2026-05-17T04:20:18.181012+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181012+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.exploit-db.com/exploits/49593",
+        "https://www.vulncheck.com/advisories/layerbb-sql-injection-via-search-query-parameter"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47954"
+    },
+    {
+      "canonical_id": "CVE-2021-47955",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "CouchCMS 2.2.1 contains a cross-site scripting vulnerability that allows authenticated attackers to execute arbitrary JavaScript by uploading malicious SVG files through the file upload functionality. Attackers can upload SVG files containing embedded script tags to the browse.php endpoint, which are then executed in users' browsers when the files are accessed or previewed.",
+      "first_seen": "2026-05-17T04:20:18.181016+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181016+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/CouchCMS/CouchCMS",
+        "https://www.exploit-db.com/exploits/49636",
+        "https://www.vulncheck.com/advisories/couchcms-cross-site-scripting-via-svg-file-upload"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2021-47955"
+    },
+    {
+      "canonical_id": "CVE-2021-47956",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "EgavilanMedia PHPCRUD 1.0 contains an SQL injection vulnerability that allows unauthenticated attackers to manipulate database queries by injecting SQL code through the firstname parameter. Attackers can send POST requests to insert.php with malicious firstname values to extract sensitive database information.",
+      "first_seen": "2026-05-17T04:20:18.181023+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181023+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://egavilanmedia.com",
+        "https://egavilanmedia.com/crud-operation-with-php-mysql-bootstrap-and-dompdf/",
+        "https://www.exploit-db.com/exploits/49878",
+        "https://www.vulncheck.com/advisories/egavilanmedia-phpcrud-sql-injection-via-firstname"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47956"
+    },
+    {
+      "canonical_id": "CVE-2021-47975",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "WP Learn Manager 1.1.2 contains a stored cross-site scripting vulnerability that allows unauthenticated attackers to inject malicious scripts through the fieldtitle parameter. Attackers can submit POST requests to the jslm_fieldordering page with XSS payloads in the fieldtitle field to execute arbitrary JavaScript when administrators view the field ordering interface.",
+      "first_seen": "2026-05-17T04:20:18.181136+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181136+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://wordpress.org/plugins/learn-manager/",
+        "https://wplearnmanager.com/",
+        "https://www.exploit-db.com/exploits/50086",
+        "https://www.vulncheck.com/advisories/wordpress-plugin-wp-learn-manager-stored-xss"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47975"
+    },
+    {
+      "canonical_id": "CVE-2021-47976",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-352"
+      ],
+      "description": "TextPattern CMS 4.9.0-dev contains a remote code execution vulnerability that allows authenticated attackers to upload arbitrary PHP files by exploiting the plugin upload functionality. Attackers can authenticate, retrieve a CSRF token from the plugin event page, and upload malicious PHP files to the textpattern/tmp/ directory for code execution.",
+      "first_seen": "2026-05-17T04:20:18.181144+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181144+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/textpattern/textpattern",
+        "https://textpattern.com/",
+        "https://www.exploit-db.com/exploits/50095",
+        "https://www.vulncheck.com/advisories/textpattern-cms-dev-authenticated-remote-code-execution-via-plugin-upload"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47976"
+    },
+    {
+      "canonical_id": "CVE-2021-47977",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "WordPress Plugin Anti-Malware Security and Bruteforce Firewall 4.20.59 contains a directory traversal vulnerability that allows unauthenticated attackers to read arbitrary files by manipulating the file parameter. Attackers can send requests to the duplicator_download action via admin-ajax.php with path traversal sequences to access sensitive system files outside the intended directory.",
+      "first_seen": "2026-05-17T04:20:18.181152+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181152+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gotmls.net/",
+        "https://gotmls.net/downloads/",
+        "https://www.exploit-db.com/exploits/50107",
+        "https://www.vulncheck.com/advisories/wordpress-anti-malware-security-bruteforce-firewall-directory-traversal"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47977"
+    },
+    {
+      "canonical_id": "CVE-2021-47979",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "WordPress Plugin Backup and Restore 1.0.3 contains an arbitrary file deletion vulnerability that allows authenticated attackers to delete files by manipulating parameters in AJAX requests. Attackers can send POST requests to admin-ajax.php with crafted file_name and folder_name parameters to delete arbitrary files from the WordPress installation directory.",
+      "first_seen": "2026-05-17T04:20:18.181179+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181179+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://wordpress.org/plugins/backup-and-restore-for-wp/",
+        "https://www.exploit-db.com/exploits/50503",
+        "https://www.miniorange.com/",
+        "https://www.vulncheck.com/advisories/wordpress-plugin-backup-and-restore-arbitrary-file-deletion"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47979"
+    },
+    {
+      "canonical_id": "CVE-2021-47980",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "Fuel CMS 1.4.13 contains a blind SQL injection vulnerability that allows authenticated attackers to manipulate database queries by injecting SQL code through the 'col' parameter in the Activity Log interface. Attackers can send requests to the logs endpoint with malicious SQL payloads in the 'col' parameter to extract database information based on response time delays.",
+      "first_seen": "2026-05-17T04:20:18.181194+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181194+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/daylightstudio/FUEL-CMS/archive/1.4.13.zip",
+        "https://www.exploit-db.com/exploits/50523",
+        "https://www.getfuelcms.com/",
+        "https://www.vulncheck.com/advisories/fuel-cms-blind-sql-injection-via-col-parameter"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2021-47980"
+    },
+    {
+      "canonical_id": "CVE-2021-47981",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Quick.CMS 6.7 contains a cross-site scripting vulnerability in the sliders form that allows authenticated attackers to inject malicious scripts by submitting XSS payloads through the sDescription parameter. Attackers can craft CSRF forms targeting the admin.php?p=sliders-form endpoint to execute arbitrary JavaScript in victim browsers when the form is submitted.",
+      "first_seen": "2026-05-17T04:20:18.181199+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181199+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://opensolution.org/",
+        "https://opensolution.org/download/home.html?sFile=Quick.Cms_v6.7-en.zip",
+        "https://www.exploit-db.com/exploits/50530",
+        "https://www.vulncheck.com/advisories/quick-cms-cross-site-scripting-via-csrf-to-sliders-form"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2021-47981"
+    },
+    {
+      "canonical_id": "CVE-2026-46719",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-93"
+      ],
+      "description": "Net::Statsd::Lite versions before 0.9.0 for Perl allowed metric injections.\n\nThe metric names were not checked for newlines, colons or pipes. Metrics generated from untrusted sources could inject additional statsd metrics.",
+      "first_seen": "2026-05-17T04:20:18.180666+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180666+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/16/9",
+        "https://github.com/robrwo/Net-Statsd-Lite/commit/e1a8ab866d75c2827982134e9cf7e51a7f771153.patch",
+        "https://metacpan.org/release/RRWO/Net-Statsd-Lite-v0.9.0/changes"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46719"
+    },
+    {
+      "canonical_id": "CVE-2026-46728",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-346"
+      ],
+      "description": "Das U-Boot before 2026.04 allows FIT (Flat Image Tree) signature verification bypass because hashed-nodes is omitted from a hash.",
+      "first_seen": "2026-05-17T04:20:18.181204+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.181204+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/barebox/barebox/security/advisories/GHSA-3fvj-q26p-j6h4",
+        "https://github.com/u-boot/u-boot/commit/2092322b31cc8b1f8c9e2e238d1043ae0637b241"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-46728"
+    },
+    {
+      "canonical_id": "CVE-2026-8656",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Versions of the package jsondiffpatch before 0.7.6 are vulnerable to Cross-site Scripting (XSS) via the annotated formatter due to improper sanitization of JSON values and property names. If an application compares untrusted JSON/object data and renders annotated formatter output in the DOM, attacker-controlled HTML can be interpreted by the browser, resulting in XSS.",
+      "first_seen": "2026-05-17T04:20:18.180615+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180615+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/yuki-matsuhashi/72ed072d919f3c52adba298faa6a7da5",
+        "https://github.com/benjamine/jsondiffpatch/commit/232338b34c4653148ca2f44e897a765b72c8c98f",
+        "https://security.snyk.io/vuln/SNYK-JS-JSONDIFFPATCH-16635946"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8656"
+    },
+    {
+      "canonical_id": "CVE-2026-8681",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "The Essential Chat Support plugin for WordPress is vulnerable to authorization bypass in all versions up to, and including, 1.0.1. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for unauthenticated attackers to reset all plugin configuration settings \u2014 including general settings, display rules, custom CSS, and WooCommerce tab settings \u2014 to their defaults by sending a POST request with ecs_reset_settings=1.",
+      "first_seen": "2026-05-17T04:20:18.180596+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-17T04:20:18.180596+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/essential-chat-support/trunk/includes/admin/settings/register-settings.php#L47",
+        "https://plugins.trac.wordpress.org/browser/essential-chat-support/trunk/includes/ecs-functions.php#L33",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/6b98ea22-4c82-45c6-8e29-75cc9a9185be?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8681"
+    }
+  ],
+  "correlated_at": "2026-05-17T04:20:39.398300+00:00"
 }
