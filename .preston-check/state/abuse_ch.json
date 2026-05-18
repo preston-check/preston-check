@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-18T20:45:12.673386+00:00",
-  "last_successful_fetch": "2026-05-18T20:45:12.673904+00:00",
+  "last_run": "2026-05-18T22:10:32.075887+00:00",
+  "last_successful_fetch": "2026-05-18T22:10:32.076395+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4033,7 +4033,14 @@
     "threatfox:64erqqb2.cyber-harbor.digital",
     "threatfox:82.156.117.56:8084",
     "threatfox:38.14.248.199:8080",
-    "threatfox:27.124.19.53:80"
+    "threatfox:27.124.19.53:80",
+    "threatfox:petalworkflowengine.garden",
+    "threatfox:greenhousedeploymenthub.garden",
+    "threatfox:containerizedgardenhub.garden",
+    "threatfox:8qxg5lyp.logic-pulse.digital",
+    "threatfox:b3gl3j28.logic-pulse.digital",
+    "threatfox:logic-pulse.digital",
+    "threatfox:floraautomationnetwork.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
