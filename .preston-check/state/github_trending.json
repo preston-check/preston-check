@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-18T04:25:49.498238+00:00",
-  "last_successful_fetch": "2026-05-18T04:25:53.169401+00:00",
+  "last_run": "2026-05-18T08:51:07.934350+00:00",
+  "last_successful_fetch": "2026-05-18T08:51:12.963105+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -564,7 +564,10 @@
     "github:rayyan-umair/CVECheck",
     "github:LAT-06/CVE-2026-34197",
     "github:0xlally/CVE-skill",
-    "github:Majaktech/apache-struts-cve-2017-5638-project"
+    "github:Majaktech/apache-struts-cve-2017-5638-project",
+    "github:4xura/CVE-2026-31431-CopyFail",
+    "github:ToxicSnail/CVE-Path",
+    "github:bootlin/sbom-cve-check"
   ],
   "source_id": "github_trending",
   "stats": {
