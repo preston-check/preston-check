@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-17T23:07:28.144113+00:00",
-  "last_successful_fetch": "2026-05-17T23:07:28.144408+00:00",
+  "last_run": "2026-05-18T04:25:53.505770+00:00",
+  "last_successful_fetch": "2026-05-18T04:25:53.506128+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -3667,7 +3667,21 @@
     "threatfox:containerizedgardenmesh.garden",
     "threatfox:119.29.112.239:8005",
     "threatfox:floraobservabilitysystem.garden",
-    "threatfox:meadowautomationplatform.garden"
+    "threatfox:meadowautomationplatform.garden",
+    "threatfox:subfossil-oak-chronology.garden",
+    "threatfox:crispy-chicken-cutlets.garden",
+    "threatfox:orbital-docking-module.garden",
+    "threatfox:bada-bing-sopranos-lounge.garden",
+    "threatfox:2u5vvnoh.microservice-pulse.digital",
+    "threatfox:vla2h0e7.microservice-pulse.digital",
+    "threatfox:audio-attenuator-schematic.garden",
+    "threatfox:sicilian-defense-theory.garden",
+    "threatfox:0q9bvoqh.telemetry-vault.digital",
+    "threatfox:yjs4ih2y.telemetry-vault.digital",
+    "threatfox:ecosystemprocessingcenter.garden",
+    "threatfox:83j6hfza.runtime-forge.digital",
+    "threatfox:1qe4ncxx.runtime-forge.digital",
+    "threatfox:runtime-forge.digital"
   ],
   "source_id": "abuse_ch",
   "stats": {
