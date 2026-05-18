@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-18T08:51:07.934350+00:00",
-  "last_successful_fetch": "2026-05-18T08:51:12.963105+00:00",
+  "last_run": "2026-05-18T12:44:56.318711+00:00",
+  "last_successful_fetch": "2026-05-18T12:45:00.142241+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -567,7 +567,16 @@
     "github:Majaktech/apache-struts-cve-2017-5638-project",
     "github:4xura/CVE-2026-31431-CopyFail",
     "github:ToxicSnail/CVE-Path",
-    "github:bootlin/sbom-cve-check"
+    "github:bootlin/sbom-cve-check",
+    "github:ochebotar/copy-fail-CVE-2026-31431-detection-probe",
+    "github:PavolSloboda/CVE_scraper",
+    "github:amnnrth/CVE-2025-34291_cors_security_scanner",
+    "github:fearlessresponsesolution/cve-pocs-ui",
+    "github:fearlessresponsesolution/cve-pocs",
+    "github:VodkaVortex/CVEReaper",
+    "github:Pro100VlaD1CK/cve-risk-analyzer",
+    "github:joel6948/CVE-Writeups",
+    "github:hershate/CVE-Lookup-skill"
   ],
   "source_id": "github_trending",
   "stats": {

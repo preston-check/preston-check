@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-18T12:15:10.355270+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2025-34291",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "A lightweight Python-based security assessment tool for detecting dangerous Cross-Origin Resource Sharing (CORS) misconfigurations - CVE-2025-34291.",
+      "first_seen": "2026-05-18T12:44:59.078286+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [
+        "Python"
+      ],
+      "last_seen": "2026-05-18T12:44:59.078286+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/amnnrth/CVE-2025-34291_cors_security_scanner"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2025-34291_cors_security_scanner"
+    }
+  ],
+  "correlated_at": "2026-05-18T12:45:00.727093+00:00"
 }
