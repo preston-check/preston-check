@@ -1,31 +1,5 @@
 {
-  "candidate_count": 1,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2026-45784",
-      "composite_confidence": 0.85,
-      "cwe": [],
-      "description": "`CipherCtxRef::cipher_update_inplace` incorrectly sized output buffers when used with AES key-wrap-with-padding ciphers (EVP_aes_{128,192,256}_wrap_pad). For a non-multiple-of-8 input, OpenSSL writes up to 7 bytes past the end of the caller's buffer or Vec, producing attacker-controllable heap corruption when the plaintext length is attacker-influenced.\n\nThis only impacts users using AES key-wrap-with-padding ciphers.\n\nThis method was missed in the fix for GHSA-xv59-967r-8726",
-      "first_seen": "2026-05-19T20:05:57.892832+00:00",
-      "frameworks": [
-        "crates.io:openssl"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-19T20:05:57.892832+00:00",
-      "merged_sources": [
-        "osv"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/rust-openssl/rust-openssl",
-        "https://github.com/rust-openssl/rust-openssl/security/advisories/GHSA-phqj-4mhp-q6mq"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "rust-openssl: Potential out-of-bounds write in `CipherCtxRef::cipher_update_inplace` for AES-KW-PAD ciphers"
-    }
-  ],
-  "correlated_at": "2026-05-19T20:05:59.777281+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-19T20:07:06.804240+00:00"
 }
