@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-19T19:11:13.079348+00:00",
-  "last_successful_fetch": "2026-05-19T19:11:17.236442+00:00",
+  "last_run": "2026-05-19T21:40:52.981888+00:00",
+  "last_successful_fetch": "2026-05-19T21:40:56.771523+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -606,7 +606,11 @@
     "github:K3ysTr0K3R/Search_CVE",
     "github:CVEProject/cve-services",
     "github:mlab-sh/mlab-cve",
-    "github:gtamir02-png/cve-ai-agent"
+    "github:gtamir02-png/cve-ai-agent",
+    "github:0xBlackash/CVE-2026-31635",
+    "github:itzSh4dowxZ/CVE-2024-37032-PoC",
+    "github:suil12/CVE-2025-24813_presentation",
+    "github:tristanqtn/CVE-2024-37054"
   ],
   "source_id": "github_trending",
   "stats": {
