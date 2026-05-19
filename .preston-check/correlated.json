@@ -1,5 +1,1352 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-19T03:38:18.540808+00:00"
+  "candidate_count": 52,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2025-56352",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-400"
+      ],
+      "description": "In tinyMQTT commit 6226ade15bd4f97be2d196352e64dd10937c1962 (2024-02-18), the broker mishandles protocol violations during CONNECT packet parsing. When receiving a CONNECT packet with a zero-length Client ID while CleanSession is set to 0, the broker correctly replies with a CONNACK return code 0x02 (Identifier Rejected) but fails to explicitly close the TCP connection. Since the surrounding connection teardown logic is not guaranteed to execute, each such invalid CONNECT attempt leaves the underlying socket open. Repeated attempts cause server-side resource exhaustion due to accumulating file descriptors and memory usage, potentially resulting in denial of service.",
+      "first_seen": "2026-05-19T04:32:21.394375+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394375+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/JustDoIt0910/tinyMQTT/issues/19",
+        "https://github.com/user-attachments/files/21207896/Resource_Exhaustion_Poc.txt"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2025-56352"
+    },
+    {
+      "canonical_id": "CVE-2025-65954",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-601"
+      ],
+      "description": "SimpleSAMLphp-casserver is a CAS 1.0 and 2.0 compliant CAS server in the form of a SimpleSAMLphp module. In versions below 6.3.1 and 7.0.0, the logout endpoint accepts a url query parameter to redirect to. casserver treats that url as trusted, and either (depending on configuration) redirects the browser there, or shows a \"you've been logged out\" page with a link to continue to that url. Impacted configs include 'enable_logout' => true, and 'skip_logout_page' -> true. This issue has been resolved in versions 6.3.1 and 7.0.0.",
+      "first_seen": "2026-05-19T04:32:21.394732+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394732+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/simplesamlphp/simplesamlphp-module-casserver/commit/0462f50f00b3bb300d83067d11b74146a57bb8e0",
+        "https://github.com/simplesamlphp/simplesamlphp-module-casserver/commit/fb6c6f1c7b9e757c93c5c306e1d36405e64f6dc5",
+        "https://github.com/simplesamlphp/simplesamlphp-module-casserver/security/advisories/GHSA-cvrm-5hp6-h523"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-65954"
+    },
+    {
+      "canonical_id": "CVE-2026-22810",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-24"
+      ],
+      "description": "Joplin is an open source note-taking and to-do application that organises notes and lists into notebooks. Versions prior to 3.5.7 contain a path traversal vulnerability in the importer which allows overwriting arbitrary files on disk. The OneNote converter does not sanitize the names of embedded files before writing them to disk. As a result, it's possible for an attacker to create a malicious .one file that includes file names containing ../../, that are then interpreted as part of the target path when extracting attachments from the .one file. This issue has been patched in version 3.5.7.",
+      "first_seen": "2026-05-19T04:32:21.394917+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394917+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/laurent22/joplin/blob/af5108d70233b1db9410346958c1587cf7c1b16d/packages/onenote-converter/renderer/src/page/embedded_file.rs#L13-L16",
+        "https://github.com/laurent22/joplin/commit/791668455e1aae50501ff57ea4783b3fba9d377c",
+        "https://github.com/laurent22/joplin/pull/13736",
+        "https://github.com/laurent22/joplin/releases/tag/v3.5.7",
+        "https://github.com/laurent22/joplin/security/advisories/GHSA-gcmj-c9gg-9vh6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-22810"
+    },
+    {
+      "canonical_id": "CVE-2026-2325",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "Mattermost versions 11.5.x <= 11.5.1, 10.11.x <= 10.11.13, 11.4.x <= 11.4.3 fail to limit the size of the request body on the start meeting API endpoint, which allows an authenticated attacker to cause resource exhaustion or denial of service via a crafted oversized HTTP POST request to {{/api/v1/meetings}}.. Mattermost Advisory ID: MMSA-2026-00608",
+      "first_seen": "2026-05-19T04:32:21.393722+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393722+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://mattermost.com/security-updates"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-2325"
+    },
+    {
+      "canonical_id": "CVE-2026-25244",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-78"
+      ],
+      "description": "WebdriverIO is a test automation framework for unit, e2e and component testing using WebDriver, WebDriver BiDi and Appium. Versions below 9.24.0 contain a command injection vulnerability leading to remote code execution (RCE) in test orchestration. Git permits branch names containing shell metacharacters, and getGitMetadataForAISelection() interpolates these names directly into execSync() calls without sanitization. An attacker can exploit this by supplying a malicious repository (via testOrchestrationOptions.runSmartSelection.source, or the current directory if unset) whose branch name carries a payload, causing the shell to execute arbitrary code. This enables remote code execution on CI/CD servers and developer machines, leading to credential and secret disclosure, source code and SSH key exfiltration, system compromise, and supply chain attacks via tampered build artifacts. The issue has been fixed in version 9.24.0.",
+      "first_seen": "2026-05-19T04:32:21.394980+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394980+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/webdriverio/webdriverio/blob/ea0e3e00288abced4c739ff9e46c46977b7cdbd2/packages/wdio-browserstack-service/src/testorchestration/helpers.ts#L204",
+        "https://github.com/webdriverio/webdriverio/releases/tag/v9.24.0",
+        "https://github.com/webdriverio/webdriverio/security/advisories/GHSA-5c46-x3qw-q7j7"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-25244"
+    },
+    {
+      "canonical_id": "CVE-2026-26462",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "Offline Hospital Management System 5.3.0 allows remote code execution due to an improper Electron renderer configuration. The application enables Node.js integration while disabling context isolation, allowing JavaScript executed in the renderer process to access Node.js APIs and execute arbitrary operating system commands.",
+      "first_seen": "2026-05-19T04:32:21.394248+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394248+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://medium.com/@husaainpalh/remote-code-execution-in-offline-hospital-management-system-cve-2026-26462-bc7ac54314c4",
+        "https://sourceforge.net/projects/hospital-management-system/files/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-26462"
+    },
+    {
+      "canonical_id": "CVE-2026-26978",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "FreePBX is an open source IP PBX. In versions below 16.0.71 and 17.0.6, the backup module does not properly sanitize data during restore operations, potentially leading to compromise if the backup contains carefully crafted hostile data. During backup restore operations, FreePBX extracts selected files from a user-supplied tar archive. If a malicious file exists in the archive, it is read and passed directly to unserialize() without validation, class restrictions, or integrity checks. This issue allows Remote Code Execution during restoration of the backup as the web server user (typically asterisk or www-data). The attack does not require shell access, CLI access, or filesystem write permissions beyond the normal restore workflow. Authentication with a known username that has sufficient access permissions and/or write access to backup files is required. This issue has been fixed in versions 16.0.71 and 17.0.6.",
+      "first_seen": "2026-05-19T04:32:21.395021+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.395021+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/FreePBX/backup/commit/45c57e1207cbf9fd1c5f76f8a3e72d204a69a472",
+        "https://github.com/FreePBX/backup/commit/64781af5c80cce0cff21a981be4d8e6a7a71f2c4",
+        "https://github.com/FreePBX/security-reporting/security/advisories/GHSA-5v7h-49gr-jcwr"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-26978"
+    },
+    {
+      "canonical_id": "CVE-2026-27130",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-78"
+      ],
+      "description": "Dokploy is a free, self-hostable Platform as a Service (PaaS). Versions 0.26.6 and below have OS command injection through the appName parameter. 3 chained issues cause this problem: inadequate input sanitization, lack of schema validation and direct shell interpolation. User-controlled application names are passed through inadequate sanitization (cleanAppName function only replaces spaces and converts to lowercase) before being interpolated directly into shell commands executed via execAsync() and execAsyncRemote(). An authenticated attacker can inject shell metacharacters (e.g., ;, $(), backticks, |, &) in the appName field during application creation, which are then executed with server-level privileges when service operations (start, stop, remove, scale) are triggered. This issue has been resolved in version 0.26.7.",
+      "first_seen": "2026-05-19T04:32:21.395035+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.395035+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Dokploy/dokploy/commit/960892fd8dcf12b7a73a00edaa1b7090fca860c7",
+        "https://github.com/Dokploy/dokploy/security/advisories/GHSA-fcgq-jjfg-hrhj"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-27130"
+    },
+    {
+      "canonical_id": "CVE-2026-27737",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "BigBlueButton is an open-source virtual classroom. In versions prior to 3.0.19, the recording playback (presentation format) was not sanitizing user's input in public chat. This allowed for a malicious actor to craft and carry out a targeted XSS attack, activated on anyone replaying the recording. This issue has been fixed 3.0.19.",
+      "first_seen": "2026-05-19T04:32:21.395079+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.395079+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/bigbluebutton/bbb-playback/commit/09e89bfe4ff8488b68c3ff040d3081e419dc89b1",
+        "https://github.com/bigbluebutton/bigbluebutton/commit/69f45aa1b963dc7d80179d0155acc670aec5c4fc",
+        "https://github.com/bigbluebutton/bigbluebutton/releases/tag/v3.0.19",
+        "https://github.com/bigbluebutton/bigbluebutton/security/advisories/GHSA-8vv7-vj94-q2pv",
+        "https://github.com/blindsidenetworks/scalelite/releases/tag/v1.7.0"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-27737"
+    },
+    {
+      "canonical_id": "CVE-2026-27891",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-20",
+        "CWE-434"
+      ],
+      "description": "FacturaScripts is an open source accounting and invoicing software. Versions 2026 and below contain a critical vulnerability in the Plugins::add() function. The system fails to properly validate the file paths within uploaded ZIP archives. This allows an attacker to perform a Zip Slip attack, leading to Arbitrary File Write and Remote Code Execution (RCE) by overwriting sensitive .php files outside the designated plugins directory. The vulnerability is located in Plugins.php. While the testZipFile function attempts to validate that the ZIP contains only one root folder, it does not sanitize or validate the individual file paths within that folder. An attacker can bypass this check by naming a file ValidPluginName/../../shell.php. The explode function will see ValidPluginName as the root folder, satisfying the count($folders) != 1 check. However, during extraction, the ../../ sequence triggers a path traversal, allowing the file to be written anywhere the web server has permissions the root directory. This issue is fixed in version 2026.1.",
+      "first_seen": "2026-05-19T04:32:21.395097+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.395097+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/NeoRazorX/facturascripts/commit/2dda7c6f3b241fa84a0629166783720b882725fd",
+        "https://github.com/NeoRazorX/facturascripts/security/advisories/GHSA-3pgc-xqg9-cfr6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-27891"
+    },
+    {
+      "canonical_id": "CVE-2026-27892",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200",
+        "CWE-212"
+      ],
+      "description": "FacturaScripts is an open source accounting and invoicing software. In versions prior to 2026, the Library module stores and serves uploaded images byte-for-byte, without stripping EXIF/XMP/IPTC metadata. Any authenticated user who downloaded an image could extract the uploader's embedded metadata, which included GPS coordinates, device information, timestamps, embedded comments/notes, thumbnail previews, and other personally identifiable information (PII) preserved in the image metadata. Of all FacturaScripts' image upload features, only the Library module combined unrestricted uploads, persistent storage, authenticated download access, and a total lack of server-side metadata sanitization. This vulnerability carries significant real-world impact: an employee uploading a photo taken at their home inadvertently discloses their precise home address to every user with Library download access. This issue has been fixed in version 2026.",
+      "first_seen": "2026-05-19T04:32:21.395138+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.395138+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/NeoRazorX/facturascripts/commit/b0725147a61a9a377b7180589af33ff52b4751e2",
+        "https://github.com/NeoRazorX/facturascripts/security/advisories/GHSA-q7f2-rv22-2xgr"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-27892"
+    },
+    {
+      "canonical_id": "CVE-2026-27964",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "FacturaScripts is an open source accounting and invoicing software. Versions 2025.7 and prior contain a Reflected Cross-Site Scripting (XSS) vulnerability through the fsNick cookie parameter. The application reflects the cookie's value directly into the HTML without sanitization. The fsNick cookie is rendered into the DOM without encoding. While the server does reject the modified session and forces a logout, the HTML containing the payload reaches the browser first. This lets the script execute immediately upon load, effectively beating the redirect. This issue has been fixed in version 2025.8.",
+      "first_seen": "2026-05-19T04:32:21.395169+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.395169+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/NeoRazorX/facturascripts/commit/9066e10326029adf012114e27eb5f3f33f78ecfd",
+        "https://github.com/NeoRazorX/facturascripts/security/advisories/GHSA-gq5c-rw37-g46c"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "CVE-2026-27964"
+    },
+    {
+      "canonical_id": "CVE-2026-28732",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "Mattermost versions 11.5.x <= 11.5.1, 10.11.x <= 10.11.13, 11.4.x <= 11.4.3 Fail to enforce slash command trigger-word uniqueness during command updates which allows an authenticated team member with Manage Own Slash Commands permission to hijack and impersonate existing system or custom slash commands via editing their own slash command trigger to an already-registered trigger through the command update API. Mattermost Advisory ID: MMSA-2026-00597",
+      "first_seen": "2026-05-19T04:32:21.393882+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393882+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://mattermost.com/security-updates"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-28732"
+    },
+    {
+      "canonical_id": "CVE-2026-28759",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "Mattermost versions 11.5.x <= 11.5.1, 10.11.x <= 10.11.13, 11.4.x <= 11.4.3 fail to validate that a remote cluster has access to a channel before processing membership removal requests during shared channel membership sync, which allows a malicious remote cluster to remove any user from any channel, including private channels, via crafted membership sync messages targeting channels the remote cluster is not authorized to access. Mattermost Advisory ID: MMSA-2026-00576",
+      "first_seen": "2026-05-19T04:32:21.393697+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393697+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://mattermost.com/security-updates"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-28759"
+    },
+    {
+      "canonical_id": "CVE-2026-29962",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "HSC MailInspector v5.3.3-7 contains a Local File Inclusion (LFI) vulnerability caused by improper control of user-supplied file paths. The endpoint /vendor/phpunit/phpunit.php processes user-controlled parameters that directly affect file access operations without adequate validation, sanitization, or path restriction. This allows a remote attacker to exploit Path Traversal techniques to read arbitrary files from the underlying operating system and application directories, leading to sensitive information disclosure.",
+      "first_seen": "2026-05-19T04:32:21.394497+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394497+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/sql3t0/cve-disclosures",
+        "https://github.com/sql3t0/cve-disclosures/blob/main/01_-_CVE-2026-29962_LFI%2BPath_Traversal.md",
+        "https://hsclabs.com/pt-br/mailinspector"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-29962"
+    },
+    {
+      "canonical_id": "CVE-2026-29963",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "HSC MailInspector 5.3.3-7 has a Path Traversal vulnerability due to improper validation of user-supplied input in the /tap/dw.php endpoint. The text parameter is used to construct file paths without adequate normalization or restriction to a safe base directory. A remote attacker can exploit this flaw to access arbitrary files on the underlying operating system, resulting in unauthorized disclosure of sensitive information.",
+      "first_seen": "2026-05-19T04:32:21.394512+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394512+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/sql3t0/cve-disclosures",
+        "https://github.com/sql3t0/cve-disclosures/blob/main/02_-_CVE-2026-29963_LFI%2BPath_Traversal.md",
+        "https://hsclabs.com/pt-br/mailinspector/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-29963"
+    },
+    {
+      "canonical_id": "CVE-2026-29964",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "HSC MailInspector v5.3.3-7 contains a Cross-Site Scripting (XSS) vulnerability in the /tap/tap.php endpoint due to improper neutralization of user-controlled input using alternate or obfuscated JavaScript syntax. The endpoint reflects unsanitized user input in HTTP responses without adequate output encoding, allowing a remote attacker to execute arbitrary JavaScript code in the context of a victim's browser.",
+      "first_seen": "2026-05-19T04:32:21.394517+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394517+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/sql3t0/cve-disclosures",
+        "https://github.com/sql3t0/cve-disclosures/blob/main/03_-_CVE-2026-29964_XSS.md",
+        "https://hsclabs.com/pt-br/mailinspector/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-29964"
+    },
+    {
+      "canonical_id": "CVE-2026-29965",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "HSC MailInspector 5.3.3-7 is vulnerable to Cross Site Scripting (XSS) in the /police/WarningUrlPage.php endpoint due to improper neutralization of user-supplied input that uses alternate or obfuscated JavaScript syntax.",
+      "first_seen": "2026-05-19T04:32:21.394525+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394525+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/sql3t0/cve-disclosures",
+        "https://github.com/sql3t0/cve-disclosures/blob/main/04_-_CVE-2026-29965_XSS.md",
+        "https://hsclabs.com/pt-br/mailinspector/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-29965"
+    },
+    {
+      "canonical_id": "CVE-2026-3220",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "The Autoptimize WordPress plugin before 3.1.15, Clearfy Cache  WordPress plugin before 2.4.2, Speed Optimizer  WordPress plugin before 7.7.9 are vulnerable to unauthenticated Stored Cross-Site Scripting (XSS) due to a predictable replacement hash used during the HTML minification process and abusing a regular expression. This allows an attacker to inject arbitrary HTML attributes in the final HTML output by anticipating the placeholder format.",
+      "first_seen": "2026-05-19T04:32:21.393644+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393644+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://wpscan.com/vulnerability/3ceabf11-23cd-4c38-ba14-014348b0ff2d/"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-3220"
+    },
+    {
+      "canonical_id": "CVE-2026-32848",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-362",
+        "CWE-415"
+      ],
+      "description": "NetBSD prior to commit ec8451e contains a race condition vulnerability in cryptodev_op() within the opencrypto subsystem that allows local attackers to trigger a double-free condition by concurrently issuing CIOCCRYPT operations on the same session identifier on SMP systems. Attackers can exploit mutable per-operation state embedded in the csession struct to corrupt kernel heap memory.",
+      "first_seen": "2026-05-19T04:32:21.394552+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394552+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/NetBSD/src/commit/ec8451efc1565516aba9e7047e1a1a1ce7953a2f",
+        "https://nasm.re/posts/uaf_netbsd_crypto/",
+        "https://www.vulncheck.com/advisories/netbsd-cryptodev-race-condition-double-free-via-cryptodev-op"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-32848"
+    },
+    {
+      "canonical_id": "CVE-2026-32849",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-190",
+        "CWE-476"
+      ],
+      "description": "NetBSD prior to commit ec8451e contains a signed integer overflow vulnerability in the cryptodev_op() function in sys/opencrypto/cryptodev.c where the local variable iov_len is declared as a signed int but assigned from an unsigned cop->dst_len value, causing undefined behavior when cop->dst_len exceeds INT_MAX. A local attacker with access to /dev/crypto and a compression session type can exploit this vulnerability by providing a dst_len value exceeding INT_MAX to trigger a kernel panic through NULL pointer dereference when CONFIG_SVS is disabled and corrupted UIO pointer arithmetic.",
+      "first_seen": "2026-05-19T04:32:21.394576+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394576+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/NetBSD/src/commit/ec8451efc1565516aba9e7047e1a1a1ce7953a2f",
+        "https://nasm.re/posts/uaf_netbsd_crypto/",
+        "https://www.vulncheck.com/advisories/netbsd-signed-integer-overflow-in-cryptodev-op-via-cryptodev-c"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-32849"
+    },
+    {
+      "canonical_id": "CVE-2026-3471",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-939"
+      ],
+      "description": "Mattermost Desktop App versions <=6.1 6.0.1 5.4.13.0 fail to prevent an invalid URL from loading in a pop-up window in the Mattermost Desktop App which allows a malicious server owner to repeated crash the application via calling {{window.open('javascript:alert()');}}. Mattermost Advisory ID: MMSA-2026-00618",
+      "first_seen": "2026-05-19T04:32:21.393905+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393905+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://mattermost.com/security-updates"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-3471"
+    },
+    {
+      "canonical_id": "CVE-2026-38719",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-125"
+      ],
+      "description": "OpENer v2.3-558-g1e99582 contains an out-of-bounds read vulnerability in the Common Packet Format (CPF) parser, specifically in CreateCommonPacketFormatStructure() in source/src/enet_encap/cpf.c. A crafted ENIP/CPF message can supply an attacker-controlled item_count value that is not consistently validated against the remaining data_length of the CPF slice",
+      "first_seen": "2026-05-19T04:32:21.394429+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394429+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/EIPStackGroup/OpENer",
+        "https://github.com/EIPStackGroup/OpENer/issues/558"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-38719"
+    },
+    {
+      "canonical_id": "CVE-2026-39079",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200"
+      ],
+      "description": "An issue in prestashop upsshipping all versions through at least 2.4.0 allows a remote attacker to obtain sensitive information via the /modules/upsshipping/logs/, and /modules/upsshipping/lib/UPSBaseApi.php components",
+      "first_seen": "2026-05-19T04:32:21.394256+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394256+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://labs.esokia.com/cve/cve-2026-39079/"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-39079"
+    },
+    {
+      "canonical_id": "CVE-2026-4137",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-378"
+      ],
+      "description": "In mlflow/mlflow versions prior to 3.11.0, the `get_or_create_nfs_tmp_dir()` function in `mlflow/utils/file_utils.py` creates temporary directories with world-writable permissions (0o777), and the `_create_model_downloading_tmp_dir()` function in `mlflow/pyfunc/__init__.py` creates directories with group-writable permissions (0o770). These insecure permissions allow local attackers to tamper with model artifacts, such as cloudpickle-serialized Python objects, and achieve arbitrary code execution when the tampered artifacts are deserialized via `cloudpickle.load()`. This vulnerability is particularly critical in environments with shared NFS mounts, such as Databricks, where NFS is enabled by default. The issue is a continuation of the vulnerability class addressed in CVE-2025-10279, which was only partially fixed.",
+      "first_seen": "2026-05-19T04:32:21.395044+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.395044+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mlflow/mlflow/commit/1dcbb0c2fbd1f446c328830e601ca13a28219b8a",
+        "https://huntr.com/bounties/648dc30b-76c7-4433-86b8-f43d926fd8d6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-4137"
+    },
+    {
+      "canonical_id": "CVE-2026-41947",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Dify version 1.14.1 and prior contains an authorization bypass vulnerability that allows authenticated editor users to set and enable trace configurations for any application regardless of tenant ownership. Attackers can exploit missing tenant ownership checks in the trace configuration endpoints to redirect all messages and responses from victim applications to attacker-controlled LLM trace providers. NOTE: Dify Cloud allows unauthenticated free self-registration, making account creation trivially accessible to any attacker.",
+      "first_seen": "2026-05-19T04:32:21.394284+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394284+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/langgenius/dify/pull/35793",
+        "https://huntr.com/bounties/a43076b2-fbc8-4750-9647-89a036b52f52",
+        "https://www.vulncheck.com/advisories/dify-authorization-bypass-via-trace-configuration-endpoints"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-41947"
+    },
+    {
+      "canonical_id": "CVE-2026-41949",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Dify version 1.14.1 and prior contain an authorization bypass vulnerability in the file preview endpoint that allows any authenticated user to read up to 3,000 characters of any uploaded document across all tenants and workspaces using only the file's UUID. Attackers can access the /console/api/files/{file_id}/preview endpoint with an intercepted file UUID to extract sensitive content from documents without ownership or workspace permission verification. NOTE: Dify Cloud allows unauthenticated free self-registration, making account creation trivially accessible to any attacker.",
+      "first_seen": "2026-05-19T04:32:21.394343+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394343+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/langgenius/dify/pull/35797",
+        "https://huntr.com/bounties/d50a0240-7951-4939-b989-9bded66c7682",
+        "https://www.vulncheck.com/advisories/dify-authorization-bypass-via-file-preview-endpoint"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-41949"
+    },
+    {
+      "canonical_id": "CVE-2026-42009",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-475"
+      ],
+      "description": "A flaw was found in gnutls. A remote attacker could exploit an issue in the Datagram Transport Layer Security (DTLS) packet reordering logic. The comparator function, responsible for ordering DTLS packets by sequence numbers, did not correctly handle packets with duplicate sequence numbers. This could lead to unstable packet ordering or undefined behavior, resulting in a denial of service.",
+      "first_seen": "2026-05-19T04:32:21.394243+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394243+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-42009",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2467279"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-42009"
+    },
+    {
+      "canonical_id": "CVE-2026-4320",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-288"
+      ],
+      "description": "Authorization Bypass vulnerability in Creartia's ICMS software could allow an attacker to gain unauthorized access to protected features by manipulating the HTTP redirect headers of the login process, causing the script to continue running and enabling privilege escalation without the need for credentials.",
+      "first_seen": "2026-05-19T04:32:21.394143+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394143+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.incibe.es/en/incibe-cert/notices/aviso/authorization-bypass-icms-content-management-creartia-internet-consulting"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-4320"
+    },
+    {
+      "canonical_id": "CVE-2026-45231",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "DumbAssets through 1.0.11 contains a stored cross-site scripting vulnerability in asset fields including name, description, modelNumber, serialNumber, and tags that are stored without server-side sanitization and rendered using innerHTML without client-side escaping. Attackers can create or update assets with HTML or JavaScript payloads via the asset API endpoints to execute arbitrary scripts in the browsers of users viewing the asset list, and with Content-Security-Policy disabled, the injected scripts can make unrestricted connections to internal network services.",
+      "first_seen": "2026-05-19T04:32:21.394645+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394645+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/DumbWareio/DumbAssets/pull/135",
+        "https://www.vulncheck.com/advisories/dumbassets-stored-cross-site-scripting-via-asset-fields"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45231"
+    },
+    {
+      "canonical_id": "CVE-2026-45243",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Summarize prior to 0.15.1 contains a missing authorization vulnerability in the content script window.postMessage bridge that allows malicious pages to perform unauthorized operations on automation artifacts. Attackers can simulate runtime messages with spoofed sender identifiers to list, read, create, overwrite, or delete automation artifacts scoped to the affected tab without proper authorization checks.",
+      "first_seen": "2026-05-19T04:32:21.394694+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394694+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/steipete/summarize/commit/357544063af535bd574752622f9eb94be33ee5fd",
+        "https://github.com/steipete/summarize/pull/222",
+        "https://github.com/steipete/summarize/releases/tag/v0.15.2",
+        "https://www.vulncheck.com/advisories/summarize-browser-extension-missing-authorization-via-content-script"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45243"
+    },
+    {
+      "canonical_id": "CVE-2026-45244",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Summarize prior to 0.15.1 contains a missing authorization vulnerability that allows attackers to execute browser automation actions without per-call user approval when the extension automation feature is enabled. Attackers can influence the agent through malicious page or summary content to invoke enabled extension automation tools such as navigation or debugger-backed actions, bypassing the final user approval step when a user interacts with attacker-controlled content.",
+      "first_seen": "2026-05-19T04:32:21.394768+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394768+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/steipete/summarize/commit/e64fe3ecd1bb4fdc181dcfa88c96b9e1914ced0e",
+        "https://github.com/steipete/summarize/pull/219",
+        "https://github.com/steipete/summarize/releases/tag/v0.15.2",
+        "https://www.vulncheck.com/advisories/summarize-unapproved-browser-automation-execution"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45244"
+    },
+    {
+      "canonical_id": "CVE-2026-45245",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918",
+        "CWE-940"
+      ],
+      "description": "Summarize prior to 0.15.1 contains a vulnerability in the hover summary feature that allows malicious pages to dispatch synthetic mouseover events over attacker-controlled links, causing the extension to make authenticated daemon requests using stored tokens without verifying event trustworthiness. Attackers can place local or private-network URLs behind hoverable links to route authenticated requests through the daemon, potentially accessing sensitive internal endpoints when users interact with attacker-controlled content.",
+      "first_seen": "2026-05-19T04:32:21.394779+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394779+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/steipete/summarize/commit/ecbb2c414255aa480a15d0d8b205224c14cfdbcb",
+        "https://github.com/steipete/summarize/pull/218",
+        "https://github.com/steipete/summarize/releases/tag/v0.15.2",
+        "https://www.vulncheck.com/advisories/summarize-unauthorized-daemon-request-via-untrusted-events"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-45245"
+    },
+    {
+      "canonical_id": "CVE-2026-45829",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "A pre-authentication, code injection vulnerability in version 1.0.0 or later of the ChromaDB Python project allows an unauthenticated attacker to run arbitrary code on the server by sending a malicious model repository and trust_remote_code set to true in the\u00a0/api/v2/tenants/{tenant}/databases/{db}/collections endpoint.",
+      "first_seen": "2026-05-19T04:32:21.394457+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394457+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/chroma-core/chroma/issues/6717",
+        "https://www.hiddenlayer.com/research/chromatoast-served-pre-auth"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45829"
+    },
+    {
+      "canonical_id": "CVE-2026-6334",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-305"
+      ],
+      "description": "Mattermost versions 11.5.x <= 11.5.1, 10.11.x <= 10.11.13 fail to enforce client identity binding during the OAuth authorization code redemption flow which allows an authenticated OAuth client to redeem authorization codes issued to a different client via a crafted token exchange request.. Mattermost Advisory ID: MMSA-2026-00570",
+      "first_seen": "2026-05-19T04:32:21.393800+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393800+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://mattermost.com/security-updates"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "CVE-2026-6334"
+    },
+    {
+      "canonical_id": "CVE-2026-6339",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-346"
+      ],
+      "description": "Mattermost versions 11.5.x <= 11.5.1, 11.4.x <= 11.4.3 fail to validate the X-Requested-With header on the burn-on-read reveal endpoint which allows an authenticated channel member to force the reveal of a burn-on-read message without recipient consent via a crafted Markdown image tag.. Mattermost Advisory ID: MMSA-2026-00636",
+      "first_seen": "2026-05-19T04:32:21.394016+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394016+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://mattermost.com/security-updates"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6339"
+    },
+    {
+      "canonical_id": "CVE-2026-6379",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "The WP Photo Album Plus WordPress plugin before 9.1.11.001 does not properly sanitize and escape a parameter before using it in a SQL query, allowing unauthenticated users to perform SQL injection attacks.",
+      "first_seen": "2026-05-19T04:32:21.393658+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393658+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://wpscan.com/vulnerability/60b88fd2-4048-4773-b319-63caaf5bd8eb/"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-6379"
+    },
+    {
+      "canonical_id": "CVE-2026-7301",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "SGLangs multimodal generation runtime scheduler's ROUTER socket binds to 0.0.0.0 by default and contains a sink that calls pickle.loads() on incoming messages, enabling RCE when exposed to the internet.",
+      "first_seen": "2026-05-19T04:32:21.394182+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394182+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://antiproof.ai/blog/three-rces-in-sglang/",
+        "https://github.com/sgl-project/sglang/tree/main/python/sglang"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-7301"
+    },
+    {
+      "canonical_id": "CVE-2026-7304",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "SGLangs multimodal generation runtime is vulnerable to unauthenticated remote code execution when the --enable-custom-logit-processor option is enabled, as Python objects loaded via dill.loads() will be deserialized without validation.",
+      "first_seen": "2026-05-19T04:32:21.394205+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394205+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://antiproof.ai/blog/three-rces-in-sglang/",
+        "https://github.com/sgl-project/sglang/tree/main/python/sglang"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-7304"
+    },
+    {
+      "canonical_id": "CVE-2026-8771",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-74",
+        "CWE-89"
+      ],
+      "description": "A security flaw has been discovered in linlinjava litemall up to 1.8.0. This impacts the function list of the file litemall-wx-api/src/main/java/org/linlinjava/litemall/wx/web/WxGoodsController.java of the component Front-end WeChat API. Performing a manipulation results in sql injection. Remote exploitation of the attack is possible. The exploit has been released to the public and may be used for attacks. The vendor was contacted early about this disclosure but did not respond in any way.",
+      "first_seen": "2026-05-19T04:32:21.393344+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393344+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/A1AAAAAAAAAA1/ab8df4181f9311cb9e7dad905e9aa512",
+        "https://vuldb.com/submit/811467",
+        "https://vuldb.com/vuln/364396",
+        "https://vuldb.com/vuln/364396/cti"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-8771"
+    },
+    {
+      "canonical_id": "CVE-2026-8772",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-74",
+        "CWE-89"
+      ],
+      "description": "A weakness has been identified in linlinjava litemall up to 1.8.0. Affected is an unknown function of the component Admin Endpoint. Executing a manipulation can lead to sql injection. The attack can be executed remotely. The exploit has been made available to the public and could be used for attacks. Multiple endpoints are affected. The vendor was contacted early about this disclosure but did not respond in any way.",
+      "first_seen": "2026-05-19T04:32:21.393358+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393358+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/A1AAAAAAAAAA1/bc875f5be52b44b2e557c5312e355d47",
+        "https://vuldb.com/submit/811468",
+        "https://vuldb.com/vuln/364397",
+        "https://vuldb.com/vuln/364397/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8772"
+    },
+    {
+      "canonical_id": "CVE-2026-8773",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-74",
+        "CWE-88"
+      ],
+      "description": "A security vulnerability has been detected in linlinjava litemall up to 1.8.0. Affected by this vulnerability is the function backup/load of the file litemall-db/src/main/java/org/linlinjava/litemall/db/util/DbUtil.java of the component Database Setting Handler. The manipulation of the argument db/password leads to argument injection. The attack is possible to be carried out remotely. The exploit has been disclosed publicly and may be used. The vendor was contacted early about this disclosure but did not respond in any way.",
+      "first_seen": "2026-05-19T04:32:21.393367+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393367+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/A1AAAAAAAAAA1/d5ae30a17744459e7cc5902fff32a35b",
+        "https://vuldb.com/submit/811469",
+        "https://vuldb.com/vuln/364398",
+        "https://vuldb.com/vuln/364398/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8773"
+    },
+    {
+      "canonical_id": "CVE-2026-8780",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-119"
+      ],
+      "description": "A vulnerability was identified in omec-project amf up to 2.1.3-dev. The affected element is an unknown function of the file ngap/dispatcher.go of the component NGAP Message Handler. The manipulation leads to memory corruption. The attack may be initiated remotely. The exploit is publicly available and might be used. Upgrading to version 2.2.0 is sufficient to fix this issue. It is suggested to upgrade the affected component. The same pull request fixes multiple security issues.",
+      "first_seen": "2026-05-19T04:32:21.393497+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393497+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/omec-project/amf/",
+        "https://github.com/omec-project/amf/issues/670",
+        "https://github.com/omec-project/amf/pull/666",
+        "https://github.com/omec-project/amf/releases/tag/v2.2.0",
+        "https://vuldb.com/submit/811617",
+        "https://vuldb.com/vuln/364404",
+        "https://vuldb.com/vuln/364404/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8780"
+    },
+    {
+      "canonical_id": "CVE-2026-8782",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-404",
+        "CWE-476"
+      ],
+      "description": "A weakness has been identified in omec-project amf up to 2.1.3-dev. This affects an unknown function of the file ngap/handler.go of the component NGAP Message Handler. This manipulation causes null pointer dereference. Remote exploitation of the attack is possible. The exploit has been made available to the public and could be used for attacks. Upgrading to version 2.2.0 mitigates this issue. It is recommended to upgrade the affected component. The same pull request fixes multiple security issues.",
+      "first_seen": "2026-05-19T04:32:21.393537+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393537+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/omec-project/amf/",
+        "https://github.com/omec-project/amf/issues/674",
+        "https://github.com/omec-project/amf/pull/666",
+        "https://github.com/omec-project/amf/releases/tag/v2.2.0",
+        "https://vuldb.com/submit/811654",
+        "https://vuldb.com/vuln/364406",
+        "https://vuldb.com/vuln/364406/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8782"
+    },
+    {
+      "canonical_id": "CVE-2026-8785",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-74",
+        "CWE-89"
+      ],
+      "description": "A flaw has been found in projectworlds hospital-management-system-in-php 1.0. Affected by this vulnerability is the function getAllPatientDetail of the file update_info.php of the component GET Parameter Handler. Executing a manipulation of the argument appointment_no can lead to sql injection. The attack may be performed from remote. The exploit has been published and may be used. The project was informed of the problem early through an issue report but has not responded yet.",
+      "first_seen": "2026-05-19T04:32:21.393597+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393597+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/lutherping/CVE",
+        "https://github.com/projectworldsofficial/Hospital-management-system-in-php/issues/8",
+        "https://vuldb.com/submit/812010",
+        "https://vuldb.com/vuln/364409",
+        "https://vuldb.com/vuln/364409/cti"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-8785"
+    },
+    {
+      "canonical_id": "CVE-2026-8786",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-285",
+        "CWE-639"
+      ],
+      "description": "A vulnerability has been found in Tencent WeKnora up to 0.3.6. Affected by this issue is the function getKnowledgeBaseForInitialization of the file internal/handler/initialization.go of the component Config API Endpoint. The manipulation of the argument kbId leads to authorization bypass. It is possible to initiate the attack remotely. The exploit has been disclosed to the public and may be used. The vendor was contacted early about this disclosure but did not respond in any way.",
+      "first_seen": "2026-05-19T04:32:21.393608+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393608+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/YLChen-007/1cdc50418f29af7ae671466425e52c7b",
+        "https://vuldb.com/submit/812172",
+        "https://vuldb.com/vuln/364410",
+        "https://vuldb.com/vuln/364410/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8786"
+    },
+    {
+      "canonical_id": "CVE-2026-8788",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-93"
+      ],
+      "description": "Net::Statsd::Lite versions through 0.10.0 for Perl allowed metric injections.\n\nThe values from the set_add method were not checked for newlines, colons or pipes. Metrics generated from untrusted sources could inject additional statsd metrics.\n\nNote that version 0.9.0 fixed a similar issue CVE-2026-46719 for metric names.",
+      "first_seen": "2026-05-19T04:32:21.393860+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.393860+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://metacpan.org/release/RRWO/Net-Statsd-Lite-v0.10.1/changes",
+        "https://www.cve.org/CVERecord?id=CVE-2026-46719"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8788"
+    },
+    {
+      "canonical_id": "CVE-2026-8802",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "A vulnerability was detected in opensourcepos Open Source Point of Sale up to 3.4.2. This issue affects the function getPicThumb of the file app/Controllers/Items.php. The manipulation of the argument pic_filename results in path traversal. The attack may be launched remotely. The patch is identified as def0c27a0e252668df8d942fc31e16d1edfd7323. A patch should be applied to remediate this issue. The vendor was contacted early about this disclosure.",
+      "first_seen": "2026-05-19T04:32:21.394154+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394154+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/opensourcepos/opensourcepos/commit/def0c27a0e252668df8d942fc31e16d1edfd7323",
+        "https://github.com/opensourcepos/opensourcepos/pull/4545",
+        "https://github.com/opensourcepos/opensourcepos/security/advisories/GHSA-xq63-3v4g-39r5",
+        "https://vuldb.com/submit/802559",
+        "https://vuldb.com/vuln/364435",
+        "https://vuldb.com/vuln/364435/cti"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8802"
+    },
+    {
+      "canonical_id": "CVE-2026-8803",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-327",
+        "CWE-328"
+      ],
+      "description": "A flaw has been found in opensourcepos Open Source Point of Sale up to 3.4.2. Impacted is the function Login of the file app/Models/Employee.php of the component Employee Login. This manipulation causes use of weak hash. Remote exploitation of the attack is possible. The attack is considered to have high complexity. The exploitability is considered difficult. The actual existence of this vulnerability is currently in question. The vendor explains: \"[T]he code is still there to allow the upgrade path to work. The default password is initially seeded with the old hash function, but then migrated to a newer one after login. [T]he hash version check might be cleaned up in the future. Currently it's not actively in use as any password change will use a newer hash function.\"",
+      "first_seen": "2026-05-19T04:32:21.394220+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394220+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://vuldb.com/submit/802561",
+        "https://vuldb.com/vuln/364436",
+        "https://vuldb.com/vuln/364436/cti"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "CVE-2026-8803"
+    },
+    {
+      "canonical_id": "CVE-2026-8838",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "Unsafe use of Python's eval() on server-received data in the vector_in() function in amazon-redshift-python-driver before 2.1.14 allows a rogue server or man-in-the-middle actor to execute arbitrary code on the client. \n\n\n\nTo remediate this issue, users should upgrade to version 2.1.14.",
+      "first_seen": "2026-05-19T04:32:21.395051+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.395051+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://aws.amazon.com/security/security-bulletins/2026-033-aws/",
+        "https://github.com/aws/amazon-redshift-python-driver/releases/tag/v2.1.14",
+        "https://github.com/aws/amazon-redshift-python-driver/security/advisories/GHSA-29h4-r29x-hchv"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-8838"
+    },
+    {
+      "canonical_id": "CVE-2026-8843",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-617"
+      ],
+      "description": "Creating a \"2dsphere_bucket\" index on a non-timeseries bucket collection will succeed, but any subsequent attempt to insert a document which triggers updating that index will crash the server. A similar issue occurs when creating \"queryable_encrypted_range\" indices.\n\nThis issue affects MongoDB Server v7.0 versions prior to 7.0.32, v8.0 versions prior to 8.0.21 and v8.2 versions prior to 8.2.6",
+      "first_seen": "2026-05-19T04:32:21.394473+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.394473+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://jira.mongodb.org/browse/SERVER-116327"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8843"
+    },
+    {
+      "canonical_id": "CVE-2026-8851",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "SOGo 5.12.7 contains a SQL injection vulnerability in the Access Control List management functionality that allows authenticated users to extract arbitrary data from the database by injecting SQL subqueries through the uid parameter of the addUserInAcls endpoint. Attackers can inject malicious SQL code to write extracted data into the sogo_acl table and retrieve it through the /acls API, establishing an out-of-band data exfiltration channel.",
+      "first_seen": "2026-05-19T04:32:21.395061+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-19T04:32:21.395061+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Alinto/sogo/releases/tag/SOGo-5.12.8",
+        "https://www.sogo.nu/news/2026/sogo-v5128-released.html",
+        "https://www.vulncheck.com/advisories/sogo-sql-injection-via-adduserinacls-endpoint"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-8851"
+    }
+  ],
+  "correlated_at": "2026-05-19T04:32:36.298715+00:00"
 }
