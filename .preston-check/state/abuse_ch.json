@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-18T22:10:32.075887+00:00",
-  "last_successful_fetch": "2026-05-18T22:10:32.076395+00:00",
+  "last_run": "2026-05-19T00:16:20.404513+00:00",
+  "last_successful_fetch": "2026-05-19T00:16:20.405029+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4040,7 +4040,18 @@
     "threatfox:8qxg5lyp.logic-pulse.digital",
     "threatfox:b3gl3j28.logic-pulse.digital",
     "threatfox:logic-pulse.digital",
-    "threatfox:floraautomationnetwork.garden"
+    "threatfox:floraautomationnetwork.garden",
+    "threatfox:wildflorainfrastructurehub.garden",
+    "threatfox:petalautomationplatform.garden",
+    "threatfox:greenhousemanagementengine.garden",
+    "threatfox:v9rvls59.stack-matrix.digital",
+    "threatfox:sightseerdj.com",
+    "threatfox:2tfq28mb.stack-matrix.digital",
+    "threatfox:gardenresourcecontroller.garden",
+    "threatfox:23.236.64.238:8778",
+    "threatfox:1.117.61.9:12306",
+    "threatfox:distributedbotanicalnetwork.garden",
+    "threatfox:wildfloraintegrationplatform.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
