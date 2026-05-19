@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-19T00:16:20.404513+00:00",
-  "last_successful_fetch": "2026-05-19T00:16:20.405029+00:00",
+  "last_run": "2026-05-19T05:10:05.917675+00:00",
+  "last_successful_fetch": "2026-05-19T05:10:05.918209+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4051,7 +4051,24 @@
     "threatfox:23.236.64.238:8778",
     "threatfox:1.117.61.9:12306",
     "threatfox:distributedbotanicalnetwork.garden",
-    "threatfox:wildfloraintegrationplatform.garden"
+    "threatfox:wildfloraintegrationplatform.garden",
+    "threatfox:quantum-entanglement-crypt.garden",
+    "threatfox:amber-fossil-mosquito.garden",
+    "threatfox:phase-shift-bridge-driver.garden",
+    "threatfox:xenomorph-hive-intelligence.garden",
+    "threatfox:x8drf7ed.audioattenuatorschematic.digital",
+    "threatfox:nw3tvo7k.audioattenuatorschematic.digital",
+    "threatfox:holistic-detective-agency.garden",
+    "threatfox:containerizedplantengine.garden",
+    "threatfox:stbe26oz.meadowworkflowframework.garden",
+    "threatfox:floraobservabilitycenter.garden",
+    "threatfox:meadowworkflowframework.garden",
+    "threatfox:federatedgardenplatform.garden",
+    "threatfox:8duc5067.siciliandefensetheory.digital",
+    "threatfox:rjcuszqj.siciliandefensetheory.digital",
+    "threatfox:irrigationanalyticssystem.garden",
+    "threatfox:botanicalresourcecontroller.garden",
+    "threatfox:distributedbloomnetwork.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
