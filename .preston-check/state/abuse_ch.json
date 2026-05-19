@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-19T16:29:57.280707+00:00",
-  "last_successful_fetch": "2026-05-19T16:29:57.281504+00:00",
+  "last_run": "2026-05-19T19:11:17.602516+00:00",
+  "last_successful_fetch": "2026-05-19T19:11:17.603078+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4299,7 +4299,20 @@
     "threatfox:green-macrohim-work-center.garden",
     "threatfox:containerizedgardenengine.garden",
     "threatfox:gr33bzph.cyberneticprostheticlab.digital",
-    "threatfox:floraresourcecontroller.garden"
+    "threatfox:floraresourcecontroller.garden",
+    "threatfox:rpi.fazvende.com",
+    "threatfox:https://rpi.fazvende.com/",
+    "threatfox:rpi.tristans-tea.com",
+    "threatfox:https://rpi.tristans-tea.com/",
+    "threatfox:wildfloraworkflowhub.garden",
+    "threatfox:zef6cv5o.byte-lattice.digital",
+    "threatfox:c533d8a0-2c69-47ed-b173-0234c17c3989.codepit-rized-denengine.garden",
+    "threatfox:greenhouse-resource-center.garden",
+    "threatfox:codepit-rized-denengine.garden",
+    "threatfox:dampcaps-flor-sou-rail.garden",
+    "threatfox:8xtx6dv2.gothiccathedralblueprint.digital",
+    "threatfox:0wv09g11.gothiccathedralblueprint.digital",
+    "threatfox:mendocs-opera-shub-cowddos.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {

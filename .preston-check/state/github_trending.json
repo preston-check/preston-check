@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-19T16:29:51.975364+00:00",
-  "last_successful_fetch": "2026-05-19T16:29:56.962348+00:00",
+  "last_run": "2026-05-19T19:11:13.079348+00:00",
+  "last_successful_fetch": "2026-05-19T19:11:17.236442+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -602,7 +602,11 @@
     "github:Sergo9876/1---reiting-luchshih-dostavok-cvetov-v-moskve",
     "github:ovitente/cve-checker",
     "github:gagaltotal/CVE-2026-42945-NGINX-Rift-Scanner",
-    "github:LukeFBM/CVE_Luca_Capruzzi"
+    "github:LukeFBM/CVE_Luca_Capruzzi",
+    "github:K3ysTr0K3R/Search_CVE",
+    "github:CVEProject/cve-services",
+    "github:mlab-sh/mlab-cve",
+    "github:gtamir02-png/cve-ai-agent"
   ],
   "source_id": "github_trending",
   "stats": {
