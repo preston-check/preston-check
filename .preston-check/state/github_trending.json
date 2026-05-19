@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-19T10:02:24.169981+00:00",
-  "last_successful_fetch": "2026-05-19T05:10:05.454195+00:00",
+  "last_run": "2026-05-19T12:49:35.689468+00:00",
+  "last_successful_fetch": "2026-05-19T12:49:40.175473+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -592,7 +592,12 @@
     "github:AlexHill52/Old-556-CVE-Validation",
     "github:RogoLabs/CVETime",
     "github:jsavyasachi/CVE-data-model",
-    "github:wnaspy/CVE"
+    "github:wnaspy/CVE",
+    "github:RedCrazyGhost/CVE-2026-42945",
+    "github:Maxime288/CVE-2026-8838-RCE",
+    "github:WoodConner/cve_livepatch_agent",
+    "github:destroyer929/NLP_CVE",
+    "github:learner202649/CVE-2026-35030-PoC"
   ],
   "source_id": "github_trending",
   "stats": {

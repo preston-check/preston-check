@@ -1,5 +1,30 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-19T10:44:47.522332+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-8838",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "",
+      "first_seen": "2026-05-19T12:49:39.022900+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [
+        "Python"
+      ],
+      "last_seen": "2026-05-19T12:49:39.022900+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Maxime288/CVE-2026-8838-RCE"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-8838-RCE"
+    }
+  ],
+  "correlated_at": "2026-05-19T12:49:40.950757+00:00"
 }

@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-19T10:02:41.545553+00:00",
-  "last_successful_fetch": "2026-05-19T10:02:41.546541+00:00",
+  "last_run": "2026-05-19T12:49:40.776481+00:00",
+  "last_successful_fetch": "2026-05-19T12:49:40.776997+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4218,7 +4218,22 @@
     "threatfox:q956x3rl.badabingsopranoslounge.digital",
     "threatfox:0g6xawfs.badabingsopranoslounge.digital",
     "threatfox:badabingsopranoslounge.digital",
-    "threatfox:the-sopranos-family-tree.garden"
+    "threatfox:the-sopranos-family-tree.garden",
+    "threatfox:lv5evztg.cyberneticprostheticlab.digital",
+    "threatfox:meadowoperationshub.garden",
+    "threatfox:federatedgrowthnetwork.garden",
+    "threatfox:smetana-js.beer",
+    "threatfox:irrigationtelemetrysystem.garden",
+    "threatfox:api.operilezabre.com",
+    "threatfox:botanicalautomationframework.garden",
+    "threatfox:gatuso.duckdns.org",
+    "threatfox:98.81.111.167:443",
+    "threatfox:sp13.gstats-api-cont.co",
+    "threatfox:3zqfx034.subfossiloakchronology.digital",
+    "threatfox:1ml4kzh4.subfossiloakchronology.digital",
+    "threatfox:subfossiloakchronology.digital",
+    "threatfox:distributedgardenanalytics.garden",
+    "threatfox:wildfloramanagementplatform.garden"
   ],
   "source_id": "abuse_ch",
   "stats": {
