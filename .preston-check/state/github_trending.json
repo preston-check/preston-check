@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-19T12:49:35.689468+00:00",
-  "last_successful_fetch": "2026-05-19T12:49:40.175473+00:00",
+  "last_run": "2026-05-19T16:29:51.975364+00:00",
+  "last_successful_fetch": "2026-05-19T16:29:56.962348+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -597,7 +597,12 @@
     "github:Maxime288/CVE-2026-8838-RCE",
     "github:WoodConner/cve_livepatch_agent",
     "github:destroyer929/NLP_CVE",
-    "github:learner202649/CVE-2026-35030-PoC"
+    "github:learner202649/CVE-2026-35030-PoC",
+    "github:n3th4ck3rx/cvequery",
+    "github:Sergo9876/1---reiting-luchshih-dostavok-cvetov-v-moskve",
+    "github:ovitente/cve-checker",
+    "github:gagaltotal/CVE-2026-42945-NGINX-Rift-Scanner",
+    "github:LukeFBM/CVE_Luca_Capruzzi"
   ],
   "source_id": "github_trending",
   "stats": {
