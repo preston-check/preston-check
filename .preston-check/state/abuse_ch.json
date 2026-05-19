@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-19T21:40:57.104206+00:00",
-  "last_successful_fetch": "2026-05-19T21:40:57.104739+00:00",
+  "last_run": "2026-05-19T23:16:36.446256+00:00",
+  "last_successful_fetch": "2026-05-19T23:16:36.446746+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4334,7 +4334,14 @@
     "threatfox:144.172.94.91:2255",
     "threatfox:144.172.94.91:3333",
     "threatfox:distributedgardenmesh.garden",
-    "threatfox:petal-processing-platform.garden"
+    "threatfox:petal-processing-platform.garden",
+    "threatfox:abyssal-plain-topography.garden",
+    "threatfox:coriolis-effect-trajectory.garden",
+    "threatfox:jq7mk5ac.logic-pulse.digital",
+    "threatfox:microflora-observability-platform.garden",
+    "threatfox:https://brownhc.cyou",
+    "threatfox:ecosystemprocessingcore.garden",
+    "threatfox:dagatructiep.fashion"
   ],
   "source_id": "abuse_ch",
   "stats": {
