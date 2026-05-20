@@ -1,52 +1,5 @@
 {
-  "candidate_count": 2,
-  "candidates": [
-    {
-      "canonical_id": "CVE-2018-14847",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "VULNERAVEL CVE-2018-14847 - CREDENCIAIS EXTRAIDAS MIKROTIK EM PYTHON",
-      "first_seen": "2026-05-20T21:06:19.158506+00:00",
-      "frameworks": [],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-20T21:06:19.158506+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/mourafuseti/VULNERAVEL-CVE-2018-14847---CREDENCIAIS-EXTRAIDAS"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "VULNERAVEL-CVE-2018-14847---CREDENCIAIS-EXTRAIDAS"
-    },
-    {
-      "canonical_id": "CVE-2024-37054",
-      "composite_confidence": 0.55,
-      "cwe": [],
-      "description": "a proof-of-concept for MLflow RCE (remote code execution)",
-      "first_seen": "2026-05-20T21:06:19.158435+00:00",
-      "frameworks": [],
-      "key_kind": "cve",
-      "languages": [
-        "Python"
-      ],
-      "last_seen": "2026-05-20T21:06:19.158435+00:00",
-      "merged_sources": [
-        "github_trending"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/vanhari/CVE-2024-37054"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "CVE-2024-37054"
-    }
-  ],
-  "correlated_at": "2026-05-20T21:06:20.649539+00:00"
+  "candidate_count": 0,
+  "candidates": [],
+  "correlated_at": "2026-05-20T22:24:21.194636+00:00"
 }
