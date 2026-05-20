@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-20T15:51:28.302122+00:00",
-  "last_successful_fetch": "2026-05-20T15:51:32.984936+00:00",
+  "last_run": "2026-05-20T18:27:53.248326+00:00",
+  "last_successful_fetch": "2026-05-20T18:27:58.133656+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -630,7 +630,13 @@
     "github:fevar54/FULL-ANALYSIS---CVE-2026-45829-ChromaDB-",
     "github:wvverez/CVE-2021-41773-PoC",
     "github:Maxime288/Fragnesia-CVE-2026-46300",
-    "github:yusufdalbudak/CVE-2026-42945"
+    "github:yusufdalbudak/CVE-2026-42945",
+    "github:yilakabay/CVerve",
+    "github:dashaun-tanzu/saa-cves-1-5-demo",
+    "github:CryptoGenNepal/CVE-KEV-RSS",
+    "github:ghollingworth/cve-list",
+    "github:thanujbtech-lgtm/tenable_cve",
+    "github:atyronesmith/cve-skill"
   ],
   "source_id": "github_trending",
   "stats": {
