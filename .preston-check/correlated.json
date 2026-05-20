@@ -1,5 +1,45 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-20T22:24:21.194636+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2026-2587",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "PoC validator for CVE-2026-2587 \u2014 Critical (CVSS 9.6) EL Injection RCE in Eclipse GlassFish < 7.1.0 admin console gadget handler. Multi-target scanner with CSV/JSON output.",
+      "first_seen": "2026-05-20T22:42:15.216031+00:00",
+      "frameworks": [
+        "cve",
+        "cve-2026-2587",
+        "cwe-917",
+        "eclipse-glassfish",
+        "el-injection",
+        "exploit",
+        "expression-language-injection",
+        "glassfish",
+        "java",
+        "pentest",
+        "poc",
+        "rce",
+        "security-research",
+        "vulnerability"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "Python"
+      ],
+      "last_seen": "2026-05-20T22:42:15.216031+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Bhanunamikaze/CVE-2026-2587-Exploit-POC"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-2587-Exploit-POC"
+    }
+  ],
+  "correlated_at": "2026-05-20T22:42:17.894220+00:00"
 }
