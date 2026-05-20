@@ -1,5 +1,2182 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-20T04:22:25.486323+00:00"
+  "candidate_count": 87,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2025-14575",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-427"
+      ],
+      "description": "An Uncontrolled Search Path Element vulnerability in the OpenSSL TLS backend of Qt Network (qtbase) in Qt Qt Framework (Unix) allows a local attacker to load a rogue CA certificate as a trusted system authority via a crafted certificate file placed in the application's working directory.",
+      "first_seen": "2026-05-20T04:35:05.462790+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462790+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://codereview.qt-project.org/c/qt/qtbase/+/642967"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-14575"
+    },
+    {
+      "canonical_id": "CVE-2025-15609",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "The Fortis for WooCommerce WordPress plugin before 1.3.1 may leak sensitive API keys to unauthenticated attackers, allowing them to query Fortis' API and retrieve sensitive customer information, like past orders, PII, etc.",
+      "first_seen": "2026-05-20T04:35:05.461800+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461800+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://wpscan.com/vulnerability/220f72ea-e3b4-44c9-8c9b-15662aebb6cb/"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2025-15609"
+    },
+    {
+      "canonical_id": "CVE-2025-40900",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1336"
+      ],
+      "description": "An Angular template injection vulnerability was discovered in the Reports functionality due to improper validation of an input parameter. An authenticated user with report privileges can define a malicious report containing an Angular template payload, or a victim can be socially engineered to import a malicious report template. When the victim views or imports the report, the Angular template executes in their browser context, allowing the attacker to modify application data, or disrupt application availability. Full XSS exploitation and direct information disclosure are prevented by the existing input validation and Content Security Policy configuration.",
+      "first_seen": "2026-05-20T04:35:05.462817+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462817+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://security.nozominetworks.com/NN-2026:3-01"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-40900"
+    },
+    {
+      "canonical_id": "CVE-2025-40901",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "A Stored HTML Injection vulnerability was discovered in the Credentials Manager functionality due to improper validation of an input parameter. An authenticated user with administrative privileges can define a malicious identity containing HTML tags. When a victim attempts to delete the affected identity, the injected HTML renders in their browser, enabling phishing and possibly open redirect attacks. Full XSS exploitation and direct information disclosure are prevented by the existing input validation and Content Security Policy configuration.",
+      "first_seen": "2026-05-20T04:35:05.462839+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462839+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://security.nozominetworks.com/NN-2026:4-01"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-40901"
+    },
+    {
+      "canonical_id": "CVE-2025-40903",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "A Stored HTML Injection vulnerability was discovered in the Schedule Restore Archive functionality due to improper validation of an input parameter. An authenticated user with administrative privileges can define a malicious restore schedule containing HTML tags. When a victim views the affected schedule, the injected HTML renders in their browser, enabling phishing and possibly open redirect attacks. Full XSS exploitation and direct information disclosure are prevented by the existing input validation and Content Security Policy configuration.",
+      "first_seen": "2026-05-20T04:35:05.462883+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462883+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://security.nozominetworks.com/NN-2026:6-01"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-40903"
+    },
+    {
+      "canonical_id": "CVE-2025-51427",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "An issue was discovered in ModelScope 1.25.0 allowing attackers to execute arbitrary code via crafted module listed in the configuration file (dey_mini.yaml) under the key ['nnet']['module'].",
+      "first_seen": "2026-05-20T04:35:05.463443+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463443+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/JIRUWOZHI/vulnerability-disclosure/blob/main/CVE-2025-51427/CVE_2025_51427.md",
+        "https://github.com/modelscope/modelscope/issues/1331",
+        "https://github.com/modelscope/modelscope/pull/1333"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2025-51427"
+    },
+    {
+      "canonical_id": "CVE-2025-57798",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "Joplin is an open source note-taking and to-do application that organises notes and lists into notebooks. Versions 3.6.14 and prior contain a Denial of Service (DoS) vulnerability in the title input functionality due to a lack of proper length validation. This flaw allows an attacker to cause an Out Of Memory (OOM) error and subsequent program termination by inserting an excessively long string into a note's title. This can be triggered either through direct user interface (UI) input or programmatically via the local web service API after compromising an authentication token. There are 2 primary methods of exploitation: via User Interface (UI) Input, and the Local Web Service API. A local user can directly type or paste an extremely long string into the title field when creating or editing a note Joplin runs a local web service (typically on port 41184) that allows programmatic interaction, such as creating or editing notes via HTTP API calls. If an attacker manages to exfiltrate or compromise the user's authentication token (e.g., through malware on the local system, or other local vulnerabilities), they can then send a crafted HTTP POST request to this local API. By including an excessively long string in the title parameter of this request, the application will attempt to allocate an unbounded amount of memory. This issue has been patched in version 3.7.1.",
+      "first_seen": "2026-05-20T04:35:05.464396+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464396+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/laurent22/joplin/commit/5b8795da446a5a40c9e212c98b35e368ffce628e",
+        "https://github.com/laurent22/joplin/security/advisories/GHSA-6jm8-gr87-q69x"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-57798"
+    },
+    {
+      "canonical_id": "CVE-2025-61081",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-307"
+      ],
+      "description": "In BYD Atto3, an attacker can obtain an authentication key through Brute Force attack, which is permanently available. The authentication key enables flash to the Electronic Parking Break (EPB) and Supplemental Restoration System (SRS) related ECUs.",
+      "first_seen": "2026-05-20T04:35:05.463895+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463895+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.notion.so/BYD-Atto3-26215fb6156c8000b338db3c2011f637?source=copy_link",
+        "https://www.notion.so/CVE-2025-61081-26215fb6156c8000b338db3c2011f637"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2025-61081"
+    },
+    {
+      "canonical_id": "CVE-2026-23557",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-617"
+      ],
+      "description": "Any guest can cause xenstored to crash by issuing a XS_RESET_WATCHES\ncommand within a transaction due to an assert() triggering.\n\nIn case xenstored was built with NDEBUG #defined nothing bad will\nhappen, as assert() is doing nothing in this case. Note that the\ndefault is not to define NDEBUG for xenstored builds even in release\nbuilds of Xen.",
+      "first_seen": "2026-05-20T04:35:05.462925+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462925+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/04/28/11",
+        "http://xenbits.xen.org/xsa/advisory-484.html",
+        "https://xenbits.xenproject.org/xsa/advisory-484.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-23557"
+    },
+    {
+      "canonical_id": "CVE-2026-2586",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-917",
+        "CWE-94"
+      ],
+      "description": "An authenticated Remote Code Execution (RCE) vulnerability was identified in GlassFish's Administration Console. A user with access to the panel can send crafted requests that allow the execution of arbitrary operating system commands with the privileges of the application service user.",
+      "first_seen": "2026-05-20T04:35:05.463469+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463469+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gitlab.eclipse.org/security/cve-assignment/-/issues/87"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-2586"
+    },
+    {
+      "canonical_id": "CVE-2026-2587",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-917"
+      ],
+      "description": "A critical Remote Code Execution (RCE) vulnerability was identified in the server-side template rendering mechanism used by the Glassfish gadget handler. The application processes .xml files and evaluates user-supplied values within a context where Expression Language (EL) \u201cexpressions\u201d are processed without proper sanitization or escaping. By injecting expressions such as #{7*7}, the server returns 49, confirming server-side EL evaluation. This issue allows a remote attacker to fully compromise the underlying host, enabling capabilities as reading/modifying data, executing arbitrary commands, persistence, and lateral movement.",
+      "first_seen": "2026-05-20T04:35:05.463487+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463487+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gitlab.eclipse.org/security/cve-assignment/-/issues/86"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-2587"
+    },
+    {
+      "canonical_id": "CVE-2026-29207",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1336"
+      ],
+      "description": "Improper Neutralization of Special Elements Used in a Template Engine vulnerability in Apache OFBiz.\n\nThis issue affects Apache OFBiz: before 24.09.06.\n\nUsers are recommended to upgrade to version 24.09.06, which fixes the issue.\n\nPlease note that in the updated version, \"Data Resource\" records with dataTemplateTypeId = \"FTL\" are no longer supported.\n\nAdditionally, in the updated version, the \"Ecommerce Customer\" security group no longer includes content management grants. Users are advised to remove these permissions from any production site as well.",
+      "first_seen": "2026-05-20T04:35:05.462025+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462025+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/19/14",
+        "https://lists.apache.org/thread/3rcrp8bh3x6ovrj5xnc0fm1f0nrn52r0"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-29207"
+    },
+    {
+      "canonical_id": "CVE-2026-29226",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Server-Side Request Forgery (SSRF) vulnerability in Apache OFBiz via Content component operations.\n\nThis issue affects Apache OFBiz: before 24.09.06.\n\nUsers are recommended to upgrade to version 24.09.06, which fixes the issue.",
+      "first_seen": "2026-05-20T04:35:05.462053+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462053+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/19/16",
+        "https://lists.apache.org/thread/6707wys8jxzmowxggn4cmtwwk9ygl2tr"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-29226"
+    },
+    {
+      "canonical_id": "CVE-2026-30118",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "scalar/astro v0.1.13 was discovered to contain a Server-Side Request Forgery (SSRF) in the scalar_url query parameter of the Scalar Proxy endpoint. This vulnerability allows unauthenticated attackers to force the backend server to send HTTP requests to attacker-controlled URLs, leading to authentication cookies and headers exposure and possible privilege escalation.",
+      "first_seen": "2026-05-20T04:35:05.463604+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463604+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/prassan10/ssrf-zero-click-ato-scalar"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-30118"
+    },
+    {
+      "canonical_id": "CVE-2026-31069",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "BillaBear (all versions prior to Jan 2026) contains a SQL Injection vulnerability in the EventRepository. User-controlled input from metric filter names and aggregation properties is directly interpolated into SQL queries using sprintf() without proper sanitization or identifier quoting. Although filter values are parameterized, the filter identifiers (keys) are not. An authenticated attacker with ROLE_ACCOUNT_MANAGER permissions can exploit this to execute arbitrary SQL commands.",
+      "first_seen": "2026-05-20T04:35:05.463627+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463627+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/nedlir/2377ba6e7fa2ad957210b52aa8e400d9",
+        "https://gist.github.com/nedlir/a50725b94650467f0593b8f4009ae19e",
+        "https://github.com/BillaBear/billabear"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-31069"
+    },
+    {
+      "canonical_id": "CVE-2026-31072",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "The JSONSerializer and CBORSerializer in APScheduler (all versions including 3.10.x and 4.0.0a5) are vulnerable to Remote Code Execution (RCE) via Insecure Deserialization. The unmarshal_object function allows for arbitrary class instantiation and state injection by dynamically importing modules and calling __setstate__ on any class available in the Python environment. An attacker can exploit this by submitting a specially crafted JSON or CBOR payload to an application using these serializers",
+      "first_seen": "2026-05-20T04:35:05.463668+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463668+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/nedlir/11fb77f35a59cbba73392a086b02a9c6",
+        "https://github.com/agronholm/apscheduler"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-31072"
+    },
+    {
+      "canonical_id": "CVE-2026-31380",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-917"
+      ],
+      "description": "Improper Neutralization of Special Elements used in an Expression Language Statement ('Expression Language Injection') vulnerability in Apache OFBiz.\n\nThis issue affects Apache OFBiz: before 24.09.06.\n\nUsers are recommended to upgrade to version 24.09.06, which fixes the issue.",
+      "first_seen": "2026-05-20T04:35:05.462124+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462124+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/19/19",
+        "https://lists.apache.org/thread/v2brvq1tf4q491obkxv8p7fc5qfshc08"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-31380"
+    },
+    {
+      "canonical_id": "CVE-2026-31910",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Server-Side Request Forgery (SSRF) vulnerability in Apache OFBiz.\n\nThis issue affects Apache OFBiz: before 24.09.06.\n\nUsers are recommended to upgrade to version 24.09.06, which fixes the issue.",
+      "first_seen": "2026-05-20T04:35:05.462178+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462178+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/19/24",
+        "https://lists.apache.org/thread/2smc4c4o056ovd2hoq1l29593y5y29vh"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-31910"
+    },
+    {
+      "canonical_id": "CVE-2026-32244",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200",
+        "CWE-524",
+        "CWE-672"
+      ],
+      "description": "Discourse is an open-source discussion platform. In versions prior to 2026.1.4, 2026.3.1, 2026.4.1 and 2026.5.0-latest.1, outdated cached AI summaries can leak removed content to anonymous and unprivileged users who cannot regenerate summaries. This issue has been fixed in versions 2026.1.4, 2026.3.1, 2026.4.1 and 2026.5.0-latest.1. To work around this issue, restrict summary generation by tightening the allowed groups on the summarization Personas.",
+      "first_seen": "2026-05-20T04:35:05.461473+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461473+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/discourse/discourse/security/advisories/GHSA-hjmg-2mww-vfvx"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-32244"
+    },
+    {
+      "canonical_id": "CVE-2026-32739",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-835"
+      ],
+      "description": "libheif is a HEIF and AVIF file format decoder and encoder. In versions 1.21.2 and below, a crafted 800-byte HEIF sequence file causes an infinite loop in Box_stts::get_sample_duration(), consuming 100% CPU indefinitely with zero progress, leading to DoS. The loop has no iteration limit or timeout and is triggered during file open (parsing) - before any user interaction or image decoding. The process stays alive (no crash, no error logged), making it invisible to crash-based monitoring. This issue has been fixed in version 1.22.0.",
+      "first_seen": "2026-05-20T04:35:05.464281+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464281+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/strukturag/libheif/releases/tag/v1.22.0",
+        "https://github.com/strukturag/libheif/security/advisories/GHSA-j9g7-q9hv-gq8c"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-32739"
+    },
+    {
+      "canonical_id": "CVE-2026-33052",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Versions 2.28.0 and 2.28.1 allow a low-privileged authenticated user assigned the \"add_profile_threshold\" permission to create a global profile despite not having manage_global_profile_threshold, by tampering with the user_id parameter in a valid profile creation request. This issue has been fixed in version 2.28.2.",
+      "first_seen": "2026-05-20T04:35:05.461552+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461552+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mantisbt/mantisbt/commit/3f952e68fa864e0e60abc3e84adecf3cfa84c75e",
+        "https://github.com/mantisbt/mantisbt/security/advisories/GHSA-68w5-w573-q2r8",
+        "https://mantisbt.org/bugs/view.php?id=36974"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-33052"
+    },
+    {
+      "canonical_id": "CVE-2026-33233",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-345",
+        "CWE-502",
+        "CWE-94"
+      ],
+      "description": "AutoGPT is a workflow automation platform for creating, deploying, and managing continuous artificial intelligence agents. In versions 0.6.34 through 0.6.51, the backend deserializes Redis cache bytes using pickle.loads without integrity/authenticity checks. The write path serializes values with pickle.dumps(...) into Redis and the read path blindly invokes pickle.loads(...) on bytes with no HMAC/signature or strict schema validation gating deserialization. If an attacker can poison a shared-cache key in Redis, arbitrary command execution is possible in the backend container context, affecting confidentiality, integrity, and availability. This issue has been fixed in version 0.6.52.",
+      "first_seen": "2026-05-20T04:35:05.461609+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461609+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.52",
+        "https://github.com/Significant-Gravitas/AutoGPT/security/advisories/GHSA-rfg2-37xq-w4m9"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-33233"
+    },
+    {
+      "canonical_id": "CVE-2026-33234",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "AutoGPT is a workflow automation platform for creating, deploying, and managing continuous artificial intelligence agents. In versions 0.1.0 through 0.6.51,  SendEmailBlock in autogpt_platform/backend/backend/blocks/email_block.py accepts a user-supplied smtp_server (string) and smtp_port (integer) as per-execution block inputs, then passes them directly to Python's smtplib.SMTP() to open a raw TCP connection with no IP address validation. This completely bypasses the platform's hardened SSRF protections in backend/util/request.py \u2014 the validate_url_host() function and BLOCKED_IP_NETWORKS blocklist that every other block uses to block connections to private, loopback, link-local, and cloud metadata addresses. An authenticated user on a shared AutoGPT deployment can use this to perform non-blind internal network port scanning and service fingerprinting: smtplib reads the target's TCP banner on connect and embeds it in the exception message, which is persisted as user-visible block output via the execution framework. This issue has been fixed in version 0.6.52.",
+      "first_seen": "2026-05-20T04:35:05.461632+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461632+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.52",
+        "https://github.com/Significant-Gravitas/AutoGPT/security/advisories/GHSA-4jwj-6mg5-wrwf"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-33234"
+    },
+    {
+      "canonical_id": "CVE-2026-33514",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Discourse is an open-source discussion platform. In versions prior to 2026.1.4, 2026.3.1, 2026.4.1 and 2026.5.0-latest.1, an authenticated user on a Discourse instance with the form templates feature enabled can read the name and structured content of form templates that are intended exclusively for categories they are not authorized to access. Impact is limited to disclosure of site configuration metadata. This issue has been fixed in versions 2026.1.4, 2026.3.1, 2026.4.1 and 2026.5.0-latest.1.",
+      "first_seen": "2026-05-20T04:35:05.461661+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461661+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/discourse/discourse/commit/ae5c9570fb918442c4d96abc83c1e7e169909b02",
+        "https://github.com/discourse/discourse/security/advisories/GHSA-w6g7-p2p9-2m5h"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-33514"
+    },
+    {
+      "canonical_id": "CVE-2026-33633",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-122"
+      ],
+      "description": "Kitty is a cross-platform GPU based terminal. Versions 0.46.2 and below contain a heap buffer overflow in load_image_data() that allows any process which can write to the terminal's stdin to crash kitty immediately. The vulnerability is triggered by a single APC graphics protocol command with a PNG format declaration (f=100) whose payload exceeds twice the initial buffer capacity. The overflow is attacker-controlled in both length and content, causing DoS and potentially escalation to RCE itself. This issue has been fixed in version 0.47.0.",
+      "first_seen": "2026-05-20T04:35:05.463955+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463955+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/kovidgoyal/kitty/commit/e9661f0f3afb4e4dbffa509adfb3df3c9780ad34",
+        "https://github.com/kovidgoyal/kitty/security/advisories/GHSA-j68c-v8x4-269g"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-33633"
+    },
+    {
+      "canonical_id": "CVE-2026-33637",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Faraday is an HTTP client library abstraction layer that provides a common interface over many adapters. Versions 2.0.0 through 2.14.1 still allow protocol-relative host override when the request target is passed as a URI object (rather than a String) to Faraday::Connection#build_exclusive_url. This bypasses the February 2026 fix for GHSA-33mh-2634-fwr2 and enables off-host request forgery: a request built from a fixed-base Faraday::Connection can be redirected to an attacker-controlled host, forwarding connection-scoped values such as Authorization headers and default query parameters. This issue has been fixed in version 2.14.3.",
+      "first_seen": "2026-05-20T04:35:05.464089+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464089+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/advisories/GHSA-33mh-2634-fwr2",
+        "https://github.com/lostisland/faraday/security/advisories/GHSA-5rv5-xj5j-3484"
+      ],
+      "severity": "low",
+      "source_count": 1,
+      "title": "CVE-2026-33637"
+    },
+    {
+      "canonical_id": "CVE-2026-33741",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "EspoCRM is an open source customer relationship management application. Versions 9.3.3 and below allow authenticated users to upload SVG attachments through normal attachment-capable fields and later serve those SVG files as top-level inline documents through both the attachment and image entry points, resulting in stored cross-user XSS reachable through a normal attachment workflow. Although inline SVG script is blocked by the response CSP, the same CSP still allows same-origin external script. As a result, an attacker can upload a malicious SVG together with a second attacker-controlled JavaScript attachment, then trick another user into opening the SVG to execute JavaScript in the victim's EspoCRM origin. This issue has been fixed in version 9.3.4.",
+      "first_seen": "2026-05-20T04:35:05.464130+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464130+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/espocrm/espocrm/security/advisories/GHSA-5wh5-ccv2-m3pv"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-33741"
+    },
+    {
+      "canonical_id": "CVE-2026-34154",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Discourse is an open-source discussion platform. In versions prior to 2026.1.4, 2026.3.1, 2026.4.1 and 2026.5.0-latest.1, a  vulnerability in the discourse-subscriptions plugin allows users to gain access to subscription-gated groups without completing payment. This issue has been fixed in versions 2026.1.4, 2026.3.1, 2026.4.1 and 2026.5.0-latest.1.",
+      "first_seen": "2026-05-20T04:35:05.464148+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464148+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/discourse/discourse/security/advisories/GHSA-pjgj-7mjq-6j7g"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34154"
+    },
+    {
+      "canonical_id": "CVE-2026-34216",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-470"
+      ],
+      "description": "CtrlPanel is open-source billing software for hosting providers. In versions 1.1.1 and prior, the admin settings update endpoint accepted a fully qualified class name directly from user-supplied request input and used it for dynamic static method calls and object instantiation without any allowlist validation, allowing for authenticated Remote Code Execution. An authenticated admin-level user could supply an arbitrary class name available in the Composer autoloader, potentially triggering unintended constructor or magic method execution. The update() method reads settings_class directly from the HTTP request and passed it to new $settings_class() and $settings_class::getValidations() without verifying that the provided value corresponds to a legitimate settings class: Because PHP resolves class names against the Composer autoloader at runtime, any autoloadable class in the application or its dependencies could be instantiated. Depending on the classes available in the dependency tree, this can trigger unintended side effects through constructors or magic methods (__construct, __toString, __wakeup), following a PHP object injection / gadget chain pattern. This issue has been fixed in version 1.2.0.",
+      "first_seen": "2026-05-20T04:35:05.464597+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464597+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Ctrlpanel-gg/panel/releases/tag/1.2.0",
+        "https://github.com/Ctrlpanel-gg/panel/security/advisories/GHSA-vcg3-fjrx-rg5q"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34216"
+    },
+    {
+      "canonical_id": "CVE-2026-34233",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-284",
+        "CWE-862"
+      ],
+      "description": "CtrlPanel is open-source billing software for hosting providers. In versions 1.1.1 and prior, multiple admin controllers expose DataTable endpoints without authorization checks, allowing any authenticated user to access sensitive administrative data that should be restricted to administrators only. The affected admin controllers define datatable() methods that are reachable via GET requests but lack any permission or role verification. Because the routes fall under the /admin/ prefix, operators may assume they are protected - however, the middleware applied to this route group does not enforce admin-level authorization on these specific endpoints. As a result, any authenticated user (regardless of role) can query these endpoints and receive paginated JSON responses containing sensitive records. Exploitation can result in enumeration of user PII, payment and transaction records, active voucher and coupon codes, role and permission structure, server ownership mappings and support ticket contents. This issue has been fixed in version 1.2.0.",
+      "first_seen": "2026-05-20T04:35:05.464634+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464634+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Ctrlpanel-gg/panel/releases/tag/1.2.0",
+        "https://github.com/Ctrlpanel-gg/panel/security/advisories/GHSA-mj5g-j7fq-7hc4"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34233"
+    },
+    {
+      "canonical_id": "CVE-2026-34234",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-284",
+        "CWE-78"
+      ],
+      "description": "CtrlPanel is open-source billing software for hosting providers. In versions 1.1.1 and prior, the web-based installer (public/installer/index.php) is vulnerable to unauthenticated Remote Code Execution (RCE) because it performs the install.lock check only after including and executing form handler files, leaving installer endpoints reachable on already-installed instances. The handlers also pass unsanitized user input directly into shell commands, allowing an attacker to submit crafted requests that execute arbitrary commands on the server. The vulnerability stems from two combined weaknesses: (1) premature form handler execution before the lock file gate, and (2) unsafe use of user input in shell command construction. This issue is reported to be actively exploited in the wild. The issue has been fixed in version 1.2.0.",
+      "first_seen": "2026-05-20T04:35:05.464725+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464725+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Ctrlpanel-gg/panel/releases/tag/1.2.0",
+        "https://github.com/Ctrlpanel-gg/panel/security/advisories/GHSA-jmhr-q9q5-fqwh"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-34234"
+    },
+    {
+      "canonical_id": "CVE-2026-34241",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "CtrlPanel is open-source billing software for hosting providers. Versions 1.1.1 and prior contain a Stored Cross-Site Scripting (XSS) vulnerability in the ticket reply notification system. Unsanitized reply content ($newmessage) is stored directly in database notification payloads and later rendered unescaped via Blade's {!! !!} syntax in the recipient's browser. The flaw exists in both App\\Notifications\\Ticket\\Admin\\AdminReplyNotification (triggered when a user replies, targeting admins) and App\\Notifications\\Ticket\\User\\ReplyNotification (triggered when an admin replies, targeting users), allowing arbitrary JavaScript execution in the victim's session context. A low-privileged attacker can exploit this to hijack admin sessions, harvest credentials via fake login prompts or keyloggers, and escalate privileges by performing administrative actions on the victim's behalf. The reverse path also enables a malicious or compromised admin to target regular users in the same manner. This issue has been fixed in version 1.2.0.",
+      "first_seen": "2026-05-20T04:35:05.464732+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464732+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Ctrlpanel-gg/panel/releases/tag/1.2.0",
+        "https://github.com/Ctrlpanel-gg/panel/security/advisories/GHSA-cmrr-q3hw-3vqh"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-34241"
+    },
+    {
+      "canonical_id": "CVE-2026-34246",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-116",
+        "CWE-80"
+      ],
+      "description": "CtrlPanel is open-source billing software for hosting providers. Versions 1.1.1 and prior contain a Stored Cross-Site Scripting (XSS) vulnerability exists in the admin role management interface. In app/Http/Controllers/Admin/RoleController.php, the datatable() method interpolates $role->name and $role->color directly into a <span> element's HTML and style attribute without sanitization, and the chained .rawColumns(['actions', 'name']) call instructs DataTables to render the name column as raw HTML, bypassing automatic output escaping. An admin with role creation or edit permissions can inject a payload such as <img src=x onerror=\"alert('XSS_POC')\"> into the name or color fields, which is persisted to the database and executes in the browser of every admin who loads the /admin/roles page. This enables session hijacking via cookie theft, credential harvesting through fake login prompts or keyloggers, lateral privilege escalation by performing admin actions on behalf of victims, and a persistent backdoor that re-executes on every page load until the malicious role record is removed. This issue has been resolved in version 1.2.0.",
+      "first_seen": "2026-05-20T04:35:05.464748+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464748+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Ctrlpanel-gg/panel/releases/tag/1.2.0",
+        "https://github.com/Ctrlpanel-gg/panel/security/advisories/GHSA-wpqj-xwhq-2mmh"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34246"
+    },
+    {
+      "canonical_id": "CVE-2026-34358",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-284",
+        "CWE-862"
+      ],
+      "description": "CtrlPanel is open-source billing software for hosting providers. Versions 1.1.1 and prior contains a broken access control vulnerability where multiple admin controllers enforce permission checks on form display methods but omit equivalent checks on the corresponding write methods, allowing any authenticated user to bypass RBAC via direct POST/PATCH requests. Controllers missing checks on write methods store() and update() include ApplicationApiController (admin.api.write), CouponController (admin.coupons.write), PartnerController (admin.partners.write), ShopProductController (admin.store.write), UsefulLinkController (admin.useful_links.write), and VoucherController (admin.voucher.write); ProductController (admin.products.edit), ServerController (write/change_owner/change_identifier), and UserController (write/change_email/change_credits/change_username/change_password/change_role/change_referral/change_ptero/change_serverlimit) are missing checks on update() only, and ActivityLogController exposed empty stub store()/update() methods that silently accepted any request. An authenticated attacker without admin write privileges can issue API credentials, generate unlimited coupons and vouchers, assign arbitrary partner commission and discount rates, alter shop product pricing and limits, reassign server ownership or identifiers, and modify user accounts including roles, credits, passwords, and linked Pterodactyl IDs to achieve full privilege escalation, as well as abuse logBackIn() without the login_as permission to interfere with admin impersonation sessions. This issue has been fixed in version 1.2.0.",
+      "first_seen": "2026-05-20T04:35:05.464808+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464808+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Ctrlpanel-gg/panel/releases/tag/1.2.0",
+        "https://github.com/Ctrlpanel-gg/panel/security/advisories/GHSA-pxmw-gj52-9p68"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-34358"
+    },
+    {
+      "canonical_id": "CVE-2026-34390",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-284"
+      ],
+      "description": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Versions 2.28.1 and prior have a Privilege Escalation vulnerability where insufficient access control checks in ProjectUsersAddCommand (manage_proj_user_add.php) allow users having manage_project_threshold access level (manager by default) to grant project-level administrator access to any user (including themselves) in any Project they have manager rights in. The normal project-user add form restricts the selectable access levels to the actor's own project role or below. However, the backend handler still accepts a forged higher access_level value and writes it. The consequences of the privilege escalation are slight, as having administrator access at Project level is effectively not very different from being manager, and it does not actually give administrator privileges on the whole MantisBT instance. In particular, it does not let the upgraded user delete the Project or grant them any access to global administrative functions such as managing Users, Projects, Plugins, Custom Fields, etc. This issue has been fixed in version 2.28.2.",
+      "first_seen": "2026-05-20T04:35:05.464824+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464824+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mantisbt/mantisbt/commit/69e0180f180ed5acf48a8d281a73683a7bf32461",
+        "https://github.com/mantisbt/mantisbt/security/advisories/GHSA-frf7-jhp9-jxm6",
+        "https://mantisbt.org/bugs/view.php?id=36995",
+        "https://mantisbt.org/bugs/view.php?id=37002"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34390"
+    },
+    {
+      "canonical_id": "CVE-2026-34463",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Versions 2.28.1 and prior contain a Stored XSS vulnerability. When cloning an issue originating from a Project other than the current one, the clone form (bug_report_page.php) prepends the source Project name before the category selector without proper escaping, allowing an attacker able to to inject HTML if they can set the Project's name (which typically requires manager or administrator access level). This issue has been resolved in version 2.28.2.",
+      "first_seen": "2026-05-20T04:35:05.464835+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464835+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mantisbt/mantisbt/commit/df22697ae497ddd93f3d9132fdf4979db8d081cd",
+        "https://github.com/mantisbt/mantisbt/security/advisories/GHSA-fvjf-68wh-rwp2",
+        "https://mantisbt.org/bugs/view.php?id=36986"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34463"
+    },
+    {
+      "canonical_id": "CVE-2026-34579",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200",
+        "CWE-863"
+      ],
+      "description": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Versions 2.28.1 and prior are vulnerable to Authorization Bypass through the private issue monitoring feature . Using a crafted POST request to bug_monitor_add.php, a user with project-level access can add themselves as a monitor for a private issue they do not have access to. Despite displaying an Access Denied error, the application accepts the request and creates a monitor relationship for the private issue. Direct access to the private issue remains blocked, but the user will receive email notifications for updates, leading to disclosure of the private issue's metadata and content. This issue has been fixed in version 2.28.2.",
+      "first_seen": "2026-05-20T04:35:05.464855+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464855+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mantisbt/mantisbt/commit/0a93267deba445fb9d15250c16e6fdb1246ffa65",
+        "https://github.com/mantisbt/mantisbt/security/advisories/GHSA-ggw7-9675-6v4v",
+        "https://mantisbt.org/bugs/view.php?id=36975"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34579"
+    },
+    {
+      "canonical_id": "CVE-2026-34600",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200",
+        "CWE-281",
+        "CWE-863"
+      ],
+      "description": "Joplin is an open source note-taking and to-do application that organises notes and lists into notebooks. Versions 3.5.2 and prior contain a logic error in the delta API that allows share recipients to download notes that are no longer shared with them, related to but not fully fixed by the prior patch in #14289. In ChangeModel.delta, when DELTA_INCLUDES_ITEMS is enabled (the default), the latest state of items is attached to delta output without verifying that those items are still shared with the requesting user, and the existing removal logic only filters items deleted for all users. Additionally, the change compression logic incorrectly reduces create - delete to NOOP, which is unsafe because compression is applied per page and an item can have multiple create events; if an earlier create falls on a separate page from a later create -> delete pair, the deletion is dropped and the sequence collapses to a create. As a result, the delta API returns a create event for a deleted item with the full latest content attached, exposing notes the user no longer has access to. This issue has been fixed in version 3.5.3.",
+      "first_seen": "2026-05-20T04:35:05.464905+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464905+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/laurent22/joplin/issues/14110",
+        "https://github.com/laurent22/joplin/pull/14289",
+        "https://github.com/laurent22/joplin/security/advisories/GHSA-88x4-77rc-jw94"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34600"
+    },
+    {
+      "canonical_id": "CVE-2026-34744",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200",
+        "CWE-281"
+      ],
+      "description": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Versions 2.28.1 and prior permit a user to list and download their own attachments from an Issue created by another user even after it becomes private, bypassing read access revocation. The loss of confidentiality caused by this vulnerability is minimal, considering that only attachments previously uploaded by the user themselves remain accessible. This issue has been fixed in version 2.82.2.",
+      "first_seen": "2026-05-20T04:35:05.464927+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464927+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mantisbt/mantisbt/commit/de7bdeec36de066235e38a77bf056917d951c84d",
+        "https://github.com/mantisbt/mantisbt/security/advisories/GHSA-rmp5-5jj7-gmvf",
+        "https://mantisbt.org/bugs/view.php?id=36977"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34744"
+    },
+    {
+      "canonical_id": "CVE-2026-36829",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-22",
+        "CWE-287"
+      ],
+      "description": "An authentication bypass vulnerability exists in the embedded HTTP server of Panabit PAP-XM320 up to and including v7.7. The server validates session cookies using a filesystem existence check based on a user-controlled cookie value without proper sanitization, allowing directory traversal and bypass of authentication.",
+      "first_seen": "2026-05-20T04:35:05.463768+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463768+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://secreu.notion.site/CVE-2026-36829-3652c0ab461580e19704e87b18865714",
+        "https://www.panabit.com/"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-36829"
+    },
+    {
+      "canonical_id": "CVE-2026-37281",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "An OS command injection vulnerability in the /stream-to-vlc Express route in hitarth-gg Zenshin before 2.7.0 allows remote attackers to execute arbitrary commands via the url parameter.",
+      "first_seen": "2026-05-20T04:35:05.463676+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463676+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/MitruStefan/cf016709252aabbec7f95b7a70e0cfba",
+        "https://github.com/hitarth-gg/zenshin",
+        "https://github.com/hitarth-gg/zenshin/commit/7d31c6edfbac978f0ad44c66d761bab9dcd2fa27"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-37281"
+    },
+    {
+      "canonical_id": "CVE-2026-37978",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "A flaw was found in Keycloak. A low-privilege administrator with the 'view-clients' role can exploit this by invoking the 'evaluate-scopes' Admin API endpoints with an arbitrary user ID (userId) parameter. This vulnerability allows for cross-role personally identifiable information (PII) leakage, enabling unauthorized visibility into user identities and authorizations across the realm. Exploitation is possible remotely via network access to the Admin API.",
+      "first_seen": "2026-05-20T04:35:05.462383+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462383+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-37978",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2455327"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-37978"
+    },
+    {
+      "canonical_id": "CVE-2026-37979",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-284"
+      ],
+      "description": "A flaw was found in Keycloak. This access control vulnerability in Keycloak's OpenID Connect (OIDC) token introspection endpoint allows a confidential client to bypass audience restrictions. An attacker-controlled client with valid credentials can retrieve sensitive token claims intended for other resource servers, compromising the confidentiality of lightweight access tokens. This issue can be exploited remotely by any confidential client in the realm with valid credentials.",
+      "first_seen": "2026-05-20T04:35:05.462431+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462431+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-37979",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2455328"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-37979"
+    },
+    {
+      "canonical_id": "CVE-2026-37981",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1220"
+      ],
+      "description": "A flaw was found in Keycloak. A broken access control vulnerability in the Account Resources user lookup endpoint allows a remote authenticated user, who owns at least one User-Managed Access (UMA) resource, to enumerate and harvest personally identifiable information (PII) for all realm users. By sending crafted requests with arbitrary usernames or email values, the endpoint returns full profile objects for unrelated users. This leads to broad profile-level information disclosure.",
+      "first_seen": "2026-05-20T04:35:05.462456+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462456+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-37981",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2455326"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-37981"
+    },
+    {
+      "canonical_id": "CVE-2026-37982",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-294"
+      ],
+      "description": "A flaw was found in Keycloak. This authentication vulnerability allows a remote attacker to replay `ExecuteActionsActionToken` tokens within Keycloak's WebAuthn (Web Authentication) flow. By intercepting an execute-actions email link, an attacker can register their own authenticator to a victim's account. This leads to unauthorized enrollment of a hardware-backed credential, enabling persistent account takeover.",
+      "first_seen": "2026-05-20T04:35:05.462475+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462475+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-37982",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2455329"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-37982"
+    },
+    {
+      "canonical_id": "CVE-2026-39250",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "An authorization vulnerability exists in Innoshop 0.6.0. After logging into the frontend, an attacker can directly access backend application interfaces, leading to further dangerous operations.",
+      "first_seen": "2026-05-20T04:35:05.464649+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464649+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://gist.github.com/hkdmh/4af513ea7589212cb1d49bc5d972972e",
+        "https://www.innoshop.com/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-39250"
+    },
+    {
+      "canonical_id": "CVE-2026-41470",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-863"
+      ],
+      "description": "LIVE555 before 2026.04.22 contains an authorization bypass vulnerability in RTSP session command handling that allows attackers to replay valid Session tokens from unauthenticated connections. Attackers who obtain a valid Session token can issue PLAY and TEARDOWN commands from a second TCP connection without authentication, causing server crashes through virtual function call errors or disrupting active streams by terminating victim sessions.",
+      "first_seen": "2026-05-20T04:35:05.464170+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464170+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://download.live555.com/",
+        "https://gist.github.com/yhcho0405/ee9b67a96808ef19f22e8a4ee88c795f",
+        "https://www.vulncheck.com/advisories/live555-rtsp-server-authorization-bypass-via-session-token"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-41470"
+    },
+    {
+      "canonical_id": "CVE-2026-42099",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-362"
+      ],
+      "description": "Sparx Pro Cloud Server is vulnerable to a Race Condition in the /data_api/dl_internal_artifact.php endpoint. The application downloads the properties of the object pointed by guid parameter and saves loaded content in current location\u00a0(__DIR__)\u00a0under the specified name. An attacker with repository access can control both the filename and file contents, allowing the creation of a malicious PHP file in a current directory. Although the file is deleted after processing, a race condition exists: if the response transmission is delayed (e.g., via a large file or slow client connection), the file remains accessible. During this window, the attacker can issue a second request to execute the malicious PHP file, resulting in remote code execution.\n\n\n\n\n\n\n\n\nThe vendor was notified early about this vulnerability, but didn't respond with the details of vulnerability or vulnerable version range. Only version 6.1 (build 167) and below were tested and confirmed as vulnerable, other versions were not tested and might also be vulnerable.",
+      "first_seen": "2026-05-20T04:35:05.463040+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463040+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://cert.pl/en/posts/2026/05/CVE-2026-42096",
+        "https://efigo.pl/blog/CVE-2026-42096/",
+        "https://sparxsystems.com/products/procloudserver/",
+        "https://sploit.tech/2026/05/19/Sparx-Enterprise-Architect-PCS.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-42099"
+    },
+    {
+      "canonical_id": "CVE-2026-43491",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "In the Linux kernel, the following vulnerability has been resolved:\n\nnet: qrtr: ns: Limit the maximum server registration per node\n\nCurrent code does no bound checking on the number of servers added per\nnode. A malicious client can flood NEW_SERVER messages and exhaust memory.\n\nFix this issue by limiting the maximum number of server registrations to\n256 per node. If the NEW_SERVER message is received for an old port, then\ndon't restrict it as it will get replaced. While at it, also rate limit\nthe error messages in the failure path of qrtr_ns_worker().\n\nNote that the limit of 256 is chosen based on the current platform\nrequirements. If requirement changes in the future, this limit can be\nincreased.",
+      "first_seen": "2026-05-20T04:35:05.462483+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462483+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://git.kernel.org/stable/c/35fb4a0c077c5d1049c2628b769e0a1b1e65df0d",
+        "https://git.kernel.org/stable/c/3efaad55cad1ded429e3a873bfece389058a526b",
+        "https://git.kernel.org/stable/c/868202aa2adae427060a42d5bd663b4d782ec02c",
+        "https://git.kernel.org/stable/c/d5ee2ff98322337951c56398e79d51815acbf955",
+        "https://git.kernel.org/stable/c/e6f6cd501fb54060940a6eb3f4103eeb5e426ae7"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-43491"
+    },
+    {
+      "canonical_id": "CVE-2026-43633",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "HestiaCP versions 1.9.0 through 1.9.4 contain a deserialization vulnerability in the web terminal component caused by a session format mismatch between PHP and Node.js that allows unauthenticated remote attackers to achieve root-level code execution. Attackers can inject crafted data into HTTP headers that are processed by the PHP session handler but incorrectly deserialized by the Node.js web terminal component as trusted session values, resulting in arbitrary command execution on systems with the web terminal feature enabled.",
+      "first_seen": "2026-05-20T04:35:05.463073+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463073+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/hestiacp/hestiacp/commit/854d71b3c1737b0a0d0cc55c926008ffe1f6719b",
+        "https://github.com/hestiacp/hestiacp/issues/5229",
+        "https://github.com/hestiacp/hestiacp/pull/5244",
+        "https://mercuryiss.com.au/hestiacp-unauthenticated-rce-ip-spoofing-cve-2026-43633-cve-2026-43634",
+        "https://www.vulncheck.com/advisories/hestiacp-deserialization-rce-via-web-terminal"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-43633"
+    },
+    {
+      "canonical_id": "CVE-2026-43634",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-348"
+      ],
+      "description": "HestiaCP versions 1.2.0 through 1.9.4 contain an IP spoofing vulnerability that allows unauthenticated remote attackers to bypass authentication security controls by supplying an arbitrary IP address in the CF-Connecting-IP HTTP header without verifying the request originated from Cloudflare's network. Attackers can exploit this to circumvent fail2ban brute-force protection, bypass per-user IP allowlists, and poison authentication audit logs by spoofing trusted IP addresses on each request.",
+      "first_seen": "2026-05-20T04:35:05.463527+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463527+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/hestiacp/hestiacp/commit/f381e294500f671cf12716c638afd0bfde901f88",
+        "https://github.com/hestiacp/hestiacp/issues/5229",
+        "https://github.com/hestiacp/hestiacp/pull/5273",
+        "https://mercuryiss.com.au/hestiacp-unauthenticated-rce-ip-spoofing-cve-2026-43633-cve-2026-43634",
+        "https://www.vulncheck.com/advisories/hestiacp-ip-spoofing-via-cf-connecting-ip-header"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-43634"
+    },
+    {
+      "canonical_id": "CVE-2026-45187",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-285"
+      ],
+      "description": "Improper Authorization vulnerability in Apache OFBiz Webtools.\n\nThis issue affects Apache OFBiz: before 24.09.06.\n\nUsers are recommended to upgrade to version 24.09.06, which fixes the issue.",
+      "first_seen": "2026-05-20T04:35:05.462223+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462223+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/19/28",
+        "https://lists.apache.org/thread/pcmfyxjyk7dg0btxqg9h7cr30yg8mr7k"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45187"
+    },
+    {
+      "canonical_id": "CVE-2026-45442",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Missing Authorization vulnerability in Brainstorm Force Presto Player allows Exploiting Incorrectly Configured Access Control Security Levels.\n\nThis issue affects Presto Player: from n/a through 4.1.3.",
+      "first_seen": "2026-05-20T04:35:05.462572+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462572+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://patchstack.com/database/wordpress/plugin/presto-player/vulnerability/wordpress-presto-player-plugin-4-1-3-broken-access-control-vulnerability?_s_id=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45442"
+    },
+    {
+      "canonical_id": "CVE-2026-4630",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "A flaw was found in Keycloak. An authenticated client could exploit an Insecure Direct Object Reference (IDOR) vulnerability in the Authorization Services Protection API endpoint. By knowing or obtaining a resource's unique identifier (UUID) belonging to another Resource Server within the same realm, the client could bypass authorization checks. This allows the client to perform unauthorized GET, PUT, and DELETE operations on resources, leading to information disclosure and potential unauthorized modification or deletion of data.",
+      "first_seen": "2026-05-20T04:35:05.462598+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462598+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-4630",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2450245"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-4630"
+    },
+    {
+      "canonical_id": "CVE-2026-46721",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639",
+        "CWE-915"
+      ],
+      "description": "The create and edit flows do not restrict which user properties may be submitted and do not enforce access control on the frontend user group assignment. As a result, an attacker can assign an arbitrary frontend user group to a newly registered or edited account, gaining unauthorized access to content and functionality restricted to privileged frontend user groups.",
+      "first_seen": "2026-05-20T04:35:05.462269+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462269+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://typo3.org/security/advisory/typo3-ext-sa-2026-009"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46721"
+    },
+    {
+      "canonical_id": "CVE-2026-46725",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "The extension passes an attacker-controlled cookie directly to PHP's unserialize() without safely processing the input. A remote, unauthenticated attacker can supply a crafted serialized payload to trigger PHP Object Injection, leading to Remote Code Execution on the TYPO3 server. Exploitation requires the content element to be configured with \"Persistent Mode: Static\" in the plugin settings.",
+      "first_seen": "2026-05-20T04:35:05.462324+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462324+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://typo3.org/security/advisory/typo3-ext-sa-2026-013"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46725"
+    },
+    {
+      "canonical_id": "CVE-2026-47100",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Funnel Builder for WooCommerce Checkout prior to 3.15.0.3 contains a missing authorization vulnerability in the public checkout endpoint that allows unauthenticated attackers to invoke internal methods and write arbitrary data to the plugin's External Scripts global setting. Attackers can inject malicious JavaScript through the External Scripts setting that executes in the browsers of all checkout page visitors.",
+      "first_seen": "2026-05-20T04:35:05.463563+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463563+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/changeset/3530797/funnel-builder/tags/3.15.0.3/modules/checkouts/includes/class-wfacp-ajax-controller.php",
+        "https://sansec.io/research/funnelkit-woocommerce-vulnerability-exploited",
+        "https://www.vulncheck.com/advisories/funnel-builder-for-woocommerce-checkout-missing-authorization-via-ajax"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-47100"
+    },
+    {
+      "canonical_id": "CVE-2026-47107",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-276"
+      ],
+      "description": "Windmill prior to 1.703.2 contains an incorrect default permissions vulnerability in nsjail sandbox configuration files where /etc is bind-mounted without read-write restrictions, allowing authenticated users to write arbitrary entries to /etc/hosts, /etc/resolv.conf, and /etc/ssl/certs/ca-certificates.crt from within script execution sandboxes. Attackers can exploit persistent poisoned entries across all subsequent script executions on the same worker pod to redirect hostnames, intercept DNS queries, perform transparent HTTPS man-in-the-middle attacks, and intercept WM_TOKEN JWTs to gain workspace-admin access to victim workspaces across tenants.",
+      "first_seen": "2026-05-20T04:35:05.463985+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463985+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/windmill-labs/windmill/commit/f8467f38c8a053117ce62f96684cfb15ef792f08",
+        "https://github.com/windmill-labs/windmill/pull/9194",
+        "https://github.com/windmill-labs/windmill/releases/tag/v1.703.2",
+        "https://www.vulncheck.com/advisories/windmill-incorrect-default-permissions-in-nsjail-configuration"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-47107"
+    },
+    {
+      "canonical_id": "CVE-2026-47307",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-476"
+      ],
+      "description": "NULL pointer dereference vulnerability in Samsung Open Source Walrus allows an attacker to cause a denial of service via a crafted WebAssembly module containing deeply nested instructions.\n\nThis issue affects Walrus: f339b8ee4ea701772e8ae640b3d1b12ac02b1ae9.",
+      "first_seen": "2026-05-20T04:35:05.461745+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461745+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/walrus/pull/409"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47307"
+    },
+    {
+      "canonical_id": "CVE-2026-47308",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-476"
+      ],
+      "description": "NULL pointer dereference vulnerability in Samsung Open Source Walrus allows Pointer Manipulation.\n\nThis issue affects Walrus: f339b8ee4ea701772e8ae640b3d1b12ac02b1ae9.",
+      "first_seen": "2026-05-20T04:35:05.461785+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461785+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/walrus/pull/409"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47308"
+    },
+    {
+      "canonical_id": "CVE-2026-47309",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-674"
+      ],
+      "description": "Uncontrolled Recursion vulnerability in Samsung Open Source Escargot allows Oversized Serialized Data Payloads.\n\nThis issue affects Escargot: 590345cc6258317c5da850d846ce6baaf2afc2d3.",
+      "first_seen": "2026-05-20T04:35:05.461814+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461814+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/escargot/pull/1565"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47309"
+    },
+    {
+      "canonical_id": "CVE-2026-47310",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-416"
+      ],
+      "description": "Use after free vulnerability in Samsung Open Source Escargot allows Pointer Manipulation.\n\nThis issue affects Escargot: 590345cc6258317c5da850d846ce6baaf2afc2d3.",
+      "first_seen": "2026-05-20T04:35:05.461827+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461827+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/escargot/pull/1565"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-47310"
+    },
+    {
+      "canonical_id": "CVE-2026-47311",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-122"
+      ],
+      "description": "Heap-based buffer overflow vulnerability in Samsung Open Source Escargot allows Overflow Buffers.\n\nThis issue affects Escargot: 590345cc6258317c5da850d846ce6baaf2afc2d3.",
+      "first_seen": "2026-05-20T04:35:05.461840+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461840+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/escargot/pull/1565"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-47311"
+    },
+    {
+      "canonical_id": "CVE-2026-47312",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-763"
+      ],
+      "description": "Release of invalid pointer or reference vulnerability in Samsung Open Source Escargot allows Buffer Manipulation.\n\nThis issue affects Escargot: 590345cc6258317c5da850d846ce6baaf2afc2d3.",
+      "first_seen": "2026-05-20T04:35:05.461901+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461901+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/escargot/pull/1565"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47312"
+    },
+    {
+      "canonical_id": "CVE-2026-47313",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-789"
+      ],
+      "description": "Memory allocation with excessive size value vulnerability in Samsung Open Source Escargot allows Excessive Allocation.\n\nThis issue affects Escargot: 590345cc6258317c5da850d846ce6baaf2afc2d3.",
+      "first_seen": "2026-05-20T04:35:05.461913+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461913+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/escargot/pull/1565"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47313"
+    },
+    {
+      "canonical_id": "CVE-2026-47314",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-787"
+      ],
+      "description": "Out-of-bounds write vulnerability in Samsung Open Source Escargot allows Overflow Buffers.\n\nThis issue affects Escargot: 590345cc6258317c5da850d846ce6baaf2afc2d3.",
+      "first_seen": "2026-05-20T04:35:05.461927+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461927+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/escargot/pull/1565"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-47314"
+    },
+    {
+      "canonical_id": "CVE-2026-47315",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-754"
+      ],
+      "description": "Improper Check for Unusual or Exceptional Conditions vulnerability in Samsung Open Source Escargot allows Input Data Manipulation.\n\nThis issue affects Escargot: 590345cc6258317c5da850d846ce6baaf2afc2d3.",
+      "first_seen": "2026-05-20T04:35:05.461940+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461940+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/escargot/pull/1565"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47315"
+    },
+    {
+      "canonical_id": "CVE-2026-47316",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-703"
+      ],
+      "description": "Improper Check or Handling of Exceptional Conditions vulnerability in Samsung Open Source Escargot allows Input Data Manipulation.\n\nThis issue affects Escargot: 590345cc6258317c5da850d846ce6baaf2afc2d3.",
+      "first_seen": "2026-05-20T04:35:05.461951+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461951+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/escargot/pull/1565"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47316"
+    },
+    {
+      "canonical_id": "CVE-2026-47317",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-674"
+      ],
+      "description": "Uncontrolled Recursion vulnerability in Samsung Open Source Escargot allows Excessive Allocation.\n\nThis issue affects Escargot: 590345cc6258317c5da850d846ce6baaf2afc2d3.",
+      "first_seen": "2026-05-20T04:35:05.461963+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461963+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/Samsung/escargot/pull/1565"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47317"
+    },
+    {
+      "canonical_id": "CVE-2026-47356",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Terrascan v1.18.3 and prior are vulnerable to Server-Side Request Forgery (SSRF) via the webhook_url parameter in the file scan endpoint (POST /v1/{iac}/{iacVersion}/{cloud}/local/file/scan) when running in server mode. An unauthenticated remote attacker can supply an arbitrary URL as the webhook_url multipart form parameter. After scanning the uploaded file, Terrascan sends an HTTP POST request to the attacker-controlled URL containing the full scan results as a JSON body, with the attacker-supplied webhook_token forwarded as a Bearer token in the Authorization header. The retryable HTTP client retries up to 10 times on failure. This affects deployments running terrascan in server mode (terrascan server), which binds to 0.0.0.0 with no authentication. Note: Terrascan was archived in August 2023 and no patch will be released.",
+      "first_seen": "2026-05-20T04:35:05.463801+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463801+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/tenable/terrascan"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-47356"
+    },
+    {
+      "canonical_id": "CVE-2026-47357",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-610",
+        "CWE-73",
+        "CWE-918"
+      ],
+      "description": "Terrascan v1.18.3 and prior are vulnerable to Server-Side Request Forgery (SSRF) via the remote_url parameter in the remote directory scan endpoint (POST /v1/{iac}/{iacVersion}/{cloud}/remote/dir/scan) when running in server mode. An unauthenticated remote attacker can supply an attacker-controlled HTTP URL as remote_url with remote_type set to \"http\". The URL is passed directly to hashicorp/go-getter (v1.7.5) without validation. Go-getter's HttpGetter supports the X-Terraform-Get response header, allowing the attacker's server to redirect the download to a file:// URL, enabling local file read. Additionally, HttpGetter has Netrc set to true, causing it to read ~/.netrc and send stored credentials to attacker-controlled hostnames. This affects deployments running terrascan in server mode (terrascan server), which binds to 0.0.0.0 with no authentication. Note: Terrascan was archived in August 2023 and no patch will be released.",
+      "first_seen": "2026-05-20T04:35:05.463816+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463816+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/tenable/terrascan"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-47357"
+    },
+    {
+      "canonical_id": "CVE-2026-47358",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-610",
+        "CWE-73",
+        "CWE-918"
+      ],
+      "description": "Terrascan v1.18.3 and prior are vulnerable to Server-Side Request Forgery (SSRF) via external URL resolution in uploaded IaC templates when running in server mode. When Terrascan parses uploaded ARM templates or CloudFormation templates, it resolves external URLs referenced within those templates via hashicorp/go-getter with all default detectors enabled, including FileDetector. An unauthenticated remote attacker can upload an ARM template containing a templateLink.uri or parametersLink.uri field, or a CloudFormation template containing an AWS::CloudFormation::Stack TemplateURL field, pointing to an attacker-controlled URL. Terrascan will fetch the attacker-controlled URL server-side. Unlike SSRF via the remote scan endpoint, file:// URLs are directly usable without requiring an X-Terraform-Get redirect, enabling local file read. This affects deployments running terrascan in server mode (terrascan server), which binds to 0.0.0.0 with no authentication. Note: Terrascan was archived in August 2023 and no patch will be released.",
+      "first_seen": "2026-05-20T04:35:05.463854+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463854+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/tenable/terrascan"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-47358"
+    },
+    {
+      "canonical_id": "CVE-2026-4883",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-434"
+      ],
+      "description": "The Piotnet Forms plugin for WordPress is vulnerable to arbitrary file upload due to missing file type validation in the 'piotnetforms_ajax_form_builder' function in all versions up to, and including, 2.1.40. The plugin uses an incomplete extension blacklist that only blocks php, phpt, php5, php7, and exe extensions, while allowing dangerous extensions such as .phar or .phtml to be uploaded. This makes it possible for unauthenticated attackers to upload arbitrary files on the affected site's server which may make remote code execution possible. Note: The exploit can only be exploited if a file field is added to the form.",
+      "first_seen": "2026-05-20T04:35:05.462768+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462768+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://piotnetforms.com",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/9bd9c9db-d279-4de2-b5e4-ac7d8c919f2a?source=cve"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-4883"
+    },
+    {
+      "canonical_id": "CVE-2026-4885",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-434"
+      ],
+      "description": "The Piotnet Addons for Elementor Pro plugin for WordPress is vulnerable to arbitrary file upload due to missing file type validation in the 'pafe_ajax_form_builder' function in all versions up to, and including, 7.1.70. The plugin uses an incomplete extension blacklist that only blocks php, phpt, php5, php7, and exe extensions, while allowing dangerous extensions such as .phar or .phtml to be uploaded. This makes it possible for unauthenticated attackers to upload arbitrary files on the affected site's server which may make remote code execution possible. Note: The exploit can only be exploited if a file field is added to the form.",
+      "first_seen": "2026-05-20T04:35:05.461974+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461974+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://pafe.piotnet.com/",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/ffff2ff3-769d-4eb2-acbe-d8ce6f042581?source=cve"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-4885"
+    },
+    {
+      "canonical_id": "CVE-2026-5090",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Template::Plugin::HTML versions through 3.102 for Perl allows HTML and JavaScript to be injected.\n\nThe html_filter function did not escape single quotes. HTML attributes inside of single quotes could be have code injected.  For example, the variable \"var\" in\n\n    <a id='ref' title='[% var | html %]'>\n\nwould not be properly escaped. An attacker could insert some limited HTML and JavaScript, for example,\n\n    var = \" ' onclick='while (true) { alert(1) }'\"\n\nNote that arbitrary HTML and JavaScript would be difficult to inject, because angle brackets, ampersands and double-quotes would still be escaped.",
+      "first_seen": "2026-05-20T04:35:05.464843+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464843+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/19/40",
+        "https://github.com/abw/Template2/issues/327",
+        "https://github.com/abw/Template2/pull/337/changes/11c78a7a771d4af505efeb754a0b8775689c2eae"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-5090"
+    },
+    {
+      "canonical_id": "CVE-2026-6009",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "Java Deserialisation Vulnerability in Jaspersoft Reports Library leads to\u00a0Remote Code Execution (RCE), potentially allowing code execution on the affected system",
+      "first_seen": "2026-05-20T04:35:05.463992+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463992+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://community.jaspersoft.com/advisories/jaspersoft-security-advisory-may-19-2026-jaspersoft-library-cve-2026-6009-r11/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6009"
+    },
+    {
+      "canonical_id": "CVE-2026-7307",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1286"
+      ],
+      "description": "A flaw was found in Keycloak. A remote, unauthenticated attacker can send a specially crafted XML input to the Security Assertion Markup Language (SAML) endpoint. This malicious input can cause high CPU usage and worker thread starvation, leading to a Denial of Service (DoS) where the server becomes unavailable.",
+      "first_seen": "2026-05-20T04:35:05.462618+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462618+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-7307",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2476526"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-7307"
+    },
+    {
+      "canonical_id": "CVE-2026-7504",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-601"
+      ],
+      "description": "A flaw was found in Keycloak's URL validation logic during redirect operations. By crafting a malicious request, an attacker could bypass validation to redirect users to unauthorized URLs, potentially leading to the exposure of sensitive information within the domain or facilitating further attacks. This vulnerability specifically affects Keycloak clients configured with a wildcard (*) in the \"Valid Redirect URIs\" field and requires user interaction to be successfully exploited.\n\nThe issue stems from a discrepancy in how Keycloak and the underlying Java URI implementation handle the user-info component of a URL. If a malicious redirect URL is constructed using multiple @ characters in the user-info section, Java's URI parser fails to extract the user-info, leaving only the raw authority field. Consequently, Keycloak's validation check fails to detect the malformed user-info, falls back to a wildcard comparison, and incorrectly permits the malicious redirect.",
+      "first_seen": "2026-05-20T04:35:05.462623+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462623+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-7504",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2464128"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-7504"
+    },
+    {
+      "canonical_id": "CVE-2026-8096",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "The Kirki \u2013 Freeform Page Builder, Website Builder & Customizer plugin for WordPress is vulnerable to authorization bypass in all versions up to, and including, 6.0.6. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for authenticated attackers, with subscriber-level access and above, to view all Kirki frontend forms and read stored visitor form submission data, including contact details, messages, and any other visitor-provided information submitted through site forms.",
+      "first_seen": "2026-05-20T04:35:05.464228+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.464228+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/kirki/tags/6.0.4/includes/Ajax.php#L675",
+        "https://plugins.trac.wordpress.org/changeset/3535640/kirki",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/1a4414b1-6a49-42f8-9927-93763d1502ce?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8096"
+    },
+    {
+      "canonical_id": "CVE-2026-8491",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-754"
+      ],
+      "description": "Improper Check for Unusual or Exceptional Conditions vulnerability in Drupal Node View Permissions allows Forceful Browsing.\n\nThis issue affects Node View Permissions: from 0.0.0 before 1.7.0, from 2.0.0 before 2.0.1.",
+      "first_seen": "2026-05-20T04:35:05.465104+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.465104+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.drupal.org/sa-contrib-2026-034"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8491"
+    },
+    {
+      "canonical_id": "CVE-2026-8492",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-471"
+      ],
+      "description": "Modification of Assumed-Immutable Data (MAID) vulnerability in Drupal Translate Drupal with GTranslate allows Resource Location Spoofing.\n\nThis issue affects Translate Drupal with GTranslate: from 0.0.0 before 3.0.5.",
+      "first_seen": "2026-05-20T04:35:05.465119+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.465119+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.drupal.org/sa-contrib-2026-035"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8492"
+    },
+    {
+      "canonical_id": "CVE-2026-8495",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Missing Authorization vulnerability in Drupal Date iCal allows Forceful Browsing.\n\nThis issue affects Date iCal: from 0.0.0 before 4.0.15.",
+      "first_seen": "2026-05-20T04:35:05.465140+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.465140+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.drupal.org/sa-contrib-2026-037"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8495"
+    },
+    {
+      "canonical_id": "CVE-2026-8711",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-122"
+      ],
+      "description": "NGINX JavaScript has a vulnerability when the js_fetch_proxy\u00a0directive is configured with at least one client-controlled NGINX variable (for example, $http_*, $arg_*, $cookie_*) and a location invoking the ngx.fetch() operation from NGINX JavaScript. An unauthenticated attacker can exploit this vulnerability by sending crafted HTTP requests. This may cause a heap buffer overflow in the NGINX worker process leading to a restart. Additionally, for systems with Address Space Layout Randomization (ASLR) disabled, code execution is possible. \n\n\nNote: Software versions which have reached End of Technical Support (EoTS) are not evaluated.",
+      "first_seen": "2026-05-20T04:35:05.463572+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.463572+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://my.f5.com/manage/s/article/K000161307"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-8711"
+    },
+    {
+      "canonical_id": "CVE-2026-8727",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "The Crawler extension passes the X-T3Crawler-Meta response header from crawled URLs directly to PHP's unserialize(). An attacker controlling a crawled endpoint can inject arbitrary serialized PHP objects, leading to Remote Code Execution on the TYPO3 server. Exploitation requires administrative privileges to configure a crawler-enabled page and trigger the crawl via a Scheduler task.",
+      "first_seen": "2026-05-20T04:35:05.462353+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462353+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://typo3.org/security/advisory/typo3-ext-sa-2026-008"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8727"
+    },
+    {
+      "canonical_id": "CVE-2026-8827",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "The AddressRepository::getSqlQuery() method constructs a database query without properly sanitizing user input, leading to SQL Injection. The method is not invoked anywhere within the extension itself and therefore poses no direct risk in a default installation. However, custom extensions that call this method with untrusted input would expose the site to SQL injection.",
+      "first_seen": "2026-05-20T04:35:05.462362+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462362+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://typo3.org/security/advisory/typo3-ext-sa-2026-012"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8827"
+    },
+    {
+      "canonical_id": "CVE-2026-8830",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-603"
+      ],
+      "description": "A flaw was found in Keycloak. An authenticated user can bypass configured WebAuthn policies during credential registration by manipulating client-side JavaScript. This occurs because the server-side processAction() fails to validate that the newly created credential's parameters, such as public key algorithms, match the realm's configured WebAuthn policies. This could lead to the creation of credentials that do not adhere to administrative security requirements, potentially weakening the overall security posture of the system by allowing non-compliant authentication methods.",
+      "first_seen": "2026-05-20T04:35:05.461888+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.461888+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-8830",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2479565"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8830"
+    },
+    {
+      "canonical_id": "CVE-2026-8912",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "The Contest Gallery plugin for WordPress is vulnerable to SQL Injection via the 'form_input' parameter in versions up to, and including, 28.1.6. This is due to insufficient escaping on the user supplied parameter and lack of sufficient preparation on the existing SQL query inside the unauthenticated 'post_cg_gallery_form_upload' AJAX action (specifically the 'cb' branch of the included users-upload-check.php, where $f_input_id is concatenated unquoted into 'SELECT Field_Content FROM ... WHERE id = $f_input_id'). The endpoint is gated only by a public frontend nonce ('cg1l_action' / 'cg_nonce') that is exposed in the page source of any public gallery page. This makes it possible for unauthenticated attackers to append additional SQL queries into already existing queries that can be used to extract sensitive information from the database.",
+      "first_seen": "2026-05-20T04:35:05.462783+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-20T04:35:05.462783+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/contest-gallery/tags/28.1.5/ajax/ajax-functions-frontend.php#L837",
+        "https://plugins.trac.wordpress.org/browser/contest-gallery/tags/28.1.5/functions/frontend/cg-general-frontend.php#L12",
+        "https://plugins.trac.wordpress.org/browser/contest-gallery/tags/28.1.5/v10/v10-frontend/user_upload/users-upload-check.php#L1036",
+        "https://plugins.trac.wordpress.org/browser/contest-gallery/tags/28.1.5/v10/v10-frontend/user_upload/users-upload-check.php#L1193",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/71f2f8c4-00ee-4ab4-b0e0-9ddac46818b3?source=cve"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-8912"
+    }
+  ],
+  "correlated_at": "2026-05-20T04:35:24.237628+00:00"
 }
