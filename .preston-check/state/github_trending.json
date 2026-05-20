@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-20T11:55:14.144083+00:00",
-  "last_successful_fetch": "2026-05-20T11:55:18.064649+00:00",
+  "last_run": "2026-05-20T15:51:28.302122+00:00",
+  "last_successful_fetch": "2026-05-20T15:51:32.984936+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -624,7 +624,13 @@
     "github:gagaltotal/CVE-2026-42945-NGINX-Rift-Toolkit",
     "github:korniko98/distro-cve-checker",
     "github:julianertle/CVE-2023-0386-CTF",
-    "github:oseasfr/Scanner_CVE_2026-42945"
+    "github:oseasfr/Scanner_CVE_2026-42945",
+    "github:vaniachow/superset-cve-automation",
+    "github:Victherich/2008-CVE-ESUT-ALUMNI",
+    "github:fevar54/FULL-ANALYSIS---CVE-2026-45829-ChromaDB-",
+    "github:wvverez/CVE-2021-41773-PoC",
+    "github:Maxime288/Fragnesia-CVE-2026-46300",
+    "github:yusufdalbudak/CVE-2026-42945"
   ],
   "source_id": "github_trending",
   "stats": {
