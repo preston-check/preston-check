@@ -2,44 +2,29 @@
   "candidate_count": 1,
   "candidates": [
     {
-      "canonical_id": "CVE-2026-2587",
-      "composite_confidence": 0.55,
+      "canonical_id": "CVE-2026-47373",
+      "composite_confidence": 0.65,
       "cwe": [],
-      "description": "PoC validator for CVE-2026-2587 \u2014 Critical (CVSS 9.6) EL Injection RCE in Eclipse GlassFish < 7.1.0 admin console gadget handler. Multi-target scanner with CSV/JSON output.",
-      "first_seen": "2026-05-20T22:42:15.216031+00:00",
+      "description": "\nCVE-2026-47373: Crypt::SaltedHash versions through 0.09 for Perl is\n susceptible to timing attacks",
+      "first_seen": "2026-05-20T23:39:21.048490+00:00",
       "frameworks": [
-        "cve",
-        "cve-2026-2587",
-        "cwe-917",
-        "eclipse-glassfish",
-        "el-injection",
-        "exploit",
-        "expression-language-injection",
-        "glassfish",
-        "java",
-        "pentest",
-        "poc",
-        "rce",
-        "security-research",
-        "vulnerability"
+        "oss-security"
       ],
       "key_kind": "cve",
-      "languages": [
-        "Python"
-      ],
-      "last_seen": "2026-05-20T22:42:15.216031+00:00",
+      "languages": [],
+      "last_seen": "2026-05-20T23:39:21.048490+00:00",
       "merged_sources": [
-        "github_trending"
+        "mailing_list"
       ],
       "proactive_only": true,
       "raw_records_count": 1,
       "references": [
-        "https://github.com/Bhanunamikaze/CVE-2026-2587-Exploit-POC"
+        "https://www.openwall.com/lists/oss-security/2026/05/20/21"
       ],
-      "severity": "high",
+      "severity": "medium",
       "source_count": 1,
-      "title": "CVE-2026-2587-Exploit-POC"
+      "title": "\nCVE-2026-47373: Crypt::SaltedHash versions through 0.09 for Perl is\n susceptible to timing attacks"
     }
   ],
-  "correlated_at": "2026-05-20T22:42:17.894220+00:00"
+  "correlated_at": "2026-05-20T23:39:21.102676+00:00"
 }
