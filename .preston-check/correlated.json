@@ -1,5 +1,2765 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-21T03:50:09.406360+00:00"
+  "candidate_count": 107,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2023-7346",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-682"
+      ],
+      "description": "Ledger Bitcoin app versions 2.1.0 and 2.1.1 contain an address derivation vulnerability that allows attackers to cause incorrect Bitcoin addresses to be displayed by exploiting improper handling of miniscript policies containing the a: fragment. Attackers can craft malicious miniscript policies that cause the device to derive and display incorrect receiving addresses, potentially leading to funds being sent to unintended addresses.",
+      "first_seen": "2026-05-21T04:42:22.342581+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342581+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://donjon.ledger.com/lsb/019/",
+        "https://www.vulncheck.com/advisories/ledger-bitcoin-app-address-derivation-error-via-miniscript"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2023-7346"
+    },
+    {
+      "canonical_id": "CVE-2025-33255",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "NVIDIA TRT-LLM for any platform contains a vulnerability in MPI server, where an attacker could cause an unsafe deserialization. A successful exploit of this vulnerability might lead to code execution, denial of service, data tampering, and information disclosure.",
+      "first_seen": "2026-05-21T04:42:22.340962+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340962+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2025-33255",
+        "https://nvidia.custhelp.com/app/answers/detail/a_id/5805",
+        "https://www.cve.org/CVERecord?id=CVE-2025-33255"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2025-33255"
+    },
+    {
+      "canonical_id": "CVE-2026-20171",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-670"
+      ],
+      "description": "A vulnerability in the Border Gateway Protocol (BGP)&nbsp;enforce-first-as feature of&nbsp;Cisco Nexus 3000 Series Switches and Cisco Nexus 9000 Series Switches in standalone NX-OS mode could allow an unauthenticated, remote attacker to trigger BGP peer flaps, resulting in a denial of service (DoS) condition.\r\n\r\nThis vulnerability is due to incorrect parsing of a transitive BGP attribute. An attacker could exploit this vulnerability by sending a crafted BGP update through an established BGP peer session. If the update propagates to an affected device, it could cause the device to drop the BGP session and flap with the BGP peer that is forwarding this update, resulting in a DoS condition.",
+      "first_seen": "2026-05-21T04:42:22.342708+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342708+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-bgp-iefab-3hb2pwtx"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-20171"
+    },
+    {
+      "canonical_id": "CVE-2026-20206",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-78"
+      ],
+      "description": "A vulnerability in the BrowserBot component of Cisco ThousandEyes Enterprise Agent could have allowed an authenticated, remote attacker to execute arbitrary commands on Agents on behalf of the BrowserBot synthetics orchestration process. Cisco has addressed this vulnerability in the Cisco ThousandEyes Enterprise Agent, and no customer action is needed.\r\n\r\nThis vulnerability was due to insufficient input validation of command arguments that are supplied by the user. Prior to this vulnerability being addressed, an attacker could have exploited this vulnerability by authenticating to the ThousandEyes SaaS and submitting crafted input into the affected parameter. A successful exploit could have allowed the attacker to execute arbitrary commands within the BrowserBot container as the node user.\r\nTo exploit this vulnerability, the attacker must have valid user credentials for the ThousandEyes SaaS and the ability to manage transaction tests.",
+      "first_seen": "2026-05-21T04:42:22.342772+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342772+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-tebbot-cmdinj-wN3yQ5gn"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-20206"
+    },
+    {
+      "canonical_id": "CVE-2026-20223",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-306"
+      ],
+      "description": "A vulnerability in the&nbsp;access validation of internal REST APIs of Cisco Secure Workload could allow an unauthenticated, remote attacker to access site resources with the privileges of the&nbsp;Site Admin role.\r\n\r\nThis vulnerability is due to insufficient validation and authentication when accessing REST API endpoints. An attacker could exploit this vulnerability if they are able to send a crafted API request to an affected endpoint. A successful exploit could allow the attacker to read sensitive information and make configuration changes across tenant boundaries with the privileges of the&nbsp;Site Admin user.&nbsp;",
+      "first_seen": "2026-05-21T04:42:22.342801+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342801+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-csw-pnbsa-g8WEnuy"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-20223"
+    },
+    {
+      "canonical_id": "CVE-2026-23734",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-23"
+      ],
+      "description": "XWiki Platform is a generic wiki platform. Versions prior to 18.1.0-rc-1, 17.10.3, 17.4.9, and 16.10.17 allow access to read configuration files by using URLs such as http://localhost:8080/bin/ssx/Main/WebHome?resource=/../../WEB-INF/xwiki.cfg&minify=false, leading to Path Traversal. The vulnerability is can be exploited via resources parameter the ssx and jsx endpoints by using leading slashes. This issue has been patched in 18.1.0-rc-1, 17.10.3, 17.4.9, 16.10.17.",
+      "first_seen": "2026-05-21T04:42:22.343145+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343145+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/xwiki/xwiki-commons/commit/a979cafd89f6a9c9c0b9ab19744d672df64429bf",
+        "https://github.com/xwiki/xwiki-commons/security/advisories/GHSA-xq3r-2qv5-vqqm",
+        "https://jira.xwiki.org/browse/XCOMMONS-3547"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-23734"
+    },
+    {
+      "canonical_id": "CVE-2026-24142",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "NVIDIA TRT-LLM for any platform contains a deserialization vulnerability   and unsafe serialized handle. A successful exploit of this vulnerability might lead to code execution, data tampering, and information disclosure.",
+      "first_seen": "2026-05-21T04:42:22.340977+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340977+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-24142",
+        "https://nvidia.custhelp.com/app/answers/detail/a_id/5805",
+        "https://www.cve.org/CVERecord?id=CVE-2026-24142"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-24142"
+    },
+    {
+      "canonical_id": "CVE-2026-24163",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "NVIDIA TRT-LLM for any platform contains a vulnerability in RPC testing, where an attacker could  cause an unsafe deserialization. A successful exploit of this vulnerability might lead to code execution, denial of service, data tampering, and information disclosure.",
+      "first_seen": "2026-05-21T04:42:22.341004+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341004+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-24163",
+        "https://nvidia.custhelp.com/app/answers/detail/a_id/5805",
+        "https://www.cve.org/CVERecord?id=CVE-2026-24163"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-24163"
+    },
+    {
+      "canonical_id": "CVE-2026-24206",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-288"
+      ],
+      "description": "NVIDIA Triton Inference Server contains a vulnerability where an attacker could cause an authentication bypass. A successful exploit of this vulnerability might lead to escalation of privileges, denial of service, or information disclosure.",
+      "first_seen": "2026-05-21T04:42:22.341022+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341022+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-24206",
+        "https://nvidia.custhelp.com/app/answers/detail/a_id/5828",
+        "https://www.cve.org/CVERecord?id=CVE-2026-24206"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-24206"
+    },
+    {
+      "canonical_id": "CVE-2026-24207",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-288"
+      ],
+      "description": "NVIDIA Triton Inference Server contains a vulnerability where an attacker could cause an authentication bypass. A successful exploit of this vulnerability might lead to code execution, escalation of privileges, data tampering, denial of service, or information disclosure.",
+      "first_seen": "2026-05-21T04:42:22.341042+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341042+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-24207",
+        "https://nvidia.custhelp.com/app/answers/detail/a_id/5828",
+        "https://www.cve.org/CVERecord?id=CVE-2026-24207"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-24207"
+    },
+    {
+      "canonical_id": "CVE-2026-24215",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-400"
+      ],
+      "description": "NVIDIA Triton Inference Server contains a vulnerability in the DALI backend, where an attacker could cause uncontrolled resource consumption. A successful exploit of this vulnerability might lead to denial of service.",
+      "first_seen": "2026-05-21T04:42:22.341108+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341108+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-24215",
+        "https://nvidia.custhelp.com/app/answers/detail/a_id/5828",
+        "https://www.cve.org/CVERecord?id=CVE-2026-24215"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-24215"
+    },
+    {
+      "canonical_id": "CVE-2026-24216",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "NVIDIA BioNemo for Linux contains a vulnerability where a user could cause a deserialization of untrusted data. A successful exploit of this vulnerability might lead to code execution, denial of service, information disclosure, and data tampering.",
+      "first_seen": "2026-05-21T04:42:22.343164+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343164+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://nvd.nist.gov/vuln/detail/CVE-2026-24216",
+        "https://nvidia.custhelp.com/app/answers/detail/a_id/5831",
+        "https://www.cve.org/CVERecord?id=CVE-2026-24216"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-24216"
+    },
+    {
+      "canonical_id": "CVE-2026-24425",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-693"
+      ],
+      "description": "Twig versions 2.16.x and 3.9.0 through 3.25.x contain a sandbox bypass vulnerability when using a SourcePolicyInterface that allows attackers with template rendering capabilities to pass arbitrary PHP callables to sort, filter, map, and reduce filters. Attackers can exploit the runtime check that fails to use the current template source to bypass sandbox restrictions and execute arbitrary code when the sandbox is enabled through a source policy rather than globally.",
+      "first_seen": "2026-05-21T04:42:22.342502+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342502+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/twigphp/Twig/releases/tag/v3.26.0",
+        "https://github.com/twigphp/Twig/security/advisories/GHSA-2q52-x2ff-qgfr",
+        "https://www.vulncheck.com/advisories/twig-x-x-sandbox-bypass-via-sourcepolicyinterface"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-24425"
+    },
+    {
+      "canonical_id": "CVE-2026-26028",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-116",
+        "CWE-79"
+      ],
+      "description": "CryptPad is an end-to-end encrypted collaborative office suite. In versions prior to 2026.2.0, the HTML sanitizer in Diffmarked.js can be bypassed due to incomplete attribute filtering on restricted tags. The sanitizer validates only the src attribute of <iframe>, <video>, and <audio> elements, leaving all other attributes unchecked. As a result, an attacker can inject arbitrary HTML through srcdoc, completely defeating CryptPad's intended bounce sandboxing and enabling link injection or other interactive content within user-controlled documents. The root cause lies in how the sanitizer classifies and enforces tag restrictions: although it defines both forbidden and restricted tag lists, <iframe> is treated as \"restricted\" rather than \"forbidden.\" Enforcement then inspects only the src attribute, so pairing a benign blob: src with a malicious srcdoc results in unrestricted rendering. This issue has been fixed in version 2026.2.0.",
+      "first_seen": "2026-05-21T04:42:22.343239+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343239+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/cryptpad/cryptpad/releases/tag/2026.2.0",
+        "https://github.com/cryptpad/cryptpad/security/advisories/GHSA-g2g4-47gv-p72v"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-26028"
+    },
+    {
+      "canonical_id": "CVE-2026-27405",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Missing Authorization vulnerability in Magepeople inc. WpBookingly allows Exploiting Incorrectly Configured Access Control Security Levels.\n\nThis issue affects WpBookingly: from n/a through 1.2.9.",
+      "first_seen": "2026-05-21T04:42:22.342193+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342193+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://patchstack.com/database/wordpress/plugin/service-booking-manager/vulnerability/wordpress-wpbookingly-plugin-1-2-9-broken-access-control-vulnerability?_s_id=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-27405"
+    },
+    {
+      "canonical_id": "CVE-2026-27424",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Missing Authorization vulnerability in WP Chill Image Photo Gallery Final Tiles Grid allows Exploiting Incorrectly Configured Access Control Security Levels.\n\nThis issue affects Image Photo Gallery Final Tiles Grid: from n/a through 3.6.11.",
+      "first_seen": "2026-05-21T04:42:22.342208+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342208+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://patchstack.com/database/wordpress/plugin/final-tiles-grid-gallery-lite/vulnerability/wordpress-image-photo-gallery-final-tiles-grid-plugin-3-6-11-broken-access-control-vulnerability?_s_id=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-27424"
+    },
+    {
+      "canonical_id": "CVE-2026-2813",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "ArcGIS Server contains an input validation weakness in the login redirection workflow. An Authenticated attacker could exploit this issue by sending a specially crafted request, Successful exploitation may result in the application redirecting the browser to an unintended, untrusted site, resulting in a limited confidentiality impact under specific user interaction conditions.\nThe vulnerability affects only the client side navigation logic during authentication and remains confined to the same security boundary. No server side compromise or cross component impact is possible.\u00a0\u00a0This issue affects ArcGIS Server 11.5.",
+      "first_seen": "2026-05-21T04:42:22.343276+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343276+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.esri.com/arcgis-blog/products/trust-arcgis/administration/april2026_security_bulletin"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-2813"
+    },
+    {
+      "canonical_id": "CVE-2026-29518",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-367"
+      ],
+      "description": "Rsync versions before 3.4.3 contain a time-of-check to time-of-use (TOCTOU) race condition in daemon file handling that allows attackers to redirect file writes outside intended directories by replacing parent directory components with symbolic links. Attackers with write access to a module path can exploit this race condition to create or overwrite arbitrary files, potentially modifying sensitive system files and achieving privilege escalation when the daemon runs with elevated privileges. This vulnerability can only be triggered if the chroot setting is false.",
+      "first_seen": "2026-05-21T04:42:22.342244+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342244+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/RsyncProject/rsync/pull/895/changes/8471fdd1561049ef5f58df44a1811a50bd9a531d",
+        "https://github.com/RsyncProject/rsync/releases/tag/v3.4.3",
+        "https://www.vulncheck.com/advisories/rsync-toctou-race-condition-allows-symlink-based-arbitrary-file-write"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-29518"
+    },
+    {
+      "canonical_id": "CVE-2026-30691",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Cross-Site Scripting (XSS) vulnerability in @cyntler/react-doc-viewer v1.17.1 allows remote attackers to execute arbitrary JavaScript via a crafted .txt file. The TXTRenderer component fails to sanitize file content and explicitly casts raw data as a ReactNode",
+      "first_seen": "2026-05-21T04:42:22.343120+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343120+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/cyntler/react-doc-viewer/issues/317",
+        "https://github.com/walidriouah/CVE-2026-30691"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-30691"
+    },
+    {
+      "canonical_id": "CVE-2026-33137",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "XWiki Platform is a generic wiki platform offering runtime services for applications built on top of it. XWiki Platform is a generic wiki platform. In versions prior to 18.1.0-rc-1, 17.10.3, 17.4.9, and 16.10.17, the POST /wikis/{wikiName} API executes a XAR import without performing any authentication or authorization checks, allowing an unauthenticated attacker to create or update documents in the target wiki. This vulnerability has been patched in XWiki 16.10.17, 17.4.9, 17.10.3, 18.0.1 and 18.1.0-rc-1.",
+      "first_seen": "2026-05-21T04:42:22.343302+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343302+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/xwiki/xwiki-platform/commit/4b7b95b79256374d487e9ece1dc48f527966990f",
+        "https://github.com/xwiki/xwiki-platform/security/advisories/GHSA-qrvh-r3f2-9h4r",
+        "https://jira.xwiki.org/browse/XWIKI-23953"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-33137"
+    },
+    {
+      "canonical_id": "CVE-2026-33278",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-416",
+        "CWE-672"
+      ],
+      "description": "NLnet Labs Unbound 1.19.1 up to and including version 1.25.0 has a vulnerability in the DNSSEC validator that enables denial of service and possible remote code execution as a result of deep copying a data structure and erroneously overwriting a destination pointer. An adversary can exploit the vulnerability by controlling a malicious signed zone and querying a vulnerable Unbound. When DS sub-queries need to suspend validation due to NSEC3 computational budget exhaustion (introduced in Unbound 1.19.1), Unbound deep-copies response messages to preserve them across memory region teardown. A struct-assignment bug overwrites the destination's pointer with the source's pointer. After the sub-query region is freed, the resumed validator dereferences this dangling pointer, triggering a crash or potentially enabling arbitrary code execution. Unbound 1.25.1 contains a patch with a fix to preserve the correct pointer when deep copying the data structure.",
+      "first_seen": "2026-05-21T04:42:22.341596+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341596+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.nlnetlabs.nl/downloads/unbound/CVE-2026-33278.txt"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-33278"
+    },
+    {
+      "canonical_id": "CVE-2026-34754",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-284"
+      ],
+      "description": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Versions 2.28.1 and prior allow an authenticated user to upload attachments to private Issues they are not authorized to access. This issue has been fixed in version 2.28.2.",
+      "first_seen": "2026-05-21T04:42:22.339821+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.339821+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mantisbt/mantisbt/commit/b262b4d2835b81394d75356dead66e52a6275206",
+        "https://github.com/mantisbt/mantisbt/security/advisories/GHSA-h4x5-gvx6-3rwc",
+        "https://mantisbt.org/bugs/view.php?id=36976"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34754"
+    },
+    {
+      "canonical_id": "CVE-2026-34970",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200"
+      ],
+      "description": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Versions 2.28.1 and prior allow a bugnote author to access the note's Revisions page after losing access to the parent private issue. This issue has been fixed in version 2.28.2.",
+      "first_seen": "2026-05-21T04:42:22.339849+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.339849+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mantisbt/mantisbt/commit/71df1f67e05b2050cd4bd87839e6cc13747cf03f",
+        "https://github.com/mantisbt/mantisbt/security/advisories/GHSA-crmx-4p49-46m2",
+        "https://mantisbt.org/bugs/view.php?id=36978"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-34970"
+    },
+    {
+      "canonical_id": "CVE-2026-35007",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in single_unit.php that allows authenticated attackers to inject arbitrary JavaScript by passing an unsanitized value through the id GET parameter directly into an HTML attribute. Attackers can craft a malicious URL containing a JavaScript payload in the id parameter that executes in the victim's browser when the URL is visited.",
+      "first_seen": "2026-05-21T04:42:22.343308+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343308+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-single-unit-php-id-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35007"
+    },
+    {
+      "canonical_id": "CVE-2026-35008",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in single.php that allows authenticated attackers to inject arbitrary JavaScript by passing an unsanitized value through the ticket_id GET parameter directly into an HTML attribute. Attackers can craft a malicious URL containing a JavaScript payload in the id parameter that executes in the victim's browser when the URL is visited.",
+      "first_seen": "2026-05-21T04:42:22.343315+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343315+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-single-php-ticket-id-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35008"
+    },
+    {
+      "canonical_id": "CVE-2026-35009",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in add_note.php that allows authenticated attackers to inject arbitrary JavaScript by passing an unsanitized value through the ticket_id GET parameter directly into a hidden input field VALUE attribute. Attackers can craft a malicious URL containing a JavaScript payload in the ticket_id parameter that executes in the victim's browser when the URL is visited.",
+      "first_seen": "2026-05-21T04:42:22.343320+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343320+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-add-note-php-ticket-id-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35009"
+    },
+    {
+      "canonical_id": "CVE-2026-35010",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in patient_JF.php that allows authenticated attackers to inject arbitrary JavaScript by passing an unsanitized value through the ticket_id GET parameter directly into a JavaScript variable assignment. Attackers can craft a malicious URL containing a JavaScript payload in the ticket_id parameter that executes in the victim's browser when the URL is visited.",
+      "first_seen": "2026-05-21T04:42:22.343325+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343325+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-patient-jf-php-ticket-id-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35010"
+    },
+    {
+      "canonical_id": "CVE-2026-35011",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in opena.php that allows authenticated attackers to inject arbitrary JavaScript by passing an unsanitized value through the frm_call GET parameter directly into page output. Attackers can craft a malicious URL containing a JavaScript payload in the frm_call parameter that executes in the victim's browser when the URL is visited.",
+      "first_seen": "2026-05-21T04:42:22.343329+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343329+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-opena-php-frm-call-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35011"
+    },
+    {
+      "canonical_id": "CVE-2026-35012",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in add_facnote.php that allows authenticated attackers to inject arbitrary JavaScript by passing an unsanitized value through the ticket_id GET parameter directly into a hidden input field VALUE attribute. Attackers can craft a malicious URL containing a JavaScript payload in the ticket_id parameter that executes in the victim's browser when the URL is visited.",
+      "first_seen": "2026-05-21T04:42:22.343334+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343334+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-add-facnote-php-ticket-id-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35012"
+    },
+    {
+      "canonical_id": "CVE-2026-35013",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in street_view.php that allows authenticated attackers to inject arbitrary JavaScript by passing unsanitized values through the thelat and thelng GET parameters directly into JavaScript variable assignments. Attackers can craft a malicious URL containing a JavaScript payload in either parameter that executes in the victim's browser when the URL is visited.",
+      "first_seen": "2026-05-21T04:42:22.343339+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343339+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-street-view-php-thelat-and-thelng-parameters"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35013"
+    },
+    {
+      "canonical_id": "CVE-2026-35014",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in routes_nm.php that allows authenticated attackers to inject arbitrary JavaScript by passing an unsanitized value through the ticket_id GET parameter directly into a hidden input field VALUE attribute. Attackers can craft a malicious URL containing a JavaScript payload in the ticket_id parameter that executes in the victim's browser when the URL is visited.",
+      "first_seen": "2026-05-21T04:42:22.343344+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343344+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-routes-nm-php-ticket-id-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35014"
+    },
+    {
+      "canonical_id": "CVE-2026-35015",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in do_unit_mail.php that allows authenticated attackers to inject arbitrary JavaScript by passing an unsanitized value through the the_ticket GET parameter directly into a JavaScript variable assignment. Attackers can craft a malicious URL containing a JavaScript payload in the the_ticket parameter that executes in the victim's browser when the URL is visited.",
+      "first_seen": "2026-05-21T04:42:22.343348+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343348+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-do-unit-mail-php-the-ticket-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35015"
+    },
+    {
+      "canonical_id": "CVE-2026-35016",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Open ISES Tickets before 3.44.2 contains a reflected cross-site scripting vulnerability in search.php that allows authenticated attackers to inject arbitrary JavaScript by passing an unsanitized value through the frm_query POST parameter directly into an HTML input field VALUE attribute. Attackers can craft a malicious request containing a JavaScript payload in the frm_query parameter that executes in the victim's browser when submitted.",
+      "first_seen": "2026-05-21T04:42:22.343355+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343355+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/openises/tickets/commit/ecfeb406a016766cae81c749e14b5145a9f2dbff",
+        "https://github.com/openises/tickets/releases/tag/v3.44.2",
+        "https://www.vulncheck.com/advisories/open-ises-tickets-reflected-xss-via-search-php-frm-query-parameter"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35016"
+    },
+    {
+      "canonical_id": "CVE-2026-35593",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-22",
+        "CWE-73"
+      ],
+      "description": "Trilium Notes is an open-source, cross-platform hierarchical note taking application for building large personal knowledge bases. Versions 0.102.1 and prior are vulnerable to Local File Inclusion, allowing an authenticated attacker to read sensitive arbitrary files from the server's filesystem. The uploadModifiedFileToAttachment function, which is called when a POST request is received to /api/attachments/{attachmentId}/upload-modified-file, replaces the content of the attachment with the content from another file (whose path is provided in filePath of Request body). After which the content of the attachment can be viewed at /api/attachments/{attachmentId}/download. This exposes sensitive system files such as SSH keys, credentials, configs, and OS files, potentially leading to remote code execution and compromise of co-hosted applications. This issue has been fixed in version 0.102.2.",
+      "first_seen": "2026-05-21T04:42:22.339893+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.339893+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/TriliumNext/Trilium/releases/tag/v0.102.2",
+        "https://github.com/TriliumNext/Trilium/security/advisories/GHSA-hf4x-22rg-pjjp"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-35593"
+    },
+    {
+      "canonical_id": "CVE-2026-3592",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-408"
+      ],
+      "description": "BIND resolvers are vulnerable to an amplified resource consumption/exhaustion attack.  If a victim resolver makes a query to a specially crafted zone, the resolver will consume disproportionate resources.\nThis issue affects BIND 9 versions 9.11.0 through 9.16.50, 9.18.0 through 9.18.48, 9.20.0 through 9.20.22, 9.21.0 through 9.21.21, 9.11.3-S1 through 9.16.50-S1, 9.18.11-S1 through 9.18.48-S1, and 9.20.9-S1 through 9.20.22-S1.",
+      "first_seen": "2026-05-21T04:42:22.342293+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342293+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://downloads.isc.org/isc/bind9/9.18.49",
+        "https://downloads.isc.org/isc/bind9/9.20.23",
+        "https://downloads.isc.org/isc/bind9/9.21.22",
+        "https://kb.isc.org/docs/cve-2026-3592"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-3592"
+    },
+    {
+      "canonical_id": "CVE-2026-39309",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-290",
+        "CWE-451"
+      ],
+      "description": "Trilium Notes is a cross-platform, hierarchical note taking application focused on building large personal knowledge bases. In versions 0.102.1 and prior, the Electron configuration is vulnerable to TCC Bypass via Prompt Spoofing, allowing local attackers to trigger misleading macOS permission prompts by running malicious code under the identity of the trusted app. The root cause is that the RunAsNode fuse allows launching the app in a special Node.js mode using -e to execute arbitrary system commands with Trilium Notes's permissions and identity. An attacker can leverage this through a subprocess to request any sensitive permissions, such as access to hardware (camera, microphone) and TCC-protected files, causing the TCC system prompt to appear as if the request came from Trilium rather than the attacker's code, because macOS treats the subprocess as part of the parent application. Exploitation allows access to TCC-protected resources like the screen, camera, microphone, and folders such as ~/Documents and ~/Downloads, undermining macOS's security model and UI integrity through social engineering. This issue has been fixed in version 0.102.2.",
+      "first_seen": "2026-05-21T04:42:22.339906+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.339906+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/TriliumNext/Trilium/releases/tag/v0.102.2",
+        "https://github.com/TriliumNext/Trilium/security/advisories/GHSA-66pm-8hvq-2wwx"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-39309"
+    },
+    {
+      "canonical_id": "CVE-2026-39310",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-284",
+        "CWE-306"
+      ],
+      "description": "Trilium Notes is a cross-platform, hierarchical note taking application focused on building large personal knowledge bases. In versions 0.102.1 and prior, the Clipper API in Trilium Desktop (v0.101.3) allows full authentication bypass when running in an Electron environment. When Trilium detects an Electron environment, it explicitly disables authentication middleware for the Clipper API, exposing endpoints such as /api/clipper/notes to the network with no password, API token, or CSRF protection. An attacker on a shared network (for example, a corporate LAN or public Wi-Fi) can scan for open high-range ports using a tool like nmap, since Trilium often binds to ports such as 37840. Once a candidate port is found, an unauthenticated request to the Clipper handshake endpoint, which also bypasses authentication, confirms a Trilium instance by returning the application name and protocol version. This facilitates unauthorized data access, phishing, and local system compromise. The issue has been fixed in version 0.102.2.",
+      "first_seen": "2026-05-21T04:42:22.343400+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343400+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/TriliumNext/Trilium/releases/tag/v0.102.2",
+        "https://github.com/TriliumNext/Trilium/security/advisories/GHSA-jcvx-vc83-cppw"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-39310"
+    },
+    {
+      "canonical_id": "CVE-2026-39311",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79",
+        "CWE-94"
+      ],
+      "description": "Trilium Notes is a cross-platform, hierarchical note taking application focused on building large personal knowledge bases. Versions 0.102.1 and prior contain a critical security flaw where lack of SVG sanitization combined with a disabled Content Security Policy (CSP) and a publicly reachable backend execution API results in an unauthenticated Remote Code Execution (RCE). The vulnerability arises from an insecure-by-design architecture: Trilium serves SVG attachments with the image/svg+xml MIME type without any sanitization, and it explicitly disables Helmet's Content Security Policy middleware, removing the primary defense against script execution in served assets. Because the malicious SVG runs under the Same-Origin Policy, it can issue a fetch('/') to extract the csrfToken from the document body. With that token, it can send a signed request to /api/script/exec to execute arbitrary Node.js code on the server. An attacker can compromise the entire server instance simply by tricking an authenticated user into viewing a shared SVG attachment. The issue has been fixed in version 0.102.2.",
+      "first_seen": "2026-05-21T04:42:22.343409+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343409+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/TriliumNext/Trilium/releases/tag/v0.102.2",
+        "https://github.com/TriliumNext/Trilium/security/advisories/GHSA-p837-cxw3-m964"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-39311"
+    },
+    {
+      "canonical_id": "CVE-2026-3985",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "The Creative Mail \u2013 Easier WordPress & WooCommerce Email Marketing plugin for WordPress is vulnerable to SQL Injection via the 'checkout_uuid' parameter in all versions up to, and including, 1.6.9. This is due to insufficient escaping on the user supplied parameter and lack of sufficient preparation on the existing SQL query in the `has_checkout_consent()` method. This makes it possible for unauthenticated attackers to append additional SQL queries into already existing queries that can be used to extract sensitive information from the database.",
+      "first_seen": "2026-05-21T04:42:22.339970+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.339970+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/creative-mail-by-constant-contact/tags/1.6.9/src/Managers/CheckoutManager.php#L100",
+        "https://plugins.trac.wordpress.org/browser/creative-mail-by-constant-contact/tags/1.6.9/src/Managers/DatabaseManager.php#L298",
+        "https://plugins.trac.wordpress.org/browser/creative-mail-by-constant-contact/trunk/src/Managers/DatabaseManager.php#L298",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/39c17935-a853-407f-a99d-3828561919e6?source=cve"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-3985"
+    },
+    {
+      "canonical_id": "CVE-2026-39850",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-20",
+        "CWE-98"
+      ],
+      "description": "Yii 2 is a PHP application framework. Versions 2.0.54 and prior contain flawed logic in the core view rendering method View::renderPhpFile() that leads to Local File Inclusion. The function calls extract($_params_, EXTR_OVERWRITE) before the require statement that loads the view file. As a result, a caller-controlled _file_ key in the $params array overwrites the internal local variable specifying which file to include, potentially enabling RCE if an attacker can write PHP files through a separate primitive, as well as information disclosure. This issue has been fixed in version 2.0.55.",
+      "first_seen": "2026-05-21T04:42:22.343453+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343453+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/yiisoft/yii2/commit/109878b491dbffa541032bc99fb5e26d12cd0375",
+        "https://github.com/yiisoft/yii2/security/advisories/GHSA-5vpg-rj7q-qpw2"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-39850"
+    },
+    {
+      "canonical_id": "CVE-2026-39960",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Mantis Bug Tracker (MantisBT) is an open source issue tracker. Versions 2.28.1 and below contain flawed logic that causes improper escaping of a textarea custom field's contents in the Update Issue page, (bug_update_page.php) allowing an attacker to inject HTML and, if CSP settings permit, execute arbitrary JavaScript when the page is loaded. This facilitates session theft, leading to admin account takeover, full project data access. In order to exploit this issue, a textarea-type custom field must be configured for the project, the attack must be carried out by an authenticated user with bug report permission (low privilege). This can affect any user viewing the bug edit form, including administrators. The issue has been fixed in version 2.28.2. If users cannot immediately upgrade, they can work around the issue by using the default Content-Security Policy, which blocks script execution.",
+      "first_seen": "2026-05-21T04:42:22.343916+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343916+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/mantisbt/mantisbt/commit/5fec0f448b7a7d7d539a6adb6dccceac4e4e4ab7",
+        "https://github.com/mantisbt/mantisbt/security/advisories/GHSA-qj6w-v29q-4rgx"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-39960"
+    },
+    {
+      "canonical_id": "CVE-2026-40092",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-252"
+      ],
+      "description": "nimiq-blockchain provides persistent block storage for Nimiq's Rust implementation. In versions 1.3.0 and below, a malicious network peer can crash any Nimiq full node by publishing a crafted Kademlia DHT record. The maliciously crafted record would contain a TaggedSigned<ValidatorRecord, KeyPair> with a signature field whose byte length is not exactly 64 in order to cause a crash. When the victim node's DHT verifier calls TaggedSigned::verify, execution reaches Ed25519Signature::from_bytes(sig).unwrap() in the TaggedPublicKey implementation for Ed25519PublicKey. The from_bytes call fails because ed25519_zebra::Signature::try_from rejects slices not 64 bytes, and the unwrap() panics. The BLS TaggedPublicKey implementation correctly returns false on error; only the Ed25519 implementation panics. This issue has been fixed in version 1.4.0.",
+      "first_seen": "2026-05-21T04:42:22.343924+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343924+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/nimiq/core-rs-albatross/commit/807ee8e99a7ccdc604d49971f292854bfa36754d",
+        "https://github.com/nimiq/core-rs-albatross/pull/3708",
+        "https://github.com/nimiq/core-rs-albatross/releases/tag/v1.4.0",
+        "https://github.com/nimiq/core-rs-albatross/security/advisories/GHSA-27w2-87xv-37c6"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-40092"
+    },
+    {
+      "canonical_id": "CVE-2026-40094",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-754"
+      ],
+      "description": "nimiq-blockchain provides persistent block storage for Nimiq's Rust implementation. In versions 1.3.0 and prior, network-libp2p discovery accepts signed PeerContact updates from untrusted peers and stores them in a peer contact book, eventually leading to address book crash. A PeerContact can legally contain an empty addresses list (no intrinsic validation enforces non-empty). Later, PeerContactBook::known_peers builds an address book by taking addresses.first().expect(\"every peer should have at least one address\"). If the attacker has inserted a signed peer contact with addresses=[], any call to get_address_book (RPC/web client) can panic and crash the node/RPC task depending on panic settings. This issue has been fixed in version 1.4.0.",
+      "first_seen": "2026-05-21T04:42:22.343932+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343932+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/nimiq/core-rs-albatross/pull/3715",
+        "https://github.com/nimiq/core-rs-albatross/releases/tag/v1.4.0",
+        "https://github.com/nimiq/core-rs-albatross/security/advisories/GHSA-c45m-6x25-3cjq"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-40094"
+    },
+    {
+      "canonical_id": "CVE-2026-40102",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-943"
+      ],
+      "description": "Plane is an open-source project management tool. In versions 1.3.0 and below, SavedAnalyticEndpoint passes the user-controlled segment query parameter directly to a Django F() expression without validation (unlike the regular AnalyticsEndpoint, which checks against an allowlist), causing ORM Field Reference Injection. An authenticated workspace MEMBER can send GET /api/workspaces/<slug>/saved-analytic-view/<analytic_id>/ with a crafted segment value that is forwarded into build_graph_plot() and traverses foreign-key relationships (e.g. workspace__owner__password) before being projected via .values(\"dimension\", \"segment\"), returning the referenced field values directly in the JSON response. This exposes sensitive data such as bcrypt password hashes, API tokens, and related users' email addresses, making it a stronger primitive than the related order_by injection where values are only leaked through ordering. This issue has been fixed in version 1.3.1.",
+      "first_seen": "2026-05-21T04:42:22.343946+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343946+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/makeplane/plane/releases/tag/v1.3.1",
+        "https://github.com/makeplane/plane/security/advisories/GHSA-93x3-ghh7-72j3"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-40102"
+    },
+    {
+      "canonical_id": "CVE-2026-40622",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-346"
+      ],
+      "description": "NLnet Labs Unbound 1.16.2 up to and including version 1.25.0 has a vulnerability of the 'ghost domain names' family of attacks that could extend the ghost domain window by up to one cached TTL configured value. Similar to other 'ghost domain names' attacks, an adversary needs to control a (ghost) zone and be able to query a vulnerable Unbound. A single client NS query can cause Unbound to overwrite the cached expired parent-side referral NS rrset with the child-side apex NS rrset and essentially extend the ghost domain window by up to one cached TTL configured value ('cache-max-ttl'). In configurations where 'harden-referral-path: yes' is used (non-default configuration), no client NS query is required since Unbound implicitly performs that query. Unbound 1.25.1 contains a patch with a fix that does not allow extension of TTLs for (parent) NS records regardless of their trust.",
+      "first_seen": "2026-05-21T04:42:22.341627+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341627+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.nlnetlabs.nl/downloads/unbound/CVE-2026-40622.txt"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-40622"
+    },
+    {
+      "canonical_id": "CVE-2026-42383",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') vulnerability in YITH YITH WooCommerce Product Add-Ons allows Blind SQL Injection.\n\nThis issue affects YITH WooCommerce Product Add-Ons: from n/a through 4.29.0.",
+      "first_seen": "2026-05-21T04:42:22.342333+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342333+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://patchstack.com/database/wordpress/plugin/yith-woocommerce-product-add-ons/vulnerability/wordpress-yith-woocommerce-product-add-ons-plugin-4-29-0-sql-injection-vulnerability?_s_id=cve"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-42383"
+    },
+    {
+      "canonical_id": "CVE-2026-4293",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "The affected\u00a0Kieback & Peter DDC building controllers\u00a0are vulnerable to cross-site scripting, enabling JavaScript to be executed by the victim's browser, which allows the attacker to control the browser.",
+      "first_seen": "2026-05-21T04:42:22.342614+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342614+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-139-05.json",
+        "https://www.cisa.gov/news-events/ics-advisories/icsa-26-139-05"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-4293"
+    },
+    {
+      "canonical_id": "CVE-2026-42960",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-349"
+      ],
+      "description": "NLnet Labs Unbound up to and including version 1.25.0 is vulnerable to poisoning via promiscuous records for the authority section. Promiscuous RRSets that complement DNS replies in the authority section can be used to trick Unbound to cache such records. If an adversary is able to attach such records in a reply (i.e., spoofed packet, fragmentation attack) he would be able to poison Unbound's cache. A malicious actor can exploit the possible poisonous effect by injecting RRSets other than NS that are also accompanied by address records in a reply, for example MX. This could be achieved by trying to spoof a reply packet or fragmentation attacks. Unbound would then accept the relative address records in the additional section and cache them if the authority RRSet has enough trust at this point, i.e., in-zone data for the delegation point. Unbound 1.25.1 contains a patch with a fix that disregards address records from the additional section if they are not explicitly relevant only to authority NS records, mitigating the possible poison effect. This is a complement fix to CVE-2025-11411.",
+      "first_seen": "2026-05-21T04:42:22.341895+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341895+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.nlnetlabs.nl/downloads/unbound/CVE-2026-42960.txt"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-42960"
+    },
+    {
+      "canonical_id": "CVE-2026-43617",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-289"
+      ],
+      "description": "Rsync version\u00a03.4.2 and prior contain an authorization bypass vulnerability in the rsync daemon's hostname-based access control list enforcement when configured with chroot. Attackers can bypass hostname-based deny rules by controlling the PTR record for their source IP address, allowing connections from hostnames that administrators intended to deny when reverse DNS resolution fails and defaults to UNKNOWN.",
+      "first_seen": "2026-05-21T04:42:22.339999+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.339999+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/RsyncProject/rsync/releases/tag/v3.4.3",
+        "https://github.com/RsyncProject/rsync/security/advisories/GHSA-rjfm-3w2m-jf4f",
+        "https://www.vulncheck.com/advisories/rsync-authorization-bypass-via-hostname-resolution"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-43617"
+    },
+    {
+      "canonical_id": "CVE-2026-43619",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-367",
+        "CWE-59"
+      ],
+      "description": "Rsync version\u00a03.4.2 and prior contain symlink race condition vulnerabilities in path-based system calls including chmod, lchown, utimes, rename, unlink, mkdir, symlink, mknod, link, rmdir, and lstat that allow local attackers to redirect operations to files outside the exported rsync module. Attackers with local filesystem access can exploit the timing window between path resolution and syscall execution by swapping symlinks to apply sender-supplied permissions, ownership, timestamps, or filenames to arbitrary files outside the intended module boundary on rsync daemons configured with 'use chroot = no'.",
+      "first_seen": "2026-05-21T04:42:22.340073+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340073+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/RsyncProject/rsync/releases/tag/v3.4.3",
+        "https://github.com/RsyncProject/rsync/security/advisories/GHSA-4h9m-w5ff-j735",
+        "https://www.vulncheck.com/advisories/rsync-symlink-race-condition-via-path-based-syscalls"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-43619"
+    },
+    {
+      "canonical_id": "CVE-2026-44390",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-407"
+      ],
+      "description": "NLnet Labs Unbound up to and including version 1.25.0 has a vulnerability when handling replies with very large RRsets that Unbound needs to perform name compression for. Malicious upstream responses with very large RRsets with records that don't share a suffix above the root can cause Unbound to spend a considerable time applying name compression to downstream replies. This can lead to degraded performance and eventually denial of service in well orchestrated attacks. An adversary can exploit the vulnerability by querying Unbound for the specially crafted contents of a malicious zone with very large RRsets. Before Unbound replies to the query it will try to apply name compression which was an unbounded operation that could lock the CPU until the whole packet was complete. A compression limit was introduced in 1.21.1 for this but it didn't account for the case where records would not share any suffix above the root. That causes Unbound to go in a different code path because of the compression tree lookup failure and eventually not increment the compression counter for those operations. Unbound 1.25.1 contains a patch with a fix that increments the compression counter regardless of the compression tree lookup. This is a complement fix to CVE-2024-8508.",
+      "first_seen": "2026-05-21T04:42:22.341909+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341909+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.nlnetlabs.nl/downloads/unbound/CVE-2026-44390.txt"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44390"
+    },
+    {
+      "canonical_id": "CVE-2026-44392",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Missing authorization vulnerability exists in Movable Type. Under certain conditions, when a user without administrator privileges signs in to the product, unintended update processing may be executed.",
+      "first_seen": "2026-05-21T04:42:22.341295+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341295+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://jvn.jp/en/jp/JVN66473735/",
+        "https://movabletype.org/news/2026/05/mt-908-released.html",
+        "https://www.sixapart.jp/movabletype/news/2026/05/20-1100.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44392"
+    },
+    {
+      "canonical_id": "CVE-2026-44923",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "SQL injection in InfoScale VIOM before v9.1.3 allows remote attackers to escalate privileges.",
+      "first_seen": "2026-05-21T04:42:22.342814+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342814+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://supportinfoscale.cloud.com/support-home/kbsearch/article?articleNumber=1000766080&articleTitle=InfoScale_Operations_Manager_IOM_web_application_Security_Bulletin_for_CVE_2026_44923_CVE_2026_44924_and_CVE_2026_44925",
+        "https://www.veritas.com/support/en_US/doc/120571566-166757640-0/viom_tot_v118836641-166757640"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-44923"
+    },
+    {
+      "canonical_id": "CVE-2026-44925",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-352"
+      ],
+      "description": "Cross-Site Request Forgery (CSRF) vulnerability in InfoScale v.9.1.3 Operations Manager (VIOM) allows an attacker to force the user with an active session into clicking a malicious HTML link, which triggers unintended modifications on VIOM web application without the user's knowledge.",
+      "first_seen": "2026-05-21T04:42:22.342839+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342839+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://supportinfoscale.cloud.com/support-home/kbsearch/article?articleNumber=1000766080&articleTitle=InfoScale_Operations_Manager_IOM_web_application_Security_Bulletin_for_CVE_2026_44923_CVE_2026_44924_and_CVE_2026_44925",
+        "https://www.veritas.com/support/en_US/doc/120571566-166757640-0/viom_tot_v118836641-166757640"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-44925"
+    },
+    {
+      "canonical_id": "CVE-2026-45443",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "Missing Authorization vulnerability in ADD-ONS.ORG PDF for Elementor Forms + Drag And Drop Template Builder allows Exploiting Incorrectly Configured Access Control Security Levels.\n\nThis issue affects PDF for Elementor Forms + Drag And Drop Template Builder: from n/a through 5.5.1.",
+      "first_seen": "2026-05-21T04:42:22.342361+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342361+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://patchstack.com/database/wordpress/plugin/pdf-for-elementor-forms/vulnerability/wordpress-pdf-for-elementor-forms-drag-and-drop-template-builder-plugin-5-5-1-broken-access-control-vulnerability?_s_id=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-45443"
+    },
+    {
+      "canonical_id": "CVE-2026-45444",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-434"
+      ],
+      "description": "Unrestricted Upload of File with Dangerous Type vulnerability in WP Swings Gift Cards For WooCommerce Pro allows Using Malicious Files.\n\nThis issue affects Gift Cards For WooCommerce Pro: from n/a through 4.2.6.",
+      "first_seen": "2026-05-21T04:42:22.343467+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343467+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://patchstack.com/database/wordpress/plugin/giftware/vulnerability/wordpress-gift-cards-for-woocommerce-pro-plugin-4-2-6-arbitrary-file-upload-vulnerability?_s_id=cve"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-45444"
+    },
+    {
+      "canonical_id": "CVE-2026-47068",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "Authorization Bypass Through User-Controlled Key vulnerability in phenixdigital phoenix_storybook allows cross-session PubSub topic injection via a URL query parameter.\n\n'Elixir.PhoenixStorybook.Story.ComponentIframeLive':handle_params/3 in lib/phoenix_storybook/live/story/component_iframe_live.ex reads a PubSub topic directly from params[\"topic\"] and broadcasts {:component_iframe_pid, self()} on it with no check that the topic belongs to the requesting session. The shared PhoenixStorybook.PubSub is used to coordinate playground LiveViews with their iframes: a playground subscribes to a session-specific topic and uses the received iframe pid to direct subsequent control messages (variation state, theme switches, extra-assign payloads) via send/2. Because the iframe trusts the query parameter, an attacker who loads /storybook/iframe/<story>?topic=<victim_topic> causes their iframe process pid to be announced on the victim's topic. The victim's playground then addresses its private messages to the attacker's iframe process.\n\nThis issue affects phoenix_storybook from 0.4.0 before 1.1.0.",
+      "first_seen": "2026-05-21T04:42:22.342516+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342516+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://cna.erlef.org/cves/CVE-2026-47068.html",
+        "https://github.com/phenixdigital/phoenix_storybook/commit/6ee03f1c738d4436dde1b066cf65c80663d489f5",
+        "https://github.com/phenixdigital/phoenix_storybook/security/advisories/GHSA-mrhx-6pw9-q5fh",
+        "https://osv.dev/vulnerability/EEF-CVE-2026-47068"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47068"
+    },
+    {
+      "canonical_id": "CVE-2026-47099",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "TeleJSON prior to 6.0.0 contains a DOM-based cross-site scripting vulnerability in the parse() function that allows attackers to execute arbitrary JavaScript by delivering a crafted JSON payload containing a malicious _constructor-name_ property value. The custom reviver passes the constructor name directly to new Function() without sanitization when recreating object prototypes, enabling attackers to inject arbitrary JavaScript through vectors such as postMessage in cross-frame communication contexts to achieve script execution within the application.",
+      "first_seen": "2026-05-21T04:42:22.343472+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343472+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/storybookjs/telejson/security/advisories/GHSA-ccgf-5rwj-j3hv",
+        "https://www.vulncheck.com/advisories/telejson-dom-based-xss-via-parse-function"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47099"
+    },
+    {
+      "canonical_id": "CVE-2026-47373",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-208"
+      ],
+      "description": "Crypt::SaltedHash versions through 0.09 for Perl is susceptible to timing attacks.\n\nThese versions use Perl's built-in eq comparison. Discrepencies in timing could be used to guess the underlying hash.",
+      "first_seen": "2026-05-21T04:42:22.343883+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343883+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "http://www.openwall.com/lists/oss-security/2026/05/20/21",
+        "https://github.com/robrwo/perl-Crypt-SaltedHash/commit/c07bfc5c23185b0667233d0f2e1252d81f1f027a.patch",
+        "https://metacpan.org/release/RRWO/Crypt-SaltedHash-0.10/changes"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-47373"
+    },
+    {
+      "canonical_id": "CVE-2026-5075",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-200"
+      ],
+      "description": "The All in One SEO plugin for WordPress is vulnerable to Sensitive Information Exposure via 'internalOptions' localized script data in versions up to, and including, 4.9.7 due to sensitive internal option data being passed to wp_localize_script() in post editor contexts without effective masking for low-privilege users. This makes it possible for authenticated attackers, with contributor-level access and above, to view configured API/OAuth tokens and license-related values from page source.",
+      "first_seen": "2026-05-21T04:42:22.341205+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341205+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/changeset/3532318/all-in-one-seo-pack",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/0d8bc203-c17a-4b31-8f9e-695f9e638cda?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-5075"
+    },
+    {
+      "canonical_id": "CVE-2026-5200",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "The AcyMailing \u2013 An Ultimate Newsletter Plugin and Marketing Automation Solution for WordPress plugin for WordPress is vulnerable to Missing Authorization in versions up to, and including, 10.8.2. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for authenticated attackers, with subscriber-level access and above, to modify privileged AcyMailing configuration, export subscriber secret keys, and chain these actions into administrator account takeover when a target administrator email address is known.",
+      "first_seen": "2026-05-21T04:42:22.341428+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341428+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/changeset/3516422/acymailing",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/f8470662-2247-4159-9dac-f13677c94bdf?source=cve"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-5200"
+    },
+    {
+      "canonical_id": "CVE-2026-5293",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "The \u8a3a\u65ad\u30b8\u30a7\u30cd\u30ec\u30fc\u30bf\u4f5c\u6210\u30d7\u30e9\u30b0\u30a4\u30f3 (Diagnosis Generator) plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'js' parameter in versions up to and including 1.4.16. This is due to missing authorization checks and insufficient input sanitization in the themeFunc() function. The function is hooked to 'admin_init' and processes theme update requests without verifying user capabilities, allowing any authenticated user (including subscribers) to save malicious JavaScript to theme files. Additionally, the save() function uses stripslashes() which removes WordPress's magic quotes protection. This makes it possible for authenticated attackers, with subscriber-level access and above, to inject arbitrary web scripts in theme files that will execute whenever a user accesses a page containing the diagnosis form shortcode.",
+      "first_seen": "2026-05-21T04:42:22.340153+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340153+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/os-diagnosis-generator/tags/1.4.16/class/themeClass.php#L26",
+        "https://plugins.trac.wordpress.org/browser/os-diagnosis-generator/tags/1.4.16/class/themeClass.php#L39",
+        "https://plugins.trac.wordpress.org/browser/os-diagnosis-generator/tags/1.4.16/diagnosisAdminClass.php#L409",
+        "https://plugins.trac.wordpress.org/browser/os-diagnosis-generator/tags/1.4.16/include_files/user-viewFormPage.php#L102",
+        "https://plugins.trac.wordpress.org/browser/os-diagnosis-generator/trunk/class/themeClass.php#L26",
+        "https://plugins.trac.wordpress.org/browser/os-diagnosis-generator/trunk/class/themeClass.php#L39",
+        "https://plugins.trac.wordpress.org/browser/os-diagnosis-generator/trunk/diagnosisAdminClass.php#L409",
+        "https://plugins.trac.wordpress.org/browser/os-diagnosis-generator/trunk/include_files/user-viewFormPage.php#L102",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/c5293c0f-90b0-41df-a623-90297d998c41?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-5293"
+    },
+    {
+      "canonical_id": "CVE-2026-5947",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-362",
+        "CWE-416"
+      ],
+      "description": "Undefined behavior may result due to a race condition leading to a use-after-free violation.  If BIND receives an incoming DNS message signed with SIG(0), it begins work to validate that signature.  If, during that validation, the \"recursive-clients\" limit is reached (as would occur during a query flood), and that same DNS message is discarded per the limit, there is a brief window of time while the SIG(0) validation may attempt to read the now-discarded DNS message.\nThis issue affects BIND 9 versions 9.20.0 through 9.20.22, 9.21.0 through 9.21.21, and 9.20.9-S1 through 9.20.22-S1.\nBIND 9 versions 9.18.28 through 9.18.49 and 9.18.28-S1 through 9.18.49-S1 are NOT affected.",
+      "first_seen": "2026-05-21T04:42:22.342444+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342444+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://downloads.isc.org/isc/bind9/9.20.23",
+        "https://downloads.isc.org/isc/bind9/9.21.22",
+        "https://kb.isc.org/docs/cve-2026-5947"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-5947"
+    },
+    {
+      "canonical_id": "CVE-2026-5950",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-606"
+      ],
+      "description": "An unbounded resend loop vulnerability exists in the BIND 9 resolver state machine during bad-server handling, enabling a remote unauthenticated attacker to cause severe resource exhaustion by sending queries that trigger specific retry conditions.\nThis issue affects BIND 9 versions 9.18.36 through 9.18.48, 9.20.8 through 9.20.22, 9.21.7 through 9.21.21, 9.18.36-S1 through 9.18.48-S1, and 9.20.9-S1 through 9.20.22-S1.",
+      "first_seen": "2026-05-21T04:42:22.342465+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342465+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://downloads.isc.org/isc/bind9/9.18.49",
+        "https://downloads.isc.org/isc/bind9/9.20.23",
+        "https://downloads.isc.org/isc/bind9/9.21.22",
+        "https://kb.isc.org/docs/cve-2026-5950"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-5950"
+    },
+    {
+      "canonical_id": "CVE-2026-6072",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "The Oliver POS \u2013 A WooCommerce Point of Sale (POS) plugin for WordPress is vulnerable to Authorization Bypass Through User-Controlled Key in all versions up to and including 2.4.2.6. The plugin protects its entire /wp-json/pos-bridge/* REST API namespace through the oliver_pos_rest_authentication() permission callback, which uses a loose PHP comparison (==) to compare the attacker-supplied 'OliverAuth' header value against the 'oliver_pos_authorization_token' option. On fresh installations where the admin has not yet completed the connection flow, this option is unset (get_option returns false). Due to PHP's type juggling, the loose comparison '0' == false evaluates to true, allowing an unauthenticated attacker to bypass authentication by sending 'OliverAuth: 0'. This grants full access to all POS API endpoints, enabling attackers to read user data (including administrator details), update user profiles (including email addresses), and delete non-admin users. An admin account email reset can lead to site takeover.",
+      "first_seen": "2026-05-21T04:42:22.340180+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340180+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/tags/2.4.2.6/includes/class-pos-bridge-user.php#L170",
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/tags/2.4.2.6/includes/class-pos-bridge-user.php#L195",
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/tags/2.4.2.6/includes/class-pos-bridge-user.php#L231",
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/tags/2.4.2.6/includes/class-pos-bridge.php#L1677",
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/tags/2.4.2.6/includes/class-pos-bridge.php#L1679",
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/trunk/includes/class-pos-bridge-user.php#L170",
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/trunk/includes/class-pos-bridge-user.php#L195",
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/trunk/includes/class-pos-bridge-user.php#L231",
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/trunk/includes/class-pos-bridge.php#L1677",
+        "https://plugins.trac.wordpress.org/browser/oliver-pos/trunk/includes/class-pos-bridge.php#L1679",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/ca6aa922-9c58-445c-b88a-3d1d1c95102c?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6072"
+    },
+    {
+      "canonical_id": "CVE-2026-6394",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "The Nexa Blocks \u2013 Gutenberg Blocks, Page Builder for Gutenberg Editor & FSE plugin for WordPress is vulnerable to Server-Side Request Forgery (SSRF) in versions up to and including 1.1.1. This is due to the import_demo() function accepting a user-supplied URL in the demo_json_file POST parameter and passing it directly to wp_remote_get() without any URL validation or restriction against internal or private network destinations. The nexa_blocks_nonce required for the AJAX action is publicly exposed in the HTML source of any frontend page where the plugin is active via wp_localize_script on the enqueue_block_assets hook, effectively making the nonce available to all visitors and bypassing any intended authentication barrier. This makes it possible for unauthenticated attackers to make server-side HTTP requests to arbitrary internal or external destinations, potentially exposing internal services, cloud metadata endpoints such as the AWS instance metadata service, localhost services, and other resources not intended to be publicly accessible. A secondary SSRF vector also exists whereby image URLs extracted from the attacker-controlled JSON response are subsequently fetched via a second wp_remote_get() call, allowing chained exploitation through a crafted JSON payload.",
+      "first_seen": "2026-05-21T04:42:22.340275+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340275+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/nexa-blocks/tags/1.1.1/inc/classes/enqueue-assets.php#L84",
+        "https://plugins.trac.wordpress.org/browser/nexa-blocks/tags/1.1.1/inc/template/template.php#L236",
+        "https://plugins.trac.wordpress.org/browser/nexa-blocks/tags/1.1.1/inc/template/template.php#L242",
+        "https://plugins.trac.wordpress.org/browser/nexa-blocks/trunk/inc/classes/enqueue-assets.php#L84",
+        "https://plugins.trac.wordpress.org/browser/nexa-blocks/trunk/inc/template/template.php#L236",
+        "https://plugins.trac.wordpress.org/browser/nexa-blocks/trunk/inc/template/template.php#L242",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/b4bb3067-7953-466d-a469-8a101450f133?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6394"
+    },
+    {
+      "canonical_id": "CVE-2026-6395",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-352"
+      ],
+      "description": "The Word 2 Cash plugin for WordPress is vulnerable to Cross-Site Request Forgery leading to Stored Cross-Site Scripting in versions up to and including 0.9.2. This is due to the complete absence of nonce verification on the settings save handler in the w2c_admin() function, combined with missing input sanitization before storage and missing output escaping when rendering the stored value. The w2c-definitions POST parameter is saved raw via update_option() and later echoed without escaping inside a <textarea> element. This makes it possible for unauthenticated attackers to forge a request on behalf of a logged-in administrator, storing arbitrary JavaScript payloads that execute in the WordPress admin panel whenever the settings page is visited.",
+      "first_seen": "2026-05-21T04:42:22.340281+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340281+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/word-2-cash/tags/0.9.2/word2cash.php#L18",
+        "https://plugins.trac.wordpress.org/browser/word-2-cash/tags/0.9.2/word2cash.php#L20",
+        "https://plugins.trac.wordpress.org/browser/word-2-cash/tags/0.9.2/word2cash.php#L31",
+        "https://plugins.trac.wordpress.org/browser/word-2-cash/trunk/word2cash.php#L18",
+        "https://plugins.trac.wordpress.org/browser/word-2-cash/trunk/word2cash.php#L20",
+        "https://plugins.trac.wordpress.org/browser/word-2-cash/trunk/word2cash.php#L31",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/e4c7ca5c-38aa-4413-83eb-29185cca2a74?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6395"
+    },
+    {
+      "canonical_id": "CVE-2026-6401",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-352"
+      ],
+      "description": "The Bottom Bar plugin for WordPress is vulnerable to Cross-Site Request Forgery in all versions up to and including 0.1.7. This is due to missing nonce verification on the plugin's settings update forms handled in bottom-bar-admin.php. None of the three settings forms (main settings, sharing services, restore defaults) include a wp_nonce_field(), and the server-side processing code never calls check_admin_referer() or any equivalent nonce validation before processing POST data and calling update_option(). This makes it possible for unauthenticated attackers to trick a logged-in administrator into submitting a crafted request that updates plugin configuration options, such as changing the language, maximum post counts, or enabled sharing services.",
+      "first_seen": "2026-05-21T04:42:22.340438+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340438+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/bottom-bar/tags/0.1.7/bottom-bar-admin.php#L16",
+        "https://plugins.trac.wordpress.org/browser/bottom-bar/tags/0.1.7/bottom-bar-admin.php#L59",
+        "https://plugins.trac.wordpress.org/browser/bottom-bar/trunk/bottom-bar-admin.php#L16",
+        "https://plugins.trac.wordpress.org/browser/bottom-bar/trunk/bottom-bar-admin.php#L59",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/db0715ed-a06e-4a68-b9c3-408887cae113?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6401"
+    },
+    {
+      "canonical_id": "CVE-2026-6405",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-352"
+      ],
+      "description": "The Anomify AI \u2013 Anomaly Detection and Alerting plugin for WordPress is vulnerable to Cross-Site Request Forgery (CSRF) leading to Stored Cross-Site Scripting (XSS) in versions up to and including 0.3.6. This is due to missing nonce verification on the settings page handler and insufficient output escaping in the admin_options.php template. The settings form includes no wp_nonce_field() and the handler performs no check_admin_referer() check, meaning any cross-origin POST can modify plugin settings. The API key field is sanitized only with sanitize_text_field(), which strips HTML tags but does not encode double-quote characters; the value is then rendered into an HTML attribute via bare echo without esc_attr(), allowing a double-quote attribute-escape payload to survive both sanitization and storage. This makes it possible for unauthenticated attackers to inject arbitrary web scripts by tricking a logged-in administrator into visiting a malicious page that submits a forged request, storing the payload in the database and causing it to execute in the administrator's browser whenever the plugin settings page is visited.",
+      "first_seen": "2026-05-21T04:42:22.341456+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341456+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/anomify/tags/0.3.6/Anomify/Config.php#L152",
+        "https://plugins.trac.wordpress.org/browser/anomify/tags/0.3.6/Anomify/Wp/Admin.php#L31",
+        "https://plugins.trac.wordpress.org/browser/anomify/tags/0.3.6/Anomify/Wp/includes/admin_options.php#L43",
+        "https://plugins.trac.wordpress.org/browser/anomify/trunk/Anomify/Config.php#L152",
+        "https://plugins.trac.wordpress.org/browser/anomify/trunk/Anomify/Wp/Admin.php#L31",
+        "https://plugins.trac.wordpress.org/browser/anomify/trunk/Anomify/Wp/includes/admin_options.php#L43",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/a1e02c2d-a38a-495c-9c37-098049297be2?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6405"
+    },
+    {
+      "canonical_id": "CVE-2026-6456",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-287"
+      ],
+      "description": "The Account Switcher plugin for WordPress is vulnerable to Privilege Escalation in all versions up to, and including, 1.0.2. This is due to the `rememberLogin` REST API endpoint using a loose comparison (`!=` instead of `!==`) for secret validation at `app/RestAPI.php:111`, combined with no validation that the secret is non-empty. When a target user has never used the \"Remember me\" feature, their `asSecret` user meta does not exist, causing `get_user_meta()` to return an empty string. An attacker can send an empty `secret` parameter, which passes the comparison (`'' != ''` is `false`), and the endpoint then calls `wp_set_auth_cookie()` for the target user. Additionally, all REST routes use `permission_callback => '__return_true'` with no capability checks. This makes it possible for authenticated attackers, with Subscriber-level access and above, to switch to any user account including Administrator, ultimately granting themselves full administrative privileges.",
+      "first_seen": "2026-05-21T04:42:22.340527+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340527+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/account-switcher/tags/1.0.2/app/PluginHero/BaseAPI.php#L54",
+        "https://plugins.trac.wordpress.org/browser/account-switcher/tags/1.0.2/app/RestAPI.php#L111",
+        "https://wordpress.org/plugins/account-switcher/",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/9e9cfb9b-6951-4246-9cd6-dd64fee3a1bc?source=cve"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-6456"
+    },
+    {
+      "canonical_id": "CVE-2026-6549",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "The Logo Manager For Enamad plugin for WordPress is vulnerable to Stored Cross-Site Scripting via the 'title' attribute of the `vc_enamad_namad`, `vc_enamad_shamed`, and `vc_enamad_custom` shortcodes in all versions up to, and including, 0.7.4 due to insufficient input sanitization and output escaping on user supplied attributes. This makes it possible for authenticated attackers, with contributor-level access and above, to inject arbitrary web scripts in pages that will execute whenever a user accesses an injected page.",
+      "first_seen": "2026-05-21T04:42:22.340537+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340537+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/logo-manager-for-enamad/tags/0.7.4/widgets.php#L295",
+        "https://plugins.trac.wordpress.org/browser/logo-manager-for-enamad/trunk/widgets.php#L295",
+        "https://wordpress.org/plugins/logo-manager-for-enamad",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/ed6d1167-c89d-4c97-9446-b968df945e6c?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6549"
+    },
+    {
+      "canonical_id": "CVE-2026-6555",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-434"
+      ],
+      "description": "The ProSolution WP Client plugin for WordPress is vulnerable to Arbitrary File Upload in versions up to, and including, 2.0.0. This is due to an array validation mismatch where only the first file in the upload array undergoes extension and MIME type validation, while all files are processed and uploaded to a web-accessible directory. This makes it possible for unauthenticated attackers to upload malicious PHP files and achieve remote code execution by sending a valid first file followed by a malicious file.",
+      "first_seen": "2026-05-21T04:42:22.340548+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340548+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/prosolution-wp-client/tags/2.0.0/includes/UploadHandler.php#L1345",
+        "https://plugins.trac.wordpress.org/browser/prosolution-wp-client/tags/2.0.0/includes/UploadHandler.php#L384",
+        "https://plugins.trac.wordpress.org/browser/prosolution-wp-client/tags/2.0.0/public/class-prosolwpclient-public.php#L1072",
+        "https://plugins.trac.wordpress.org/browser/prosolution-wp-client/tags/2.0.0/public/class-prosolwpclient-public.php#L998",
+        "https://plugins.trac.wordpress.org/browser/prosolution-wp-client/trunk/includes/UploadHandler.php#L1345",
+        "https://plugins.trac.wordpress.org/browser/prosolution-wp-client/trunk/includes/UploadHandler.php#L384",
+        "https://plugins.trac.wordpress.org/browser/prosolution-wp-client/trunk/public/class-prosolwpclient-public.php#L1072",
+        "https://plugins.trac.wordpress.org/browser/prosolution-wp-client/trunk/public/class-prosolwpclient-public.php#L998",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/0b870d35-7e10-4fb5-8c3b-2bf299d1f3d5?source=cve"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-6555"
+    },
+    {
+      "canonical_id": "CVE-2026-6566",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "The Photo Gallery, Sliders, Proofing and Themes \u2013 NextGEN Gallery plugin for WordPress is vulnerable to Insecure Direct Object Reference in versions up to and including 4.2.0. This is due to insufficient object-level authorization in the image deletion REST flow where the permission callback for DELETE /imagely/v1/images/{id} only checks 'NextGEN Manage gallery' permissions and does not enforce gallery ownership or 'NextGEN Manage others gallery' permissions. This makes it possible for authenticated attackers, with Subscriber-level privileges and 'NextGEN Manage gallery' capability, to delete gallery images belonging to other users as well as their associated image files from disk when deleteImg is enabled (default).",
+      "first_seen": "2026-05-21T04:42:22.341375+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341375+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/changeset/3533432/nextgen-gallery",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/439809ad-21ea-4a0b-b1fd-5de9f8f5ee7a?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-6566"
+    },
+    {
+      "canonical_id": "CVE-2026-7472",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "The Read More & Accordion plugin for WordPress is vulnerable to time-based blind SQL Injection via the 'orderby' parameter in all versions up to, and including, 3.5.7. This is due to the use of esc_sql() without surrounding the value in quotes in an ORDER BY clause inside the getAllDataByLimit() and getAccordionAllDataByLimit() functions in ReadMoreData.php. The user-supplied $_GET['orderby'] value is only processed through esc_attr() (an HTML-escaping function) before being passed to these database functions, where esc_sql() is applied but the value is directly concatenated\u2014unquoted\u2014into the ORDER BY fragment of the SQL query before $wpdb->prepare() is called. Because esc_sql() only escapes quote characters and backslashes (which are irrelevant in an unquoted ORDER BY context), an attacker can inject arbitrary SQL expressions such as (SELECT SLEEP(5)) or conditional subqueries to perform time-based blind data extraction. This makes it possible for authenticated attackers with administrator-level access or above (or any role explicitly permitted access to the plugin's admin pages via the yrm-user-roles setting) to extract sensitive data from the database, including administrator credential hashes.",
+      "first_seen": "2026-05-21T04:42:22.340670+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340670+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/expand-maker/tags/3.5.7/classes/ReadMoreData.php#L1522",
+        "https://plugins.trac.wordpress.org/browser/expand-maker/tags/3.5.7/classes/ReadMoreData.php#L1537",
+        "https://plugins.trac.wordpress.org/browser/expand-maker/tags/3.5.7/views/accordionBuilder/list.php#L29",
+        "https://plugins.trac.wordpress.org/browser/expand-maker/tags/3.5.7/views/readMorePagesView.php#L29",
+        "https://plugins.trac.wordpress.org/browser/expand-maker/trunk/classes/ReadMoreData.php#L1522",
+        "https://plugins.trac.wordpress.org/browser/expand-maker/trunk/classes/ReadMoreData.php#L1537",
+        "https://plugins.trac.wordpress.org/browser/expand-maker/trunk/views/accordionBuilder/list.php#L29",
+        "https://plugins.trac.wordpress.org/browser/expand-maker/trunk/views/readMorePagesView.php#L29",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/cc7c7e21-fbd7-4451-bc7d-3d11db01a443?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-7472"
+    },
+    {
+      "canonical_id": "CVE-2026-7522",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-98"
+      ],
+      "description": "The Advanced Database Cleaner \u2013 Premium plugin for WordPress is vulnerable to Local File Inclusion in versions up to, and including, 4.1.0 via the 'template' parameter. This makes it possible for authenticated attackers, with Subscriber-level access and above, to include and execute arbitrary .php files on the server, allowing the execution of any PHP code in those files. This can be used to bypass access controls, obtain sensitive data, or achieve code execution in cases where .php file types can be uploaded and included.",
+      "first_seen": "2026-05-21T04:42:22.341220+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341220+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://docs.sigmaplugin.com/article/97-advanced-database-cleaner-chaneglog",
+        "https://sigmaplugin.com/downloads/wordpress-advanced-database-cleaner/",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/77e4e516-8a12-48ee-9124-27f941b68b13?source=cve"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-7522"
+    },
+    {
+      "canonical_id": "CVE-2026-7637",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "The Boost plugin for WordPress is vulnerable to PHP Object Injection in versions up to, and including, 2.0.3 via deserialization of untrusted input in the STYXKEY-BOOST_USER_LOCATION cookie. This makes it possible for unauthenticated attackers to inject a PHP Object. No known POP chain is present in the vulnerable software, which means this vulnerability has no impact unless another plugin or theme containing a POP chain is installed on the site. If a POP chain is present via an additional plugin or theme installed on the target system, it may allow the attacker to perform actions like delete arbitrary files, retrieve sensitive data, or execute code depending on the POP chain present.",
+      "first_seen": "2026-05-21T04:42:22.341141+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341141+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.pixelyoursite.com/boost-plugin",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/e391f560-2037-4180-a77e-1731524a318c?source=cve"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-7637"
+    },
+    {
+      "canonical_id": "CVE-2026-8342",
+      "composite_confidence": 0.9,
+      "cwe": [],
+      "description": "Rejected reason: ** REJECT ** DO NOT USE THIS CANDIDATE NUMBER. Reason: This candidate was issued in error. Notes: All references and descriptions in this candidate have been removed to prevent accidental usage.",
+      "first_seen": "2026-05-21T04:42:22.342876+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342876+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8342"
+    },
+    {
+      "canonical_id": "CVE-2026-8424",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-352"
+      ],
+      "description": "The Remove Yellow BGBOX plugin for WordPress is vulnerable to Cross-Site Request Forgery in all versions up to, and including, 1.0. This is due to missing or incorrect nonce validation on the 'rybb_api_settings' page. This makes it possible for unauthenticated attackers to reset the plugin's stored settings by overwriting its configuration via a forged request granted they can trick a site administrator into performing an action such as clicking on a link.",
+      "first_seen": "2026-05-21T04:42:22.340817+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340817+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/remove-yellow-bgbox/tags/1.0/admin/rybb_api_settings.php#L5",
+        "https://plugins.trac.wordpress.org/browser/remove-yellow-bgbox/tags/1.0/includes/functions.php#L16",
+        "https://plugins.trac.wordpress.org/browser/remove-yellow-bgbox/trunk/admin/rybb_api_settings.php#L5",
+        "https://plugins.trac.wordpress.org/browser/remove-yellow-bgbox/trunk/includes/functions.php#L16",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/c5b30d27-a3f8-4535-a47f-675c939ec648?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8424"
+    },
+    {
+      "canonical_id": "CVE-2026-8467",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "Code Injection vulnerability in phenixdigital phoenix_storybook allows unauthenticated remote code execution via unsanitized attribute value interpolation in HEEx template generation.\n\nThe psb-assign WebSocket event handler in 'Elixir.PhoenixStorybook.Story.PlaygroundPreviewLive':handle_event/3 accepts arbitrary attribute names and values from unauthenticated clients. These values are passed to 'Elixir.PhoenixStorybook.Helpers.ExtraAssignsHelpers':handle_set_variation_assign/3, which stores them verbatim. When rendering, 'Elixir.PhoenixStorybook.Rendering.ComponentRenderer':attributes_markup/1 interpolates binary attribute values directly into a HEEx template string as name=\"<val>\" without escaping double quotes or HEEx expression delimiters. An attacker can supply a value containing a closing quote followed by a HEEx expression block (e.g. foo\" injected={EXPR} bar=\"), which causes EXPR to be treated as an inline Elixir expression. The resulting template is compiled via EEx.compile_string/2 and executed via Code.eval_quoted_with_env/3 with full Kernel imports and no sandbox, giving the attacker arbitrary code execution on the server.\n\nThis issue affects phoenix_storybook from 0.5.0 before 1.1.0.",
+      "first_seen": "2026-05-21T04:42:22.342542+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342542+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://cna.erlef.org/cves/CVE-2026-8467.html",
+        "https://github.com/phenixdigital/phoenix_storybook/commit/56ab8464d4375fa52db806148a06cce126ad481d",
+        "https://github.com/phenixdigital/phoenix_storybook/security/advisories/GHSA-55hg-8qxv-qj4p",
+        "https://osv.dev/vulnerability/EEF-CVE-2026-8467"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8467"
+    },
+    {
+      "canonical_id": "CVE-2026-8469",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "Allocation of Resources Without Limits or Throttling vulnerability in phenixdigital phoenix_storybook allows unauthenticated denial-of-service via BEAM atom table exhaustion.\n\nMultiple LiveView event handlers convert user-supplied event parameter strings to atoms using String.to_atom/1 without validation: 'Elixir.PhoenixStorybook.ExtraAssignsHelpers':handle_set_variation_assign/3 interns every key of the psb-assign params map; 'Elixir.PhoenixStorybook.ExtraAssignsHelpers':handle_toggle_variation_assign/3 interns the \"attr\" value from psb-toggle events; 'Elixir.PhoenixStorybook.ExtraAssignsHelpers':to_variation_id/2 interns elements of \"variation_id\"; and 'Elixir.PhoenixStorybook.ExtraAssignsHelpers':to_value/4 interns raw string values for attributes declared as :atom or :boolean. BEAM atoms are never garbage-collected, so each unique attacker-controlled string is a permanent allocation. Once the atom table ceiling (~1,048,576 atoms) is reached, the entire BEAM node aborts, taking down all applications running on it.\n\nThis issue affects phoenix_storybook from 0.2.0 before 1.1.0.",
+      "first_seen": "2026-05-21T04:42:22.342551+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342551+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://cna.erlef.org/cves/CVE-2026-8469.html",
+        "https://github.com/phenixdigital/phoenix_storybook/commit/96d524690af0fe197a49f60d18e564a620b9ef81",
+        "https://github.com/phenixdigital/phoenix_storybook/security/advisories/GHSA-833p-95jq-929q",
+        "https://osv.dev/vulnerability/EEF-CVE-2026-8469"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8469"
+    },
+    {
+      "canonical_id": "CVE-2026-8485",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-789"
+      ],
+      "description": "Uncontrolled Memory Allocation vulnerability in Progress Software MOVEit Automation allows Excessive Allocation.\n\nThis issue affects MOVEit Automation: before 2025.0.11, from 2025.1.0 before 2025.1.7.",
+      "first_seen": "2026-05-21T04:42:22.342561+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342561+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://docs.progress.com/bundle/moveit-automation-release-notes-2026/page/Fixed-Issues-2026.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8485"
+    },
+    {
+      "canonical_id": "CVE-2026-8486",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "Allocation of resources without limits or throttling vulnerability in Progress Software MOVEit Automation allows Flooding.\n\nThis issue affects MOVEit Automation: before 2025.0.11, from 2025.1.0 before 2025.1.7.",
+      "first_seen": "2026-05-21T04:42:22.342636+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342636+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://docs.progress.com/bundle/moveit-automation-release-notes-2026/page/Fixed-Issues-2026.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8486"
+    },
+    {
+      "canonical_id": "CVE-2026-8487",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-276"
+      ],
+      "description": "Incorrect default permissions vulnerability in Progress Software MOVEit Automation allows Retrieve Embedded Sensitive Data.\n\nThis issue affects MOVEit Automation: before 2025.0.11, from 2025.1.0 before 2025.1.7.",
+      "first_seen": "2026-05-21T04:42:22.342642+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342642+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://docs.progress.com/bundle/moveit-automation-release-notes-2026/page/Fixed-Issues-2026.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8487"
+    },
+    {
+      "canonical_id": "CVE-2026-8488",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "Allocation of resources without limits or throttling vulnerability in Progress Software MOVEit Automation allows Excessive Allocation.\n\nThis issue affects MOVEit Automation: before 2025.0.11, from 2025.1.0 before 2025.1.7.",
+      "first_seen": "2026-05-21T04:42:22.342648+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342648+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://docs.progress.com/bundle/moveit-automation-release-notes-2026/page/Fixed-Issues-2026.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8488"
+    },
+    {
+      "canonical_id": "CVE-2026-8610",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-862"
+      ],
+      "description": "The TypeSquare Webfonts for ConoHa plugin for WordPress is vulnerable to authorization bypass in all versions up to, and including, 2.0.4. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for authenticated attackers, with subscriber-level access and above, to modify the plugin's site-wide font settings, including the typesquare_auth option (fontThemeUseType), show_post_form, and typesquare_fonttheme, by submitting a POST request to any wp-admin page. For fontThemeUseType values 1 and 3, no nonce verification is performed either, meaning those branches are additionally exploitable via cross-site request forgery.",
+      "first_seen": "2026-05-21T04:42:22.340853+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340853+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/ts-webfonts-for-conoha/tags/2.0.4/inc/class/class.auth.php#L51",
+        "https://plugins.trac.wordpress.org/browser/ts-webfonts-for-conoha/tags/2.0.4/typesquare-admin.php#L25",
+        "https://plugins.trac.wordpress.org/browser/ts-webfonts-for-conoha/tags/2.0.4/typesquare-admin.php#L93",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/88002a25-6890-4f8b-8a11-239b59d56672?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8610"
+    },
+    {
+      "canonical_id": "CVE-2026-8624",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "The LJ comments import: reloaded plugin for WordPress is vulnerable to Reflected Cross-Site Scripting via PHP_SELF Parameter in all versions up to, and including, 0.97.1 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that execute if they can successfully trick a user into performing an action such as clicking on a link. The vulnerability arises specifically because PHP_SELF includes attacker-controllable PATH_INFO appended to the script name, and there are two distinct unsanitized echo points for this value in the same function.",
+      "first_seen": "2026-05-21T04:42:22.340866+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340866+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/lj-comments-import-reloaded/trunk/lj_comments_import.php#L129",
+        "https://plugins.trac.wordpress.org/browser/lj-comments-import-reloaded/trunk/lj_comments_import.php#L161",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/0f09cb59-dbbb-48a3-aeac-377f6ec87b88?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8624"
+    },
+    {
+      "canonical_id": "CVE-2026-8626",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "The SponsorMe plugin for WordPress is vulnerable to Reflected Cross-Site Scripting via PHP_SELF Parameter in all versions up to, and including, 0.5.2 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that execute if they can successfully trick a user into performing an action such as clicking on a link. The PHP_SELF value is reflected in two separate locations within the vulnerable function \u2014 a form action attribute and an anchor href attribute \u2014 both of which can be exploited by appending a crafted payload to the wp-admin/admin.php URL path.",
+      "first_seen": "2026-05-21T04:42:22.340883+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340883+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/sponsorme/trunk/sponsorme.php#L440",
+        "https://plugins.trac.wordpress.org/browser/sponsorme/trunk/sponsorme.php#L475",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/7df7f541-b8aa-46fa-bfca-b333beea27f9?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8626"
+    },
+    {
+      "canonical_id": "CVE-2026-8627",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "The Correct Prices plugin for WordPress is vulnerable to Reflected Cross-Site Scripting via the $_SERVER['PHP_SELF'] variable in versions up to and including 1.0. This is due to the correct_prices_page() function echoing $_SERVER['PHP_SELF'] into a form's action attribute without any input sanitization or output escaping (such as esc_url() or esc_attr()). Because PHP_SELF reflects attacker-controlled path-info appended to the script URL, an attacker can break out of the attribute and inject arbitrary markup. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that execute if they can successfully trick a user into performing an action such as clicking on a specially crafted link.",
+      "first_seen": "2026-05-21T04:42:22.340895+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340895+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/correct-prices/trunk/correct_prices.php#L134",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/605c6c53-6920-42ba-8784-b3a186bbf821?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8627"
+    },
+    {
+      "canonical_id": "CVE-2026-8685",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "The Infility Global plugin for WordPress is vulnerable to SQL Injection via the 'orderby' and 'order' parameters in all versions up to, and including, 2.15.16. This is due to insufficient escaping on user supplied parameters and lack of sufficient preparation on the existing SQL query within the show_control_data::post_list() function, which is registered as an admin menu page with only the 'read' capability. This makes it possible for authenticated attackers, with Subscriber-level access and above, to append additional SQL queries into already existing queries that can be used to extract sensitive information from the database.",
+      "first_seen": "2026-05-21T04:42:22.340923+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.340923+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://plugins.trac.wordpress.org/browser/infility-global/trunk/widgets/show-control-data/show-control-data.php#L34",
+        "https://plugins.trac.wordpress.org/browser/infility-global/trunk/widgets/show-control-data/show-control-data.php#L74",
+        "https://plugins.trac.wordpress.org/browser/infility-global/trunk/widgets/show-control-data/show-control-data.php#L78",
+        "https://plugins.trac.wordpress.org/browser/infility-global/trunk/widgets/show-control-data/show-control-data.php#L84",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/1caeb5e0-9e4e-4c9e-a6e4-881fb81dc5f2?source=cve"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-8685"
+    },
+    {
+      "canonical_id": "CVE-2026-9003",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "E-LAN Hybrid Recording System developed by TONNET has a SQL Injection vulnerability, allowing unauthenticated remote attackers to inject arbitrary SQL commands to read database contents.",
+      "first_seen": "2026-05-21T04:42:22.341157+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341157+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.twcert.org.tw/en/cp-139-10912-21886-2.html",
+        "https://www.twcert.org.tw/tw/cp-132-10911-e6abb-1.html"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-9003"
+    },
+    {
+      "canonical_id": "CVE-2026-9010",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "The Boost plugin for WordPress is vulnerable to time-based SQL Injection via the 'current_url' and 'user_name' parameters in versions up to, and including, 2.0.3 due to insufficient escaping on the user supplied parameters and lack of sufficient preparation on the existing SQL queries. This makes it possible for unauthenticated attackers to append additional SQL queries into already existing queries that can be used to extract sensitive information from the database.",
+      "first_seen": "2026-05-21T04:42:22.341180+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341180+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.pixelyoursite.com/boost-plugin",
+        "https://www.wordfence.com/threat-intel/vulnerabilities/id/1cac2397-bb38-40d6-b90d-68e3ea136267?source=cve"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-9010"
+    },
+    {
+      "canonical_id": "CVE-2026-9059",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "NextGEN Gallery version prior to 4.2.1 are vulnerable to authenticated SQL injection via the 'orderby' parameter on the REST API endpoints '/imagely/v1/galleries' and '/imagely/v1/albums'.\n\n\n\nThe root cause is an insufficient sanitization function ('_clean_column()') in the data mapper layer that uses a character blacklist instead of a whitelist approach. This allows an authenticated attacker with the 'NextGEN Gallery overview' capability (assigned to the Administrator role by default) to inject arbitrary SQL into the 'ORDER BY' clause.",
+      "first_seen": "2026-05-21T04:42:22.341482+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341482+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.tenable.com/security/research/tra-2026-42"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9059"
+    },
+    {
+      "canonical_id": "CVE-2026-9064",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-770"
+      ],
+      "description": "A flaw was found in 389-ds-base. The get_ldapmessage_controls_ext() function in the LDAP server does not enforce an upper bound on the number of controls per LDAP message. A remote, unauthenticated attacker can send a specially crafted LDAP request containing hundreds of thousands of minimal controls within the default maximum BER message size (2 MB), causing excessive CPU consumption and heap allocation on the server. Under concurrent exploitation, this leads to significant latency degradation, worker thread starvation, or out-of-memory termination, resulting in a denial of service.",
+      "first_seen": "2026-05-21T04:42:22.342013+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342013+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://access.redhat.com/security/cve/CVE-2026-9064",
+        "https://bugzilla.redhat.com/show_bug.cgi?id=2480093"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-9064"
+    },
+    {
+      "canonical_id": "CVE-2026-9065",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "SureCart version prior to 4.2.1 are vulnerable to authenticated SQL injection via multiple parameters ('model_name', 'model_id', 'integration_id', 'provider') on the REST API endpoint '/surecart/v1/integrations/{id}'.\n\nThe root cause is a flawed escaping bypass in the query builder ('wp-query-builder'). Values passed to the 'where()' method are only sanitized via '$wpdb->prepare()' when they do **not** contain a dot ('.') or the WordPress table prefix ('wp_'). By including a dot anywhere in the payload, an attacker completely bypasses the escaping logic and injects arbitrary SQL into the 'WHERE' clause, allowing full UNION-based extraction of the database.",
+      "first_seen": "2026-05-21T04:42:22.341510+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.341510+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.tenable.com/security/research/tra-2026-43"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9065"
+    },
+    {
+      "canonical_id": "CVE-2026-9082",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') vulnerability in Drupal Drupal core allows SQL Injection.\n\nThis issue affects Drupal core: from 8.9.0 before 10.4.10, from 10.5.0 before 10.5.10, from 10.6.0 before 10.6.9, from 11.0.0 before 11.1.10, from 11.2.0 before 11.2.12, from 11.3.0 before 11.3.10.",
+      "first_seen": "2026-05-21T04:42:22.343488+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343488+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.drupal.org/sa-core-2026-004"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9082"
+    },
+    {
+      "canonical_id": "CVE-2026-9084",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-287"
+      ],
+      "description": "MISP\u2019s OIDC authentication plugin allowed automatic linking of an OIDC identity to an existing local user account based on the email claim when the local account had no stored sub value. Under insecure or untrusted IdP configurations where email ownership is not enforced, an attacker with a valid OIDC token could assert a victim\u2019s email address and authenticate as that user, leading to account takeover.",
+      "first_seen": "2026-05-21T04:42:22.342675+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342675+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/MISP/MISP/commit/71f5662c1b5886613d2cd5c72fd93bb4ca6fa172"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9084"
+    },
+    {
+      "canonical_id": "CVE-2026-9100",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1285"
+      ],
+      "description": "The MongoDB C Driver's legacy GridFS API accepts malformed file metadata from the database without adequate validation. Crafted documents in a GridFS collection may cause any application that reads those files via the legacy API to either crash (via a division-by-zero) or silently leak process memory contents (via an out-of-bounds read).",
+      "first_seen": "2026-05-21T04:42:22.342907+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342907+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://jira.mongodb.org/browse/CDRIVER-6281"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9100"
+    },
+    {
+      "canonical_id": "CVE-2026-9101",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-1321"
+      ],
+      "description": "Prototype pollution in csv parsing logic during import can lead to untrusted file paths (but not arguments) entering shell.openExternal after specific user behavior leading to \"1-click\" command execution.",
+      "first_seen": "2026-05-21T04:42:22.342914+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.342914+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://jira.mongodb.org/browse/COMPASS-10657"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9101"
+    },
+    {
+      "canonical_id": "CVE-2026-9115",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-693"
+      ],
+      "description": "Insufficient policy enforcement in Service Worker in Google Chrome on prior to 148.0.7778.179 allowed a remote attacker to bypass same origin policy via a crafted HTML page. (Chromium security severity: High)",
+      "first_seen": "2026-05-21T04:42:22.343601+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343601+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://chromereleases.googleblog.com/2026/05/stable-channel-update-for-desktop_0841193308.html",
+        "https://issues.chromium.org/issues/495999481"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9115"
+    },
+    {
+      "canonical_id": "CVE-2026-9116",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-693"
+      ],
+      "description": "Insufficient policy enforcement in ServiceWorker in Google Chrome on prior to 148.0.7778.179 allowed a remote attacker to leak cross-origin data via a crafted HTML page. (Chromium security severity: High)",
+      "first_seen": "2026-05-21T04:42:22.343615+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343615+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://chromereleases.googleblog.com/2026/05/stable-channel-update-for-desktop_0841193308.html",
+        "https://issues.chromium.org/issues/497436273"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9116"
+    },
+    {
+      "canonical_id": "CVE-2026-9124",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-20"
+      ],
+      "description": "Insufficient validation of untrusted input in Input in Google Chrome on prior to 148.0.7778.179 allowed a remote attacker who had compromised the renderer process to leak cross-origin data via a crafted HTML page. (Chromium security severity: Medium)",
+      "first_seen": "2026-05-21T04:42:22.343705+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343705+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://chromereleases.googleblog.com/2026/05/stable-channel-update-for-desktop_0841193308.html",
+        "https://issues.chromium.org/issues/496375695"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9124"
+    },
+    {
+      "canonical_id": "CVE-2026-9133",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-489"
+      ],
+      "description": "Active debug code exists in the ARN resolver of amazon-mq rabbitmq-aws before version 0.2.1. A debug ARN scheme (arn:aws-debug:file) accepted by the PUT /api/aws/arn/validate validation endpoint might allow remote authenticated users to perform arbitrary file reads on any file accessible to the RabbitMQ process. \n\n\n\nTo remediate this issue, customers should upgrade to version 0.2.1 of rabbitmq-aws. If RabbitMQ is configured to use TLS for connections, we also recommend rotating any associated private certificate keys.",
+      "first_seen": "2026-05-21T04:42:22.343795+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343795+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://aws.amazon.com/security/security-bulletins/2026-034-aws/",
+        "https://github.com/amazon-mq/rabbitmq-aws/releases/tag/0.2.1",
+        "https://github.com/amazon-mq/rabbitmq-aws/security/advisories/GHSA-8554-wg4r-7hxm"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-9133"
+    },
+    {
+      "canonical_id": "CVE-2026-9136",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-639"
+      ],
+      "description": "A vulnerability was identified in the ShadowAttribute proposal creation workflow. The add action accepted user-controlled ShadowAttribute request data without removing the id field before saving the record. Because the underlying framework treats a supplied primary key as an instruction to update an existing record, an authenticated user able to submit shadow attribute proposals could provide the identifier of an existing ShadowAttribute and cause that record to be updated instead of creating a new proposal.\n\n\n\n\nThis can result in unauthorized modification of existing shadow attributes, potentially affecting proposals associated with events the user should not be able to alter. Depending on deployment configuration and accessible API responses, the issue may also expose or move proposal data across event contexts.\n\n\n\n\nThe vulnerability is caused by trusting a client-supplied primary key during object creation. The fix removes the id field from incoming ShadowAttribute data before processing, ensuring that the endpoint always creates a new proposal rather than updating an existing one. This has been fixed in MISP 2.5.38.",
+      "first_seen": "2026-05-21T04:42:22.343811+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343811+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/MISP/MISP/commit/49911b1d4b6e4517d803e50e3d980aaa4d37c16d"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9136"
+    },
+    {
+      "canonical_id": "CVE-2026-9137",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-400"
+      ],
+      "description": "The CSP report endpoint intended to limit logged CSP reports to 1 KB but incorrectly allowed reports up to 1 MB before truncation. On deployments where the endpoint is reachable by untrusted clients, this could allow attackers to generate excessive log volume and contribute to resource exhaustion or log flooding.",
+      "first_seen": "2026-05-21T04:42:22.343820+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343820+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/MISP/MISP/commit/02932cccab230b295afcaf5aa05e363d30db0ec9"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9137"
+    },
+    {
+      "canonical_id": "CVE-2026-9139",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-798"
+      ],
+      "description": "Taiko AG1000-01A SMS Alert Gateway Rev 7.3 and Rev 8 contains a hard-coded credential vulnerability in the embedded web configuration interface where authentication is implemented entirely in client-side JavaScript in login.zhtml, exposing static plaintext credentials in the page source. Unauthenticated attackers with network access can recover administrative credentials directly from the client-side validate() function to obtain full administrative access to the device.",
+      "first_seen": "2026-05-21T04:42:22.343825+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343825+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://medium.com/@forgetmen0t/multiple-vulnerabilities-in-taiko-ag1000-01a-sms-alert-gateway-82095b1d633e",
+        "https://www.vulncheck.com/advisories/taiko-ag1000-01a-rev-8-hard-coded-credentials-via-login-zhtml"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-9139"
+    },
+    {
+      "canonical_id": "CVE-2026-9141",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-306"
+      ],
+      "description": "Taiko AG1000-01A SMS Alert Gateway Rev 7.3 and Rev 8 contains an authentication bypass vulnerability in the embedded web configuration interface that allows unauthenticated attackers to access internal application pages without any session management or server-side authentication checks. Attackers with network access can directly request internal resources such as index.zhtml, point.zhtml, and log.shtml to gain full administrative read and write access, enabling unauthorized modification of alarm routing, device configuration, and disruption of monitoring and control functions.",
+      "first_seen": "2026-05-21T04:42:22.343862+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343862+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://medium.com/@forgetmen0t/multiple-vulnerabilities-in-taiko-ag1000-01a-sms-alert-gateway-82095b1d633e",
+        "https://www.vulncheck.com/advisories/taiko-ag1000-01a-rev-8-authentication-bypass-via-web-interface"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "CVE-2026-9141"
+    },
+    {
+      "canonical_id": "CVE-2026-9144",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-79"
+      ],
+      "description": "Taiko AG1000-01A SMS Alert Gateway Rev 7.3 and Rev 8 contains a stored cross-site scripting vulnerability in the embedded web configuration interface that allows authenticated attackers to execute persistent JavaScript by fragmenting malicious payloads across multiple administrative form fields. Attackers can bypass front-end length restrictions using JavaScript comments and template literals to concatenate executable script fragments that are rendered in administrative dashboard views such as index.zhtml, resulting in persistent script execution within administrative sessions.",
+      "first_seen": "2026-05-21T04:42:22.343867+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T04:42:22.343867+00:00",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [
+        "https://medium.com/@forgetmen0t/multiple-vulnerabilities-in-taiko-ag1000-01a-sms-alert-gateway-82095b1d633e",
+        "https://www.vulncheck.com/advisories/taiko-ag1000-01a-rev-8-stored-xss-via-web-configuration-interface"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2026-9144"
+    }
+  ],
+  "correlated_at": "2026-05-21T04:42:40.909768+00:00"
 }
