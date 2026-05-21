@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-21T16:22:17.080762+00:00",
-  "last_successful_fetch": "2026-05-21T16:22:22.057881+00:00",
+  "last_run": "2026-05-21T19:07:38.242675+00:00",
+  "last_successful_fetch": "2026-05-21T19:07:43.070578+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -667,7 +667,13 @@
     "github:Hasler777/cvetomir-landing",
     "github:NullByte8080/CVE-2026-36229",
     "github:JoaoLRS/cve",
-    "github:GiovanniGatti/cve-bench"
+    "github:GiovanniGatti/cve-bench",
+    "github:killua156/cforge-cve-tracker",
+    "github:hacbs-release-tests/collectors-no-cve-e8073b16",
+    "github:oseasfr/Scanner_CVE_SSH",
+    "github:skraft9/cve-credits",
+    "github:hjh950831-hash/CVE-PORTAL",
+    "github:mprpic/cvelint"
   ],
   "source_id": "github_trending",
   "stats": {

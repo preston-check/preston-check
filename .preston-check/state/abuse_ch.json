@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-21T16:22:22.668690+00:00",
-  "last_successful_fetch": "2026-05-21T16:22:22.669314+00:00",
+  "last_run": "2026-05-21T19:07:43.454992+00:00",
+  "last_successful_fetch": "2026-05-21T19:07:43.456043+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4912,7 +4912,21 @@
     "threatfox:192.3.243.155:7000",
     "threatfox:labshift-winmail-get.christmas",
     "threatfox:bjzrz6je.packet-cascade.digital",
-    "threatfox:w3ruma49.packet-cascade.digital"
+    "threatfox:w3ruma49.packet-cascade.digital",
+    "threatfox:microservice-hub.christmas",
+    "threatfox:telemetry-grid.christmas",
+    "threatfox:0frduisp.cloud-meridian.digital",
+    "threatfox:r1iugua4.cloud-meridian.digital",
+    "threatfox:stack-flow.christmas",
+    "threatfox:signal-core-engine.christmas",
+    "threatfox:runtime-control.christmas",
+    "threatfox:x3o11wkp.signal-bridge.digital",
+    "threatfox:khxta65a.signal-bridge.digital",
+    "threatfox:signal-bridge.digital",
+    "threatfox:https://thu.fbvendas.com/",
+    "threatfox:thu.fbvendas.com",
+    "threatfox:thu.adasm188.top",
+    "threatfox:https://thu.adasm188.top/"
   ],
   "source_id": "abuse_ch",
   "stats": {
