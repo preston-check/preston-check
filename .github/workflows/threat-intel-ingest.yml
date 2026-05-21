@@ -43,6 +43,9 @@ jobs:
       INPUT_SOURCE: ${{ github.event.inputs.source }}
       EVENT_SCHEDULE: ${{ github.event.schedule }}
       EVENT_NAME: ${{ github.event_name }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      NEWSLETTER_AWS_KEY_ID: ${{ secrets.NEWSLETTER_AWS_KEY_ID }}
+      NEWSLETTER_AWS_SECRET: ${{ secrets.NEWSLETTER_AWS_SECRET }}
     steps:
       - uses: actions/checkout@v4
 
@@ -51,7 +54,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: pip install bashlex pyyaml cryptography requests
+        run: pip install bashlex pyyaml cryptography requests boto3
 
       - name: Decide which sources to run
         id: decide
@@ -68,7 +71,7 @@ jobs:
               '*/15 * * * *') echo "sources=kev" >> "$GITHUB_OUTPUT" ;;
               '7 * * * *') echo "sources=ghsa,github_trending,abuse_ch,reddit,mastodon" >> "$GITHUB_OUTPUT" ;;
               '11 */2 * * *') echo "sources=mailing_list" >> "$GITHUB_OUTPUT" ;;
-              '17 */6 * * *') echo "sources=nvd,osv,conference_zdi" >> "$GITHUB_OUTPUT" ;;
+              '17 */6 * * *') echo "sources=nvd,osv,conference_zdi,newsletter" >> "$GITHUB_OUTPUT" ;;
               *) echo "sources=kev" >> "$GITHUB_OUTPUT" ;;
             esac
           fi

@@ -715,6 +715,210 @@ def _conference_zdi_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
     return records, state
 
 
+_NEWSLETTER_EXTRACT_PROMPT = """You are a security analyst extracting actionable threat intelligence from a newsletter or report.
+
+Identify security vulnerabilities, fraud patterns, or attack techniques that could be DETECTED THROUGH STATIC CODE ANALYSIS of a fintech or payments application. For each finding output a JSON record. Only include findings that have a clear code manifestation (e.g. a missing check, an unsafe API call, a dangerous pattern). Skip general business trends, statistics, executive commentary, and anything that cannot be detected by grep or AST analysis.
+
+Output ONLY this JSON — no prose, no markdown fences:
+{
+  "candidates": [
+    {
+      "title": "short descriptive name under 80 chars",
+      "description": "what the vulnerability or fraud pattern is and how it appears in application code (2-4 sentences)",
+      "severity": "critical|high|medium|low",
+      "cwe": ["CWE-XX"],
+      "languages": ["python", "java", "javascript"],
+      "frameworks": ["stripe", "express", "spring", "django"]
+    }
+  ]
+}
+
+If no actionable code findings exist, return {"candidates": []}.
+
+Newsletter content:
+"""
+
+
+def _strip_html(text: str) -> str:
+    text = re.sub(r"<style[^>]*>.*?</style>", " ", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"<script[^>]*>.*?</script>", " ", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = html.unescape(text)
+    return re.sub(r"\s{3,}", "\n\n", text).strip()
+
+
+def _parse_email_text(raw_bytes: bytes) -> str:
+    import email as _email
+    import email.policy as _policy
+
+    msg = _email.message_from_bytes(raw_bytes, policy=_policy.default)
+    parts: list[str] = []
+    if msg.is_multipart():
+        for part in msg.walk():
+            ct = part.get_content_type()
+            if ct == "text/plain":
+                try:
+                    parts.append(part.get_content())
+                except Exception:
+                    pass
+            elif ct == "text/html" and not parts:
+                try:
+                    parts.append(_strip_html(part.get_content()))
+                except Exception:
+                    pass
+    else:
+        ct = msg.get_content_type()
+        try:
+            body = msg.get_content()
+            parts.append(body if ct == "text/plain" else _strip_html(body))
+        except Exception:
+            pass
+    return "\n\n".join(p for p in parts if p.strip())[:8000]
+
+
+def _newsletter_llm_extract(text: str, api_key: str, source_hint: str) -> list[dict]:
+    import json as _json
+    import urllib.error as _ue
+    import urllib.request as _ur
+
+    body = _json.dumps({
+        "model": "claude-haiku-4-5-20251001",
+        "max_tokens": 2048,
+        "system": _NEWSLETTER_EXTRACT_PROMPT,
+        "messages": [{"role": "user", "content": f"Source: {source_hint}\n\n{text}"}],
+    }).encode("utf-8")
+    req = _ur.Request(
+        "https://api.anthropic.com/v1/messages",
+        data=body,
+        headers={
+            "x-api-key": api_key,
+            "anthropic-version": "2023-06-01",
+            "Content-Type": "application/json",
+        },
+    )
+    try:
+        with _ur.urlopen(req, timeout=60) as resp:
+            data = _json.loads(resp.read())
+    except (_ue.URLError, _ue.HTTPError, TimeoutError) as exc:
+        print(f"[newsletter] LLM extract failed: {exc}", file=sys.stderr)
+        return []
+    raw = "\n".join(
+        b.get("text", "") for b in data.get("content", []) if b.get("type") == "text"
+    ).strip()
+    raw = re.sub(r"^```json\s*", "", raw)
+    raw = re.sub(r"\s*```$", "", raw)
+    try:
+        return _json.loads(raw).get("candidates", [])
+    except Exception:
+        return []
+
+
+def _newsletter_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
+    """Poll s3://preston-check-inbound-mail/newsletters/ for new emails,
+    parse each RFC 2822 message, and use the Anthropic API to extract
+    structured threat-intelligence candidates.
+
+    Required secrets / env vars:
+      NEWSLETTER_AWS_KEY_ID      — IAM access key with s3:ListObjectsV2 +
+      NEWSLETTER_AWS_SECRET         s3:GetObject on the newsletters/ prefix
+      ANTHROPIC_API_KEY          — already present in the ingest workflow
+
+    SES receipt rule setup (one-time operator action):
+      Add rule 'newsletters-to-s3' to rule set INBOUND_MAIL:
+        recipients: newsletters@preston-check.com
+        action: S3(Bucket=preston-check-inbound-mail, ObjectKeyPrefix=newsletters/)
+      Then subscribe desired newsletters to newsletters@preston-check.com.
+    """
+    import os as _os
+
+    aws_key = _os.environ.get("NEWSLETTER_AWS_KEY_ID", "")
+    aws_secret = _os.environ.get("NEWSLETTER_AWS_SECRET", "")
+    anthropic_key = _os.environ.get("ANTHROPIC_API_KEY", "")
+
+    new_state = {**state, "last_run": now_iso()}
+
+    if not aws_key or not aws_secret:
+        new_state["status"] = "skipped — NEWSLETTER_AWS_KEY_ID / NEWSLETTER_AWS_SECRET not configured"
+        return [], new_state
+
+    try:
+        import boto3 as _boto3
+    except ImportError:
+        print("[newsletter] boto3 not installed — skipping", file=sys.stderr)
+        return [], new_state
+
+    s3 = _boto3.client(
+        "s3",
+        aws_access_key_id=aws_key,
+        aws_secret_access_key=aws_secret,
+        region_name="us-east-1",
+    )
+
+    bucket = "preston-check-inbound-mail"
+    prefix = "newsletters/"
+
+    try:
+        paginator = s3.get_paginator("list_objects_v2")
+        pages = paginator.paginate(Bucket=bucket, Prefix=prefix)
+        objects = [obj for page in pages for obj in page.get("Contents", [])]
+    except Exception as exc:
+        print(f"[newsletter] S3 list failed: {exc}", file=sys.stderr)
+        return [], new_state
+
+    processed = set(state.get("processed_ids", []))
+    records: list[CandidateRecord] = []
+    new_processed = list(processed)
+
+    for obj in sorted(objects, key=lambda o: o.get("LastModified", ""), reverse=True)[:50]:
+        key = obj["Key"]
+        if key in processed or key == prefix:
+            continue
+        try:
+            raw = s3.get_object(Bucket=bucket, Key=key)["Body"].read()
+        except Exception as exc:
+            print(f"[newsletter] S3 get failed {key}: {exc}", file=sys.stderr)
+            new_processed.append(key)
+            continue
+
+        text = _parse_email_text(raw)
+        new_processed.append(key)
+
+        if not anthropic_key or len(text) < 150:
+            continue
+
+        sender = key.split("/")[-1]
+        candidates = _newsletter_llm_extract(text, anthropic_key, sender)
+
+        for idx, c in enumerate(candidates):
+            if not isinstance(c, dict) or not c.get("title"):
+                continue
+            nid = f"newsletter:{key}:{idx}"
+            rec: CandidateRecord = {
+                "source": "newsletter",
+                "source_id": nid,
+                "fetched_at": now_iso(),
+                "title": str(c.get("title", ""))[:80],
+                "description": str(c.get("description", ""))[:1500],
+                "severity": c.get("severity", "medium") if c.get("severity") in ("critical", "high", "medium", "low") else "medium",
+                "cwe": [x for x in c.get("cwe", []) if isinstance(x, str) and x.startswith("CWE-")],
+                "languages": [x for x in c.get("languages", []) if isinstance(x, str)],
+                "frameworks": [x for x in c.get("frameworks", []) if isinstance(x, str)],
+                "references": [],
+                "raw": {"s3_key": key},
+                "confidence": 0.60,
+                "proactive": True,
+            }
+            records.append(rec)
+
+    new_state["processed_ids"] = new_processed[-5000:]
+    new_state["last_successful_fetch"] = now_iso()
+    new_state["stats"] = {
+        "total_fetched": state.get("stats", {}).get("total_fetched", 0) + len(objects),
+        "total_relevant": state.get("stats", {}).get("total_relevant", 0) + len(records),
+    }
+    return records, new_state
+
+
 def _partner_feed_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
     """Stub for tier-3 commercial partner feed (Flashpoint, Recorded
     Future, Intel 471, KELA, Cybersixgill, AlienVault OTX, etc.).
@@ -799,6 +1003,13 @@ SOURCES: dict[str, dict[str, Any]] = {
         "budget_usd_daily": 5.0,
         "proactive": True,
         "description": "Zero Day Initiative published advisories",
+    },
+    "newsletter": {
+        "fetch": _newsletter_fetch,
+        "poll_seconds": 21600,
+        "budget_usd_daily": 2.0,
+        "proactive": True,
+        "description": "Threat/fraud newsletters via email (s3://preston-check-inbound-mail/newsletters/)",
     },
     "partner_feed": {
         "fetch": _partner_feed_fetch,
