@@ -290,3 +290,63 @@ https://www.mandiant.com/resources/blog/rss.xml mandiant_apt
 https://www.fireeye.com/blog/threat-research/rss.xml fireeye_threat
 https://www.crowdstrike.com/blog/category/threat-intel/feed/ crowdstrike_intel
 https://media.kasperskycontenthub.com/wp-content/uploads/sites/58/wppb/securelist/feed securelist_apt
+
+# --- India ---
+https://www.cert-in.org.in/RSS/RSS.jsp cert_in
+https://www.dsci.in/rss.xml dsci_india
+https://blogs.quickheal.com/feed/ quickheal_labs
+https://labs.k7computing.com/index.php/feed/ k7_labs
+https://www.seqrite.com/blog/feed/ seqrite
+https://cyberpeacefoundation.org/feed/ cyberpeace_in
+https://www.cdac.in/index.aspx?id=cs_rss cdac_in
+https://ciso.economictimes.indiatimes.com/rss/articlelist/57291103.cms et_ciso
+
+# --- China (English-language research) ---
+https://ti.360.net/blog/articles/rss.xml 360_ti
+https://www.sangfor.com/en/news/rss sangfor_en
+https://research.panorays.com/feed/ panorays
+https://threatbook.io/blog/rss.xml threatbook
+https://www.nsfocus.com/en/resources/blog/rss nsfocus_en
+
+# --- Germany ---
+https://www.heise.de/security/news/news-atom.xml heise_security
+https://www.gdatasoftware.com/blog/rss gdata
+https://www.bsi.bund.de/SiteGlobals/Functions/RSSFeed/RSSNewsfeed_EN_Cybersicherheitsempfehlungen.xml bsi_advisories
+https://www.security-insider.de/rss/alle-artikel.rss security_insider_de
+https://www.it-daily.net/feed it_daily_de
+https://blog.compass-security.com/feed/ compass_security
+https://www.telekom.com/en/media/news/rss telekom_security
+
+# --- Turkey ---
+https://www.usom.gov.tr/rss.xml usom_tr
+https://www.btk.gov.tr/feed/ btk_tr
+https://blog.bga.com.tr/feed/ bga_security
+https://www.prodaft.com/blog/feed/ prodaft
+https://adeo.com.tr/en/blog/feed/ adeo_tr
+
+# --- Israel ---
+https://www.clearskysec.com/feed/ clearsky
+https://intezer.com/blog/feed/ intezer
+https://www.sygnia.co/blog/rss/ sygnia
+https://blog.radware.com/feed/ radware
+https://www.imperva.com/blog/feed/ imperva
+https://www.deepinstinct.com/blog/rss.xml deep_instinct
+https://www.cymulate.com/blog/rss.xml cymulate
+https://perception-point.io/blog/rss/ perception_point
+
+# --- Additional high-signal global sources ---
+https://grahamcluley.com/feed/ graham_cluley
+https://feeds.feedburner.com/TroyHunt troy_hunt
+https://duo.com/blog/rss.xml duo_security
+https://www.f5.com/labs/articles/rss f5_labs
+https://blog.barracuda.com/feed/ barracuda
+https://www.trendmicro.com/en_us/research/rss.xml trendmicro
+https://www.gdatasoftware.com/blog/rss gdata_research
+https://www.paloaltonetworks.com/blog/rss/ paloalto_general
+https://www.sans.org/blog/feed/ sans_blog
+https://isc.sans.edu/podcast.xml sans_isc_podcast
+https://www.blackhat.com/rss/briefings.xml blackhat_briefings
+https://www.mcafee.com/blogs/other-blogs/mcafee-labs/feed/ mcafee_labs
+https://www.broadcom.com/blog/feed symantec_broadcom
+https://decoded.avast.io/feed/ avast
+https://blog.google/threat-analysis-group/atom.xml google_tag_en

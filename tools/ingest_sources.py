@@ -490,26 +490,82 @@ def _abuse_ch_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
     return records, state
 
 
+def _reddit_get_token(client_id: str, client_secret: str) -> str | None:
+    """Exchange client credentials for a bearer token via Reddit OAuth.
+
+    Reddit blocks raw JSON API requests from cloud/AWS IPs since 2023.
+    The client_credentials grant bypasses this because it authenticates
+    the registered app rather than a user session — OAuth requests are
+    served from oauth.reddit.com which does not IP-block cloud ranges.
+
+    Register a 'script' type app at https://www.reddit.com/prefs/apps.
+    """
+    import base64 as _b64
+    import urllib.request as _req
+
+    creds = _b64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
+    request = _req.Request(
+        "https://www.reddit.com/api/v1/access_token",
+        data=b"grant_type=client_credentials",
+        headers={
+            "Authorization": f"Basic {creds}",
+            "User-Agent": "preston-check-ingest/1.0 (+https://preston-check.com)",
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method="POST",
+    )
+    try:
+        with _req.urlopen(request, timeout=20) as resp:
+            data = json.loads(resp.read())
+        return data.get("access_token")
+    except Exception as exc:
+        print(f"[reddit] OAuth token request failed: {exc}", file=sys.stderr)
+        return None
+
+
 def _reddit_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
-    """Reddit requires OAuth for cloud-IP requests as of 2024. To activate
-    this ingester, register a Reddit app at https://www.reddit.com/prefs/apps,
-    set REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET as repo secrets, and
-    extend this function to do the OAuth flow. Until then, return empty.
+    """Security-focused Reddit ingest via OAuth client_credentials grant.
+
+    Uses oauth.reddit.com (not www.reddit.com) so requests succeed from
+    GitHub Actions / AWS IPs. Requires REDDIT_CLIENT_ID and
+    REDDIT_CLIENT_SECRET — register a 'script' app at
+    https://www.reddit.com/prefs/apps to obtain them.
     """
     import os as _os
 
     state["last_run"] = now_iso()
-    if not _os.environ.get("REDDIT_CLIENT_ID") or not _os.environ.get("REDDIT_CLIENT_SECRET"):
+    client_id = _os.environ.get("REDDIT_CLIENT_ID", "")
+    client_secret = _os.environ.get("REDDIT_CLIENT_SECRET", "")
+    if not client_id or not client_secret:
         state["status"] = "skipped — REDDIT_CLIENT_ID / REDDIT_CLIENT_SECRET not configured"
         return [], state
 
-    subs = ["netsec", "AskNetsec", "redteamsec", "Malware"]
+    token = _reddit_get_token(client_id, client_secret)
+    if not token:
+        state["status"] = "error — OAuth token request failed"
+        return [], state
+
+    auth_headers = {
+        "Authorization": f"bearer {token}",
+        "User-Agent": "preston-check-ingest/1.0 (+https://preston-check.com)",
+    }
+
+    # Security-focused subreddits — global coverage across research,
+    # vulnerability disclosure, malware, red team, and CTF communities.
+    subs = [
+        "netsec", "AskNetsec", "redteamsec", "Malware",
+        "cybersecurity", "hacking", "ReverseEngineering",
+        "netsecstudents", "blueteamsec", "pwned",
+        "CTF", "bugbounty", "disclosures",
+    ]
+
     records: list[CandidateRecord] = []
     seen = set(state.get("processed_ids", []))
     any_success = False
+
     for sub in subs:
-        url = f"https://www.reddit.com/r/{sub}/new.json?limit=50"
-        data = http_get_json(url)
+        url = f"https://oauth.reddit.com/r/{sub}/new.json?limit=50"
+        data = http_get_json(url, headers=auth_headers)
         if not data:
             continue
         any_success = True
@@ -548,6 +604,7 @@ def _reddit_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
             records.append(rec)
             seen.add(pid)
             state.setdefault("processed_ids", []).append(pid)
+
     if any_success:
         state["last_successful_fetch"] = now_iso()
     _cap_processed(state)
