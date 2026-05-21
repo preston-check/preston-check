@@ -1,0 +1,36 @@
+{
+  "adversarial": {
+    "adv_model": "gpt-4o-mini",
+    "passes": true,
+    "rounds": 1,
+    "synth_model": "claude-haiku-4-5-20251001",
+    "transcript_hash": "de0145a29dea58289ec7803681315fd8e86562b33844b81e31e4a6461f80b1b8"
+  },
+  "attestation_version": "1.0",
+  "check_id": "718",
+  "merged_at": "2026-05-21T23:34:06.471438+00:00",
+  "payload_sha256": "42e7ef402b805b4efd54ed9b0202b77f88f571ce353b56a1b33a22d82b447653",
+  "sandbox": {
+    "pass": true,
+    "reasons": [],
+    "validator_version": "0.2.0"
+  },
+  "signature": "ed25519:OMM4wCMhs3DyQFj4AcK+7z/amp2qfaR5Cgc6K1R+atb5Be49qp6PKHtfixhYuizvG2TZeeaFpkFmJpDCaNi6BQ==",
+  "source": {
+    "fetched_at": "2023-10-18T00:00:00Z",
+    "id": "CVE-2023-4966",
+    "type": "kev"
+  },
+  "synthesis": {
+    "model": "claude-haiku-4-5-20251001",
+    "prompt_template_hash": "synthesis-v1.0.0",
+    "ts": "2026-05-21T23:34:06.471431+00:00"
+  },
+  "validation": {
+    "corpus_negative_hash": "ffbdffa118b8b14586dac857ff1e70dcc4f3886445df53333bb10b5b52c1de54",
+    "corpus_positive_hash": "68d2c336c32cb0ad7da7d57b97014bed57adad04c0ff12be3d27b40ecd6f8a55",
+    "fpr": 0.0,
+    "stability": 1.0,
+    "tpr": 0.0
+  }
+}
