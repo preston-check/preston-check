@@ -120,3 +120,89 @@ https://security.stackexchange.com/feeds
 https://arxiv.org/rss/cs.CR
 https://ieeexplore.ieee.org/rss/TOC36.XML
 https://www.usenix.org/news/security/rss.xml
+
+# --- Incident analysis & forensics ---
+https://thedfirreport.com/feed/ dfir_report
+https://www.volexity.com/blog/feed/ volexity
+https://decoded.avast.io/feed/ avast_decoded
+https://blog.virustotal.com/feeds/posts/default virustotal_blog
+https://www.domaintools.com/resources/blog/rss.xml domaintools
+https://www.zscaler.com/blogs/security-research/rss.xml zscaler_threatlabz
+https://news.sophos.com/en-us/feed/ sophos_xops
+https://blog.nviso.eu/feed/ nviso_labs
+https://research.nccgroup.com/feed/ nccgroup
+https://www.trellix.com/en-us/about/newsroom/stories.rss trellix
+
+# --- Offensive security & red team research ---
+https://posts.specterops.io/feed specterops
+https://bishopfox.com/blog/feed bishopfox
+https://blog.assetnote.io/feed.xml assetnote
+https://www.netspi.com/blog/feed/ netspi
+https://labs.watchtowr.com/rss/ watchtowr
+https://www.synacktiv.com/en/publications/rss synacktiv
+https://blog.orange.tw/feeds/posts/default orange_tsai
+https://swisskyrepo.github.io/feed.xml swisskyrepo
+
+# --- ICS / OT / industrial security ---
+https://www.dragos.com/blog/feed/ dragos
+https://www.nozominetworks.com/blog/feed/ nozomi
+https://www.securityweek.com/category/ics-security/feed/ securityweek_ics
+https://claroty.com/team82/blog/rss team82_claroty
+
+# --- AI / ML security ---
+https://hiddenlayer.com/research/feed/ hiddenlayer
+https://www.lakera.ai/blog/rss.xml lakera
+https://adversa.ai/blog/feed/ adversa_ai
+https://www.robustintelligence.com/blog-posts/rss.xml robust_intelligence
+
+# --- Supply chain & open source security ---
+https://openssf.org/feed/ openssf
+https://www.chainguard.dev/unchained/rss.xml chainguard
+https://www.endorlabs.com/blog/rss endorlabs
+https://socket.dev/blog/rss.xml socket_dev
+https://blog.deps.dev/feed.xml deps_dev
+
+# --- DeFi / crypto exploit tracking ---
+https://rekt.news/feed/ rekt_news
+https://immunefi.com/blog/rss.xml immunefi
+https://www.slowmist.com/en/blog/rss.xml slowmist
+
+# --- Security journalism ---
+https://therecord.media/feed/ the_record
+https://www.wired.com/feed/category/security/latest/rss wired_security
+https://arstechnica.com/security/feed/ ars_security
+https://www.scmagazine.com/feed sc_magazine
+https://www.404media.co/rss/ fourofourmedia
+https://www.recordedfuture.com/blog/rss.xml recordedfuture_blog
+
+# --- Exploit & vulnerability tracking ---
+https://www.exploit-db.com/rss.xml exploitdb
+https://packetstormsecurity.com/rss.xml packetstorm
+https://seclists.org/rss.rdf seclists
+https://nvd.nist.gov/feeds/xml/cve/misc/nvd-rss-analyzed.xml nvd_analyzed
+
+# --- Additional government CERTs ---
+https://www.cisa.gov/uscert/ncas/alerts.xml cisa_alerts
+https://www.cisa.gov/uscert/ncas/analysis-reports.xml cisa_analysis
+https://www.auscert.org.au/resources/security-bulletins/rss/ auscert
+https://www.cert.govt.nz/it-specialists/advisories/rss.xml cert_nz
+https://www.cyber.gov.au/about-us/advisories/rss.xml acsc_australia
+
+# --- Cloud-native & container ---
+https://sysdig.com/blog/feed/ sysdig
+https://blog.falco.org/index.xml falco
+https://orca.security/blog/rss.xml orca_security
+https://www.datadoghq.com/blog/tag/security/feed/ datadog_security
+
+# --- Identity & PAM research ---
+https://www.cyberark.com/threat-research-blog/rss/ cyberark_labs
+https://www.beyondtrust.com/blog/rss.xml beyondtrust
+
+# --- Developer & SAST tooling ---
+https://semgrep.dev/blog/rss semgrep
+https://security.googleblog.com/feeds/posts/default?alt=rss google_security_blog
+https://github.blog/tag/vulnerability/feed/ github_vuln
+
+# --- Additional fintech & payments ---
+https://www.kroll.com/en/insights/publications/cyber/rss kroll_cyber
+https://www.swift.com/news-events/news/rss swift_news
