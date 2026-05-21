@@ -48,20 +48,20 @@ CACHE_DIR = ROOT / ".preston-check" / "synth-cache"
 DEFAULT_MODEL = os.environ.get("PRESTON_SYNTH_MODEL", "claude-haiku-4-5-20251001")
 ANTHROPIC_ENDPOINT = "https://api.anthropic.com/v1/messages"
 
-PROMPT_TEMPLATE_VERSION = "1.0.0"
+PROMPT_TEMPLATE_VERSION = "1.1.0"
 
-_SYNTHESIS_PROMPT = """You are generating shell-script-based static detection patterns for the Preston-Check security scanner. The scanner runs the generated check as bash inside an isolated subshell with restricted capabilities.
+_SYNTHESIS_PROMPT = """You are generating shell-script-based static detection patterns for the Preston-Check security scanner. The scanner runs bash_body inside an isolated subshell with a strict capability allowlist. Scripts that use any command or idiom outside the allowlist are REJECTED SILENTLY — you will produce nothing and waste budget.
 
-Your job: from the structured vulnerability record provided as JSON in the user message, generate exactly three detection-pattern variants of differing specificity:
-  - "strict": low false-positive rate, may miss valid hits
+Your job: from the structured vulnerability record in the user message, generate exactly three detection-pattern variants:
+  - "strict": low false-positive rate, may miss some hits
   - "middle": balanced
   - "permissive": low false-negative rate, may produce false positives
 
-For EACH variant, also produce two minimal synthetic test fixtures:
-  - "fixture_positive": a code snippet that contains the vulnerability and that the variant SHOULD detect
-  - "fixture_negative": a similar but clean code snippet that the variant should NOT detect
+For EACH variant also produce two minimal synthetic test fixtures:
+  - "fixture_positive": code snippet containing the vulnerability that the variant SHOULD flag
+  - "fixture_negative": similar but clean snippet the variant should NOT flag
 
-You must output a single JSON object with this exact schema and no other text:
+Output ONLY this JSON object — no prose, no markdown fences, no explanation:
 
 {
   "variants": [
@@ -77,14 +77,44 @@ You must output a single JSON object with this exact schema and no other text:
   ]
 }
 
-CONSTRAINTS on bash_body — your script will be REJECTED if it violates any of these, costing budget and producing nothing:
-  - You may use ONLY these commands: record, grep, rg, find, echo, printf, basename, dirname, head, tail, wc, sort, uniq, tr, awk, sed, cat, test, [, [[, true, false, return
-  - You MAY use: parameter expansion of named variables, conditionals, for/while loops, $(...) command substitution containing only allowed commands
-  - You MUST NOT use: eval, exec, source, '.', bash -c, sh -c, network commands (curl/wget/nc/ssh), file mutation (rm/mv/cp/chmod), unset, set -o, shopt, trap, IFS=, BASH_ENV=, ENV=, PATH= overwrite, indirect parameter expansion ${!var}, printf -v, declare -n, process substitution <(...) >(...), backticks, history expansion
-  - You MUST NOT use: grep -P, rg --pre, find -exec, find -delete, sed -i
-  - Read SOURCE_DIR via "${SOURCE_DIR:-.}" and call record at the end with PASS or FAIL or WARN status
+ALLOWED COMMANDS (only these, nothing else):
+  record  grep  rg  find  echo  printf  basename  dirname
+  head  tail  wc  sort  uniq  tr  cut  awk  sed  cat
+  test  [  [[  true  false  return
 
-Output the JSON object only. No prose, no markdown fences, no explanation."""
+VARIABLE ASSIGNMENT:
+  CORRECT:   VARNAME=value          VARNAME=$(command)
+  WRONG:     local VARNAME=value    declare VARNAME=value    export VARNAME=value
+  The words local, declare, typeset, export are BANNED. Use plain assignment at any scope.
+
+EXITING THE SCRIPT:
+  CORRECT:   return
+  WRONG:     exit 0   exit 1
+  The word exit is BANNED. Use return.
+
+ABSOLUTELY BANNED (script is silently rejected if any of these appear):
+  Shells:    bash  sh  zsh  ksh  dash  eval  exec  source  .
+  Network:   curl  wget  nc  ssh  scp  rsync  openssl
+  Mutation:  rm  mv  cp  chmod  chown  mkdir  touch  tee  ln  dd
+  Builtins:  local  declare  typeset  export  read  mapfile  readarray
+             exit  unset  set  shopt  trap  enable  history  alias
+  Other:     xargs  date  stat  ls  du  ps  id  whoami  env  printenv
+             python  python3  perl  ruby  node  make  sed -i  awk -i
+  Patterns:  dollar-bang-var  printf -v  declare -n  IFS=  BASH_ENV=  ENV=
+             PATH-overwrite  set -o  process-substitution  backticks
+
+DANGEROUS FLAGS ALSO BANNED:
+  grep -P   rg --pre   find -exec  find -execdir  find -delete  sed -i
+
+SCRIPT STRUCTURE — always follow this skeleton:
+  SRC="${SOURCE_DIR:-.}"
+  hits=$(grep -rn "PATTERN" "$SRC" 2>/dev/null | head -50)
+  if [[ -z "$hits" ]]; then
+      record "PASS" "P-NNN CANONICAL-ID" "no instances found"
+  else
+      count=$(echo "$hits" | wc -l | tr -d ' ')
+      record "FAIL" "P-NNN CANONICAL-ID" "found $count instance(s)"
+  fi"""
 
 
 def _stable_hash(s: str) -> str:

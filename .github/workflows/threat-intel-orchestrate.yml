@@ -47,6 +47,65 @@ jobs:
             echo "ATTESTATION_PRIVATE_KEY not set; running unsigned"
           fi
 
+      - name: Seed candidates if correlated.json is empty
+        run: |
+          python3 - <<'PYEOF'
+          import json, pathlib, urllib.request, sys
+          from datetime import datetime, timezone
+
+          correlated = pathlib.Path(".preston-check/correlated.json")
+          if correlated.exists():
+              data = json.loads(correlated.read_text())
+              if data.get("candidate_count", 0) > 0:
+                  print(f"correlated.json has {data['candidate_count']} candidates -- no seed needed")
+                  sys.exit(0)
+
+          print("correlated.json empty -- seeding from recent KEV entries")
+          try:
+              url = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
+              req = urllib.request.Request(url, headers={"User-Agent": "preston-check-ingest/1.0"})
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  kev_data = json.loads(resp.read())
+          except Exception as exc:
+              print(f"KEV fetch failed: {exc} -- skipping seed, will retry next cycle")
+              sys.exit(0)
+
+          vulns = kev_data.get("vulnerabilities", [])
+          recent = sorted(vulns, key=lambda v: v.get("dateAdded", ""), reverse=True)[:20]
+          candidates = []
+          for v in recent:
+              cve = v.get("cveID", "")
+              if not cve:
+                  continue
+              candidates.append({
+                  "canonical_id": cve,
+                  "composite_confidence": 0.85,
+                  "cwe": [],
+                  "description": v.get("shortDescription", ""),
+                  "first_seen": v.get("dateAdded", ""),
+                  "frameworks": [v.get("product", "")],
+                  "key_kind": "cve",
+                  "languages": [],
+                  "last_seen": v.get("dateAdded", ""),
+                  "merged_sources": ["kev"],
+                  "proactive_only": False,
+                  "raw_records_count": 1,
+                  "references": [],
+                  "severity": "high",
+                  "source_count": 1,
+                  "title": v.get("vulnerabilityName", cve),
+              })
+
+          correlated.parent.mkdir(parents=True, exist_ok=True)
+          correlated.write_text(json.dumps({
+              "_seeded": True,
+              "candidate_count": len(candidates),
+              "candidates": candidates,
+              "correlated_at": datetime.now(timezone.utc).isoformat(),
+          }, indent=2, sort_keys=True))
+          print(f"Seeded correlated.json with {len(candidates)} recent KEV candidates")
+          PYEOF
+
       - name: Build corpus snapshots
         run: |
           mkdir -p corpus/snapshots

@@ -81,6 +81,7 @@ PERMITTED_COMMANDS: frozenset[str] = frozenset(
         "sort",
         "uniq",
         "tr",
+        "cut",
         "awk",
         "sed",
         "cat",

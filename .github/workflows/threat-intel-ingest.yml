@@ -85,7 +85,22 @@ jobs:
           done
 
       - name: Correlate signals across sources
-        run: python3 tools/correlator.py
+        run: |
+          # Only overwrite correlated.json when this run produced new records.
+          # If all IDs were already in processed_ids the queue will contain only
+          # empty arrays; in that case preserve the last good correlated.json so
+          # the orchestrator still has candidates to synthesize.
+          has_new=false
+          for f in .preston-check/queue/*.json; do
+            [ -f "$f" ] || continue
+            n=$(python3 -c "import json; d=json.load(open('$f')); print(len(d) if isinstance(d,list) else 0)" 2>/dev/null || echo 0)
+            [ "$n" -gt 0 ] && { has_new=true; break; }
+          done
+          if [ "$has_new" = "true" ]; then
+            python3 tools/correlator.py
+          else
+            echo "No new records in queue this cycle — preserving existing correlated.json"
+          fi
 
       - name: Commit state changes if any
         env:
