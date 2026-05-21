@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-21T05:16:18.029783+00:00",
-  "last_successful_fetch": "2026-05-21T05:16:21.305619+00:00",
+  "last_run": "2026-05-21T09:59:53.607915+00:00",
+  "last_successful_fetch": "2026-05-21T09:59:58.275101+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -649,7 +649,17 @@
     "github:abluva-research/CVE-Taxonomy-QAIL-Dataset",
     "github:ausstin07/Syntecxhub_Project_CVE-Scanner-main",
     "github:thanujbtech-lgtm/hackernews_cve",
-    "github:rahultb-sec/CVE-2026-33829-Writeup"
+    "github:rahultb-sec/CVE-2026-33829-Writeup",
+    "github:24520597-blip/CVE-2025-99999",
+    "github:kasireddy-sec/cve-intelligence-automation",
+    "github:igt1257/netapp-cve-checker",
+    "github:nu11secur1ty/CVE-nu11secur1ty",
+    "github:SoWiEee/CVE-Research",
+    "github:cvenkataravikiran/CVenkataravikiran-Portfolio",
+    "github:ichigo1vs/cve-honeypot",
+    "github:EQSTLab/CVE-2026-42048",
+    "github:FaLLenSKiLL1/CVE-2024-6678",
+    "github:r0binak/CVE-2026-46680"
   ],
   "source_id": "github_trending",
   "stats": {

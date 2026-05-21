@@ -1,5 +1,41 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-21T07:55:08.519499+00:00"
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2025-99999",
+      "composite_confidence": 0.55,
+      "cwe": [],
+      "description": "PoC & IOCs for critical HSM authentication bypass (CVE-2025-99999). Threat intelligence for financial sector.",
+      "first_seen": "2026-05-21T09:59:54.667554+00:00",
+      "frameworks": [
+        "banking",
+        "cve",
+        "exploit",
+        "hsm",
+        "pentesting",
+        "poc",
+        "red-team",
+        "security",
+        "threat-intelligence",
+        "vulnerability"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "Python"
+      ],
+      "last_seen": "2026-05-21T09:59:54.667554+00:00",
+      "merged_sources": [
+        "github_trending"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://github.com/24520597-blip/CVE-2025-99999"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "CVE-2025-99999"
+    }
+  ],
+  "correlated_at": "2026-05-21T09:59:59.002150+00:00"
 }
