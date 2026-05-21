@@ -986,6 +986,12 @@ _RSS_FEEDS: list[tuple[str, str]] = [
     ("sift", "https://www.sift.com/blog/rss"),
     ("finextra_security", "https://www.finextra.com/rss/channel.aspx?channel=security"),
     # Developer / supply chain security
+    ("sekoia", "https://blog.sekoia.io/feed/"),
+    ("vuldb", "https://vuldb.com/?rss.recent"),
+    ("kaspersky_threats", "https://www.kaspersky.com/blog/category/threats/feed/"),
+    ("ahnlab_asec", "https://asec.ahnlab.com/en/feed/"),
+    ("cert_se", "https://www.cert.se/feed/"),
+    ("ncsc_uk_guidance", "https://www.ncsc.gov.uk/api/1/services/v1/guidance-rss-feed.xml"),
     ("semgrep", "https://semgrep.dev/blog/rss"),
     ("exploitdb", "https://www.exploit-db.com/rss.xml"),
     ("fourofourmedia", "https://www.404media.co/rss/"),
