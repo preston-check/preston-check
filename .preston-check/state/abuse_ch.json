@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-21T19:07:43.454992+00:00",
-  "last_successful_fetch": "2026-05-21T19:07:43.456043+00:00",
+  "last_run": "2026-05-21T21:44:43.236772+00:00",
+  "last_successful_fetch": "2026-05-21T21:44:43.237631+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4926,7 +4926,21 @@
     "threatfox:https://thu.fbvendas.com/",
     "threatfox:thu.fbvendas.com",
     "threatfox:thu.adasm188.top",
-    "threatfox:https://thu.adasm188.top/"
+    "threatfox:https://thu.adasm188.top/",
+    "threatfox:stackbridge.christmas",
+    "threatfox:network-flow-system.christmas",
+    "threatfox:travel-js-ns.beer",
+    "threatfox:byte-vault.christmas",
+    "threatfox:contentprotectiongate.com",
+    "threatfox:signal-processing-core.christmas",
+    "threatfox:46.224.70.245:7443",
+    "threatfox:42.121.150.29:4506",
+    "threatfox:34.61.52.162:7443",
+    "threatfox:193.29.13.23:5758",
+    "threatfox:158.94.209.7:5022",
+    "threatfox:157.230.125.65:7443",
+    "threatfox:proxy-hub.christmas",
+    "threatfox:cloud-sync-engine.christmas"
   ],
   "source_id": "abuse_ch",
   "stats": {
