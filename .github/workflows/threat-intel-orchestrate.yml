@@ -142,7 +142,10 @@ jobs:
           PR_URL=$(gh pr create \
             --title "auto: threat-intel orchestrate $RUN_ID" \
             --body "Auto-generated promotion. See orchestrate-summary.json and attestations/." \
-            --label threat-intel,auto-merge)
+            --label threat-intel,auto-merge 2>/dev/null \
+            || gh pr create \
+              --title "auto: threat-intel orchestrate $RUN_ID" \
+              --body "Auto-generated promotion. See orchestrate-summary.json and attestations/.")
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
 
       - name: Send promotion notification
