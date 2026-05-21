@@ -44,6 +44,11 @@ DEFAULT_TPR = 0.85
 DEFAULT_FPR = 0.02
 DEFAULT_STABILITY = 0.90
 
+# When the positive corpus has fewer than this many entries, the TPR gate is
+# waived and fixture_roundtrip alone serves as the positive-side signal.
+# The FPR and stability gates remain active regardless of corpus size.
+MIN_CORPUS_SIZE_FOR_TPR = 10
+
 
 def _extract_meta(check_path: Path) -> dict:
     """Extract the PRESTON_META block from a check file."""
@@ -280,16 +285,23 @@ def validate(
         agree = sum(1 for n, f in perturb_results if original.get(n) == f)
         stability = agree / len(perturb_results)
 
+    # When the corpus is too small to give TPR a meaningful sample (< MIN_CORPUS_SIZE_FOR_TPR
+    # positive entries), the fixture_roundtrip result serves as the positive-side signal
+    # instead. FPR and stability gates remain enforced regardless.
+    small_corpus = len(pos_results) < MIN_CORPUS_SIZE_FOR_TPR
+    tpr_ok = fixture_roundtrip if small_corpus else tpr >= tpr_threshold
+
     decision_pass = (
         fixture_roundtrip
-        and tpr >= tpr_threshold
+        and tpr_ok
         and fpr <= fpr_threshold
         and stability >= stability_threshold
     )
 
     return {
         "check_path": str(check_path),
-        "validator_version": "0.1.0",
+        "validator_version": "0.2.0",
+        "small_corpus": small_corpus,
         "metrics": {
             "tpr": round(tpr, 4),
             "fpr": round(fpr, 4),
