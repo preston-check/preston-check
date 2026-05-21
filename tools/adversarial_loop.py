@@ -176,6 +176,19 @@ def run_adversarial(
                 continue
             sample_text = sample_files[0].read_text(errors="replace")[:4000]
 
+            # Only test adversarial evasion on corpus entries the check actually fires on.
+            # If the check doesn't fire on the original sample (e.g., wrong language/framework),
+            # there is nothing to evade and testing would produce a false evasion signal.
+            if not _detection_fires(check_path, entry_dir):
+                transcript.append({
+                    "round": rounds_completed,
+                    "entry": entry_dir.name,
+                    "evaded": False,
+                    "skipped": True,
+                    "reason": "check does not fire on original sample",
+                })
+                continue
+
             if api_key:
                 user_msg = (
                     "Detection script:\n```bash\n"
