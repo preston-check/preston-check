@@ -1,6 +1,1054 @@
 {
-  "candidate_count": 69,
+  "_seed_note": "merged backfill: 69 ingest candidates + 40 high-signal historical CVEs (boosted confidence)",
+  "_seeded": true,
+  "candidate_count": 99,
   "candidates": [
+    {
+      "canonical_id": "CVE-2021-44228",
+      "composite_confidence": 0.96,
+      "cwe": [
+        "CWE-917"
+      ],
+      "description": "[huntress] Our team is currently investigating CVE-2021-44228, a critical vulnerability that\u2019s affecting a Java logging package.",
+      "first_seen": "2026-05-21T20:08:57.677943+00:00",
+      "frameworks": [
+        "log4j"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2026-05-21T20:08:57.677947+00:00",
+      "merged_sources": [
+        "kev",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://www.huntress.com/blog/critical-rce-vulnerability-log4j-cve-2021-44228",
+        "https://www.huntress.com/blog/rapid-response-critical-rce-vulnerability-is-affecting-java"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Apache Log4Shell JNDI Injection RCE"
+    },
+    {
+      "canonical_id": "CVE-2023-34362",
+      "composite_confidence": 0.96,
+      "cwe": [
+        "CWE-89"
+      ],
+      "description": "[huntress] Our team is tracking in-the-wild exploitation of a zero-day vulnerability against Progress' MOVEit Transfer web application that allows for escalated privileges and unauthorized access.",
+      "first_seen": "2026-05-21T20:08:57.676494+00:00",
+      "frameworks": [
+        "moveit"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.676494+00:00",
+      "merged_sources": [
+        "kev",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/moveit-transfer-critical-vulnerability-rapid-response"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Progress MOVEit Transfer SQL Injection RCE"
+    },
+    {
+      "canonical_id": "CVE-2021-26855",
+      "composite_confidence": 0.96,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Microsoft Exchange Server contains an unspecified vulnerability that allows for remote code execution. This vulnerability is part of the ProxyLogon exploit chain.",
+      "first_seen": "2021-11-03T00:00:00Z",
+      "frameworks": [
+        "exchange"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2021-11-03T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Microsoft Exchange ProxyLogon SSRF"
+    },
+    {
+      "canonical_id": "CVE-2024-3400",
+      "composite_confidence": 0.96,
+      "cwe": [
+        "CWE-77"
+      ],
+      "description": "Palo Alto Networks PAN-OS GlobalProtect feature contains a command injection vulnerability that allows an unauthenticated attacker to execute commands with root privileges on the firewall.",
+      "first_seen": "2024-04-12T00:00:00Z",
+      "frameworks": [
+        "pan-os"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "python"
+      ],
+      "last_seen": "2024-04-12T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "PAN-OS GlobalProtect OS Command Injection"
+    },
+    {
+      "canonical_id": "CVE-2024-3094",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-506"
+      ],
+      "description": "[snyk] On the 29th of March 2024, the high-stakes investment and prolonged campaign to plant a backdoor in the Linux software library liblzma to gain access to multiple operating systems via Linux distributions was carried out by a malicious actor.",
+      "first_seen": "2026-05-21T20:09:05.729509+00:00",
+      "frameworks": [
+        "xz-utils"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "c"
+      ],
+      "last_seen": "2026-05-21T20:09:05.729509+00:00",
+      "merged_sources": [
+        "nvd",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/the-xz-backdoor-cve-2024-3094/"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "XZ Utils Supply Chain Backdoor (liblzma SSH bypass)"
+    },
+    {
+      "canonical_id": "CVE-2023-4966",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-119"
+      ],
+      "description": "Citrix NetScaler ADC and NetScaler Gateway contain a buffer overflow vulnerability that allows for sensitive information disclosure when configured as a Gateway (VPN virtual server, ICA Proxy, CVPN, RDP Proxy) or AAA virtual server.",
+      "first_seen": "2023-10-18T00:00:00Z",
+      "frameworks": [
+        "netscaler"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2023-10-18T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Citrix NetScaler Bleed Session Token Leak"
+    },
+    {
+      "canonical_id": "CVE-2022-26134",
+      "composite_confidence": 0.95,
+      "cwe": [
+        "CWE-917"
+      ],
+      "description": "Atlassian Confluence Server and Data Center contain a remote code execution vulnerability that allows for an unauthenticated attacker to perform remote code execution.",
+      "first_seen": "2022-06-02T00:00:00Z",
+      "frameworks": [
+        "confluence"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2022-06-02T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Atlassian Confluence OGNL Injection RCE"
+    },
+    {
+      "canonical_id": "CVE-2021-27065",
+      "composite_confidence": 0.94,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "Microsoft Exchange Server contains an unspecified vulnerability that allows for remote code execution. This vulnerability is part of the ProxyLogon exploit chain.",
+      "first_seen": "2021-11-03T00:00:00Z",
+      "frameworks": [
+        "exchange"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2021-11-03T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Microsoft Exchange ProxyLogon Arbitrary File Write"
+    },
+    {
+      "canonical_id": "CVE-2021-34473",
+      "composite_confidence": 0.94,
+      "cwe": [
+        "CWE-918"
+      ],
+      "description": "Microsoft Exchange Server contains an unspecified vulnerability that allows for remote code execution.",
+      "first_seen": "2021-11-03T00:00:00Z",
+      "frameworks": [
+        "exchange"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2021-11-03T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Microsoft Exchange ProxyShell RCE"
+    },
+    {
+      "canonical_id": "CVE-2024-21887",
+      "composite_confidence": 0.94,
+      "cwe": [
+        "CWE-77"
+      ],
+      "description": "Ivanti Connect Secure (ICS, formerly known as Pulse Connect Secure) and Ivanti Policy Secure contain a command injection vulnerability in the web components of these products, which can allow an authenticated administrator to send crafted requests to execute code on affected appliances. This vulnerability can be leveraged in conjunction with CVE-2023-46805, an authenticated bypass issue.",
+      "first_seen": "2024-01-10T00:00:00Z",
+      "frameworks": [
+        "ivanti"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2024-01-10T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Ivanti Connect Secure Command Injection"
+    },
+    {
+      "canonical_id": "CVE-2022-40684",
+      "composite_confidence": 0.94,
+      "cwe": [
+        "CWE-287"
+      ],
+      "description": "Fortinet FortiOS, FortiProxy, and FortiSwitchManager contain an authentication bypass vulnerability that could allow an unauthenticated attacker to perform operations on the administrative interface via specially crafted HTTP or HTTPS requests.",
+      "first_seen": "2022-10-11T00:00:00Z",
+      "frameworks": [
+        "fortios"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2022-10-11T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Fortinet FortiOS/FortiProxy Authentication Bypass"
+    },
+    {
+      "canonical_id": "CVE-2024-1709",
+      "composite_confidence": 0.93,
+      "cwe": [
+        "CWE-288"
+      ],
+      "description": "[huntress] Adversaries have been VERY busy in the wake of the ScreenConnect vulnerabilities (CVE-2024-1709 & CVE-2024-1708). Here\u2019s all the post-exploitation details, tradecraft, and tactics we\u2019ve observed so far!",
+      "first_seen": "2026-05-21T20:08:57.675741+00:00",
+      "frameworks": [
+        "screenconnect"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.675762+00:00",
+      "merged_sources": [
+        "kev",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass",
+        "https://www.huntress.com/blog/slashandgrab-screen-connect-post-exploitation-in-the-wild-cve-2024-1709-cve-2024-1708"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "ConnectWise ScreenConnect Authentication Bypass"
+    },
+    {
+      "canonical_id": "CVE-2024-27198",
+      "composite_confidence": 0.93,
+      "cwe": [
+        "CWE-306"
+      ],
+      "description": "JetBrains TeamCity contains an authentication bypass vulnerability that allows an attacker to perform admin actions.",
+      "first_seen": "2024-03-07T00:00:00Z",
+      "frameworks": [
+        "teamcity"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java",
+        "kotlin"
+      ],
+      "last_seen": "2024-03-07T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "JetBrains TeamCity Authentication Bypass (alt endpoint)"
+    },
+    {
+      "canonical_id": "CVE-2023-46805",
+      "composite_confidence": 0.93,
+      "cwe": [
+        "CWE-287"
+      ],
+      "description": "Ivanti Connect Secure (ICS, formerly known as Pulse Connect Secure) and Ivanti Policy Secure gateways contain an authentication bypass vulnerability in the web component that allows an attacker to access restricted resources by bypassing control checks. This vulnerability can be leveraged in conjunction with CVE-2024-21887, a command injection vulnerability.",
+      "first_seen": "2024-01-10T00:00:00Z",
+      "frameworks": [
+        "ivanti"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2024-01-10T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Ivanti Connect Secure Authentication Bypass"
+    },
+    {
+      "canonical_id": "CVE-2024-21762",
+      "composite_confidence": 0.93,
+      "cwe": [
+        "CWE-787"
+      ],
+      "description": "Fortinet FortiOS contains an out-of-bound write vulnerability that allows a remote unauthenticated attacker to execute code or commands via specially crafted HTTP requests.",
+      "first_seen": "2024-02-09T00:00:00Z",
+      "frameworks": [
+        "fortios"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2024-02-09T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Fortinet FortiOS Out-of-Bounds Write RCE"
+    },
+    {
+      "canonical_id": "CVE-2022-1388",
+      "composite_confidence": 0.93,
+      "cwe": [
+        "CWE-306"
+      ],
+      "description": "F5 BIG-IP contains a missing authentication in critical function vulnerability which can allow for remote code execution, creation or deletion of files, or disabling services.",
+      "first_seen": "2022-05-10T00:00:00Z",
+      "frameworks": [
+        "big-ip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2022-05-10T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "F5 BIG-IP iControl REST Authentication Bypass"
+    },
+    {
+      "canonical_id": "CVE-2023-27350",
+      "composite_confidence": 0.93,
+      "cwe": [
+        "CWE-284"
+      ],
+      "description": "PaperCut MF/NG contains an improper access control vulnerability within the SetupCompleted class that allows authentication bypass and code execution in the context of system.",
+      "first_seen": "2023-04-21T00:00:00Z",
+      "frameworks": [
+        "papercut"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2023-04-21T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "PaperCut NG/MF Authentication Bypass RCE"
+    },
+    {
+      "canonical_id": "CVE-2024-6387",
+      "composite_confidence": 0.93,
+      "cwe": [
+        "CWE-364"
+      ],
+      "description": "OpenSSH regreSSHion Signal Handler Race RCE",
+      "first_seen": "2023-01-01T00:00:00Z",
+      "frameworks": [
+        "openssh"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "c"
+      ],
+      "last_seen": "2023-01-01T00:00:00Z",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "OpenSSH regreSSHion Signal Handler Race RCE"
+    },
+    {
+      "canonical_id": "CVE-2021-45046",
+      "composite_confidence": 0.92,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "[snyk] It has been discovered that Log4j version 2.15.0 is still susceptible to arbitrary code execution (CVE-2021-45046) in certain circumstances. Upgrade to 2.16.0.",
+      "first_seen": "2026-05-21T20:09:05.740774+00:00",
+      "frameworks": [
+        "log4j"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2026-05-21T20:09:05.740774+00:00",
+      "merged_sources": [
+        "kev",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/log4j-2-15-vulnerability-cve-2021-45046-critical-ace/"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Apache Log4j2 Deserialization RCE (bypass)"
+    },
+    {
+      "canonical_id": "CVE-2023-22518",
+      "composite_confidence": 0.92,
+      "cwe": [
+        "CWE-285"
+      ],
+      "description": "[huntress] CVE-2023-22518 is being exploited in Confluence for Cerber ransomware deployment. Read up on Huntress\u2019 observations and mitigation guidance.",
+      "first_seen": "2026-05-21T20:08:57.676021+00:00",
+      "frameworks": [
+        "confluence"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2026-05-21T20:08:57.676021+00:00",
+      "merged_sources": [
+        "kev",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/confluence-to-cerber-exploitation-of-cve-2023-22518-for-ransomware-deployment"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Atlassian Confluence Improper Authorization RCE"
+    },
+    {
+      "canonical_id": "CVE-2021-41773",
+      "composite_confidence": 0.92,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "Apache HTTP Server contains a path traversal vulnerability that allows an attacker to perform remote code execution if files outside directories configured by Alias-like directives are not under default \ufffdrequire all denied\ufffd or if CGI scripts are enabled. The original patch issued under this CVE ID is insufficient, please review remediation information under CVE-2021-42013.",
+      "first_seen": "2021-11-03T00:00:00Z",
+      "frameworks": [
+        "apache-http"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "c"
+      ],
+      "last_seen": "2021-11-03T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Apache HTTP Server 2.4.49 Path Traversal"
+    },
+    {
+      "canonical_id": "CVE-2024-1708",
+      "composite_confidence": 0.92,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "ConnectWise ScreenConnect contains a path traversal vulnerability which could allow an attacker to execute remote code or directly impact confidential data and critical systems.",
+      "first_seen": "2026-04-28T00:00:00Z",
+      "frameworks": [
+        "screenconnect"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-04-28T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "ConnectWise ScreenConnect Path Traversal"
+    },
+    {
+      "canonical_id": "CVE-2023-46747",
+      "composite_confidence": 0.92,
+      "cwe": [
+        "CWE-306"
+      ],
+      "description": "F5 BIG-IP Configuration utility contains an authentication bypass using an alternate path or channel vulnerability due to undisclosed requests that may allow an unauthenticated attacker with network access to the BIG-IP system through the management port and/or self IP addresses to execute system commands. This vulnerability can be used in conjunction with CVE-2023-46748.",
+      "first_seen": "2023-10-31T00:00:00Z",
+      "frameworks": [
+        "big-ip"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2023-10-31T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "F5 BIG-IP TMUI Authentication Bypass RCE"
+    },
+    {
+      "canonical_id": "CVE-2024-4577",
+      "composite_confidence": 0.92,
+      "cwe": [
+        "CWE-88"
+      ],
+      "description": "PHP, specifically Windows-based PHP used in CGI mode, contains an OS command injection vulnerability that allows for arbitrary code execution. This vulnerability is a patch bypass for CVE-2012-1823.",
+      "first_seen": "2024-06-12T00:00:00Z",
+      "frameworks": [
+        "php"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "php"
+      ],
+      "last_seen": "2024-06-12T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "PHP CGI Argument Injection on Windows"
+    },
+    {
+      "canonical_id": "CVE-2023-0669",
+      "composite_confidence": 0.92,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "Fortra (formerly, HelpSystems) GoAnywhere MFT contains a pre-authentication remote code execution vulnerability in the License Response Servlet due to deserializing an attacker-controlled object.",
+      "first_seen": "2023-02-10T00:00:00Z",
+      "frameworks": [
+        "goanywhere"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2023-02-10T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "GoAnywhere MFT Deserialization RCE"
+    },
+    {
+      "canonical_id": "CVE-2023-50164",
+      "composite_confidence": 0.91,
+      "cwe": [
+        "CWE-552"
+      ],
+      "description": "[snyk] CVE-2023-50164 is a critical vulnerability in the Apache Struts library. Learn how to find and fix by upgrading your package and using Snyk to discover and remediate.",
+      "first_seen": "2026-05-21T20:09:05.730113+00:00",
+      "frameworks": [
+        "struts"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2026-05-21T20:09:05.730113+00:00",
+      "merged_sources": [
+        "nvd",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/struts-path-traversal-vulnerability/"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Apache Struts 2 File Upload Path Traversal RCE"
+    },
+    {
+      "canonical_id": "CVE-2021-42013",
+      "composite_confidence": 0.91,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "Apache HTTP Server contains a path traversal vulnerability that allows an attacker to perform remote code execution if files outside directories configured by Alias-like directives are not under default require all denied or if CGI scripts are enabled. This CVE ID resolves an incomplete patch for CVE-2021-41773.",
+      "first_seen": "2021-11-03T00:00:00Z",
+      "frameworks": [
+        "apache-http"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "c"
+      ],
+      "last_seen": "2021-11-03T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Apache HTTP Server 2.4.50 Path Traversal RCE"
+    },
+    {
+      "canonical_id": "CVE-2024-27199",
+      "composite_confidence": 0.91,
+      "cwe": [
+        "CWE-22"
+      ],
+      "description": "JetBrains TeamCity contains a relative path traversal vulnerability that could allow limited admin actions to be performed.",
+      "first_seen": "2026-04-20T00:00:00Z",
+      "frameworks": [
+        "teamcity"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java",
+        "kotlin"
+      ],
+      "last_seen": "2026-04-20T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "high",
+      "source_count": 1,
+      "title": "JetBrains TeamCity Path Traversal"
+    },
+    {
+      "canonical_id": "CVE-2023-7028",
+      "composite_confidence": 0.91,
+      "cwe": [
+        "CWE-640"
+      ],
+      "description": "GitLab Community and Enterprise Editions contain an improper access control vulnerability. This allows an attacker to trigger password reset emails to be sent to an unverified email address to ultimately facilitate an account takeover.",
+      "first_seen": "2024-05-01T00:00:00Z",
+      "frameworks": [
+        "gitlab"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "ruby"
+      ],
+      "last_seen": "2024-05-01T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "GitLab Account Takeover via Password Reset"
+    },
+    {
+      "canonical_id": "CVE-2021-3156",
+      "composite_confidence": 0.91,
+      "cwe": [
+        "CWE-122"
+      ],
+      "description": "Sudo contains an off-by-one error that can result in a heap-based buffer overflow, which allows for privilege escalation.",
+      "first_seen": "2022-04-06T00:00:00Z",
+      "frameworks": [
+        "sudo"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "c"
+      ],
+      "last_seen": "2022-04-06T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Sudo Baron Samedit Heap Overflow LPE"
+    },
+    {
+      "canonical_id": "CVE-2023-44487",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-400"
+      ],
+      "description": "[snyk] Learn how to find and fix the HTTP/2 rapid reset vulnerability (CVE-2023-44487) that has been designated a High severity vulnerability with a CVSS score of 7.5 (out of 10).",
+      "first_seen": "2026-05-21T20:09:05.731236+00:00",
+      "frameworks": [
+        "nginx",
+        "apache",
+        "go"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "go",
+        "c",
+        "java"
+      ],
+      "last_seen": "2026-05-21T20:09:05.731236+00:00",
+      "merged_sources": [
+        "kev",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "HTTP/2 Rapid Reset DoS"
+    },
+    {
+      "canonical_id": "CVE-2022-22963",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-917"
+      ],
+      "description": "When using routing functionality in VMware Tanzu's Spring Cloud Function, it is possible for a user to provide a specially crafted SpEL as a routing-expression that may result in remote code execution and access to local resources.",
+      "first_seen": "2022-08-25T00:00:00Z",
+      "frameworks": [
+        "spring-cloud"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2022-08-25T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Spring Cloud Function SpEL RCE"
+    },
+    {
+      "canonical_id": "CVE-2022-22965",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-94"
+      ],
+      "description": "Spring MVC or Spring WebFlux application running on JDK 9+ may be vulnerable to remote code execution (RCE) via data binding.",
+      "first_seen": "2022-04-04T00:00:00Z",
+      "frameworks": [
+        "spring"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2022-04-04T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Spring4Shell Spring Framework RCE"
+    },
+    {
+      "canonical_id": "CVE-2021-22005",
+      "composite_confidence": 0.9,
+      "cwe": [
+        "CWE-434"
+      ],
+      "description": "VMware vCenter Server contains a file upload vulnerability in the Analytics service that allows a user with network access to port 443 to execute code.",
+      "first_seen": "2021-11-03T00:00:00Z",
+      "frameworks": [
+        "vcenter"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2021-11-03T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "VMware vCenter Arbitrary File Upload RCE"
+    },
+    {
+      "canonical_id": "CVE-2022-0847",
+      "composite_confidence": 0.89,
+      "cwe": [
+        "CWE-269"
+      ],
+      "description": "[snyk] Learn how to protect your containerized applications from from the \"Dirty Pipe\" Linux vulnerability (CVE-2022-0847), as well as how the exploit works. CVE-2022-0847 was created detailing a flaw in the Linux kernel that can be exploited allowing any process to modify files regardless of their permission settings or ownership.",
+      "first_seen": "2026-05-21T20:09:05.739565+00:00",
+      "frameworks": [
+        "linux-kernel"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "c"
+      ],
+      "last_seen": "2026-05-21T20:09:05.739565+00:00",
+      "merged_sources": [
+        "kev",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/dirty-pipe-vulnerability-cve-2022-0847-containerized-applications/"
+      ],
+      "severity": "high",
+      "source_count": 1,
+      "title": "Dirty Pipe Linux Kernel Privilege Escalation"
+    },
+    {
+      "canonical_id": "CVE-2024-57726",
+      "composite_confidence": 0.89,
+      "cwe": [
+        "CWE-287"
+      ],
+      "description": "SimpleHelp contains a missing authorization vulnerability that could allow low-privileged technicians to create API keys with excessive permissions. These API keys can be used to escalate privileges to the server admin role.",
+      "first_seen": "2026-04-24T00:00:00Z",
+      "frameworks": [
+        "simplehelp"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-04-24T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "SimpleHelp Authentication Bypass"
+    },
+    {
+      "canonical_id": "CVE-2018-1002105",
+      "composite_confidence": 0.88,
+      "cwe": [
+        "CWE-305"
+      ],
+      "description": "[snyk] An examination of the critical Kubernetes vulnerability identified as CVE-2018-1002105, which allows an attacker to gain remote access to backend services that reside in the Kubernetes cluster and execute arbitrary commands on them. We look at key takeaways and methods for protecting yourself from image vulnerabilities.",
+      "first_seen": "2026-05-21T20:09:05.750537+00:00",
+      "frameworks": [
+        "kubernetes"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "go"
+      ],
+      "last_seen": "2026-05-21T20:09:05.750537+00:00",
+      "merged_sources": [
+        "nvd",
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/critical-arbitrary-code-execution-vulnerability-found-in-kubernetes/"
+      ],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Kubernetes API Server Privilege Escalation"
+    },
+    {
+      "canonical_id": "CVE-2021-35211",
+      "composite_confidence": 0.88,
+      "cwe": [
+        "CWE-122"
+      ],
+      "description": "SolarWinds Serv-U contains an unspecified memory escape vulnerability which can allow for remote code execution.",
+      "first_seen": "2021-11-03T00:00:00Z",
+      "frameworks": [
+        "serv-u"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2021-11-03T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "SolarWinds Serv-U SSH Heap Overflow RCE"
+    },
+    {
+      "canonical_id": "CVE-2015-4852",
+      "composite_confidence": 0.85,
+      "cwe": [
+        "CWE-502"
+      ],
+      "description": "Oracle WebLogic Server contains a deserialization of untrusted data vulnerability within Apache Commons, which can allow for for remote code execution.",
+      "first_seen": "2021-11-03T00:00:00Z",
+      "frameworks": [
+        "weblogic"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "java"
+      ],
+      "last_seen": "2021-11-03T00:00:00Z",
+      "merged_sources": [
+        "kev"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Oracle WebLogic Deserialization RCE (Apache Commons)"
+    },
+    {
+      "canonical_id": "CVE-2021-44906",
+      "composite_confidence": 0.82,
+      "cwe": [
+        "CWE-1321"
+      ],
+      "description": "Minimist Prototype Pollution (Node.js)",
+      "first_seen": "2023-01-01T00:00:00Z",
+      "frameworks": [
+        "minimist"
+      ],
+      "key_kind": "cve",
+      "languages": [
+        "javascript"
+      ],
+      "last_seen": "2023-01-01T00:00:00Z",
+      "merged_sources": [
+        "nvd"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "critical",
+      "source_count": 1,
+      "title": "Minimist Prototype Pollution (Node.js)"
+    },
     {
       "canonical_id": "CVE-2017-18362",
       "composite_confidence": 0.4,
@@ -24,30 +1072,6 @@
       "severity": "medium",
       "source_count": 1,
       "title": "CVE-2017-18362: SQL Injection in ManagedITSync Integration | Huntress"
-    },
-    {
-      "canonical_id": "CVE-2018-1002105",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[snyk] An examination of the critical Kubernetes vulnerability identified as CVE-2018-1002105, which allows an attacker to gain remote access to backend services that reside in the Kubernetes cluster and execute arbitrary commands on them. We look at key takeaways and methods for protecting yourself from image vulnerabilities.",
-      "first_seen": "2026-05-21T20:09:05.750537+00:00",
-      "frameworks": [
-        "snyk"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:09:05.750537+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://snyk.io/blog/critical-arbitrary-code-execution-vulnerability-found-in-kubernetes/"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Critical Arbitrary Code Execution Vulnerability Found in Kubernetes"
     },
     {
       "canonical_id": "CVE-2019-10744",
@@ -218,31 +1242,6 @@
       "title": "Threat Advisory: Hackers Are Exploiting CVE-2021-40444 | Huntress"
     },
     {
-      "canonical_id": "CVE-2021-44228",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[huntress] Our team is currently investigating CVE-2021-44228, a critical vulnerability that\u2019s affecting a Java logging package.",
-      "first_seen": "2026-05-21T20:08:57.677943+00:00",
-      "frameworks": [
-        "huntress"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:08:57.677947+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 2,
-      "references": [
-        "https://www.huntress.com/blog/critical-rce-vulnerability-log4j-cve-2021-44228",
-        "https://www.huntress.com/blog/rapid-response-critical-rce-vulnerability-is-affecting-java"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Critical RCE Vulnerability: log4j - CVE-2021-44228 | Huntress"
-    },
-    {
       "canonical_id": "CVE-2021-44832",
       "composite_confidence": 0.4,
       "cwe": [],
@@ -267,30 +1266,6 @@
       "title": "New Log4j 2.17.1 fixes CVE-2021-44832 remote code execution (but it\u2019s not as bad as it sounds)"
     },
     {
-      "canonical_id": "CVE-2021-45046",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[snyk] It has been discovered that Log4j version 2.15.0 is still susceptible to arbitrary code execution (CVE-2021-45046) in certain circumstances. Upgrade to 2.16.0.",
-      "first_seen": "2026-05-21T20:09:05.740774+00:00",
-      "frameworks": [
-        "snyk"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:09:05.740774+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://snyk.io/blog/log4j-2-15-vulnerability-cve-2021-45046-critical-ace/"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Log4j 2.15 vulnerability CVE-2021-45046 upgraded to a critical severity arbitrary code execution"
-    },
-    {
       "canonical_id": "CVE-2021-45105",
       "composite_confidence": 0.4,
       "cwe": [],
@@ -313,30 +1288,6 @@
       "severity": "medium",
       "source_count": 1,
       "title": "Log4j 2.16 High Severity Vulnerability (CVE-2021-45105) Discovered"
-    },
-    {
-      "canonical_id": "CVE-2022-0847",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[snyk] Learn how to protect your containerized applications from from the \"Dirty Pipe\" Linux vulnerability (CVE-2022-0847), as well as how the exploit works. CVE-2022-0847 was created detailing a flaw in the Linux kernel that can be exploited allowing any process to modify files regardless of their permission settings or ownership.",
-      "first_seen": "2026-05-21T20:09:05.739565+00:00",
-      "frameworks": [
-        "snyk"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:09:05.739565+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://snyk.io/blog/dirty-pipe-vulnerability-cve-2022-0847-containerized-applications/"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "\"Dirty Pipe\" Linux vulnerability and your containerized applications (CVE-2022-0847)"
     },
     {
       "canonical_id": "CVE-2022-1471",
@@ -580,30 +1531,6 @@
       "title": "API authentication vulnerability found in Snyk Kubernetes integration (CVE-2023-1065)"
     },
     {
-      "canonical_id": "CVE-2023-22518",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[huntress] CVE-2023-22518 is being exploited in Confluence for Cerber ransomware deployment. Read up on Huntress\u2019 observations and mitigation guidance.",
-      "first_seen": "2026-05-21T20:08:57.676021+00:00",
-      "frameworks": [
-        "huntress"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:08:57.676021+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://www.huntress.com/blog/confluence-to-cerber-exploitation-of-cve-2023-22518-for-ransomware-deployment"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Confluence to Cerber: Exploitation of \u200b\u200bCVE-2023-22518"
-    },
-    {
       "canonical_id": "CVE-2023-23397",
       "composite_confidence": 0.4,
       "cwe": [],
@@ -650,30 +1577,6 @@
       "severity": "medium",
       "source_count": 1,
       "title": "Veeam Backup & Replication CVE-2023-27532 Response | Huntress"
-    },
-    {
-      "canonical_id": "CVE-2023-34362",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[huntress] Our team is tracking in-the-wild exploitation of a zero-day vulnerability against Progress' MOVEit Transfer web application that allows for escalated privileges and unauthorized access.",
-      "first_seen": "2026-05-21T20:08:57.676494+00:00",
-      "frameworks": [
-        "huntress"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:08:57.676494+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://www.huntress.com/blog/moveit-transfer-critical-vulnerability-rapid-response"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "MOVEit Transfer Critical Vulnerability CVE-2023-34362 | Huntress"
     },
     {
       "canonical_id": "CVE-2023-38545",
@@ -746,30 +1649,6 @@
       "severity": "medium",
       "source_count": 1,
       "title": "MFT Exploitation and Adversary Operations | Huntress"
-    },
-    {
-      "canonical_id": "CVE-2023-44487",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[snyk] Learn how to find and fix the HTTP/2 rapid reset vulnerability (CVE-2023-44487) that has been designated a High severity vulnerability with a CVSS score of 7.5 (out of 10).",
-      "first_seen": "2026-05-21T20:09:05.731236+00:00",
-      "frameworks": [
-        "snyk"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:09:05.731236+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Find and fix HTTP/2 rapid reset zero-day vulnerability CVE-2023-44487"
     },
     {
       "canonical_id": "CVE-2023-46233",
@@ -871,55 +1750,6 @@
       "title": "Critical Vuln: WebP Heap Buffer Overflow CVE-2023-4863 | Huntress"
     },
     {
-      "canonical_id": "CVE-2023-50164",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[snyk] CVE-2023-50164 is a critical vulnerability in the Apache Struts library. Learn how to find and fix by upgrading your package and using Snyk to discover and remediate.",
-      "first_seen": "2026-05-21T20:09:05.730113+00:00",
-      "frameworks": [
-        "snyk"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:09:05.730113+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://snyk.io/blog/struts-path-traversal-vulnerability/"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "Krampus delivers an end-of-year Struts vulnerability"
-    },
-    {
-      "canonical_id": "CVE-2024-1709",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[huntress] Adversaries have been VERY busy in the wake of the ScreenConnect vulnerabilities (CVE-2024-1709 & CVE-2024-1708). Here\u2019s all the post-exploitation details, tradecraft, and tactics we\u2019ve observed so far!",
-      "first_seen": "2026-05-21T20:08:57.675741+00:00",
-      "frameworks": [
-        "huntress"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:08:57.675762+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 2,
-      "references": [
-        "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass",
-        "https://www.huntress.com/blog/slashandgrab-screen-connect-post-exploitation-in-the-wild-cve-2024-1709-cve-2024-1708"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "SlashAndGrab | Huntress"
-    },
-    {
       "canonical_id": "CVE-2024-22195",
       "composite_confidence": 0.4,
       "cwe": [],
@@ -942,30 +1772,6 @@
       "severity": "medium",
       "source_count": 1,
       "title": "Understanding and mitigating the Jinja2 XSS vulnerability (CVE-2024-22195)"
-    },
-    {
-      "canonical_id": "CVE-2024-3094",
-      "composite_confidence": 0.4,
-      "cwe": [],
-      "description": "[snyk] On the 29th of March 2024, the high-stakes investment and prolonged campaign to plant a backdoor in the Linux software library liblzma to gain access to multiple operating systems via Linux distributions was carried out by a malicious actor.",
-      "first_seen": "2026-05-21T20:09:05.729509+00:00",
-      "frameworks": [
-        "snyk"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T20:09:05.729509+00:00",
-      "merged_sources": [
-        "rss_feeds"
-      ],
-      "proactive_only": true,
-      "raw_records_count": 1,
-      "references": [
-        "https://snyk.io/blog/the-xz-backdoor-cve-2024-3094/"
-      ],
-      "severity": "medium",
-      "source_count": 1,
-      "title": "The XZ backdoor CVE-2024-3094"
     },
     {
       "canonical_id": "CVE-2024-3721",
@@ -1671,5 +2477,5 @@
       "title": "CVE-2026-9082: Highly Critical SQL Injection Vulnerability in Drupal Core (SA-CORE-2026-004)"
     }
   ],
-  "correlated_at": "2026-05-21T20:09:08.485364+00:00"
+  "correlated_at": "2026-05-21T21:22:52.894445+00:00"
 }
