@@ -57,7 +57,7 @@ jobs:
         run: |
           STAMP=$(date -u +%Y%m%dT%H%M%SZ)
           OUT=/tmp/auth-${STAMP}.sql
-          npx -y wrangler@4 d1 export preston-check-auth --output "$OUT"
+          npx -y wrangler@4 d1 export preston-check-auth --remote --output "$OUT"
           ls -la "$OUT"
           npx -y wrangler@4 r2 object put "$R2_BUCKET/auth/${STAMP}.sql" --file "$OUT"
 
@@ -69,6 +69,6 @@ jobs:
         run: |
           STAMP=$(date -u +%Y%m%dT%H%M%SZ)
           OUT=/tmp/billing-${STAMP}.sql
-          npx -y wrangler@4 d1 export preston-check-billing --output "$OUT"
+          npx -y wrangler@4 d1 export preston-check-billing --remote --output "$OUT"
           ls -la "$OUT"
           npx -y wrangler@4 r2 object put "$R2_BUCKET/billing/${STAMP}.sql" --file "$OUT"
