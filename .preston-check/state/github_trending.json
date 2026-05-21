@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-20T22:42:14.237555+00:00",
-  "last_successful_fetch": "2026-05-20T22:42:17.523003+00:00",
+  "last_run": "2026-05-21T00:15:32.731379+00:00",
+  "last_successful_fetch": "2026-05-21T00:15:36.395849+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -644,7 +644,8 @@
     "github:KyleLJohnson/CVE-Remediator",
     "github:Bhanunamikaze/CVE-2026-2587-Exploit-POC",
     "github:ZeroPathAI/autogpt-CVE-2026-30950-poc",
-    "github:xntony/CVE-PoC"
+    "github:xntony/CVE-PoC",
+    "github:Name-Unavailable404/cve-lookup-tool"
   ],
   "source_id": "github_trending",
   "stats": {
