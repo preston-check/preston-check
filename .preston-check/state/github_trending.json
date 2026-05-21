@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-21T09:59:53.607915+00:00",
-  "last_successful_fetch": "2026-05-21T09:59:58.275101+00:00",
+  "last_run": "2026-05-21T12:53:42.840900+00:00",
+  "last_successful_fetch": "2026-05-21T12:53:48.401471+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -659,7 +659,11 @@
     "github:ichigo1vs/cve-honeypot",
     "github:EQSTLab/CVE-2026-42048",
     "github:FaLLenSKiLL1/CVE-2024-6678",
-    "github:r0binak/CVE-2026-46680"
+    "github:r0binak/CVE-2026-46680",
+    "github:dmesser/openshift-cve-analyzer",
+    "github:0xFuffM3/CVE-2026-31635-DirtyDecrypt",
+    "github:Sc3rlex/cveti-secret",
+    "github:grimmolf/redhat-cve-tools"
   ],
   "source_id": "github_trending",
   "stats": {
