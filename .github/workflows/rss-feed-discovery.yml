@@ -1,0 +1,47 @@
+name: RSS feed discovery
+
+# Daily job that tests candidate feed URLs from tools/feed_candidates.txt,
+# validates them for security relevance, and appends new working feeds to
+# _RSS_FEEDS in tools/ingest_sources.py. The commit lands in master and is
+# picked up by the next ingest run automatically.
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rss-feed-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Discover and validate candidate feeds
+        id: discover
+        run: |
+          python3 tools/discover_feeds.py --json > /tmp/discovery-result.json
+          cat /tmp/discovery-result.json
+          added=$(python3 -c "import json; print(json.load(open('/tmp/discovery-result.json'))['added'])")
+          echo "added=$added" >> "$GITHUB_OUTPUT"
+
+      - name: Commit new feeds
+        if: steps.discover.outputs.added != '0'
+        run: |
+          git config user.name "preston-check-bot"
+          git config user.email "bot@preston-check.com"
+          git add tools/ingest_sources.py
+          SLUGS=$(python3 -c "import json,sys; d=json.load(open('/tmp/discovery-result.json')); print(','.join(f['slug'] for f in d['new_feeds'][:5]))")
+          git diff --cached --quiet || git commit -m "feat(ingest): rss discovery added $SLUGS"
+          git pull --rebase origin master
+          git push origin HEAD:master

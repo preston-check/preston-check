@@ -951,10 +951,28 @@ _RSS_FEEDS: list[tuple[str, str]] = [
     ("mandiant", "https://www.mandiant.com/resources/blog/rss.xml"),
     ("securelist", "https://securelist.com/feed/"),
     ("sentinelone", "https://www.sentinelone.com/blog/feed/"),
+    # Major platform security blogs
+    ("microsoft_security", "https://www.microsoft.com/en-us/security/blog/feed/"),
+    ("google_security", "https://feeds.feedburner.com/GoogleOnlineSecurityBlog"),
+    ("aws_security", "https://aws.amazon.com/blogs/security/feed/"),
+    ("cisco_security", "https://blogs.cisco.com/security/feed"),
+    # More vendor research
+    ("checkpoint", "https://research.checkpoint.com/feed/"),
+    ("malwarebytes", "https://blog.malwarebytes.com/feed/"),
+    ("welivesecurity", "https://www.welivesecurity.com/feed/"),
+    ("tenable", "https://www.tenable.com/blog/feed"),
+    ("qualys", "https://blog.qualys.com/feed"),
+    ("elastic_security", "https://www.elastic.co/security-labs/rss/feed.xml"),
+    ("varonis", "https://blog.varonis.com/feed/"),
+    ("portswigger", "https://portswigger.net/blog/rss"),
+    # Government / CERT
+    ("ncsc_uk", "https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml"),
     # Payments, fraud & fintech
     ("fintechbizweekly", "https://fintechbusinessweekly.substack.com/feed"),
     ("paymentsdive", "https://www.paymentsdive.com/feeds/news/"),
     ("fraudcom", "https://www.fraud.com/rss"),
+    ("bankinfosecurity", "https://www.bankinfosecurity.com/rss-feeds"),
+    ("sift", "https://www.sift.com/blog/rss"),
     # Developer / supply chain security
     ("github_blog", "https://github.blog/feed/"),
 ]

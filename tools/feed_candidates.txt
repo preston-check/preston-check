@@ -1,0 +1,122 @@
+# RSS/Atom feed candidates for security and fraud/fintech intelligence.
+# One URL per line. Lines starting with # are comments.
+# The daily rss-feed-discovery workflow tests each URL and adds valid,
+# security-relevant feeds to _RSS_FEEDS in ingest_sources.py.
+#
+# Format: url [optional-label]
+# Label overrides the auto-derived slug if provided.
+
+# --- Vendor research blogs ---
+https://blog.google/threat-analysis-group/atom.xml google_tag
+https://projectzero.google/feed.xml project_zero
+https://bugs.chromium.org/feeds/commoncomponentreviews.atom chromium_security
+https://security.googleblog.com/feeds/posts/default?alt=rss
+https://www.rapid7.com/blog/threat-intelligence/rss.xml rapid7_threat
+https://www.rapid7.com/blog/application-security/rss.xml rapid7_appsec
+https://www.wiz.io/blog/rss
+https://www.lacework.com/blog/feed/
+https://snyk.io/blog/feed/
+https://socket.dev/blog/rss.xml
+https://blog.trailofbits.com/feed/
+https://blog.0patch.com/feeds/posts/default
+https://www.huntress.com/blog/rss.xml
+https://redcanary.com/blog/feed/
+https://www.vectra.ai/blog/rss.xml
+https://www.cybereason.com/blog/rss.xml
+https://www.darktrace.com/blog/rss.xml
+https://www.abnormalsecurity.com/blog/rss.xml
+https://www.exabeam.com/blog/rss/
+https://www.securonix.com/blog/rss.xml
+https://www.logrhythm.com/blog/rss/
+https://www.armorcode.com/blog/rss.xml
+https://www.veracode.com/blog/feed
+https://www.invicti.com/blog/feed/
+https://owasp.org/blog/feed.xml
+https://portswigger.net/research/rss
+https://starlabs.sg/blog/index.xml
+
+# --- Threat intelligence platforms ---
+https://otx.alienvault.com/blog/rss.xml
+https://blog.talosintelligence.com/rss/
+https://www.secureworks.com/blog/rss
+https://www.proofpoint.com/us/blog/threat-insight/rss
+https://www.ibm.com/blogs/psirt/feed/
+https://www.ibm.com/security/data-breach/feed/
+https://securityboulevard.com/feed/
+
+# --- Cloud & container security ---
+https://cloudsecurityalliance.org/blog/feed/
+https://www.aquasec.com/blog/feed/
+https://www.paloaltonetworks.com/blog/category/prisma-cloud/feed/
+https://sysdig.com/blog/feed/
+https://www.tigera.io/blog/feed/
+https://www.datadoghq.com/blog/tag/security/feed/
+https://medium.com/feed/google-cloud-security
+https://cloudsecuritypodcast.tv/feed/
+
+# --- Identity & access ---
+https://www.okta.com/blog/feed/
+https://www.cyberark.com/blog/rss/
+https://www.sailpoint.com/blog/rss.xml
+https://www.beyondtrust.com/blog/rss.xml
+https://blog.1password.com/rss/
+
+# --- Financial crime, AML, fraud ---
+https://www.acfe.com/news/rss.aspx
+https://www.fico.com/blogs/fraud-security/rss.xml
+https://www.transunion.com/blog/rss.xml
+https://www.experian.com/blogs/ask-experian/feed/
+https://www.lexisnexisrisk.com/blog/feed
+https://www.featurespace.com/blog/feed/
+https://sardine.ai/blog/rss.xml
+https://www.threatmark.com/blog/rss.xml
+https://recidiviz.org/blog/feed
+https://financialcrimeacademy.org/feed/
+
+# --- Fintech & banking security ---
+https://www.fintechfutures.com/feed/
+https://www.fintech.finance/feed/
+https://www.themoneycharity.org.uk/blog/rss/
+https://www.jpmorgan.com/technology/technology-blog/rss
+https://www.mimecast.com/blog/feed/
+https://www.aba.com/banking-topics/technology/cybersecurity/rss.xml
+
+# --- International CERTs ---
+https://www.cert.pl/en/feed/
+https://cert.europa.eu/publications/threat-intelligence/rss
+https://www.ssi.gouv.fr/en/feed/
+https://www.bsi.bund.de/SiteGlobals/Functions/RSSFeed/RSSNewsfeed_Presse.xml
+https://www.enisa.europa.eu/publications/enisa-threat-landscape/rss
+https://www.cisa.gov/uscert/ncas/current-activity.xml
+https://www.jpcert.or.jp/english/rss/jpcert-en.rdf
+https://www.ccn-cert.cni.es/en/rss/news.xml
+
+# --- Regulatory & compliance ---
+https://www.fdic.gov/news/news/press/rss.xml
+https://www.sec.gov/rss/litigation/litreleases.xml
+https://www.ftc.gov/rss/updates/news.xml
+https://www.fca.org.uk/news/rss.xml
+https://www.eba.europa.eu/rss.xml
+https://ico.org.uk/feed/news/
+https://www.pcisecuritystandards.org/about/news-and-events/rss
+
+# --- Open source intelligence & research ---
+https://otx.alienvault.com/pulse/rss.xml
+https://www.virusbulletin.com/rss/
+https://vxug.fakedoma.in/feed.xml
+https://github.com/nicowillis/security-blogs-feeds/raw/main/feed.opml
+https://threatpost.com/feed/
+https://www.securityfocus.com/rss/vulnerabilities.xml
+https://packetstormsecurity.com/rss.xml
+
+# --- Developer security ---
+https://github.blog/security/feed/
+https://github.blog/tag/vulnerability/feed/
+https://about.gitlab.com/blog/categories/security/feed.xml
+https://www.hashicorp.com/blog/security/feed.xml
+https://security.stackexchange.com/feeds
+
+# --- Academic / research ---
+https://arxiv.org/rss/cs.CR
+https://ieeexplore.ieee.org/rss/TOC36.XML
+https://www.usenix.org/news/security/rss.xml
