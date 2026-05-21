@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-21T21:44:43.236772+00:00",
-  "last_successful_fetch": "2026-05-21T21:44:43.237631+00:00",
+  "last_run": "2026-05-21T23:13:03.528587+00:00",
+  "last_successful_fetch": "2026-05-21T23:13:03.529514+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4940,7 +4940,14 @@
     "threatfox:158.94.209.7:5022",
     "threatfox:157.230.125.65:7443",
     "threatfox:proxy-hub.christmas",
-    "threatfox:cloud-sync-engine.christmas"
+    "threatfox:cloud-sync-engine.christmas",
+    "threatfox:packet-distribution-core.christmas",
+    "threatfox:49.232.4.144:18443",
+    "threatfox:206.188.197.241:53",
+    "threatfox:193.142.146.30:6555",
+    "threatfox:linuxkerneldbs.com",
+    "threatfox:container-mesh.christmas",
+    "threatfox:telemetry-control-hub.christmas"
   ],
   "source_id": "abuse_ch",
   "stats": {
