@@ -232,7 +232,7 @@ def main() -> int:
 
         if not args.dry_run:
             _append_feed(slug, url, "# Developer / supply chain security")
-            print(f"  + added {slug} <- {url}")
+            print(f"  + added {slug} <- {url}", file=sys.stderr if args.json else sys.stdout)
         else:
             print(f"  [dry-run] would add {slug} <- {url}")
 
