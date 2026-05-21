@@ -945,17 +945,25 @@ _RSS_FEEDS: list[tuple[str, str]] = [
     ("thehackernews", "https://feeds.feedburner.com/TheHackersNews"),
     ("schneier", "https://www.schneier.com/feed/atom/"),
     ("sans_isc", "https://isc.sans.edu/rssfeed.xml"),
+    ("infosecurity_mag", "https://www.infosecurity-magazine.com/rss/news/"),
+    ("cyberscoop", "https://www.cyberscoop.com/feed/"),
+    ("security_magazine", "https://www.securitymagazine.com/rss/topic/2236-cyber-security"),
     # Threat-intel vendor research
     ("unit42", "https://unit42.paloaltonetworks.com/feed/"),
     ("crowdstrike", "https://www.crowdstrike.com/blog/feed/"),
     ("mandiant", "https://www.mandiant.com/resources/blog/rss.xml"),
     ("securelist", "https://securelist.com/feed/"),
     ("sentinelone", "https://www.sentinelone.com/blog/feed/"),
+    ("talos", "https://blog.talosintelligence.com/rss/"),
+    ("trailofbits", "https://blog.trailofbits.com/feed/"),
+    ("redcanary", "https://redcanary.com/blog/feed/"),
+    ("huntress", "https://www.huntress.com/blog/rss.xml"),
     # Major platform security blogs
     ("microsoft_security", "https://www.microsoft.com/en-us/security/blog/feed/"),
     ("google_security", "https://feeds.feedburner.com/GoogleOnlineSecurityBlog"),
     ("aws_security", "https://aws.amazon.com/blogs/security/feed/"),
     ("cisco_security", "https://blogs.cisco.com/security/feed"),
+    ("project_zero", "https://googleprojectzero.blogspot.com/feeds/posts/default"),
     # More vendor research
     ("checkpoint", "https://research.checkpoint.com/feed/"),
     ("malwarebytes", "https://blog.malwarebytes.com/feed/"),
@@ -965,6 +973,8 @@ _RSS_FEEDS: list[tuple[str, str]] = [
     ("elastic_security", "https://www.elastic.co/security-labs/rss/feed.xml"),
     ("varonis", "https://blog.varonis.com/feed/"),
     ("portswigger", "https://portswigger.net/blog/rss"),
+    ("portswigger_research", "https://portswigger.net/research/rss"),
+    ("aquasec", "https://blog.aquasec.com/rss.xml"),
     # Government / CERT
     ("ncsc_uk", "https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml"),
     # Payments, fraud & fintech
@@ -972,9 +982,17 @@ _RSS_FEEDS: list[tuple[str, str]] = [
     ("paymentsdive", "https://www.paymentsdive.com/feeds/news/"),
     ("fraudcom", "https://www.fraud.com/rss"),
     ("bankinfosecurity", "https://www.bankinfosecurity.com/rss-feeds"),
+    ("databreachtoday", "https://www.databreachtoday.com/rss-feeds"),
     ("sift", "https://www.sift.com/blog/rss"),
+    ("finextra_security", "https://www.finextra.com/rss/channel.aspx?channel=security"),
     # Developer / supply chain security
     ("github_blog", "https://github.blog/feed/"),
+    ("snyk", "https://snyk.io/blog/feed/"),
+    # Cloud security
+    ("cloudsecurityalliance", "https://cloudsecurityalliance.org/blog/feed/"),
+    # Research & academic
+    ("arxiv_security", "https://arxiv.org/rss/cs.CR"),
+    ("threatpost", "https://threatpost.com/feed/"),
 ]
 
 _RSS_SECURITY_KEYWORDS = (
