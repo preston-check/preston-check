@@ -933,6 +933,113 @@ def _partner_feed_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
     return [], state
 
 
+_RSS_FEEDS: list[tuple[str, str]] = [
+    ("krebs", "https://krebsonsecurity.com/feed/"),
+    ("tldrsec", "https://rss.beehiiv.com/feeds/xgTKUmMmUm.xml"),
+    ("darkreading", "https://www.darkreading.com/rss.xml"),
+    ("bleepingcomputer", "https://www.bleepingcomputer.com/feed/"),
+    ("riskybiz", "https://news.risky.biz/rss/"),
+    ("helpnetsecurity", "https://www.helpnetsecurity.com/feed/"),
+    ("thehackernews", "https://feeds.feedburner.com/TheHackersNews"),
+    ("fintechbizweekly", "https://fintechbusinessweekly.substack.com/feed"),
+    ("fraudcom", "https://www.fraud.com/rss"),
+]
+
+_RSS_SECURITY_KEYWORDS = (
+    "vulnerability", "exploit", "breach", "malware", "ransomware",
+    "phishing", "fraud", "attack", "cve-", "zero-day", "rce",
+    "injection", "authentication", "authorization", "crypto",
+    "payment", "fintech", "banking", "threat", "advisory",
+    "patch", "disclosure", "apt", "supply chain", "backdoor",
+    "botnet", "credential", "data leak", "scam", "bypass",
+)
+
+
+def _rss_is_relevant(title: str, description: str) -> bool:
+    text = (title + " " + description).lower()
+    return any(kw in text for kw in _RSS_SECURITY_KEYWORDS) or _is_fintech_relevant(text)
+
+
+def _rss_feeds_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
+    """Fetch curated security and fraud/fintech RSS/Atom feeds.
+
+    All feeds are public — no authentication or subscription required.
+    Uses stdlib urllib and xml.etree.ElementTree only.
+    Deduplicates by GUID/link; tracks processed_ids per the same
+    convention as all other sources.
+    """
+    import xml.etree.ElementTree as _ET
+
+    new_state = {**state, "last_run": now_iso()}
+    processed = set(state.get("processed_ids", []))
+    records: list[CandidateRecord] = []
+    new_processed = list(processed)
+
+    _ATOM_NS = "http://www.w3.org/2005/Atom"
+
+    for feed_name, feed_url in _RSS_FEEDS:
+        try:
+            xml_text = http_get_text(feed_url)
+            if not xml_text:
+                continue
+            root = _ET.fromstring(xml_text)
+        except Exception as exc:
+            print(f"[rss_feeds] failed to fetch/parse {feed_name}: {exc}", file=sys.stderr)
+            continue
+
+        items: list[tuple[str, str, str, str]] = []
+        if root.tag == "rss" or root.tag.endswith("}rss"):
+            for item in root.findall(".//item"):
+                title = (item.findtext("title") or "").strip()
+                desc = (item.findtext("description") or "").strip()
+                link = (item.findtext("link") or "").strip()
+                guid = (item.findtext("guid") or link).strip()
+                items.append((guid, title, desc, link))
+        else:
+            for entry in root.findall(f".//{{{_ATOM_NS}}}entry"):
+                title_el = entry.find(f"{{{_ATOM_NS}}}title")
+                title = (title_el.text if title_el is not None else "").strip()
+                for tag in (f"{{{_ATOM_NS}}}summary", f"{{{_ATOM_NS}}}content"):
+                    desc_el = entry.find(tag)
+                    if desc_el is not None and desc_el.text:
+                        break
+                desc = (desc_el.text if desc_el is not None else "").strip()
+                link_el = entry.find(f"{{{_ATOM_NS}}}link")
+                link = (link_el.get("href", "") if link_el is not None else "").strip()
+                id_el = entry.find(f"{{{_ATOM_NS}}}id")
+                guid = (id_el.text if id_el is not None else link).strip()
+                items.append((guid, title, desc, link))
+
+        for guid, title, desc, link in items:
+            if not guid or guid in processed:
+                continue
+            clean_desc = re.sub(r"<[^>]+>", " ", desc)
+            clean_desc = html.unescape(clean_desc).strip()[:500]
+            if not _rss_is_relevant(title, clean_desc):
+                continue
+            records.append(
+                CandidateRecord(
+                    source="rss_feeds",
+                    source_id=guid,
+                    fetched_at=now_iso(),
+                    title=title[:200],
+                    description=f"[{feed_name}] {clean_desc}",
+                    severity="medium",
+                    cwe=[],
+                    languages=[],
+                    frameworks=[feed_name],
+                    references=[link] if link else [],
+                    confidence=0.4,
+                    proactive=True,
+                )
+            )
+            new_processed.append(guid)
+
+    _cap_processed(new_state, 10000)
+    new_state["processed_ids"] = new_processed[-10000:]
+    return records, new_state
+
+
 SOURCES: dict[str, dict[str, Any]] = {
     "kev": {
         "fetch": _kev_fetch,
@@ -1010,6 +1117,13 @@ SOURCES: dict[str, dict[str, Any]] = {
         "budget_usd_daily": 2.0,
         "proactive": True,
         "description": "Threat/fraud newsletters via email (s3://preston-check-inbound-mail/newsletters/)",
+    },
+    "rss_feeds": {
+        "fetch": _rss_feeds_fetch,
+        "poll_seconds": 21600,
+        "budget_usd_daily": None,
+        "proactive": True,
+        "description": "Curated security/fraud RSS feeds (Krebs, tl;dr sec, Dark Reading, BleepingComputer, Risky Biz, HelpNetSecurity, THN, Fintech Business Weekly, Fraud.com)",
     },
     "partner_feed": {
         "fetch": _partner_feed_fetch,

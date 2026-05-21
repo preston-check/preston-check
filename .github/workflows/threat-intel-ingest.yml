@@ -62,7 +62,7 @@ jobs:
           set -e
           if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             case "$INPUT_SOURCE" in
-              all-tier1) echo "sources=github_trending,abuse_ch,reddit,mastodon,mailing_list,conference_zdi" >> "$GITHUB_OUTPUT" ;;
+              all-tier1) echo "sources=github_trending,abuse_ch,reddit,mastodon,mailing_list,conference_zdi,rss_feeds" >> "$GITHUB_OUTPUT" ;;
               all-reactive) echo "sources=kev,ghsa,nvd,osv" >> "$GITHUB_OUTPUT" ;;
               *) echo "sources=$INPUT_SOURCE" >> "$GITHUB_OUTPUT" ;;
             esac
@@ -71,7 +71,7 @@ jobs:
               '*/15 * * * *') echo "sources=kev" >> "$GITHUB_OUTPUT" ;;
               '7 * * * *') echo "sources=ghsa,github_trending,abuse_ch,reddit,mastodon" >> "$GITHUB_OUTPUT" ;;
               '11 */2 * * *') echo "sources=mailing_list" >> "$GITHUB_OUTPUT" ;;
-              '17 */6 * * *') echo "sources=nvd,osv,conference_zdi,newsletter" >> "$GITHUB_OUTPUT" ;;
+              '17 */6 * * *') echo "sources=nvd,osv,conference_zdi,newsletter,rss_feeds" >> "$GITHUB_OUTPUT" ;;
               *) echo "sources=kev" >> "$GITHUB_OUTPUT" ;;
             esac
           fi
