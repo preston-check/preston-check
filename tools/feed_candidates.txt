@@ -206,3 +206,87 @@ https://github.blog/tag/vulnerability/feed/ github_vuln
 # --- Additional fintech & payments ---
 https://www.kroll.com/en/insights/publications/cyber/rss kroll_cyber
 https://www.swift.com/news-events/news/rss swift_news
+
+# --- UK security ---
+https://www.ncsc.gov.uk/api/1/services/v1/report-rss-feed.xml ncsc_uk_reports
+https://www.ncsc.gov.uk/api/1/services/v1/guidance-rss-feed.xml ncsc_uk_guidance
+https://www.crest-approved.org/news/feed/ crest
+https://www.sans.org/newsletters/rss/ sans_newsletter
+https://www.infosecurity-magazine.com/rss/news/ infosecurity_mag_uk
+
+# --- European security (EU/DE/FR/NL/SE) ---
+https://www.bsi.bund.de/SiteGlobals/Functions/RSSFeed/RSSNewsfeed_EN_Cybersicherheitsempfehlungen.xml bsi_de_advisories
+https://www.ssi.gouv.fr/en/feed/ anssi_fr
+https://www.enisa.europa.eu/publications/rss enisa_pubs
+https://www.divd.nl/feed.xml divd_nl
+https://cert.europa.eu/publications/threat-intelligence/rss certeu_threat
+https://www.ncsc.nl/actueel/rss-feeds.html ncsc_nl
+https://www.cert.se/feed/ cert_se
+https://www.cybersikkerhed.dk/feed/ cert_dk
+https://www.ncsc.ie/feed/ ncsc_ie
+
+# --- Russian / Eastern European threat intelligence ---
+https://securelist.com/feed/ securelist_ru
+https://blog.bi.zone/en/feed/ bizone
+https://www.group-ib.com/media/news/rss.xml group_ib
+https://rt-solar.ru/rss/news/ solar_rt
+https://xakep.ru/feed/ xakep_ru
+
+# --- APAC — South Korea ---
+https://www.krcert.or.kr/rss/secNoticeRss.do krcert
+https://asec.ahnlab.com/en/feed/ ahnlab_asec
+https://www.boho.or.kr/rss/secNoticeRss.do boho_kr
+
+# --- APAC — China (English-language & translated) ---
+https://www.antiy.com/rss/news_en.xml antiy_en
+https://ti.qianxin.com/blog/feed qianxin_ti
+https://www.cert.org.cn/publishs/rss/rss.xml cncert
+https://blog.nsfocus.net/feed/ nsfocus
+
+# --- APAC — Japan ---
+https://www.jpcert.or.jp/english/rss/jpcert-en.rdf jpcert_en
+https://blog.macnica.net/blog/feed.xml macnica_jp
+
+# --- APAC — Australia / New Zealand ---
+https://www.cyber.gov.au/about-us/advisories/rss.xml acsc_au
+https://www.cert.govt.nz/it-specialists/advisories/rss.xml cert_nz
+https://www.auscert.org.au/resources/security-bulletins/rss/ auscert
+
+# --- Middle East & Africa ---
+https://www.kaspersky.com/blog/category/threats/feed/ kaspersky_threats
+https://www.dubai.ae/en/business/SecurityCentre/RSS/rss.xml dubai_cert
+
+# --- Latin America ---
+https://www.lacnic.net/rss/rss.xml lacnic
+https://www.cert.br/rss/news.rss cert_br
+
+# --- Exploit databases & PoC trackers (global) ---
+https://www.exploit-db.com/rss.xml exploitdb
+https://packetstormsecurity.com/rss.xml packetstorm_exploits
+https://seclists.org/rss.rdf seclists
+https://vuldb.com/?rss.recent vuldb
+https://www.vulnerability-lab.com/rss/rss.php vulnlab
+https://cxsecurity.com/rss/wlb/ cxsecurity
+https://0day.today/rss/ zerodaytoday
+
+# --- Underground / dark web monitoring (public feeds) ---
+https://www.recordedfuture.com/blog/rss.xml recordedfuture
+https://www.flashpoint.io/blog/feed/ flashpoint
+https://www.intel471.com/blog/rss.xml intel471
+https://www.cybersixgill.com/blog/rss.xml cybersixgill
+
+# --- Hacking kits / crimeware tracking ---
+https://www.spamhaus.org/news/rss/ spamhaus
+https://abuse.ch/blog/feed/ abuse_ch_blog
+https://bazaar.abuse.ch/export/rss/recent/ malwarebazaar_rss
+https://feodotracker.abuse.ch/downloads/feodotracker.xml feodotracker
+https://www.virusbulletin.com/rss/ virusbulletin
+https://blog.sekoia.io/feed/ sekoia
+https://malcat.fr/blog/index.xml malcat
+
+# --- Nation-state / APT tracking ---
+https://apt.etda.or.th/cgi-bin/aptrss.cgi etda_apt
+https://www.mandiant.com/resources/blog/rss.xml mandiant_apt
+https://www.fireeye.com/blog/threat-research/rss.xml fireeye_threat
+https://www.crowdstrike.com/blog/category/threat-intel/feed/ crowdstrike_intel
+https://media.kasperskycontenthub.com/wp-content/uploads/sites/58/wppb/securelist/feed securelist_apt
