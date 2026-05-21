@@ -1,5 +1,422 @@
 {
-  "candidate_count": 0,
-  "candidates": [],
-  "correlated_at": "2026-05-21T13:32:03.664010+00:00"
+  "candidate_count": 17,
+  "candidates": [
+    {
+      "canonical_id": "CVE-2023-33538",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[unit42] CVE-2023-33538 allows for command injection in TP-Link routers. We discuss exploitation attempts with payloads characteristic of Mirai botnet malware. \n The post  A Deep Dive Into Attempted Exploitation of CVE-2023-33538  appeared first on  Unit 42 .",
+      "first_seen": "2026-05-21T15:51:15.394230+00:00",
+      "frameworks": [
+        "unit42"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:15.394230+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://unit42.paloaltonetworks.com/exploitation-of-cve-2023-33538/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "A Deep Dive Into Attempted Exploitation of CVE-2023-33538"
+    },
+    {
+      "canonical_id": "CVE-2025-68670",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[securelist] During a security assessment of Kaspersky USB Redirector, we discovered CVE-2025-68670: a pre-auth RCE in the xrdp server component. Project maintainers promptly patched the vulnerability.",
+      "first_seen": "2026-05-21T15:51:19.186776+00:00",
+      "frameworks": [
+        "securelist"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:19.186776+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://securelist.com/cve-2025-68670/119742/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CVE-2025-68670: discovering an RCE vulnerability in xrdp"
+    },
+    {
+      "canonical_id": "CVE-2026-0300",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[unit42] Unit 42 details CVE-2026-0300, a buffer overflow vulnerability in the PAN-OS User-ID Authentication Portal. Read now for details.  \n The post  Threat Brief: Exploitation of PAN-OS Captive Portal Zero-Day for Unauthenticated Remote Code Execution  appeared first on  Unit 42 .",
+      "first_seen": "2026-05-21T15:51:15.394098+00:00",
+      "frameworks": [
+        "unit42"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:15.394098+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://unit42.paloaltonetworks.com/captive-portal-zero-day/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Threat Brief: Exploitation of PAN-OS Captive Portal Zero-Day for Unauthenticated Remote Code Execution"
+    },
+    {
+      "canonical_id": "CVE-2026-20182",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[thehackernews] The U.S.Cybersecurity and Infrastructure Security Agency (CISA) on Thursday added a newly disclosed vulnerability impacting Cisco Catalyst SD-WAN Controller to its Known Exploited Vulnerabilities (KEV) catalog, requiring Federal Civilian Executive Branch (FCEB) agencies to remediate the issue by May 17, 2026.\nThe vulnerability is a critical authentication bypass tracked as CVE-2026-20182. It's",
+      "first_seen": "2026-05-21T15:51:14.750023+00:00",
+      "frameworks": [
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.750028+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://thehackernews.com/2026/05/cisa-adds-cisco-sd-wan-cve-2026-20182.html",
+        "https://thehackernews.com/2026/05/cisco-catalyst-sd-wan-controller-auth.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "CISA Adds Cisco SD-WAN CVE-2026-20182 to KEV After Admin Access Exploits"
+    },
+    {
+      "canonical_id": "CVE-2026-22769",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[mandiant] Written by: Peter Ukhanov, Daniel Sislo, Nick Harbour, John Scarbrough, Fernando Tomlinson, Jr., Rich Reece \n  \n   Introduction  \u00a0  \n  Mandiant and Google Threat Intelligence Group (GTIG) have identified the zero-day exploitation of a high-risk vulnerability in    Dell RecoverPoint   for Virtual Machines   , tracked as CVE-2026-22769 ,\u00a0 with a CVSSv3.1 score of 10.0  . Analysis of incident response engagements revealed that UNC6201,   a suspected PRC-nexus threat cluster, has exploited this flaw",
+      "first_seen": "2026-05-21T15:51:17.382875+00:00",
+      "frameworks": [
+        "mandiant"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:17.382875+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://cloud.google.com/blog/topics/threat-intelligence/unc6201-exploiting-dell-recoverpoint-zero-day/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "From BRICKSTORM to GRIMBOLT: UNC6201 Exploiting a Dell RecoverPoint for Virtual Machines Zero-Day"
+    },
+    {
+      "canonical_id": "CVE-2026-3102",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[securelist] We explain how a flaw in ExifTool allows attackers to compromise macOS systems via a malicious image (CVE-2026-3102).",
+      "first_seen": "2026-05-21T15:51:19.186707+00:00",
+      "frameworks": [
+        "securelist"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:19.186707+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://securelist.com/exiftool-compromise-mac/119866/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "How an image could compromise your Mac: understanding an ExifTool vulnerability (CVE-2026-3102)"
+    },
+    {
+      "canonical_id": "CVE-2026-31431",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[unit42] Copy Fail (CVE-2026-31431) is a critical Linux kernel LPE that allows stealthy root access. This flaw impacts millions of systems. Read our analysis. \n The post  Copy Fail: What You Need to Know About the Most Severe Linux Threat in Years  appeared first on  Unit 42 .",
+      "first_seen": "2026-05-21T15:51:15.394107+00:00",
+      "frameworks": [
+        "unit42"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:15.394107+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://unit42.paloaltonetworks.com/cve-2026-31431-copy-fail/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Copy Fail: What You Need to Know About the Most Severe Linux Threat in Years"
+    },
+    {
+      "canonical_id": "CVE-2026-31635",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[thehackernews] Proof-of-concept (PoC) exploit code has now been released for a recently patched security flaw in the Linux kernel that could allow for local privilege escalation (LPE).\nDubbed DirtyDecrypt (aka DirtyCBC), the vulnerability was discovered and reported by the Zellic and V12 security team on May 9, 2026, only to be informed by the maintainers that it was a duplicate of a vulnerability that had",
+      "first_seen": "2026-05-21T15:51:14.749794+00:00",
+      "frameworks": [
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.749794+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://thehackernews.com/2026/05/dirtydecrypt-poc-released-for-linux.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "DirtyDecrypt PoC Released for Linux Kernel CVE-2026-31635 LPE Vulnerability"
+    },
+    {
+      "canonical_id": "CVE-2026-41091",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[helpnetsecurity] Attackers are exploiting two Microsoft Defender vulnerabilities (CVE-2026-41091 and CVE-2026-45498), Microsoft acknowledged and CISA confirmed by adding them to its Known Exploited Vulnerabilities catalog. The vulnerabilities CVE-2026-41091 allows for local privilege elevation (LPE), and is caused by the Microsoft Malware Protection Engine improperly resolving links before accessing files. \u201cAn attacker who successfully exploited this vulnerability could gain SYSTEM privileges,\u201d Microsoft noted. ",
+      "first_seen": "2026-05-21T15:51:14.442024+00:00",
+      "frameworks": [
+        "helpnetsecurity",
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.749604+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://thehackernews.com/2026/05/microsoft-warns-of-two-actively.html",
+        "https://www.helpnetsecurity.com/2026/05/21/microsoft-defender-vulnerabilities-cve-2026-41091-cve-2026-45498/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Microsoft Defender vulnerabilities exploited in the wild (CVE-2026-41091, CVE-2026-45498)"
+    },
+    {
+      "canonical_id": "CVE-2026-42897",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[darkreading] CVE-2026-42897 stems from a cross-site scripting (XSS) vulnerability and can allow an attacker to compromise Outlook Web Access (OWA) mailboxes.",
+      "first_seen": "2026-05-21T15:51:13.273440+00:00",
+      "frameworks": [
+        "darkreading",
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.750018+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://thehackernews.com/2026/05/on-prem-microsoft-exchange-server-cve.html",
+        "https://www.darkreading.com/vulnerabilities-threats/microsoft-exchange-zero-day-no-patch"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Microsoft Exchange Zero-Day Under Attack, No Patch Available"
+    },
+    {
+      "canonical_id": "CVE-2026-42945",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[thehackernews] A newly disclosed security flaw impacting NGINX Plus and NGINX Open has come under active exploitation in the wild, days after its public disclosure, according to VulnCheck.\nThe vulnerability, tracked as CVE-2026-42945 (CVSS score: 9.2), is a heap buffer overflow in ngx_http_rewrite_module affecting NGINX versions 0.6.27 through 1.30.0. According to AI-native security company depthfirst, the",
+      "first_seen": "2026-05-21T15:51:14.749961+00:00",
+      "frameworks": [
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.750102+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://thehackernews.com/2026/05/18-year-old-nginx-rewrite-module-flaw.html",
+        "https://thehackernews.com/2026/05/nginx-cve-2026-42945-exploited-in-wild.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "NGINX CVE-2026-42945 Exploited in the Wild, Causing Worker Crashes and Possible RCE"
+    },
+    {
+      "canonical_id": "CVE-2026-44338",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[thehackernews] Threat actors have been observed attempting to exploit a recently disclosed security vulnerability in PraisonAI, an open-source multi-agent orchestration framework, within four hours of its public disclosure.\nThe vulnerability in question is CVE-2026-44338 (CVSS score: 7.3), a case of missing authentication that exposes sensitive endpoints to anyone, potentially allowing an attacker to invoke",
+      "first_seen": "2026-05-21T15:51:14.750074+00:00",
+      "frameworks": [
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.750074+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://thehackernews.com/2026/05/praisonai-cve-2026-44338-auth-bypass.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "PraisonAI CVE-2026-44338 Auth Bypass Targeted Within Hours of Disclosure"
+    },
+    {
+      "canonical_id": "CVE-2026-45585",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[thehackernews] Microsoft on Tuesday released a mitigation for a BitLocker bypass vulnerability named YellowKey following its public disclosure last week.\n\nThe zero-day flaw, now tracked as CVE-2026-45585, carries a CVSS score of 6.8. It has been described as a BitLocker security feature bypass.\n\n\"Microsoft is aware of a security feature bypass vulnerability in Windows publicly referred to as 'YellowKey,'\" the",
+      "first_seen": "2026-05-21T15:51:14.749774+00:00",
+      "frameworks": [
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.749774+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://thehackernews.com/2026/05/microsoft-releases-mitigation-for.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Microsoft Releases Mitigation for YellowKey BitLocker Bypass CVE-2026-45585 Exploit"
+    },
+    {
+      "canonical_id": "CVE-2026-46300",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[thehackernews] Details have emerged about a new variant of the recent Dirty Frag Linux local privilege escalation (LPE) vulnerability that allows local attackers to gain root access, making it the third such bug to be identified in the kernel within a span of two weeks.\nCodenamed Fragnesia, the security vulnerability is tracked as CVE-2026-46300 (CVSS score: 7.8) and is rooted in the Linux kernel's XFRM",
+      "first_seen": "2026-05-21T15:51:14.750097+00:00",
+      "frameworks": [
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.750097+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://thehackernews.com/2026/05/new-fragnesia-linux-kernel-lpe-grants.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "New Fragnesia Linux Kernel LPE Grants Root Access via Page Cache Corruption"
+    },
+    {
+      "canonical_id": "CVE-2026-46333",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[thehackernews] Cybersecurity researchers have disclosed details of a vulnerability in the Linux kernel that remained undetected for nine years.\n\nThe vulnerability, tracked as CVE-2026-46333 (CVSS score: 5.5), is a case of improper privilege management that could permit an unprivileged local user to disclose sensitive files and execute arbitrary commands as root on default installations of several major",
+      "first_seen": "2026-05-21T15:51:14.749618+00:00",
+      "frameworks": [
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.749618+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://thehackernews.com/2026/05/9-year-old-linux-kernel-flaw-enables.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "9-Year-Old Linux Kernel Flaw Enables Root Command Execution on Major Distros"
+    },
+    {
+      "canonical_id": "CVE-2026-8043",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[thehackernews] Ivanti, Fortinet, n8n, SAP, and VMware have released security fixes for various vulnerabilities that could be exploited by bad actors to bypass authentication and execute arbitrary code.\nTopping the list is a critical flaw impacting Ivanti Xtraction (CVE-2026-8043, CVSS score: 9.6) that could be exploited to achieve information disclosure or client-side attacks.\n\"External control of a file name",
+      "first_seen": "2026-05-21T15:51:14.749935+00:00",
+      "frameworks": [
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.749935+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 1,
+      "references": [
+        "https://thehackernews.com/2026/05/ivanti-fortinet-sap-vmware-n8n-patch.html"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Ivanti, Fortinet, SAP, VMware, n8n Patch RCE, SQL Injection, Privilege Escalation Flaws"
+    },
+    {
+      "canonical_id": "CVE-2026-9082",
+      "composite_confidence": 0.4,
+      "cwe": [],
+      "description": "[securityweek] CVE-2026-9082 can be exploited without authentication for information disclosure, privilege escalation, and remote code execution. \n The post  Drupal Patches Highly Critical Vulnerability Exposing Websites to Hacking  appeared first on  SecurityWeek .",
+      "first_seen": "2026-05-21T15:51:14.002025+00:00",
+      "frameworks": [
+        "securityweek",
+        "thehackernews"
+      ],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-05-21T15:51:14.749642+00:00",
+      "merged_sources": [
+        "rss_feeds"
+      ],
+      "proactive_only": true,
+      "raw_records_count": 2,
+      "references": [
+        "https://thehackernews.com/2026/05/highly-critical-drupal-core-flaw.html",
+        "https://www.securityweek.com/drupal-patches-highly-critical-vulnerability-exposing-websites-to-hacking/"
+      ],
+      "severity": "medium",
+      "source_count": 1,
+      "title": "Drupal Patches Highly Critical Vulnerability Exposing Websites to Hacking"
+    }
+  ],
+  "correlated_at": "2026-05-21T15:51:20.859204+00:00"
 }
