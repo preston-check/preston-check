@@ -33,6 +33,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 import urllib.error
 import urllib.request
@@ -48,7 +49,7 @@ CACHE_DIR = ROOT / ".preston-check" / "synth-cache"
 DEFAULT_MODEL = os.environ.get("PRESTON_SYNTH_MODEL", "claude-haiku-4-5-20251001")
 ANTHROPIC_ENDPOINT = "https://api.anthropic.com/v1/messages"
 
-PROMPT_TEMPLATE_VERSION = "1.1.0"
+PROMPT_TEMPLATE_VERSION = "1.2.0"
 
 _SYNTHESIS_PROMPT = """You are generating shell-script-based static detection patterns for the Preston-Check security scanner. The scanner runs bash_body inside an isolated subshell with a strict capability allowlist. Scripts that use any command or idiom outside the allowlist are REJECTED SILENTLY — you will produce nothing and waste budget.
 
@@ -105,6 +106,15 @@ ABSOLUTELY BANNED (script is silently rejected if any of these appear):
 
 DANGEROUS FLAGS ALSO BANNED:
   grep -P   rg --pre   find -exec  find -execdir  find -delete  sed -i
+
+PATTERN ROBUSTNESS — critical for adversarial evasion resistance:
+  GOOD: use alternation to cover multiple equivalent spellings:
+        grep -rn "unsafe_call\|UnsafeCall\|UNSAFE_CALL" "$SRC"
+  GOOD: detect multiple co-occurring signals (harder to evade than one):
+        hits1=$(grep -rn "ObjectInputStream" "$SRC" 2>/dev/null)
+        hits2=$(grep -rn "readObject\b" "$SRC" 2>/dev/null)
+        if [[ -n "$hits1" ]] && [[ -n "$hits2" ]]; then hits="$hits1"; fi
+  BAD:  single exact string literal — trivially evaded by renaming
 
 SCRIPT STRUCTURE — always follow this skeleton:
   SRC="${SOURCE_DIR:-.}"
@@ -353,6 +363,7 @@ def process_candidate(candidate: dict, dry_run: bool = False) -> dict:
 
     CANDIDATES_DIR.mkdir(parents=True, exist_ok=True)
     written: list[str] = []
+    sandbox_rejected: int = 0
 
     for variant in variants:
         if not isinstance(variant, dict) or "bash_body" not in variant:
@@ -365,12 +376,28 @@ def process_candidate(candidate: dict, dry_run: bool = False) -> dict:
         else:
             target.write_text(content)
             target.chmod(0o755)
+            # Pre-validate with the bash AST sandbox so orchestrate always
+            # receives pre-screened candidates (fulfils the doc comment intent).
+            sandbox_result = subprocess.run(
+                [sys.executable, str(ROOT / "tools" / "sandbox_validate.py"), "--json", str(target)],
+                capture_output=True,
+                text=True,
+            )
+            try:
+                sb_data = json.loads(sandbox_result.stdout)
+            except (json.JSONDecodeError, ValueError):
+                sb_data = {"pass": False}
+            if not sb_data.get("pass", False):
+                target.unlink(missing_ok=True)
+                sandbox_rejected += 1
+                continue
             written.append(str(target))
 
     return {
         "ok": True,
         "canonical_id": cid,
         "variants_count": len(variants),
+        "sandbox_rejected": sandbox_rejected,
         "files_written": written,
         "placeholder": synthesis.get("_placeholder", False),
     }
