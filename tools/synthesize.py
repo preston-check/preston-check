@@ -419,7 +419,22 @@ def main() -> int:
     data = json.loads(args.correlated.read_text())
     candidates = data.get("candidates", [])
 
-    eligible = [c for c in candidates if c.get("composite_confidence", 0.0) >= args.min_confidence][: args.max]
+    accepted_dir = ROOT / "checks" / "community" / "accepted"
+    already_accepted: set[str] = set()
+    if accepted_dir.is_dir():
+        for f in accepted_dir.iterdir():
+            if f.suffix == ".sh":
+                already_accepted.add(f.stem)
+
+    def _already_promoted(candidate: dict) -> bool:
+        cid = candidate.get("canonical_id", "").lower().replace(":", "-")
+        return any(cid in stem for stem in already_accepted)
+
+    eligible = [
+        c for c in candidates
+        if c.get("composite_confidence", 0.0) >= args.min_confidence
+        and not _already_promoted(c)
+    ][: args.max]
     summaries: list[dict] = []
     for c in eligible:
         summaries.append(process_candidate(c, dry_run=args.dry_run))
