@@ -934,15 +934,29 @@ def _partner_feed_fetch(state: dict) -> tuple[list[CandidateRecord], dict]:
 
 
 _RSS_FEEDS: list[tuple[str, str]] = [
+    # Security news & analysis
     ("krebs", "https://krebsonsecurity.com/feed/"),
     ("tldrsec", "https://rss.beehiiv.com/feeds/xgTKUmMmUm.xml"),
     ("darkreading", "https://www.darkreading.com/rss.xml"),
     ("bleepingcomputer", "https://www.bleepingcomputer.com/feed/"),
+    ("securityweek", "https://feeds.feedburner.com/Securityweek"),
     ("riskybiz", "https://news.risky.biz/rss/"),
     ("helpnetsecurity", "https://www.helpnetsecurity.com/feed/"),
     ("thehackernews", "https://feeds.feedburner.com/TheHackersNews"),
+    ("schneier", "https://www.schneier.com/feed/atom/"),
+    ("sans_isc", "https://isc.sans.edu/rssfeed.xml"),
+    # Threat-intel vendor research
+    ("unit42", "https://unit42.paloaltonetworks.com/feed/"),
+    ("crowdstrike", "https://www.crowdstrike.com/blog/feed/"),
+    ("mandiant", "https://www.mandiant.com/resources/blog/rss.xml"),
+    ("securelist", "https://securelist.com/feed/"),
+    ("sentinelone", "https://www.sentinelone.com/blog/feed/"),
+    # Payments, fraud & fintech
     ("fintechbizweekly", "https://fintechbusinessweekly.substack.com/feed"),
+    ("paymentsdive", "https://www.paymentsdive.com/feeds/news/"),
     ("fraudcom", "https://www.fraud.com/rss"),
+    # Developer / supply chain security
+    ("github_blog", "https://github.blog/feed/"),
 ]
 
 _RSS_SECURITY_KEYWORDS = (
@@ -952,6 +966,12 @@ _RSS_SECURITY_KEYWORDS = (
     "payment", "fintech", "banking", "threat", "advisory",
     "patch", "disclosure", "apt", "supply chain", "backdoor",
     "botnet", "credential", "data leak", "scam", "bypass",
+    "infostealer", "stealer", "trojan", "wiper", "spyware",
+    "campaign", "actor", "nation-state", "threat actor", "ttp",
+    "ioc", "indicator", "c2", "command and control", "lateral",
+    "privilege escalation", "persistence", "evasion", "exfiltration",
+    "unauthorized access", "security flaw", "critical flaw",
+    "patch tuesday", "zero day", "proof of concept", "poc",
 )
 
 
