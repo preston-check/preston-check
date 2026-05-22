@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-22T10:41:37.110615+00:00",
-  "last_successful_fetch": "2026-05-22T10:41:40.975726+00:00",
+  "last_run": "2026-05-22T11:52:28.319444+00:00",
+  "last_successful_fetch": "2026-05-22T11:52:32.324889+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -701,7 +701,11 @@
     "github:Odrosled/cve-scanner-overview",
     "github:anansi2safe/CVE-2026-5281",
     "github:uros-cvetkovski/uros-cvetkovski",
-    "github:gl-inet/CVE-issues"
+    "github:gl-inet/CVE-issues",
+    "github:Excis3/CVE-Disclosure",
+    "github:bndxn/cve-awareness",
+    "github:96613686/CVE-2026-45584",
+    "github:hayageek/smar_cve_finder"
   ],
   "source_id": "github_trending",
   "stats": {
