@@ -350,3 +350,82 @@ https://www.mcafee.com/blogs/other-blogs/mcafee-labs/feed/ mcafee_labs
 https://www.broadcom.com/blog/feed symantec_broadcom
 https://decoded.avast.io/feed/ avast
 https://blog.google/threat-analysis-group/atom.xml google_tag_en
+# ── Blockchain security audit firms ──────────────────────────────────────────
+https://blog.openzeppelin.com/feed.xml openzeppelin_blog
+https://consensys.io/diligence/blog/feed/ consensys_diligence
+https://halborn.com/blog/feed/ halborn
+https://www.zellic.io/blog/feed zellic
+https://www.cyfrin.io/blog/feed cyfrin
+https://osec.io/blog/feed ottersec
+https://spearbit.com/blog/feed spearbit
+https://www.certik.com/resources/blog/rss certik_research
+https://mixbytes.io/blog/rss mixbytes
+https://blog.hexens.io/feed hexens_blog
+https://www.decurity.io/feed decurity
+https://medium.com/code4rena/feed code4rena_medium
+https://defisherlock.substack.com/feed sherlock_defi
+https://blog.iosiro.com/feed iosiro
+https://omnisec.io/blog/feed omnisec
+https://medium.com/amber-group/feed amber_group
+# ── DeFi hack tracking & on-chain intelligence ──────────────────────────────
+https://rekt.news/rss/ rekt_news
+https://samczsun.com/index.xml samczsun
+https://slowmist.medium.com/feed slowmist
+https://peckshield.medium.com/feed peckshield
+https://medium.com/immunefi/feed immunefi
+https://medium.com/blocksecteam/feed blocksec_team
+https://medium.com/ancilia-inc/feed ancilia_inc
+https://forta.org/blog/feed/ forta_network
+https://hacked.slowmist.io/en/feed/ slowmist_hacked
+https://www.dlnews.com/rss/ dlnews
+https://www.theblock.co/rss theblock
+https://decrypt.co/feed decrypt
+# ── Blockchain analytics & compliance ───────────────────────────────────────
+https://www.chainalysis.com/blog/feed/ chainalysis
+https://www.elliptic.co/blog/rss elliptic
+https://research.trmlabs.com/rss.xml trmlabs_research
+https://www.crystalblockchain.com/blog/feed/ crystal_blockchain
+# ── Blockchain ecosystem security ───────────────────────────────────────────
+https://blog.ethereum.org/feed.xml ethereum_foundation
+https://blog.chain.link/rss/ chainlink_blog
+https://solana.com/news/rss solana_news
+https://polygon.technology/blog/rss/ polygon_blog
+https://medium.com/layerzero-official/feed layerzero
+https://medium.com/wormhole-network/feed wormhole
+https://medium.com/axie-infinity/feed axie_infinity
+https://cointelegraph.com/category/security/rss cointelegraph_security
+https://www.coindesk.com/arc/outboundfeeds/rss/ coindesk
+https://bitcoin.org/en/blog.atom bitcoin_org
+# ── Key management & HSM / PKI ───────────────────────────────────────────────
+https://www.venafi.com/blog/feed/ venafi
+https://www.keyfactor.com/blog/feed/ keyfactor
+https://www.digicert.com/blog/feed/ digicert_blog
+https://letsencrypt.org/feed.xml letsencrypt
+https://www.entrust.com/resources/blog/feed/ entrust_blog
+https://www.pkisolutions.com/blog/rss/ pki_solutions
+https://blog.cloudflare.com/tag/cryptography/rss/ cloudflare_crypto
+https://medium.com/thales-esecurity/feed thales_esecurity
+https://www.securosys.com/blog/rss securosys
+# ── Cryptography & research ──────────────────────────────────────────────────
+https://www.nist.gov/blogs/cybersecurity-insights/feed/rss.xml nist_cybersecurity
+https://crypto.stackexchange.com/feeds cryptography_se
+https://www.cryptographyengineering.com/feed/ crypto_engineering_blog
+https://blog.cr.yp.to/rss.xml djb_blog
+https://research.nccgroup.com/category/cryptography/feed/ ncc_crypto
+https://media.ccc.de/rss.xml ccc_media
+https://iacr.org/cryptodb/data/papers.rss iacr_papers
+# ── Hardware wallet & device security ───────────────────────────────────────
+https://www.ledger.com/blog-rss-feed ledger_blog
+https://blog.trezor.io/rss trezor_blog
+https://donjon.ledger.com/feed donjon_ledger
+https://medium.com/shapeshift-stories/feed shapeshift
+https://www.coinbase.com/blog/rss coinbase_blog
+https://www.kraken.com/en-us/learn/rss kraken_learn
+# ── Web3 security research & tooling ────────────────────────────────────────
+https://medium.com/openzeppelin/feed openzeppelin_medium
+https://blog.soliditylang.org/rss.xml solidity_lang
+https://medium.com/solidified/feed solidified
+https://medium.com/consensys-diligence/feed consensys_diligence_medium
+https://blog.mycrypto.com/rss mycrypto_blog
+https://www.nethermind.io/blog/rss nethermind_blog
+https://medium.com/toposware/feed toposware
