@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-22T18:00:07.960284+00:00",
-  "last_successful_fetch": "2026-05-22T18:00:12.014077+00:00",
+  "last_run": "2026-05-22T20:02:41.646425+00:00",
+  "last_successful_fetch": "2026-05-22T20:02:45.309534+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -709,7 +709,15 @@
     "github:nb-dog/cves",
     "github:PandaInRed/redos-kernel-cve-patches",
     "github:yuri-regulus-25/CVE_Notification",
-    "github:Gleaming0427/cve-agent"
+    "github:Gleaming0427/cve-agent",
+    "github:AyseYagmurSuzgun/CVERSE",
+    "github:ridhinva/CVE-2026-9082",
+    "github:dana-log/cveeet",
+    "github:pepe091205/cve-hunter",
+    "github:BishopFox/CVE-2026-0265-check",
+    "github:0xBlackash/CVE-2026-43494",
+    "github:Foforfr0/CWE-CVE-PersonalRepository",
+    "github:Dhruv-coder797/cvese"
   ],
   "source_id": "github_trending",
   "stats": {
