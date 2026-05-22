@@ -419,6 +419,7 @@ else
         fi
         continue
       fi
+      printf "  \033[2m→ %-60s\033[0m\r" "${META_ID:-?} ${META_NAME:-$(basename "$check_file" .sh)}..."
       run_check "$check_file"
       echo ""
     done
