@@ -1,9 +1,7 @@
 {
-  "last_run": "2026-05-22T20:02:45.571233+00:00",
-  "last_successful_fetch": "2026-05-22T20:02:45.572165+00:00",
+  "last_run": "2026-05-22T21:20:18.065908+00:00",
+  "last_successful_fetch": "2026-05-22T21:20:18.066758+00:00",
   "processed_ids": [
-    "threatfox:ftpsrvs.malachtax2tion.lat",
-    "threatfox:libsyspath.herdpu7pose.lat",
     "threatfox:libsyss.malachtax2tion.lat",
     "threatfox:jobadmmgrs.herdpu7pose.lat",
     "threatfox:jobadms.malachtax2tion.lat",
@@ -5001,7 +4999,9 @@
     "threatfox:qinerdime.servehalflife.com",
     "threatfox:qinerdime.ydns.eu",
     "threatfox:algerium.io",
-    "threatfox:dozie.io"
+    "threatfox:dozie.io",
+    "threatfox:sopranos-familytree.christmas",
+    "threatfox:shoplinzspiration.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
