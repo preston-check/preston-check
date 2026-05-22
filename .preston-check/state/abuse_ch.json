@@ -1,9 +1,7 @@
 {
-  "last_run": "2026-05-22T21:20:18.065908+00:00",
-  "last_successful_fetch": "2026-05-22T21:20:18.066758+00:00",
+  "last_run": "2026-05-22T23:14:36.110660+00:00",
+  "last_successful_fetch": "2026-05-22T23:14:36.111428+00:00",
   "processed_ids": [
-    "threatfox:libsyss.malachtax2tion.lat",
-    "threatfox:jobadmmgrs.herdpu7pose.lat",
     "threatfox:jobadms.malachtax2tion.lat",
     "threatfox:rawdatamap.herdpu7pose.lat",
     "threatfox:rawdats.malachtax2tion.lat",
@@ -5001,7 +4999,9 @@
     "threatfox:algerium.io",
     "threatfox:dozie.io",
     "threatfox:sopranos-familytree.christmas",
-    "threatfox:shoplinzspiration.com"
+    "threatfox:shoplinzspiration.com",
+    "threatfox:snow-harbor.christmas",
+    "threatfox:xenomorphhiveintel.christmas"
   ],
   "source_id": "abuse_ch",
   "stats": {

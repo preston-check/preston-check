@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-22T21:20:13.106913+00:00",
-  "last_successful_fetch": "2026-05-22T21:20:17.519639+00:00",
+  "last_run": "2026-05-22T23:14:31.939682+00:00",
+  "last_successful_fetch": "2026-05-22T23:14:35.740454+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -720,7 +720,8 @@
     "github:Dhruv-coder797/cvese",
     "github:portbuster1337/CVE-2026-20182",
     "github:yk3540433-cmyk/CVEX",
-    "github:aislabs-ai/cve-rank"
+    "github:aislabs-ai/cve-rank",
+    "github:Letalandroid/cve-2025-66478_rce_vulnerable"
   ],
   "source_id": "github_trending",
   "stats": {
