@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-22T01:16:00.152378+00:00",
-  "last_successful_fetch": "2026-05-22T01:16:00.153161+00:00",
+  "last_run": "2026-05-22T04:23:58.032795+00:00",
+  "last_successful_fetch": "2026-05-22T04:23:58.033595+00:00",
   "processed_ids": [
     "threatfox:howgsr7.porukau8ar.lat",
     "threatfox:efk47wb3.skewedencro2ch.lat",
@@ -4951,7 +4951,18 @@
     "threatfox:signal-routing-framework.christmas",
     "threatfox:proxy-stream.christmas",
     "threatfox:kernel-control-engine.christmas",
-    "threatfox:cloudruntime.christmas"
+    "threatfox:cloudruntime.christmas",
+    "threatfox:quantumvelocitylabs.christmas",
+    "threatfox:sls.in.net",
+    "threatfox:lasagna-bakingpro.christmas",
+    "threatfox:stack-control-plane.christmas",
+    "threatfox:runtime-processing-node.christmas",
+    "threatfox:telemetrymesh.christmas",
+    "threatfox:byte-network-hub.christmas",
+    "threatfox:mal.fbvendas.com",
+    "threatfox:https://mal.fbvendas.com/",
+    "threatfox:mal.adasm188.top",
+    "threatfox:https://mal.adasm188.top/"
   ],
   "source_id": "abuse_ch",
   "stats": {

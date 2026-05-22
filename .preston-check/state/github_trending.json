@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-22T01:15:55.441505+00:00",
-  "last_successful_fetch": "2026-05-22T01:15:59.693396+00:00",
+  "last_run": "2026-05-22T04:23:53.955946+00:00",
+  "last_successful_fetch": "2026-05-22T04:23:57.595319+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -686,7 +686,8 @@
     "github:RogoLabs/CVEForecast",
     "github:cvestone/cvestone.github.io",
     "github:felisha-elmer/Sandbox-Challenge-Spring4Shell-CVE-2022-22965-",
-    "github:zulloper/cve-poc"
+    "github:zulloper/cve-poc",
+    "github:instax-dutta/CvExtractor-Webapp"
   ],
   "source_id": "github_trending",
   "stats": {
