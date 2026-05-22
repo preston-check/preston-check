@@ -113,7 +113,7 @@ jobs:
           python3 tools/corpus_build.py --manifest corpus/manifests/negative.yaml --side negative --out-dir corpus/snapshots --tag run
 
       - name: Synthesize candidates
-        run: python3 tools/synthesize.py --max 5
+        run: python3 tools/synthesize.py --max 5 --min-confidence 0.4
 
       - name: Orchestrate gates plus auto-merge
         run: |
