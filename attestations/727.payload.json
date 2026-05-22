@@ -1,0 +1,34 @@
+{
+  "adversarial": {
+    "adv_model": "gpt-4o-mini",
+    "passes": true,
+    "rounds": 1,
+    "synth_model": "claude-haiku-4-5-20251001",
+    "transcript_hash": "de0145a29dea58289ec7803681315fd8e86562b33844b81e31e4a6461f80b1b8"
+  },
+  "attestation_version": "1.0",
+  "check_id": "727",
+  "merged_at": "2026-05-22T10:48:04.120190+00:00",
+  "sandbox": {
+    "pass": true,
+    "reasons": [],
+    "validator_version": "0.2.0"
+  },
+  "source": {
+    "fetched_at": "2026-05-22T01:16:48.270332+00:00",
+    "id": "CVE-2008-4250",
+    "type": "rss_feeds"
+  },
+  "synthesis": {
+    "model": "claude-haiku-4-5-20251001",
+    "prompt_template_hash": "synthesis-v1.0.0",
+    "ts": "2026-05-22T10:48:04.120182+00:00"
+  },
+  "validation": {
+    "corpus_negative_hash": "ffbdffa118b8b14586dac857ff1e70dcc4f3886445df53333bb10b5b52c1de54",
+    "corpus_positive_hash": "68d2c336c32cb0ad7da7d57b97014bed57adad04c0ff12be3d27b40ecd6f8a55",
+    "fpr": 0.0,
+    "stability": 1.0,
+    "tpr": 0.0
+  }
+}
