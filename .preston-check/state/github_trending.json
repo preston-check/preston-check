@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-22T08:29:35.144617+00:00",
-  "last_successful_fetch": "2026-05-22T08:29:39.460959+00:00",
+  "last_run": "2026-05-22T10:41:37.110615+00:00",
+  "last_successful_fetch": "2026-05-22T10:41:40.975726+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -695,7 +695,13 @@
     "github:Yucaerin/CVE-2026-5118",
     "github:BastianXploited/CVE-2026-8181-mass",
     "github:minanagehsalalma/zyxel-cve-2021-35036-super-admin-password-leak",
-    "github:dyeat/cve-reproduction"
+    "github:dyeat/cve-reproduction",
+    "github:logis11/CVE-2025-55423-analysis-and-reproduction",
+    "github:mcp-security-project/mcp-cve-project",
+    "github:Odrosled/cve-scanner-overview",
+    "github:anansi2safe/CVE-2026-5281",
+    "github:uros-cvetkovski/uros-cvetkovski",
+    "github:gl-inet/CVE-issues"
   ],
   "source_id": "github_trending",
   "stats": {
