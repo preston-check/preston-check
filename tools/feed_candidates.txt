@@ -429,3 +429,41 @@ https://medium.com/consensys-diligence/feed consensys_diligence_medium
 https://blog.mycrypto.com/rss mycrypto_blog
 https://www.nethermind.io/blog/rss nethermind_blog
 https://medium.com/toposware/feed toposware
+# ── Dark web intelligence — underground market & hack kit monitoring ──────────
+https://socradar.io/feed/ socradar
+https://intel471.com/blog/feed/ intel471
+https://flashpoint.io/blog/feed/ flashpoint
+https://www.recordedfuture.com/blog/feed/ recorded_future
+https://www.hudsonrock.com/blog/rss hudson_rock
+https://www.darkowl.com/blog-content/feed/ darkowl
+https://flare.io/blog/feed/ flare_io
+https://ke-la.com/feed/ kela_cyber
+https://cybersixgill.com/blog/feed/ cybersixgill
+https://www.digitalshadows.com/blog-and-research/rss/ digital_shadows
+https://www.ciphertrace.com/blog/rss ciphertrace
+https://www.zerofox.com/blog/feed/ zerofox
+https://www.spycloud.com/blog/feed/ spycloud
+https://medium.com/threat-intelligence/feed cybercrime_intel
+# ── Crypto-specific threat trackers ─────────────────────────────────────────
+https://scamsniffer.substack.com/feed scamsniffer
+https://zachxbt.substack.com/feed zachxbt
+https://de.fi/blog/rss de_fi_shield
+https://harpie.io/blog/rss harpie_blog
+https://revoke.cash/blog/rss revoke_cash
+https://wallet.watch/feed walletwatch
+https://medium.com/web3-antivirus/feed web3_antivirus
+https://medium.com/de-fi/feed de_fi_medium
+# ── Malware sandbox / infostealer intelligence ───────────────────────────────
+https://vx-underground.org/rss.xml vx_underground
+https://any.run/blog/rss/ anyrun_blog
+https://blog.virustotal.com/feeds/posts/default virustotal_blog
+https://www.joesecurity.org/blog/rss joesandbox
+https://abuse.ch/blog/feed/ abuse_ch_blog
+https://bazaar.abuse.ch/export/txt/recent/ bazaar_abuse_ch
+https://medium.com/malwarebytes-labs/feed malwarebytes_labs
+https://www.trendmicro.com/vinfo/us/security/rss/news trendmicro_security
+# ── Named infostealer tracking ────────────────────────────────────────────────
+https://medium.com/s2wblog/feed s2w_blog
+https://medium.com/team-cymru-s2-research/feed cymru_research
+https://www.proofpoint.com/us/blog/threat-insight/feed proofpoint_threat
+https://www.zscaler.com/blogs/security-research/rss zscaler_research

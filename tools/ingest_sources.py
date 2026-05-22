@@ -183,6 +183,48 @@ _FINTECH_KEYWORDS = (
     "gas",
     "nonce reuse",
     "reorg",
+    # Dark web / crimeware targeting digital assets
+    "drainer kit",
+    "wallet drainer kit",
+    "crypto drainer",
+    "clipper malware",
+    "clipboard hijack",
+    "cryptostealer",
+    "crypto stealer",
+    "hack kit",
+    "exploit kit",
+    "malware kit",
+    "crimeware",
+    "darknet market",
+    "dark web market",
+    "underground forum",
+    "telegram drainer",
+    "telegram bot drainer",
+    "initial access broker",
+    # Named infostealer families that specifically target crypto wallets
+    "redline stealer",
+    "raccoon stealer",
+    "vidar stealer",
+    "mars stealer",
+    "azorult",
+    "lumma stealer",
+    "aurora stealer",
+    "otter stealer",
+    # Wallet file targets (what stealers hunt for)
+    "wallet.dat",
+    "keystore.json",
+    "metamask seed",
+    "exodus wallet",
+    "atomic wallet",
+    "electrum wallet",
+    "phantom seed",
+    # Approval / phishing kit patterns
+    "approval exploit",
+    "permit2",
+    "setapprovalforall",
+    "ice phishing",
+    "connect wallet",
+    "wallet connect phishing",
 )
 
 
@@ -1210,6 +1252,26 @@ _RSS_FEEDS: list[tuple[str, str]] = [
     ("cryptography_dispatcher", "https://www.cryptographyengineering.com/feed/"),
     ("coinbase_blog", "https://www.coinbase.com/blog/rss"),
     ("solidity_lang", "https://blog.soliditylang.org/rss.xml"),
+    # Dark web intelligence — monitors underground markets & hack kit sales
+    ("socradar", "https://socradar.io/feed/"),
+    ("intel471", "https://intel471.com/blog/feed/"),
+    ("flashpoint", "https://flashpoint.io/blog/feed/"),
+    ("recorded_future", "https://www.recordedfuture.com/blog/feed/"),
+    ("hudson_rock", "https://www.hudsonrock.com/blog/rss"),
+    ("darkowl", "https://www.darkowl.com/blog-content/feed/"),
+    ("flare_io", "https://flare.io/blog/feed/"),
+    ("kela_cyber", "https://ke-la.com/feed/"),
+    ("cybersixgill", "https://cybersixgill.com/blog/feed/"),
+    # Crypto-specific threat trackers
+    ("scamsniffer", "https://scamsniffer.substack.com/feed"),
+    ("zachxbt", "https://zachxbt.substack.com/feed"),
+    ("de_fi_shield", "https://de.fi/blog/rss"),
+    ("harpie_blog", "https://harpie.io/blog/rss"),
+    # Malware analysis & sandbox intelligence (infostealers targeting crypto)
+    ("vx_underground", "https://vx-underground.org/rss.xml"),
+    ("anyrun_blog", "https://any.run/blog/rss/"),
+    ("virustotal_blog", "https://blog.virustotal.com/feeds/posts/default"),
+    ("joesandbox", "https://www.joesecurity.org/blog/rss"),
 ]
 
 _RSS_SECURITY_KEYWORDS = (
@@ -1239,6 +1301,18 @@ _RSS_SECURITY_KEYWORDS = (
     "hardware wallet", "cold wallet", "ledger", "trezor", "metamask",
     "seed", "mnemonic phrase", "entropy", "nonce reuse",
     "elliptic curve", "cryptographic", "key compromise", "key leak",
+    # Dark web / crimeware targeting digital assets
+    "dark web", "darknet", "underground forum", "crimeware",
+    "drainer kit", "wallet drainer", "drainer-as-a-service",
+    "clipper", "clipboard hijack", "cryptostealer", "crypto stealer",
+    "hack kit", "exploit kit", "malware kit",
+    "initial access broker", "access broker",
+    "redline", "raccoon stealer", "vidar", "lumma", "aurora stealer",
+    "infostealer" , "wallet stealer", "crypto malware",
+    "telegram bot", "telegram drainer",
+    "ice phishing", "approval phishing", "permit2",
+    "wallet.dat", "keystore", "metamask extension",
+    "exit scam", "honeypot token", "fake token",
 )
 
 
