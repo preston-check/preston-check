@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-22T11:52:28.319444+00:00",
-  "last_successful_fetch": "2026-05-22T11:52:32.324889+00:00",
+  "last_run": "2026-05-22T15:16:26.421153+00:00",
+  "last_successful_fetch": "2026-05-22T15:16:31.005989+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -705,7 +705,10 @@
     "github:Excis3/CVE-Disclosure",
     "github:bndxn/cve-awareness",
     "github:96613686/CVE-2026-45584",
-    "github:hayageek/smar_cve_finder"
+    "github:hayageek/smar_cve_finder",
+    "github:nb-dog/cves",
+    "github:PandaInRed/redos-kernel-cve-patches",
+    "github:yuri-regulus-25/CVE_Notification"
   ],
   "source_id": "github_trending",
   "stats": {
