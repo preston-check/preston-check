@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-23T21:04:47.564252+00:00",
-  "last_successful_fetch": "2026-05-23T21:04:50.757294+00:00",
+  "last_run": "2026-05-23T22:03:51.150869+00:00",
+  "last_successful_fetch": "2026-05-23T22:03:55.012611+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -749,7 +749,13 @@
     "github:messier51a/ot-cve-review",
     "github:chennuoABC/CVE",
     "github:YasmeenAlgendy23/CVE_Intelligence_Assistant",
-    "github:reschjonas/CVE-2026-24135"
+    "github:reschjonas/CVE-2026-24135",
+    "github:0xStevan/cve-tracker",
+    "github:mein-0/cve-2025-7771",
+    "github:N1et/CVE-2026-46529",
+    "github:MathiiMz/CVEVault",
+    "github:diamorphine666/CVE-2026-0926-exploit",
+    "github:diamorphine666/CVE-2026-0770"
   ],
   "source_id": "github_trending",
   "stats": {
