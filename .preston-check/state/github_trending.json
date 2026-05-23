@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-23T17:13:49.641556+00:00",
-  "last_successful_fetch": "2026-05-23T17:13:53.500623+00:00",
+  "last_run": "2026-05-23T19:24:25.342172+00:00",
+  "last_successful_fetch": "2026-05-23T19:24:28.355440+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -745,7 +745,9 @@
     "github:tonymaster147/cveditor",
     "github:Trifalic47/cvector",
     "github:Chathura123git/ethical-hacking-CVE-2011-2523",
-    "github:xxconi/CVE-2026-9018"
+    "github:xxconi/CVE-2026-9018",
+    "github:messier51a/ot-cve-review",
+    "github:chennuoABC/CVE"
   ],
   "source_id": "github_trending",
   "stats": {
