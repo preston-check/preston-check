@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-05-23T11:21:41.615795+00:00",
-  "last_successful_fetch": "2026-05-23T11:21:41.616685+00:00",
+  "last_run": "2026-05-23T13:58:45.157694+00:00",
+  "last_successful_fetch": "2026-05-23T13:58:45.158520+00:00",
   "processed_ids": [
-    "threatfox:appsrch.crimin-investig.lat",
-    "threatfox:subclidata.guess-relevation.lat",
-    "threatfox:webdocs.crimin-investig.lat",
-    "threatfox:bitkitmaps.guess-relevation.lat",
-    "threatfox:syskeys.crimin-investig.lat",
-    "threatfox:envsetproc.guess-relevation.lat",
-    "threatfox:netmans.erzianpr0minent.lat",
-    "threatfox:doclabutil.guess-relevation.lat",
     "threatfox:tcpcons.erzianpr0minent.lat",
     "threatfox:syncitnode.fromj2nitor.lat",
     "threatfox:sshpros.erzianpr0minent.lat",
@@ -5001,7 +4993,15 @@
     "threatfox:ledele.de",
     "threatfox:ga888vn.ru.com",
     "threatfox:gb-westerveld.nl",
-    "threatfox:bj88play.games"
+    "threatfox:bj88play.games",
+    "threatfox:malware.seegersbelettering.nl",
+    "threatfox:c2.slagerijbloem.nl",
+    "threatfox:https://cyy.fbvendas.com/",
+    "threatfox:cyy.fbvendas.com",
+    "threatfox:qrxnqauz.winter-pulse.christmas",
+    "threatfox:tmmlokbk.winter-pulse.christmas",
+    "threatfox:dsthypsv.winter-pulse.christmas",
+    "threatfox:fjqantqo.winter-pulse.christmas"
   ],
   "source_id": "abuse_ch",
   "stats": {

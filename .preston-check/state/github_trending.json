@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-23T11:21:38.570496+00:00",
-  "last_successful_fetch": "2026-05-23T11:21:41.456830+00:00",
+  "last_run": "2026-05-23T13:58:40.900236+00:00",
+  "last_successful_fetch": "2026-05-23T13:58:44.706304+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -737,7 +737,12 @@
     "github:xxconi/CVE-2026-6960",
     "github:RaMaEnz/cve-threat-monitor",
     "github:0x9r4ngu/CVE-Updates",
-    "github:sofronievm/cveti-geo-wedding-game"
+    "github:sofronievm/cveti-geo-wedding-game",
+    "github:Instructor-Admin/Multi-threaded-mass-exploiter-CVE-2018-13379-POC",
+    "github:CVERInc/cverinc.github.io",
+    "github:Akolis2021/cve-lab-report",
+    "github:XZ1r0/cve-2026-poc-collection",
+    "github:tonymaster147/cveditor"
   ],
   "source_id": "github_trending",
   "stats": {
