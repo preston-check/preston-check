@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-23T04:03:30.754411+00:00",
-  "last_successful_fetch": "2026-05-23T04:03:34.458732+00:00",
+  "last_run": "2026-05-23T06:41:56.298122+00:00",
+  "last_successful_fetch": "2026-05-23T06:42:00.159843+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -724,7 +724,12 @@
     "github:Letalandroid/cve-2025-66478_rce_vulnerable",
     "github:offseckit/CVE-2026-23813",
     "github:HORKimhab/CVE-2025-46822",
-    "github:HORKimhab/template-cve"
+    "github:HORKimhab/template-cve",
+    "github:fineman999/POC_CVE-2024-12537",
+    "github:thompalex/devin-superset-cve-remediator",
+    "github:xxconi/CVE-2026-6279",
+    "github:yogaandriram/cve-intelligence-agent",
+    "github:cvennevik/cvennevik.github.io"
   ],
   "source_id": "github_trending",
   "stats": {
