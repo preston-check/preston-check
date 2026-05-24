@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -37,8 +38,9 @@ class SandboxTests(unittest.TestCase):
         self.validate_check = validate_check
 
     def _make_check(self, body: str, provenance: str = "auto") -> Path:
-        td = Path(tempfile.mkdtemp())
-        p = td / "test.sh"
+        td = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, td, True)
+        p = Path(td) / "test.sh"
         p.write_text(
             f"""#!/bin/bash
 : <<'PRESTON_META'
@@ -111,6 +113,23 @@ class CorpusTests(unittest.TestCase):
             _, h1 = build_tarball(manifest, out1, "positive")
             _, h2 = build_tarball(manifest, out2, "positive")
             self.assertEqual(h1, h2)
+
+    def test_tamper_detected_in_verify(self) -> None:
+        from corpus_build import build_tarball, load_manifest  # type: ignore[import-not-found]
+        from corpus_verify import verify  # type: ignore[import-not-found]
+
+        manifest_path = ROOT / "corpus" / "manifests" / "positive.yaml"
+        manifest = load_manifest(manifest_path)
+        with tempfile.TemporaryDirectory() as td:
+            tarball = Path(td) / "positive.tar.gz"
+            build_tarball(manifest, tarball, "positive")
+            # flip one byte to simulate post-build tampering
+            raw = bytearray(tarball.read_bytes())
+            raw[-1] ^= 0xFF
+            tarball.write_bytes(bytes(raw))
+            result = verify(manifest_path, tarball, "positive")
+        self.assertFalse(result["ok"])
+        self.assertFalse(result["match_rebuild"])
 
     def test_source_allowlist_enforced(self) -> None:
         from corpus_build import validate_manifest  # type: ignore[import-not-found]
@@ -381,6 +400,8 @@ PRESTON_META
         self.assertTrue(result["small_corpus"])
         self.assertEqual(result["metrics"]["fpr"], 0.0)
         self.assertTrue(result["metrics"]["fixture_roundtrip"])
+        # stability=0.0 with empty corpus (no positive entries to perturb) → gate fails
+        self.assertFalse(result["pass"])
 
     def test_fixture_roundtrip_true_when_fixtures_match(self) -> None:
         """When the positive fixture triggers the check and the negative does
@@ -403,6 +424,8 @@ PRESTON_META
 
         self.assertTrue(result["metrics"]["fixture_roundtrip"])
         self.assertTrue(result["small_corpus"])
+        # stability gate still fails (no positive corpus entries to run perturbed pass against)
+        self.assertFalse(result["pass"])
 
 
 class RunnerIntegrationTests(unittest.TestCase):
