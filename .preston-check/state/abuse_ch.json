@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-05-23T23:04:20.051325+00:00",
-  "last_successful_fetch": "2026-05-23T23:04:20.052187+00:00",
+  "last_run": "2026-05-24T00:08:38.321674+00:00",
+  "last_successful_fetch": "2026-05-24T00:08:38.322550+00:00",
   "processed_ids": [
-    "threatfox:bin.cloudviewtop.pics",
-    "threatfox:cpu.webcfgbase.pics",
-    "threatfox:ssl.cloudviewtop.pics",
-    "threatfox:vps.webcfgbase.pics",
-    "threatfox:getcfg.cloudviewtop.pics",
-    "threatfox:dns.webcfgbase.pics",
-    "threatfox:netman.skynodecfg.pics",
     "threatfox:git.softwincli.pics",
     "threatfox:sys.softnetlink.pics",
     "threatfox:ops.softwincli.pics",
@@ -5001,7 +4994,14 @@
     "threatfox:bkbtgg.accredit.hu",
     "threatfox:ykpwsn.accredit.hu",
     "threatfox:aenysk.aborszerintem.hu",
-    "threatfox:avhepv.aapartman.hu"
+    "threatfox:avhepv.aapartman.hu",
+    "threatfox:djnhkv.bohochal.hu",
+    "threatfox:bohochal.hu",
+    "threatfox:mtlhms.bognartransport.hu",
+    "threatfox:eisnuo.bognarautomoso.hu",
+    "threatfox:dkqaxl.bninolimit.com",
+    "threatfox:yyaohk.bni-ai.com",
+    "threatfox:bni-ai.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
