@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-24T18:08:06.819939+00:00",
-  "last_successful_fetch": "2026-05-24T18:08:10.233717+00:00",
+  "last_run": "2026-05-24T20:13:28.563341+00:00",
+  "last_successful_fetch": "2026-05-24T20:13:32.208645+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -788,7 +788,8 @@
     "github:0xS4N4TG/CVE-2025-47812",
     "github:M3PH1569/CVE-2026-39987-POC",
     "github:leojaguaribe/cve-zerolag",
-    "github:Cherze/cverso-imersao2"
+    "github:Cherze/cverso-imersao2",
+    "github:Gadotti/check-cve-assets"
   ],
   "source_id": "github_trending",
   "stats": {
