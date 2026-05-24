@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-05-24T22:05:05.622219+00:00",
-  "last_successful_fetch": "2026-05-24T22:05:05.623215+00:00",
+  "last_run": "2026-05-24T23:10:57.699450+00:00",
+  "last_successful_fetch": "2026-05-24T23:10:57.700280+00:00",
   "processed_ids": [
-    "threatfox:dev.coderlap.pics",
-    "threatfox:5.102.97.149:443",
-    "threatfox:pal3t0-gate.stormgrid-media.life",
-    "threatfox:logs.coderlap.pics",
-    "threatfox:mtkhx.stormgrid-media.life",
-    "threatfox:1u888com.com",
-    "threatfox:api.coderlap.pics",
-    "threatfox:dawncrest.vexa2-flow.life",
-    "threatfox:bin.coderlap.pics",
     "threatfox:711zam.vexa2-flow.life",
     "threatfox:srv.coderlap.pics",
     "threatfox:0xqme.vexa2-flow.life",
@@ -5001,7 +4992,16 @@
     "threatfox:mdeztl.fluss.hu",
     "threatfox:gdnssljs.beer",
     "threatfox:npanssltejs.beer",
-    "threatfox:biyaconserver.beer"
+    "threatfox:biyaconserver.beer",
+    "threatfox:dbvxnw.fullnrg.hu",
+    "threatfox:stjais.fullnrg.hu",
+    "threatfox:kgztgu.fortunalamella.hu",
+    "threatfox:mcq9ktcv.telemetry-nexus.digital",
+    "threatfox:zptck8ke.telemetry-nexus.digital",
+    "threatfox:wrkrkc.fortunalamella.hu",
+    "threatfox:arrtom.followyourjoy.hu",
+    "threatfox:kmnxlc.followyourjoy.hu",
+    "threatfox:followyourjoy.hu"
   ],
   "source_id": "abuse_ch",
   "stats": {
