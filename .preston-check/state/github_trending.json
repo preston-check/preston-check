@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-24T00:08:33.078026+00:00",
-  "last_successful_fetch": "2026-05-24T00:08:37.800531+00:00",
+  "last_run": "2026-05-24T05:09:28.056364+00:00",
+  "last_successful_fetch": "2026-05-24T05:09:32.551537+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -757,7 +757,9 @@
     "github:diamorphine666/CVE-2026-0926-exploit",
     "github:diamorphine666/CVE-2026-0770",
     "github:s4mm1t/cve-intel-bot",
-    "github:renewablehacking/CVE-2025-55182-React-19.2.0"
+    "github:renewablehacking/CVE-2025-55182-React-19.2.0",
+    "github:SpeatX/React2Shell-CVE-2025-55182",
+    "github:w3nch/CVE-2025-55182-in-go"
   ],
   "source_id": "github_trending",
   "stats": {
