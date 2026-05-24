@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-24T14:41:42.431542+00:00",
-  "last_successful_fetch": "2026-05-24T14:41:46.538557+00:00",
+  "last_run": "2026-05-24T16:09:56.693060+00:00",
+  "last_successful_fetch": "2026-05-24T16:10:00.811382+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -777,7 +777,13 @@
     "github:Xiaoyao988/auth-service-hardcoded-jwt-cve",
     "github:Xiaoyao988/og-clews-mini-rce-cve",
     "github:m0n1x90/CVE-2026-41096",
-    "github:Aayushbankar/cve_aggregator"
+    "github:Aayushbankar/cve_aggregator",
+    "github:awesome0254/cve-search_CveXplore-13921652146-8ab5ed6c",
+    "github:suominen/CVE-2026-9256",
+    "github:LLSJinw/shodan_cve",
+    "github:yohanesfc/Network_cve",
+    "github:Neonliteq/cvetomarket",
+    "github:pcx-xprz/cve"
   ],
   "source_id": "github_trending",
   "stats": {
