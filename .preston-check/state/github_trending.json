@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-24T08:42:51.744095+00:00",
-  "last_successful_fetch": "2026-05-24T08:42:55.479596+00:00",
+  "last_run": "2026-05-24T10:47:53.905647+00:00",
+  "last_successful_fetch": "2026-05-24T10:47:57.476704+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -762,7 +762,11 @@
     "github:w3nch/CVE-2025-55182-in-go",
     "github:vudinhhiep3004dev/CVexa",
     "github:ang3lL/CVE-2025-66177",
-    "github:N45HT/drupal-cve-2026-9082-checker"
+    "github:N45HT/drupal-cve-2026-9082-checker",
+    "github:uppalapatipurnaraviteja99/cve-chat",
+    "github:EverythingHertz/cvee-cognitive-mcp",
+    "github:Leemyunglyul/cve-2021-4034-mock",
+    "github:sharkyger/composer-cve-gate"
   ],
   "source_id": "github_trending",
   "stats": {

@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-05-24T08:42:55.850637+00:00",
-  "last_successful_fetch": "2026-05-24T08:42:55.851567+00:00",
+  "last_run": "2026-05-24T10:47:57.819145+00:00",
+  "last_successful_fetch": "2026-05-24T10:47:57.820108+00:00",
   "processed_ids": [
-    "threatfox:07a1be5f57473bdde2084ad0d04f9419e674a789790652f7e8e3a8e696d49e08",
-    "threatfox:e43b38b314acef0d158e99884cd5710f",
-    "threatfox:4a1dd2bf737357ff4c32df5b739cc5d8bb0003bcb35fbacc3174d36b2ef77cc0",
-    "threatfox:https://d.tmpfile.link/public/2026-05-09/4614e117-d7bb-46b1-9541-484fbe7315ff/ghhjgr.png",
-    "threatfox:d.tmpfile.link",
     "threatfox:http://gotextileltd.com/gotextileltd.zip",
     "threatfox:gotextileltd.com",
     "threatfox:jensydesign.com",
@@ -5001,7 +4996,12 @@
     "threatfox:twgdna.digital360.hu",
     "threatfox:hypebeast.co.com",
     "threatfox:dbpw.cn.com",
-    "threatfox:wljj.sa.com"
+    "threatfox:wljj.sa.com",
+    "threatfox:n4burrgj.runtime-cascade.digital",
+    "threatfox:3mf0hr0j.runtime-cascade.digital",
+    "threatfox:swklua.dorihurosartwork.com",
+    "threatfox:nstkuj.dimoppalyazat.com",
+    "threatfox:gzvwla.dimamma.hu"
   ],
   "source_id": "abuse_ch",
   "stats": {
