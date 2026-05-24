@@ -188,6 +188,27 @@ class SynthesizeTests(unittest.TestCase):
 
 
 class CorrelatorTests(unittest.TestCase):
+    def _make_record(
+        self,
+        source: str,
+        source_id: str,
+        title: str,
+        description: str,
+        confidence: float,
+        proactive: bool,
+        fetched_at: str = "2026-05-08T10:00:00Z",
+    ) -> dict:
+        return {
+            "source": source,
+            "source_id": source_id,
+            "title": title,
+            "description": description,
+            "confidence": confidence,
+            "proactive": proactive,
+            "fetched_at": fetched_at,
+            "raw": {},
+        }
+
     def test_groups_by_cve_across_sources(self) -> None:
         from correlator import correlate  # type: ignore[import-not-found]
 
@@ -196,32 +217,22 @@ class CorrelatorTests(unittest.TestCase):
             (qd / "kev-1.json").write_text(
                 json.dumps(
                     [
-                        {
-                            "source": "kev",
-                            "source_id": "CVE-2026-9999",
-                            "title": "RCE in Spring CVE-2026-9999",
-                            "description": "CVE-2026-9999 RCE",
-                            "confidence": 0.9,
-                            "proactive": False,
-                            "fetched_at": "2026-05-08T10:00:00Z",
-                            "raw": {},
-                        }
+                        self._make_record(
+                            "kev", "CVE-2026-9999",
+                            "RCE in Spring CVE-2026-9999", "CVE-2026-9999 RCE",
+                            0.9, False,
+                        )
                     ]
                 )
             )
             (qd / "github-1.json").write_text(
                 json.dumps(
                     [
-                        {
-                            "source": "github_trending",
-                            "source_id": "github:user/repo",
-                            "title": "PoC for CVE-2026-9999",
-                            "description": "CVE-2026-9999",
-                            "confidence": 0.5,
-                            "proactive": True,
-                            "fetched_at": "2026-05-08T11:00:00Z",
-                            "raw": {},
-                        }
+                        self._make_record(
+                            "github_trending", "github:user/repo",
+                            "PoC for CVE-2026-9999", "CVE-2026-9999",
+                            0.5, True, "2026-05-08T11:00:00Z",
+                        )
                     ]
                 )
             )
@@ -229,6 +240,59 @@ class CorrelatorTests(unittest.TestCase):
             self.assertEqual(len(results), 1)
             self.assertEqual(results[0]["canonical_id"], "CVE-2026-9999")
             self.assertEqual(results[0]["source_count"], 2)
+            # reactive boost (0.10) + cross-source boost (0.05) applied on top of max conf (0.9)
+            self.assertEqual(results[0]["composite_confidence"], 0.99)
+
+    def test_single_proactive_sid_source_filtered(self) -> None:
+        """A lone proactive source with no CVE id is noise — the correlator
+        must drop it rather than forwarding weak signal to synthesis."""
+        from correlator import correlate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            qd = Path(td)
+            (qd / "reddit-1.json").write_text(
+                json.dumps(
+                    [
+                        self._make_record(
+                            "reddit", "reddit:post/abc123",
+                            "interesting new tooling trend", "some security post",
+                            0.6, True,
+                        )
+                    ]
+                )
+            )
+            results = correlate(qd)
+            self.assertEqual(results, [], "single proactive non-CVE record should be filtered out")
+
+    def test_single_reactive_source_passes_through(self) -> None:
+        """A reactive source (post-disclosure) always passes through,
+        even alone — KEV/GHSA entries are already validated CVE assignments."""
+        from correlator import correlate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            qd = Path(td)
+            (qd / "ghsa-1.json").write_text(
+                json.dumps(
+                    [
+                        self._make_record(
+                            "ghsa", "GHSA-xxxx-yyyy-zzzz",
+                            "SQL injection in example-lib", "SQL injection",
+                            0.95, False,
+                        )
+                    ]
+                )
+            )
+            results = correlate(qd)
+            self.assertEqual(len(results), 1, "single reactive record should not be filtered")
+            self.assertEqual(results[0]["source_count"], 1)
+            # no cross-source boost (only 1 source), reactive boost applies (+0.10)
+            self.assertEqual(results[0]["composite_confidence"], round(min(0.99, 0.95 + 0.10), 4))
+
+    def test_empty_queue_returns_empty(self) -> None:
+        from correlator import correlate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            self.assertEqual(correlate(Path(td)), [])
 
 
 class DualUseAuditTests(unittest.TestCase):
@@ -241,6 +305,8 @@ class DualUseAuditTests(unittest.TestCase):
             self.assertIn("metric_value", c)
             self.assertIn("threshold", c)
             self.assertIn("passes", c)
+        failing = [c["campaign"] for c in result["campaigns"] if not c["passes"]]
+        self.assertTrue(result["overall_pass"], f"campaigns below threshold: {failing}")
 
 
 class IngestRunnerTests(unittest.TestCase):
@@ -266,6 +332,77 @@ class IngestRunnerTests(unittest.TestCase):
         data = json.loads(result.stdout)
         for src in ["kev", "ghsa", "nvd", "osv", "github_trending", "abuse_ch", "reddit", "mastodon"]:
             self.assertIn(src, data)
+
+
+class ValidateCandidateTests(unittest.TestCase):
+    def _make_candidate(self, td: Path, bash_body: str) -> Path:
+        p = td / "candidate.sh"
+        p.write_text(
+            f"""#!/bin/bash
+: <<'PRESTON_META'
+schema_version: 1
+id: P-TEST
+name: test check
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+provenance: auto
+version: 0.1.0
+PRESTON_META
+{bash_body}
+"""
+        )
+        return p
+
+    def test_output_schema_and_small_corpus_path(self) -> None:
+        """With no corpus tarballs the small_corpus path activates (0 < 10).
+        Verifies output structure and that FPR=0.0 (no negative hits possible
+        on an empty corpus)."""
+        from validate_candidate import validate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            check = self._make_candidate(
+                tmp,
+                'hits=$(grep -rn "password" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+                'if [[ -n "$hits" ]]; then record "FAIL" "P-TEST" "found"; '
+                'else record "PASS" "P-TEST" "none"; fi',
+            )
+            nonexistent = tmp / "corpus.tar.gz"
+            result = validate(check, nonexistent, nonexistent)
+
+        self.assertIn("metrics", result)
+        self.assertIn("thresholds", result)
+        self.assertIn("corpus_hashes", result)
+        self.assertIn("per_file", result)
+        self.assertIn("pass", result)
+        self.assertIn("small_corpus", result)
+        self.assertTrue(result["small_corpus"])
+        self.assertEqual(result["metrics"]["fpr"], 0.0)
+        self.assertTrue(result["metrics"]["fixture_roundtrip"])
+
+    def test_fixture_roundtrip_true_when_fixtures_match(self) -> None:
+        """When the positive fixture triggers the check and the negative does
+        not, fixture_roundtrip is True. This exercises the fixture-file branch
+        (which the empty-corpus test bypasses via the default True fallback)."""
+        from validate_candidate import validate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            check = self._make_candidate(
+                tmp,
+                'hits=$(grep -rn "VULN_MARKER" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+                'if [[ -n "$hits" ]]; then record "FAIL" "P-TEST" "found"; '
+                'else record "PASS" "P-TEST" "none"; fi',
+            )
+            (tmp / "candidate.pos.txt").write_text("String VULN_MARKER = secret;\n")
+            (tmp / "candidate.neg.txt").write_text("// clean file\n")
+            nonexistent = tmp / "corpus.tar.gz"
+            result = validate(check, nonexistent, nonexistent)
+
+        self.assertTrue(result["metrics"]["fixture_roundtrip"])
+        self.assertTrue(result["small_corpus"])
 
 
 class RunnerIntegrationTests(unittest.TestCase):

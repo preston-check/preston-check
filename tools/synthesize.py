@@ -109,10 +109,10 @@ DANGEROUS FLAGS ALSO BANNED:
 
 PATTERN ROBUSTNESS — critical for adversarial evasion resistance:
   GOOD: use alternation to cover multiple equivalent spellings:
-        grep -rn "unsafe_call\|UnsafeCall\|UNSAFE_CALL" "$SRC"
+        grep -rn "unsafe_call\\|UnsafeCall\\|UNSAFE_CALL" "$SRC"
   GOOD: detect multiple co-occurring signals (harder to evade than one):
         hits1=$(grep -rn "ObjectInputStream" "$SRC" 2>/dev/null)
-        hits2=$(grep -rn "readObject\b" "$SRC" 2>/dev/null)
+        hits2=$(grep -rn "readObject\\b" "$SRC" 2>/dev/null)
         if [[ -n "$hits1" ]] && [[ -n "$hits2" ]]; then hits="$hits1"; fi
   BAD:  single exact string literal — trivially evaded by renaming
 
