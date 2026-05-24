@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-05-24T16:10:01.367234+00:00",
-  "last_successful_fetch": "2026-05-24T16:10:01.368301+00:00",
+  "last_run": "2026-05-24T18:08:10.616418+00:00",
+  "last_successful_fetch": "2026-05-24T18:08:10.617300+00:00",
   "processed_ids": [
-    "threatfox:jcko.qorivault.life",
-    "threatfox:deepion.narrownessoutri8ht.pics",
-    "threatfox:tran5m0-phase.qorivault.life",
-    "threatfox:covcalm.narrownessoutri8ht.pics",
-    "threatfox:kelnexet4.qorivault.life",
-    "threatfox:v0cal-hold.narrownessoutri8ht.pics",
     "threatfox:https://milnleny.cyou",
     "threatfox:crawlerhidden.qorivault.life",
     "threatfox:cell1-line.narrownessoutri8ht.pics",
@@ -5001,7 +4995,13 @@
     "threatfox:103.210.236.87:53",
     "threatfox:wsus.227api.com",
     "threatfox:wsus2.227api.com",
-    "threatfox:102.220.160.47:80"
+    "threatfox:102.220.160.47:80",
+    "threatfox:vdyoex.feherpeter.hu",
+    "threatfox:eoeecm.esgkonzultacio.hu",
+    "threatfox:fkmrx4nm.signal-meridian.digital",
+    "threatfox:nre4rjrs.signal-meridian.digital",
+    "threatfox:fujxga.fluss.hu",
+    "threatfox:fluss.hu"
   ],
   "source_id": "abuse_ch",
   "stats": {
