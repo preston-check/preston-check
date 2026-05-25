@@ -25,6 +25,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 TOOLS = ROOT / "tools"
@@ -513,6 +514,305 @@ class TelemetryQuorumTests(unittest.TestCase):
         from telemetry_aggregate import _quorum_pass  # type: ignore[import-not-found]
 
         self.assertTrue(_quorum_pass(distinct_fingerprints=10, days_span=14, n=10, days=14))
+
+
+class OrchestrateTests(unittest.TestCase):
+    def _make_check(self, td: Path, bash_body: str, check_id: str = "700") -> Path:
+        p = td / f"{check_id}-cve-test-strict.sh"
+        p.write_text(
+            f"""#!/bin/bash
+: <<'PRESTON_META'
+schema_version: 1
+id: P-{check_id}
+name: test check
+category: code-scan
+severity: medium
+languages: any
+min_tier: free
+provenance: auto
+version: 0.1.0
+PRESTON_META
+{bash_body}
+"""
+        )
+        return p
+
+    def test_build_attestation_schema(self) -> None:
+        """_build_attestation is pure; all expected top-level keys are present."""
+        import orchestrate  # type: ignore[import-not-found]
+
+        candidate = {
+            "canonical_id": "CVE-2026-9999",
+            "merged_sources": ["kev"],
+            "first_seen": "2026-01-01T00:00:00Z",
+        }
+        sandbox = {"pass": True, "validator_version": "0.2.0", "reasons": []}
+        validate_res = {
+            "pass": True,
+            "metrics": {"tpr": 0.9, "fpr": 0.01, "stability": 0.95},
+            "corpus_hashes": {"positive": "abc", "negative": "def"},
+        }
+        adversarial = {
+            "passes": True,
+            "rounds": 3,
+            "transcript_hash": "abc123",
+            "synth_model": "claude-haiku-4-5-20251001",
+            "adv_model": "openai/gpt-4o",
+        }
+        att = orchestrate._build_attestation(candidate, sandbox, validate_res, adversarial, "700")
+
+        for key in ("attestation_version", "check_id", "source", "synthesis", "sandbox", "validation", "adversarial", "merged_at"):
+            self.assertIn(key, att)
+        self.assertEqual(att["check_id"], "700")
+        self.assertEqual(att["source"]["id"], "CVE-2026-9999")
+        self.assertTrue(att["sandbox"]["pass"])
+        self.assertEqual(att["validation"]["tpr"], 0.9)
+        self.assertTrue(att["adversarial"]["passes"])
+
+    def test_process_candidate_rejected_at_sandbox(self) -> None:
+        """eval in check body → sandbox rejects → outcome rejected:sandbox and copy appears in retry queue."""
+        import orchestrate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            retry_dir = tmp / "retry"
+            check = self._make_check(tmp, 'eval "ls"')
+            nonexistent = tmp / "corpus.tar.gz"
+            with patch.object(orchestrate, "RETRY_QUEUE", retry_dir):
+                summary = orchestrate.process_candidate(
+                    check,
+                    {"canonical_id": "CVE-2026-9999"},
+                    nonexistent,
+                    nonexistent,
+                    dry_run=True,
+                )
+            self.assertEqual(summary["outcome"], "rejected:sandbox")
+            self.assertFalse(summary["sandbox"].get("pass"))
+            self.assertTrue((retry_dir / check.name).is_file())
+
+    def test_process_candidate_rejected_at_validate(self) -> None:
+        """Legitimate check passes sandbox but fails validate (stability=0 with empty corpus)."""
+        import orchestrate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            retry_dir = tmp / "retry"
+            check = self._make_check(
+                tmp,
+                'hits=$(grep -rn "password" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+                'if [[ -n "$hits" ]]; then record "FAIL" "P-700" "found"; '
+                'else record "PASS" "P-700" "none"; fi',
+            )
+            nonexistent = tmp / "corpus.tar.gz"
+            with patch.object(orchestrate, "RETRY_QUEUE", retry_dir):
+                summary = orchestrate.process_candidate(
+                    check,
+                    {"canonical_id": "CVE-2026-9999"},
+                    nonexistent,
+                    nonexistent,
+                    dry_run=True,
+                )
+        self.assertEqual(summary["outcome"], "rejected:validate")
+
+    def test_dry_run_does_not_move_file(self) -> None:
+        """With all gates stubbed to pass, dry_run=True yields would-promote without moving the file."""
+        import orchestrate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            att_dir = tmp / "attestations"
+            att_dir.mkdir()
+            check = self._make_check(
+                tmp,
+                'hits=$(grep -rn "password" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+                'if [[ -n "$hits" ]]; then record "FAIL" "P-700" "found"; '
+                'else record "PASS" "P-700" "none"; fi',
+            )
+            nonexistent = tmp / "corpus.tar.gz"
+            with (
+                patch.object(orchestrate, "_gate_sandbox", return_value={"pass": True, "validator_version": "0.2.0", "reasons": []}),
+                patch.object(orchestrate, "_gate_validate", return_value={"pass": True, "metrics": {"tpr": 0.9, "fpr": 0.01, "stability": 0.95}, "corpus_hashes": {}}),
+                patch.object(orchestrate, "_gate_adversarial", return_value={"passes": True, "rounds": 1, "transcript_hash": "abc", "synth_model": "claude-haiku-4-5-20251001", "adv_model": "openai/gpt-4o"}),
+                patch.object(orchestrate, "ATTESTATIONS", att_dir),
+            ):
+                summary = orchestrate.process_candidate(
+                    check,
+                    {"canonical_id": "CVE-2026-9999"},
+                    nonexistent,
+                    nonexistent,
+                    dry_run=True,
+                )
+            self.assertEqual(summary["outcome"], "would-promote")
+            self.assertTrue(check.is_file(), "file must remain in place during dry run")
+
+
+class DriftDetectTests(unittest.TestCase):
+    def _make_catalog_check(self, catalog_dir: Path) -> Path:
+        check = catalog_dir / "700-cve-decay-test.sh"
+        check.write_text(
+            "#!/bin/bash\n"
+            ": <<'PRESTON_META'\n"
+            "schema_version: 1\n"
+            "id: P-700\n"
+            "name: decay test check\n"
+            "category: code-scan\n"
+            "severity: medium\n"
+            "languages: any\n"
+            "min_tier: free\n"
+            "provenance: auto\n"
+            "version: 0.1.0\n"
+            "PRESTON_META\n"
+            'hits=$(grep -rn "password" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+            'if [[ -n "$hits" ]]; then record "FAIL" "P-700" "found"; '
+            'else record "PASS" "P-700" "none"; fi\n'
+        )
+        return check
+
+    def test_empty_catalog_produces_no_flags(self) -> None:
+        """With no check files in CATALOG_DIRS the flagged lists are empty."""
+        import drift_detect  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            empty_catalog = tmp / "empty"
+            empty_catalog.mkdir()
+            baseline_file = tmp / "baseline.json"
+            flagged_file = tmp / "flagged.json"
+            with (
+                patch.object(drift_detect, "CATALOG_DIRS", [empty_catalog]),
+                patch.object(drift_detect, "BASELINE_FILE", baseline_file),
+                patch.object(drift_detect, "FLAGGED_FILE", flagged_file),
+            ):
+                result = drift_detect.detect_drift(
+                    tmp / "pos.tar.gz", tmp / "neg.tar.gz", 0.10, 0.02
+                )
+        self.assertEqual(result["flagged"]["decayed"], [])
+        self.assertEqual(result["flagged"]["noisy"], [])
+        self.assertEqual(result["flagged"]["checks_evaluated"], 0)
+
+    def test_decay_flagged_when_tpr_drops_below_threshold(self) -> None:
+        """Seeding baseline with TPR=0.9 then re-running against empty corpus (TPR=0.0) flags decay."""
+        import drift_detect  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            catalog_dir = tmp / "catalog"
+            catalog_dir.mkdir()
+            baseline_file = tmp / "baseline.json"
+            flagged_file = tmp / "flagged.json"
+            check = self._make_catalog_check(catalog_dir)
+            baseline_file.write_text(
+                json.dumps({check.name: {"tpr": 0.9, "fpr": 0.01, "stability": 0.95}})
+            )
+            with (
+                patch.object(drift_detect, "CATALOG_DIRS", [catalog_dir]),
+                patch.object(drift_detect, "BASELINE_FILE", baseline_file),
+                patch.object(drift_detect, "FLAGGED_FILE", flagged_file),
+            ):
+                result = drift_detect.detect_drift(
+                    tmp / "pos.tar.gz", tmp / "neg.tar.gz", 0.10, 0.02
+                )
+        self.assertEqual(len(result["flagged"]["decayed"]), 1)
+        self.assertEqual(result["flagged"]["decayed"][0]["check"], check.name)
+
+    def test_write_report_creates_markdown_file(self) -> None:
+        """write_report produces a markdown file in the target directory."""
+        import drift_detect  # type: ignore[import-not-found]
+
+        result = {
+            "summary": [{"check": "foo.sh", "tpr": 0.5, "fpr": 0.01, "delta_tpr": None, "delta_fpr": None}],
+            "flagged": {"checks_evaluated": 1, "decayed": [], "noisy": [], "ts": "2026-05-25T00:00:00Z"},
+        }
+        with tempfile.TemporaryDirectory() as td:
+            report_path = drift_detect.write_report(result, Path(td))
+            self.assertTrue(report_path.is_file())
+            content = report_path.read_text()
+        self.assertIn("Drift Report", content)
+        self.assertIn("None.", content)
+
+
+class NotifyPromotionTests(unittest.TestCase):
+    def _promoted_summary(self, outcome: str = "promoted") -> dict:
+        return {
+            "ts": "2026-05-25T12:00:00Z",
+            "automerge_enabled": True,
+            "dry_run": False,
+            "summaries": [
+                {
+                    "outcome": outcome,
+                    "canonical_id": "CVE-2026-9999",
+                    "check_id": "700",
+                    "validate": {"metrics": {"tpr": 0.9, "fpr": 0.01, "stability": 0.95}},
+                    "adversarial": {"passes": True},
+                }
+            ],
+        }
+
+    def test_empty_summary_returns_empty_strings(self) -> None:
+        from notify_promotion import render_promotion_email  # type: ignore[import-not-found]
+
+        summary = {"ts": "2026-05-25T12:00:00Z", "summaries": [
+            {"outcome": "rejected:sandbox", "canonical_id": "CVE-2026-9999", "check_id": "700"},
+        ]}
+        subject, text, html = render_promotion_email(summary, "")
+        self.assertEqual(subject, "")
+        self.assertEqual(text, "")
+        self.assertEqual(html, "")
+
+    def test_single_cve_subject(self) -> None:
+        from notify_promotion import render_promotion_email  # type: ignore[import-not-found]
+
+        subject, _, _ = render_promotion_email(self._promoted_summary(), "https://github.com/foo/bar/pull/42")
+        self.assertIn("CVE-2026-9999", subject)
+        self.assertIn("1 new check", subject)
+
+    def test_would_promote_included_in_active(self) -> None:
+        """outcome=would-promote counts as active; subject must not be empty."""
+        from notify_promotion import render_promotion_email  # type: ignore[import-not-found]
+
+        subject, _, _ = render_promotion_email(
+            self._promoted_summary("would-promote"),
+            "https://github.com/foo/bar/pull/42",
+        )
+        self.assertNotEqual(subject, "")
+        self.assertIn("CVE-2026-9999", subject)
+
+    def test_compare_url_renders_action_required(self) -> None:
+        from notify_promotion import render_promotion_email  # type: ignore[import-not-found]
+
+        compare_url = "https://github.com/foo/bar/compare/master...branch?expand=1"
+        _, text, _ = render_promotion_email(self._promoted_summary(), compare_url)
+        self.assertIn("ACTION REQUIRED", text)
+
+    def test_normal_pr_url_no_action_required(self) -> None:
+        from notify_promotion import render_promotion_email  # type: ignore[import-not-found]
+
+        _, text, _ = render_promotion_email(
+            self._promoted_summary(), "https://github.com/foo/bar/pull/42"
+        )
+        self.assertNotIn("ACTION REQUIRED", text)
+        self.assertIn("auto-merge queued", text)
+
+    def test_explain_metrics_tpr_zero_uses_proxy_message(self) -> None:
+        from notify_promotion import _explain_metrics  # type: ignore[import-not-found]
+
+        result = _explain_metrics(0.0, 0.01, 0.95)
+        self.assertIn("proxy", result)
+
+    def test_explain_metrics_normal_values(self) -> None:
+        from notify_promotion import _explain_metrics  # type: ignore[import-not-found]
+
+        result = _explain_metrics(0.9, 0.01, 0.95)
+        self.assertIn("90%", result)
+        self.assertIn("1%", result)
+        self.assertIn("95%", result)
+
+    def test_is_compare_url(self) -> None:
+        from notify_promotion import _is_compare_url  # type: ignore[import-not-found]
+
+        self.assertTrue(_is_compare_url("https://github.com/foo/bar/compare/master...branch?expand=1"))
+        self.assertFalse(_is_compare_url("https://github.com/foo/bar/pull/42"))
+        self.assertFalse(_is_compare_url(""))
 
 
 class RunnerIntegrationTests(unittest.TestCase):
