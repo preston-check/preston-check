@@ -292,6 +292,14 @@ _PROHIBITED_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
         re.compile(r'\bsed\b[^|;&\n]*"[^"]*s/[^/]*/[^/]*/[a-z]*e'),
         "sed s///e flag executes replacement text as shell command",
     ),
+    # awk program via here-string — <<<'program' is a redirect node that neither
+    # the AST walker nor the inline-program-text patterns inspect. The content of
+    # the here-string cannot be statically analysed, so any awk-with-herestring
+    # invocation is blocked unconditionally.
+    (
+        re.compile(r"\bawk\b[^|;&\n]*<<<"),
+        "awk program via here-string (cannot inspect program text)",
+    ),
     # Output redirection to a real file — allow only /dev/null and fd-redirects (&1/&2).
     # Checks must be read-only: printf/echo/cat writing to arbitrary paths is disallowed.
     # This pattern runs against string-literal-stripped source (see _check_pattern_violations)
@@ -347,8 +355,13 @@ def _strip_string_literals(source: str) -> str:
                     j += 2
                 else:
                     j += 1
-            result.append(quote + " " * max(0, j - i - 1) + (quote if j < n else ""))
-            i = j + 1 if j < n else j
+            if j >= n:
+                # Unterminated string literal — return the un-stripped remainder
+                # (fail-safe). Swallowing the rest would blind the redirect
+                # prohibition to any >/file patterns that follow the unclosed quote.
+                return "".join(result) + source[i:]
+            result.append(quote + " " * max(0, j - i - 1) + quote)
+            i = j + 1
         else:
             result.append(c)
             i += 1

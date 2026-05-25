@@ -63,20 +63,34 @@ Use realistic evasion strategies: identifier rename, comment insertion at trigge
 Do NOT remove the vulnerability — the code must still be exploitable. Do NOT add comments saying "vulnerable" or marking the bug — that would help detection."""
 
 
+_OPENAI_NAME_PREFIXES: tuple[str, ...] = ("gpt", "o1", "o3", "o4")
+
+
+def _provider_of(model_name: str) -> str:
+    """Return the provider family ('anthropic', 'openai', or 'unknown') for a model name."""
+    lower = model_name.lower()
+    if "claude" in lower:
+        return "anthropic"
+    if any(lower.startswith(p) or f"/{p}" in lower for p in _OPENAI_NAME_PREFIXES):
+        return "openai"
+    return "unknown"
+
+
 def _check_diversity(synth_model: str, adv_model: str) -> str | None:
     """Return error message if synth and adv models share a provider, else None.
 
-    Only 'claude*' (Anthropic) and 'gpt*' / 'o*' (OpenAI) are recognised providers.
-    Any other model name is treated as unknown and rejected: an unrecognised provider
-    cannot satisfy the diversity requirement because we cannot verify it is a different
-    provider family from the synthesiser.
+    Recognised providers: 'claude*' (Anthropic) and 'gpt*' / 'o1*' / 'o3*' / 'o4*'
+    (OpenAI, including o-series reasoning models). Any other model name is treated as
+    unknown and rejected: an unrecognised provider cannot satisfy the diversity
+    requirement because we cannot verify it is a different provider family from the
+    synthesiser.
     """
-    s_provider = "anthropic" if "claude" in synth_model.lower() else "openai" if "gpt" in synth_model.lower() else "unknown"
-    a_provider = "anthropic" if "claude" in adv_model.lower() else "openai" if "gpt" in adv_model.lower() else "unknown"
+    s_provider = _provider_of(synth_model)
+    a_provider = _provider_of(adv_model)
     if s_provider == "unknown" or a_provider == "unknown":
         return (
             f"model monoculture: unrecognised provider(s): synth={synth_model}, adv={adv_model}"
-            " — only 'claude*' and 'gpt*' model names are validated for provider diversity"
+            " — only 'claude*' and 'gpt*'/'o1*'/'o3*'/'o4*' model names are validated for provider diversity"
         )
     if s_provider == a_provider:
         return f"model monoculture: synth={synth_model} adv={adv_model} both on {s_provider}"

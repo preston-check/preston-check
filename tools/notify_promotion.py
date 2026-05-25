@@ -24,6 +24,7 @@ import argparse
 import datetime
 import hashlib
 import hmac
+import html as _html
 import json
 import os
 import sys
@@ -337,17 +338,25 @@ def render_promotion_email(summary: dict, pr_url: str) -> tuple[str, str, str]:
         sources = meta.get("frameworks", meta.get("source", "unknown"))
         badge_colour = _meta_severity_badge(severity)
 
+        h_cid = _html.escape(cid)
+        h_severity = _html.escape(severity.upper())
+        h_cwe = _html.escape(cwe)
+        h_base_name = _html.escape(base_name)
+        h_description = _html.escape(description[:500])
+        h_sources = _html.escape(sources)
+
         html_body += f"""
 <div style="border:1px solid #e5e7eb;border-radius:8px;padding:16px;margin:12px 0;">
   <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
-    <span style="font-family:monospace;font-weight:700;font-size:1.05em;">{cid}</span>
-    <span style="background:{badge_colour};color:#fff;font-size:0.75em;padding:2px 8px;border-radius:4px;font-weight:600;">{severity.upper()}</span>
-    {"<span style='color:#6b7280;font-size:0.85em;'>" + cwe + "</span>" if cwe else ""}
+    <span style="font-family:monospace;font-weight:700;font-size:1.05em;">{h_cid}</span>
+    <span style="background:{badge_colour};color:#fff;font-size:0.75em;padding:2px 8px;border-radius:4px;font-weight:600;">{h_severity}</span>
+    {"<span style='color:#6b7280;font-size:0.85em;'>" + h_cwe + "</span>" if cwe else ""}
   </div>
-  <div style="font-weight:600;margin:6px 0 4px;">{base_name}</div>"""
+  <div style="font-weight:600;margin:6px 0 4px;">{h_base_name}</div>"""
         if description:
-            html_body += f'  <p style="margin:4px 0 8px;color:#374151;font-size:0.9em;">{description[:500]}{"…" if len(description) > 500 else ""}</p>'
-        html_body += f'  <div style="font-size:0.8em;color:#6b7280;">Sources: {sources}</div>'
+            ellipsis = "…" if len(description) > 500 else ""
+            html_body += f'  <p style="margin:4px 0 8px;color:#374151;font-size:0.9em;">{h_description}{ellipsis}</p>'
+        html_body += f'  <div style="font-size:0.8em;color:#6b7280;">Sources: {h_sources}</div>'
         html_body += '<table style="margin-top:10px;width:100%;border-collapse:collapse;font-size:0.875em;">'
         html_body += '<tr style="background:#f9fafb;"><th style="text-align:left;padding:6px 8px;border:1px solid #e5e7eb;">Check</th><th style="text-align:left;padding:6px 8px;border:1px solid #e5e7eb;">Detection pattern</th><th style="text-align:left;padding:6px 8px;border:1px solid #e5e7eb;">Metrics</th></tr>'
         for rec in records:
@@ -355,6 +364,8 @@ def render_promotion_email(summary: dict, pr_url: str) -> tuple[str, str, str]:
             rmeta = _read_check_meta(vid)
             rname = rmeta.get("name", f"P-{vid}")
             variant_label = rname.rsplit("(", 1)[-1].rstrip(")") if "(" in rname else rname
+            h_vid = _html.escape(str(vid))
+            h_variant_label = _html.escape(variant_label)
             validation = rec.get("validate", {}).get("metrics", {})
             tpr = validation.get("tpr", "?")
             fpr = validation.get("fpr", "?")
@@ -366,8 +377,8 @@ def render_promotion_email(summary: dict, pr_url: str) -> tuple[str, str, str]:
                 '<span style="color:#dc2626;">✗ adversarial</span>' if adv_pass is False else ""
             )
             html_body += (
-                f'<tr><td style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">P-{vid}</td>'
-                f'<td style="padding:6px 8px;border:1px solid #e5e7eb;">{variant_label} {adv_badge}</td>'
+                f'<tr><td style="padding:6px 8px;border:1px solid #e5e7eb;font-family:monospace;">P-{h_vid}</td>'
+                f'<td style="padding:6px 8px;border:1px solid #e5e7eb;">{h_variant_label} {adv_badge}</td>'
                 f'<td style="padding:6px 8px;border:1px solid #e5e7eb;color:#6b7280;font-size:0.85em;">{metrics_str}</td></tr>'
             )
         html_body += '</table></div>'

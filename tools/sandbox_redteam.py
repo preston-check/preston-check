@@ -94,6 +94,9 @@ _BASE_ATTACK_PATTERNS: tuple[tuple[str, str], ...] = (
     ("awk-f-file", "awk -f /proc/self/environ /dev/null"),
     # awk program from a variable reference — the inline-program-text patterns miss this.
     ("awk-var-program", 'PRG=\'BEGIN{system("id")}\'; awk "$PRG" /dev/null'),
+    # awk program via here-string — <<<'...' is a redirect node invisible to all
+    # inline-program-text inspection paths.
+    ("awk-herestring", "awk <<<'BEGIN{system(\"id\")}' /dev/null"),
 )
 
 

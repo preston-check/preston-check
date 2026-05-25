@@ -113,6 +113,20 @@ PRESTON_META
         )
         self.assertTrue(self.validate_check(p)["pass"])
 
+    def test_awk_herestring_rejected(self) -> None:
+        """awk program supplied via here-string cannot be statically inspected and must be blocked."""
+        p = self._make_check("awk <<<'BEGIN{system(\"id\")}' /dev/null")
+        self.assertFalse(self.validate_check(p)["pass"])
+
+    def test_redirect_after_unclosed_string_still_caught(self) -> None:
+        """An unclosed single-quote must not cause _strip_string_literals to swallow
+        all subsequent content, rendering the redirect prohibition blind to what follows."""
+        # echo 'unclosed starts a string that never closes; the redirect on the
+        # next line must still be visible to the pattern checker.
+        body = "echo 'unclosed\n" + 'printf "%s" data > /tmp/evil'
+        p = self._make_check(body)
+        self.assertFalse(self.validate_check(p)["pass"])
+
 
 class RedteamTests(unittest.TestCase):
     def test_catch_rate_above_threshold(self) -> None:
@@ -632,6 +646,31 @@ PRESTON_META
         self.assertFalse(result["ok"])
         self.assertIn("monoculture", result.get("reason", ""))
 
+    def test_o_series_openai_models_recognised(self) -> None:
+        """o1, o3, o4-mini must be recognised as OpenAI — pairing them with claude
+        satisfies the provider diversity requirement."""
+        from adversarial_loop import run_adversarial  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            check = self._make_check(
+                tmp,
+                'hits=$(grep -rn "password" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+                'if [[ -n "$hits" ]]; then record "FAIL" "P-ADV" "found"; '
+                'else record "PASS" "P-ADV" "none"; fi',
+            )
+            empty_corpus = tmp / "positive"
+            empty_corpus.mkdir()
+            result = run_adversarial(
+                check,
+                empty_corpus,
+                synth_model="claude-haiku-4-5-20251001",
+                adv_model="o3",
+            )
+
+        self.assertTrue(result["ok"], f"o3 should be recognised as openai: {result.get('reason')}")
+        self.assertTrue(result["passes"])
+
 
 class TelemetryQuorumTests(unittest.TestCase):
     def test_quorum_passes_above_threshold(self) -> None:
@@ -1011,6 +1050,56 @@ class NotifyPromotionTests(unittest.TestCase):
         self.assertTrue(_is_compare_url("https://github.com/foo/bar/compare/master...branch?expand=1"))
         self.assertFalse(_is_compare_url("https://github.com/foo/bar/pull/42"))
         self.assertFalse(_is_compare_url(""))
+
+    def _write_accepted_check(self, accepted_dir: Path, stem: str) -> Path:
+        check = accepted_dir / f"{stem}.sh"
+        check.write_text(
+            "#!/bin/bash\n"
+            ": <<'PRESTON_META'\n"
+            "schema_version: 1\n"
+            "id: P-700\n"
+            "name: CVE-2026-9999 strict detection (strict)\n"
+            "severity: high\n"
+            "cwe: CWE-502\n"
+            "frameworks: kev,ghsa\n"
+            "PRESTON_META\n"
+            'record "PASS" "P-700" "test"\n'
+        )
+        return check
+
+    def test_read_check_meta_finds_full_stem(self) -> None:
+        """_read_check_meta must read metadata when given the full filename stem."""
+        import notify_promotion  # type: ignore[import-not-found]
+        from notify_promotion import _read_check_meta  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            accepted_dir = tmp / "checks" / "community" / "accepted"
+            accepted_dir.mkdir(parents=True)
+            self._write_accepted_check(accepted_dir, "700-cve-2026-9999-strict")
+            with patch.object(notify_promotion, "ROOT", tmp):
+                meta = _read_check_meta("700-cve-2026-9999-strict")
+
+        self.assertEqual(meta.get("name"), "CVE-2026-9999 strict detection (strict)")
+        self.assertEqual(meta.get("severity"), "high")
+        self.assertEqual(meta.get("cwe"), "CWE-502")
+        self.assertEqual(meta.get("frameworks"), "kev,ghsa")
+
+    def test_read_check_meta_prefix_glob_fallback(self) -> None:
+        """_read_check_meta must fall back to prefix glob when given a bare numeric ID."""
+        import notify_promotion  # type: ignore[import-not-found]
+        from notify_promotion import _read_check_meta  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            accepted_dir = tmp / "checks" / "community" / "accepted"
+            accepted_dir.mkdir(parents=True)
+            self._write_accepted_check(accepted_dir, "700-cve-2026-9999-strict")
+            with patch.object(notify_promotion, "ROOT", tmp):
+                meta = _read_check_meta("700")
+
+        self.assertEqual(meta.get("severity"), "high")
+        self.assertEqual(meta.get("cwe"), "CWE-502")
 
 
 class RunnerIntegrationTests(unittest.TestCase):

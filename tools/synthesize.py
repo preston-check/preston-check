@@ -130,6 +130,18 @@ SCRIPT STRUCTURE — always follow this skeleton:
   fi"""
 
 
+def _sanitize_meta_field(value: str) -> str:
+    """Strip characters that could escape the PRESTON_META heredoc.
+
+    Removes CR/LF so crafted input cannot inject new lines that the heredoc
+    parser would treat as the end-of-heredoc marker, and replaces the literal
+    terminator string so it cannot appear verbatim inside a field value.
+    """
+    sanitized = value.replace("\r", " ").replace("\n", " ")
+    sanitized = sanitized.replace("PRESTON_META", "PRESTON-META")
+    return sanitized
+
+
 def _stable_hash(s: str) -> str:
     return hashlib.sha256(s.encode("utf-8")).hexdigest()
 
@@ -306,11 +318,12 @@ def _render_check_file(
 ) -> tuple[str, str]:
     """Render a check .sh file from a synthesized variant. Returns (filename, content)."""
     cid = candidate.get("canonical_id", "unknown")
-    name = (candidate.get("title", cid)[:80]).replace('"', "'")
-    desc = (candidate.get("description", "")[:300]).replace('"', "'")
+    name = _sanitize_meta_field((candidate.get("title", cid)[:80]).replace('"', "'"))
+    desc = _sanitize_meta_field((candidate.get("description", "")[:300]).replace('"', "'"))
     severity = candidate.get("severity", "medium")
-    sources_str = ",".join(candidate.get("merged_sources", [candidate.get("source", "unknown")]))
-    cwe_str = ",".join(candidate.get("cwe", []))
+    sources_str = _sanitize_meta_field(",".join(candidate.get("merged_sources", [candidate.get("source", "unknown")])))
+    cwe_str = _sanitize_meta_field(",".join(candidate.get("cwe", [])))
+    rationale_safe = _sanitize_meta_field(variant.get("rationale", "")[:200].replace('"', "'"))
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     shadow_until = datetime.now(timezone.utc).timestamp() + 7 * 86400
 
@@ -325,7 +338,7 @@ def _render_check_file(
 schema_version: 1
 id: P-{check_number}
 name: {name} ({variant['name']})
-description: Auto-synthesized {today}; canonical_id={cid}; sources=[{sources_str}]; variant={variant['name']}; rationale={variant.get('rationale', '')[:200].replace('"', "'")}
+description: Auto-synthesized {today}; canonical_id={cid}; sources=[{sources_str}]; variant={variant['name']}; rationale={rationale_safe}
 category: code-scan
 severity: {severity}
 languages: any
