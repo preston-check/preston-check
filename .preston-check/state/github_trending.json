@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-25T15:56:31.855013+00:00",
-  "last_successful_fetch": "2026-05-25T15:56:34.872922+00:00",
+  "last_run": "2026-05-25T17:50:46.643729+00:00",
+  "last_successful_fetch": "2026-05-25T17:50:50.383095+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -811,7 +811,15 @@
     "github:renewablehacking/CVE-2026-45321-Tanstack",
     "github:Vinicius665a/Calculadora-cve",
     "github:LZCCC986/cve",
-    "github:pucagit/CVE-2025-9074"
+    "github:pucagit/CVE-2025-9074",
+    "github:portbuster1337/CVE-2026-33712",
+    "github:hacbs-release-tests/collectors-no-cve-1ebfb84a",
+    "github:hacbs-release-tests/collectors-no-cve-8b8d5d95",
+    "github:x3roxismygood/CVE-2012-1803",
+    "github:infosys-training/uc-cve-remediation-regulatory-compliance",
+    "github:russellwork2021-lgtm/cosmicsting-cve-2024-34102-exploit",
+    "github:ReTulik7/CVE_record-reproduce",
+    "github:aabughosh/analyze-and-fix-cve"
   ],
   "source_id": "github_trending",
   "stats": {
