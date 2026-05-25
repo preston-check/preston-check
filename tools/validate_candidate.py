@@ -84,8 +84,6 @@ def _run_bash_against_file(
 ) -> tuple[bool, str]:
     """Run the candidate's bash body in a fresh subshell with SOURCE_DIR
     set to target_dir. Returns (fired, last_record_status)."""
-    record_log = []
-
     runner = (
         "set -euo pipefail\n"
         f'export SOURCE_DIR={shlex_quote(str(target_dir))}\n'

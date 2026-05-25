@@ -149,9 +149,15 @@ def _build_attestation(
     }
 
 
-def _sign_attestation(payload: dict, check_id: str, dry_run: bool) -> Path | None:
+def _sign_attestation(payload: dict, file_id: str, dry_run: bool) -> Path | None:
+    """Write the attestation payload and, when not in dry-run, produce a signed copy.
+
+    ``file_id`` is the full check filename stem (e.g. ``700-cve-2026-9999-strict``)
+    rather than just the numeric prefix so that two variants of the same CVE written
+    in the same orchestrator run do not overwrite each other's payload on disk.
+    """
     ATTESTATIONS.mkdir(parents=True, exist_ok=True)
-    payload_path = ATTESTATIONS / f"{check_id}.payload.json"
+    payload_path = ATTESTATIONS / f"{file_id}.payload.json"
     payload_path.write_text(json.dumps(payload, indent=2, sort_keys=True))
 
     private_key = os.environ.get("ATTESTATION_PRIVATE_KEY_PATH", "")
@@ -160,7 +166,7 @@ def _sign_attestation(payload: dict, check_id: str, dry_run: bool) -> Path | Non
     if not Path(private_key).is_file():
         return None
 
-    signed_path = ATTESTATIONS / f"{check_id}.signed.json"
+    signed_path = ATTESTATIONS / f"{file_id}.signed.json"
     res = _run(
         [
             sys.executable,
@@ -224,7 +230,7 @@ def process_candidate(
         return summary
 
     attestation = _build_attestation(candidate_meta, sandbox, validate, adversarial, check_id)
-    signed = _sign_attestation(attestation, check_id, dry_run)
+    signed = _sign_attestation(attestation, candidate_check.stem, dry_run)
     summary["attestation"] = {"path": str(signed) if signed else None, "signed": signed is not None}
 
     if dry_run:

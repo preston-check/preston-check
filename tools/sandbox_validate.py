@@ -253,6 +253,31 @@ _PROHIBITED_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
         "PATH overwrite (PATH=$PATH:... is allowed)",
     ),
     (re.compile(r"^\s*!\w"), "history expansion (! prefix)"),
+    # awk program-text shell escapes — the AST walker only sees "awk" as a command
+    # word; it never inspects the program-text argument where system() and pipe-getline
+    # can invoke arbitrary subcommands using only allowlisted words.
+    (
+        re.compile(r"\bawk\b[^|;&\n]*'[^']*\bsystem\s*\("),
+        "awk program-text shell escape via system()",
+    ),
+    (
+        re.compile(r'\bawk\b[^|;&\n]*"[^"]*\bsystem\s*\('),
+        "awk program-text shell escape via system()",
+    ),
+    (
+        re.compile(r"\bawk\b[^|;&\n]*'[^']*?\|\s*getline\b"),
+        "awk program-text pipe getline (command injection)",
+    ),
+    (
+        re.compile(r'\bawk\b[^|;&\n]*"[^"]*?\|\s*getline\b'),
+        "awk program-text pipe getline (command injection)",
+    ),
+    # Output redirection to a real file — allow only /dev/null and fd-redirects (&1/&2).
+    # Checks must be read-only: printf/echo/cat writing to arbitrary paths is disallowed.
+    (
+        re.compile(r">+(?!\s*(?:/dev/null\b|&(?:1|2)(?:\b|>)))\s+\S"),
+        "output redirection to file (only /dev/null and &2 are permitted)",
+    ),
 )
 
 
@@ -425,8 +450,6 @@ def _validate_commands_via_regex(source: str) -> list[str]:
                 seen.add(key)
             continue
         if cmd in PERMITTED_COMMANDS:
-            continue
-        if re.match(r"^[a-zA-Z_][\w-]*$", cmd) and cmd.isupper():
             continue
         if "=" in source[match.start() : match.end() + 2]:
             continue

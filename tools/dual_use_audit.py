@@ -141,39 +141,54 @@ def _campaign_prompt_injection() -> dict:
 
 
 def _campaign_telemetry_quorum() -> dict:
-    """Simulate poisoning at varying scales and verify the quorum gate
-    holds. The quorum gate combines distinct-fingerprint counting with
-    anomaly detection: poisoning campaigns with uniform user-agent
-    fingerprints, clustered geographic distribution, or compressed
-    submission timing get penalised in their effective contribution."""
+    """Verify the live quorum gate (_quorum_pass) behaves correctly under
+    legitimate signal, boundary conditions, and simulated poisoning scenarios
+    where events are clustered within a window too short to satisfy the gate.
 
-    def effective_distinct(legit: int, poison: int, poison_anomaly_score: float) -> float:
-        return legit + poison * (1.0 - poison_anomaly_score)
+    Each case checks that _quorum_pass returns the expected boolean. All cases
+    must pass for the campaign to pass (hold_rate threshold is 0.99, so a single
+    regression fails the campaign immediately with six test cases).
+    """
+    sys.path.insert(0, str(TOOLS))
+    from telemetry_aggregate import _quorum_pass  # type: ignore[import-not-found]
 
-    legit_baseline = 14
     threshold_n = 10
-    legit_only_trigger = legit_baseline >= threshold_n
+    threshold_days = 14
 
-    poison_ratios = [0.05, 0.25, 0.50]
+    # Each tuple: (distinct_fingerprints, days_span, expected, label)
+    cases = [
+        (15, 20, True, "legit_above_threshold"),
+        (threshold_n, threshold_days, True, "exact_boundary"),
+        (threshold_n - 1, threshold_days, False, "one_below_installs"),
+        (threshold_n, threshold_days - 1, False, "one_below_days"),
+        # Simulated poisoning: high event count but window too short (burst campaign).
+        (50, threshold_days - 1, False, "poisoning_short_window"),
+        # High count with valid window still triggers — gate is threshold, not rate.
+        (50, threshold_days, True, "high_count_valid_window"),
+    ]
+
     holds = 0
-    total = 0
-    for ratio in poison_ratios:
-        poison = int(legit_baseline * ratio / max(0.01, 1 - ratio))
-        anomaly_score = 0.85 if ratio >= 0.25 else 0.50
-        effective = effective_distinct(legit_baseline, poison, anomaly_score)
-        false_trigger = effective >= threshold_n
-        total += 1
-        if false_trigger == legit_only_trigger:
+    failed_cases: list[str] = []
+    for fingerprints, days_span, expected, label in cases:
+        result = _quorum_pass(
+            distinct_fingerprints=fingerprints,
+            days_span=days_span,
+            n=threshold_n,
+            days=threshold_days,
+        )
+        if result == expected:
             holds += 1
+        else:
+            failed_cases.append(label)
 
-    hold_rate = holds / total if total else 1.0
+    hold_rate = holds / len(cases)
     return {
         "campaign": "telemetry_quorum",
         "metric_name": "hold_rate_25pct",
         "metric_value": hold_rate,
         "threshold": THRESHOLDS["telemetry_quorum_hold_rate_25pct"],
         "passes": hold_rate >= THRESHOLDS["telemetry_quorum_hold_rate_25pct"],
-        "raw": {"poison_ratios_tested": poison_ratios, "holds": holds, "total": total},
+        "raw": {"cases_tested": len(cases), "holds": holds, "failed_cases": failed_cases},
     }
 
 

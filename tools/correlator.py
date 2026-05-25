@@ -94,7 +94,7 @@ def correlate(queue_dir: Path = QUEUE_DIR) -> list[dict]:
         proactive_only = all(r.get("proactive", False) for r in records)
         reactive_present = any(not r.get("proactive", False) for r in records)
 
-        if proactive_only and len(sources) < 2 and key_kind == "sid":
+        if proactive_only and len(sources) < 2:
             continue
 
         max_conf = max((r.get("confidence", 0.5) for r in records), default=0.5)

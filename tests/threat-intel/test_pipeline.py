@@ -77,6 +77,14 @@ PRESTON_META
         p = self._make_check('grep -P "(.*)+x" file')
         self.assertFalse(self.validate_check(p)["pass"])
 
+    def test_awk_system_escape_rejected(self) -> None:
+        p = self._make_check("awk 'BEGIN{system(\"id\")}' /dev/null")
+        self.assertFalse(self.validate_check(p)["pass"])
+
+    def test_output_redirect_to_file_rejected(self) -> None:
+        p = self._make_check('printf "%s" payload > /tmp/out')
+        self.assertFalse(self.validate_check(p)["pass"])
+
 
 class RedteamTests(unittest.TestCase):
     def test_catch_rate_above_threshold(self) -> None:
@@ -180,11 +188,27 @@ class AttestTests(unittest.TestCase):
             ok, reason = verify_attestation(signed, pub)
             self.assertFalse(ok)
 
+    def test_wrong_key_rejected(self) -> None:
+        """An attestation signed with key A must be rejected when verified against key B."""
+        from attest import generate_keypair, sign_attestation, verify_attestation  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            priv_a = Path(td) / "a.pem"
+            pub_a = Path(td) / "a.pub.pem"
+            priv_b = Path(td) / "b.pem"
+            pub_b = Path(td) / "b.pub.pem"
+            generate_keypair(priv_a, pub_a)
+            generate_keypair(priv_b, pub_b)
+            payload = {"check_id": "P-1", "tpr": 0.9}
+            signed = sign_attestation(payload, priv_a)
+            ok, _ = verify_attestation(signed, pub_b)
+            self.assertFalse(ok)
+
 
 class SynthesizeTests(unittest.TestCase):
     def test_placeholder_path_produces_valid_check(self) -> None:
         os.environ.pop("ANTHROPIC_API_KEY", None)
-        from synthesize import process_candidate  # type: ignore[import-not-found]
+        import synthesize  # type: ignore[import-not-found]
         from sandbox_validate import validate_check  # type: ignore[import-not-found]
 
         candidate = {
@@ -197,14 +221,17 @@ class SynthesizeTests(unittest.TestCase):
             "frameworks": ["test"],
             "merged_sources": ["test"],
         }
-        summary = process_candidate(candidate, dry_run=False)
-        self.assertTrue(summary["ok"])
-        self.assertGreater(summary["variants_count"], 0)
-        for f in summary["files_written"]:
-            if f.startswith("DRY:"):
-                continue
-            self.assertTrue(validate_check(Path(f))["pass"])
-            Path(f).unlink(missing_ok=True)
+        with tempfile.TemporaryDirectory() as td:
+            candidates_dir = Path(td) / "candidates"
+            candidates_dir.mkdir()
+            with patch.object(synthesize, "CANDIDATES_DIR", candidates_dir):
+                summary = synthesize.process_candidate(candidate, dry_run=False)
+            self.assertTrue(summary["ok"])
+            self.assertGreater(summary["variants_count"], 0)
+            for f in summary["files_written"]:
+                if f.startswith("DRY:"):
+                    continue
+                self.assertTrue(validate_check(Path(f))["pass"])
 
 
 class CorrelatorTests(unittest.TestCase):
@@ -313,6 +340,27 @@ class CorrelatorTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as td:
             self.assertEqual(correlate(Path(td)), [])
+
+    def test_single_proactive_cve_source_filtered(self) -> None:
+        """A lone proactive source is now filtered regardless of key_kind — CVE
+        mentions on Reddit/Mastodon with no corroboration are noise."""
+        from correlator import correlate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            qd = Path(td)
+            (qd / "reddit-cve.json").write_text(
+                json.dumps(
+                    [
+                        self._make_record(
+                            "reddit", "CVE-2026-9999",
+                            "PoC for CVE-2026-9999 trending", "CVE-2026-9999",
+                            0.6, True,
+                        )
+                    ]
+                )
+            )
+            results = correlate(qd)
+            self.assertEqual(results, [], "single proactive CVE-keyed record should be filtered")
 
 
 class DualUseAuditTests(unittest.TestCase):
@@ -614,6 +662,35 @@ PRESTON_META
                 )
         self.assertEqual(summary["outcome"], "rejected:validate")
 
+    def test_process_candidate_rejected_at_adversarial(self) -> None:
+        """Sandbox and validate stubbed to pass, adversarial stubbed to fail → rejected:adversarial."""
+        import orchestrate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            retry_dir = tmp / "retry"
+            check = self._make_check(
+                tmp,
+                'hits=$(grep -rn "password" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+                'if [[ -n "$hits" ]]; then record "FAIL" "P-700" "found"; '
+                'else record "PASS" "P-700" "none"; fi',
+            )
+            nonexistent = tmp / "corpus.tar.gz"
+            with (
+                patch.object(orchestrate, "_gate_sandbox", return_value={"pass": True, "validator_version": "0.2.0", "reasons": []}),
+                patch.object(orchestrate, "_gate_validate", return_value={"pass": True, "metrics": {"tpr": 0.9, "fpr": 0.01, "stability": 0.95}, "corpus_hashes": {}}),
+                patch.object(orchestrate, "_gate_adversarial", return_value={"passes": False, "reason": "evasion succeeded"}),
+                patch.object(orchestrate, "RETRY_QUEUE", retry_dir),
+            ):
+                summary = orchestrate.process_candidate(
+                    check,
+                    {"canonical_id": "CVE-2026-9999"},
+                    nonexistent,
+                    nonexistent,
+                    dry_run=True,
+                )
+            self.assertEqual(summary["outcome"], "rejected:adversarial")
+
     def test_dry_run_does_not_move_file(self) -> None:
         """With all gates stubbed to pass, dry_run=True yields would-promote without moving the file."""
         import orchestrate  # type: ignore[import-not-found]
@@ -714,6 +791,35 @@ class DriftDetectTests(unittest.TestCase):
                 )
         self.assertEqual(len(result["flagged"]["decayed"]), 1)
         self.assertEqual(result["flagged"]["decayed"][0]["check"], check.name)
+
+    def test_noisy_flagged_when_fpr_rises_above_threshold(self) -> None:
+        """Seeding baseline with FPR=0.01 then mock-returning FPR=0.05 flags the check as noisy."""
+        import drift_detect  # type: ignore[import-not-found]
+
+        mock_result = {
+            "metrics": {"tpr": 0.9, "fpr": 0.05, "stability": 0.9},
+            "pass": False,
+        }
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            catalog_dir = tmp / "catalog"
+            catalog_dir.mkdir()
+            baseline_file = tmp / "baseline.json"
+            flagged_file = tmp / "flagged.json"
+            check = catalog_dir / "700-cve-noisy-test.sh"
+            check.write_text("#!/bin/bash\nrecord PASS P-700 ok\n")
+            baseline_file.write_text(json.dumps({check.name: {"tpr": 0.9, "fpr": 0.01}}))
+            with (
+                patch.object(drift_detect, "CATALOG_DIRS", [catalog_dir]),
+                patch.object(drift_detect, "BASELINE_FILE", baseline_file),
+                patch.object(drift_detect, "FLAGGED_FILE", flagged_file),
+                patch.object(drift_detect, "validate", return_value=mock_result),
+            ):
+                result = drift_detect.detect_drift(
+                    tmp / "pos.tar.gz", tmp / "neg.tar.gz", 0.10, 0.02
+                )
+        self.assertEqual(len(result["flagged"]["noisy"]), 1)
+        self.assertEqual(result["flagged"]["noisy"][0]["check"], check.name)
 
     def test_write_report_creates_markdown_file(self) -> None:
         """write_report produces a markdown file in the target directory."""
@@ -816,13 +922,44 @@ class NotifyPromotionTests(unittest.TestCase):
 
 
 class RunnerIntegrationTests(unittest.TestCase):
+    _FIXTURE = ROOT / "checks" / "community" / "proposed" / "700-cve-2026-9999-strict.sh"
+    _created_fixture: bool = False
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls._created_fixture = not cls._FIXTURE.is_file()
+        if cls._created_fixture:
+            cls._FIXTURE.parent.mkdir(parents=True, exist_ok=True)
+            cls._FIXTURE.write_text(
+                "#!/bin/bash\n"
+                ": <<'PRESTON_META'\n"
+                "schema_version: 1\n"
+                "id: P-700\n"
+                "name: CVE-2026-9999 strict detection\n"
+                "category: code-scan\n"
+                "severity: high\n"
+                "languages: any\n"
+                "min_tier: free\n"
+                "provenance: auto\n"
+                "version: 0.1.0\n"
+                "PRESTON_META\n"
+                'hits=$(grep -rn "CVE-2026-9999" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+                'if [[ -n "$hits" ]]; then\n'
+                '    record "FAIL" "P-700" "found CVE-2026-9999 reference"\n'
+                'else\n'
+                '    record "PASS" "P-700" "no CVE-2026-9999 reference"\n'
+                'fi\n'
+            )
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        if cls._created_fixture and cls._FIXTURE.is_file():
+            cls._FIXTURE.unlink()
+
     def test_provenance_auto_routes_to_subshell(self) -> None:
         """Smoke test: a check with provenance:auto runs through the
         subshell-isolated path. Verifies preston-check.sh's run_check()
         function picks up the metadata correctly."""
-        synthesized = ROOT / "checks" / "community" / "proposed" / "700-cve-2026-9999-strict.sh"
-        if not synthesized.is_file():
-            self.skipTest("synthesized fixture not present")
         result = subprocess.run(
             ["./preston-check.sh", "--check", "700-cve-2026-9999-strict", "--include-proposed"],
             capture_output=True,
