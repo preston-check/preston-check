@@ -7,11 +7,14 @@ per candidate (strict, middle, permissive) plus synthetic test
 fixtures, sandbox-validates each variant, and writes passing
 candidates to .preston-check/candidates/.
 
-The synthesis prompt uses structural separation: the candidate
-description is passed as a tool-call argument, never as inline system
-prompt content. This is the primary mitigation against prompt-
-injection attacks (threat model C1). The bash AST walker
+The synthesis prompt uses system-prompt-enforced structural isolation:
+the candidate description is placed in the user-message content with
+the system prompt instructing the model to treat it as structured data
+only, never as additional instructions. This is the primary mitigation
+against prompt-injection attacks (threat model C1). The bash AST walker
 (tools/sandbox_validate.py) is the mechanical safety net behind it.
+Note: this is prompt-based isolation, not structural (tool-call argument)
+isolation — the description is user-message content, not a tool parameter.
 
 LLM provider is configurable via env var PRESTON_SYNTH_MODEL
 (default: claude-opus-4-7). API key from ANTHROPIC_API_KEY env var.

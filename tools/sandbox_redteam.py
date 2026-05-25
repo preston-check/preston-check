@@ -86,6 +86,8 @@ _BASE_ATTACK_PATTERNS: tuple[tuple[str, str], ...] = (
     ("awk-pipe-getline", "awk 'BEGIN{\"id\" | getline r; print r}' /dev/null"),
     # Output redirection to an arbitrary file via allowlisted command.
     ("redirect-write", "printf '%s' payload > /tmp/out"),
+    # Same without the space between > and the target — the regex must catch both forms.
+    ("redirect-write-nospace", "printf '%s' payload>/tmp/out"),
 )
 
 

@@ -70,6 +70,18 @@ def _campaign_sandbox() -> dict:
 
 
 def _campaign_prompt_injection() -> dict:
+    """Verify that the no-API-key synthesis fallback path does not pass injected
+    payloads through to the generated bash body.
+
+    Scope: this campaign exercises _placeholder_synthesis only (keyword-extraction
+    path). When ANTHROPIC_API_KEY is absent the synthesiser never calls the LLM,
+    so injected instructions in the CVE description are treated as pattern keywords
+    and cannot reach the model. The campaign correctly reflects the security posture
+    of the no-key path and will always score 1.0 in CI (no key configured).
+
+    The real LLM injection surface requires a live Anthropic API call; that path
+    is tested separately via manual red-team exercises with the API key present.
+    """
     sys.path.insert(0, str(TOOLS))
     from sandbox_validate import validate_check  # type: ignore[import-not-found]
     from synthesize import _placeholder_synthesis  # type: ignore[import-not-found]

@@ -64,10 +64,21 @@ Do NOT remove the vulnerability — the code must still be exploitable. Do NOT a
 
 
 def _check_diversity(synth_model: str, adv_model: str) -> str | None:
-    """Return error message if synth and adv models share a provider, else None."""
+    """Return error message if synth and adv models share a provider, else None.
+
+    Only 'claude*' (Anthropic) and 'gpt*' / 'o*' (OpenAI) are recognised providers.
+    Any other model name is treated as unknown and rejected: an unrecognised provider
+    cannot satisfy the diversity requirement because we cannot verify it is a different
+    provider family from the synthesiser.
+    """
     s_provider = "anthropic" if "claude" in synth_model.lower() else "openai" if "gpt" in synth_model.lower() else "unknown"
     a_provider = "anthropic" if "claude" in adv_model.lower() else "openai" if "gpt" in adv_model.lower() else "unknown"
-    if s_provider == a_provider and s_provider != "unknown":
+    if s_provider == "unknown" or a_provider == "unknown":
+        return (
+            f"model monoculture: unrecognised provider(s): synth={synth_model}, adv={adv_model}"
+            " — only 'claude*' and 'gpt*' model names are validated for provider diversity"
+        )
+    if s_provider == a_provider:
         return f"model monoculture: synth={synth_model} adv={adv_model} both on {s_provider}"
     return None
 
@@ -133,11 +144,18 @@ def _placeholder_evade(sample: str) -> dict:
 
 def _detection_fires(check_path: Path, target_dir: Path) -> bool:
     """Run check_path's bash body against target_dir; return True if a record
-    fires with FAIL/WARN."""
+    fires with FAIL/WARN.
+
+    A CRASH (script exits before emitting any RECORD) is treated conservatively
+    as detection=True so that a crashing check is never miscounted as a
+    successful adversarial evasion.
+    """
     from validate_candidate import _extract_bash_body, _run_bash_against_file  # type: ignore[import-not-found]
 
     bash_body = _extract_bash_body(check_path)
-    fired, _ = _run_bash_against_file(bash_body, target_dir)
+    fired, status = _run_bash_against_file(bash_body, target_dir)
+    if status == "CRASH":
+        return True
     return fired
 
 

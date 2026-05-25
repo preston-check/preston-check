@@ -275,7 +275,7 @@ _PROHIBITED_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     # Output redirection to a real file — allow only /dev/null and fd-redirects (&1/&2).
     # Checks must be read-only: printf/echo/cat writing to arbitrary paths is disallowed.
     (
-        re.compile(r">+(?!\s*(?:/dev/null\b|&(?:1|2)(?:\b|>)))\s+\S"),
+        re.compile(r">+(?!\s*(?:/dev/null\b|&(?:1|2)(?:\b|>)))\s*\S"),
         "output redirection to file (only /dev/null and &2 are permitted)",
     ),
 )

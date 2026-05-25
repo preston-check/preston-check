@@ -100,7 +100,13 @@ def _run_bash_against_file(
             capture_output=True,
             text=True,
             timeout=timeout,
-            env={"PATH": "/usr/bin:/bin", "SOURCE_DIR": str(target_dir)},
+            env={
+                "PATH": "/usr/bin:/bin",
+                "SOURCE_DIR": str(target_dir),
+                "HOME": "/tmp",
+                "LANG": "C",
+                "LC_ALL": "C",
+            },
         )
     except subprocess.TimeoutExpired:
         return False, "TIMEOUT"
@@ -116,6 +122,9 @@ def _run_bash_against_file(
                 last_status = parts[1]
                 if last_status in ("FAIL", "WARN"):
                     fired = True
+
+    if result.returncode != 0 and not last_status:
+        return False, "CRASH"
     return fired, last_status or "NO_RECORD"
 
 

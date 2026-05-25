@@ -85,6 +85,11 @@ PRESTON_META
         p = self._make_check('printf "%s" payload > /tmp/out')
         self.assertFalse(self.validate_check(p)["pass"])
 
+    def test_output_redirect_nospace_rejected(self) -> None:
+        """Redirect without a space between > and target must also be caught."""
+        p = self._make_check('printf "%s" payload>/tmp/out')
+        self.assertFalse(self.validate_check(p)["pass"])
+
 
 class RedteamTests(unittest.TestCase):
     def test_catch_rate_above_threshold(self) -> None:
@@ -286,7 +291,8 @@ class CorrelatorTests(unittest.TestCase):
             results = correlate(qd)
             self.assertEqual(len(results), 1)
             self.assertEqual(results[0]["canonical_id"], "CVE-2026-9999")
-            self.assertEqual(results[0]["source_count"], 2)
+            self.assertEqual(results[0]["source_type_count"], 2)
+            self.assertEqual(results[0]["record_count"], 2)
             # reactive boost (0.10) + cross-source boost (0.05) applied on top of max conf (0.9)
             self.assertEqual(results[0]["composite_confidence"], 0.99)
 
@@ -331,7 +337,8 @@ class CorrelatorTests(unittest.TestCase):
             )
             results = correlate(qd)
             self.assertEqual(len(results), 1, "single reactive record should not be filtered")
-            self.assertEqual(results[0]["source_count"], 1)
+            self.assertEqual(results[0]["source_type_count"], 1)
+            self.assertEqual(results[0]["record_count"], 1)
             # no cross-source boost (only 1 source), reactive boost applies (+0.10)
             self.assertEqual(results[0]["composite_confidence"], round(min(0.99, 0.95 + 0.10), 4))
 
@@ -456,6 +463,23 @@ PRESTON_META
         # stability=0.0 with empty corpus (no positive entries to perturb) → gate fails
         self.assertFalse(result["pass"])
 
+    def test_crash_before_record_returns_crash_status(self) -> None:
+        """A check script that exits non-zero before emitting any RECORD line
+        must return status=CRASH, not be silently counted as a non-fire."""
+        from validate_candidate import _run_bash_against_file  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            target_dir = Path(td) / "target"
+            target_dir.mkdir()
+            (target_dir / "sample.txt").write_text("content\n")
+            # /bin/false exits immediately with code 1; set -euo pipefail causes
+            # the whole runner to abort before the RECORD line is reached.
+            crashed_body = '/bin/false\nrecord "FAIL" "P-TEST" "should not reach"'
+            fired, status = _run_bash_against_file(crashed_body, target_dir)
+
+        self.assertFalse(fired)
+        self.assertEqual(status, "CRASH")
+
     def test_fixture_roundtrip_true_when_fixtures_match(self) -> None:
         """When the positive fixture triggers the check and the negative does
         not, fixture_roundtrip is True. This exercises the fixture-file branch
@@ -535,6 +559,27 @@ PRESTON_META
                 empty_corpus,
                 synth_model="claude-opus-4-7",
                 adv_model="claude-haiku-4-5-20251001",
+            )
+
+        self.assertFalse(result["ok"])
+        self.assertIn("monoculture", result.get("reason", ""))
+
+    def test_unknown_provider_monoculture_rejected(self) -> None:
+        """Unrecognised model names (not claude* or gpt*) must be refused even when
+        the two models are from different unknown providers — diversity cannot be
+        verified without a recognised provider name."""
+        from adversarial_loop import run_adversarial  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            check = self._make_check(tmp, 'record "PASS" "P-ADV" "ok"')
+            empty_corpus = tmp / "positive"
+            empty_corpus.mkdir()
+            result = run_adversarial(
+                check,
+                empty_corpus,
+                synth_model="mistral-large",
+                adv_model="mistral-medium",
             )
 
         self.assertFalse(result["ok"])
