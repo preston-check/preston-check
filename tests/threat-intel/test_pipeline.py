@@ -349,8 +349,12 @@ class IngestRunnerTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0)
         data = json.loads(result.stdout)
-        for src in ["kev", "ghsa", "nvd", "osv", "github_trending", "abuse_ch", "reddit", "mastodon"]:
-            self.assertIn(src, data)
+        for src in [
+            "kev", "ghsa", "nvd", "osv",
+            "github_trending", "abuse_ch", "reddit", "mastodon",
+            "mailing_list", "conference_zdi", "newsletter", "rss_feeds", "partner_feed",
+        ]:
+            self.assertIn(src, data, f"source '{src}' missing from SOURCES registry")
 
 
 class ValidateCandidateTests(unittest.TestCase):
@@ -426,6 +430,89 @@ PRESTON_META
         self.assertTrue(result["small_corpus"])
         # stability gate still fails (no positive corpus entries to run perturbed pass against)
         self.assertFalse(result["pass"])
+
+
+class AdversarialLoopTests(unittest.TestCase):
+    def _make_check(self, td: Path, bash_body: str) -> Path:
+        p = td / "adv_candidate.sh"
+        p.write_text(
+            f"""#!/bin/bash
+: <<'PRESTON_META'
+schema_version: 1
+id: P-ADV
+name: adversarial test check
+provenance: auto
+version: 0.1.0
+PRESTON_META
+{bash_body}
+"""
+        )
+        return p
+
+    def test_empty_corpus_passes_with_zero_evasions(self) -> None:
+        """With an empty positive corpus directory there are no samples to
+        evade. The loop completes with successful_evasions=0 and passes=True."""
+        from adversarial_loop import run_adversarial  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            check = self._make_check(
+                tmp,
+                'hits=$(grep -rn "password" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+                'if [[ -n "$hits" ]]; then record "FAIL" "P-ADV" "found"; '
+                'else record "PASS" "P-ADV" "none"; fi',
+            )
+            empty_corpus = tmp / "positive"
+            empty_corpus.mkdir()
+            result = run_adversarial(check, empty_corpus)
+
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["successful_evasions"], 0)
+        self.assertTrue(result["passes"])
+        self.assertIn("transcript_hash", result)
+
+    def test_model_monoculture_rejected(self) -> None:
+        """Using the same provider for both synth and adversarial models
+        is refused — model diversity is a hard requirement."""
+        from adversarial_loop import run_adversarial  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            check = self._make_check(tmp, 'record "PASS" "P-ADV" "ok"')
+            empty_corpus = tmp / "positive"
+            empty_corpus.mkdir()
+            result = run_adversarial(
+                check,
+                empty_corpus,
+                synth_model="claude-opus-4-7",
+                adv_model="claude-haiku-4-5-20251001",
+            )
+
+        self.assertFalse(result["ok"])
+        self.assertIn("monoculture", result.get("reason", ""))
+
+
+class TelemetryQuorumTests(unittest.TestCase):
+    def test_quorum_passes_above_threshold(self) -> None:
+        from telemetry_aggregate import _quorum_pass  # type: ignore[import-not-found]
+
+        self.assertTrue(_quorum_pass(distinct_fingerprints=15, days_span=20, n=10, days=14))
+
+    def test_quorum_fails_too_few_installs(self) -> None:
+        from telemetry_aggregate import _quorum_pass  # type: ignore[import-not-found]
+
+        self.assertFalse(_quorum_pass(distinct_fingerprints=5, days_span=20, n=10, days=14))
+
+    def test_quorum_fails_too_short_window(self) -> None:
+        from telemetry_aggregate import _quorum_pass  # type: ignore[import-not-found]
+
+        self.assertFalse(_quorum_pass(distinct_fingerprints=15, days_span=7, n=10, days=14))
+
+    def test_quorum_passes_exactly_at_boundary(self) -> None:
+        """_quorum_pass uses >=, so exactly meeting n and days is sufficient."""
+        from telemetry_aggregate import _quorum_pass  # type: ignore[import-not-found]
+
+        self.assertTrue(_quorum_pass(distinct_fingerprints=10, days_span=14, n=10, days=14))
 
 
 class RunnerIntegrationTests(unittest.TestCase):

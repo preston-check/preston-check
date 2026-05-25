@@ -7,6 +7,21 @@ on:
     branches: [master, main]
 
 jobs:
+  pipeline-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pipeline dependencies
+        run: pip install bashlex pyyaml cryptography requests pytest
+
+      - name: Run Python pipeline tests
+        run: PYTHONPATH=tools pytest tests/threat-intel/test_pipeline.py -v -W error::SyntaxWarning
+
   smoke:
     runs-on: ubuntu-latest
     steps:
