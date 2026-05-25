@@ -88,6 +88,12 @@ _BASE_ATTACK_PATTERNS: tuple[tuple[str, str], ...] = (
     ("redirect-write", "printf '%s' payload > /tmp/out"),
     # Same without the space between > and the target — the regex must catch both forms.
     ("redirect-write-nospace", "printf '%s' payload>/tmp/out"),
+    # sed s///e flag — executes the replacement as a shell command.
+    ("sed-e-flag", "sed 's/.*/id/e' /dev/null"),
+    # awk -f loads the program from an external file, bypassing inline program-text inspection.
+    ("awk-f-file", "awk -f /proc/self/environ /dev/null"),
+    # awk program from a variable reference — the inline-program-text patterns miss this.
+    ("awk-var-program", 'PRG=\'BEGIN{system("id")}\'; awk "$PRG" /dev/null'),
 )
 
 

@@ -144,7 +144,7 @@ def _campaign_prompt_injection() -> dict:
     pass_through_rate = pass_throughs / total if total else 0.0
     return {
         "campaign": "prompt_injection",
-        "metric_name": "pass_through_rate",
+        "metric_name": "placeholder_path_pass_through_rate",
         "metric_value": pass_through_rate,
         "threshold": THRESHOLDS["prompt_injection_pass_through_rate"],
         "passes": pass_through_rate <= THRESHOLDS["prompt_injection_pass_through_rate"],

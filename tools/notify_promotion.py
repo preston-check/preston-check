@@ -135,10 +135,17 @@ def send_email(
 
 
 def _read_check_meta(check_id: str) -> dict[str, str]:
-    """Read PRESTON_META from a promoted check script to get its human-readable fields."""
+    """Read PRESTON_META from a promoted check script to get its human-readable fields.
+
+    check_id may be a full filename stem (e.g. '700-cve-2026-9999-strict') or a
+    legacy numeric prefix (e.g. '700'). Tries exact match first, then prefix glob.
+    """
     accepted_dir = ROOT / "checks" / "community" / "accepted"
-    pattern = f"{check_id}-*.sh"
-    matches = list(accepted_dir.glob(pattern))
+    exact = accepted_dir / f"{check_id}.sh"
+    if exact.is_file():
+        matches = [exact]
+    else:
+        matches = list(accepted_dir.glob(f"{check_id}-*.sh"))
     if not matches:
         return {}
     text = matches[0].read_text(errors="ignore")

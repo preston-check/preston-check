@@ -90,6 +90,29 @@ PRESTON_META
         p = self._make_check('printf "%s" payload>/tmp/out')
         self.assertFalse(self.validate_check(p)["pass"])
 
+    def test_sed_e_flag_rejected(self) -> None:
+        """sed s///e executes the replacement string as a shell command."""
+        p = self._make_check("sed 's/.*/id/e' /dev/null")
+        self.assertFalse(self.validate_check(p)["pass"])
+
+    def test_awk_f_flag_rejected(self) -> None:
+        """awk -f loads the program from a file, bypassing inline program-text inspection."""
+        p = self._make_check("awk -f /proc/self/environ /dev/null")
+        self.assertFalse(self.validate_check(p)["pass"])
+
+    def test_awk_variable_program_rejected(self) -> None:
+        """awk with a variable as the program text cannot have its content verified."""
+        p = self._make_check('PRG=\'BEGIN{system("id")}\'\nawk "$PRG" /dev/null')
+        self.assertFalse(self.validate_check(p)["pass"])
+
+    def test_redirect_in_grep_string_not_flagged(self) -> None:
+        """A > character inside a grep pattern string must not trigger the redirect rule."""
+        p = self._make_check(
+            'hits=$(grep -rn "size > 0" "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+            'record "PASS" "P-TEST" "ok"'
+        )
+        self.assertTrue(self.validate_check(p)["pass"])
+
 
 class RedteamTests(unittest.TestCase):
     def test_catch_rate_above_threshold(self) -> None:
@@ -480,6 +503,30 @@ PRESTON_META
         self.assertFalse(fired)
         self.assertEqual(status, "CRASH")
 
+    def test_fixture_roundtrip_false_when_check_fires_on_negative(self) -> None:
+        """When the check fires on the negative fixture, fixture_roundtrip must be False
+        and the overall gate must fail — a check that can't discriminate clean from
+        vulnerable code must not be promoted."""
+        from validate_candidate import validate  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            tmp = Path(td)
+            # This check always fires (grep matches any non-empty file).
+            check = self._make_candidate(
+                tmp,
+                'hits=$(grep -rn "." "${SOURCE_DIR:-.}" 2>/dev/null || true)\n'
+                'if [[ -n "$hits" ]]; then record "FAIL" "P-TEST" "found"; '
+                'else record "PASS" "P-TEST" "none"; fi',
+            )
+            (tmp / "candidate.pos.txt").write_text("VULN_MARKER content\n")
+            (tmp / "candidate.neg.txt").write_text("// clean file\n")
+            nonexistent = tmp / "corpus.tar.gz"
+            result = validate(check, nonexistent, nonexistent)
+
+        # Fires on both pos and neg fixtures → roundtrip fails
+        self.assertFalse(result["metrics"]["fixture_roundtrip"])
+        self.assertFalse(result["pass"])
+
     def test_fixture_roundtrip_true_when_fixtures_match(self) -> None:
         """When the positive fixture triggers the check and the negative does
         not, fixture_roundtrip is True. This exercises the fixture-file branch
@@ -652,11 +699,11 @@ PRESTON_META
             "synth_model": "claude-haiku-4-5-20251001",
             "adv_model": "openai/gpt-4o",
         }
-        att = orchestrate._build_attestation(candidate, sandbox, validate_res, adversarial, "700")
+        att = orchestrate._build_attestation(candidate, sandbox, validate_res, adversarial, "700-cve-2026-9999-strict")
 
         for key in ("attestation_version", "check_id", "source", "synthesis", "sandbox", "validation", "adversarial", "merged_at"):
             self.assertIn(key, att)
-        self.assertEqual(att["check_id"], "700")
+        self.assertEqual(att["check_id"], "700-cve-2026-9999-strict")
         self.assertEqual(att["source"]["id"], "CVE-2026-9999")
         self.assertTrue(att["sandbox"]["pass"])
         self.assertEqual(att["validation"]["tpr"], 0.9)

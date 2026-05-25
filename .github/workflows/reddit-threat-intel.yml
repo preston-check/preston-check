@@ -93,7 +93,7 @@ jobs:
                   "raw_records_count": 1,
                   "references": [url] if url else [],
                   "severity": severity,
-                  "source_count": 1,
+                  "source_type_count": 1,
                   "title": title[:200],
                   "reddit_meta": {
                       "subreddit": subreddit,
@@ -122,6 +122,11 @@ jobs:
           git config user.name "preston-check-bot"
           git config user.email "bot@preston-check.com"
           git add .preston-check/correlated.json
-          git diff --cached --quiet || git commit -m "ingest(reddit): signal from r/${PAYLOAD_SUBREDDIT} severity=${PAYLOAD_SEVERITY}"
+          # Sanitize user-controlled payload fields before interpolating into the commit
+          # message shell string. repository_dispatch callers are authenticated but
+          # $(cmd) expands inside double quotes — strip to safe alphanumeric/hyphen chars.
+          SAFE_SUB=$(printf '%s' "${PAYLOAD_SUBREDDIT}" | tr -dc 'a-zA-Z0-9_-')
+          SAFE_SEV=$(printf '%s' "${PAYLOAD_SEVERITY}"  | tr -dc 'a-zA-Z0-9_-')
+          git diff --cached --quiet || git commit -m "ingest(reddit): signal from r/${SAFE_SUB} severity=${SAFE_SEV}"
           git pull --rebase origin master
           git push origin HEAD:master

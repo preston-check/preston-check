@@ -95,7 +95,18 @@ jobs:
           has_new=false
           for f in .preston-check/queue/*.json; do
             [ -f "$f" ] || continue
-            n=$(python3 -c "import json; d=json.load(open('$f')); print(len(d) if isinstance(d,list) else 0)" 2>/dev/null || echo 0)
+            # Pass filename as an argument rather than interpolating into -c string
+            # to avoid shell injection if a queue file has special chars in its name.
+            n=$(python3 - "$f" <<'PYEOF' 2>/dev/null || echo 0
+import json, sys
+try:
+    with open(sys.argv[1]) as fh:
+        d = json.load(fh)
+    print(len(d) if isinstance(d, list) else 0)
+except Exception:
+    print(0)
+PYEOF
+)
             [ "$n" -gt 0 ] && { has_new=true; break; }
           done
           if [ "$has_new" = "true" ]; then

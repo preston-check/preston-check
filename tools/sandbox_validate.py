@@ -215,7 +215,7 @@ _DANGEROUS_FLAGS_PER_CMD: dict[str, frozenset[str]] = {
         }
     ),
     "sed": frozenset({"-i", "--in-place"}),
-    "awk": frozenset({"-i"}),
+    "awk": frozenset({"-i", "-f", "--file"}),
     "cat": frozenset({"-A", "-T", "-E"}),
 }
 
@@ -272,8 +272,30 @@ _PROHIBITED_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
         re.compile(r'\bawk\b[^|;&\n]*"[^"]*?\|\s*getline\b'),
         "awk program-text pipe getline (command injection)",
     ),
+    # awk program loaded from a variable reference — inline literal programs can be
+    # statically inspected; variable-assembled programs cannot.
+    # Matches awk "$VAR", awk $VAR, awk "${VAR}" when the variable is the FIRST argument
+    # (i.e., the program-text position). File arguments like "$SRC" appear later in the
+    # command and are not preceded immediately by `awk\s+`.
+    (
+        re.compile(r"\bawk\s+\"?\$\{?\w"),
+        "awk program from variable reference (cannot inspect program text; use inline literal)",
+    ),
+    # sed s///e flag executes the replacement string as a shell command.
+    # The -i flag is blocked via _DANGEROUS_FLAGS_PER_CMD; this blocks the e flag
+    # which lives inside the substitution command string, not as a CLI argument.
+    (
+        re.compile(r"\bsed\b[^|;&\n]*'[^']*s/[^/]*/[^/]*/[a-z]*e"),
+        "sed s///e flag executes replacement text as shell command",
+    ),
+    (
+        re.compile(r'\bsed\b[^|;&\n]*"[^"]*s/[^/]*/[^/]*/[a-z]*e'),
+        "sed s///e flag executes replacement text as shell command",
+    ),
     # Output redirection to a real file — allow only /dev/null and fd-redirects (&1/&2).
     # Checks must be read-only: printf/echo/cat writing to arbitrary paths is disallowed.
+    # This pattern runs against string-literal-stripped source (see _check_pattern_violations)
+    # to avoid false positives from grep patterns that contain > inside quoted arguments.
     (
         re.compile(r">+(?!\s*(?:/dev/null\b|&(?:1|2)(?:\b|>)))\s*\S"),
         "output redirection to file (only /dev/null and &2 are permitted)",
@@ -334,11 +356,19 @@ def _strip_string_literals(source: str) -> str:
 
 
 def _check_pattern_violations(source: str) -> list[str]:
-    """Run the prohibited-pattern regex set against the cleaned source."""
+    """Run the prohibited-pattern regex set against the cleaned source.
+
+    The redirect pattern runs against string-literal-stripped source to avoid
+    false positives from grep/awk patterns that contain > inside quoted arguments
+    (e.g. grep -rn "size > 0" "$SRC"). All other patterns run against the full
+    cleaned source so that inline awk/sed program-text strings are still visible.
+    """
     violations: list[str] = []
     seen: set[str] = set()
+    no_strings = _strip_string_literals(source)
     for regex, reason in _PROHIBITED_PATTERNS:
-        if regex.search(source) and reason not in seen:
+        src = no_strings if "redirection" in reason else source
+        if regex.search(src) and reason not in seen:
             violations.append(reason)
             seen.add(reason)
     return violations

@@ -193,7 +193,7 @@ def process_candidate(
     dry_run: bool,
 ) -> dict:
     """Run a single candidate through every gate. Returns a summary."""
-    check_id = candidate_check.stem.split("-")[0]
+    check_id = candidate_check.stem
     summary: dict[str, Any] = {
         "candidate_check": str(candidate_check),
         "check_id": check_id,

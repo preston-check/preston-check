@@ -177,7 +177,10 @@ def run_adversarial(
 
     api_key = os.environ.get("OPENAI_API_KEY", "")
     transcript: list[dict] = []
-    bash_body = check_path.read_text()
+    # Use only the bash body (not the full file including META block) so the
+    # adversarial LLM sees the actual detection pattern within the 2000-char window.
+    from validate_candidate import _extract_bash_body  # type: ignore[import-not-found]
+    bash_body = _extract_bash_body(check_path)
 
     successful_evasions = 0
     rounds_completed = 0
