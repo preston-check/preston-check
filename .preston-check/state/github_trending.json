@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-25T12:41:59.500644+00:00",
-  "last_successful_fetch": "2026-05-25T12:42:03.106697+00:00",
+  "last_run": "2026-05-25T15:56:31.855013+00:00",
+  "last_successful_fetch": "2026-05-25T15:56:34.872922+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -806,7 +806,12 @@
     "github:HAERIN-L/POC_CVE-2026-42880",
     "github:neostrange/cve2graph",
     "github:MinhPham123456789/PoC-CVE-2024-23113",
-    "github:dillsh/cve-gRPC"
+    "github:dillsh/cve-gRPC",
+    "github:orangecat24/CVExam-GlerisXhoxha_MScIAO",
+    "github:renewablehacking/CVE-2026-45321-Tanstack",
+    "github:Vinicius665a/Calculadora-cve",
+    "github:LZCCC986/cve",
+    "github:pucagit/CVE-2025-9074"
   ],
   "source_id": "github_trending",
   "stats": {
