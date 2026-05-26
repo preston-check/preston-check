@@ -254,7 +254,10 @@ def validate(
             fired_neg, _ = _run_bash_against_file(bash_body, neg_dir)
             fixture_roundtrip = fired_pos and not fired_neg
         else:
-            fixture_roundtrip = True
+            # Fail-safe: no fixture files means we have no positive-side evidence.
+            # Defaulting to True would grant the TPR gate for free on every new check
+            # without any validation that the detection pattern actually works.
+            fixture_roundtrip = False
 
         pos_dir = _extract_corpus_to_tmpdir(positive_corpus, tmp, "positive")
         neg_dir = _extract_corpus_to_tmpdir(negative_corpus, tmp, "negative")

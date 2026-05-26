@@ -308,13 +308,14 @@ def render_promotion_email(summary: dict, pr_url: str) -> tuple[str, str, str]:
     text_body = "\n".join(l for l in text_lines if l is not None)
 
     # ── HTML body ─────────────────────────────────────────────────────────────
+    h_pr_url = _html.escape(pr_url)
     action_html = (
         f'<div style="background:#fef3c7;border-left:4px solid #d97706;padding:12px 16px;margin:16px 0;">'
         f'<strong>Action required</strong> — GitHub Actions cannot create PRs automatically in this org.<br>'
-        f'<a href="{pr_url}" style="color:#d97706;">Open this branch comparison and click "Create pull request"</a>'
+        f'<a href="{h_pr_url}" style="color:#d97706;">Open this branch comparison and click "Create pull request"</a>'
         f'</div>'
         if needs_manual_pr else
-        f'<p><strong>PR:</strong> <a href="{pr_url}">{pr_url}</a> — auto-merge queued.</p>'
+        f'<p><strong>PR:</strong> <a href="{h_pr_url}">{h_pr_url}</a> — auto-merge queued.</p>'
     )
 
     html_body = f"""<!DOCTYPE html>

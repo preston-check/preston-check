@@ -292,6 +292,30 @@ _PROHIBITED_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
         re.compile(r'\bsed\b[^|;&\n]*"[^"]*s/[^/]*/[^/]*/[a-z]*e'),
         "sed s///e flag executes replacement text as shell command",
     ),
+    # ANSI-C quoting ($'...') can encode arbitrary bytes including banned command names
+    # (e.g. $'\x65\x76\x61\x6c' decodes to "eval"). It is not needed in any legitimate
+    # auto-generated check, so it is prohibited unconditionally.
+    (
+        re.compile(r"\$'"),
+        "ANSI-C quoting ($'...') is not permitted in auto-generated checks",
+    ),
+    # Backslash-newline line continuation allows a single logical command to span
+    # multiple physical lines. Single-line regex patterns (including the awk-herestring
+    # prohibition) stop at \n, so a continuation can split a banned construct across
+    # lines to evade pattern matching. Legitimate auto-generated checks don't need
+    # line continuations — prohibit them unconditionally.
+    (
+        re.compile(r"\\\s*\n"),
+        "backslash-newline line continuation is not permitted in auto-generated checks",
+    ),
+    # Brace command groups ({ cmd; }) are not used in legitimate static-grep checks
+    # and create a command-start position that the regex fallback's COMMAND_START_RE
+    # does not recognise, allowing denied commands placed inside { } to slip through
+    # when bashlex fails to parse the source.
+    (
+        re.compile(r"(?:^|;|\|\||\&\&|\n)\s*\{"),
+        "brace command group ({ }) is not permitted in auto-generated checks",
+    ),
     # awk program via here-string — <<<'program' is a redirect node that neither
     # the AST walker nor the inline-program-text patterns inspect. The content of
     # the here-string cannot be statically analysed, so any awk-with-herestring

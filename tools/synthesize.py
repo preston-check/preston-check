@@ -318,16 +318,20 @@ def _render_check_file(
 ) -> tuple[str, str]:
     """Render a check .sh file from a synthesized variant. Returns (filename, content)."""
     cid = candidate.get("canonical_id", "unknown")
+    cid_safe = _sanitize_meta_field(cid)
     name = _sanitize_meta_field((candidate.get("title", cid)[:80]).replace('"', "'"))
     desc = _sanitize_meta_field((candidate.get("description", "")[:300]).replace('"', "'"))
-    severity = candidate.get("severity", "medium")
+    severity_safe = _sanitize_meta_field(candidate.get("severity", "medium"))
     sources_str = _sanitize_meta_field(",".join(candidate.get("merged_sources", [candidate.get("source", "unknown")])))
     cwe_str = _sanitize_meta_field(",".join(candidate.get("cwe", [])))
     rationale_safe = _sanitize_meta_field(variant.get("rationale", "")[:200].replace('"', "'"))
+    # variant['name'] is expected to be one of the three literal values enforced by
+    # process_candidate's allowlist check. Sanitize here for defence-in-depth.
+    variant_name_safe = _sanitize_meta_field(variant.get("name", "unknown"))
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     shadow_until = datetime.now(timezone.utc).timestamp() + 7 * 86400
 
-    slug = _slugify(f"{cid}-{variant['name']}")
+    slug = _slugify(f"{cid}-{variant_name_safe}")
     filename = f"{check_number}-{slug}.sh"
 
     bash_body = variant.get("bash_body", "").rstrip()
@@ -337,10 +341,10 @@ def _render_check_file(
 : <<'PRESTON_META'
 schema_version: 1
 id: P-{check_number}
-name: {name} ({variant['name']})
-description: Auto-synthesized {today}; canonical_id={cid}; sources=[{sources_str}]; variant={variant['name']}; rationale={rationale_safe}
+name: {name} ({variant_name_safe})
+description: Auto-synthesized {today}; canonical_id={cid_safe}; sources=[{sources_str}]; variant={variant_name_safe}; rationale={rationale_safe}
 category: code-scan
-severity: {severity}
+severity: {severity_safe}
 languages: any
 min_tier: free
 runtime_class: static-grep
@@ -357,8 +361,6 @@ false_positive_rate: unknown
 performance_class: fast
 origin: {desc}
 PRESTON_META
-
-echo "P-{check_number}: {name} ({variant['name']})"
 
 {bash_body}
 """
@@ -381,8 +383,17 @@ def process_candidate(candidate: dict, dry_run: bool = False) -> dict:
     written: list[str] = []
     sandbox_rejected: int = 0
 
+    _ALLOWED_VARIANT_NAMES: frozenset[str] = frozenset({"strict", "middle", "permissive"})
+
     for variant in variants:
         if not isinstance(variant, dict) or "bash_body" not in variant:
+            continue
+        if variant.get("name") not in _ALLOWED_VARIANT_NAMES:
+            print(
+                f"[synthesize] {cid}: rejecting variant with unexpected name={variant.get('name')!r}",
+                file=sys.stderr,
+            )
+            sandbox_rejected += 1
             continue
         n = _next_check_number()
         filename, content = _render_check_file(candidate, variant, n)
@@ -408,6 +419,14 @@ def process_candidate(candidate: dict, dry_run: bool = False) -> dict:
                 sandbox_rejected += 1
                 continue
             written.append(str(target))
+            # Write fixture files alongside the check so validate_candidate's
+            # fixture-roundtrip gate has real signal. Without these files the
+            # gate defaults to fixture_roundtrip=False and rejects the candidate.
+            pos_fixture = variant.get("fixture_positive", {})
+            neg_fixture = variant.get("fixture_negative", {})
+            if pos_fixture.get("content") and neg_fixture.get("content"):
+                (CANDIDATES_DIR / f"{target.stem}.pos.txt").write_text(pos_fixture["content"])
+                (CANDIDATES_DIR / f"{target.stem}.neg.txt").write_text(neg_fixture["content"])
 
     return {
         "ok": True,

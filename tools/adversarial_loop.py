@@ -134,13 +134,19 @@ def _call_openai(prompt: str, user_message: str, model: str, api_key: str) -> di
 
 
 def _placeholder_evade(sample: str) -> dict:
-    """Deterministic placeholder evasion: rename identifiers, insert noise."""
+    """Deterministic placeholder evasion: rename identifiers, insert noise.
+
+    Rename targets use a per-sample hash-derived suffix so that a crafted check
+    cannot pre-compute the specific renamed identifiers and detect them while
+    missing the original vulnerability pattern.
+    """
     rng = random.Random(hash(sample) & 0xFFFFFFFF)
+    suffix = f"_{rng.randint(0x1000, 0xFFFF):04x}"
     renames = {
-        "password": "pwd_x",
-        "secret": "sct_x",
-        "api_key": "ak_x",
-        "auth_token": "tk_x",
+        "password": f"pwd{suffix}",
+        "secret": f"sct{suffix}",
+        "api_key": f"ak{suffix}",
+        "auth_token": f"tk{suffix}",
     }
     rewritten = sample
     for old, new in renames.items():
@@ -190,6 +196,14 @@ def run_adversarial(
         }
 
     api_key = os.environ.get("OPENAI_API_KEY", "")
+    mode = "llm" if api_key else "placeholder"
+    if not api_key:
+        print(
+            "[adversarial_loop] WARNING: OPENAI_API_KEY is unset — running in placeholder mode. "
+            "Placeholder evasions are structurally weak; this gate provides minimal additional "
+            "security beyond sandbox_validate and validate_candidate in this configuration.",
+            file=sys.stderr,
+        )
     transcript: list[dict] = []
     # Use only the bash body (not the full file including META block) so the
     # adversarial LLM sees the actual detection pattern within the 2000-char window.
@@ -281,6 +295,7 @@ def run_adversarial(
 
     return {
         "ok": True,
+        "mode": mode,
         "synth_model": synth_model,
         "adv_model": adv_model,
         "rounds": rounds_completed,

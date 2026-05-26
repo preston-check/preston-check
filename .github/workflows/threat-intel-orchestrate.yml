@@ -92,7 +92,7 @@ jobs:
                   "raw_records_count": 1,
                   "references": [],
                   "severity": "high",
-                  "source_count": 1,
+                  "source_type_count": 1,
                   "title": v.get("vulnerabilityName", cve),
               })
 
