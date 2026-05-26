@@ -1,5 +1,5 @@
 {
-  "audit_hash": "e1a4e7c9c24159fbcd96ed27c621ee32d95b10b76c102594ef2357893cc6a05d",
+  "audit_hash": "e2621fb5f8b46f6d0c2e2dd39f9800a80ea69b07af3e82e3a2c92da495a385e5",
   "audit_version": "1.0",
   "campaigns": [
     {
@@ -8,15 +8,15 @@
       "metric_value": 1.0,
       "passes": true,
       "raw": {
-        "attacks_caught": 320,
-        "attacks_total": 320,
+        "attacks_caught": 408,
+        "attacks_total": 408,
         "legit_pass_rate": 1.0
       },
       "threshold": 0.995
     },
     {
       "campaign": "prompt_injection",
-      "metric_name": "pass_through_rate",
+      "metric_name": "placeholder_path_pass_through_rate",
       "metric_value": 0.0,
       "passes": true,
       "raw": {
@@ -31,13 +31,9 @@
       "metric_value": 1.0,
       "passes": true,
       "raw": {
-        "holds": 3,
-        "poison_ratios_tested": [
-          0.05,
-          0.25,
-          0.5
-        ],
-        "total": 3
+        "cases_tested": 6,
+        "failed_cases": [],
+        "holds": 6
       },
       "threshold": 0.99
     },
@@ -54,5 +50,5 @@
     }
   ],
   "overall_pass": true,
-  "ts": "2026-05-25T08:49:42.957903+00:00"
+  "ts": "2026-05-26T08:25:13.478453+00:00"
 }
