@@ -28,6 +28,8 @@ SRC="${SOURCE_DIR:-.}"
 
 # Check for audit logging on sensitive tables
 audit_triggers=$(grep -rn --include="*.sql" \
+  --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" \
+  --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" \
   "audit_trigger\|CREATE TRIGGER.*audit\|AFTER.*INSERT.*UPDATE.*DELETE" \
   "$SRC/db" 2>/dev/null \
   | grep -v "test\|mock" \
@@ -42,9 +44,11 @@ fi
 
 # Check for append-only enforcement (prevent DELETE on financial tables)
 delete_prevention=$(grep -rn --include="*.sql" --include="*.java" \
+  --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" \
+  --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" \
   "prevent.*delete\|BEFORE DELETE.*RAISE\|append.only\|DELETE.*CANCELLED" \
   "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target" \
+  | grep -v "test\|Test" \
   | head -5)
 
 if [[ -n "$delete_prevention" ]]; then
