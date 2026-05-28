@@ -12,7 +12,7 @@ Pick the channel that fits your environment.
 **Homebrew** (macOS or Linux with brew):
 
 ```bash
-brew tap preston-check/preston-check
+brew tap preston-check/tap
 brew install preston-check
 ```
 

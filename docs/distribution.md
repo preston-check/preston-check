@@ -131,7 +131,7 @@ For Homebrew, on a fresh macOS or Linuxbrew system:
 
 ```bash
 brew uninstall preston-check 2>/dev/null
-brew tap preston-check/preston-check
+brew tap preston-check/tap
 brew install preston-check
 preston-check --help
 ```

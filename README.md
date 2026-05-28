@@ -27,7 +27,7 @@ Named after Preston X, a real hacker who created multiple fake accounts, bypasse
 
 ```bash
 # Homebrew (macOS / Linux)
-brew tap preston-check/preston-check && brew install preston-check
+brew tap preston-check/tap && brew install preston-check
 
 # Docker
 docker run --rm -v $(pwd):/src ghcr.io/preston-check/scan:latest

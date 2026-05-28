@@ -17,7 +17,7 @@ their own repos.
 ## Installing from the tap (end user)
 
 ```bash
-brew tap preston-check/preston-check
+brew tap preston-check/tap
 brew install preston-check
 ```
 
@@ -129,7 +129,7 @@ end
 ```bash
 # Force-update the tap's local cache and try install
 brew untap preston-check/preston-check 2>/dev/null
-brew tap preston-check/preston-check
+brew tap preston-check/tap
 brew install preston-check
 preston-check --version
 # Should print: preston-check 1.7.5 (or whatever the new version is)

@@ -1,7 +1,7 @@
 # Homebrew formula for Preston-Check
 #
 # Tap setup (one-time):
-#   brew tap preston-check/preston-check https://github.com/preston-check/homebrew-tap
+#   brew tap preston-check/tap
 #
 # Install:
 #   brew install preston-check
@@ -19,10 +19,10 @@ class PrestonCheck < Formula
   version "1.0.0"
 
   depends_on "bash"
-  depends_on "openssl@3"
   depends_on "gawk"
   depends_on "grep"
   depends_on "coreutils"
+  uses_from_macos "openssl"
 
   def install
     libexec.install Dir["*"]
