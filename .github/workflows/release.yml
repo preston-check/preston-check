@@ -66,7 +66,7 @@ jobs:
     # Workflow does not interpolate any untrusted input; only secrets,
     # github.actor (the user that triggered the workflow), and static
     # paths are referenced. github.actor is a GitHub-controlled
-    # identifier, not user-supplied free text.
+    # identifier, not user-supplied free tool.
     permissions:
       contents: read
       packages: write
@@ -92,8 +92,53 @@ jobs:
             ghcr.io/preston-check/scan:${{ needs.release.outputs.version }}
             ghcr.io/preston-check/scan:latest
 
-  homebrew:
+  # Build pre-compiled bottles for each supported platform so that
+  # `brew install` never falls back to source (which requires CLT).
+  # Each job runs on its native OS, builds the formula, and uploads
+  # the bottle file to the GitHub Release. The update-tap job then
+  # downloads all bottles, computes their SHAs, and writes the
+  # bottle do block into the tap formula.
+  bottle:
     needs: release
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-26        # ARM macOS 26 Tahoe
+            bottle_tag: arm64_tahoe
+          - os: macos-15        # ARM macOS 15 Sequoia
+            bottle_tag: arm64_sequoia
+          - os: macos-14        # ARM macOS 14 Sonoma
+            bottle_tag: arm64_sonoma
+          - os: macos-13        # Intel macOS 13 Ventura
+            bottle_tag: ventura
+          - os: ubuntu-latest   # Linux x86_64
+            bottle_tag: x86_64_linux
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Build bottle
+        run: |
+          VERSION="${{ needs.release.outputs.version }}"
+          HOMEBREW_NO_INSTALL_CLEANUP=1 brew tap preston-check/tap
+          HOMEBREW_NO_INSTALL_CLEANUP=1 brew install --build-bottle \
+            preston-check/tap/preston-check
+          brew bottle --no-rebuild \
+            --root-url "https://github.com/preston-check/preston-check/releases/download/v${VERSION}" \
+            preston-check
+
+      - name: Upload bottle to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.release.outputs.version }}
+          files: "*.bottle.tar.gz"
+
+  update-tap:
+    needs: [release, bottle]
     runs-on: ubuntu-latest
     steps:
       - name: Check tap PAT
@@ -105,7 +150,7 @@ jobs:
             echo "configured=true" >> "$GITHUB_OUTPUT"
           else
             echo "configured=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::HOMEBREW_TAP_TOKEN not configured — skipping formula bump"
+            echo "::notice::HOMEBREW_TAP_TOKEN not configured — skipping tap update"
           fi
 
       - name: Checkout tap
@@ -116,28 +161,77 @@ jobs:
           token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
           path: tap
 
-      - name: Update formula
+      - name: Download bottles and update formula
         if: steps.check.outputs.configured == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{ needs.release.outputs.version }}"
           SHA="${{ needs.release.outputs.sha256 }}"
           URL="https://github.com/preston-check/preston-check/releases/download/v${VERSION}/preston-check-${VERSION}.tar.gz"
-          FORMULA="tap/Formula/preston-check.rb"
-          if [ ! -f "$FORMULA" ]; then
-            echo "Formula not found at $FORMULA — skipping bump"
-            exit 0
-          fi
-          # In-place rewrite of url + sha256 + version. Using sed with a
-          # pinned anchor pattern so we don't rewrite anything else.
-          python3 - <<PY
-          import re, pathlib
-          p = pathlib.Path("$FORMULA")
+
+          gh release download "v${VERSION}" \
+            --repo preston-check/preston-check \
+            --pattern "*.bottle.tar.gz" \
+            --dir /tmp/bottles || true
+
+          python3 - <<'PY'
+          import re, pathlib, hashlib, glob, os
+
+          VERSION = os.environ.get("VERSION", "")
+          SHA     = os.environ.get("SHA", "")
+          URL     = os.environ.get("URL", "")
+
+          # Canonical display order for bottle OS tags
+          OS_ORDER = [
+            "arm64_tahoe", "arm64_sequoia", "arm64_sonoma",
+            "ventura", "x86_64_linux",
+          ]
+
+          bottles = {}
+          for f in sorted(glob.glob("/tmp/bottles/*.bottle.tar.gz")):
+              fname = pathlib.Path(f).name
+              m = re.search(r'\.(\w+)\.bottle\.tar\.gz$', fname)
+              if m:
+                  tag = m.group(1)
+                  sha = hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest()
+                  bottles[tag] = sha
+
+          ordered = [(t, bottles[t]) for t in OS_ORDER if t in bottles]
+          ordered += [(t, s) for t, s in sorted(bottles.items()) if t not in OS_ORDER]
+
+          p = pathlib.Path("tap/Formula/preston-check.rb")
           src = p.read_text()
-          src = re.sub(r'url\s+".*?"', f'url "$URL"', src, count=1)
-          src = re.sub(r'sha256\s+".*?"', f'sha256 "$SHA"', src, count=1)
-          src = re.sub(r'version\s+".*?"', f'version "$VERSION"', src, count=1)
+
+          # Update url / sha256 / version
+          src = re.sub(r'url\s+"[^"]*"',     f'url "{URL}"',     src, count=1)
+          src = re.sub(r'sha256\s+"[^"]*"',   f'sha256 "{SHA}"',  src, count=1)
+          src = re.sub(r'version\s+"[^"]*"',  f'version "{VERSION}"', src, count=1)
+
+          # Build new bottle block
+          if ordered:
+              root = f"https://github.com/preston-check/preston-check/releases/download/v{VERSION}"
+              col  = max(len(t) for t, _ in ordered) + 1
+              lines = ["\n  bottle do\n", f'    root_url "{root}"\n']
+              for tag, sha in ordered:
+                  pad = " " * (col - len(tag))
+                  lines.append(f'    sha256 cellar: :any_skip_relocation, {tag}:{pad}"{sha}"\n')
+              lines.append("  end\n")
+              bottle_block = "".join(lines)
+
+              # Replace existing block or insert after the version line
+              if re.search(r'\n  bottle do\n', src):
+                  src = re.sub(r'\n  bottle do\n.*?\n  end\n', bottle_block, src, flags=re.DOTALL)
+              else:
+                  src = re.sub(r'(  version\s+"[^"]*"\n)', r'\1' + bottle_block, src, count=1)
+
           p.write_text(src)
+          print(f"Updated formula: {len(ordered)} bottle(s) — {', '.join(t for t,_ in ordered)}")
           PY
+        env:
+          VERSION: ${{ needs.release.outputs.version }}
+          SHA: ${{ needs.release.outputs.sha256 }}
+          URL: https://github.com/preston-check/preston-check/releases/download/v${{ needs.release.outputs.version }}/preston-check-${{ needs.release.outputs.version }}.tar.gz
 
       - name: Commit + push
         if: steps.check.outputs.configured == 'true'
@@ -151,5 +245,5 @@ jobs:
           git config user.name  "preston-check-bot"
           git config user.email "bot@preston-check.com"
           git add Formula/preston-check.rb
-          git commit -m "preston-check ${VERSION}"
+          git commit -m "bottles: preston-check ${VERSION}"
           git push

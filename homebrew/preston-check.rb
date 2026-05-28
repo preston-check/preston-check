@@ -6,17 +6,21 @@
 # Install:
 #   brew install preston-check
 #
-# This formula is published to the preston-check/homebrew-tap repository.
-# The version, URL, and SHA256 are updated by the release pipeline on each
-# tagged release.
+# The version, URL, SHA256, and bottle block are updated by the release
+# pipeline on each tagged release.
 
 class PrestonCheck < Formula
   desc "Pre-deployment security audit for fintech and financial systems"
   homepage "https://preston-check.com"
-  url "https://github.com/preston-check/preston-check/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "REPLACE_WITH_SHA256_OF_RELEASE_TARBALL"
+  url "https://github.com/preston-check/preston-check/releases/download/v1.8.0/preston-check-1.8.0.tar.gz"
+  sha256 "97c2bff050a04cea8e4de5e3d0e3df3bc00ffd744b2f8176236429926f14f38b"
   license "Apache-2.0"
-  version "1.0.0"
+  version "1.8.0"
+
+  bottle do
+    root_url "https://github.com/preston-check/preston-check/releases/download/v1.8.0"
+    sha256 cellar: :any_skip_relocation, tahoe: "27f895219f6cc0158ac66ae4d95a7d8d8dd199880de55733d0d8203d998d2628"
+  end
 
   depends_on "bash"
   depends_on "gawk"
@@ -26,21 +30,18 @@ class PrestonCheck < Formula
 
   def install
     libexec.install Dir["*"]
-    (bin/"preston-check").write <<~SH
-      #!/bin/bash
-      exec "#{libexec}/preston-check.sh" "$@"
-    SH
-    (bin/"preston-check-issue-license").write <<~SH
-      #!/bin/bash
-      exec "#{libexec}/tools/issue-license.sh" "$@"
-    SH
-    (bin/"preston-check-setup-key").write <<~SH
-      #!/bin/bash
-      exec "#{libexec}/tools/setup-signing-key.sh" "$@"
-    SH
-    chmod 0755, bin/"preston-check"
-    chmod 0755, bin/"preston-check-issue-license"
-    chmod 0755, bin/"preston-check-setup-key"
+    {
+      "preston-check"               => "preston-check.sh",
+      "preston-check-issue-license" => "tools/issue-license.sh",
+      "preston-check-setup-key"     => "tools/setup-signing-key.sh",
+    }.each do |bin_name, script|
+      (bin/bin_name).write <<~SH
+        #!/bin/bash
+        DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+        exec "$DIR/../libexec/#{script}" "$@"
+      SH
+      chmod 0755, bin/bin_name
+    end
   end
 
   def caveats
@@ -56,8 +57,10 @@ class PrestonCheck < Formula
       For Pro/Enterprise tier, install your license at:
         ~/.preston-check/license
 
+      If brew install fails (e.g. on a beta macOS without a bottle yet):
+        curl -fsSL https://github.com/preston-check/preston-check/releases/latest/download/install.sh | sh
+
       Documentation: https://preston-check.com
-      Community contributions: https://github.com/preston-check/preston-check
     EOS
   end
 
