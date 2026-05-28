@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 rs_count=$(find "$SRC" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rs_count" -eq 0 ]] && { record "SKIP" "P-500 Rust unwrap" "No Rust files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.rs" -E "\.unwrap\(\s*\)|\.expect\(" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.rs" -E "\.unwrap\(\s*\)|\.expect\(" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|#\[cfg\(test\)\]|//[[:space:]]*safe:|build\.rs|/examples/" || true)
 count=$([[ -n "$unsafe" ]] && echo "$unsafe" | wc -l | tr -d ' ' || echo 0)
 sample=$([[ -n "$unsafe" ]] && echo "$unsafe" | head -10 || echo "")

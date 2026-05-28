@@ -32,7 +32,7 @@ if [[ -z "$move_files" ]]; then
   return 0 2>/dev/null || true
 fi
 
-cap_pattern=$(grep -rln --include="*.move" -iE "Capability\b|capability\s*\{|MintCap|BurnCap|AdminCap|TransferCap|UpgradeCap" "$SRC" 2>/dev/null || true)
+cap_pattern=$(grep -rln --include="*.move" -iE "Capability\b|capability\s*\{|MintCap|BurnCap|AdminCap|TransferCap|UpgradeCap" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null || true)
 
 m_count=$(echo "$move_files" | wc -l | tr -d ' ')
 c_count=$([[ -n "$cap_pattern" ]] && echo "$cap_pattern" | wc -l | tr -d ' ' || echo 0)

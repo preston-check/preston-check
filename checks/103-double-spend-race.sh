@@ -161,7 +161,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
   done
   # Also check broadly
   if [[ -z "$concurrency" ]]; then
-    concurrency=$(grep -rln --include="*.java" "Semaphore\|ReentrantLock\|MAX_CONCURRENT" "$SRC" 2>/dev/null \
+    concurrency=$(grep -rln --include="*.java" "Semaphore\|ReentrantLock\|MAX_CONCURRENT" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
       | grep -iE "payment\|wallet\|transaction\|transfer" \
       | grep -v "test\|Test\|target" | head -5)
   fi

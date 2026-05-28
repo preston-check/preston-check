@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 rb_count=$(find "$SRC" -name "*.rb" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rb_count" -eq 0 ]] && { record "SKIP" "P-546 Ruby SQL injection" "No Ruby files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.rb" -E "\.where\s*\(\s*\"[^\"]*#\{|find_by_sql\s*\(\s*\"[^\"]*#\{|order\s*\(\s*params|select\s*\(\s*\"[^\"]*#\{" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.rb" -E "\.where\s*\(\s*\"[^\"]*#\{|find_by_sql\s*\(\s*\"[^\"]*#\{|order\s*\(\s*params|select\s*\(\s*\"[^\"]*#\{" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/spec/|/test/|/vendor/" || true)
 [[ -n "$unsafe" ]] && { sample=$(echo "$unsafe" | head -10); record "FAIL" "P-546 Ruby SQL injection" "$(echo "$unsafe" | wc -l | tr -d ' ') unsafe ActiveRecord interpolation(s)" "$sample"; } \
   || record "PASS" "P-546 Ruby SQL injection" "No string-interpolation SQL detected in ActiveRecord"

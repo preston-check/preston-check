@@ -28,8 +28,8 @@ SRC="${SOURCE_DIR:-.}"
 php_count=$(find "$SRC" -name "*.php" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$php_count" -eq 0 ]] && { record "SKIP" "P-553 PHP XXE" "No PHP files found"; return 0 2>/dev/null || true; }
 
-xml_use=$(grep -rln --include="*.php" -E "SimpleXMLElement|DOMDocument|simplexml_load|loadXML" "$SRC" 2>/dev/null | grep -vE "/test/|/vendor/" || true)
-disabled=$(grep -rln --include="*.php" -E "libxml_disable_entity_loader|LIBXML_NOENT|LIBXML_DTDLOAD" "$SRC" 2>/dev/null | grep -vE "/test/|/vendor/" || true)
+xml_use=$(grep -rln --include="*.php" -E "SimpleXMLElement|DOMDocument|simplexml_load|loadXML" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/test/|/vendor/" || true)
+disabled=$(grep -rln --include="*.php" -E "libxml_disable_entity_loader|LIBXML_NOENT|LIBXML_DTDLOAD" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/test/|/vendor/" || true)
 [[ -z "$xml_use" ]] && { record "SKIP" "P-553 PHP XXE" "No XML parsing detected"; return 0 2>/dev/null || true; }
 [[ -n "$disabled" ]] && record "PASS" "P-553 PHP XXE" "$(echo "$disabled" | wc -l | tr -d ' ') file(s) disable external entity loading" \
   || record "WARN" "P-553 PHP XXE" "XML parsing detected without observable XXE protection" "$(echo "$xml_use" | head -10)"

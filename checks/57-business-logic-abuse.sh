@@ -32,7 +32,7 @@ reg_ratelimit=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$reg_ratelimit" ]]; then
   record "PASS" "P-57 Registration rate limit" "Account creation has rate limiting or bot detection"
 else
-  reg_count=$(grep -rn --include="*.java" --include="*.ts" "register\|signup\|createAccount" "$SRC" 2>/dev/null \
+  reg_count=$(grep -rn --include="*.java" --include="*.ts" "register\|signup\|createAccount" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | wc -l | tr -d ' ')
   if [[ "$reg_count" -gt 0 ]]; then
     record "WARN" "P-57 Registration rate limit" "No rate limiting on $reg_count registration endpoints" "$(echo "$reg_count" | head -10)"

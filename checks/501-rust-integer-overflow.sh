@@ -28,9 +28,9 @@ SRC="${SOURCE_DIR:-.}"
 rs_count=$(find "$SRC" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rs_count" -eq 0 ]] && { record "SKIP" "P-501 Rust integer overflow" "No Rust files found"; return 0 2>/dev/null || true; }
 
-money_arith=$(grep -rn --include="*.rs" -E "(amount|balance|fee|price|cost)\s*[+\-*]\s*" "$SRC" 2>/dev/null \
+money_arith=$(grep -rn --include="*.rs" -E "(amount|balance|fee|price|cost)\s*[+\-*]\s*" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|#\[cfg\(test\)\]|checked_|saturating_|wrapping_|/examples/" | head -20 || true)
-checked=$(grep -rln --include="*.rs" -E "checked_(add|sub|mul|div)|saturating_(add|sub|mul)" "$SRC" 2>/dev/null \
+checked=$(grep -rln --include="*.rs" -E "checked_(add|sub|mul|div)|saturating_(add|sub|mul)" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/" || true)
 m_count=$([[ -n "$money_arith" ]] && echo "$money_arith" | wc -l | tr -d ' ' || echo 0)
 c_count=$([[ -n "$checked" ]] && echo "$checked" | wc -l | tr -d ' ' || echo 0)

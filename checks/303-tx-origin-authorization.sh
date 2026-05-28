@@ -32,7 +32,7 @@ if [[ "$sol_count" -eq 0 ]]; then
   return 0 2>/dev/null || true
 fi
 
-hits=$(grep -rn --include="*.sol" -E 'require\s*\(\s*tx\.origin|if\s*\(\s*tx\.origin|tx\.origin\s*==' "$SRC" 2>/dev/null \
+hits=$(grep -rn --include="*.sol" -E 'require\s*\(\s*tx\.origin|if\s*\(\s*tx\.origin|tx\.origin\s*==' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -v "/test/\|/mock/\|node_modules" \
   | grep -v "tx.origin != tx.origin" || true)
 

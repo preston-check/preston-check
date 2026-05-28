@@ -22,7 +22,7 @@ PRESTON_META
 # P-41: Dependency Pinning & Lock Files
 echo "P-41: Dependency Pinning"
 SRC="${SOURCE_DIR:-.}"
-maven_unpinned=$(grep -rn --include="pom.xml" "LATEST\|RELEASE" "$SRC" 2>/dev/null | grep -v "target\|node_modules" | head -3)
+maven_unpinned=$(grep -rn --include="pom.xml" "LATEST\|RELEASE" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "target\|node_modules" | head -3)
 if [[ -z "$maven_unpinned" ]]; then record "PASS" "P-41 Maven pinned" "No LATEST/RELEASE Maven versions"; else record "FAIL" "P-41 Maven pinned" "Unpinned Maven versions (LATEST/RELEASE)"; fi
 npm_dirs=$(find "$SRC" -maxdepth 3 -name "package.json" -not -path "*/node_modules/*" -not -path "*/target/*" 2>/dev/null)
 for pkg in $npm_dirs; do

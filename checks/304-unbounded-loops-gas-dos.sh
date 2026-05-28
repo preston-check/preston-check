@@ -33,7 +33,7 @@ if [[ -z "$sol_files" ]]; then
 fi
 
 # Heuristic: for/while loops bounded by .length on storage arrays without explicit caps
-suspicious=$(grep -rn --include="*.sol" -E 'for\s*\(\s*uint[^;]*;\s*[a-zA-Z_]+\s*<\s*[a-zA-Z_]+\.length\s*;|while\s*\(\s*[a-zA-Z_]+\.length' "$SRC" 2>/dev/null \
+suspicious=$(grep -rn --include="*.sol" -E 'for\s*\(\s*uint[^;]*;\s*[a-zA-Z_]+\s*<\s*[a-zA-Z_]+\.length\s*;|while\s*\(\s*[a-zA-Z_]+\.length' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -v "/test/\|node_modules" \
   | grep -vE 'MAX_|MAXIMUM_|uint8|uint16' || true)
 

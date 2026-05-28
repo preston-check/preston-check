@@ -50,7 +50,7 @@ done
 
 if [[ $total_controllers -eq 0 ]]; then
   # Also check for rate limiting in middleware/router setup
-  middleware_rl=$(grep -rn --include="$SRC_EXT" "$RATE_LIMIT_PATTERN" "$SRC" 2>/dev/null \
+  middleware_rl=$(grep -rn --include="$SRC_EXT" "$RATE_LIMIT_PATTERN" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|vendor\|_test\.go" | head -3)
   if [[ -n "$middleware_rl" ]]; then
     record "PASS" "P-04 Rate limiting" "Rate limiting found in middleware/router"

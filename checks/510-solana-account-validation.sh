@@ -25,7 +25,7 @@ PRESTON_META
 echo "P-510: Solana Account Validation"
 
 SRC="${SOURCE_DIR:-.}"
-anchor_files=$(grep -rln --include="*.rs" -E "use anchor_lang|#\[derive\(Accounts\)\]" "$SRC" 2>/dev/null \
+anchor_files=$(grep -rln --include="*.rs" -E "use anchor_lang|#\[derive\(Accounts\)\]" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 if [[ -z "$anchor_files" ]]; then

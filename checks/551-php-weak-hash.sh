@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 php_count=$(find "$SRC" -name "*.php" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$php_count" -eq 0 ]] && { record "SKIP" "P-551 PHP weak hash" "No PHP files found"; return 0 2>/dev/null || true; }
 
-weak=$(grep -rn --include="*.php" -E "(md5|sha1)\s*\(\s*\\\$(password|pwd|passwd|user_password)" "$SRC" 2>/dev/null \
+weak=$(grep -rn --include="*.php" -E "(md5|sha1)\s*\(\s*\\\$(password|pwd|passwd|user_password)" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/test/|/vendor/" || true)
 [[ -n "$weak" ]] && { sample=$(echo "$weak" | head -10); record "FAIL" "P-551 PHP weak hash" "$(echo "$weak" | wc -l | tr -d ' ') md5/sha1 password hashing call(s)" "$sample"; } \
   || record "PASS" "P-551 PHP weak hash" "No md5/sha1 password hashing detected"

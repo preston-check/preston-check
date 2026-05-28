@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 rb_count=$(find "$SRC" -name "*.rb" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rb_count" -eq 0 ]] && { record "SKIP" "P-547 Ruby secrets" "No Ruby files found"; return 0 2>/dev/null || true; }
 
-hits=$(grep -rn --include="*.rb" -E "(api_key|secret_key|password)\s*=\s*[\"'][a-zA-Z0-9_+/=]{16,}[\"']" "$SRC" 2>/dev/null \
+hits=$(grep -rn --include="*.rb" -E "(api_key|secret_key|password)\s*=\s*[\"'][a-zA-Z0-9_+/=]{16,}[\"']" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/spec/|/test/|/vendor/|ENV\[|Rails.application.credentials" || true)
 [[ -n "$hits" ]] && { sample=$(echo "$hits" | head -10); record "FAIL" "P-547 Ruby secrets" "$(echo "$hits" | wc -l | tr -d ' ') hardcoded credential(s)" "$sample"; } \
   || record "PASS" "P-547 Ruby secrets" "No hardcoded secrets in Ruby source"

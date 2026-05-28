@@ -25,7 +25,7 @@ PRESTON_META
 echo "P-514: Solana CPI Safety"
 
 SRC="${SOURCE_DIR:-.}"
-cpi_calls=$(grep -rln --include="*.rs" -E "\binvoke(_signed)?\s*\(|CpiContext::" "$SRC" 2>/dev/null \
+cpi_calls=$(grep -rln --include="*.rs" -E "\binvoke(_signed)?\s*\(|CpiContext::" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 if [[ -z "$cpi_calls" ]]; then
@@ -33,7 +33,7 @@ if [[ -z "$cpi_calls" ]]; then
   return 0 2>/dev/null || true
 fi
 
-program_check=$(grep -rln --include="*.rs" -E "program_id\s*==|require_keys_eq|address\s*=\s*[A-Za-z_]+::ID|#\[account\(\s*address\s*=" "$SRC" 2>/dev/null \
+program_check=$(grep -rln --include="*.rs" -E "program_id\s*==|require_keys_eq|address\s*=\s*[A-Za-z_]+::ID|#\[account\(\s*address\s*=" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 c_count=$(echo "$cpi_calls" | wc -l | tr -d ' ')

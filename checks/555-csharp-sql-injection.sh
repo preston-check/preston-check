@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 cs_count=$(find "$SRC" -name "*.cs" -not -path "*/bin/*" -not -path "*/obj/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$cs_count" -eq 0 ]] && { record "SKIP" "P-555 C# SQL injection" "No C# files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.cs" -E "(SqlCommand\s*\(\s*\\\$\"|FromSqlRaw\s*\(\s*\\\$\"|FromSqlRaw\s*\([^,)]+\+|ExecuteSqlRaw\s*\([^,)]+\+|new\s+SqlCommand\s*\([^,)]+\+)" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.cs" -E "(SqlCommand\s*\(\s*\\\$\"|FromSqlRaw\s*\(\s*\\\$\"|FromSqlRaw\s*\([^,)]+\+|ExecuteSqlRaw\s*\([^,)]+\+|new\s+SqlCommand\s*\([^,)]+\+)" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/test/|/Tests/|/bin/|/obj/" || true)
 [[ -n "$unsafe" ]] && { sample=$(echo "$unsafe" | head -10); record "FAIL" "P-555 C# SQL injection" "$(echo "$unsafe" | wc -l | tr -d ' ') unsafe ADO.NET/EF query pattern(s)" "$sample"; } \
   || record "PASS" "P-555 C# SQL injection" "No string-concatenation SQL detected in C#"

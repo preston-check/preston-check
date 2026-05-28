@@ -33,7 +33,7 @@ if [[ -n "$fee_validation" ]]; then
   record "PASS" "P-68 Fee validation" "Fee validation checks found"
 else
   # Check if there are fee calculations at all
-  fee_calc=$(grep -rn --include="*.java" --include="*.ts" "fee\|spread\|commission\|markup" "$SRC" 2>/dev/null \
+  fee_calc=$(grep -rn --include="*.java" --include="*.ts" "fee\|spread\|commission\|markup" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|coffee\|caffee" | wc -l | tr -d ' ')
   if [[ "$fee_calc" -gt 5 ]]; then
     record "WARN" "P-68 Fee validation" "Fee calculations exist but no explicit fee validation guards (negative/zero/bypass)" "$(echo "$fee_calc" | head -10)"
@@ -61,7 +61,7 @@ if [[ -n "$fee_centralized" ]]; then
   record "PASS" "P-68 Fee centralization" "Centralized fee engine/service found"
 else
   # Check for scattered fee calculations
-  scattered=$(grep -rn --include="*.java" "spread\|bps\|basis.*point\|fee.*percent" "$SRC" 2>/dev/null \
+  scattered=$(grep -rn --include="*.java" "spread\|bps\|basis.*point\|fee.*percent" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|FeeEngine\|FeeService" | wc -l | tr -d ' ')
   if [[ "$scattered" -gt 3 ]]; then
     record "WARN" "P-68 Fee centralization" "$scattered scattered fee calculations — consolidate into single FeeEngine" "$(echo "$scattered" | head -10)"

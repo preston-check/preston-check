@@ -22,7 +22,7 @@ PRESTON_META
 # P-39: Alerting & Anomaly Detection
 echo "P-39: Alerting & Monitoring"
 SRC="${SOURCE_DIR:-.}"
-circuit=$(grep -rn --include="*.java" --include="*.yml" "CircuitBreaker\|@CircuitBreaker\|resilience4j\|@Retryable\|fallback" "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
+circuit=$(grep -rn --include="*.java" --include="*.yml" "CircuitBreaker\|@CircuitBreaker\|resilience4j\|@Retryable\|fallback" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$circuit" ]]; then record "PASS" "P-39 Circuit breakers" "Circuit breaker/retry patterns found"; else record "WARN" "P-39 Circuit breakers" "No circuit breaker patterns on external calls"; fi
-alerting=$(grep -rn --include="*.java" --include="*.yml" "SNS\|sendAlert\|notify.*admin\|LimitAlertService\|sendEmail.*alert\|sendSMS.*alert" "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
+alerting=$(grep -rn --include="*.java" --include="*.yml" "SNS\|sendAlert\|notify.*admin\|LimitAlertService\|sendEmail.*alert\|sendSMS.*alert" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -3)
 if [[ -n "$alerting" ]]; then record "PASS" "P-39 Alert integration" "Alert notification integration found"; else record "WARN" "P-39 Alert integration" "No alert notification system"; fi

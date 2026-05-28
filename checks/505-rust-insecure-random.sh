@@ -28,9 +28,9 @@ SRC="${SOURCE_DIR:-.}"
 rs_count=$(find "$SRC" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rs_count" -eq 0 ]] && { record "SKIP" "P-505 Rust insecure random" "No Rust files found"; return 0 2>/dev/null || true; }
 
-token_random=$(grep -rn --include="*.rs" -E "(token|secret|key|nonce|session_id).*thread_rng|thread_rng.*\.gen[^_]" "$SRC" 2>/dev/null \
+token_random=$(grep -rn --include="*.rs" -E "(token|secret|key|nonce|session_id).*thread_rng|thread_rng.*\.gen[^_]" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/examples/" || true)
-secure=$(grep -rln --include="*.rs" -E "rand::rngs::OsRng|getrandom|ring::rand|rand_chacha" "$SRC" 2>/dev/null | grep -vE "/tests?/" || true)
+secure=$(grep -rln --include="*.rs" -E "rand::rngs::OsRng|getrandom|ring::rand|rand_chacha" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/tests?/" || true)
 t_count=$([[ -n "$token_random" ]] && echo "$token_random" | wc -l | tr -d ' ' || echo 0)
 s_count=$([[ -n "$secure" ]] && echo "$secure" | wc -l | tr -d ' ' || echo 0)
 if [[ ${t_count:-0} -gt 0 && ${s_count:-0} -eq 0 ]]; then

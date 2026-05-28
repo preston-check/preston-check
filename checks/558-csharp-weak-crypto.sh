@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 cs_count=$(find "$SRC" -name "*.cs" -not -path "*/bin/*" -not -path "*/obj/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$cs_count" -eq 0 ]] && { record "SKIP" "P-558 C# weak crypto" "No C# files found"; return 0 2>/dev/null || true; }
 
-weak=$(grep -rn --include="*.cs" -E "MD5(CryptoServiceProvider)?\.|SHA1(CryptoServiceProvider)?\.|DES(CryptoServiceProvider)?\.|TripleDES|RC2CryptoServiceProvider|System\.Random\(" "$SRC" 2>/dev/null \
+weak=$(grep -rn --include="*.cs" -E "MD5(CryptoServiceProvider)?\.|SHA1(CryptoServiceProvider)?\.|DES(CryptoServiceProvider)?\.|TripleDES|RC2CryptoServiceProvider|System\.Random\(" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/test/|/Tests/|/bin/|/obj/" || true)
 [[ -n "$weak" ]] && { sample=$(echo "$weak" | head -10); record "FAIL" "P-558 C# weak crypto" "$(echo "$weak" | wc -l | tr -d ' ') weak/legacy crypto reference(s)" "$sample"; } \
   || record "PASS" "P-558 C# weak crypto" "No MD5/SHA1/DES/3DES/RC2 references detected"

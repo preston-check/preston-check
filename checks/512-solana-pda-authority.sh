@@ -25,7 +25,7 @@ PRESTON_META
 echo "P-512: Solana PDA Authority Validation"
 
 SRC="${SOURCE_DIR:-.}"
-pda_files=$(grep -rln --include="*.rs" -E "find_program_address|create_program_address|Pubkey::find_program_address" "$SRC" 2>/dev/null \
+pda_files=$(grep -rln --include="*.rs" -E "find_program_address|create_program_address|Pubkey::find_program_address" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 if [[ -z "$pda_files" ]]; then
@@ -33,7 +33,7 @@ if [[ -z "$pda_files" ]]; then
   return 0 2>/dev/null || true
 fi
 
-seeds_constraint=$(grep -rln --include="*.rs" -E "seeds\s*=\s*\[|bump\s*[:=]\s*[a-zA-Z_]" "$SRC" 2>/dev/null \
+seeds_constraint=$(grep -rln --include="*.rs" -E "seeds\s*=\s*\[|bump\s*[:=]\s*[a-zA-Z_]" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 p_count=$(echo "$pda_files" | wc -l | tr -d ' ')

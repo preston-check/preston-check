@@ -28,9 +28,9 @@ SRC="${SOURCE_DIR:-.}"
 go_count=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$go_count" -eq 0 ]] && { record "SKIP" "P-493 Go const-time" "No Go files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.go" -E "(token|secret|hmac|signature|apikey|api_key)\s*==\s*[a-zA-Z_]" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.go" -E "(token|secret|hmac|signature|apikey|api_key)\s*==\s*[a-zA-Z_]" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/vendor/|_test\.go|/test/" || true)
-const_time=$(grep -rln --include="*.go" -E "subtle\.ConstantTimeCompare|crypto/subtle" "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go" || true)
+const_time=$(grep -rln --include="*.go" -E "subtle\.ConstantTimeCompare|crypto/subtle" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go" || true)
 u_count=$([[ -n "$unsafe" ]] && echo "$unsafe" | wc -l | tr -d ' ' || echo 0)
 c_count=$([[ -n "$const_time" ]] && echo "$const_time" | wc -l | tr -d ' ' || echo 0)
 if [[ ${u_count:-0} -gt 0 && ${c_count:-0} -eq 0 ]]; then

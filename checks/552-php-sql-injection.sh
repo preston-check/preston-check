@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 php_count=$(find "$SRC" -name "*.php" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$php_count" -eq 0 ]] && { record "SKIP" "P-552 PHP SQL injection" "No PHP files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.php" -E "(mysqli?_query|->query)\s*\([^)]*\\\$_(GET|POST|REQUEST|COOKIE)" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.php" -E "(mysqli?_query|->query)\s*\([^)]*\\\$_(GET|POST|REQUEST|COOKIE)" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/test/|/vendor/" || true)
 [[ -n "$unsafe" ]] && { sample=$(echo "$unsafe" | head -10); record "FAIL" "P-552 PHP SQL injection" "$(echo "$unsafe" | wc -l | tr -d ' ') unsafe query patterns" "$sample"; } \
   || record "PASS" "P-552 PHP SQL injection" "No string-concatenation SQL detected"

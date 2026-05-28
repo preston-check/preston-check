@@ -25,7 +25,7 @@ PRESTON_META
 echo "P-513: Solana Account Owner Verification"
 
 SRC="${SOURCE_DIR:-.}"
-solana_files=$(grep -rln --include="*.rs" -E "use anchor_lang|use solana_program::account_info" "$SRC" 2>/dev/null \
+solana_files=$(grep -rln --include="*.rs" -E "use anchor_lang|use solana_program::account_info" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 if [[ -z "$solana_files" ]]; then
@@ -33,7 +33,7 @@ if [[ -z "$solana_files" ]]; then
   return 0 2>/dev/null || true
 fi
 
-owner_check=$(grep -rln --include="*.rs" -E "owner\s*=\s*|account_info\.owner|\.owner\s*==" "$SRC" 2>/dev/null \
+owner_check=$(grep -rln --include="*.rs" -E "owner\s*=\s*|account_info\.owner|\.owner\s*==" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 t_count=$(echo "$solana_files" | wc -l | tr -d ' ')

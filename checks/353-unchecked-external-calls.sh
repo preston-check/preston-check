@@ -34,7 +34,7 @@ fi
 
 # Pattern: .call(...) without capturing/checking the bool return
 # Heuristic: lines with .call but neither (bool|success) =, require, nor assert
-suspicious=$(grep -rn --include="*.sol" -E '\.call\{value:|\.call\(' "$SRC" 2>/dev/null \
+suspicious=$(grep -rn --include="*.sol" -E '\.call\{value:|\.call\(' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE '/test/|/mock|node_modules' \
   | grep -vE '(bool\s+\w+\s*,?|\(\s*bool|success\s*,|require\s*\(|assert\s*\(|\.call\.value)' || true)
 

@@ -38,7 +38,7 @@ SRC="${SRC:-.}"
 # differences that compound over time.
 
 if [[ "$DETECTED_LANG" == "java" ]]; then
-  modes=$(grep -rn --include="*.java" -oP 'RoundingMode\.\w+' "$SRC" 2>/dev/null \
+  modes=$(grep -rn --include="*.java" -oP 'RoundingMode\.\w+' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target" | awk -F: '{print $NF}' | sort | uniq -c | sort -rn)
   mode_count=$(echo "$modes" | sed '/^$/d' | wc -l | tr -d ' ')
   if [[ $mode_count -gt 2 ]]; then
@@ -51,7 +51,7 @@ if [[ "$DETECTED_LANG" == "java" ]]; then
     record "WARN" "P-102 Rounding consistency" "No RoundingMode found — financial calculations must specify rounding explicitly" "$(echo "$modes" | head -10)"
   fi
 elif [[ "$DETECTED_LANG" == "go" ]]; then
-  modes=$(grep -rn --include="*.go" -oE 'Round(HalfUp|HalfEven|Up|Down|Ceil|Floor|Banker)' "$SRC" 2>/dev/null \
+  modes=$(grep -rn --include="*.go" -oE 'Round(HalfUp|HalfEven|Up|Down|Ceil|Floor|Banker)' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|vendor\|_test\.go" | awk -F: '{print $NF}' | sort | uniq -c | sort -rn)
   mode_count=$(echo "$modes" | sed '/^$/d' | wc -l | tr -d ' ')
   if [[ $mode_count -gt 2 ]]; then
@@ -62,7 +62,7 @@ elif [[ "$DETECTED_LANG" == "go" ]]; then
     record "WARN" "P-102 Rounding consistency" "No explicit rounding strategy found" "$(echo "$modes" | head -10)"
   fi
 elif [[ "$DETECTED_LANG" == "python" ]]; then
-  modes=$(grep -rn --include="*.py" -oE 'ROUND_(HALF_UP|HALF_EVEN|HALF_DOWN|UP|DOWN|CEILING|FLOOR|05UP)' "$SRC" 2>/dev/null \
+  modes=$(grep -rn --include="*.py" -oE 'ROUND_(HALF_UP|HALF_EVEN|HALF_DOWN|UP|DOWN|CEILING|FLOOR|05UP)' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|__pycache__\|venv" | awk -F: '{print $NF}' | sort | uniq -c | sort -rn)
   mode_count=$(echo "$modes" | sed '/^$/d' | wc -l | tr -d ' ')
   if [[ $mode_count -gt 2 ]]; then

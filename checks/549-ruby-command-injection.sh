@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 rb_count=$(find "$SRC" -name "*.rb" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rb_count" -eq 0 ]] && { record "SKIP" "P-549 Ruby command injection" "No Ruby files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.rb" -E "(system|exec|popen|Open3\.[a-z]+|\`)[^#]*#\{" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.rb" -E "(system|exec|popen|Open3\.[a-z]+|\`)[^#]*#\{" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/spec/|/test/|/vendor/" || true)
 [[ -n "$unsafe" ]] && { sample=$(echo "$unsafe" | head -10); record "FAIL" "P-549 Ruby command injection" "$(echo "$unsafe" | wc -l | tr -d ' ') string-interpolation shell call(s)" "$sample"; } \
   || record "PASS" "P-549 Ruby command injection" "No interpolated shell-call patterns detected"

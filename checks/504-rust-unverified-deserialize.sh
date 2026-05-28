@@ -28,8 +28,8 @@ SRC="${SOURCE_DIR:-.}"
 rs_count=$(find "$SRC" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rs_count" -eq 0 ]] && { record "SKIP" "P-504 Rust deserialization" "No Rust files found"; return 0 2>/dev/null || true; }
 
-deser=$(grep -rln --include="*.rs" -E "from_str|from_slice|from_reader|serde_json::from_" "$SRC" 2>/dev/null | grep -vE "/tests?/" || true)
-limits=$(grep -rln --include="*.rs" -iE "max_size|max_length|depth_limit|byte_limit|tonic.*max_recv|axum.*content_length|RequestBodyLimit" "$SRC" 2>/dev/null | grep -vE "/tests?/" || true)
+deser=$(grep -rln --include="*.rs" -E "from_str|from_slice|from_reader|serde_json::from_" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/tests?/" || true)
+limits=$(grep -rln --include="*.rs" -iE "max_size|max_length|depth_limit|byte_limit|tonic.*max_recv|axum.*content_length|RequestBodyLimit" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/tests?/" || true)
 d_count=$([[ -n "$deser" ]] && echo "$deser" | wc -l | tr -d ' ' || echo 0)
 l_count=$([[ -n "$limits" ]] && echo "$limits" | wc -l | tr -d ' ' || echo 0)
 if [[ ${d_count:-0} -eq 0 ]]; then

@@ -27,10 +27,10 @@ SRC="${SOURCE_DIR:-.}"
 rs_count=$(find "$SRC" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rs_count" -eq 0 ]] && { record "SKIP" "P-502 Rust unsafe blocks" "No Rust files found"; return 0 2>/dev/null || true; }
 
-unsafe_blocks=$(grep -rn --include="*.rs" -E "^\s*unsafe\s*\{" "$SRC" 2>/dev/null \
+unsafe_blocks=$(grep -rn --include="*.rs" -E "^\s*unsafe\s*\{" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/examples/" || true)
 ub_count=$([[ -n "$unsafe_blocks" ]] && echo "$unsafe_blocks" | wc -l | tr -d ' ' || echo 0)
-safety_comments=$(grep -rln --include="*.rs" -E "//[[:space:]]*SAFETY:" "$SRC" 2>/dev/null | grep -vE "/tests?/" || true)
+safety_comments=$(grep -rln --include="*.rs" -E "//[[:space:]]*SAFETY:" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/tests?/" || true)
 sc_count=$([[ -n "$safety_comments" ]] && echo "$safety_comments" | wc -l | tr -d ' ' || echo 0)
 if [[ ${ub_count:-0} -eq 0 ]]; then
   record "PASS" "P-502 Rust unsafe blocks" "No unsafe blocks in production code"

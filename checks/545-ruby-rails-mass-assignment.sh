@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 rb_count=$(find "$SRC" -name "*.rb" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rb_count" -eq 0 ]] && { record "SKIP" "P-545 Ruby mass assignment" "No Ruby files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.rb" -E "params\.permit!|update_attributes\s*\(\s*params\)|new\s*\(\s*params\s*\)" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.rb" -E "params\.permit!|update_attributes\s*\(\s*params\)|new\s*\(\s*params\s*\)" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/spec/|/test/|/vendor/" || true)
 [[ -n "$unsafe" ]] && { sample=$(echo "$unsafe" | head -10); record "FAIL" "P-545 Ruby mass assignment" "$(echo "$unsafe" | wc -l | tr -d ' ') mass-assignment pattern(s)" "$sample"; } \
   || record "PASS" "P-545 Ruby mass assignment" "No params.permit! or unfiltered update_attributes found"

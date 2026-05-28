@@ -27,7 +27,7 @@ SRC="${SOURCE_DIR:-.}"
 go_count=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$go_count" -eq 0 ]] && { record "SKIP" "P-490 Go ignored errors" "No Go files found"; return 0 2>/dev/null || true; }
 
-ignored=$(grep -rn --include="*.go" -E "(^|;)\s*_,\s*_\s*[:=]\s*[a-zA-Z]" "$SRC" 2>/dev/null \
+ignored=$(grep -rn --include="*.go" -E "(^|;)\s*_,\s*_\s*[:=]\s*[a-zA-Z]" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/vendor/|_test\.go|/test/" || true)
 count=$([[ -n "$ignored" ]] && echo "$ignored" | wc -l | tr -d ' ' || echo 0)
 if [[ ${count:-0} -gt 0 ]]; then

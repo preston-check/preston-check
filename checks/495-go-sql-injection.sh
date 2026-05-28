@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 go_count=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$go_count" -eq 0 ]] && { record "SKIP" "P-495 Go SQL injection" "No Go files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.go" -E "(Query|Exec|QueryRow)Context?\s*\(\s*[^,]*fmt\.Sprintf\s*\(\s*[\"\`][^\`\"]*(SELECT|INSERT|UPDATE|DELETE)" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.go" -E "(Query|Exec|QueryRow)Context?\s*\(\s*[^,]*fmt\.Sprintf\s*\(\s*[\"\`][^\`\"]*(SELECT|INSERT|UPDATE|DELETE)" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/vendor/|_test\.go" || true)
 if [[ -n "$unsafe" ]]; then
   sample=$(echo "$unsafe" | head -10)

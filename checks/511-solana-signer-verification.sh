@@ -25,7 +25,7 @@ PRESTON_META
 echo "P-511: Solana Signer Verification"
 
 SRC="${SOURCE_DIR:-.}"
-solana_files=$(grep -rln --include="*.rs" -E "use anchor_lang|use solana_program" "$SRC" 2>/dev/null \
+solana_files=$(grep -rln --include="*.rs" -E "use anchor_lang|use solana_program" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 if [[ -z "$solana_files" ]]; then
@@ -34,7 +34,7 @@ if [[ -z "$solana_files" ]]; then
 fi
 
 # Check for Signer<'info> use or is_signer assertions
-signer_use=$(grep -rln --include="*.rs" -E "Signer<|is_signer|has_one\s*=\s*authority" "$SRC" 2>/dev/null \
+signer_use=$(grep -rln --include="*.rs" -E "Signer<|is_signer|has_one\s*=\s*authority" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 s_count=$([[ -n "$signer_use" ]] && echo "$signer_use" | wc -l | tr -d ' ' || echo 0)

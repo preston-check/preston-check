@@ -53,7 +53,7 @@ type_coercion=$(grep -rn --include="$SRC_EXT" \
   | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go\|//\|/\*" | head -5)
 if [[ -n "$type_coercion" ]]; then
   # Check if exceptions are handled
-  handled=$(grep -rn --include="$SRC_EXT" "catch.*NumberFormat\|catch.*JsonSyntax\|catch.*ClassCast\|if.*err.*!=.*nil" "$SRC" 2>/dev/null \
+  handled=$(grep -rn --include="$SRC_EXT" "catch.*NumberFormat\|catch.*JsonSyntax\|catch.*ClassCast\|if.*err.*!=.*nil" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|vendor\|_test\.go" | head -3)
   if [[ -n "$handled" ]]; then
     record "PASS" "P-81 Type coercion" "Numeric parsing with error handling found"

@@ -32,7 +32,7 @@ stale_rate=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$stale_rate" ]]; then
   record "PASS" "P-69 Stale rate protection" "Stale exchange rate protection found"
 else
-  rate_usage=$(grep -rn --include="*.java" "rate\|exchange\|convert\|swap" "$SRC" 2>/dev/null \
+  rate_usage=$(grep -rn --include="*.java" "rate\|exchange\|convert\|swap" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | wc -l | tr -d ' ')
   if [[ "$rate_usage" -gt 10 ]]; then
     record "WARN" "P-69 Stale rate protection" "Exchange rate usage found but no staleness check — rates served without freshness validation" "$(echo "$rate_usage" | head -10)"
@@ -58,7 +58,7 @@ spread_limit=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$spread_limit" ]]; then
   record "PASS" "P-69 Spread limits" "Spread bounds found"
 else
-  spread_usage=$(grep -rn --include="*.java" "spread\|markup" "$SRC" 2>/dev/null \
+  spread_usage=$(grep -rn --include="*.java" "spread\|markup" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | wc -l | tr -d ' ')
   if [[ "$spread_usage" -gt 3 ]]; then
     record "WARN" "P-69 Spread limits" "Spread calculations exist but no upper bound — a misconfigured spread could overcharge" "$(echo "$spread_usage" | head -10)"

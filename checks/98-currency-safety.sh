@@ -33,7 +33,7 @@ if [[ -n "$currency_check" ]]; then
   record "PASS" "P-98 Currency matching" "Currency matching validation found before arithmetic"
 else
   # Check if there are multi-currency operations at all
-  multi_currency=$(grep -rn --include="*.java" "currency\|Currency\|ISO_4217\|currencyCode" "$SRC" 2>/dev/null \
+  multi_currency=$(grep -rn --include="*.java" "currency\|Currency\|ISO_4217\|currencyCode" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | wc -l | tr -d ' ')
   if [[ "$multi_currency" -gt 10 ]]; then
     record "WARN" "P-98 Currency matching" "Multi-currency system but no currency matching before arithmetic — risk of mixing USD+EUR" "$(echo "$multi_currency" | head -10)"

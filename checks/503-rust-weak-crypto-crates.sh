@@ -29,7 +29,7 @@ SRC="${SOURCE_DIR:-.}"
 rs_count=$(find "$SRC" -name "*.rs" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rs_count" -eq 0 ]] && { record "SKIP" "P-503 Rust weak crypto" "No Rust files found"; return 0 2>/dev/null || true; }
 
-weak=$(grep -rn --include="*.rs" --include="Cargo.toml" -E '^use\s+md5|^use\s+sha1::|rust-crypto\s*=|"md5"\s*=|"sha-1"\s*=' "$SRC" 2>/dev/null \
+weak=$(grep -rn --include="*.rs" --include="Cargo.toml" -E '^use\s+md5|^use\s+sha1::|rust-crypto\s*=|"md5"\s*=|"sha-1"\s*=' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/" || true)
 [[ -n "$weak" ]] && record "FAIL" "P-503 Rust weak crypto" "$(echo "$weak" | wc -l | tr -d ' ') weak/deprecated crypto reference(s)" \
   || record "PASS" "P-503 Rust weak crypto" "No deprecated md5/sha-1/rust-crypto references"

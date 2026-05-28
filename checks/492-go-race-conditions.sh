@@ -28,10 +28,10 @@ SRC="${SOURCE_DIR:-.}"
 go_count=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$go_count" -eq 0 ]] && { record "SKIP" "P-492 Go races" "No Go files found"; return 0 2>/dev/null || true; }
 
-goroutines=$(grep -rln --include="*.go" -E "go\s+func\s*\(|go\s+[a-zA-Z][a-zA-Z0-9_]*\." "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go" || true)
+goroutines=$(grep -rln --include="*.go" -E "go\s+func\s*\(|go\s+[a-zA-Z][a-zA-Z0-9_]*\." --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go" || true)
 [[ -z "$goroutines" ]] && { record "SKIP" "P-492 Go races" "No goroutines detected"; return 0 2>/dev/null || true; }
 
-mutex_use=$(grep -rln --include="*.go" -E "sync\.Mutex|sync\.RWMutex|sync/atomic|atomic\." "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go" || true)
+mutex_use=$(grep -rln --include="*.go" -E "sync\.Mutex|sync\.RWMutex|sync/atomic|atomic\." --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go" || true)
 gor_count=$(echo "$goroutines" | wc -l | tr -d ' ')
 mu_count=$([[ -n "$mutex_use" ]] && echo "$mutex_use" | wc -l | tr -d ' ' || echo 0)
 

@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 rb_count=$(find "$SRC" -name "*.rb" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$rb_count" -eq 0 ]] && { record "SKIP" "P-548 Ruby deserialization" "No Ruby files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.rb" -E "\bYAML\.load\b(?!_file)|\bMarshal\.load\b" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.rb" -E "\bYAML\.load\b(?!_file)|\bMarshal\.load\b" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/spec/|/test/|/vendor/|safe_load" || true)
 [[ -n "$unsafe" ]] && { sample=$(echo "$unsafe" | head -10); record "FAIL" "P-548 Ruby deserialization" "$(echo "$unsafe" | wc -l | tr -d ' ') unsafe YAML.load/Marshal.load call(s)" "$sample"; } \
   || record "PASS" "P-548 Ruby deserialization" "No unsafe YAML.load/Marshal.load detected"

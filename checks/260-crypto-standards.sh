@@ -23,16 +23,16 @@ PRESTON_META
 echo "P-260: Cryptographic Standards"
 SRC="${SOURCE_DIR:-.}"
 
-weak_hash=$(grep -rn --include="$SRC_EXT" 'MD5\|SHA-1\b\|SHA1\b' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|SHA-256\|SHA256\|SHA-512\|HmacSHA256\|google_authenticator\|TOTP\|SupefinaSign\|comment\|//")
+weak_hash=$(grep -rn --include="$SRC_EXT" 'MD5\|SHA-1\b\|SHA1\b' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|SHA-256\|SHA256\|SHA-512\|HmacSHA256\|google_authenticator\|TOTP\|SupefinaSign\|comment\|//")
 if [[ -z "$weak_hash" ]]; then record "PASS" "P-260 Hash strength" "No weak hash algorithms (excluding external protocol requirements)"; else count=$(echo "$weak_hash" | wc -l | tr -d ' '); record "WARN" "P-260 Hash strength" "$count weak hash patterns — prefer SHA-256 minimum"; echo "$weak_hash" | head -5; fi
 
-secure_random=$(grep -rn --include="$SRC_EXT" 'SecureRandom\|crypto\.randomBytes\|os\.urandom' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
-unsafe_random=$(grep -rn --include="$SRC_EXT" 'java\.util\.Random\b\|Math\.random()' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|SecureRandom\|//\|/\*" | head -3)
+secure_random=$(grep -rn --include="$SRC_EXT" 'SecureRandom\|crypto\.randomBytes\|os\.urandom' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
+unsafe_random=$(grep -rn --include="$SRC_EXT" 'java\.util\.Random\b\|Math\.random()' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|SecureRandom\|//\|/\*" | head -3)
 if [[ -n "$secure_random" ]] && [[ -z "$unsafe_random" ]]; then record "PASS" "P-260 Secure random" "SecureRandom used, no unsafe Random"; elif [[ -n "$unsafe_random" ]]; then record "WARN" "P-260 Secure random" "java.util.Random found — use SecureRandom for security-sensitive operations"; else record "WARN" "P-260 Secure random" "No explicit SecureRandom usage found"; fi
 
-key_length=$(grep -rn --include="$SRC_EXT" 'keySize\|key.*size\|key.*length\|RSA.*1024\|RSA.*512' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
+key_length=$(grep -rn --include="$SRC_EXT" 'keySize\|key.*size\|key.*length\|RSA.*1024\|RSA.*512' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
 weak_key=$(echo "$key_length" | grep -i '512\|768\|1024' | head -3)
 if [[ -z "$weak_key" ]]; then record "PASS" "P-260 Key length" "No weak key lengths found"; else record "WARN" "P-260 Key length" "Weak key lengths found — RSA must be >= 2048 bits"; fi
 
-timing_safe=$(grep -rn --include="$SRC_EXT" 'MessageDigest.isEqual\|constantTimeEquals\|timingSafeEqual\|crypto\.timingSafeEqual\|hmac\.equals\b' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
+timing_safe=$(grep -rn --include="$SRC_EXT" 'MessageDigest.isEqual\|constantTimeEquals\|timingSafeEqual\|crypto\.timingSafeEqual\|hmac\.equals\b' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
 if [[ -n "$timing_safe" ]]; then record "PASS" "P-260 Timing-safe comparison" "Constant-time string comparison found"; else record "WARN" "P-260 Timing-safe comparison" "No timing-safe comparison — HMAC/token verification vulnerable to timing attacks"; fi

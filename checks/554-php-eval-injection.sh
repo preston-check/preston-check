@@ -28,7 +28,7 @@ SRC="${SOURCE_DIR:-.}"
 php_count=$(find "$SRC" -name "*.php" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$php_count" -eq 0 ]] && { record "SKIP" "P-554 PHP eval" "No PHP files found"; return 0 2>/dev/null || true; }
 
-unsafe=$(grep -rn --include="*.php" -E "\beval\s*\(\s*\\\$|\bcreate_function\s*\(|include\s*\(\s*\\\$_(GET|POST|REQUEST)|require\s*\(\s*\\\$_(GET|POST|REQUEST)" "$SRC" 2>/dev/null \
+unsafe=$(grep -rn --include="*.php" -E "\beval\s*\(\s*\\\$|\bcreate_function\s*\(|include\s*\(\s*\\\$_(GET|POST|REQUEST)|require\s*\(\s*\\\$_(GET|POST|REQUEST)" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/test/|/vendor/" || true)
 [[ -n "$unsafe" ]] && { sample=$(echo "$unsafe" | head -10); record "FAIL" "P-554 PHP eval" "$(echo "$unsafe" | wc -l | tr -d ' ') dynamic-code-execution pattern(s)" "$sample"; } \
   || record "PASS" "P-554 PHP eval" "No eval/create_function/dynamic-include patterns detected"

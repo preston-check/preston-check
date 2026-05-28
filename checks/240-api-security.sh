@@ -23,20 +23,20 @@ PRESTON_META
 echo "P-240: API Security"
 SRC="${SOURCE_DIR:-.}"
 
-validation=$(grep -rn --include="$SRC_EXT" '@Valid\|@NotNull\|@NotBlank\|@NotEmpty\|@Min\|@Max\|@Size\|@Pattern\|validate\|Validator' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | wc -l | tr -d ' ')
+validation=$(grep -rn --include="$SRC_EXT" '@Valid\|@NotNull\|@NotBlank\|@NotEmpty\|@Min\|@Max\|@Size\|@Pattern\|validate\|Validator' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | wc -l | tr -d ' ')
 if [[ $validation -gt 5 ]]; then record "PASS" "P-240 Input validation" "$validation validation annotations/patterns found"; else record "WARN" "P-240 Input validation" "Few input validation patterns — all API inputs should be validated"; fi
 
-content_type=$(grep -rn --include="$SRC_EXT" '@Consumes\|@Produces\|MediaType\|Content-Type\|application/json' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | wc -l | tr -d ' ')
+content_type=$(grep -rn --include="$SRC_EXT" '@Consumes\|@Produces\|MediaType\|Content-Type\|application/json' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | wc -l | tr -d ' ')
 if [[ $content_type -gt 5 ]]; then record "PASS" "P-240 Content-Type" "$content_type content type declarations found"; else record "WARN" "P-240 Content-Type" "Few content type declarations — enforce JSON on all endpoints"; fi
 
-pagination=$(grep -rn --include="$SRC_EXT" 'page.*size\|pageSize\|limit.*50\|limit.*100\|maxResults\|per_page\|LIMIT' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | head -3)
+pagination=$(grep -rn --include="$SRC_EXT" 'page.*size\|pageSize\|limit.*50\|limit.*100\|maxResults\|per_page\|LIMIT' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules\|//\|/\*" | head -3)
 if [[ -n "$pagination" ]]; then record "PASS" "P-240 Pagination limits" "Pagination/result limiting patterns found"; else record "WARN" "P-240 Pagination limits" "No pagination limits — unbounded queries can cause OOM"; fi
 
-sensitive_exclude=$(grep -rn --include="$SRC_EXT" '@JsonIgnore\|@JsonProperty.*access.*WRITE\|transient.*password\|excludeFromResponse\|password.*serialize.*false' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
+sensitive_exclude=$(grep -rn --include="$SRC_EXT" '@JsonIgnore\|@JsonProperty.*access.*WRITE\|transient.*password\|excludeFromResponse\|password.*serialize.*false' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
 if [[ -n "$sensitive_exclude" ]]; then record "PASS" "P-240 Response filtering" "Sensitive field exclusion from serialization found"; else record "WARN" "P-240 Response filtering" "No @JsonIgnore on sensitive fields — passwords/keys may leak in API responses"; fi
 
-idempotency_hdr=$(grep -rn --include="$SRC_EXT" 'Idempotency.Key\|idempotency.key\|IdempotencyKey\|idempotent\|FinancialOperationGuard' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
+idempotency_hdr=$(grep -rn --include="$SRC_EXT" 'Idempotency.Key\|idempotency.key\|IdempotencyKey\|idempotent\|FinancialOperationGuard' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
 if [[ -n "$idempotency_hdr" ]]; then record "PASS" "P-240 Idempotency" "Idempotency key patterns found"; else record "FAIL" "P-240 Idempotency" "No idempotency patterns — POST retries create duplicate operations"; fi
 
-versioning=$(grep -rn --include="$SRC_EXT" --include="*.yml" '/api/v[0-9]\|/v[0-9]/\|@Version\|api.*version' "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
+versioning=$(grep -rn --include="$SRC_EXT" --include="*.yml" '/api/v[0-9]\|/v[0-9]/\|@Version\|api.*version' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -v "test\|Test\|target\|node_modules" | head -3)
 if [[ -n "$versioning" ]]; then record "PASS" "P-240 API versioning" "API versioning patterns found"; else record "WARN" "P-240 API versioning" "No API versioning — breaking changes will affect all clients"; fi

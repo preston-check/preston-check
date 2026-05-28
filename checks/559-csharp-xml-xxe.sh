@@ -28,8 +28,8 @@ SRC="${SOURCE_DIR:-.}"
 cs_count=$(find "$SRC" -name "*.cs" -not -path "*/bin/*" -not -path "*/obj/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$cs_count" -eq 0 ]] && { record "SKIP" "P-559 C# XXE" "No C# files found"; return 0 2>/dev/null || true; }
 
-xml_use=$(grep -rln --include="*.cs" -E "XmlDocument|XmlReader|XPathDocument" "$SRC" 2>/dev/null | grep -vE "/test/|/Tests/|/bin/|/obj/" || true)
-hardened=$(grep -rln --include="*.cs" -E "DtdProcessing\.Prohibit|DtdProcessing\.Ignore|XmlResolver\s*=\s*null" "$SRC" 2>/dev/null | grep -vE "/test/|/Tests/|/bin/|/obj/" || true)
+xml_use=$(grep -rln --include="*.cs" -E "XmlDocument|XmlReader|XPathDocument" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/test/|/Tests/|/bin/|/obj/" || true)
+hardened=$(grep -rln --include="*.cs" -E "DtdProcessing\.Prohibit|DtdProcessing\.Ignore|XmlResolver\s*=\s*null" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/test/|/Tests/|/bin/|/obj/" || true)
 [[ -z "$xml_use" ]] && { record "SKIP" "P-559 C# XXE" "No XML parsing detected"; return 0 2>/dev/null || true; }
 [[ -n "$hardened" ]] && record "PASS" "P-559 C# XXE" "$(echo "$hardened" | wc -l | tr -d ' ') file(s) reference DTD-prohibition / null resolver" \
   || record "WARN" "P-559 C# XXE" "XML parsing detected without observable XXE hardening" "$(echo "$xml_use" | head -10)"

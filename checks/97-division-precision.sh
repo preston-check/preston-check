@@ -40,7 +40,7 @@ while IFS= read -r file_and_line; do
   if ! echo "$context" | grep -qi "RoundingMode\|HALF_UP\|HALF_EVEN\|HALF_DOWN\|CEILING\|FLOOR"; then
     unsafe_divide+="${file_and_line}"$'\n'
   fi
-done < <(grep -rn --include="*.java" '\.divide(' "$SRC" 2>/dev/null \
+done < <(grep -rn --include="*.java" '\.divide(' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|node_modules\|//.*divide\|/\*" \
   | cut -d: -f1-2)
 unsafe_divide=$(echo "$unsafe_divide" | sed '/^$/d')

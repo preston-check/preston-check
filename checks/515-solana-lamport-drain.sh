@@ -25,7 +25,7 @@ PRESTON_META
 echo "P-515: Solana Lamport Drain Safety"
 
 SRC="${SOURCE_DIR:-.}"
-lamport_ops=$(grep -rln --include="*.rs" -E "\.lamports|realloc\s*\(|try_borrow_mut_lamports" "$SRC" 2>/dev/null \
+lamport_ops=$(grep -rln --include="*.rs" -E "\.lamports|realloc\s*\(|try_borrow_mut_lamports" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 if [[ -z "$lamport_ops" ]]; then
@@ -33,7 +33,7 @@ if [[ -z "$lamport_ops" ]]; then
   return 0 2>/dev/null || true
 fi
 
-rent_check=$(grep -rln --include="*.rs" -E "Rent::|is_exempt|rent_exempt|minimum_balance" "$SRC" 2>/dev/null \
+rent_check=$(grep -rln --include="*.rs" -E "Rent::|is_exempt|rent_exempt|minimum_balance" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/tests?/|/target/" || true)
 
 l_count=$(echo "$lamport_ops" | wc -l | tr -d ' ')

@@ -28,8 +28,8 @@ SRC="${SOURCE_DIR:-.}"
 go_count=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$go_count" -eq 0 ]] && { record "SKIP" "P-494 Go context" "No Go files found"; return 0 2>/dev/null || true; }
 
-http_no_ctx=$(grep -rn --include="*.go" -E "http\.Get\(|http\.Post\(" "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go" | head -10 || true)
-db_no_ctx=$(grep -rn --include="*.go" -E "\.Query\(\"|\.Exec\(\"|\.QueryRow\(\"" "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go|QueryContext|ExecContext|QueryRowContext" | head -10 || true)
+http_no_ctx=$(grep -rn --include="*.go" -E "http\.Get\(|http\.Post\(" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go" | head -10 || true)
+db_no_ctx=$(grep -rn --include="*.go" -E "\.Query\(\"|\.Exec\(\"|\.QueryRow\(\"" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | grep -vE "/vendor/|_test\.go|QueryContext|ExecContext|QueryRowContext" | head -10 || true)
 total=0
 [[ -n "$http_no_ctx" ]] && total=$((total + $(echo "$http_no_ctx" | wc -l | tr -d ' ')))
 [[ -n "$db_no_ctx" ]] && total=$((total + $(echo "$db_no_ctx" | wc -l | tr -d ' ')))

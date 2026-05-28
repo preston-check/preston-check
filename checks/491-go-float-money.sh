@@ -28,9 +28,9 @@ SRC="${SOURCE_DIR:-.}"
 go_count=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 [[ "$go_count" -eq 0 ]] && { record "SKIP" "P-491 Go float money" "No Go files found"; return 0 2>/dev/null || true; }
 
-bad=$(grep -rn --include="*.go" -E "(amount|balance|price|fee|cost|total|subtotal)\s+float(64|32)" "$SRC" 2>/dev/null \
+bad=$(grep -rn --include="*.go" -E "(amount|balance|price|fee|cost|total|subtotal)\s+float(64|32)" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/vendor/|_test\.go|/test/" || true)
-good=$(grep -rln --include="*.go" -iE "shopspring/decimal|decimal\.Decimal|math/big\.Rat|big\.NewRat" "$SRC" 2>/dev/null \
+good=$(grep -rln --include="*.go" -iE "shopspring/decimal|decimal\.Decimal|math/big\.Rat|big\.NewRat" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -vE "/vendor/|_test\.go|/test/" || true)
 bad_count=$([[ -n "$bad" ]] && echo "$bad" | wc -l | tr -d ' ' || echo 0)
 good_count=$([[ -n "$good" ]] && echo "$good" | wc -l | tr -d ' ' || echo 0)

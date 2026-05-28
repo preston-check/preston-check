@@ -77,11 +77,11 @@ fi
 
 # Check for defense-in-depth (multiple layers)
 defense_layers=0
-[[ -n $(grep -rl --include="*.java" --include="*.ts" --include="*.yml" "firewall\|waf\|WAF" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
-[[ -n $(grep -rl --include="*.java" --include="*.ts" "@Secured\|authenticate\|JWT\|jwt" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
-[[ -n $(grep -rl --include="*.java" --include="*.ts" "encrypt\|AES\|RSA\|cipher" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
-[[ -n $(grep -rl --include="*.java" --include="*.ts" "audit\|log.*security\|security.*log" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
-[[ -n $(grep -rl --include="*.java" --include="*.ts" "blacklist\|whitelist\|allowlist\|blocklist" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" --include="*.yml" "firewall\|waf\|WAF" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" "@Secured\|authenticate\|JWT\|jwt" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" "encrypt\|AES\|RSA\|cipher" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" "audit\|log.*security\|security.*log" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
+[[ -n $(grep -rl --include="*.java" --include="*.ts" "blacklist\|whitelist\|allowlist\|blocklist" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null | head -1) ]] && defense_layers=$((defense_layers + 1))
 if [[ $defense_layers -ge 4 ]]; then
   record "PASS" "P-82 Defense in depth" "$defense_layers/5 defense layers active (WAF, auth, encryption, audit, access control)"
 elif [[ $defense_layers -ge 2 ]]; then

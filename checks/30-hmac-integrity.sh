@@ -49,7 +49,7 @@ else
   record "WARN" "P-30 HMAC replay protection" "No replay protection in HMAC authentication" "$(echo "$replay" | head -10)"
 fi
 
-weak_algo=$(grep -rn --include="*.java" "HmacSHA1\b\|HmacMD5" "$SRC" 2>/dev/null \
+weak_algo=$(grep -rn --include="*.java" "HmacSHA1\b\|HmacMD5" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -v "test\|Test\|target\|HmacSHA256\|HmacSHA512" \
   | grep -v "google_authenticator\|TOTP\|SupefinaSign" \
   | head -3)

@@ -53,7 +53,7 @@ atomic_limit=$(grep -rn --include="*.java" --include="*.ts" \
 if [[ -n "$atomic_limit" ]]; then
   record "PASS" "P-73 Atomic limits" "Atomic (locked) limit enforcement found"
 else
-  limit_check=$(grep -rn --include="*.java" "limit" "$SRC" 2>/dev/null \
+  limit_check=$(grep -rn --include="*.java" "limit" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|node_modules\|//\|/\*\|SQL\|LIMIT\|rateLimit" | wc -l | tr -d ' ')
   if [[ "$limit_check" -gt 5 ]]; then
     record "WARN" "P-73 Atomic limits" "Limit checks found but no FOR UPDATE/advisory lock — concurrent requests can bypass limits" "$(echo "$limit_check" | head -10)"

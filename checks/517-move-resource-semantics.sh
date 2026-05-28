@@ -32,8 +32,8 @@ if [[ -z "$move_files" ]]; then
   return 0 2>/dev/null || true
 fi
 
-resource_decls=$(grep -rln --include="*.move" -E "struct\s+[A-Z][A-Za-z0-9_]*\s+has\s+(key|store)" "$SRC" 2>/dev/null || true)
-storage_ops=$(grep -rln --include="*.move" -E "\bmove_to\s*\(|\bmove_from\s*\(|\bborrow_global\b|\bexists\b\s*<" "$SRC" 2>/dev/null || true)
+resource_decls=$(grep -rln --include="*.move" -E "struct\s+[A-Z][A-Za-z0-9_]*\s+has\s+(key|store)" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null || true)
+storage_ops=$(grep -rln --include="*.move" -E "\bmove_to\s*\(|\bmove_from\s*\(|\bborrow_global\b|\bexists\b\s*<" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null || true)
 
 r_count=$([[ -n "$resource_decls" ]] && echo "$resource_decls" | wc -l | tr -d ' ' || echo 0)
 s_count=$([[ -n "$storage_ops" ]] && echo "$storage_ops" | wc -l | tr -d ' ' || echo 0)

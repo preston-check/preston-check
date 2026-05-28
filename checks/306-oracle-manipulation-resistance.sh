@@ -34,7 +34,7 @@ if [[ "$sol_count" -eq 0 && "$ts_count" -eq 0 ]]; then
 fi
 
 # Single-source latestRoundData calls without staleness checks (no updatedAt or answeredInRound usage nearby)
-chainlink_unsafe_files=$(grep -rl --include="*.sol" -E 'latestRoundData\s*\(\s*\)' "$SRC" 2>/dev/null \
+chainlink_unsafe_files=$(grep -rl --include="*.sol" -E 'latestRoundData\s*\(\s*\)' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -v "/test/\|/mock/\|node_modules" || true)
 
 unsafe_chainlink=0
@@ -45,7 +45,7 @@ for f in $chainlink_unsafe_files; do
 done
 
 # getReserves used as price source (without TWAP)
-getreserves_files=$(grep -rl --include="*.sol" -E '\.getReserves\s*\(\s*\)' "$SRC" 2>/dev/null \
+getreserves_files=$(grep -rl --include="*.sol" -E '\.getReserves\s*\(\s*\)' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -v "/test/\|/mock/\|node_modules" || true)
 
 unsafe_reserves=0

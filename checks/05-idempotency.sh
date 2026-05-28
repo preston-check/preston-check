@@ -57,7 +57,7 @@ done
 
 if [[ $total_wh -eq 0 ]]; then
   # Also check for idempotency middleware
-  idem_middleware=$(grep -rn --include="$SRC_EXT" "idempoten\|IdempotencyMiddleware\|IdempotencyStore" "$SRC" 2>/dev/null \
+  idem_middleware=$(grep -rn --include="$SRC_EXT" "idempoten\|IdempotencyMiddleware\|IdempotencyStore" --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
     | grep -v "test\|Test\|target\|vendor\|_test\.go" | head -3)
   if [[ -n "$idem_middleware" ]]; then
     record "PASS" "P-05 Webhook idempotency" "Idempotency middleware/store found"

@@ -32,7 +32,7 @@ if [[ "$sol_count" -eq 0 ]]; then
   return 0 2>/dev/null || true
 fi
 
-external_call_files=$(grep -rl --include="*.sol" -E '\.call\{value:|\.send\(|address\(.*\)\.transfer\(' "$SRC" 2>/dev/null \
+external_call_files=$(grep -rl --include="*.sol" -E '\.call\{value:|\.send\(|address\(.*\)\.transfer\(' --exclude-dir=".git" --exclude-dir="node_modules" --exclude-dir="vendor" --exclude-dir="dist" --exclude-dir="build" --exclude-dir="target" "$SRC" 2>/dev/null \
   | grep -v "/test/\|/tests/\|/mock/\|node_modules" || true)
 
 if [[ -z "$external_call_files" ]]; then
