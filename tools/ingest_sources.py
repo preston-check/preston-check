@@ -1163,6 +1163,7 @@ _RSS_FEEDS: list[tuple[str, str]] = [
     ("sift", "https://www.sift.com/blog/rss"),
     ("finextra_security", "https://www.finextra.com/rss/channel.aspx?channel=security"),
     # Developer / supply chain security
+    ("fca_org", "https://www.fca.org.uk/news/rss.xml"),
     ("xakep_ru", "https://xakep.ru/feed/"),
     ("seqrite", "https://www.seqrite.com/blog/feed/"),
     ("ieeexplore_ieee", "https://ieeexplore.ieee.org/rss/TOC36.XML"),
