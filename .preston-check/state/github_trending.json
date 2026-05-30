@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-25T21:19:45.613111+00:00",
-  "last_successful_fetch": "2026-05-25T21:19:49.754816+00:00",
+  "last_run": "2026-05-30T14:00:48.340905+00:00",
+  "last_successful_fetch": "2026-05-30T14:00:51.638693+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -824,7 +824,12 @@
     "github:yanivpaz/repo-cves",
     "github:sharkyger/pip-cve-gate",
     "github:pyguerder/CVE",
-    "github:FreemanSlaughter/Rank-CVE"
+    "github:FreemanSlaughter/Rank-CVE",
+    "github:portbuster1337/CVE-2026-46376",
+    "github:endangcamon/CVE-2026-7465-POC",
+    "github:HaitaoWuTJU/cverl",
+    "github:jongwang1010/cveoqy",
+    "github:esraahsin/cve-triage-agent"
   ],
   "source_id": "github_trending",
   "stats": {
