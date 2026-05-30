@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-30T15:20:33.097244+00:00",
-  "last_successful_fetch": "2026-05-30T15:20:36.008736+00:00",
+  "last_run": "2026-05-30T17:18:55.530596+00:00",
+  "last_successful_fetch": "2026-05-30T17:18:59.064909+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -833,7 +833,9 @@
     "github:Durgesh2202/cve-notes",
     "github:ItsSunshineXD/CVE-2025-9485-PoC",
     "github:BWC4536/CVENCINAS",
-    "github:hfh86/CVE-2021-43530-UXSS-On-QRcode-Reader-"
+    "github:hfh86/CVE-2021-43530-UXSS-On-QRcode-Reader-",
+    "github:jasnow/draft-pre-cve-advs",
+    "github:K3ysTr0K3R/CVE-2026-31431-EXPLOIT"
   ],
   "source_id": "github_trending",
   "stats": {
