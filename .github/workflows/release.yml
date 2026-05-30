@@ -28,8 +28,9 @@ jobs:
 
       - name: Build release tarball
         id: tarball
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
         run: |
-          VERSION="${{ steps.meta.outputs.version }}"
           ARCHIVE="preston-check-${VERSION}.tar.gz"
           # Write the archive into ../ so tar isn't reading the directory
           # it's currently writing to (which causes "file changed as we read
@@ -122,14 +123,21 @@ jobs:
         uses: Homebrew/actions/setup-homebrew@master
 
       - name: Build bottle
+        env:
+          VERSION: ${{ needs.release.outputs.version }}
         run: |
-          VERSION="${{ needs.release.outputs.version }}"
           HOMEBREW_NO_INSTALL_CLEANUP=1 brew tap preston-check/tap
           HOMEBREW_NO_INSTALL_CLEANUP=1 brew install --build-bottle \
             preston-check/tap/preston-check
           brew bottle --no-rebuild \
             --root-url "https://github.com/preston-check/preston-check/releases/download/v${VERSION}" \
             preston-check
+          # brew bottle produces double-dash names (formula--version.os.bottle.tar.gz)
+          # but Homebrew downloads single-dash (formula-version.os.bottle.tar.gz).
+          # Rename before uploading.
+          for f in *--*.bottle.tar.gz; do
+            mv "$f" "${f/--/-}"
+          done
 
       - name: Upload bottle to release
         uses: softprops/action-gh-release@v2
@@ -166,10 +174,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          VERSION="${{ needs.release.outputs.version }}"
-          SHA="${{ needs.release.outputs.sha256 }}"
-          URL="https://github.com/preston-check/preston-check/releases/download/v${VERSION}/preston-check-${VERSION}.tar.gz"
-
           gh release download "v${VERSION}" \
             --repo preston-check/preston-check \
             --pattern "*.bottle.tar.gz" \
@@ -236,8 +240,9 @@ jobs:
       - name: Commit + push
         if: steps.check.outputs.configured == 'true'
         working-directory: tap
+        env:
+          VERSION: ${{ needs.release.outputs.version }}
         run: |
-          VERSION="${{ needs.release.outputs.version }}"
           if git diff --quiet; then
             echo "Formula already up to date — skipping commit"
             exit 0
