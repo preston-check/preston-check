@@ -19,7 +19,7 @@ class PrestonCheck < Formula
 
   bottle do
     root_url "https://github.com/preston-check/preston-check/releases/download/v1.8.0"
-    sha256 cellar: :any_skip_relocation, tahoe: "27f895219f6cc0158ac66ae4d95a7d8d8dd199880de55733d0d8203d998d2628"
+    sha256 cellar: :any_skip_relocation, tahoe: "88e8c78b0f4ead8c7dde20590b7ed574bb23b7af8ce4e2a43e3d4aaf6fb2e5d6"
   end
 
   depends_on "bash"
