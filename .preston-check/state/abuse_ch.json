@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-05-31T11:05:32.698782+00:00",
-  "last_successful_fetch": "2026-05-31T11:05:32.699752+00:00",
+  "last_run": "2026-05-31T12:19:19.274545+00:00",
+  "last_successful_fetch": "2026-05-31T12:19:19.275479+00:00",
   "processed_ids": [
-    "threatfox:u888n.info",
-    "threatfox:subsieuvip9.com",
-    "threatfox:x88-km88k.com",
-    "threatfox:x88.diy",
-    "threatfox:lankbos.nl",
     "threatfox:2mdj56rl.sa.com",
     "threatfox:app.qq8893.com",
     "threatfox:techapiguard.co",
@@ -5001,7 +4996,12 @@
     "threatfox:asion.gr",
     "threatfox:saprwbu.lavorcollective.com",
     "threatfox:eoyodpm.lavorcollective.com",
-    "threatfox:seattlesubzerorepair.com"
+    "threatfox:seattlesubzerorepair.com",
+    "threatfox:107.151.246.172:7890",
+    "threatfox:htciigz.intelect.gr",
+    "threatfox:ijdjqht.ktsagarakis.gr",
+    "threatfox:5pfvza4o.cretasoft.gr",
+    "threatfox:cretasoft.gr"
   ],
   "source_id": "abuse_ch",
   "stats": {
