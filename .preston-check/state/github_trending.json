@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-31T14:54:02.581650+00:00",
-  "last_successful_fetch": "2026-05-31T14:54:06.337986+00:00",
+  "last_run": "2026-05-31T16:21:16.097575+00:00",
+  "last_successful_fetch": "2026-05-31T16:21:20.448227+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -857,7 +857,12 @@
     "github:0xBlackash/CVE-2026-45585",
     "github:0xDexter0us/Nuclei-CVE-Scan-Templates",
     "github:K3ysTr0K3R/CVE-2025-55182-EXPLOIT",
-    "github:b1nhack/CVE-2024-1086"
+    "github:b1nhack/CVE-2024-1086",
+    "github:Jeanback1/CVE-2022-25765-exploit",
+    "github:Jeanback1/CVE-2019-0211-exploit",
+    "github:Jeanback1/CVE-2019-9053-exploit",
+    "github:uldagalihan/distributed-cve-search-engine",
+    "github:ice4war/cve-ui"
   ],
   "source_id": "github_trending",
   "stats": {
