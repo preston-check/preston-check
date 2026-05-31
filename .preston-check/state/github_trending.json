@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-31T12:19:16.366875+00:00",
-  "last_successful_fetch": "2026-05-31T12:19:19.082669+00:00",
+  "last_run": "2026-05-31T14:54:02.581650+00:00",
+  "last_successful_fetch": "2026-05-31T14:54:06.337986+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -853,7 +853,11 @@
     "github:launchapp-dev/animus-subject-nvd-cve-history",
     "github:HORKimhab/CVE-2026-0257",
     "github:SrGinebras/CVE-2026-23744-RCE-for-MCPjam-inspector-v1.4.2",
-    "github:Winslowe/CVE-2024-4309-Analysis"
+    "github:Winslowe/CVE-2024-4309-Analysis",
+    "github:0xBlackash/CVE-2026-45585",
+    "github:0xDexter0us/Nuclei-CVE-Scan-Templates",
+    "github:K3ysTr0K3R/CVE-2025-55182-EXPLOIT",
+    "github:b1nhack/CVE-2024-1086"
   ],
   "source_id": "github_trending",
   "stats": {
