@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-30T23:11:47.583352+00:00",
-  "last_successful_fetch": "2026-05-30T23:11:51.472858+00:00",
+  "last_run": "2026-05-31T04:47:36.467206+00:00",
+  "last_successful_fetch": "2026-05-31T04:47:40.097156+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -847,7 +847,8 @@
     "github:CVE-078/christiaanvaneijnsbergen_nl",
     "github:cverrier/cverrier",
     "github:andrewhyh/vps-cve-watch",
-    "github:czinazes/cve-intelligence"
+    "github:czinazes/cve-intelligence",
+    "github:cve-search/cve-search"
   ],
   "source_id": "github_trending",
   "stats": {
