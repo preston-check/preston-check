@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-31T20:19:36.116313+00:00",
-  "last_successful_fetch": "2026-05-31T20:19:39.960944+00:00",
+  "last_run": "2026-05-31T22:10:53.769502+00:00",
+  "last_successful_fetch": "2026-05-31T22:10:57.020813+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -864,7 +864,8 @@
     "github:uldagalihan/distributed-cve-search-engine",
     "github:ice4war/cve-ui",
     "github:cx18121/cve-intel",
-    "github:Least-Significant-Bit/CVE-2026-23744"
+    "github:Least-Significant-Bit/CVE-2026-23744",
+    "github:hacbs-release-tests/collectors-no-cve-2cb2f392"
   ],
   "source_id": "github_trending",
   "stats": {
