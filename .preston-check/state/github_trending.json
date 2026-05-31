@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-05-31T18:14:06.583022+00:00",
-  "last_successful_fetch": "2026-05-31T18:14:09.809689+00:00",
+  "last_run": "2026-05-31T20:19:36.116313+00:00",
+  "last_successful_fetch": "2026-05-31T20:19:39.960944+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -863,7 +863,8 @@
     "github:Jeanback1/CVE-2019-9053-exploit",
     "github:uldagalihan/distributed-cve-search-engine",
     "github:ice4war/cve-ui",
-    "github:cx18121/cve-intel"
+    "github:cx18121/cve-intel",
+    "github:Least-Significant-Bit/CVE-2026-23744"
   ],
   "source_id": "github_trending",
   "stats": {
