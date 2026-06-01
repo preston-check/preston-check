@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-01T00:14:24.340736+00:00",
-  "last_successful_fetch": "2026-06-01T00:14:26.991486+00:00",
+  "last_run": "2026-06-01T06:17:04.779712+00:00",
+  "last_successful_fetch": "2026-06-01T06:17:08.294097+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -867,7 +867,11 @@
     "github:Least-Significant-Bit/CVE-2026-23744",
     "github:hacbs-release-tests/collectors-no-cve-2cb2f392",
     "github:Axelioc/CVE",
-    "github:AbubakarAhmadBjr/cryptolib-cve-scanner"
+    "github:AbubakarAhmadBjr/cryptolib-cve-scanner",
+    "github:HORKimhab/CVE-2026-9560",
+    "github:scriptjacker/CVE",
+    "github:Mr-Robot-LP/CVE-2026-0257",
+    "github:CYFARE/CVE-2026-8376-Perl-Heap-Buffer-Overflow-PoC-Exploit"
   ],
   "source_id": "github_trending",
   "stats": {
