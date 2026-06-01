@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-01T12:47:47.431095+00:00",
-  "last_successful_fetch": "2026-06-01T12:47:51.310157+00:00",
+  "last_run": "2026-06-01T18:46:58.793690+00:00",
+  "last_successful_fetch": "2026-06-01T18:47:03.006197+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -876,7 +876,10 @@
     "github:hhawkins9/cvestream",
     "github:EunjinLee08/LLM_based_CVE_vuln_report",
     "github:JTMH37/Apache-Tomcat-CVE-2025-24813-Lab",
-    "github:hayageek/smart_cve_finder"
+    "github:hayageek/smart_cve_finder",
+    "github:boris-ivanovicc/veb-aplikacija-za-on-line-prodaju-cveca",
+    "github:pro-pankaj-pentester/cve-writeups-50000",
+    "github:leoyu0607/CVE_Daily_Report"
   ],
   "source_id": "github_trending",
   "stats": {
