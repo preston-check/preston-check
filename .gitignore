@@ -72,3 +72,7 @@ corpus/snapshots/
 venv/
 __pycache__/
 *.pyc
+
+# Claude Code session-local memory artifacts (real memory lives in ~/.claude/)
+MEMORY.md
+memory/
