@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-02T10:53:38.444643+00:00",
-  "last_successful_fetch": "2026-06-02T10:53:42.763670+00:00",
+  "last_run": "2026-06-02T15:05:36.676330+00:00",
+  "last_successful_fetch": "2026-06-02T15:05:41.946729+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -898,7 +898,14 @@
     "github:AzDevops143/fragnesia-cve-2026-46300",
     "github:tematemaru/CVE-2026-31431-simple-test",
     "github:midhunramadas/oracle_linux_cve_fix_fetcher",
-    "github:ManglamX/CVE_ReRanker"
+    "github:ManglamX/CVE_ReRanker",
+    "github:sananpa/CVE-2026-41089",
+    "github:entr0pie/demo-cve-2022-22947",
+    "github:hacbs-release-tests/collectors-no-cve-80f38c59",
+    "github:eniscode/CVE-Automation-Project",
+    "github:zimmerman-team/devops.cve-tracker",
+    "github:GemGeorge/iBall-UTStar-CVEChecker",
+    "github:dinosn/CVE-2024-21182"
   ],
   "source_id": "github_trending",
   "stats": {
