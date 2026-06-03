@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-03T21:27:57.178914+00:00",
-  "last_successful_fetch": "2026-06-03T21:28:01.165445+00:00",
+  "last_run": "2026-06-03T23:56:53.600024+00:00",
+  "last_successful_fetch": "2026-06-03T23:56:58.404628+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -943,7 +943,9 @@
     "github:hacbs-release-tests/collectors-no-cve-6aeeb4d1",
     "github:Sirson39/CVevo",
     "github:bouhlet0/cve-rag",
-    "github:victoriaalicex/CVE-2025-40536-Analysis"
+    "github:victoriaalicex/CVE-2025-40536-Analysis",
+    "github:RaminNietzsche/CVE-Radar",
+    "github:leehunkoo/hk_CVE-2025-32433"
   ],
   "source_id": "github_trending",
   "stats": {
