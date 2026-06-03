@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-02T23:58:57.494302+00:00",
-  "last_successful_fetch": "2026-06-02T23:59:01.249659+00:00",
+  "last_run": "2026-06-03T05:08:01.087470+00:00",
+  "last_successful_fetch": "2026-06-03T05:08:06.617765+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -924,7 +924,13 @@
     "github:hacbs-release-tests/collectors-no-cve-cf677a5f",
     "github:fundanger/CVE-Emailer-v2",
     "github:Cognition-Partner-Workshops/uc-cve-remediation-regulatory-compliance",
-    "github:abdulrhman-code/cve-radar"
+    "github:abdulrhman-code/cve-radar",
+    "github:zzzxc643/CVE1",
+    "github:luminarydawn/cve",
+    "github:wavelocustfix/cvemytjv",
+    "github:fTz997/CVE-Collector",
+    "github:SJYClass/CVE-POC",
+    "github:hieuminhnv/CVE-2026-29198-POC"
   ],
   "source_id": "github_trending",
   "stats": {
