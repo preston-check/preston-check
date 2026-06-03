@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-03T05:08:01.087470+00:00",
-  "last_successful_fetch": "2026-06-03T05:08:06.617765+00:00",
+  "last_run": "2026-06-03T11:21:59.429709+00:00",
+  "last_successful_fetch": "2026-06-03T11:22:05.818668+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -930,7 +930,12 @@
     "github:wavelocustfix/cvemytjv",
     "github:fTz997/CVE-Collector",
     "github:SJYClass/CVE-POC",
-    "github:hieuminhnv/CVE-2026-29198-POC"
+    "github:hieuminhnv/CVE-2026-29198-POC",
+    "github:strivepan/cve-2026-42945-scanner-gui",
+    "github:hacbs-release-tests/collectors-no-cve-94f0ce95",
+    "github:hacbs-release-tests/collectors-no-cve-1eda82fd",
+    "github:thanujbtech-lgtm/securityweek_cve",
+    "github:p5yc40515/linuxcan-cve-labs"
   ],
   "source_id": "github_trending",
   "stats": {
