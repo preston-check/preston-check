@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-04T05:01:21.684005+00:00",
-  "last_successful_fetch": "2026-06-04T05:01:25.551128+00:00",
+  "last_run": "2026-06-04T08:58:17.280564+00:00",
+  "last_successful_fetch": "2026-06-04T08:58:21.746578+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -947,7 +947,12 @@
     "github:RaminNietzsche/CVE-Radar",
     "github:leehunkoo/hk_CVE-2025-32433",
     "github:DesertDemons/CVE-2025-4138-4517-POC",
-    "github:michellelky/next-lodash-cve-demo"
+    "github:michellelky/next-lodash-cve-demo",
+    "github:ADScanPro/CVE-2026-41089-LongLogon",
+    "github:dharmstm/CVE-2026-30502-OpenKM-6.3.12-Reflected-XSS",
+    "github:alexwhiterem-alt/lab2-cve-collector",
+    "github:dharmstm/CVE-2026-30503-OpenKM-6.3.12-Stored-XSS",
+    "github:KingLinux24/cve-prioritization-agent"
   ],
   "source_id": "github_trending",
   "stats": {
