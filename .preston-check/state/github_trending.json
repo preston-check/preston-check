@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-04T16:28:20.415511+00:00",
-  "last_successful_fetch": "2026-06-04T16:28:24.766187+00:00",
+  "last_run": "2026-06-04T19:30:13.218655+00:00",
+  "last_successful_fetch": "2026-06-04T19:30:17.185774+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -962,7 +962,12 @@
     "github:Alemmi/cve",
     "github:am-hotstuff819/cve-watch",
     "github:crixpwn/CVE-2026-8389",
-    "github:7h3w4lk3r/CVE-2023-40459"
+    "github:7h3w4lk3r/CVE-2023-40459",
+    "github:CrowEvaluate/CVE-2026-41089-646",
+    "github:Retrodraseparator/CVE-2026-41089-874",
+    "github:Darkuoremember32/CVE-2026-41089-470",
+    "github:Darkuoremember32/CVE-2026-41089-532",
+    "github:DoorSpire/Murder-Code-Editor-Cversion"
   ],
   "source_id": "github_trending",
   "stats": {
