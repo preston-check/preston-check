@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-04T20:24:45.909155+00:00",
-  "last_successful_fetch": "2026-06-04T20:24:45.913117+00:00",
+  "last_run": "2026-06-05T04:46:39.174971+00:00",
+  "last_successful_fetch": "2026-06-05T04:46:39.178340+00:00",
   "processed_ids": [
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-307/",
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-306/",
@@ -222,7 +222,10 @@
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-321/",
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-320/",
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-328/",
-    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-327/"
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-327/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-331/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-330/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-329/"
   ],
   "source_id": "conference_zdi",
   "stats": {
