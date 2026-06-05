@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-05T04:43:18.997121+00:00",
-  "last_successful_fetch": "2026-06-05T04:43:22.731341+00:00",
+  "last_run": "2026-06-05T08:51:49.980996+00:00",
+  "last_successful_fetch": "2026-06-05T08:51:53.472216+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -976,7 +976,12 @@
     "github:antinest/CVEs",
     "github:H1euPengu1n07/WordPress-CVE",
     "github:shootcannon/CVE-2026-5076",
-    "github:drplagash/cve-lab-pocs"
+    "github:drplagash/cve-lab-pocs",
+    "github:System32manager/CVE-2026-41089-699",
+    "github:Ashiii27/cve-explorer",
+    "github:HORKimhab/CVE-2026-3300",
+    "github:sidechairmanblast/CVE-2026-41089-984",
+    "github:whatsdd/CVEs-PoCs"
   ],
   "source_id": "github_trending",
   "stats": {
