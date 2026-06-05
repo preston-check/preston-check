@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-06-05T20:54:49.535262+00:00",
-  "last_successful_fetch": "2026-06-05T20:54:49.536168+00:00",
+  "last_run": "2026-06-05T22:22:25.487010+00:00",
+  "last_successful_fetch": "2026-06-05T22:22:25.487853+00:00",
   "processed_ids": [
-    "threatfox:bytearmor.net",
-    "threatfox:81.68.216.220:443",
-    "threatfox:168.222.97.93:8080",
-    "threatfox:81.68.216.220:80",
-    "threatfox:http://194.33.61.179/7dc11e58e9124f1183dc.php",
-    "threatfox:106.75.252.66:443",
-    "threatfox:89.125.138.217:8001",
-    "threatfox:103.146.30.121:443",
-    "threatfox:greenhouseresourceengine.garden",
-    "threatfox:185.234.157.185:443",
     "threatfox:175.178.36.137:80",
     "threatfox:106.75.252.66:8080",
     "threatfox:172.252.232.23:443",
@@ -5001,7 +4991,17 @@
     "threatfox:207.174.2.85:7997",
     "threatfox:182.23.2.163:12364",
     "threatfox:zttxgpqq.jacksorbetter.casino",
-    "threatfox:qavsqox.footbal90bet.app"
+    "threatfox:qavsqox.footbal90bet.app",
+    "threatfox:149.104.29.125:8080",
+    "threatfox:39.106.83.18:80",
+    "threatfox:korpihy.herz-frank.com",
+    "threatfox:mjdkxzn7.betvolleyball.net",
+    "threatfox:w5x39ami.betvolleyball.net",
+    "threatfox:tbbhdjx.golfbetpro.com",
+    "threatfox:149.104.29.125:80",
+    "threatfox:154.88.98.51:8884",
+    "threatfox:85.217.247.109:443",
+    "threatfox:154.88.98.55:8884"
   ],
   "source_id": "abuse_ch",
   "stats": {
