@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-05T22:22:22.202059+00:00",
-  "last_successful_fetch": "2026-06-05T22:22:25.332956+00:00",
+  "last_run": "2026-06-06T00:17:54.792642+00:00",
+  "last_successful_fetch": "2026-06-06T00:17:59.136073+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1005,7 +1005,8 @@
     "github:kkeito09/cve-search-scheduler",
     "github:BishopFox/CVE-2026-34908-check",
     "github:gearonixx/kernel-cve-2014",
-    "github:oniohit/AutoMapper-CVE-Test"
+    "github:oniohit/AutoMapper-CVE-Test",
+    "github:partywavesec/CVE-2026-25860"
   ],
   "source_id": "github_trending",
   "stats": {
