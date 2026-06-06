@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-06-06T16:17:14.446449+00:00",
-  "last_successful_fetch": "2026-06-06T16:17:14.447276+00:00",
+  "last_run": "2026-06-06T18:18:22.275128+00:00",
+  "last_successful_fetch": "2026-06-06T18:18:22.276127+00:00",
   "processed_ids": [
-    "threatfox:amber-fossil-mosquito.garden",
-    "threatfox:phase-shift-bridge-driver.garden",
-    "threatfox:xenomorph-hive-intelligence.garden",
-    "threatfox:x8drf7ed.audioattenuatorschematic.digital",
-    "threatfox:nw3tvo7k.audioattenuatorschematic.digital",
-    "threatfox:holistic-detective-agency.garden",
-    "threatfox:containerizedplantengine.garden",
-    "threatfox:stbe26oz.meadowworkflowframework.garden",
-    "threatfox:floraobservabilitycenter.garden",
-    "threatfox:meadowworkflowframework.garden",
     "threatfox:federatedgardenplatform.garden",
     "threatfox:8duc5067.siciliandefensetheory.digital",
     "threatfox:rjcuszqj.siciliandefensetheory.digital",
@@ -5001,7 +4991,17 @@
     "threatfox:139.180.146.76:2379",
     "threatfox:154.88.97.38:8884",
     "threatfox:rmbvag.jamjahani2026shartbandi.com",
-    "threatfox:jj88.today"
+    "threatfox:jj88.today",
+    "threatfox:101.201.111.98:8080",
+    "threatfox:101.201.111.98:443",
+    "threatfox:eycgzaa.jamjahani.site",
+    "threatfox:is34r2fh.marc90bet.com",
+    "threatfox:z0pub8f7.marc90bet.com",
+    "threatfox:fgeszrs.dahdahtoys.com",
+    "threatfox:64.176.189.40:8808",
+    "threatfox:13.60.184.242:8000",
+    "threatfox:xvbfkf.jamjahani.app",
+    "threatfox:tvonayz.jamjahani.vip"
   ],
   "source_id": "abuse_ch",
   "stats": {
