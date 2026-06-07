@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-07T00:15:34.147228+00:00",
-  "last_successful_fetch": "2026-06-07T00:15:38.398302+00:00",
+  "last_run": "2026-06-07T05:49:44.124374+00:00",
+  "last_successful_fetch": "2026-06-07T05:49:47.547950+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1034,7 +1034,8 @@
     "github:johnniebozura31/CVE-2026-28318",
     "github:sudosu01/CVE-2019-5513-scanner",
     "github:MechaFoam/cve-vulnerability-research",
-    "github:kvsaurav/CVE-prioritization-"
+    "github:kvsaurav/CVE-prioritization-",
+    "github:l0lsec/cvehunter"
   ],
   "source_id": "github_trending",
   "stats": {
