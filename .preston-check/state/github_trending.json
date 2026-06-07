@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-07T09:32:03.770970+00:00",
-  "last_successful_fetch": "2026-06-07T09:32:06.961235+00:00",
+  "last_run": "2026-06-07T12:00:10.377938+00:00",
+  "last_successful_fetch": "2026-06-07T12:00:14.545672+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1037,7 +1037,11 @@
     "github:kvsaurav/CVE-prioritization-",
     "github:l0lsec/cvehunter",
     "github:honestcorrupt/MEESHO-CVE_REQUEST_NEW",
-    "github:horrister/moveit-transfer-cve-2023-34362"
+    "github:horrister/moveit-transfer-cve-2023-34362",
+    "github:m0nk3ygod/CVE-2026-34040-PoC",
+    "github:AryanWaghere24/Syntecxhub_CVE_Scanner",
+    "github:Tejendra-Gohil/CVE-NVD-vulnerability-analysis",
+    "github:Sansyuh06/CVE-Guard"
   ],
   "source_id": "github_trending",
   "stats": {
