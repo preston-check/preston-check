@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-07T14:17:02.468401+00:00",
-  "last_successful_fetch": "2026-06-07T14:17:06.726913+00:00",
+  "last_run": "2026-06-07T16:41:34.393361+00:00",
+  "last_successful_fetch": "2026-06-07T16:41:37.699826+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1042,7 +1042,11 @@
     "github:AryanWaghere24/Syntecxhub_CVE_Scanner",
     "github:Tejendra-Gohil/CVE-NVD-vulnerability-analysis",
     "github:Sansyuh06/CVE-Guard",
-    "github:tc4dy/CVE-2026-24061-PoC-Exploit"
+    "github:tc4dy/CVE-2026-24061-PoC-Exploit",
+    "github:AtlasOats/CVE-I",
+    "github:hakaioffsec/CVE-2026-44706",
+    "github:0xBlackash/CVE-2020-17103",
+    "github:Xmyronn/CVEs"
   ],
   "source_id": "github_trending",
   "stats": {
