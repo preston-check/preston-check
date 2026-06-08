@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-08T19:32:26.569270+00:00",
-  "last_successful_fetch": "2026-06-08T19:32:30.978974+00:00",
+  "last_run": "2026-06-08T21:59:15.669604+00:00",
+  "last_successful_fetch": "2026-06-08T21:59:18.493120+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1068,7 +1068,10 @@
     "github:GaneshInnovatiq/STE-CVE-DARK-FE",
     "github:11romain/CVE-2026-9082",
     "github:iamoneofthezhu/cve_deploy",
-    "github:RedSideSecurity/CVEAlertor"
+    "github:RedSideSecurity/CVEAlertor",
+    "github:saipurumandla/CVE-Severity-Net",
+    "github:CVector-Energy/cvec-python",
+    "github:covepseng/cve-2026-43512-poc"
   ],
   "source_id": "github_trending",
   "stats": {
