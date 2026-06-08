@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-08T16:14:35.256509+00:00",
-  "last_successful_fetch": "2026-06-08T16:14:39.843422+00:00",
+  "last_run": "2026-06-08T19:32:26.569270+00:00",
+  "last_successful_fetch": "2026-06-08T19:32:30.978974+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1063,7 +1063,12 @@
     "github:0xBlackash/CVE-2026-11499",
     "github:WadesWeaponShed/CVE-2026-50751-Mitigation-Scripts",
     "github:hacbs-release-tests/collectors-no-cve-0bf41d86",
-    "github:YvannukaOuch/cve-triage-rag"
+    "github:YvannukaOuch/cve-triage-rag",
+    "github:iamoneofthezhu/cve",
+    "github:GaneshInnovatiq/STE-CVE-DARK-FE",
+    "github:11romain/CVE-2026-9082",
+    "github:iamoneofthezhu/cve_deploy",
+    "github:RedSideSecurity/CVEAlertor"
   ],
   "source_id": "github_trending",
   "stats": {
