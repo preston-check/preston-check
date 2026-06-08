@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-08T21:59:15.669604+00:00",
-  "last_successful_fetch": "2026-06-08T21:59:18.493120+00:00",
+  "last_run": "2026-06-08T23:24:12.107128+00:00",
+  "last_successful_fetch": "2026-06-08T23:24:15.296253+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1071,7 +1071,11 @@
     "github:RedSideSecurity/CVEAlertor",
     "github:saipurumandla/CVE-Severity-Net",
     "github:CVector-Energy/cvec-python",
-    "github:covepseng/cve-2026-43512-poc"
+    "github:covepseng/cve-2026-43512-poc",
+    "github:carlosalbertotuma/cve-2026-3180-poc",
+    "github:Nixon-H/CVE-2025-68147-OSPOS-Stored-XSS",
+    "github:Nixon-H/CVE-2025-68434-OSPOS-CSRF",
+    "github:manueltomasello/CVE_Analysis_Toma_Tomasello"
   ],
   "source_id": "github_trending",
   "stats": {
