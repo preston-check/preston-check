@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-07T22:15:28.857627+00:00",
-  "last_successful_fetch": "2026-06-07T22:15:32.145789+00:00",
+  "last_run": "2026-06-08T00:19:46.223602+00:00",
+  "last_successful_fetch": "2026-06-08T00:19:49.531086+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1052,7 +1052,9 @@
     "github:ahmed-tarek22752/RCE-CVE-2017-0199-detection-analysis",
     "github:susususua-AI/CVE",
     "github:mayaparov/cve-rpm-tracker",
-    "github:theekshana623/church-management-rce-cve"
+    "github:theekshana623/church-management-rce-cve",
+    "github:limo57640-crypto/cpanel-cve-41940-detector",
+    "github:pablo-nieves-sec/cve-digest"
   ],
   "source_id": "github_trending",
   "stats": {
