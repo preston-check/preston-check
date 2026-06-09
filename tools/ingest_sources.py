@@ -1163,6 +1163,7 @@ _RSS_FEEDS: list[tuple[str, str]] = [
     ("sift", "https://www.sift.com/blog/rss"),
     ("finextra_security", "https://www.finextra.com/rss/channel.aspx?channel=security"),
     # Developer / supply chain security
+    ("paloalto_general", "https://www.paloaltonetworks.com/blog/rss/"),
     ("troy_hunt", "https://feeds.feedburner.com/TroyHunt"),
     ("financialcrimeacademy", "https://financialcrimeacademy.org/feed/"),
     ("vectra", "https://www.vectra.ai/blog/rss.xml"),
