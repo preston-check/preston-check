@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-08T23:24:12.107128+00:00",
-  "last_successful_fetch": "2026-06-08T23:24:15.296253+00:00",
+  "last_run": "2026-06-09T04:20:54.721924+00:00",
+  "last_successful_fetch": "2026-06-09T04:20:59.530434+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1075,7 +1075,12 @@
     "github:carlosalbertotuma/cve-2026-3180-poc",
     "github:Nixon-H/CVE-2025-68147-OSPOS-Stored-XSS",
     "github:Nixon-H/CVE-2025-68434-OSPOS-CSRF",
-    "github:manueltomasello/CVE_Analysis_Toma_Tomasello"
+    "github:manueltomasello/CVE_Analysis_Toma_Tomasello",
+    "github:Moon-Harvest/CVE-2025-59528",
+    "github:CarlosEduardoPM/CVE-2026-4480-POC",
+    "github:HORKimhab/CVE-2026-45067",
+    "github:HORKimhab/CVE-2024-52011",
+    "github:Mr-xn/CVE-2026-8054"
   ],
   "source_id": "github_trending",
   "stats": {
