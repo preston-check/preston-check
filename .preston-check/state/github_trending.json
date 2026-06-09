@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-09T12:14:01.952643+00:00",
-  "last_successful_fetch": "2026-06-09T12:14:05.725400+00:00",
+  "last_run": "2026-06-09T16:12:16.857557+00:00",
+  "last_successful_fetch": "2026-06-09T16:12:20.601746+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1096,7 +1096,17 @@
     "github:jenniferreire26/CVE-2024-21182",
     "github:jenniferreire26/CVE-2026-33829",
     "github:jenniferreire26/CVE-2026-0257",
-    "github:jenniferreire26/CVE-2026-35616"
+    "github:jenniferreire26/CVE-2026-35616",
+    "github:Coasttruvitalize/CVE-2026-41089-latest",
+    "github:SpiralSealFill/CVE-2026-41089-hub",
+    "github:borland6/WAS_HIGH_RISK_CVE_LIST",
+    "github:rootdirective-sec/CVE-2025-11262-Lab",
+    "github:NguyenVanMinhCuong2002/deeplearning-cve-analysis",
+    "github:lkua-1/cve",
+    "github:0xBlackash/CVE-2026-4480",
+    "github:Mango-Wang2024/cVEP-Unity",
+    "github:hacbs-release-tests/collectors-no-cve-8c80768c",
+    "github:v1ksssqqpon-oss/cveti22"
   ],
   "source_id": "github_trending",
   "stats": {
