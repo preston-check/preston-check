@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-09T19:27:29.841640+00:00",
-  "last_successful_fetch": "2026-06-09T19:27:34.432849+00:00",
+  "last_run": "2026-06-09T21:57:09.901660+00:00",
+  "last_successful_fetch": "2026-06-09T21:57:13.348309+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1107,7 +1107,10 @@
     "github:Mango-Wang2024/cVEP-Unity",
     "github:hacbs-release-tests/collectors-no-cve-8c80768c",
     "github:v1ksssqqpon-oss/cveti22",
-    "github:StanislawSkotniczny/cve-scan-history"
+    "github:StanislawSkotniczny/cve-scan-history",
+    "github:zeyn-zeze/cve_severity_analyzer",
+    "github:fevar54/PoC-Funcional---CVE-2026-45247-Mirasvit-Full-Page-Cache-Warmer-RCE-",
+    "github:mohamedabdelhady933/MY-CVEs-Analyzing"
   ],
   "source_id": "github_trending",
   "stats": {
