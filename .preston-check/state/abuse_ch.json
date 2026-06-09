@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-06-09T21:57:13.665180+00:00",
-  "last_successful_fetch": "2026-06-09T21:57:13.665969+00:00",
+  "last_run": "2026-06-09T23:37:41.052828+00:00",
+  "last_successful_fetch": "2026-06-09T23:37:41.053590+00:00",
   "processed_ids": [
-    "threatfox:ipv4has-lampnew.cyou",
-    "threatfox:mkszunli.flopstin-gymcargo.cyou",
-    "threatfox:flopstin-gymcargo.cyou",
-    "threatfox:mfbrkbuv.betnoise-unionour.cyou",
-    "threatfox:betnoise-unionour.cyou",
-    "threatfox:hoycbijv.holiday-matrix.christmas",
-    "threatfox:ymeivxaj.holiday-matrix.christmas",
-    "threatfox:holiday-matrix.christmas",
-    "threatfox:auhlsdki.frost-engine.christmas",
     "threatfox:mvltyody.frost-engine.christmas",
     "threatfox:net883.com",
     "threatfox:ftjilgqw.winter-pulse.christmas",
@@ -5001,7 +4992,16 @@
     "threatfox:autoupdatet.com",
     "threatfox:updateocean.com",
     "threatfox:jcrlq1o7.sabzbet.bet",
-    "threatfox:py3z6vqk.sabzbet.bet"
+    "threatfox:py3z6vqk.sabzbet.bet",
+    "threatfox:mnhunimj.persian.sex",
+    "threatfox:bjyqjg.onlineshart.com",
+    "threatfox:w02eza6e.plinkoirani.com",
+    "threatfox:epxigqr.tagat120art.com",
+    "threatfox:swzbdpb.poker-online.bet",
+    "threatfox:103.215.79.163:8646",
+    "threatfox:154.91.180.245:8084",
+    "threatfox:118.107.26.241:8084",
+    "threatfox:34.126.153.130:8080"
   ],
   "source_id": "abuse_ch",
   "stats": {
