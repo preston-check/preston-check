@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-09T16:12:16.857557+00:00",
-  "last_successful_fetch": "2026-06-09T16:12:20.601746+00:00",
+  "last_run": "2026-06-09T19:27:29.841640+00:00",
+  "last_successful_fetch": "2026-06-09T19:27:34.432849+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1106,7 +1106,8 @@
     "github:0xBlackash/CVE-2026-4480",
     "github:Mango-Wang2024/cVEP-Unity",
     "github:hacbs-release-tests/collectors-no-cve-8c80768c",
-    "github:v1ksssqqpon-oss/cveti22"
+    "github:v1ksssqqpon-oss/cveti22",
+    "github:StanislawSkotniczny/cve-scan-history"
   ],
   "source_id": "github_trending",
   "stats": {
