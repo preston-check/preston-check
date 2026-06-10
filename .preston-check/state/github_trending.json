@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-10T16:43:35.313903+00:00",
-  "last_successful_fetch": "2026-06-10T16:43:39.691261+00:00",
+  "last_run": "2026-06-10T19:44:16.344579+00:00",
+  "last_successful_fetch": "2026-06-10T19:44:20.169975+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1132,7 +1132,13 @@
     "github:Supawittttt/cve-list",
     "github:fevar54/CVE-2026-7473---Arista-EOS-Tunnel-Decapsulation-Bypass",
     "github:asdasddqwdq29-a11y/new-cve",
-    "github:hacbs-release-tests/collectors-no-cve-3b94e5ef"
+    "github:hacbs-release-tests/collectors-no-cve-3b94e5ef",
+    "github:abelmarcofti/nmap-cve-scanner",
+    "github:Layer-6/CVE-2026-5027-Langflow",
+    "github:deploymenttheory/go-sdk-cve",
+    "github:LiaoZiqi-GZFLS/CVE-2026-42945",
+    "github:l3acon/cve-workflow",
+    "github:LiaoZiqi-GZFLS/CVE-2026-49975"
   ],
   "source_id": "github_trending",
   "stats": {
