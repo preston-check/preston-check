@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-10T12:35:04.781580+00:00",
-  "last_successful_fetch": "2026-06-10T12:35:08.588972+00:00",
+  "last_run": "2026-06-10T16:43:35.313903+00:00",
+  "last_successful_fetch": "2026-06-10T16:43:39.691261+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1127,7 +1127,12 @@
     "github:hacbs-release-tests/collectors-no-cve-4ae8d4a4",
     "github:hacbs-release-tests/collectors-no-cve-d1393442",
     "github:arkmarta/CVE-Credits",
-    "github:Dhananjayasj/CVE-2025-24813-Apache-Tomcat-Partial-PUT-Deserialization-RCE-"
+    "github:Dhananjayasj/CVE-2025-24813-Apache-Tomcat-Partial-PUT-Deserialization-RCE-",
+    "github:eladdamti100/CVE-Trend-Task",
+    "github:Supawittttt/cve-list",
+    "github:fevar54/CVE-2026-7473---Arista-EOS-Tunnel-Decapsulation-Bypass",
+    "github:asdasddqwdq29-a11y/new-cve",
+    "github:hacbs-release-tests/collectors-no-cve-3b94e5ef"
   ],
   "source_id": "github_trending",
   "stats": {
