@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-09T23:37:36.335943+00:00",
-  "last_successful_fetch": "2026-06-09T23:37:39.625173+00:00",
+  "last_run": "2026-06-10T04:42:04.751163+00:00",
+  "last_successful_fetch": "2026-06-10T04:42:08.018121+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1114,7 +1114,9 @@
     "github:k4w-wak/ollama-silent-patches",
     "github:JoseAnicio/AskCVE",
     "github:hnytgl/CVE-2026-42588",
-    "github:edanziv27/cve-trend-intelligence"
+    "github:edanziv27/cve-trend-intelligence",
+    "github:sneakid/CVE-2024-20154",
+    "github:y4sh-0day/password-tool"
   ],
   "source_id": "github_trending",
   "stats": {
