@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-10T04:42:04.751163+00:00",
-  "last_successful_fetch": "2026-06-10T04:42:08.018121+00:00",
+  "last_run": "2026-06-10T09:00:03.380685+00:00",
+  "last_successful_fetch": "2026-06-10T09:00:08.314957+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1116,7 +1116,13 @@
     "github:hnytgl/CVE-2026-42588",
     "github:edanziv27/cve-trend-intelligence",
     "github:sneakid/CVE-2024-20154",
-    "github:y4sh-0day/password-tool"
+    "github:y4sh-0day/password-tool",
+    "github:rakhalaayu0210/CVE_wazuh",
+    "github:dubkow1337/cve-telegram-bot",
+    "github:ogenich/CVE-2026-10520",
+    "github:HORKimhab/CVE-2026-0542",
+    "github:DunkBoyZz/cve",
+    "github:grayxploit/CVE-2026-0257"
   ],
   "source_id": "github_trending",
   "stats": {
