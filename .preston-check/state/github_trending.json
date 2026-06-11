@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-11T19:42:21.692725+00:00",
-  "last_successful_fetch": "2026-06-11T19:42:25.134175+00:00",
+  "last_run": "2026-06-11T22:11:33.871275+00:00",
+  "last_successful_fetch": "2026-06-11T22:11:38.319340+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1169,7 +1169,11 @@
     "github:jgamblin/CVElk",
     "github:ITSECSPIN/IPS_CVE",
     "github:patil-swap/cve_lucid",
-    "github:hacbs-release-tests/collectors-no-cve-fc67d382"
+    "github:hacbs-release-tests/collectors-no-cve-fc67d382",
+    "github:GiovanniBBenedetti/scan-cve-surface",
+    "github:Noumenon-ai/cve-guard",
+    "github:corbinpage/devin-cve-issue-action",
+    "github:mariuszkrzaczkowski/cve-monitor"
   ],
   "source_id": "github_trending",
   "stats": {
