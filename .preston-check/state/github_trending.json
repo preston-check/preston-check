@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-11T01:35:20.100406+00:00",
-  "last_successful_fetch": "2026-06-10T22:18:37.329174+00:00",
+  "last_run": "2026-06-11T07:01:17.777690+00:00",
+  "last_successful_fetch": "2026-06-11T07:01:22.628022+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1140,7 +1140,18 @@
     "github:l3acon/cve-workflow",
     "github:LiaoZiqi-GZFLS/CVE-2026-49975",
     "github:BorisYamp/cve-scanner",
-    "github:ManagerEmpty/CVE-2026-47291-httpsys"
+    "github:ManagerEmpty/CVE-2026-47291-httpsys",
+    "github:Alardiians/gitea-CVE-2026-28699",
+    "github:Alardiians/pocketbase-CVE-2026-44166",
+    "github:Reflyzal106/Cve-2018-Error-Remote-Desktop-Connection-Error-After-Updatin",
+    "github:hacbs-release-tests/collectors-no-cve-e770add1",
+    "github:GenericCoding/cve-2025-43529-arbitrary-ref",
+    "github:Cyber-DarkNay/CVE-2026-7458",
+    "github:Cyber-DarkNay/CVE-2026-45034",
+    "github:rideckszz/poc-CVE-2019-9053",
+    "github:Wut-sys/cve",
+    "github:HORKimhab/-CVE-2026-5027",
+    "github:HORKimhab/CVE-2026-50507"
   ],
   "source_id": "github_trending",
   "stats": {
