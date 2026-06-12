@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-12T11:07:12.001222+00:00",
-  "last_successful_fetch": "2026-06-12T11:07:15.748866+00:00",
+  "last_run": "2026-06-12T14:15:06.389498+00:00",
+  "last_successful_fetch": "2026-06-12T14:15:10.321181+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1181,7 +1181,9 @@
     "github:bridgenetlab/Monitoring_CVE",
     "github:andrewkumbula/cvetopt",
     "github:uplw269f2a69/cvefjh",
-    "github:pgmac-net/tremendous-cve"
+    "github:pgmac-net/tremendous-cve",
+    "github:DenisBaranov-FEFU/lab2_cve_cwe",
+    "github:ichi05/Analyse-des-Avis-et-Alertes-ANSSI-avec-Enrichissement-des-CVE"
   ],
   "source_id": "github_trending",
   "stats": {
