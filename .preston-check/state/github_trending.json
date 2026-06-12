@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-12T17:41:47.331850+00:00",
-  "last_successful_fetch": "2026-06-12T17:41:51.623817+00:00",
+  "last_run": "2026-06-12T20:22:49.313457+00:00",
+  "last_successful_fetch": "2026-06-12T20:22:53.400338+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1184,7 +1184,10 @@
     "github:pgmac-net/tremendous-cve",
     "github:DenisBaranov-FEFU/lab2_cve_cwe",
     "github:ichi05/Analyse-des-Avis-et-Alertes-ANSSI-avec-Enrichissement-des-CVE",
-    "github:sharondimp/CVERDICT"
+    "github:sharondimp/CVERDICT",
+    "github:SurlyKM/cve-dashboard",
+    "github:BishopFox/CVE-2026-28318-check",
+    "github:foxieweb/cvefyo"
   ],
   "source_id": "github_trending",
   "stats": {
