@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-12T22:43:47.693251+00:00",
-  "last_successful_fetch": "2026-06-12T22:43:51.289575+00:00",
+  "last_run": "2026-06-13T01:32:58.996390+00:00",
+  "last_successful_fetch": "2026-06-13T01:33:03.079460+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1189,7 +1189,8 @@
     "github:BishopFox/CVE-2026-28318-check",
     "github:foxieweb/cvefyo",
     "github:MUGHEESM/cve-scanner",
-    "github:Version-LAA/cvewatchr"
+    "github:Version-LAA/cvewatchr",
+    "github:htogta/cver"
   ],
   "source_id": "github_trending",
   "stats": {
