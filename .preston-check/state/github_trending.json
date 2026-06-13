@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-13T20:24:29.634352+00:00",
-  "last_successful_fetch": "2026-06-13T20:24:32.485518+00:00",
+  "last_run": "2026-06-13T22:16:11.115818+00:00",
+  "last_successful_fetch": "2026-06-13T22:16:14.777974+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1207,7 +1207,12 @@
     "github:LShirokova/cvetsplav.ru",
     "github:CyruxSec/CVE-2026-4524",
     "github:nexorin9/zero-day-window-simulator",
-    "github:SJamison76/network-cve-scanner"
+    "github:SJamison76/network-cve-scanner",
+    "github:MiroslavColov/Cveti-Groom-Premium",
+    "github:travispaul/nvd_cve",
+    "github:nikola-cve/Nexus---Command-Center",
+    "github:ekomsSavior/POC_cve_2026_35273",
+    "github:Revo445/cve-exposure-agent"
   ],
   "source_id": "github_trending",
   "stats": {
