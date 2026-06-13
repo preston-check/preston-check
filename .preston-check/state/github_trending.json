@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-13T16:41:44.670487+00:00",
-  "last_successful_fetch": "2026-06-13T16:41:47.745676+00:00",
+  "last_run": "2026-06-13T18:20:49.646630+00:00",
+  "last_successful_fetch": "2026-06-13T18:20:53.526544+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1202,7 +1202,11 @@
     "github:0xHossam/UnCanny",
     "github:rootdirective-sec/CVE-2026-42647-Lab",
     "github:DavidCataluddi/CVE-Explanation",
-    "github:Yukouf/Wazuh-CVE-Alerter"
+    "github:Yukouf/Wazuh-CVE-Alerter",
+    "github:0xBlackash/CVE-2026-20253",
+    "github:LShirokova/cvetsplav.ru",
+    "github:CyruxSec/CVE-2026-4524",
+    "github:nexorin9/zero-day-window-simulator"
   ],
   "source_id": "github_trending",
   "stats": {
