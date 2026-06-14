@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-14T12:09:57.822597+00:00",
-  "last_successful_fetch": "2026-06-14T12:10:01.129219+00:00",
+  "last_run": "2026-06-14T15:15:27.839322+00:00",
+  "last_successful_fetch": "2026-06-14T15:15:31.706943+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1216,7 +1216,17 @@
     "github:cloudanimal/cve-patch-lookup",
     "github:leanderziehm/cve-overview",
     "github:ianandmaggies-stack/cveintel",
-    "github:madhusudhan-in/CVE_2023_44487-Rapid_Reset"
+    "github:madhusudhan-in/CVE_2023_44487-Rapid_Reset",
+    "github:0xBlackash/CVE-2017-0144",
+    "github:saintpierrezgnk4950-pixel/CVE-project",
+    "github:financdc/cve",
+    "github:HORKimhab/CVE-2026-20253",
+    "github:yberdrink/cves",
+    "github:webshellseo8/CVE-2026-53787-POC-",
+    "github:Earlyde/cve",
+    "github:Andjelina22/PZ-online-cvecara",
+    "github:strawhat23/cve-intelligence-assistant",
+    "github:fichterclapsaddle879-rgb/MyCve"
   ],
   "source_id": "github_trending",
   "stats": {
