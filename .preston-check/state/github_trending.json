@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-14T06:02:54.931421+00:00",
-  "last_successful_fetch": "2026-06-14T06:02:58.732259+00:00",
+  "last_run": "2026-06-14T09:53:54.238353+00:00",
+  "last_successful_fetch": "2026-06-14T09:53:57.726381+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1213,7 +1213,9 @@
     "github:nikola-cve/Nexus---Command-Center",
     "github:ekomsSavior/POC_cve_2026_35273",
     "github:Revo445/cve-exposure-agent",
-    "github:cloudanimal/cve-patch-lookup"
+    "github:cloudanimal/cve-patch-lookup",
+    "github:leanderziehm/cve-overview",
+    "github:ianandmaggies-stack/cveintel"
   ],
   "source_id": "github_trending",
   "stats": {
