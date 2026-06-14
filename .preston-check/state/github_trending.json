@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-14T19:53:46.649692+00:00",
-  "last_successful_fetch": "2026-06-14T19:53:49.763254+00:00",
+  "last_run": "2026-06-14T21:24:14.011925+00:00",
+  "last_successful_fetch": "2026-06-14T21:24:17.856187+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1234,7 +1234,12 @@
     "github:sec-sys/CVE-2026-42945-Reverse-Shell-POC",
     "github:Marg05-DEV/ProgettoEsameCVeDL",
     "github:Agentpathogene/CTf-CVE.py",
-    "github:MiguelCarino/CVE"
+    "github:MiguelCarino/CVE",
+    "github:misic-nikola/cvecara-iris",
+    "github:j1n-kazama/cve-priority-framework",
+    "github:fxdyx-a/CVE-2021-41773-POC",
+    "github:kaleth4/CVE-2022-30190",
+    "github:buluma/ansible-role-cve_2024_3094"
   ],
   "source_id": "github_trending",
   "stats": {
