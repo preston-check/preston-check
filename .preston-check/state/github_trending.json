@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-14T09:53:54.238353+00:00",
-  "last_successful_fetch": "2026-06-14T09:53:57.726381+00:00",
+  "last_run": "2026-06-14T12:09:57.822597+00:00",
+  "last_successful_fetch": "2026-06-14T12:10:01.129219+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1215,7 +1215,8 @@
     "github:Revo445/cve-exposure-agent",
     "github:cloudanimal/cve-patch-lookup",
     "github:leanderziehm/cve-overview",
-    "github:ianandmaggies-stack/cveintel"
+    "github:ianandmaggies-stack/cveintel",
+    "github:madhusudhan-in/CVE_2023_44487-Rapid_Reset"
   ],
   "source_id": "github_trending",
   "stats": {
