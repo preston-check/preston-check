@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-06-13T22:16:15.047871+00:00",
-  "last_successful_fetch": "2026-06-13T22:16:15.048871+00:00",
+  "last_run": "2026-06-14T00:18:43.441727+00:00",
+  "last_successful_fetch": "2026-06-14T00:18:43.442641+00:00",
   "processed_ids": [
-    "threatfox:43.255.157.92:6443",
-    "threatfox:39.100.79.118:60000",
-    "threatfox:https://performanceadvisorygroup.com/",
-    "threatfox:castrkq.cyou",
-    "threatfox:frozetk.cyou",
-    "threatfox:genusim.cyou",
-    "threatfox:seasoem.cyou",
-    "threatfox:razefti.cyou",
     "threatfox:39.100.79.118:80",
     "threatfox:39.100.79.118:8080",
     "threatfox:47.120.61.155:8888",
@@ -5001,7 +4993,15 @@
     "threatfox:38.190.198.37:8084",
     "threatfox:103.47.83.115:10001",
     "threatfox:kzkzbbha.hugugmadani6.xyz",
-    "threatfox:wdbcypih.hugugedari.xyz"
+    "threatfox:wdbcypih.hugugedari.xyz",
+    "threatfox:efwjubk.rocketbet.pro",
+    "threatfox:qvipoojy.karafarini.shop",
+    "threatfox:7sxu8ft8.shartbandikade.online",
+    "threatfox:8r61gwvq.ravansalamat.shop",
+    "threatfox:yba7z7vt.ravansalamat.shop",
+    "threatfox:zkclsegh.jam-jahani.com",
+    "threatfox:pirqlheh.hugugtejarat4.xyz",
+    "threatfox:ahkyokta.hugugtatbigi.xyz"
   ],
   "source_id": "abuse_ch",
   "stats": {
