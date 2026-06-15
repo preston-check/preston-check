@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-15T18:01:20.537550+00:00",
-  "last_successful_fetch": "2026-06-15T18:01:24.562856+00:00",
+  "last_run": "2026-06-15T21:17:08.478057+00:00",
+  "last_successful_fetch": "2026-06-15T21:17:11.713692+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1254,7 +1254,8 @@
     "github:znb-q/cve_scanner",
     "github:Mlassout/anssi-cve-analysis",
     "github:lozeva/cve-exploitability-prediction",
-    "github:vulncheck-oss/0day.today.archive"
+    "github:vulncheck-oss/0day.today.archive",
+    "github:srandres-git/cves-edo-cta-mlg"
   ],
   "source_id": "github_trending",
   "stats": {
