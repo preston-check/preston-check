@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-16T11:31:30.353328+00:00",
-  "last_successful_fetch": "2026-06-16T11:31:34.872405+00:00",
+  "last_run": "2026-06-16T17:18:32.095544+00:00",
+  "last_successful_fetch": "2026-06-16T17:18:36.181360+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1262,7 +1262,11 @@
     "github:sai-vivekanand/Distributed_Services_CVE_Platform",
     "github:mitre/mitre-cve-roles",
     "github:eev4n/CVE-2026-53582",
-    "github:bolubey/CVE-2026-50751"
+    "github:bolubey/CVE-2026-50751",
+    "github:NeCr00/CVE-Hunter",
+    "github:loardracoon/sophos-cve-guard",
+    "github:spikeyjr/CVE-2023-34468-PoC",
+    "github:shuhuNB515/KubeVigil"
   ],
   "source_id": "github_trending",
   "stats": {
