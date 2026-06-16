@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-15T22:27:47.622481+00:00",
-  "last_successful_fetch": "2026-06-15T22:27:47.623196+00:00",
+  "last_run": "2026-06-16T05:29:39.804444+00:00",
+  "last_successful_fetch": "2026-06-16T05:29:39.804827+00:00",
   "processed_ids": [
     "oss-security:2026/05/08/9",
     "oss-security:2026/05/08/8",
@@ -597,7 +597,8 @@
     "oss-security:2026/06/15/10",
     "oss-security:2026/06/15/9",
     "oss-security:2026/06/15/8",
-    "oss-security:2026/06/15/7"
+    "oss-security:2026/06/15/7",
+    "oss-security:2026/06/16/1"
   ],
   "source_id": "mailing_list",
   "stats": {
