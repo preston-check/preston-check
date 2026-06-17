@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-17T15:59:16.451033+00:00",
-  "last_successful_fetch": "2026-06-17T15:59:20.552137+00:00",
+  "last_run": "2026-06-17T18:30:18.338045+00:00",
+  "last_successful_fetch": "2026-06-17T18:30:23.416298+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1297,7 +1297,12 @@
     "github:redteamfortress/CVE-2026-36425",
     "github:anglemsg2401-bot/cve",
     "github:wearehackers160/CVE-2026-48907",
-    "github:giovannisciortino/cve-ansible-playbooks"
+    "github:giovannisciortino/cve-ansible-playbooks",
+    "github:BenedictEjepu/CVE-2026-46300-Fragnesia---TryHackMe-Lab-Project",
+    "github:gotsecg/cve-analysis",
+    "github:BenedictEjepu/CVE-2026-46300-Fragnesia---TryHackMe-Lab-Walkthrough",
+    "github:eduardobezerraz/AnaliseProbabilistica_CVE",
+    "github:mruniversity/CVE-2026-2256-"
   ],
   "source_id": "github_trending",
   "stats": {
