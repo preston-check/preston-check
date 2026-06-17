@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-17T18:30:18.338045+00:00",
-  "last_successful_fetch": "2026-06-17T18:30:23.416298+00:00",
+  "last_run": "2026-06-17T21:19:31.638965+00:00",
+  "last_successful_fetch": "2026-06-17T21:19:36.435339+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1302,7 +1302,15 @@
     "github:gotsecg/cve-analysis",
     "github:BenedictEjepu/CVE-2026-46300-Fragnesia---TryHackMe-Lab-Walkthrough",
     "github:eduardobezerraz/AnaliseProbabilistica_CVE",
-    "github:mruniversity/CVE-2026-2256-"
+    "github:mruniversity/CVE-2026-2256-",
+    "github:K3ysTr0K3R/Hadoop-YARN-RCE",
+    "github:hacbs-release-tests/collectors-no-cve-f6a9db82",
+    "github:hacbs-release-tests/collectors-no-cve-474b6fda",
+    "github:segunakinsoyinu/CVE-2024-42009-roundcube-xss",
+    "github:Fadliwiryawirawan-development/CVE-ssl-w1ry4-services.MD",
+    "github:hiro001-eth/CERBERUS-CVE-to-Risk-Register-Pipeline",
+    "github:evidai/dependency-cve-scan",
+    "github:w0ot-net/cve_2018_19134_ghostscript_arbitrary_rw_demo"
   ],
   "source_id": "github_trending",
   "stats": {
