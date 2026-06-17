@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-16T23:45:02.774224+00:00",
-  "last_successful_fetch": "2026-06-16T23:45:06.966495+00:00",
+  "last_run": "2026-06-17T05:08:04.654938+00:00",
+  "last_successful_fetch": "2026-06-17T05:08:08.525345+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1272,7 +1272,10 @@
     "github:cloudanimal/cve-remediation-agent",
     "github:chainguard-actions/kunalnagarco-action-cve",
     "github:bazzofx/cve-daily-report",
-    "github:hacbs-release-tests/collectors-no-cve-7172b4c4"
+    "github:hacbs-release-tests/collectors-no-cve-7172b4c4",
+    "github:RedBeard51/Daily-CVE-Briefing",
+    "github:HORKimhab/CVE-2024-20399",
+    "github:larlarua/AutoCVE"
   ],
   "source_id": "github_trending",
   "stats": {
