@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-17T21:19:31.638965+00:00",
-  "last_successful_fetch": "2026-06-17T21:19:36.435339+00:00",
+  "last_run": "2026-06-17T23:47:47.543265+00:00",
+  "last_successful_fetch": "2026-06-17T23:47:51.159366+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1310,7 +1310,11 @@
     "github:Fadliwiryawirawan-development/CVE-ssl-w1ry4-services.MD",
     "github:hiro001-eth/CERBERUS-CVE-to-Risk-Register-Pipeline",
     "github:evidai/dependency-cve-scan",
-    "github:w0ot-net/cve_2018_19134_ghostscript_arbitrary_rw_demo"
+    "github:w0ot-net/cve_2018_19134_ghostscript_arbitrary_rw_demo",
+    "github:motosatoshi84/cve-intelligence",
+    "github:Cventurelli/Cventurelli",
+    "github:kyconf/cve-risk-report",
+    "github:gfd6tthf/CVE-2024-6536"
   ],
   "source_id": "github_trending",
   "stats": {
