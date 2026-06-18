@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-18T04:58:07.232504+00:00",
-  "last_successful_fetch": "2026-06-18T04:58:10.823588+00:00",
+  "last_run": "2026-06-18T09:24:04.850348+00:00",
+  "last_successful_fetch": "2026-06-18T09:24:08.532339+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1316,7 +1316,14 @@
     "github:kyconf/cve-risk-report",
     "github:gfd6tthf/CVE-2024-6536",
     "github:IIndicus2603/CVExtract",
-    "github:CamilaIsperling/CVEye"
+    "github:CamilaIsperling/CVEye",
+    "github:fifJ592/cvebns",
+    "github:levigo/jira-cve-action",
+    "github:cwayne18/k3s-cves",
+    "github:newstartin/cvefocus",
+    "github:EynaExp/CVE-Lenin",
+    "github:minq0x1412/CVE-2025-53024",
+    "github:Intevation/csaf-cve-comparison"
   ],
   "source_id": "github_trending",
   "stats": {
