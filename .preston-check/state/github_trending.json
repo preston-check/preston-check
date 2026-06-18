@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-18T09:24:04.850348+00:00",
-  "last_successful_fetch": "2026-06-18T09:24:08.532339+00:00",
+  "last_run": "2026-06-18T13:38:28.597335+00:00",
+  "last_successful_fetch": "2026-06-18T13:38:32.857279+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1323,7 +1323,16 @@
     "github:newstartin/cvefocus",
     "github:EynaExp/CVE-Lenin",
     "github:minq0x1412/CVE-2025-53024",
-    "github:Intevation/csaf-cve-comparison"
+    "github:Intevation/csaf-cve-comparison",
+    "github:sectroyer/CVEs",
+    "github:hacbs-release-tests/collectors-no-cve-024b923f",
+    "github:hacbs-release-tests/collectors-no-cve-910fd19d",
+    "github:dx3906999/cve-reproduction",
+    "github:cuozzo/network-cve-matcher",
+    "github:Jarrettgohxz/CVE-research",
+    "github:0xBlackash/CVE-2026-50656",
+    "github:UmbraDeorum/cutenews-2.0-CVEs-2026-Disclosure",
+    "github:Leonideath/nuclei-cve-crit-high"
   ],
   "source_id": "github_trending",
   "stats": {
