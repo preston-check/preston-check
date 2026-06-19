@@ -1,9 +1,7 @@
 {
-  "last_run": "2026-06-18T23:01:17.507418+00:00",
-  "last_successful_fetch": "2026-06-18T23:01:17.508044+00:00",
+  "last_run": "2026-06-19T01:51:04.043138+00:00",
+  "last_successful_fetch": "2026-06-19T01:51:04.043975+00:00",
   "processed_ids": [
-    "threatfox:diranda.lol",
-    "threatfox:https://diranda.lol/api/v1/session",
     "threatfox:https://diranda.lol/api/v1/verify",
     "threatfox:https://copperbeacon.top/health/public-layout",
     "threatfox:copperbeacon.top",
@@ -5001,7 +4999,9 @@
     "threatfox:lgoanndm.betvarzeshkade.online",
     "threatfox:1qmi6vxn.hesabdarinoravesh.xyz",
     "threatfox:ef1q7686.enfej.win",
-    "threatfox:103.83.87.182:2222"
+    "threatfox:103.83.87.182:2222",
+    "threatfox:115.190.147.66:63512",
+    "threatfox:io7yo39n.enfejkade.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
