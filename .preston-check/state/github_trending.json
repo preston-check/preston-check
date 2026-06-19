@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-19T07:22:26.821931+00:00",
-  "last_successful_fetch": "2026-06-19T07:22:30.269471+00:00",
+  "last_run": "2026-06-19T12:16:26.649004+00:00",
+  "last_successful_fetch": "2026-06-19T12:16:30.402026+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1356,7 +1356,13 @@
     "github:HORKimhab/poc-cve-collection",
     "github:codeboost-tr/cve-audit-skill",
     "github:InertFluid/cve-2026-54316-lab",
-    "github:0xk4rth1/CVE-2025-2304"
+    "github:0xk4rth1/CVE-2025-2304",
+    "github:starfallreverie/winrar-exploit",
+    "github:4T4L4Y/CVE-Portfolio",
+    "github:hacbs-release-tests/collectors-no-cve-a10da9da",
+    "github:pablenr/cve-intelligence-assistant",
+    "github:yadavnikhil17102004/CVE-Intel",
+    "github:covepseng/cve-2026-43515-poc"
   ],
   "source_id": "github_trending",
   "stats": {
