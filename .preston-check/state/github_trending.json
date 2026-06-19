@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-19T20:45:48.934628+00:00",
-  "last_successful_fetch": "2026-06-19T20:45:53.576728+00:00",
+  "last_run": "2026-06-19T22:12:13.765612+00:00",
+  "last_successful_fetch": "2026-06-19T22:12:17.593246+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1377,7 +1377,11 @@
     "github:0xBlackash/CVE-2026-42530",
     "github:Dhanush-Aries/cve-advisor",
     "github:adakoifman/CVE-2021-3560",
-    "github:timotheeCloup/CVEE"
+    "github:timotheeCloup/CVEE",
+    "github:h0rk1p/cve-poc-assets",
+    "github:clynbmilio/dependency-cve-audit-runx",
+    "github:BenedictEjepu/CVE-2024-24945-NGINX-RIFT---TryHackMe-Lab-Walkthrough",
+    "github:v4ltonn/CVE-2026-42530"
   ],
   "source_id": "github_trending",
   "stats": {
