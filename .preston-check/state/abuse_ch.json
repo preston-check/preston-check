@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-06-19T16:12:52.056035+00:00",
-  "last_successful_fetch": "2026-06-19T16:12:52.056925+00:00",
+  "last_run": "2026-06-19T19:06:39.380804+00:00",
+  "last_successful_fetch": "2026-06-19T19:06:39.381792+00:00",
   "processed_ids": [
-    "threatfox:jojobetuyelik.info",
-    "threatfox:47.108.62.225:58313",
-    "threatfox:113.45.226.61:8080",
     "threatfox:180.93.109.34:80",
     "threatfox:91.215.85.121:8849",
     "threatfox:zvxeaqm.jogodobicho.games",
@@ -5001,7 +4998,10 @@
     "threatfox:http://223.123.38.127:60991/Mozi.m",
     "threatfox:http://103.141.5.137:41713/Mozi.a",
     "threatfox:https://prd.sm188login.icu/",
-    "threatfox:prd.sm188login.icu"
+    "threatfox:prd.sm188login.icu",
+    "threatfox:0q26dscq.anodaz.vip",
+    "threatfox:2rvmsbh4.bet303.download",
+    "threatfox:fvkyh2up.testpaye.xyz"
   ],
   "source_id": "abuse_ch",
   "stats": {

@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-19T16:12:47.071021+00:00",
-  "last_successful_fetch": "2026-06-19T16:12:51.690586+00:00",
+  "last_run": "2026-06-19T19:06:35.568117+00:00",
+  "last_successful_fetch": "2026-06-19T19:06:39.036856+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1366,7 +1366,13 @@
     "github:hackergovind/CVE-Radar",
     "github:feritozner/My_CVE_Records",
     "github:gagaltotal/CVE-2026-10523-Ivanti-sentry",
-    "github:NumyAddon/ToCVersions"
+    "github:NumyAddon/ToCVersions",
+    "github:abdurazzoqovjavohir700-dev/security-disclosures-2026",
+    "github:TYehan/CVE-2025-57819-FreePBX-RCE-Exploit",
+    "github:hacbs-release-tests/collectors-no-cve-7c09b6e7",
+    "github:hacbs-release-tests/collectors-no-cve-1bbe5b54",
+    "github:hacbs-release-tests/collectors-no-cve-8030f597",
+    "github:ptd200110/CVE-2024-27198-SOC-Lab"
   ],
   "source_id": "github_trending",
   "stats": {
