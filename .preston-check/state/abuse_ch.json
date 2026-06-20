@@ -1,8 +1,7 @@
 {
-  "last_run": "2026-06-20T14:28:24.299782+00:00",
-  "last_successful_fetch": "2026-06-20T14:28:24.300460+00:00",
+  "last_run": "2026-06-20T16:43:36.005230+00:00",
+  "last_successful_fetch": "2026-06-20T16:43:36.006102+00:00",
   "processed_ids": [
-    "threatfox:enkkxbi.n1betiran.com",
     "threatfox:154.198.49.31:80",
     "threatfox:!k!.n1betiran.com",
     "threatfox:monalisadebatom.com.br",
@@ -5001,7 +5000,8 @@
     "threatfox:195.20.115.197:8808",
     "threatfox:58shz66o.tahlilsazeha.xyz",
     "threatfox:zxe9u0st.sigaribetkade.com",
-    "threatfox:rurhmgw2.readthisintro.xyz"
+    "threatfox:rurhmgw2.readthisintro.xyz",
+    "threatfox:4q74zsh8.raftarsazmani.xyz"
   ],
   "source_id": "abuse_ch",
   "stats": {

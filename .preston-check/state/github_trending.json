@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-20T14:28:19.931291+00:00",
-  "last_successful_fetch": "2026-06-20T14:28:23.939433+00:00",
+  "last_run": "2026-06-20T16:43:32.012282+00:00",
+  "last_successful_fetch": "2026-06-20T16:43:35.608126+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1394,7 +1394,12 @@
     "github:pestoura/cve-watchlist-platform",
     "github:Clinvio/cve-comment-scanner",
     "github:notahyphen/Remnawave_Cve",
-    "github:webzzaa/cve-poc-searcher-skill"
+    "github:webzzaa/cve-poc-searcher-skill",
+    "github:mustafaansarii/cvenhance",
+    "github:chezzuhhh/CVE4-27-26",
+    "github:azilRababe/CVE-2024-50379",
+    "github:ClearLotus-git/CVE-2026-4480-PoC",
+    "github:kaicver1234/cverbin"
   ],
   "source_id": "github_trending",
   "stats": {
