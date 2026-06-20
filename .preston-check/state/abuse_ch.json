@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-06-20T12:06:30.151231+00:00",
-  "last_successful_fetch": "2026-06-20T12:06:30.152276+00:00",
+  "last_run": "2026-06-20T14:28:24.299782+00:00",
+  "last_successful_fetch": "2026-06-20T14:28:24.300460+00:00",
   "processed_ids": [
-    "threatfox:lvgnygm.nannafreving.com",
-    "threatfox:!k!.nannafreving.com",
-    "threatfox:35.225.227.214:80",
-    "threatfox:ylccwf.jamjahani.games",
-    "threatfox:35.225.227.214:8080",
-    "threatfox:103.51.147.252:80",
     "threatfox:enkkxbi.n1betiran.com",
     "threatfox:154.198.49.31:80",
     "threatfox:!k!.n1betiran.com",
@@ -5001,7 +4995,13 @@
     "threatfox:198.23.185.136:20600",
     "threatfox:188.253.104.174:2026",
     "threatfox:147.93.191.75:30400",
-    "threatfox:87khq5gx.ravabetensani.site"
+    "threatfox:87khq5gx.ravabetensani.site",
+    "threatfox:43.138.165.203:9002",
+    "threatfox:49.233.136.227:18083",
+    "threatfox:195.20.115.197:8808",
+    "threatfox:58shz66o.tahlilsazeha.xyz",
+    "threatfox:zxe9u0st.sigaribetkade.com",
+    "threatfox:rurhmgw2.readthisintro.xyz"
   ],
   "source_id": "abuse_ch",
   "stats": {
