@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-20T20:23:50.674821+00:00",
-  "last_successful_fetch": "2026-06-20T20:23:53.778573+00:00",
+  "last_run": "2026-06-20T22:19:49.033473+00:00",
+  "last_successful_fetch": "2026-06-20T22:19:51.849354+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1402,7 +1402,12 @@
     "github:kaicver1234/cverbin",
     "github:JFOZ1010/Osticket_CVE_researching",
     "github:srknzl/cvesse",
-    "github:lumosityfan/cvector-take-home-test"
+    "github:lumosityfan/cvector-take-home-test",
+    "github:aelshimony-cloud/OpenWire-CVE-2023-46604-Investigation",
+    "github:jbauq/cvefmo",
+    "github:jaasieldelgado131/runx-exact-cve-audit",
+    "github:ubarber/cvegir",
+    "github:cvekiboy/cvekiboy.github.io"
   ],
   "source_id": "github_trending",
   "stats": {
