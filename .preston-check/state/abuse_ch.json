@@ -1,9 +1,7 @@
 {
-  "last_run": "2026-06-20T16:43:36.005230+00:00",
-  "last_successful_fetch": "2026-06-20T16:43:36.006102+00:00",
+  "last_run": "2026-06-20T18:23:49.547877+00:00",
+  "last_successful_fetch": "2026-06-20T18:23:49.548699+00:00",
   "processed_ids": [
-    "threatfox:154.198.49.31:80",
-    "threatfox:!k!.n1betiran.com",
     "threatfox:monalisadebatom.com.br",
     "threatfox:ugmitqk.one1xbet.poker",
     "threatfox:qtcfxojh.mostbetresmi.site",
@@ -5001,7 +4999,9 @@
     "threatfox:58shz66o.tahlilsazeha.xyz",
     "threatfox:zxe9u0st.sigaribetkade.com",
     "threatfox:rurhmgw2.readthisintro.xyz",
-    "threatfox:4q74zsh8.raftarsazmani.xyz"
+    "threatfox:4q74zsh8.raftarsazmani.xyz",
+    "threatfox:http://193.148.57.10/88004f4d3e32489389ea.php",
+    "threatfox:zuldqm04.riyaziyattajrobi.xyz"
   ],
   "source_id": "abuse_ch",
   "stats": {

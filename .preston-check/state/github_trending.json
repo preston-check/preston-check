@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-20T16:43:32.012282+00:00",
-  "last_successful_fetch": "2026-06-20T16:43:35.608126+00:00",
+  "last_run": "2026-06-20T18:23:46.325883+00:00",
+  "last_successful_fetch": "2026-06-20T18:23:49.259146+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1399,7 +1399,8 @@
     "github:chezzuhhh/CVE4-27-26",
     "github:azilRababe/CVE-2024-50379",
     "github:ClearLotus-git/CVE-2026-4480-PoC",
-    "github:kaicver1234/cverbin"
+    "github:kaicver1234/cverbin",
+    "github:JFOZ1010/Osticket_CVE_researching"
   ],
   "source_id": "github_trending",
   "stats": {
