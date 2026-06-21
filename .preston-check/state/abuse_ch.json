@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-06-21T10:40:57.834008+00:00",
-  "last_successful_fetch": "2026-06-21T10:40:57.835249+00:00",
+  "last_run": "2026-06-21T13:16:37.432102+00:00",
+  "last_successful_fetch": "2026-06-21T13:16:37.432866+00:00",
   "processed_ids": [
-    "threatfox:iidqou.jamjahani.app",
-    "threatfox:dphxsy.perfectgame.casino",
-    "threatfox:161.248.87.185:2844",
-    "threatfox:27.124.40.162:443",
-    "threatfox:2844.xzz.cam",
-    "threatfox:backdoor.cyou",
-    "threatfox:kuralyok.com.tr",
-    "threatfox:blank-rfhww.in",
     "threatfox:skoch-osjdw.in",
     "threatfox:skoch-wif67.in",
     "threatfox:blank-c1vj5.in",
@@ -5001,7 +4993,15 @@
     "threatfox:http://110.36.86.0:55983/Mozi.m",
     "threatfox:23.27.13.43:80",
     "threatfox:198.105.127.210:80",
-    "threatfox:s3zzh7np.sigaribetkade.com"
+    "threatfox:s3zzh7np.sigaribetkade.com",
+    "threatfox:zyppn5vo.riyazishahkilid.xyz",
+    "threatfox:86.54.25.202:443",
+    "threatfox:macos.certificates.ltd",
+    "threatfox:https://macos.certificates.ltd/apple/macos/installation/terminal/launcher",
+    "threatfox:74.208.92.197:5173",
+    "threatfox:6w8npdwb.angizeshfarahani.store",
+    "threatfox:https://cdn.jsdelivr.net/gh/savina-41/d846-4abc/id-7843",
+    "threatfox:6xelt3vl.shartplus.com"
   ],
   "source_id": "abuse_ch",
   "stats": {

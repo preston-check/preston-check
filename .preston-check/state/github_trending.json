@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-21T10:40:53.121742+00:00",
-  "last_successful_fetch": "2026-06-21T10:40:57.171700+00:00",
+  "last_run": "2026-06-21T13:16:33.089582+00:00",
+  "last_successful_fetch": "2026-06-21T13:16:37.085703+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1415,7 +1415,8 @@
     "github:ubaydev/CVE-2026-11551-PoC",
     "github:Thirbt/tcc-cve-agent",
     "github:janosbuzasi/cve-watch-demo",
-    "github:rkhamkar7891/cve-agent"
+    "github:rkhamkar7891/cve-agent",
+    "github:botsklad777/cveti"
   ],
   "source_id": "github_trending",
   "stats": {
