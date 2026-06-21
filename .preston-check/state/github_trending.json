@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-20T22:19:49.033473+00:00",
-  "last_successful_fetch": "2026-06-20T22:19:51.849354+00:00",
+  "last_run": "2026-06-21T00:18:54.632783+00:00",
+  "last_successful_fetch": "2026-06-21T00:18:58.296473+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1407,7 +1407,8 @@
     "github:jbauq/cvefmo",
     "github:jaasieldelgado131/runx-exact-cve-audit",
     "github:ubarber/cvegir",
-    "github:cvekiboy/cvekiboy.github.io"
+    "github:cvekiboy/cvekiboy.github.io",
+    "github:sngrotesque/CVE_CommonVulnerabilityExploit"
   ],
   "source_id": "github_trending",
   "stats": {
