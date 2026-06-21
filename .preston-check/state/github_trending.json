@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-21T00:18:54.632783+00:00",
-  "last_successful_fetch": "2026-06-21T00:18:58.296473+00:00",
+  "last_run": "2026-06-21T06:15:57.927923+00:00",
+  "last_successful_fetch": "2026-06-21T06:16:01.391867+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1408,7 +1408,12 @@
     "github:jaasieldelgado131/runx-exact-cve-audit",
     "github:ubarber/cvegir",
     "github:cvekiboy/cvekiboy.github.io",
-    "github:sngrotesque/CVE_CommonVulnerabilityExploit"
+    "github:sngrotesque/CVE_CommonVulnerabilityExploit",
+    "github:alperenkesk/CVE-2026-11561",
+    "github:xqi1337/poc-CVE-2026-0073",
+    "github:SupremeGoogle/cveti-bashkortostan",
+    "github:ubaydev/CVE-2026-11551-PoC",
+    "github:Thirbt/tcc-cve-agent"
   ],
   "source_id": "github_trending",
   "stats": {
