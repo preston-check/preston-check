@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-06-21T13:16:37.432102+00:00",
-  "last_successful_fetch": "2026-06-21T13:16:37.432866+00:00",
+  "last_run": "2026-06-21T16:05:55.976228+00:00",
+  "last_successful_fetch": "2026-06-21T16:05:55.976981+00:00",
   "processed_ids": [
-    "threatfox:skoch-osjdw.in",
-    "threatfox:skoch-wif67.in",
-    "threatfox:blank-c1vj5.in",
-    "threatfox:g98546cg.beget.tech",
-    "threatfox:shaurma.fun",
     "threatfox:skoch-7bced.in",
     "threatfox:o5.gg",
     "threatfox:blank-jknks.in",
@@ -5001,7 +4996,12 @@
     "threatfox:74.208.92.197:5173",
     "threatfox:6w8npdwb.angizeshfarahani.store",
     "threatfox:https://cdn.jsdelivr.net/gh/savina-41/d846-4abc/id-7843",
-    "threatfox:6xelt3vl.shartplus.com"
+    "threatfox:6xelt3vl.shartplus.com",
+    "threatfox:zerangbet.com",
+    "threatfox:162.14.99.178:61080",
+    "threatfox:141.98.157.101:2288",
+    "threatfox:106.52.91.14:8888",
+    "threatfox:87.199.196.12:443"
   ],
   "source_id": "abuse_ch",
   "stats": {
