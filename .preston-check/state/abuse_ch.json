@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-06-21T21:39:14.277633+00:00",
-  "last_successful_fetch": "2026-06-21T21:39:14.278445+00:00",
+  "last_run": "2026-06-21T23:40:01.176030+00:00",
+  "last_successful_fetch": "2026-06-21T23:40:01.176740+00:00",
   "processed_ids": [
-    "threatfox:photo-26653.cfd",
-    "threatfox:photo-26652.cfd",
-    "threatfox:havasssj291sld.com",
     "threatfox:photo-27657.cfd",
     "threatfox:jsdakksd283ksl.com",
     "threatfox:hotelsphotosite.cloud",
@@ -5001,7 +4998,10 @@
     "threatfox:52.128.224.237:9191",
     "threatfox:52.128.224.237:8089",
     "threatfox:52.128.224.237:9090",
-    "threatfox:52.128.224.237:8084"
+    "threatfox:52.128.224.237:8084",
+    "threatfox:bcgame.poker",
+    "threatfox:http://193.148.57.16/1109860002d645548e1b.php",
+    "threatfox:102.220.160.155:2404"
   ],
   "source_id": "abuse_ch",
   "stats": {
