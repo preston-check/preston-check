@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-06-21T19:58:42.748355+00:00",
-  "last_successful_fetch": "2026-06-21T19:58:42.749374+00:00",
+  "last_run": "2026-06-21T21:39:14.277633+00:00",
+  "last_successful_fetch": "2026-06-21T21:39:14.278445+00:00",
   "processed_ids": [
-    "threatfox:https://fhe.fixsm188.top/",
-    "threatfox:https://steamcommunity.com/profiles/76561198694566254",
-    "threatfox:107.175.179.48:2404",
-    "threatfox:hakdsiwqs281ks.com",
-    "threatfox:teraview.info",
-    "threatfox:photforhotel.info",
-    "threatfox:photo-26656.cfd",
-    "threatfox:dsjkaksfks324das.com",
     "threatfox:photo-26653.cfd",
     "threatfox:photo-26652.cfd",
     "threatfox:havasssj291sld.com",
@@ -5001,7 +4993,15 @@
     "threatfox:machinelearningaimod.onrender.com",
     "threatfox:aiBot.casacam.net",
     "threatfox:gdxai3cp.shart.casino",
-    "threatfox:shart.casino"
+    "threatfox:shart.casino",
+    "threatfox:taktikbetkade.com",
+    "threatfox:n8n69sm2.bcgameiran.net",
+    "threatfox:bcgameiran.net",
+    "threatfox:jb9ff818.azmoondadrasi.xyz",
+    "threatfox:52.128.224.237:9191",
+    "threatfox:52.128.224.237:8089",
+    "threatfox:52.128.224.237:9090",
+    "threatfox:52.128.224.237:8084"
   ],
   "source_id": "abuse_ch",
   "stats": {

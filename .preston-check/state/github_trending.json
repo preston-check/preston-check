@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-21T19:58:39.054468+00:00",
-  "last_successful_fetch": "2026-06-21T19:58:42.338949+00:00",
+  "last_run": "2026-06-21T21:39:10.613362+00:00",
+  "last_successful_fetch": "2026-06-21T21:39:14.003131+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1425,7 +1425,9 @@
     "github:xxconi/CVE-2026-49777-CVE-2026-10735",
     "github:cveburak/CVEOSINT",
     "github:SaaWest/CVEthesis",
-    "github:v1xpopay/CVE-studies-"
+    "github:v1xpopay/CVE-studies-",
+    "github:Is4yev/CVE-2026-48909",
+    "github:OkamiSpade/Cve-2026-39676"
   ],
   "source_id": "github_trending",
   "stats": {
