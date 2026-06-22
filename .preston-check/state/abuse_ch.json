@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-06-22T21:11:47.746491+00:00",
-  "last_successful_fetch": "2026-06-22T21:11:47.747253+00:00",
+  "last_run": "2026-06-22T23:41:11.892225+00:00",
+  "last_successful_fetch": "2026-06-22T23:41:11.892928+00:00",
   "processed_ids": [
-    "threatfox:sfdwdmq.mangobetfarsi.com",
-    "threatfox:moisca.com",
-    "threatfox:carogra.biz",
-    "threatfox:brazpi.shop",
-    "threatfox:godsblueprintforyourmarriage.com",
-    "threatfox:lmc014command.com",
     "threatfox:gohan-suki.com",
     "threatfox:eurogulf-group.com",
     "threatfox:154.29.73.187:56523",
@@ -5001,7 +4995,13 @@
     "threatfox:https://git.hitamsm188.top/",
     "threatfox:git.utvrent.com",
     "threatfox:https://git.utvrent.com/",
-    "threatfox:git.hitamsm188.top"
+    "threatfox:git.hitamsm188.top",
+    "threatfox:paz.hitamsm188.top",
+    "threatfox:https://paz.hitamsm188.top/",
+    "threatfox:paz.utvrent.com",
+    "threatfox:https://paz.utvrent.com/",
+    "threatfox:megaparivip.vip",
+    "threatfox:megaparivip.net"
   ],
   "source_id": "abuse_ch",
   "stats": {
