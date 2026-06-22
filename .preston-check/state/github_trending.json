@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-22T17:46:53.752434+00:00",
-  "last_successful_fetch": "2026-06-22T17:46:58.663324+00:00",
+  "last_run": "2026-06-22T21:11:41.803222+00:00",
+  "last_successful_fetch": "2026-06-22T21:11:46.992014+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1446,7 +1446,11 @@
     "github:AlphaCharlieNexus007/CVE_Disclosure",
     "github:user6400/cve-2026-39031-lansweeper-lsrunase2-lsencrypt2",
     "github:ropydev/CVE-2021-4034-PwnKit",
-    "github:mukul975/cve-mcp-server"
+    "github:mukul975/cve-mcp-server",
+    "github:joshuavanderpoll/CVE-2026-49772",
+    "github:lenuskamaruska-boop/Cveta",
+    "github:0liverFlow/CVE2PoC",
+    "github:boimanomri/CVE-IOC-Discovery-Enrichment-Detection-Generation"
   ],
   "source_id": "github_trending",
   "stats": {
