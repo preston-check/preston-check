@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-23T12:14:09.752626+00:00",
-  "last_successful_fetch": "2026-06-23T12:14:14.147036+00:00",
+  "last_run": "2026-06-23T16:05:26.268569+00:00",
+  "last_successful_fetch": "2026-06-23T16:05:38.046528+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1466,7 +1466,14 @@
     "github:GODofExploit/exploit-arsenal",
     "github:hacbs-release-tests/collectors-no-cve-5e457f25",
     "github:sibsfinx/cvet-shader-animation",
-    "github:Malatesh0811/reachable-cve"
+    "github:Malatesh0811/reachable-cve",
+    "github:ALRAYZZ/CVE-Exploits",
+    "github:blackjuker2/CVE-2019-0232",
+    "github:lizaanwar331-gif/cveez",
+    "github:Rami2212/SecFix-LLM-CVE-Remediation",
+    "github:YashvantHange/cve-details",
+    "github:mythicaltree/CVE-2019-2215",
+    "github:joshualent/django-cve-2025-64459"
   ],
   "source_id": "github_trending",
   "stats": {
