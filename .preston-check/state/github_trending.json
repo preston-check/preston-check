@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-23T08:36:37.449852+00:00",
-  "last_successful_fetch": "2026-06-23T08:36:41.135049+00:00",
+  "last_run": "2026-06-23T12:14:09.752626+00:00",
+  "last_successful_fetch": "2026-06-23T12:14:14.147036+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1462,7 +1462,11 @@
     "github:hacbs-release-tests/collectors-no-cve-9f0b2757",
     "github:sign9981/CVE",
     "github:cvetofor/cvetofor",
-    "github:matkahoy-ops/CVE-list"
+    "github:matkahoy-ops/CVE-list",
+    "github:GODofExploit/exploit-arsenal",
+    "github:hacbs-release-tests/collectors-no-cve-5e457f25",
+    "github:sibsfinx/cvet-shader-animation",
+    "github:Malatesh0811/reachable-cve"
   ],
   "source_id": "github_trending",
   "stats": {
