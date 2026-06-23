@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-22T23:41:07.543525+00:00",
-  "last_successful_fetch": "2026-06-22T23:41:11.583364+00:00",
+  "last_run": "2026-06-23T04:17:19.326783+00:00",
+  "last_successful_fetch": "2026-06-23T04:17:23.879287+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1450,7 +1450,13 @@
     "github:joshuavanderpoll/CVE-2026-49772",
     "github:lenuskamaruska-boop/Cveta",
     "github:0liverFlow/CVE2PoC",
-    "github:boimanomri/CVE-IOC-Discovery-Enrichment-Detection-Generation"
+    "github:boimanomri/CVE-IOC-Discovery-Enrichment-Detection-Generation",
+    "github:Lanexus/cve-scanner",
+    "github:Joapath/CVE-2021-41773",
+    "github:s1lentf00thold/CVE-2020-11651-Poc",
+    "github:wwarren/cve-dashboard",
+    "github:MUHAMMADHARIS1144/dirtyfrag-cve-2026",
+    "github:daniel930523/cve-saas"
   ],
   "source_id": "github_trending",
   "stats": {
