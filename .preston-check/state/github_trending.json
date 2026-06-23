@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-23T04:17:19.326783+00:00",
-  "last_successful_fetch": "2026-06-23T04:17:23.879287+00:00",
+  "last_run": "2026-06-23T08:36:37.449852+00:00",
+  "last_successful_fetch": "2026-06-23T08:36:41.135049+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1456,7 +1456,13 @@
     "github:s1lentf00thold/CVE-2020-11651-Poc",
     "github:wwarren/cve-dashboard",
     "github:MUHAMMADHARIS1144/dirtyfrag-cve-2026",
-    "github:daniel930523/cve-saas"
+    "github:daniel930523/cve-saas",
+    "github:interlok-tooling/nvd-cves-mirror",
+    "github:ahmed-meziane/CVE-Vulnerabilities-Analysis",
+    "github:hacbs-release-tests/collectors-no-cve-9f0b2757",
+    "github:sign9981/CVE",
+    "github:cvetofor/cvetofor",
+    "github:matkahoy-ops/CVE-list"
   ],
   "source_id": "github_trending",
   "stats": {
