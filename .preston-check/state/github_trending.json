@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-23T16:05:26.268569+00:00",
-  "last_successful_fetch": "2026-06-23T16:05:38.046528+00:00",
+  "last_run": "2026-06-23T18:11:11.533467+00:00",
+  "last_successful_fetch": "2026-06-23T18:11:17.035519+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1473,7 +1473,10 @@
     "github:Rami2212/SecFix-LLM-CVE-Remediation",
     "github:YashvantHange/cve-details",
     "github:mythicaltree/CVE-2019-2215",
-    "github:joshualent/django-cve-2025-64459"
+    "github:joshualent/django-cve-2025-64459",
+    "github:anyanything/CVE-2026-8461-PoC",
+    "github:l1ttl3bugc4t/hack_the_cat_cve_weekly",
+    "github:KarpKriss/CVE---Consignment-Volumetrics-Estimator"
   ],
   "source_id": "github_trending",
   "stats": {
