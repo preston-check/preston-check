@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-23T21:05:51.519034+00:00",
-  "last_successful_fetch": "2026-06-23T21:05:55.118914+00:00",
+  "last_run": "2026-06-23T22:36:40.607636+00:00",
+  "last_successful_fetch": "2026-06-23T22:36:44.589159+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1481,7 +1481,15 @@
     "github:rickintveld/cve-remediator",
     "github:Ron-RONZZ-org/cVerse",
     "github:pansyhebephrenic23/NimbusPWN-CVE-2022-29799-29800",
-    "github:HackinKraken/Security-Research-and-CVE"
+    "github:HackinKraken/Security-Research-and-CVE",
+    "github:SystemVll/CVE-2026-21858",
+    "github:SystemVll/CVE-2026-24061",
+    "github:SystemVll/CVE-2022-23093",
+    "github:SystemVll/CVE-2022-46169",
+    "github:jayekwere/cve-exploit-prediction",
+    "github:hacbs-release-tests/collectors-no-cve-15fc14fb",
+    "github:s1lentf00thold/CVE-2021-21425-RCE",
+    "github:Query-farm/vgi-cve"
   ],
   "source_id": "github_trending",
   "stats": {

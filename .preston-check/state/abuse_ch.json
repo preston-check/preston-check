@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-06-23T21:05:55.395776+00:00",
-  "last_successful_fetch": "2026-06-23T21:05:55.397494+00:00",
+  "last_run": "2026-06-23T22:36:45.011359+00:00",
+  "last_successful_fetch": "2026-06-23T22:36:45.012218+00:00",
   "processed_ids": [
-    "threatfox:http://intelvissions.com:5747",
-    "threatfox:http://godsblueprintforyourmarriage.com:5200",
-    "threatfox:http://forehia.shop:4538",
     "threatfox:http://famwili.shop:9321",
     "threatfox:http://falcoju.shop:9895",
     "threatfox:http://diggero.biz:8521",
@@ -5001,7 +4998,10 @@
     "threatfox:09318d5d0f9bda9ff2a4137a4025e042187804d36709c1228d98a805f6833f52",
     "threatfox:1377821d908faed1d2c19c17bb952d927acf14b2",
     "threatfox:6019f364c9f02fa6b515eba7d1eec5d0",
-    "threatfox:04858a0860457288a32a37ca94a3ea082fb18448bb395e5eed7b04f28a1c8569"
+    "threatfox:04858a0860457288a32a37ca94a3ea082fb18448bb395e5eed7b04f28a1c8569",
+    "threatfox:69xb4m1d.betmajic.cc",
+    "threatfox:8ra83hil.blackjackonlineplay83.com",
+    "threatfox:221.132.29.137:443"
   ],
   "source_id": "abuse_ch",
   "stats": {
