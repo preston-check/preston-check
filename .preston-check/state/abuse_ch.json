@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-06-24T21:45:10.713471+00:00",
-  "last_successful_fetch": "2026-06-24T21:45:10.714189+00:00",
+  "last_run": "2026-06-24T23:18:23.612762+00:00",
+  "last_successful_fetch": "2026-06-24T23:18:23.613455+00:00",
   "processed_ids": [
-    "threatfox:103.202.61.220:443",
-    "threatfox:186.246.16.124:443",
-    "threatfox:8.219.158.30:8080",
-    "threatfox:https://ox3.glamisdunesrentals.com/",
-    "threatfox:ox3.glamisdunesrentals.com",
-    "threatfox:139.59.106.160:80",
-    "threatfox:36.255.197.120:443",
     "threatfox:16.170.32.198:7443",
     "threatfox:8.152.2.86:80",
     "threatfox:8.152.2.86:8080",
@@ -5001,7 +4994,14 @@
     "threatfox:5.249.162.81:4444",
     "threatfox:123.56.42.40:8084",
     "threatfox:https://cdn.jsdelivr.net/gh/swiftvpnaccess/wanting-public-driver-barricade/78956-uuid",
-    "threatfox:43.139.226.160:18084"
+    "threatfox:43.139.226.160:18084",
+    "threatfox:https://rdv.holidaysm188.top/",
+    "threatfox:rdv.holidaysm188.top",
+    "threatfox:43.143.244.134:443",
+    "threatfox:45.140.213.6:443",
+    "threatfox:rdv.esteghlal.news",
+    "threatfox:https://rdv.esteghlal.news/",
+    "threatfox:onlinecasinorouletteblackjack.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
