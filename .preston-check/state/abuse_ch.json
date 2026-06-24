@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-06-24T20:03:29.365197+00:00",
-  "last_successful_fetch": "2026-06-24T20:03:29.365970+00:00",
+  "last_run": "2026-06-24T21:45:10.713471+00:00",
+  "last_successful_fetch": "2026-06-24T21:45:10.714189+00:00",
   "processed_ids": [
-    "threatfox:2.26.228.27:443",
-    "threatfox:1v6le0j1.andisheeslami2.xyz",
-    "threatfox:http://154.198.50.76:8080/upload",
-    "threatfox:45.67.222.21:3389",
-    "threatfox:175.98.132.116:9443",
-    "threatfox:slojemw.leaguejazire.com",
     "threatfox:103.202.61.220:443",
     "threatfox:186.246.16.124:443",
     "threatfox:8.219.158.30:8080",
@@ -5001,7 +4995,13 @@
     "threatfox:52.86.125.111:8001",
     "threatfox:https://cdn.jsdelivr.net/gh/galinavsuk6/fjhg-567/hum",
     "threatfox:43.143.244.134:80",
-    "threatfox:97.64.81.119:443"
+    "threatfox:97.64.81.119:443",
+    "threatfox:b97pimiu.vip1x.bet",
+    "threatfox:https://cdn.jsdelivr.net/gh/swiftvpnaccess/wanting-public-driver-barricade/256446-uuid",
+    "threatfox:5.249.162.81:4444",
+    "threatfox:123.56.42.40:8084",
+    "threatfox:https://cdn.jsdelivr.net/gh/swiftvpnaccess/wanting-public-driver-barricade/78956-uuid",
+    "threatfox:43.139.226.160:18084"
   ],
   "source_id": "abuse_ch",
   "stats": {
