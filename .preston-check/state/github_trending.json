@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-24T12:27:16.040917+00:00",
-  "last_successful_fetch": "2026-06-24T12:27:21.247684+00:00",
+  "last_run": "2026-06-24T15:37:22.652828+00:00",
+  "last_successful_fetch": "2026-06-24T15:37:27.412132+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1506,7 +1506,11 @@
     "github:hacbs-release-tests/collectors-no-cve-6ee0f189",
     "github:Simpuar/gitlab-cve-scanner",
     "github:Heimdall-Security-fr/Agents-CVE",
-    "github:vn-lazyming/CVE-2026-52943"
+    "github:vn-lazyming/CVE-2026-52943",
+    "github:phor3nsic/CVE-2021-40822",
+    "github:gagaltotal/CVE-2026-48908-SP-Page-Builder-Joomla",
+    "github:mend-detection-qa/uv_constraints-txt-cve-avoidance",
+    "github:sohanchane/cveqel"
   ],
   "source_id": "github_trending",
   "stats": {
