@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-24T00:07:26.543003+00:00",
-  "last_successful_fetch": "2026-06-24T00:07:31.059633+00:00",
+  "last_run": "2026-06-24T05:09:38.537109+00:00",
+  "last_successful_fetch": "2026-06-24T05:09:42.259529+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1492,7 +1492,12 @@
     "github:Query-farm/vgi-cve",
     "github:H1ssBl1tz/Blind-Trust-CVE-2024-21413-Research",
     "github:cartyc/cve-comparision",
-    "github:cveeez5/cveeez-job-portal"
+    "github:cveeez5/cveeez-job-portal",
+    "github:solomon042/TML-CVE",
+    "github:beefalto7/cvezut",
+    "github:Oke367366/CVEDC-PREMIUM",
+    "github:nu11secur1ty/CVE-mitre",
+    "github:Bizly/cvent_scrape_poc"
   ],
   "source_id": "github_trending",
   "stats": {
