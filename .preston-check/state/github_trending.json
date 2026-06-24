@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-24T15:37:22.652828+00:00",
-  "last_successful_fetch": "2026-06-24T15:37:27.412132+00:00",
+  "last_run": "2026-06-24T18:04:55.070950+00:00",
+  "last_successful_fetch": "2026-06-24T18:05:00.115457+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1510,7 +1510,14 @@
     "github:phor3nsic/CVE-2021-40822",
     "github:gagaltotal/CVE-2026-48908-SP-Page-Builder-Joomla",
     "github:mend-detection-qa/uv_constraints-txt-cve-avoidance",
-    "github:sohanchane/cveqel"
+    "github:sohanchane/cveqel",
+    "github:noderaven/solid-macro",
+    "github:Odysafe/ODYSAFE-CVE",
+    "github:benloes/cveyzb",
+    "github:clevernyyyy/cve-wiki",
+    "github:manja7304/cyber-cve-triage-react",
+    "github:mattgsys/CVE-2026-11834",
+    "github:Bekzhanizb/CvetyBot"
   ],
   "source_id": "github_trending",
   "stats": {
