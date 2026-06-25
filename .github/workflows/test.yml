@@ -31,7 +31,8 @@ jobs:
         run: |
           for f in preston-check.sh deploy-to-project.sh \
                    lib/*.sh tools/*.sh templates/*.sh scripts/*.sh \
-                   docker/*.sh checks/*.sh checks/community/**/*.sh; do
+                   docker/*.sh checks/*.sh checks/community/**/*.sh \
+                   tests/lib/*.sh; do
             [[ -f "$f" ]] || continue
             bash -n "$f" || { echo "SYNTAX ERROR: $f"; exit 1; }
           done

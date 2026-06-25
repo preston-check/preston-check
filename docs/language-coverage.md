@@ -7,42 +7,47 @@ audits current coverage, identifies gaps, and lays out the roadmap.
 
 ## Current coverage matrix
 
-The numbers below count distinct check scripts that include patterns for
-each language (via `grep --include="*.<ext>"`). A single check can target
-multiple languages.
+The numbers below count distinct check scripts that include grep patterns
+targeting each language extension (`grep --include="*.<ext>"`). A single
+check script can target multiple languages and is counted once per language.
+Counts are as of v1.8.1 and reflect the polyglot expansion delivered in
+v1.3.0 together with the ongoing addition of language blocks to general
+checks.
 
-| Language    | Extension        | Checks targeting it | Coverage   |
-|-------------|------------------|---------------------|------------|
-| Java        | `*.java`         | 195                 | Excellent  |
-| TypeScript  | `*.ts`, `*.tsx`  | 108                 | Excellent  |
-| SQL         | `*.sql`          | 36                  | Strong     |
-| Python      | `*.py`           | 11                  | Limited    |
-| Go          | `*.go`           | 11                  | Limited    |
-| JavaScript  | `*.js`, `*.jsx`  | 5                   | Sparse     |
-| Rust        | `*.rs`           | 3                   | Sparse     |
-| Dart        | `*.dart`         | 2                   | Mobile-only |
-| Terraform   | `*.tf`           | 6                   | Infra-only |
+| Language    | Extension        | Checks targeting it | Coverage    |
+|-------------|------------------|---------------------|-------------|
+| Rust        | `*.rs`           | 140                 | Excellent   |
+| Go          | `*.go`           | 138                 | Excellent   |
+| Java        | `*.java`         | 133                 | Excellent   |
+| TypeScript  | `*.ts`, `*.tsx`  | 108                 | Excellent   |
+| Python      | `*.py`           | 62                  | Strong      |
 | YAML        | `*.yml`/`*.yaml` | 73                  | Config-wide |
-| Properties  | `*.properties`   | 4                   | JVM config |
-| Kotlin      | `*.kt`           | 0                   | None       |
-| Ruby        | `*.rb`           | 0                   | None       |
-| C#/.NET     | `*.cs`           | 0                   | None       |
-| PHP         | `*.php`          | 0                   | None       |
-| Solidity    | `*.sol`          | 0                   | None       |
+| SQL         | `*.sql`          | 36                  | Strong      |
+| JavaScript  | `*.js`, `*.jsx`  | 5                   | Sparse      |
+| Terraform   | `*.tf`           | 6                   | Infra-only  |
+| Dart        | `*.dart`         | 2                   | Mobile-only |
+| Properties  | `*.properties`   | 4                   | JVM config  |
+| Kotlin      | `*.kt`           | 0                   | None        |
+| Ruby        | `*.rb`           | 0                   | None        |
+| C#/.NET     | `*.cs`           | 0                   | None        |
+| PHP         | `*.php`          | 0                   | None        |
+| Solidity    | `*.sol`          | 0                   | None        |
 
 Language profiles in `lang/detect.sh` exist for `java`, `go`, `python`,
-`typescript`/`javascript`, with a generic fallback. There is no Rust
-profile, which means the auto-detected pattern variables for Rust
-codebases default to the fallback — most checks then look for Java
-patterns and find nothing.
+`typescript`/`javascript`, `rust`, and `solidity` with a generic fallback.
+All six primary scan languages (Java, TypeScript, Go, Rust, Python, SQL)
+have dedicated detect.sh profiles as of v1.3.0.
 
 ## Gap analysis
 
-The user's stated requirement is coverage for Node.js, Java, Go, and Rust.
-Java is solid. Node.js TypeScript is solid; pure JavaScript is thin but
-the patterns largely overlap with TypeScript. **Go and Rust are real gaps**
-that need investment before launch claims of "polyglot fintech security
-scanner" hold up.
+The four primary languages (Java, TypeScript/Node.js, Go, Rust) now have
+excellent coverage following the v1.3.0 polyglot expansion. Java and
+TypeScript were already solid; Go and Rust reached parity with the P-490–P-505
+dedicated check suites plus language blocks added across the broad catalog.
+Behavioral tests in `tests/lib/test_go_checks.sh` and
+`tests/lib/test_rust_checks.sh` guard the Go and Rust detection logic against
+regressions. JavaScript remains thin (pure-JS files, not TypeScript), but
+patterns largely overlap with the TypeScript suite.
 
 Beyond the user's stated four, three more languages deserve coverage:
 
