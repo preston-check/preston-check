@@ -1,0 +1,59 @@
+name: Auto-tag on threat-intel merge
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    # Fires only when an auto-merge promotion PR lands on master.
+    # Covers both merge-commit format ("...threat-intel/automerge-...") and
+    # squash-commit format ("auto: threat-intel orchestrate ...").
+    if: |
+      contains(github.event.head_commit.message, 'threat-intel/automerge-') ||
+      startsWith(github.event.head_commit.message, 'auto: promoted candidates') ||
+      startsWith(github.event.head_commit.message, 'auto: threat-intel orchestrate')
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Bump patch version and push tag
+        run: |
+          git config user.name "preston-check-bot"
+          git config user.email "bot@preston-check.com"
+
+          # Retry loop handles the race where two merges land within the same
+          # 30-minute window — on each attempt we re-fetch tags so we always
+          # compute a patch number strictly above whatever is already pushed.
+          for attempt in 1 2 3; do
+            git fetch --tags --quiet
+
+            LATEST=$(git tag --list 'v*.*.*' | sort -V | tail -1)
+            LATEST="${LATEST:-v0.0.0}"
+
+            VERSION="${LATEST#v}"
+            MAJOR="${VERSION%%.*}"
+            REST="${VERSION#*.}"
+            MINOR="${REST%%.*}"
+            PATCH="${REST#*.}"
+            NEW_TAG="v${MAJOR}.${MINOR}.$((PATCH + 1))"
+
+            echo "Attempt ${attempt}: ${LATEST} → ${NEW_TAG}"
+
+            # Clean up stale local tag from a prior failed attempt before re-tagging.
+            git tag -d "$NEW_TAG" 2>/dev/null || true
+            git tag "$NEW_TAG"
+
+            if git push origin "$NEW_TAG"; then
+              echo "Tagged ${NEW_TAG} — release pipeline triggered"
+              break
+            fi
+
+            echo "Push failed (likely race with concurrent merge); re-fetching and retrying..."
+            sleep "$((attempt * 3))"
+          done
