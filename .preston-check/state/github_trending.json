@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-25T08:29:58.027268+00:00",
-  "last_successful_fetch": "2026-06-25T08:30:01.728236+00:00",
+  "last_run": "2026-06-25T11:48:15.933212+00:00",
+  "last_successful_fetch": "2026-06-25T11:48:20.223800+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1536,7 +1536,15 @@
     "github:0x5477/Ingram-Pro",
     "github:7whyex/CVE-2026-45321-Tanstack",
     "github:0xBlackash/CVE-2026-7574",
-    "github:kobayashi-shuto-0105/claude-code-cve-genie"
+    "github:kobayashi-shuto-0105/claude-code-cve-genie",
+    "github:hacbs-release-tests/collectors-no-cve-44abd254",
+    "github:virinchi-bot/CVerse",
+    "github:hacbs-release-tests/collectors-no-cve-b8b77edf",
+    "github:boneys/CVE-2025-12101-Scanner-PoC",
+    "github:hacbs-release-tests/collectors-no-cve-3a78e53c",
+    "github:lota-ll/cve_watchtower",
+    "github:Baba01hacker666/CVE-2026-23111",
+    "github:actuator/cve"
   ],
   "source_id": "github_trending",
   "stats": {
