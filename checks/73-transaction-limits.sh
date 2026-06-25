@@ -7,11 +7,11 @@ name: Transaction Limits
 description: Detects per-transaction limits, rolling limits, atomic enforcement.
 category: code-scan
 severity: medium
-languages: any
+languages: any, go, rust
 min_tier: free
 runtime_class: static-grep
 evidence_required: false
-version: 1.0.0
+version: 1.1.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
@@ -59,5 +59,29 @@ else
     record "WARN" "P-73 Atomic limits" "Limit checks found but no FOR UPDATE/advisory lock — concurrent requests can bypass limits" "$(echo "$limit_check" | head -10)"
   else
     record "SKIP" "P-73 Atomic limits" "No significant limit enforcement patterns found"
+  fi
+fi
+
+# --- Go ---
+_go_files=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
+if [[ ${_go_files:-0} -gt 0 ]]; then
+  _go_hits=$(grep -rn --include="*.go" --exclude-dir=.git --exclude-dir=vendor --exclude-dir=node_modules -E "max.*transaction|transaction.*limit|maxAmount|transactionLimit|daily.*limit|monthly.*limit|dailyLimit|rolling.*limit|cumulative.*limit" "$SRC" 2>/dev/null | grep -vE "_test\.go|/vendor/" || true)
+  _go_count=$([[ -n "$_go_hits" ]] && echo "$_go_hits" | wc -l | tr -d ' ' || echo 0)
+  if [[ ${_go_count:-0} -gt 0 ]]; then
+    record "PASS" "P-73 Transaction Limits (Go)" "Transaction limit enforcement patterns found in Go code"
+  else
+    record "WARN" "P-73 Transaction Limits (Go)" "No per-transaction or rolling limit enforcement found in Go files"
+  fi
+fi
+
+# --- Rust ---
+_rs_files=$(find "$SRC" -name "*.rs" -not -path "*/target/*" 2>/dev/null | wc -l | tr -d ' ')
+if [[ ${_rs_files:-0} -gt 0 ]]; then
+  _rs_hits=$(grep -rn --include="*.rs" --exclude-dir=.git --exclude-dir=target -E "max.*transaction|transaction_limit|max_amount|daily.*limit|monthly.*limit|daily_limit|rolling.*limit|cumulative.*limit" "$SRC" 2>/dev/null | grep -vE "#\[cfg\(test\)|/tests?/" || true)
+  _rs_count=$([[ -n "$_rs_hits" ]] && echo "$_rs_hits" | wc -l | tr -d ' ' || echo 0)
+  if [[ ${_rs_count:-0} -gt 0 ]]; then
+    record "PASS" "P-73 Transaction Limits (Rust)" "Transaction limit enforcement patterns found in Rust code"
+  else
+    record "WARN" "P-73 Transaction Limits (Rust)" "No per-transaction or rolling limit enforcement found in Rust files"
   fi
 fi

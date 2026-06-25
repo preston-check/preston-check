@@ -7,11 +7,11 @@ name: 2FA Bypass
 description: Detects code paths that skip or disable two-factor authentication.
 category: code-scan
 severity: critical
-languages: any
+languages: any, go, rust
 min_tier: free
 runtime_class: static-grep
 evidence_required: false
-version: 1.0.0
+version: 1.1.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
@@ -52,4 +52,28 @@ if [[ -z "$none_default" ]]; then
   record "PASS" "P-02 2FA default state" "No default-to-NONE 2FA patterns"
 else
   record "FAIL" "P-02 2FA default state" "Found code that defaults 2FA to NONE/skip" "$none_default"
+fi
+
+# --- Go ---
+_go_files=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
+if [[ ${_go_files:-0} -gt 0 ]]; then
+  _go_hits=$(grep -rn --include="*.go" --exclude-dir=.git --exclude-dir=vendor --exclude-dir=node_modules -E "auth_skip|required_2fa_2proceed.*NONE|2fa.*NONE|skip.*2fa|bypass.*2fa|set2faState.*NONE" "$SRC" 2>/dev/null | grep -vE "_test\.go|/vendor/" || true)
+  _go_count=$([[ -n "$_go_hits" ]] && echo "$_go_hits" | wc -l | tr -d ' ' || echo 0)
+  if [[ ${_go_count:-0} -gt 0 ]]; then
+    record "WARN" "P-02 2FA bypass (Go)" "$_go_count instance(s) found in Go code" "$(echo "$_go_hits" | head -5)"
+  else
+    record "PASS" "P-02 2FA bypass (Go)" "No issues found in Go files"
+  fi
+fi
+
+# --- Rust ---
+_rs_files=$(find "$SRC" -name "*.rs" -not -path "*/target/*" 2>/dev/null | wc -l | tr -d ' ')
+if [[ ${_rs_files:-0} -gt 0 ]]; then
+  _rs_hits=$(grep -rn --include="*.rs" --exclude-dir=.git --exclude-dir=target -E "auth_skip|required_2fa_2proceed.*NONE|2fa.*NONE|skip.*2fa|bypass.*2fa|set_2fa_state.*none" "$SRC" 2>/dev/null | grep -vE "#\[cfg\(test\)|/tests?/" || true)
+  _rs_count=$([[ -n "$_rs_hits" ]] && echo "$_rs_hits" | wc -l | tr -d ' ' || echo 0)
+  if [[ ${_rs_count:-0} -gt 0 ]]; then
+    record "WARN" "P-02 2FA bypass (Rust)" "$_rs_count instance(s) found in Rust code" "$(echo "$_rs_hits" | head -5)"
+  else
+    record "PASS" "P-02 2FA bypass (Rust)" "No issues found in Rust files"
+  fi
 fi

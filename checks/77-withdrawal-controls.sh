@@ -7,11 +7,11 @@ name: Withdrawal Controls
 description: Detects withdrawal limits, address whitelist, cooldown, 2FA on withdrawals.
 category: code-scan
 severity: medium
-languages: any
+languages: any, go, rust
 min_tier: free
 runtime_class: static-grep
 evidence_required: false
-version: 1.0.0
+version: 1.1.0
 added_in: 0.1.0
 author_name: Preston-Check Maintainers
 author_github: prestoncheck
@@ -73,4 +73,28 @@ if [[ -n "$manual_review" ]]; then
   record "PASS" "P-77 Manual review" "Large withdrawal manual review found"
 else
   record "WARN" "P-77 Manual review" "No manual review for large withdrawals — should require human approval above threshold" "$(echo "$manual_review" | head -10)"
+fi
+
+# --- Go ---
+_go_files=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
+if [[ ${_go_files:-0} -gt 0 ]]; then
+  _go_hits=$(grep -rn --include="*.go" --exclude-dir=.git --exclude-dir=vendor --exclude-dir=node_modules -E "withdraw.*limit|withdraw.*max|max.*withdraw|withdrawal.*threshold|daily.*withdraw|withdraw.*cap|whitelist.*address|approved.*address|trusted.*address|cooldown.*withdraw|cooling.*period|withdraw.*delay|address.*lock|withdraw.*2fa|withdraw.*otp|withdraw.*mfa|manual.*review|manual.*approval|human.*review|admin.*approve" "$SRC" 2>/dev/null | grep -vE "_test\.go|/vendor/" || true)
+  _go_count=$([[ -n "$_go_hits" ]] && echo "$_go_hits" | wc -l | tr -d ' ' || echo 0)
+  if [[ ${_go_count:-0} -gt 0 ]]; then
+    record "PASS" "P-77 Withdrawal controls (Go)" "$_go_count pattern(s) found in Go code"
+  else
+    record "WARN" "P-77 Withdrawal controls (Go)" "No withdrawal control patterns found in Go files"
+  fi
+fi
+
+# --- Rust ---
+_rs_files=$(find "$SRC" -name "*.rs" -not -path "*/target/*" 2>/dev/null | wc -l | tr -d ' ')
+if [[ ${_rs_files:-0} -gt 0 ]]; then
+  _rs_hits=$(grep -rn --include="*.rs" --exclude-dir=.git --exclude-dir=target -E "withdraw.*limit|withdraw.*max|max.*withdraw|withdrawal.*threshold|daily.*withdraw|withdraw.*cap|whitelist.*address|approved.*address|trusted.*address|cooldown.*withdraw|cooling.*period|withdraw.*delay|address.*lock|withdraw.*2fa|withdraw.*otp|withdraw.*mfa|manual.*review|manual.*approval|human.*review|admin.*approve" "$SRC" 2>/dev/null | grep -vE "#\[cfg\(test\)|/tests?/" || true)
+  _rs_count=$([[ -n "$_rs_hits" ]] && echo "$_rs_hits" | wc -l | tr -d ' ' || echo 0)
+  if [[ ${_rs_count:-0} -gt 0 ]]; then
+    record "PASS" "P-77 Withdrawal controls (Rust)" "$_rs_count pattern(s) found in Rust code"
+  else
+    record "WARN" "P-77 Withdrawal controls (Rust)" "No withdrawal control patterns found in Rust files"
+  fi
 fi
