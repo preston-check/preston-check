@@ -30,25 +30,32 @@ bio=$(grep -rln --include="*.swift" --include="*.kt" --include="*.java" --includ
   || record "WARN" "P-422 mobile auth" "No biometric authentication references in mobile code"
 
 # --- Go ---
+# Look for inbound-enforcement patterns only: middleware, RBAC, JWT validation.
+# Excluded: "Authorization" header strings (outgoing client auth, not enforcement).
 _go_files=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 if [[ ${_go_files:-0} -gt 0 ]]; then
-  _go_hits=$(grep -rn --include="*.go" --exclude-dir=.git --exclude-dir=vendor --exclude-dir=node_modules -E "hasRole|isAdmin|checkPermission|Authorize" "$SRC" 2>/dev/null | grep -vE "_test\.go|/vendor/" || true)
+  _go_hits=$(grep -rn --include="*.go" --exclude-dir=.git --exclude-dir=vendor --exclude-dir=node_modules \
+    -E "AuthMiddleware|RequireAuth|jwtMiddleware|ValidateToken|rbac\.Enforce|casbin\.Enforce|checkPermission|hasRole|isAdmin" \
+    "$SRC" 2>/dev/null \
+    | grep -vE '_test\.go|/vendor/|Header\.Set.*[Aa]uthorization|Header\.Add.*[Aa]uthorization' || true)
   _go_count=$([[ -n "$_go_hits" ]] && echo "$_go_hits" | wc -l | tr -d ' ' || echo 0)
   if [[ ${_go_count:-0} -gt 0 ]]; then
-    record "PASS" "P-422 mobile auth (Go)" "$_go_count instance(s) found in Go code"
+    record "PASS" "P-422 mobile auth (Go)" "$_go_count auth-enforcement reference(s) found in Go code"
   else
-    record "WARN" "P-422 mobile auth (Go)" "No authorization / permission-check references found in Go files"
+    record "WARN" "P-422 mobile auth (Go)" "No auth middleware / RBAC enforcement references found in Go files"
   fi
 fi
 
 # --- Rust ---
 _rs_files=$(find "$SRC" -name "*.rs" -not -path "*/target/*" 2>/dev/null | wc -l | tr -d ' ')
 if [[ ${_rs_files:-0} -gt 0 ]]; then
-  _rs_hits=$(grep -rn --include="*.rs" --exclude-dir=.git --exclude-dir=target -E "has_role|is_admin|check_permission|authorize" "$SRC" 2>/dev/null | grep -vE "#\[cfg\(test\)|/tests?/" || true)
+  _rs_hits=$(grep -rn --include="*.rs" --exclude-dir=.git --exclude-dir=target \
+    -E "actix_identity|actix_web::guard|from_fn.*auth|require_role|enforce_permission|has_role|is_admin|casbin|rbac" \
+    "$SRC" 2>/dev/null | grep -vE "#\[cfg\(test\)|/tests?/" || true)
   _rs_count=$([[ -n "$_rs_hits" ]] && echo "$_rs_hits" | wc -l | tr -d ' ' || echo 0)
   if [[ ${_rs_count:-0} -gt 0 ]]; then
-    record "PASS" "P-422 mobile auth (Rust)" "$_rs_count instance(s) found in Rust code"
+    record "PASS" "P-422 mobile auth (Rust)" "$_rs_count auth-enforcement reference(s) found in Rust code"
   else
-    record "WARN" "P-422 mobile auth (Rust)" "No authorization / permission-check references found in Rust files"
+    record "WARN" "P-422 mobile auth (Rust)" "No auth middleware / RBAC enforcement references found in Rust files"
   fi
 fi

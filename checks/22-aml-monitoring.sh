@@ -53,9 +53,13 @@ else
 fi
 
 # --- Go ---
+# Use AML-specific identifiers only. Bare "10000", "velocity", and "suspicious"
+# are too common in general Go code and produce false PASSes.
 _go_files=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
 if [[ ${_go_files:-0} -gt 0 ]]; then
-  _go_hits=$(grep -rn --include="*.go" --exclude-dir=.git --exclude-dir=vendor --exclude-dir=node_modules -E "10000|AML_THRESHOLD|CTR|velocity|structuring|suspicious|SAR|riskScore|risk_score|companyLimit" "$SRC" 2>/dev/null | grep -vE "_test\.go|/vendor/" || true)
+  _go_hits=$(grep -rn --include="*.go" --exclude-dir=.git --exclude-dir=vendor --exclude-dir=node_modules \
+    -E "AML_THRESHOLD|CTR_THRESHOLD|ctrLimit|amlThreshold|structuringDetect|velocityCheck|sarFlag|riskScore|risk_score|companyLimit|SuspiciousActivity|flagTransaction" \
+    "$SRC" 2>/dev/null | grep -vE "_test\.go|/vendor/" || true)
   _go_count=$([[ -n "$_go_hits" ]] && echo "$_go_hits" | wc -l | tr -d ' ' || echo 0)
   if [[ ${_go_count:-0} -gt 0 ]]; then
     record "PASS" "P-22 AML transaction monitoring (Go)" "AML monitoring patterns found in Go code" "$(echo "$_go_hits" | head -5)"
@@ -67,7 +71,9 @@ fi
 # --- Rust ---
 _rs_files=$(find "$SRC" -name "*.rs" -not -path "*/target/*" 2>/dev/null | wc -l | tr -d ' ')
 if [[ ${_rs_files:-0} -gt 0 ]]; then
-  _rs_hits=$(grep -rn --include="*.rs" --exclude-dir=.git --exclude-dir=target -E "10000|AML_THRESHOLD|CTR|velocity|structuring|suspicious|SAR|risk_score|company_limit" "$SRC" 2>/dev/null | grep -vE "#\[cfg\(test\)|/tests?/" || true)
+  _rs_hits=$(grep -rn --include="*.rs" --exclude-dir=.git --exclude-dir=target \
+    -E "AML_THRESHOLD|CTR_THRESHOLD|ctr_limit|aml_threshold|structuring_detect|velocity_check|sar_flag|risk_score|company_limit|suspicious_activity|flag_transaction" \
+    "$SRC" 2>/dev/null | grep -vE "#\[cfg\(test\)|/tests?/" || true)
   _rs_count=$([[ -n "$_rs_hits" ]] && echo "$_rs_hits" | wc -l | tr -d ' ' || echo 0)
   if [[ ${_rs_count:-0} -gt 0 ]]; then
     record "PASS" "P-22 AML transaction monitoring (Rust)" "AML monitoring patterns found in Rust code" "$(echo "$_rs_hits" | head -5)"

@@ -30,25 +30,36 @@ attest=$(grep -rln --include="*.swift" --include="*.kt" --include="*.java" --inc
   || record "WARN" "P-421 mobile supply chain" "No Play Integrity / DeviceCheck / App Attest references found"
 
 # --- Go ---
-_go_files=$(find "$SRC" -name "*.go" -not -path "*/vendor/*" 2>/dev/null | wc -l | tr -d ' ')
-if [[ ${_go_files:-0} -gt 0 ]]; then
-  _go_hits=$(grep -rn --include="*.go" --exclude-dir=.git --exclude-dir=vendor --exclude-dir=node_modules -E "kms\.New|kms\.Decrypt|secretsmanager" "$SRC" 2>/dev/null | grep -vE "_test\.go|/vendor/" || true)
-  _go_count=$([[ -n "$_go_hits" ]] && echo "$_go_hits" | wc -l | tr -d ' ' || echo 0)
-  if [[ ${_go_count:-0} -gt 0 ]]; then
-    record "PASS" "P-421 mobile supply chain (Go)" "$_go_count instance(s) found in Go code"
-  else
-    record "WARN" "P-421 mobile supply chain (Go)" "No secure secrets management references found in Go files"
+# KMS/secretsmanager are key-management patterns, not supply chain controls.
+# Supply chain for Go = go.sum present (dependency pinning) + vuln scanning in CI.
+_go_sum=$(find "$SRC" -name "go.sum" -not -path "*/vendor/*" 2>/dev/null | head -1)
+_go_vuln=$(grep -rn --include="*.yml" --include="*.yaml" --include="*.sh" \
+  -E "govulncheck|nancy|snyk|trivy|grype|cosign|sigstore|cyclonedx|syft" \
+  "$SRC" 2>/dev/null | grep -vE "node_modules" || true)
+if [[ -n "$_go_sum" && -n "$_go_vuln" ]]; then
+  record "PASS" "P-421 supply chain (Go)" "go.sum present and dependency vulnerability scanning configured"
+elif [[ -n "$_go_sum" ]]; then
+  record "WARN" "P-421 supply chain (Go)" "go.sum present but no vulnerability scanner (govulncheck, Snyk, Trivy) found in CI"
+else
+  _go_mod=$(find "$SRC" -name "go.mod" -not -path "*/vendor/*" 2>/dev/null | head -1)
+  if [[ -n "$_go_mod" ]]; then
+    record "WARN" "P-421 supply chain (Go)" "go.mod found but no go.sum — dependencies are not pinned"
   fi
 fi
 
 # --- Rust ---
-_rs_files=$(find "$SRC" -name "*.rs" -not -path "*/target/*" 2>/dev/null | wc -l | tr -d ' ')
-if [[ ${_rs_files:-0} -gt 0 ]]; then
-  _rs_hits=$(grep -rn --include="*.rs" --exclude-dir=.git --exclude-dir=target -E "aws_sdk_kms|rusoto_kms|KmsClient" "$SRC" 2>/dev/null | grep -vE "#\[cfg\(test\)|/tests?/" || true)
-  _rs_count=$([[ -n "$_rs_hits" ]] && echo "$_rs_hits" | wc -l | tr -d ' ' || echo 0)
-  if [[ ${_rs_count:-0} -gt 0 ]]; then
-    record "PASS" "P-421 mobile supply chain (Rust)" "$_rs_count instance(s) found in Rust code"
-  else
-    record "WARN" "P-421 mobile supply chain (Rust)" "No secure secrets management references found in Rust files"
+# Supply chain for Rust = Cargo.lock present + cargo-audit / cargo-deny in CI.
+_rs_lock=$(find "$SRC" -name "Cargo.lock" -not -path "*/target/*" 2>/dev/null | head -1)
+_rs_audit=$(grep -rn --include="*.yml" --include="*.yaml" --include="*.sh" --include="*.toml" \
+  -E "cargo.audit|cargo.deny|cargo-audit|cargo-deny|cosign|sigstore|cyclonedx|syft" \
+  "$SRC" 2>/dev/null | grep -vE "node_modules" || true)
+if [[ -n "$_rs_lock" && -n "$_rs_audit" ]]; then
+  record "PASS" "P-421 supply chain (Rust)" "Cargo.lock present and dependency audit tooling configured"
+elif [[ -n "$_rs_lock" ]]; then
+  record "WARN" "P-421 supply chain (Rust)" "Cargo.lock present but no audit tool (cargo-audit, cargo-deny) found in CI"
+else
+  _rs_toml=$(find "$SRC" -name "Cargo.toml" -not -path "*/target/*" 2>/dev/null | head -1)
+  if [[ -n "$_rs_toml" ]]; then
+    record "WARN" "P-421 supply chain (Rust)" "Cargo.toml found but no Cargo.lock — dependencies are not pinned"
   fi
 fi
