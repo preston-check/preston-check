@@ -303,6 +303,44 @@ report, which is the tentpole content marketing artifact. The first
 edition's methodology and template ships at
 `docs/state-of-fintech-security/2026.md`.
 
+## Behavioral test harness
+
+The test suite at `tests/run-tests.sh` verifies three orthogonal layers.
+
+`tests/lib/test_check_metadata.sh` validates that the metadata parser
+correctly extracts fields from PRESTON_META heredocs, derives trust tiers
+from check file paths, and enforces tier-access policy. These tests have
+no language-specific fixtures; they exercise `lib/check_metadata.sh`
+directly.
+
+`tests/lib/test_go_checks.sh` and `tests/lib/test_rust_checks.sh` are
+behavioral end-to-end tests that run real check scripts against
+deliberately-written fixture code and assert the resulting `record()` calls.
+The fixtures live under `testdata/` at the repo root (not under `tests/`)
+so that the checks' own `/tests?/` exclusion filter — which strips test
+paths from scan results — does not hide the findings.
+
+Each test file uses the `assert_warns`, `assert_passes`, `assert_fails`,
+and `assert_skips` helpers from `tests/lib/_check_harness.sh`. The
+harness runs every check in an isolated `bash --noprofile --norc` subshell,
+stubs out `record()` to emit `RESULT:STATUS:LABEL` lines, and crucially
+calls `unset -f grep` to bypass the ugrep shell-function wrapper that
+Claude Code exports into the environment — allowing the checks to see the
+real `/usr/bin/grep` with standard POSIX ERE semantics.
+
+Each language suite provides two fixtures — a "bad" file containing
+patterns that should trigger warnings and a "clean" file that follows
+secure idioms — and asserts both the WARN/FAIL detection and the clean
+PASS for every covered check ID. The Go suite covers P-17, P-52, and
+P-490 through P-495. The Rust suite covers P-17, P-52, and P-500
+through P-505.
+
+Fixtures must be carefully written: any comment mentioning a flagged
+pattern (e.g., `thread_rng`) will be found by the grep-based checks and
+trigger a false match. Character classes in check grep patterns follow
+the POSIX rule that `-` must appear first (`[-+*]`) or last to avoid
+being interpreted as a range.
+
 ## Threat-intel auto-ingestion
 
 The catalog grows automatically through a weekly GitHub Actions run of
