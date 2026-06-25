@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-25T17:21:24.388865+00:00",
-  "last_successful_fetch": "2026-06-25T17:21:29.700987+00:00",
+  "last_run": "2026-06-25T20:20:00.244557+00:00",
+  "last_successful_fetch": "2026-06-25T20:20:05.046388+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1554,7 +1554,13 @@
     "github:dariosharp/CVE",
     "github:opensourcerouting/frr-cves",
     "github:joaquinrrr/CVE-2025-8110",
-    "github:do4choo/CVE-2026-3227"
+    "github:do4choo/CVE-2026-3227",
+    "github:tkocou/fCVE-Docker",
+    "github:dpustelnik/CVE-Risk-Analyzer",
+    "github:Mahnoor332/CVE-VulDETECT-Implementation",
+    "github:PeterMNguyenMRU/CVE-Sample",
+    "github:roy9495/CVE-Extractor",
+    "github:kludgeworks/base-image-cve-benchmark"
   ],
   "source_id": "github_trending",
   "stats": {
