@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-24T23:18:19.300981+00:00",
-  "last_successful_fetch": "2026-06-24T23:18:23.167826+00:00",
+  "last_run": "2026-06-25T04:20:19.107181+00:00",
+  "last_successful_fetch": "2026-06-25T04:20:22.938161+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1526,7 +1526,13 @@
     "github:K3ysTr0K3R/CVE-2021-22205",
     "github:pawpic/CVE-2026-38526-POC",
     "github:wvverez/CVE-2020-24186",
-    "github:nicholas-howland/CVE-2026-6992-PoC"
+    "github:nicholas-howland/CVE-2026-6992-PoC",
+    "github:K3ysTr0K3R/CVE-2021-29441",
+    "github:i1zco/wishlist-member-vuln-analysis",
+    "github:0xmrma/CVE-2026-46552",
+    "github:ogenich/CVE-2026-48908",
+    "github:4B5F5F4B/patchdiff-cve-analysis",
+    "github:ev1Ndxrk3e01/public-cve-research"
   ],
   "source_id": "github_trending",
   "stats": {
