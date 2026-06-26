@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-06-25T22:42:14.133117+00:00",
-  "last_successful_fetch": "2026-06-25T22:42:14.133726+00:00",
+  "last_run": "2026-06-26T00:20:58.780138+00:00",
+  "last_successful_fetch": "2026-06-26T00:20:58.780763+00:00",
   "processed_ids": [
-    "threatfox:95.133.228.206:80",
-    "threatfox:146.19.56.31:80",
-    "threatfox:144.172.102.43:80",
-    "threatfox:171.22.108.181:80",
-    "threatfox:108.165.185.188:80",
-    "threatfox:43.230.162.47:80",
-    "threatfox:173.232.146.29:80",
-    "threatfox:194.33.61.174:80",
-    "threatfox:193.111.117.50:80",
-    "threatfox:194.33.61.203:80",
     "threatfox:185.102.115.242:80",
     "threatfox:198.244.206.28:80",
     "threatfox:168.93.214.29:80",
@@ -5001,7 +4991,17 @@
     "threatfox:49.232.4.71:8888",
     "threatfox:103.45.66.52:4782",
     "threatfox:91.190.100.203:8080",
-    "threatfox:ex5nibpq.vip1xbet.net"
+    "threatfox:ex5nibpq.vip1xbet.net",
+    "threatfox:103.236.60.111:9080",
+    "threatfox:104.225.149.151:60000",
+    "threatfox:8.130.74.111:443",
+    "threatfox:43.254.167.120:443",
+    "threatfox:23.138.76.44:8084",
+    "threatfox:45.77.42.89:23566",
+    "threatfox:101.43.24.136:443",
+    "threatfox:4iw2skgz.tinyshart.com",
+    "threatfox:tinyshart.com",
+    "threatfox:nmo1ivv6.akhlagvaahkam.xyz"
   ],
   "source_id": "abuse_ch",
   "stats": {
