@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-06-26T00:20:58.780138+00:00",
-  "last_successful_fetch": "2026-06-26T00:20:58.780763+00:00",
+  "last_run": "2026-06-26T05:19:55.646880+00:00",
+  "last_successful_fetch": "2026-06-26T05:19:55.647516+00:00",
   "processed_ids": [
-    "threatfox:185.102.115.242:80",
-    "threatfox:198.244.206.28:80",
-    "threatfox:168.93.214.29:80",
-    "threatfox:181.174.165.186:80",
-    "threatfox:209.99.186.230:80",
-    "threatfox:216.203.20.148:80",
-    "threatfox:rizvw.sanjeshravani.shop",
-    "threatfox:keofm.sanjeshravani.shop",
-    "threatfox:g29aiuih.zabanenglishanari.xyz",
     "threatfox:28ri3ljq.zabanenglishanari.xyz",
     "threatfox:srv.turbo88ku.top",
     "threatfox:jsyao.tafsirquran.xyz",
@@ -5001,7 +4992,16 @@
     "threatfox:101.43.24.136:443",
     "threatfox:4iw2skgz.tinyshart.com",
     "threatfox:tinyshart.com",
-    "threatfox:nmo1ivv6.akhlagvaahkam.xyz"
+    "threatfox:nmo1ivv6.akhlagvaahkam.xyz",
+    "threatfox:https://anikadigital.com/",
+    "threatfox:154.222.16.38:443",
+    "threatfox:14.128.53.154:4782",
+    "threatfox:206.119.171.212:8443",
+    "threatfox:yekshart.net",
+    "threatfox:176.65.144.120:80",
+    "threatfox:64.89.161.67:80",
+    "threatfox:119.3.154.81:8085",
+    "threatfox:111.230.113.89:80"
   ],
   "source_id": "abuse_ch",
   "stats": {
