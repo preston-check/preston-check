@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-26T21:38:51.819287+00:00",
-  "last_successful_fetch": "2026-06-26T21:38:55.798896+00:00",
+  "last_run": "2026-06-26T23:19:32.915666+00:00",
+  "last_successful_fetch": "2026-06-26T23:19:36.203952+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1589,7 +1589,10 @@
     "github:matthesvoss/CVE-Insight",
     "github:reactivezero/CVE-2026-20251",
     "github:00lucasm/CVE-2025-58434-Flowiseai-Auth-Bypass-PoC",
-    "github:sec0x/CVE-2026-43503"
+    "github:sec0x/CVE-2026-43503",
+    "github:J4Day/cvepulse",
+    "github:EduCVergara/EduCVergara",
+    "github:RHEcosystemAppEng/cve_evaluation_toolkit"
   ],
   "source_id": "github_trending",
   "stats": {
