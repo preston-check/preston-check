@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-06-27T16:17:10.824909+00:00",
-  "last_successful_fetch": "2026-06-27T16:17:10.825586+00:00",
+  "last_run": "2026-06-27T18:15:27.134263+00:00",
+  "last_successful_fetch": "2026-06-27T18:15:27.134901+00:00",
   "processed_ids": [
-    "threatfox:s1732.byte-buff.com",
-    "threatfox:s1732.house-spirit.com",
-    "threatfox:s1732.novel-layer.com",
     "threatfox:s1732.star-layer.com",
     "threatfox:s1734.byte-buff.com",
     "threatfox:s1734.house-spirit.com",
@@ -5001,7 +4998,10 @@
     "threatfox:balanga.studio",
     "threatfox:47.86.184.71:53",
     "threatfox:test.officeplustool.top",
-    "threatfox:hzks2llo.1xdownload2023.com"
+    "threatfox:hzks2llo.1xdownload2023.com",
+    "threatfox:ccczqxl6.blackjackonlineplay83.com",
+    "threatfox:154.86.119.228:80",
+    "threatfox:yigu360.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
