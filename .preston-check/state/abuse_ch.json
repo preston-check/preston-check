@@ -1,8 +1,7 @@
 {
-  "last_run": "2026-06-27T10:20:14.281530+00:00",
-  "last_successful_fetch": "2026-06-27T10:20:14.282111+00:00",
+  "last_run": "2026-06-27T12:15:55.861752+00:00",
+  "last_successful_fetch": "2026-06-27T12:15:55.862444+00:00",
   "processed_ids": [
-    "threatfox:s01687.novel-layer.com",
     "threatfox:s01687.star-layer.com",
     "threatfox:s01688.byte-buff.com",
     "threatfox:s01688.house-spirit.com",
@@ -5001,7 +5000,8 @@
     "threatfox:https://smartpos.com.tr/",
     "threatfox:108.165.20.135:8888",
     "threatfox:128.90.141.159:4444",
-    "threatfox:188.212.158.4:8808"
+    "threatfox:188.212.158.4:8808",
+    "threatfox:45.76.145.175:58211"
   ],
   "source_id": "abuse_ch",
   "stats": {
