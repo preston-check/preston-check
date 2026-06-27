@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-27T18:15:23.446566+00:00",
-  "last_successful_fetch": "2026-06-27T18:15:26.988465+00:00",
+  "last_run": "2026-06-27T20:17:20.752809+00:00",
+  "last_successful_fetch": "2026-06-27T20:17:25.048244+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1605,7 +1605,11 @@
     "github:AlexRedSec/CVE-VM-Bookmarks",
     "github:Saku0512/CVE-2026-40176-poc",
     "github:api-evangelist/cvent-registration",
-    "github:SugiB3o/CVE-2026-31431"
+    "github:SugiB3o/CVE-2026-31431",
+    "github:PhF9562/CVE",
+    "github:scagogogo/cve-skills",
+    "github:ruvnet/CVE-bench",
+    "github:carrollj8471-ux/public-cve-risk-intelligence-dashboard"
   ],
   "source_id": "github_trending",
   "stats": {
