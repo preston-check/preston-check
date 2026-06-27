@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-27T20:17:20.752809+00:00",
-  "last_successful_fetch": "2026-06-27T20:17:25.048244+00:00",
+  "last_run": "2026-06-27T22:13:29.717959+00:00",
+  "last_successful_fetch": "2026-06-27T22:13:34.090684+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1609,7 +1609,8 @@
     "github:PhF9562/CVE",
     "github:scagogogo/cve-skills",
     "github:ruvnet/CVE-bench",
-    "github:carrollj8471-ux/public-cve-risk-intelligence-dashboard"
+    "github:carrollj8471-ux/public-cve-risk-intelligence-dashboard",
+    "github:webappsgo/cvedex"
   ],
   "source_id": "github_trending",
   "stats": {
