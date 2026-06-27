@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-27T08:03:22.982767+00:00",
-  "last_successful_fetch": "2026-06-27T08:03:27.242104+00:00",
+  "last_run": "2026-06-27T10:20:10.091961+00:00",
+  "last_successful_fetch": "2026-06-27T10:20:14.028664+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1596,7 +1596,9 @@
     "github:Kimdir01/testimonial-widgets-sqli-cve",
     "github:HORKimhab/CVE-2026-46331",
     "github:franlol/cvelens",
-    "github:Catherines77/ActiveMQ-CVE-ENV"
+    "github:Catherines77/ActiveMQ-CVE-ENV",
+    "github:mangrisano/cvewatcher",
+    "github:grayxploit/CVE-2026-48907"
   ],
   "source_id": "github_trending",
   "stats": {
