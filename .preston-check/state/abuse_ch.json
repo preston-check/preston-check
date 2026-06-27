@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-06-27T14:52:57.250756+00:00",
-  "last_successful_fetch": "2026-06-27T14:52:57.251599+00:00",
+  "last_run": "2026-06-27T16:17:10.824909+00:00",
+  "last_successful_fetch": "2026-06-27T16:17:10.825586+00:00",
   "processed_ids": [
-    "threatfox:s1730.house-spirit.com",
-    "threatfox:s1730.novel-layer.com",
-    "threatfox:s1730.star-layer.com",
     "threatfox:s1732.byte-buff.com",
     "threatfox:s1732.house-spirit.com",
     "threatfox:s1732.novel-layer.com",
@@ -5001,7 +4998,10 @@
     "threatfox:jcpeneycomsurvey.info",
     "threatfox:metroindonesia.id",
     "threatfox:airtek.vn",
-    "threatfox:balanga.studio"
+    "threatfox:balanga.studio",
+    "threatfox:47.86.184.71:53",
+    "threatfox:test.officeplustool.top",
+    "threatfox:hzks2llo.1xdownload2023.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
