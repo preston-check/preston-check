@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-28T11:56:30.431096+00:00",
-  "last_successful_fetch": "2026-06-28T11:56:34.016097+00:00",
+  "last_run": "2026-06-28T14:10:29.213253+00:00",
+  "last_successful_fetch": "2026-06-28T14:10:32.522406+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1620,7 +1620,9 @@
     "github:samvav-dhal/cve_tracker",
     "github:3223892355/CVE",
     "github:Kimdir01/school-buslocation-sqli-cve",
-    "github:Ayham-Alazzam/CVE-s-POCs"
+    "github:Ayham-Alazzam/CVE-s-POCs",
+    "github:0xBlackash/CVE-2026-12485",
+    "github:VixianSchool/nuclei-cve-check"
   ],
   "source_id": "github_trending",
   "stats": {
