@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-28T20:21:27.390062+00:00",
-  "last_successful_fetch": "2026-06-28T20:21:30.588977+00:00",
+  "last_run": "2026-06-28T22:11:55.870978+00:00",
+  "last_successful_fetch": "2026-06-28T22:11:59.165437+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1628,7 +1628,9 @@
     "github:wheresNasha/ai-cve-patch-agent",
     "github:frenchbubb/cveqch",
     "github:pwncone/CVE-2023-0386-OverlayFS",
-    "github:chessredoffsec/south-america-cve-hall"
+    "github:chessredoffsec/south-america-cve-hall",
+    "github:JimDemos/cve-early-warning",
+    "github:BridgerAlderson/CVE-2026-24418"
   ],
   "source_id": "github_trending",
   "stats": {
