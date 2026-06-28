@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-06-28T00:12:43.813807+00:00",
-  "last_successful_fetch": "2026-06-28T00:12:43.814511+00:00",
+  "last_run": "2026-06-28T05:42:47.575067+00:00",
+  "last_successful_fetch": "2026-06-28T05:42:47.575778+00:00",
   "processed_ids": [
-    "threatfox:45.194.92.2:1000",
-    "threatfox:45.202.247.123:80",
-    "threatfox:45.205.1.33:25565",
-    "threatfox:51.254.156.25:1111",
-    "threatfox:62.84.172.147:1337",
     "threatfox:66.29.156.104:5000",
     "threatfox:83.168.110.191:80",
     "threatfox:84.32.71.134:1111",
@@ -5001,7 +4996,12 @@
     "threatfox:45.227.253.121:52445",
     "threatfox:134.122.135.120:18443",
     "threatfox:134.122.135.53:18443",
-    "threatfox:t71awqhc.1xsignupbet.com"
+    "threatfox:t71awqhc.1xsignupbet.com",
+    "threatfox:http://47.236.116.9/y8jdGc5jS/index.php",
+    "threatfox:2ffuyto6.taktikbet.bio",
+    "threatfox:cd5p7l7t.xbetone.com",
+    "threatfox:49.232.169.67:80",
+    "threatfox:144.31.61.126:21418"
   ],
   "source_id": "abuse_ch",
   "stats": {

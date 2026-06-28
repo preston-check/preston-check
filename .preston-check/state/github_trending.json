@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-28T00:12:38.506802+00:00",
-  "last_successful_fetch": "2026-06-28T00:12:43.177671+00:00",
+  "last_run": "2026-06-28T05:42:42.203437+00:00",
+  "last_successful_fetch": "2026-06-28T05:42:46.862743+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1614,7 +1614,12 @@
     "github:tohib09/CVE-2025-69212-PoC",
     "github:b0ySie7e/OpenSTAManager-RCE-Exploit-CVE-2026-38751",
     "github:hacbs-release-tests/collectors-no-cve-dd792a7f",
-    "github:kyukazamiqq/CVE-2026-24061"
+    "github:kyukazamiqq/CVE-2026-24061",
+    "github:Jenderal92/laravel-filemanager-unrestricted-upload",
+    "github:goutouanquan/CVE",
+    "github:samvav-dhal/cve_tracker",
+    "github:3223892355/CVE",
+    "github:Kimdir01/school-buslocation-sqli-cve"
   ],
   "source_id": "github_trending",
   "stats": {
