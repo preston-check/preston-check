@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-28T22:11:55.870978+00:00",
-  "last_successful_fetch": "2026-06-28T22:11:59.165437+00:00",
+  "last_run": "2026-06-29T00:17:42.072733+00:00",
+  "last_successful_fetch": "2026-06-29T00:17:46.247748+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1630,7 +1630,9 @@
     "github:pwncone/CVE-2023-0386-OverlayFS",
     "github:chessredoffsec/south-america-cve-hall",
     "github:JimDemos/cve-early-warning",
-    "github:BridgerAlderson/CVE-2026-24418"
+    "github:BridgerAlderson/CVE-2026-24418",
+    "github:Herick-Costa/CVE-2025-55182-React2Shell-RCE",
+    "github:longpoints/cvelhv"
   ],
   "source_id": "github_trending",
   "stats": {

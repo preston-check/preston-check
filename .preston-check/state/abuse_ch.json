@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-06-28T22:11:59.579711+00:00",
-  "last_successful_fetch": "2026-06-28T22:11:59.580543+00:00",
+  "last_run": "2026-06-29T00:17:46.615603+00:00",
+  "last_successful_fetch": "2026-06-29T00:17:46.616411+00:00",
   "processed_ids": [
-    "threatfox:igcokmdd.prozhecart.com",
-    "threatfox:vazqhwad.sadreislam.xyz",
-    "threatfox:qilapvvt.ganuneasasi.xyz",
-    "threatfox:9zpx37x0.ganuneasasi.xyz",
     "threatfox:ewa1b63u.fununetadris.shop",
     "threatfox:ggt.glamisrents.com",
     "threatfox:pod.turbo88jp.top",
@@ -5001,7 +4997,11 @@
     "threatfox:8zdusrwn.xbetone.com",
     "threatfox:dows.sabad724.bio",
     "threatfox:htfll3q5.1x303.casino",
-    "threatfox:https://vihangamyoga.org/"
+    "threatfox:https://vihangamyoga.org/",
+    "threatfox:38.54.117.107:6666",
+    "threatfox:117.72.159.96:8777",
+    "threatfox:103.73.161.60:9005",
+    "threatfox:82.157.191.79:443"
   ],
   "source_id": "abuse_ch",
   "stats": {
