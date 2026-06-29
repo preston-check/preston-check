@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-29T16:06:09.754374+00:00",
-  "last_successful_fetch": "2026-06-29T16:06:13.248786+00:00",
+  "last_run": "2026-06-29T18:21:10.185689+00:00",
+  "last_successful_fetch": "2026-06-29T18:21:14.321992+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1644,7 +1644,10 @@
     "github:N0va-7/vul-cve-001",
     "github:nuclide-research/metabase-cve-2023-38646",
     "github:SecureWithUmer/CVE-2026-43503",
-    "github:evidencebasedvulnerability/cve-2026-9082-drupal"
+    "github:evidencebasedvulnerability/cve-2026-9082-drupal",
+    "github:Al-Vt/CVE-exploit-prediction",
+    "github:JHarv613/CVE_2024_1086_vulnerability_check",
+    "github:cvera08/CVeraPortfolio"
   ],
   "source_id": "github_trending",
   "stats": {
