@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-29T18:21:10.185689+00:00",
-  "last_successful_fetch": "2026-06-29T18:21:14.321992+00:00",
+  "last_run": "2026-06-29T20:54:43.394854+00:00",
+  "last_successful_fetch": "2026-06-29T20:54:46.761557+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1647,7 +1647,10 @@
     "github:evidencebasedvulnerability/cve-2026-9082-drupal",
     "github:Al-Vt/CVE-exploit-prediction",
     "github:JHarv613/CVE_2024_1086_vulnerability_check",
-    "github:cvera08/CVeraPortfolio"
+    "github:cvera08/CVeraPortfolio",
+    "github:rufflabs/ludus_crushftp_cve-2025-31161",
+    "github:BiiTts/CVE-2026-53753-Crawl4AI-RCE",
+    "github:rufflabs/crushftp_cve-2025-31161"
   ],
   "source_id": "github_trending",
   "stats": {
