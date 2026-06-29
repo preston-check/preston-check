@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-06-29T20:54:47.077938+00:00",
-  "last_successful_fetch": "2026-06-29T20:54:47.078817+00:00",
+  "last_run": "2026-06-29T22:17:35.229395+00:00",
+  "last_successful_fetch": "2026-06-29T22:17:35.230048+00:00",
   "processed_ids": [
-    "threatfox:img-static.wearepowerplay.com",
-    "threatfox:141.94.121.162:111",
-    "threatfox:ahcgroup.in",
-    "threatfox:ydgnpzbc.mechanicsayalat.xyz",
-    "threatfox:uuoecnbs.mechanickhodakarami.shop",
-    "threatfox:xcioxhpp.masirpayambari.xyz",
-    "threatfox:pirroflobsny.ydns.eu",
     "threatfox:demagic009.duckdns.org",
     "threatfox:107.173.47.132:2555",
     "threatfox:https://recreio.pet/",
@@ -5001,7 +4994,14 @@
     "threatfox:155.117.183.181:2017",
     "threatfox:moderncloudprotection.com",
     "threatfox:publicwebprotection.com",
-    "threatfox:superfirewallprotection.com"
+    "threatfox:superfirewallprotection.com",
+    "threatfox:176.65.144.73:80",
+    "threatfox:0dahrppq.taktikbet.bio",
+    "threatfox:https://tps.psgiran.news/",
+    "threatfox:tps.psgiran.news",
+    "threatfox:tps.jangkarsm188.top",
+    "threatfox:https://tps.jangkarsm188.top/",
+    "threatfox:172.245.226.124:443"
   ],
   "source_id": "abuse_ch",
   "stats": {
