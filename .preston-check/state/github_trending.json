@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-29T06:03:05.301268+00:00",
-  "last_successful_fetch": "2026-06-29T06:03:09.352282+00:00",
+  "last_run": "2026-06-29T11:21:52.409489+00:00",
+  "last_successful_fetch": "2026-06-29T11:21:56.530209+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1633,7 +1633,12 @@
     "github:BridgerAlderson/CVE-2026-24418",
     "github:Herick-Costa/CVE-2025-55182-React2Shell-RCE",
     "github:longpoints/cvelhv",
-    "github:hacbs-release-tests/collectors-no-cve-d2965aeb"
+    "github:hacbs-release-tests/collectors-no-cve-d2965aeb",
+    "github:yeonchoda/CVETEST",
+    "github:radityahack/cve-2025-0133",
+    "github:Polosss/By-Poloss..-..CVE-2026-48939",
+    "github:shubhangamK/CVE-QA-BOT",
+    "github:adysec/hwpoc"
   ],
   "source_id": "github_trending",
   "stats": {
