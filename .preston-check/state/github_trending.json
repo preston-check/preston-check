@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-30T05:15:46.273760+00:00",
-  "last_successful_fetch": "2026-06-30T05:15:50.514431+00:00",
+  "last_run": "2026-06-30T09:57:30.135045+00:00",
+  "last_successful_fetch": "2026-06-30T09:57:34.412291+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1662,7 +1662,13 @@
     "github:MtechServicesinfo/CVease",
     "github:Frogerd/cvetik-miniapp",
     "github:rufflabs/ludus_crushftp_cve-2025-31161_sim",
-    "github:plitvicetopeyto/cve-db"
+    "github:plitvicetopeyto/cve-db",
+    "github:kkkk2222874/cve_ID_report",
+    "github:sanjai392005/cve-llm-research-source-codes-rishab-sanjai",
+    "github:gap-packages/cvec",
+    "github:ameyaarista/sdwan_cve_report",
+    "github:0xgh057r3c0n/CVE-2026-10580",
+    "github:Proteas/apple-cve"
   ],
   "source_id": "github_trending",
   "stats": {
