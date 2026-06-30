@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-06-30T21:02:48.638648+00:00",
-  "last_successful_fetch": "2026-06-30T21:02:48.639563+00:00",
+  "last_run": "2026-06-30T22:23:38.351008+00:00",
+  "last_successful_fetch": "2026-06-30T22:23:38.351534+00:00",
   "processed_ids": [
-    "threatfox:0ad93109b547084f43fe09682c4825cb",
-    "threatfox:c211109b368eebe5fadfc58540b8ae6c7a33d820a6e5ebf99bdf09fc7ed98d05",
-    "threatfox:a7bee01e4415bf95982b863820d1930dea5739e9",
-    "threatfox:ca0b75619126f690492350972c59baeb",
-    "threatfox:5b7146ddfce30ff5d5c8215ba0ba68544726a03da31bf3074c4086587fda1370",
-    "threatfox:23795a745385b1444cfe8618603f623d686573f9",
     "threatfox:75b337e70eed4a266c7a925c1e484c86ee9f09c56bb7bb9a4e0ebc386f3f4a15",
     "threatfox:bcbc2475f08319df62c3d8539f2b65d00401d61a",
     "threatfox:997a09b5cbbebd7e07fad4185d82ca28e8d259ffb93519f563313535e268ddf6",
@@ -5001,7 +4995,13 @@
     "threatfox:http://124.29.224.65:60281/Mozi.m",
     "threatfox:devltd.us",
     "threatfox:fpqatzfu.btyek.autos",
-    "threatfox:btyek.autos"
+    "threatfox:btyek.autos",
+    "threatfox:zi6uvzi9.btyek.beauty",
+    "threatfox:btyek.beauty",
+    "threatfox:0oj9pa7x.1xbetlogin.co",
+    "threatfox:1xbetlogin.co",
+    "threatfox:c28vzpro.bet808.app",
+    "threatfox:bet808.app"
   ],
   "source_id": "abuse_ch",
   "stats": {
