@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-06-29T22:17:35.229395+00:00",
-  "last_successful_fetch": "2026-06-29T22:17:35.230048+00:00",
+  "last_run": "2026-06-30T00:16:23.476666+00:00",
+  "last_successful_fetch": "2026-06-30T00:16:23.477155+00:00",
   "processed_ids": [
-    "threatfox:demagic009.duckdns.org",
-    "threatfox:107.173.47.132:2555",
-    "threatfox:https://recreio.pet/",
-    "threatfox:https://scripterx.com/",
     "threatfox:https://slammedhospitalitytalk.com/",
     "threatfox:https://renovapqs.com.br/",
     "threatfox:https://rebuildinglivesinitiative.org/",
@@ -5001,7 +4997,11 @@
     "threatfox:tps.psgiran.news",
     "threatfox:tps.jangkarsm188.top",
     "threatfox:https://tps.jangkarsm188.top/",
-    "threatfox:172.245.226.124:443"
+    "threatfox:172.245.226.124:443",
+    "threatfox:uhv95fx8.betbuf.live",
+    "threatfox:150.109.186.36:64401",
+    "threatfox:47.243.127.117:889",
+    "threatfox:47.243.127.117:887"
   ],
   "source_id": "abuse_ch",
   "stats": {

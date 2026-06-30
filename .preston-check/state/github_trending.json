@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-29T22:17:30.484881+00:00",
-  "last_successful_fetch": "2026-06-29T22:17:34.905095+00:00",
+  "last_run": "2026-06-30T00:16:19.267843+00:00",
+  "last_successful_fetch": "2026-06-30T00:16:23.100108+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1654,7 +1654,14 @@
     "github:K3ysTr0K3R/CVE-2026-48907",
     "github:nopales17/ids-rule-to-cve-inference",
     "github:BiiTts/CVE-2026-56782-Gorse-Auth-Bypass",
-    "github:lucidsearch/cve-2026-0000-reference"
+    "github:lucidsearch/cve-2026-0000-reference",
+    "github:DongHoon-L/CVE",
+    "github:Herick-Costa/CVE-2023-43364-Searchor-RCE-Exploit",
+    "github:0xBlackash/CVE-2026-46817",
+    "github:Quaerendir/linux-pagecache-cve-audit",
+    "github:MtechServicesinfo/CVease",
+    "github:Frogerd/cvetik-miniapp",
+    "github:rufflabs/ludus_crushftp_cve-2025-31161_sim"
   ],
   "source_id": "github_trending",
   "stats": {
