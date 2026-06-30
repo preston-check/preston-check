@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-30T09:57:30.135045+00:00",
-  "last_successful_fetch": "2026-06-30T09:57:34.412291+00:00",
+  "last_run": "2026-06-30T12:21:23.606208+00:00",
+  "last_successful_fetch": "2026-06-30T12:21:27.187576+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1668,7 +1668,11 @@
     "github:gap-packages/cvec",
     "github:ameyaarista/sdwan_cve_report",
     "github:0xgh057r3c0n/CVE-2026-10580",
-    "github:Proteas/apple-cve"
+    "github:Proteas/apple-cve",
+    "github:0xCyberstan/CVE-2026-31694-POC",
+    "github:hacbs-release-tests/collectors-no-cve-655b3e87",
+    "github:hacbs-release-tests/collectors-no-cve-9e83caad",
+    "github:hacbs-release-tests/collectors-no-cve-44b0b6e6"
   ],
   "source_id": "github_trending",
   "stats": {
