@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-06-30T18:08:15.336607+00:00",
-  "last_successful_fetch": "2026-06-30T18:08:18.873063+00:00",
+  "last_run": "2026-06-30T21:02:44.186086+00:00",
+  "last_successful_fetch": "2026-06-30T21:02:48.372136+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1680,7 +1680,8 @@
     "github:rosariomarcose/cve-docker-images",
     "github:VarshaRdas/cvep-orchestrator",
     "github:regainer27/CVE-key",
-    "github:piipapoy/cve-tools"
+    "github:piipapoy/cve-tools",
+    "github:K3ysTr0K3R/PHP-8.1.0-dev-Backdoor"
   ],
   "source_id": "github_trending",
   "stats": {
