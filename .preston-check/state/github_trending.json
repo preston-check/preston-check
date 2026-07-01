@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-01T19:06:58.383308+00:00",
-  "last_successful_fetch": "2026-07-01T19:07:02.786576+00:00",
+  "last_run": "2026-07-01T22:37:54.369861+00:00",
+  "last_successful_fetch": "2026-07-01T22:37:57.550361+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1699,7 +1699,15 @@
     "github:Ampferl/security",
     "github:ja-errorpro/CVE-2026-54161",
     "github:GcBackstageDemos/cve-example-templates",
-    "github:robdgs/exein_cve"
+    "github:robdgs/exein_cve",
+    "github:gulamovzavohir02-glitch/cve-disclosures",
+    "github:javokhir-sec/CVE-PoC-Hub",
+    "github:kludgeworks/cve-to-buildpack",
+    "github:suce0155/CVE_2026_44963",
+    "github:epperrid/cveyfa",
+    "github:m2sousa/CVE-2025-69212",
+    "github:JimDunphy/CVE2PoC",
+    "github:stoujames84-dotcom/AnyDeskBrute"
   ],
   "source_id": "github_trending",
   "stats": {
