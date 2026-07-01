@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-01T10:08:59.276003+00:00",
-  "last_successful_fetch": "2026-07-01T10:09:03.178053+00:00",
+  "last_run": "2026-07-01T13:39:30.223594+00:00",
+  "last_successful_fetch": "2026-07-01T13:39:34.111516+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1690,7 +1690,12 @@
     "github:timtimxs/CVE-2026-51947-Advisory",
     "github:timtimxs/CVE-2026-39253-Advisory",
     "github:rushitgit/CVE-writeups",
-    "github:mayankfct/cve-hub"
+    "github:mayankfct/cve-hub",
+    "github:ccieyang/CVEs",
+    "github:bakano98/cve-2026-23111-poc",
+    "github:hacbs-release-tests/collectors-no-cve-aba6db26",
+    "github:canonical/pro-cve-aggregator",
+    "github:hanmin0512/CVE_Lab"
   ],
   "source_id": "github_trending",
   "stats": {
