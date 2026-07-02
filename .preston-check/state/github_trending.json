@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-02T12:18:59.711870+00:00",
-  "last_successful_fetch": "2026-07-02T12:19:03.263583+00:00",
+  "last_run": "2026-07-02T15:27:41.099328+00:00",
+  "last_successful_fetch": "2026-07-02T15:27:44.486519+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1715,7 +1715,11 @@
     "github:rust-benchmark1/cve-rs",
     "github:ariwiesner/nginx-cve-lab",
     "github:yashswarup12/CVE-2021-27877-PoC",
-    "github:FzRsLLaSheR/CVE-2026-12166_CVE-2026-12167_CVE-2026-12168"
+    "github:FzRsLLaSheR/CVE-2026-12166_CVE-2026-12167_CVE-2026-12168",
+    "github:anshenglv/ESurfingClient-CVersion-Android-APK",
+    "github:parab500/snyk2cve",
+    "github:mallangmollangquokka/CVE-_reproduction",
+    "github:agentsoft-hq/lockfile-cve"
   ],
   "source_id": "github_trending",
   "stats": {
