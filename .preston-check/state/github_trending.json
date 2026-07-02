@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-02T05:07:31.667087+00:00",
-  "last_successful_fetch": "2026-07-02T05:07:35.309799+00:00",
+  "last_run": "2026-07-02T09:29:29.430016+00:00",
+  "last_successful_fetch": "2026-07-02T09:29:33.165272+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1711,7 +1711,11 @@
     "github:km8trix/CVEAgent",
     "github:ZeroInOnNZ/cveditor",
     "github:ykrishhh/cve-pocs",
-    "github:malejdj/CVE-2026-30784-rustdesk-poc"
+    "github:malejdj/CVE-2026-30784-rustdesk-poc",
+    "github:rust-benchmark1/cve-rs",
+    "github:ariwiesner/nginx-cve-lab",
+    "github:yashswarup12/CVE-2021-27877-PoC",
+    "github:FzRsLLaSheR/CVE-2026-12166_CVE-2026-12167_CVE-2026-12168"
   ],
   "source_id": "github_trending",
   "stats": {
