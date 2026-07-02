@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-02T18:00:04.469701+00:00",
-  "last_successful_fetch": "2026-07-02T18:00:07.900905+00:00",
+  "last_run": "2026-07-02T19:46:02.976847+00:00",
+  "last_successful_fetch": "2026-07-02T19:46:06.687401+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1720,7 +1720,10 @@
     "github:parab500/snyk2cve",
     "github:mallangmollangquokka/CVE-_reproduction",
     "github:agentsoft-hq/lockfile-cve",
-    "github:Verizon/cve"
+    "github:Verizon/cve",
+    "github:Mkps/CVE-2026-38751-OpenSTAManager-Arbitrary-File-Upload-PoC",
+    "github:K3ysTr0K3R/CVE-2025-57819",
+    "github:attritionorg/potential-0days"
   ],
   "source_id": "github_trending",
   "stats": {
