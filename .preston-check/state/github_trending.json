@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-02T19:46:02.976847+00:00",
-  "last_successful_fetch": "2026-07-02T19:46:06.687401+00:00",
+  "last_run": "2026-07-02T21:20:38.212548+00:00",
+  "last_successful_fetch": "2026-07-02T21:20:41.760623+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1723,7 +1723,8 @@
     "github:Verizon/cve",
     "github:Mkps/CVE-2026-38751-OpenSTAManager-Arbitrary-File-Upload-PoC",
     "github:K3ysTr0K3R/CVE-2025-57819",
-    "github:attritionorg/potential-0days"
+    "github:attritionorg/potential-0days",
+    "github:nathanqiuUCSB/ids-rule-to-cve-inference"
   ],
   "source_id": "github_trending",
   "stats": {
