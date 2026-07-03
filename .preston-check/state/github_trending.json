@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-03T04:03:40.755650+00:00",
-  "last_successful_fetch": "2026-07-03T04:03:44.584028+00:00",
+  "last_run": "2026-07-03T07:32:56.329732+00:00",
+  "last_successful_fetch": "2026-07-03T07:32:59.653948+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1733,7 +1733,9 @@
     "github:chengqh927/cve",
     "github:erickrr-bd/PoC-CVE",
     "github:mindcodings/CVE-Poc_All_in_One",
-    "github:Cyber-note/CVE-2026-34835-Black-box-Analysis"
+    "github:Cyber-note/CVE-2026-34835-Black-box-Analysis",
+    "github:Chaelsoo/CVE-2022-23131-Wrappers",
+    "github:mindcodings/github_cve_monitor"
   ],
   "source_id": "github_trending",
   "stats": {
