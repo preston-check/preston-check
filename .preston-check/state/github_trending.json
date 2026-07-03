@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-03T17:42:57.795416+00:00",
-  "last_successful_fetch": "2026-07-03T17:43:01.212439+00:00",
+  "last_run": "2026-07-03T19:43:43.631223+00:00",
+  "last_successful_fetch": "2026-07-03T19:43:46.703783+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1746,7 +1746,8 @@
     "github:ZeroXJacks/CVEs",
     "github:blackwisten/cve-mcp",
     "github:huynambka/cve-2026-26114-poc",
-    "github:dasokkk/CVE-2026-14459-14460-pardus-software"
+    "github:dasokkk/CVE-2026-14459-14460-pardus-software",
+    "github:K3ysTr0K3R/CVE-2024-1561"
   ],
   "source_id": "github_trending",
   "stats": {
