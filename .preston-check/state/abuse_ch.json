@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-07-04T20:15:17.143916+00:00",
-  "last_successful_fetch": "2026-07-04T20:15:17.144563+00:00",
+  "last_run": "2026-07-04T22:08:09.999678+00:00",
+  "last_successful_fetch": "2026-07-04T22:08:10.000377+00:00",
   "processed_ids": [
-    "threatfox:01e9c74cbdced022d97ea6c20653112c396dc9c5307899ff0960de3a8895f036",
-    "threatfox:e532c2182d1f062b5e93c25f3c9ab902ce144310",
-    "threatfox:ea9653fc6e7780c699895a8f6a65f7e7",
-    "threatfox:b8d32201c922958acb26f0a79be8c1ede96f47e1",
-    "threatfox:4a89c176d80a853fbcfa41ae3f832366",
-    "threatfox:454b5bbc9dd67724e3798d7af5eb1e44d7e587f7",
-    "threatfox:72d63a58a15014d10fc40c909687ddbb",
-    "threatfox:c5641ee1850c5ccb6d8a2bf6894235cf3177115205f1543548ab6ed41778b004",
-    "threatfox:a6a2d0d0bcd33ee293e265559c7241b195ace30e",
-    "threatfox:df82f49a449258f8b3369a9e9e15ec51",
     "threatfox:6a733de838f642ba5b8f65c589c19037c4e77f04fa3e26bdf4cb9719fa97b3c0",
     "threatfox:4d8e591e8b5353291fa31069db4c7fcca2ae509b",
     "threatfox:aa1b9dafea5da9a91038446d0d6e0e8a",
@@ -5001,7 +4991,17 @@
     "threatfox:otlqkiy.betmiz.bet",
     "threatfox:betmiz.bet",
     "threatfox:zqtjqik.betiran.vip",
-    "threatfox:betiran.vip"
+    "threatfox:betiran.vip",
+    "threatfox:64.227.143.36:5555",
+    "threatfox:2wij971l.betbazi.net",
+    "threatfox:vzqodjb.fidoubet.com",
+    "threatfox:rbqsvbo.fidoubet.com",
+    "threatfox:1xhk4hau.bet1forward.com",
+    "threatfox:8gqtj29a.jetshart.net",
+    "threatfox:9lxp680a.jetshart.net",
+    "threatfox:jetbet90.ai",
+    "threatfox:czcymhx.enfejar-site.bet",
+    "threatfox:azbkptz.enfejar-site.bet"
   ],
   "source_id": "abuse_ch",
   "stats": {
