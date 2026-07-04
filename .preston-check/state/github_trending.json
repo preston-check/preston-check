@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-04T12:13:56.841855+00:00",
-  "last_successful_fetch": "2026-07-04T12:14:01.039709+00:00",
+  "last_run": "2026-07-04T14:43:35.237156+00:00",
+  "last_successful_fetch": "2026-07-04T14:43:39.352425+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1761,7 +1761,9 @@
     "github:himanshukadian1/sentinel-cve",
     "github:sagsooz/PageBuilderCK-CVE-2026-56290-Exploit",
     "github:yayip/CVE-2026-33017",
-    "github:abdugafforov-bobur/CVE-2026-54415-PoC"
+    "github:abdugafforov-bobur/CVE-2026-54415-PoC",
+    "github:MaddyGuthridge/sync-rce",
+    "github:BuckanovNikita/cveta2"
   ],
   "source_id": "github_trending",
   "stats": {
