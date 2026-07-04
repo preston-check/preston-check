@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-04T16:13:17.261232+00:00",
-  "last_successful_fetch": "2026-07-04T16:13:20.598817+00:00",
+  "last_run": "2026-07-04T18:11:34.765460+00:00",
+  "last_successful_fetch": "2026-07-04T18:11:38.378128+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1766,7 +1766,9 @@
     "github:BuckanovNikita/cveta2",
     "github:VillainSquad-WH/CVE-BugReproduction",
     "github:hacbs-release-tests/collectors-no-cve-4e53b91d",
-    "github:shyam-chauhan-simform/CVE_workflow"
+    "github:shyam-chauhan-simform/CVE_workflow",
+    "github:kotoba-lang/com-cvent",
+    "github:kotoba-lang/com-cve-nvd"
   ],
   "source_id": "github_trending",
   "stats": {
