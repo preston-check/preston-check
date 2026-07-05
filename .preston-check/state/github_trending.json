@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-05T21:15:38.493175+00:00",
-  "last_successful_fetch": "2026-07-05T21:15:42.306037+00:00",
+  "last_run": "2026-07-05T23:14:18.866424+00:00",
+  "last_successful_fetch": "2026-07-05T23:14:22.142792+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1794,7 +1794,9 @@
     "github:cvetalia/cvetalia-site",
     "github:K3ysTr0K3R/CVE-2018-10933",
     "github:shinthink/CVE-2026-48939",
-    "github:jgamblin/CVEGraphs"
+    "github:jgamblin/CVEGraphs",
+    "github:sh4den/CVE-2022-46169",
+    "github:shinthink/CVE-2026-8713"
   ],
   "source_id": "github_trending",
   "stats": {
