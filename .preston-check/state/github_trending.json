@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-05T05:06:33.345641+00:00",
-  "last_successful_fetch": "2026-07-05T05:06:37.326532+00:00",
+  "last_run": "2026-07-05T08:14:00.159874+00:00",
+  "last_successful_fetch": "2026-07-05T08:14:03.502587+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1775,7 +1775,9 @@
     "github:nxvvvv/cve-monitor",
     "github:jgamblin/CVE-Publishing-Time-InfoGraph",
     "github:JMousqueton/github-cve-monitor",
-    "github:idisdi/idisdi-cve-vault"
+    "github:idisdi/idisdi-cve-vault",
+    "github:normabowie11-max/cve",
+    "github:Sch8ill/CVE-2026-31309"
   ],
   "source_id": "github_trending",
   "stats": {
