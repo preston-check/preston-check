@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-05T15:33:12.260270+00:00",
-  "last_successful_fetch": "2026-07-05T15:33:16.119887+00:00",
+  "last_run": "2026-07-05T17:23:45.527641+00:00",
+  "last_successful_fetch": "2026-07-05T17:23:48.194250+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1787,7 +1787,9 @@
     "github:ravitive/cvekon",
     "github:yosef926/CVE-AI-MONITOR",
     "github:DanyalShahril/cve-triage-system",
-    "github:rz1027/CVE-2026-20896"
+    "github:rz1027/CVE-2026-20896",
+    "github:K3ysTr0K3R/CVE-2023-32315-EXPLOIT",
+    "github:Eliot-code/CVE-2026-22874-PoC"
   ],
   "source_id": "github_trending",
   "stats": {
