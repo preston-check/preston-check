@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-05T23:14:18.866424+00:00",
-  "last_successful_fetch": "2026-07-05T23:14:22.142792+00:00",
+  "last_run": "2026-07-06T04:24:19.991296+00:00",
+  "last_successful_fetch": "2026-07-06T04:24:22.855881+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1796,7 +1796,9 @@
     "github:shinthink/CVE-2026-48939",
     "github:jgamblin/CVEGraphs",
     "github:sh4den/CVE-2022-46169",
-    "github:shinthink/CVE-2026-8713"
+    "github:shinthink/CVE-2026-8713",
+    "github:rajuj0/cve_traiage_tool",
+    "github:edoardottt/missing-cve-nuclei-templates"
   ],
   "source_id": "github_trending",
   "stats": {
