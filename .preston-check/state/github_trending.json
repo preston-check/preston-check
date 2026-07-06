@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-06T13:59:14.559668+00:00",
-  "last_successful_fetch": "2026-07-06T13:59:18.302522+00:00",
+  "last_run": "2026-07-06T17:12:07.350020+00:00",
+  "last_successful_fetch": "2026-07-06T17:12:10.999496+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1815,7 +1815,14 @@
     "github:sys0xFF/CVE-2025-61155",
     "github:hacbs-release-tests/collectors-no-cve-26154ee4",
     "github:oscerd/CVE-2026-40022",
-    "github:imbas007/CVE-2026-48282-POC"
+    "github:imbas007/CVE-2026-48282-POC",
+    "github:K3ysTr0K3R/CVE-2012-2122",
+    "github:hacbs-release-tests/collectors-no-cve-ea1bf491",
+    "github:mornefanfr/cvefia",
+    "github:srknzl/cvesse-action",
+    "github:Dragonliff/IaCVeterinaria",
+    "github:portbuster1337/CVE-2026-52806",
+    "github:CVEProject/cve-documents"
   ],
   "source_id": "github_trending",
   "stats": {
