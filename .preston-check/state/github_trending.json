@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-07T18:14:16.085385+00:00",
-  "last_successful_fetch": "2026-07-07T18:14:20.363143+00:00",
+  "last_run": "2026-07-07T20:55:53.786174+00:00",
+  "last_successful_fetch": "2026-07-07T20:55:57.931034+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1848,7 +1848,12 @@
     "github:H4X0R-V/Telerik-UI-for-ASP.NET-AJAX---CVE-Exposure-Checker",
     "github:rafaelchriss/RedTeamBrasil-CVE-2025-64459",
     "github:c-fido/cve-triage-agent",
-    "github:dima17evst/Cveti-site"
+    "github:dima17evst/Cveti-site",
+    "github:canaknesil/cve-checker",
+    "github:xorandd/CVE-2025-69212-PoC",
+    "github:szybnev/cve-2026-20896-gitea-poc",
+    "github:A17-ba/CVE-2026-51119",
+    "github:AlexisLafontaine1995/cve"
   ],
   "source_id": "github_trending",
   "stats": {
