@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-07T20:55:53.786174+00:00",
-  "last_successful_fetch": "2026-07-07T20:55:57.931034+00:00",
+  "last_run": "2026-07-07T22:20:20.229575+00:00",
+  "last_successful_fetch": "2026-07-07T22:20:24.634033+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1853,7 +1853,9 @@
     "github:xorandd/CVE-2025-69212-PoC",
     "github:szybnev/cve-2026-20896-gitea-poc",
     "github:A17-ba/CVE-2026-51119",
-    "github:AlexisLafontaine1995/cve"
+    "github:AlexisLafontaine1995/cve",
+    "github:chuzhongyun/CVE-2026-53359-Kernel-Fix",
+    "github:MEDIA2027/reviewphim_Isgoni9hCVE"
   ],
   "source_id": "github_trending",
   "stats": {
