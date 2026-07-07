@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-07T05:03:36.412699+00:00",
-  "last_successful_fetch": "2026-07-07T05:03:39.760308+00:00",
+  "last_run": "2026-07-07T08:35:55.717558+00:00",
+  "last_successful_fetch": "2026-07-07T08:36:02.047949+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1838,7 +1838,11 @@
     "github:HORKimhab/CVE-2026-53359",
     "github:shurikgo/cve-2026-25262-sm8450-research",
     "github:lche511/cve",
-    "github:limulu-k/cve_matcher"
+    "github:limulu-k/cve_matcher",
+    "github:skyhaven-ltd/app-cvengine-portfolio",
+    "github:meishigana/CVE_2",
+    "github:2427775883/CvEgZOhQQg",
+    "github:0xBlackash/CVE-2026-53359"
   ],
   "source_id": "github_trending",
   "stats": {
