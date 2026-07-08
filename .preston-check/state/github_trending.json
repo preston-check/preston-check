@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-08T19:50:23.651028+00:00",
-  "last_successful_fetch": "2026-07-08T19:50:27.199026+00:00",
+  "last_run": "2026-07-08T21:20:28.013764+00:00",
+  "last_successful_fetch": "2026-07-08T21:20:31.087008+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1888,7 +1888,8 @@
     "github:wnpdsuvb5480/cvembj",
     "github:OpenMandrivaAssociation/cvechecker",
     "github:vwqjsckckt73/cvelpw",
-    "github:bioconductor-source/CVE"
+    "github:bioconductor-source/CVE",
+    "github:santaruela/cveixi"
   ],
   "source_id": "github_trending",
   "stats": {
