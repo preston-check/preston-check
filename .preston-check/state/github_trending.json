@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-07T22:20:20.229575+00:00",
-  "last_successful_fetch": "2026-07-07T22:20:24.634033+00:00",
+  "last_run": "2026-07-08T00:09:07.105721+00:00",
+  "last_successful_fetch": "2026-07-08T00:09:13.792090+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1855,7 +1855,13 @@
     "github:A17-ba/CVE-2026-51119",
     "github:AlexisLafontaine1995/cve",
     "github:chuzhongyun/CVE-2026-53359-Kernel-Fix",
-    "github:MEDIA2027/reviewphim_Isgoni9hCVE"
+    "github:MEDIA2027/reviewphim_Isgoni9hCVE",
+    "github:Ayumu3746221/cve-2024-7254-app-lab",
+    "github:amnsecurity/CVE-2026-42271-LiteLLM-RCE",
+    "github:amnsecurity/CVE-2026-45659-SharePoint-RCE",
+    "github:amnsecurity/CVE-2026-8451-CitrixBleed",
+    "github:warlon55/cveimf",
+    "github:ferirapael/cve"
   ],
   "source_id": "github_trending",
   "stats": {
