@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-08T00:09:07.105721+00:00",
-  "last_successful_fetch": "2026-07-08T00:09:13.792090+00:00",
+  "last_run": "2026-07-08T04:26:56.078170+00:00",
+  "last_successful_fetch": "2026-07-08T04:26:59.740190+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1861,7 +1861,10 @@
     "github:amnsecurity/CVE-2026-45659-SharePoint-RCE",
     "github:amnsecurity/CVE-2026-8451-CitrixBleed",
     "github:warlon55/cveimf",
-    "github:ferirapael/cve"
+    "github:ferirapael/cve",
+    "github:yabuki-shodai/cve-digest",
+    "github:hacbs-release-tests/collectors-no-cve-568505cf",
+    "github:hackerguopeng/cve"
   ],
   "source_id": "github_trending",
   "stats": {
