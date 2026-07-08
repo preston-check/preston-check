@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-08T17:49:12.621361+00:00",
-  "last_successful_fetch": "2026-07-08T17:49:15.889220+00:00",
+  "last_run": "2026-07-08T19:50:23.651028+00:00",
+  "last_successful_fetch": "2026-07-08T19:50:27.199026+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1883,7 +1883,12 @@
     "github:DexSemon/CVE-2026-27495",
     "github:abrahamsurf/CVE-2023-20198-Scanner",
     "github:novadyne-hq/epss-cve-feed",
-    "github:hkelley87/cveawf"
+    "github:hkelley87/cveawf",
+    "github:tc4dy/CVE-2026-14762-PoC-Exploit",
+    "github:wnpdsuvb5480/cvembj",
+    "github:OpenMandrivaAssociation/cvechecker",
+    "github:vwqjsckckt73/cvelpw",
+    "github:bioconductor-source/CVE"
   ],
   "source_id": "github_trending",
   "stats": {
