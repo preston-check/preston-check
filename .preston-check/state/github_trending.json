@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-09T04:08:54.861678+00:00",
-  "last_successful_fetch": "2026-07-09T04:08:57.972598+00:00",
+  "last_run": "2026-07-09T08:38:07.045458+00:00",
+  "last_successful_fetch": "2026-07-09T08:38:10.003266+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1892,7 +1892,14 @@
     "github:santaruela/cveixi",
     "github:aykhan32/CVE-2026-51788",
     "github:awzr40omn360/cvelqv",
-    "github:omobolajiadeyan/cve-dashboard"
+    "github:omobolajiadeyan/cve-dashboard",
+    "github:justkorean1681/CVE-2019-11043",
+    "github:eilonpo/redis-cves-reduce",
+    "github:Ssamm99/cve-radar",
+    "github:oscerd/CVE-2026-40473",
+    "github:AASHS25/CVE-Mikrotik-2026",
+    "github:dann3xplo1t/CVE-2026-4257",
+    "github:huatusss/cve-scanner-2"
   ],
   "source_id": "github_trending",
   "stats": {
