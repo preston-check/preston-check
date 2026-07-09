@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-09T12:14:07.460431+00:00",
-  "last_successful_fetch": "2026-07-09T12:14:11.181044+00:00",
+  "last_run": "2026-07-09T16:08:18.192915+00:00",
+  "last_successful_fetch": "2026-07-09T16:08:22.146507+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1906,7 +1906,13 @@
     "github:krleejihyeong/WHS4_CVE-2021-4034",
     "github:hacbs-release-tests/collectors-no-cve-f0478bd4",
     "github:OleksandrBlack/cve_centos",
-    "github:outlookgp/CVE"
+    "github:outlookgp/CVE",
+    "github:rapidminds-tech/cve-remediation-agent",
+    "github:nicolinastefan/cvehawk",
+    "github:borland6/WAS_HIGH_CVE",
+    "github:surajpandeyp/CVE-2025-32375",
+    "github:IvanT7D3/CVE-2025-44203",
+    "github:himanshH710/Syntexchub_Vulnerability--CVE-Scanner"
   ],
   "source_id": "github_trending",
   "stats": {
