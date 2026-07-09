@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-09T20:54:11.750788+00:00",
-  "last_successful_fetch": "2026-07-09T20:54:15.821209+00:00",
+  "last_run": "2026-07-09T22:41:11.213273+00:00",
+  "last_successful_fetch": "2026-07-09T22:41:14.724501+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1922,7 +1922,9 @@
     "github:ivancidev/cvearly",
     "github:g0thamRabb1t/cve-2026-48908-joomla-sp-page-builder-detection",
     "github:don89513-gif/cve-engine",
-    "github:nmagill123/CVE-2026-61343-poc-librebooking-rce"
+    "github:nmagill123/CVE-2026-61343-poc-librebooking-rce",
+    "github:melisakumral/CVE-altay",
+    "github:0x00phantom-hat/CVE-2026-12400-Exploit"
   ],
   "source_id": "github_trending",
   "stats": {
