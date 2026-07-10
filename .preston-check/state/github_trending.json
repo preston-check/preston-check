@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-10T05:03:44.566099+00:00",
-  "last_successful_fetch": "2026-07-10T05:03:48.179880+00:00",
+  "last_run": "2026-07-10T08:34:44.626635+00:00",
+  "last_successful_fetch": "2026-07-10T08:34:49.073973+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1931,7 +1931,12 @@
     "github:inforcqb/CVE-2026-43499-pja110",
     "github:Sys-Fxp47/my-cve",
     "github:gulatel27/CVE-Alarm",
-    "github:L4V4D0/CVE-2026-29519-Lucee-Reflected-XSS"
+    "github:L4V4D0/CVE-2026-29519-Lucee-Reflected-XSS",
+    "github:Dr-D25/CVE-2026-49049",
+    "github:AnnieLin123/CVE-Binary-Tool",
+    "github:hacbs-release-tests/collectors-no-cve-45fe8f53",
+    "github:shinthink/CVE-2025-20720",
+    "github:mfazrinizar/hunt-cve-agent-codex"
   ],
   "source_id": "github_trending",
   "stats": {
