@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-10T15:38:38.823511+00:00",
-  "last_successful_fetch": "2026-07-10T15:38:42.343365+00:00",
+  "last_run": "2026-07-10T17:57:12.505649+00:00",
+  "last_successful_fetch": "2026-07-10T17:57:17.313002+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1944,7 +1944,11 @@
     "github:hacbs-release-tests/collectors-no-cve-54e14099",
     "github:zimmerman-team/devops.cve-tracker.server-plugin",
     "github:incogbyte/wp-cve-exploits",
-    "github:pranav767/cve-hub-oss"
+    "github:pranav767/cve-hub-oss",
+    "github:ozcanpng/CVE-2025-60787",
+    "github:akashgit/cve-patch-apm-agent-attach-1-36-0",
+    "github:akashgit/cve-patch-transactions-jdbc-4-0-6-1783704930",
+    "github:qazbnm456/cve-reverser"
   ],
   "source_id": "github_trending",
   "stats": {
