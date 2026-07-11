@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-11T10:22:53.776897+00:00",
-  "last_successful_fetch": "2026-07-11T10:22:56.689088+00:00",
+  "last_run": "2026-07-11T12:00:57.436175+00:00",
+  "last_successful_fetch": "2026-07-11T12:01:00.238723+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1975,7 +1975,13 @@
     "github:cybertechajju/CVE-2026-59734-POC",
     "github:aley-fiore3/cvent-advanced-study-guide",
     "github:jerzy99jerzy/cve-digest",
-    "github:d3v4shish/CVEChecker"
+    "github:d3v4shish/CVEChecker",
+    "github:ozcanpng/CVE-2026-23744",
+    "github:hacbs-release-tests/collectors-no-cve-0e219676",
+    "github:Omer-Asher/dasel-cve-exercise",
+    "github:mukutghosh/cve-digest-bot",
+    "github:AlexeyBaolleo/CVE-POC-backend",
+    "github:Lim-ahmin/CVE-2021-43798"
   ],
   "source_id": "github_trending",
   "stats": {
