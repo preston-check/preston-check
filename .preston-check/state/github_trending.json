@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-11T06:23:31.072026+00:00",
-  "last_successful_fetch": "2026-07-11T06:23:34.069032+00:00",
+  "last_run": "2026-07-11T08:56:40.208384+00:00",
+  "last_successful_fetch": "2026-07-11T08:56:43.472081+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1969,7 +1969,10 @@
     "github:hacbs-release-tests/collectors-no-cve-f2c5c3f5",
     "github:CrimsonfiedOfficial/CVE-2026-29114",
     "github:CrimsonfiedOfficial/CVE-2026-29115",
-    "github:CrimsonfiedOfficial/CVE-2026-29116"
+    "github:CrimsonfiedOfficial/CVE-2026-29116",
+    "github:gkdgkd123/CVE-2026-29145-Everything",
+    "github:littleraccoon1219/cver_full_pipeline",
+    "github:cybertechajju/CVE-2026-59734-POC"
   ],
   "source_id": "github_trending",
   "stats": {
