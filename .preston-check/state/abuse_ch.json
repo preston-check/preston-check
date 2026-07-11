@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-07-11T21:01:34.855635+00:00",
-  "last_successful_fetch": "2026-07-11T21:01:34.856595+00:00",
+  "last_run": "2026-07-11T22:01:25.205580+00:00",
+  "last_successful_fetch": "2026-07-11T22:01:25.206325+00:00",
   "processed_ids": [
-    "threatfox:www.tuttoinriviera.com",
-    "threatfox:https://merabs.pro/fef5dad8.exe",
-    "threatfox:https://merabs.pro/4763f422.exe",
-    "threatfox:https://merabs.pro/f55c88c3.exe",
-    "threatfox:https://merabs.pro/e95bb15f.exe",
-    "threatfox:https://merabs.pro/0f186364.exe",
-    "threatfox:https://merabs.pro/5f2f9b06.exe",
-    "threatfox:https://merabs.pro/33fc733a.exe",
-    "threatfox:https://merabs.pro/a4ab25da.exe",
-    "threatfox:https://merabs.pro/62706817.exe",
     "threatfox:https://merabs.pro/3c199c55.exe",
     "threatfox:https://merabs.pro/6a94e8ad.exe",
     "threatfox:https://merabs.pro/8dd99b31.exe",
@@ -5001,7 +4991,17 @@
     "threatfox:137.220.152.132:12159",
     "threatfox:1.14.234.68:4321",
     "threatfox:5jsdebh3.backgammon.download",
-    "threatfox:jhzehezj.backgammon.download"
+    "threatfox:jhzehezj.backgammon.download",
+    "threatfox:orjrdtyn.site-shartbandi-khareji.com",
+    "threatfox:bhzyklcp.site-shartbandi-khareji.com",
+    "threatfox:s7rpvlti.bahigo.casino",
+    "threatfox:cyjzdlpi.bahigo.casino",
+    "threatfox:103.236.95.191:80",
+    "threatfox:103.236.95.191:60000",
+    "threatfox:103.236.95.191:443",
+    "threatfox:154.88.99.39:8885",
+    "threatfox:jnjv.bahigo90bet.com",
+    "threatfox:dirb.bahigo90bet.com"
   ],
   "source_id": "abuse_ch",
   "stats": {

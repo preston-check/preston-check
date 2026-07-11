@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-11T21:01:30.455868+00:00",
-  "last_successful_fetch": "2026-07-11T21:01:34.424930+00:00",
+  "last_run": "2026-07-11T22:01:19.502831+00:00",
+  "last_successful_fetch": "2026-07-11T22:01:24.989175+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1999,7 +1999,8 @@
     "github:p4ssw0rd-bypass/cve",
     "github:cassiofb-dev/cve-dashboard",
     "github:nephila016/CVE-2025-55319-PoC",
-    "github:FakePickle/cve_digest"
+    "github:FakePickle/cve_digest",
+    "github:gucci-j/lowres-cve"
   ],
   "source_id": "github_trending",
   "stats": {
