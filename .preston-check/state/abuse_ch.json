@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-07-11T22:01:25.205580+00:00",
-  "last_successful_fetch": "2026-07-11T22:01:25.206325+00:00",
+  "last_run": "2026-07-11T23:04:40.139187+00:00",
+  "last_successful_fetch": "2026-07-11T23:04:40.139864+00:00",
   "processed_ids": [
-    "threatfox:https://merabs.pro/3c199c55.exe",
-    "threatfox:https://merabs.pro/6a94e8ad.exe",
-    "threatfox:https://merabs.pro/8dd99b31.exe",
-    "threatfox:https://merabs.pro/c8787734.exe",
-    "threatfox:https://merabs.pro/3b006736.exe",
-    "threatfox:https://merabs.pro/703520a5.exe",
-    "threatfox:https://merabs.pro/fb5fff92.exe",
-    "threatfox:69x4o4j5.bet808.casino",
-    "threatfox:bet808.casino",
     "threatfox:nordra4ex.kymle5rax.in.net",
     "threatfox:xwnfpj7t.betrein.pro",
     "threatfox:betrein.pro",
@@ -5001,7 +4992,16 @@
     "threatfox:103.236.95.191:443",
     "threatfox:154.88.99.39:8885",
     "threatfox:jnjv.bahigo90bet.com",
-    "threatfox:dirb.bahigo90bet.com"
+    "threatfox:dirb.bahigo90bet.com",
+    "threatfox:nxiyquas.behtarin-site-shartbandi-football.bet",
+    "threatfox:lieynrbq.behtarin-site-shartbandi-football.bet",
+    "threatfox:scanvertzeit.zexorcloudsync.garden",
+    "threatfox:154.88.100.40:8885",
+    "threatfox:139.129.51.9:6443",
+    "threatfox:154.88.100.34:8885",
+    "threatfox:103.236.95.191:8080",
+    "threatfox:uonh.bahsegel90.com",
+    "threatfox:bnyr.bahsegel90.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
