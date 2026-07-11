@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-11T15:09:53.714752+00:00",
-  "last_successful_fetch": "2026-07-11T15:09:56.878318+00:00",
+  "last_run": "2026-07-11T17:10:29.441800+00:00",
+  "last_successful_fetch": "2026-07-11T17:10:32.954927+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1990,7 +1990,9 @@
     "github:dua2z3rr/CVE-2026-29000-PoC",
     "github:SreeragPramod/cve-dashboard",
     "github:taka3636/CVE-2022-29078",
-    "github:mika8313/zeroforge"
+    "github:mika8313/zeroforge",
+    "github:ExDev994/CVE-2026-7275-moodle",
+    "github:kokunas/java-app-cve"
   ],
   "source_id": "github_trending",
   "stats": {
