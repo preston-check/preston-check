@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-11T12:00:57.436175+00:00",
-  "last_successful_fetch": "2026-07-11T12:01:00.238723+00:00",
+  "last_run": "2026-07-11T13:47:53.835094+00:00",
+  "last_successful_fetch": "2026-07-11T13:47:56.978087+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -1981,7 +1981,16 @@
     "github:Omer-Asher/dasel-cve-exercise",
     "github:mukutghosh/cve-digest-bot",
     "github:AlexeyBaolleo/CVE-POC-backend",
-    "github:Lim-ahmin/CVE-2021-43798"
+    "github:Lim-ahmin/CVE-2021-43798",
+    "github:ExDev994/CVE-2026-0740-mass",
+    "github:guoguo419/CVE-GuoGuoGuo",
+    "github:1beelze/CVE-2026-14894",
+    "github:cyberheatradar/cve-evidence-radar",
+    "github:HawkSec38/-wp-cve-intel-",
+    "github:dua2z3rr/CVE-2026-29000-PoC",
+    "github:SreeragPramod/cve-dashboard",
+    "github:taka3636/CVE-2022-29078",
+    "github:mika8313/zeroforge"
   ],
   "source_id": "github_trending",
   "stats": {
