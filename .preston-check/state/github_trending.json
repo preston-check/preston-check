@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-12T17:12:43.531791+00:00",
-  "last_successful_fetch": "2026-07-12T17:12:47.622179+00:00",
+  "last_run": "2026-07-12T19:19:43.044896+00:00",
+  "last_successful_fetch": "2026-07-12T19:19:45.821568+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2018,7 +2018,9 @@
     "github:Diogo-Damasceno/cvematic",
     "github:solomonhenry-afk/vsftpd-cve-2011-2523-detection-signature",
     "github:miaoyum/cve",
-    "github:yuzuki-ayanami/CVE-2019-0232"
+    "github:yuzuki-ayanami/CVE-2019-0232",
+    "github:ozcanpng/CVE-2023-34468",
+    "github:gunwoo105/Node_CVE-2023-29017"
   ],
   "source_id": "github_trending",
   "stats": {
