@@ -28,7 +28,10 @@ jobs:
 
       - name: Run actionlint
         run: |
-          bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) 1.7.7
+          # Deliberately unpinned: actionlint ships a hardcoded runner-label
+          # database, and a pinned version goes stale in both directions
+          # (flags new labels as unknown, accepts retired ones).
+          bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
           # Findings at info/style level are advisory noise; parse errors,
           # unknown runner labels, and expression errors fail the build.
           ./actionlint -color -ignore 'SC[0-9]+:(info|style):' .github/workflows/*.yml
