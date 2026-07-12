@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-12T21:02:29.377934+00:00",
-  "last_successful_fetch": "2026-07-12T21:02:33.501911+00:00",
+  "last_run": "2026-07-12T22:03:41.200436+00:00",
+  "last_successful_fetch": "2026-07-12T22:03:44.339066+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2024,7 +2024,8 @@
     "github:chevalpartners/cve-buster-test-pip",
     "github:chevalpartners/cve-buster-test-npm",
     "github:chevalpartners/cve-buster-test-docker",
-    "github:Dilrevx/apache-cves"
+    "github:Dilrevx/apache-cves",
+    "github:agentsoft-hq/cve-triage"
   ],
   "source_id": "github_trending",
   "stats": {
