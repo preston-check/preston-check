@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-12T03:54:23.501688+00:00",
-  "last_successful_fetch": "2026-07-12T03:54:26.832892+00:00",
+  "last_run": "2026-07-12T06:43:57.989681+00:00",
+  "last_successful_fetch": "2026-07-12T06:44:00.567593+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2006,7 +2006,10 @@
     "github:zoubi911/wp-cve-intel",
     "github:J4ck3LSyN-Gen2/CVE-2026-13768",
     "github:tc3650/CVE-2026-43499-armv7",
-    "github:bluedragonsecurity/CVE-2026-46215-EXPLOIT"
+    "github:bluedragonsecurity/CVE-2026-46215-EXPLOIT",
+    "github:luongchivi/Preproduce-CVE-2019-0232",
+    "github:DylanZahedi/CVE-2026-9277",
+    "github:zulfianarahmi/cve-dashboard"
   ],
   "source_id": "github_trending",
   "stats": {
