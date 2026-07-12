@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-12T19:19:43.044896+00:00",
-  "last_successful_fetch": "2026-07-12T19:19:45.821568+00:00",
+  "last_run": "2026-07-12T21:02:29.377934+00:00",
+  "last_successful_fetch": "2026-07-12T21:02:33.501911+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2020,7 +2020,11 @@
     "github:miaoyum/cve",
     "github:yuzuki-ayanami/CVE-2019-0232",
     "github:ozcanpng/CVE-2023-34468",
-    "github:gunwoo105/Node_CVE-2023-29017"
+    "github:gunwoo105/Node_CVE-2023-29017",
+    "github:chevalpartners/cve-buster-test-pip",
+    "github:chevalpartners/cve-buster-test-npm",
+    "github:chevalpartners/cve-buster-test-docker",
+    "github:Dilrevx/apache-cves"
   ],
   "source_id": "github_trending",
   "stats": {
