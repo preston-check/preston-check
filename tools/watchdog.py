@@ -84,12 +84,16 @@ def _gh(path: str, method: str = "GET", body: dict | None = None) -> tuple[int, 
         return exc.code, None
 
 
-def recent_bad_runs(lookback_hours: int) -> list[dict]:
+def recent_runs(lookback_hours: int) -> tuple[list[dict], dict[int, str]]:
+    """Bad runs in the window, plus workflow_id -> latest successful
+    created_at, so failures already superseded by a newer green run of the
+    same workflow can be skipped instead of re-run or escalated."""
     since = (
         datetime.datetime.now(datetime.timezone.utc)
         - datetime.timedelta(hours=lookback_hours)
     ).strftime("%Y-%m-%dT%H:%M:%SZ")
-    runs: list[dict] = []
+    bad: list[dict] = []
+    last_success: dict[int, str] = {}
     for page in range(1, 4):
         status, payload = _gh(
             f"/repos/{REPO}/actions/runs?status=completed&per_page=100"
@@ -98,10 +102,16 @@ def recent_bad_runs(lookback_hours: int) -> list[dict]:
         if status != 200 or not payload:
             break
         batch = payload.get("workflow_runs", [])
-        runs.extend(r for r in batch if r.get("conclusion") in BAD_CONCLUSIONS)
+        for r in batch:
+            if r.get("conclusion") in BAD_CONCLUSIONS:
+                bad.append(r)
+            elif r.get("conclusion") == "success":
+                wf = r["workflow_id"]
+                if r["created_at"] > last_success.get(wf, ""):
+                    last_success[wf] = r["created_at"]
         if len(batch) < 100:
             break
-    return runs
+    return bad, last_success
 
 
 def rerun_failed(run: dict) -> tuple[bool, str]:
@@ -195,8 +205,13 @@ def main() -> int:
     escalations: list[str] = []
 
     # 1+2 — detect bad runs, re-run first-attempt failures once.
-    for run in recent_bad_runs(args.lookback_hours):
+    bad_runs, last_success = recent_runs(args.lookback_hours)
+    for run in bad_runs:
         label = f"{run['name']} #{run['run_number']} ({run['conclusion']}, attempt {run['run_attempt']}) {run['html_url']}"
+        if run["created_at"] < last_success.get(run["workflow_id"], ""):
+            # A newer run of this workflow already succeeded — the failure
+            # was fixed or superseded; re-running the old commit is noise.
+            continue
         if run["conclusion"] == "startup_failure":
             escalations.append(
                 f"UNPARSEABLE WORKFLOW FILE — {label}. No in-band alert can ever "
