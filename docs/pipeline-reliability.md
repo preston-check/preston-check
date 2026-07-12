@@ -1,0 +1,140 @@
+# Pipeline Reliability: Incident 2026-06-25 and the Self-Monitoring Layer
+
+This document records the June 2026 silent release-pipeline failure, explains why the
+self-monitoring loops did not catch it, and specifies the reliability layer added in
+response: a workflow lint gate, an out-of-band watchdog with auto-heal, and
+landing-page stat reconciliation. It complements `docs/threat-intel-pipeline-design.md`
+(the seven-loop catalog architecture); the watchdog described here is the loop that
+watches the loops.
+
+## Incident summary
+
+Commit `bb682fae` ("security: move GHA expression interpolations out of run blocks
+into env") added an `env:` block at the top of the "Download bottles and update
+formula" step in `.github/workflows/release.yml`. That step already carried an `env:`
+block at its bottom, roughly sixty lines away past a heredoc'd Python script. Local
+YAML tooling (PyYAML, most editors) silently tolerates duplicate mapping keys, so
+nothing flagged it. GitHub's workflow parser rejects duplicate keys, and a workflow
+file that fails to parse produces a `startup_failure` run — zero jobs, zero steps,
+zero seconds — on every push event, regardless of the file's trigger filters.
+
+From that commit forward every push to master logged a failed `release.yml` run, and
+the manually pushed `v1.8.1` tag on June 25 produced no release. The Homebrew tap and
+the curl installer continued serving v1.8.0. Nobody noticed for seventeen days.
+
+A second latent failure was waiting behind the first: the bottle build matrix pinned
+`macos-13`, a runner image GitHub has retired, so the Intel bottle job would have
+failed even after the parse error was fixed.
+
+## Why no alert fired
+
+Every alerting path in the pipeline was in-band — it lived inside workflow runs.
+`tools/notify_promotion.py` sends mail from within an orchestrate run; job failures
+surface only if the job actually starts. A workflow that dies at parse time executes
+nothing, so it cannot report its own death. GitHub's own failure e-mails are unreliable
+here too: most pipeline pushes are made by `preston-check-bot` or the Actions token,
+and notifications for bot-triggered runs do not reach a human inbox.
+
+The structural lesson: liveness monitoring cannot live inside the thing being
+monitored. It must observe run outcomes from outside, through the API, on a schedule
+that does not depend on any other workflow being healthy.
+
+## The reliability layer
+
+Three additions, each independent of the others.
+
+### 1. Workflow lint gate (prevention)
+
+`.github/workflows/workflow-lint.yml` runs `actionlint` on every push and pull request
+that touches `.github/workflows/**`. actionlint catches exactly the two classes that
+caused or would have prolonged this incident: duplicate-key parse errors
+(`syntax-check`) and unknown runner labels (`runner-label`). shellcheck `info` and
+`style` findings are ignored so the gate stays signal-only; errors and warnings fail
+the build. A broken workflow file can still be force-pushed, but it can no longer land
+silently — the lint run goes red on the same push.
+
+### 2. Pipeline watchdog (detection, alerting, auto-heal)
+
+`.github/workflows/pipeline-watchdog.yml` runs `tools/watchdog.py` every six hours and
+on manual dispatch. It is deliberately minimal — plain Python, stdlib only, GitHub REST
+API via the workflow token — so that its own failure surface stays small. Duties, in
+order:
+
+Detect. List all workflow runs completed in the lookback window (25 hours, overlapping
+so nothing falls between cron ticks) whose conclusion is `failure`, `startup_failure`,
+or `timed_out`. `startup_failure` is called out separately in the report because it
+means a workflow file is unparseable and every alerting path inside that file is dead.
+
+Auto-heal, transient class. Runs that concluded `failure` on their first attempt are
+re-run once via the re-run API. Genuine flakes (runner weather, network, rate limits)
+heal without a human; persistent failures show up again on the next tick as
+second-attempt failures and are escalated in the report instead of re-run again.
+
+Auto-heal, release reconciliation. The newest `v*` tag is compared against GitHub
+releases. A tag with no release means the release pipeline died after tagging — the
+exact v1.8.1 failure mode. The watchdog dispatches `release.yml` with the tag as input,
+unless a release run for that tag is already queued or in progress, or three or more
+release runs for it have already failed (at that point re-dispatching is a loop, not a
+heal, and the report escalates instead).
+
+Auto-heal, landing-page stats. The watchdog runs `tools/update_landing_stats.py`
+(section 3). If the landing page drifted, it commits the fix as `preston-check-bot` and
+dispatches `pages.yml` explicitly — pushes made with the Actions token do not trigger
+`on: push` workflows, so the dispatch is load-bearing, not belt-and-braces.
+
+Alert. When anything was detected, healed, or escalated, the watchdog e-mails a report
+through the same SES path as promotion notifications (`send_email` in
+`tools/notify_promotion.py`, secrets `PRESTON_NOTIFY_EMAIL` / `SES_AWS_*`). Quiet
+windows send nothing. The report separates "auto-healed, no action needed" from "needs
+a human", so the inbox signal stays meaningful.
+
+Residual risk, acknowledged: the watchdog cannot watch itself. Its failure modes are
+mitigated rather than eliminated — the lint gate covers its workflow file, its Python
+is dependency-free, and a scheduled-run failure lands in the actor's GitHub
+notifications. If it ever goes quiet for more than a day while other automation is
+active, run `notify-self-test.yml` and dispatch it manually.
+
+### 3. Landing-page stat reconciliation (accuracy)
+
+The public headline at preston-check.com carried a hardcoded check count (294) that
+predated every threat-intel promotion. `tools/update_landing_stats.py` computes the
+real catalog size the same way the runner discovers checks — `checks/*.sh` plus
+`checks/community/verified/*.sh` plus `checks/community/accepted/*.sh` (the shipped
+set; `proposed/` is excluded exactly as the runner excludes it by default) plus the
+deep smart-contract module (`modules/smart-contract-audit/checks/*.sh`) — and rewrites
+every count occurrence in `web/landing/index.html`: meta description, OpenGraph
+description, hero lede, catalog card with its per-tier breakdown, pricing bullet, and
+the stats strip. Idempotent; exits 0 unchanged when the page is already accurate.
+
+It runs in two places: once at promotion-merge time is unnecessary because the
+watchdog reconciles within six hours of any promotion landing, and immediately —
+today's run — to correct the stale 294. Because the repo copy of `index.html` is
+rewritten (rather than substituting at deploy time), the file in git always matches
+what is live, and an ordinary human push touching `web/landing/**` still triggers the
+normal deploy path.
+
+## release.yml repairs
+
+Four changes, all in the same commit as this document. The duplicate `env:` blocks of
+the formula-update step are merged into one. The retired `macos-13` matrix entry
+becomes `macos-15-intel` with bottle tag `sequoia`, and the formula writer's canonical
+tag order follows. The tarball build now stamps the tag version into `PRESTON_VERSION`
+in `preston-check.sh` before archiving, so an auto-tagged release self-reports
+correctly even though nothing edits the version line on master. And the workflow gains
+a `workflow_dispatch` trigger taking an existing tag, which is what the watchdog uses
+to re-release a tag whose original run died; on dispatch, checkout pins to that tag so
+the artifact is built from the tagged tree, not master.
+
+One ordering bug is also fixed: bottles used to be built by installing from the tap
+formula before the formula was updated, so every release's bottles would have packaged
+the previous release's tarball. The formula's url/sha/version are now pushed to the
+tap first (`update-tap-url` job), bottles build from the updated formula, and the
+bottle SHA block is appended after. If `HOMEBREW_TAP_TOKEN` is not configured both tap
+jobs skip gracefully, as before.
+
+## Verification record (2026-07-12)
+
+actionlint clean across all workflow files after the fixes. Watchdog dry-run executed
+locally against the live API before first scheduled run. v1.8.1 release healed by the
+first watchdog dispatch; landing page count corrected and redeployed. Details in the
+commit that introduced this file and in CHANGELOG.md.

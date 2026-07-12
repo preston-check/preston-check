@@ -1,0 +1,45 @@
+name: Pipeline watchdog
+
+# Out-of-band monitor for every other workflow. Detects failed and
+# unparseable-workflow runs, auto-heals what it safely can (transient
+# re-runs, tag-without-release dispatch, landing-page count drift), and
+# e-mails a report via SES when anything happened.
+#
+# This exists because in-band alerting cannot survive a workflow parse
+# error (June 2026 release.yml incident — docs/pipeline-reliability.md).
+#
+# Security note: no untrusted input is interpolated into run: blocks;
+# the tool talks to the GitHub API with the workflow token only.
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # landing-page reconcile commit
+  actions: write    # re-run failed runs, dispatch release.yml / pages.yml
+
+concurrency:
+  group: pipeline-watchdog
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PRESTON_NOTIFY_EMAIL: ${{ secrets.PRESTON_NOTIFY_EMAIL }}
+      SES_AWS_ACCESS_KEY_ID: ${{ secrets.SES_AWS_ACCESS_KEY_ID }}
+      SES_AWS_SECRET_ACCESS_KEY: ${{ secrets.SES_AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run watchdog
+        run: python3 tools/watchdog.py

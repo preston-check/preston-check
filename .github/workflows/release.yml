@@ -4,6 +4,14 @@ on:
   push:
     tags:
       - 'v*'
+  # Re-release an existing tag whose original run failed. Used by the
+  # pipeline watchdog (tools/watchdog.py) to self-heal tag-without-release.
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing v* tag to (re)build and release'
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -19,11 +27,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # On dispatch, build from the tagged tree, not master.
+          ref: ${{ inputs.tag || github.ref }}
 
       - name: Compute version
         id: meta
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
+          TAG="${INPUT_TAG:-$GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Build release tarball
@@ -32,6 +45,9 @@ jobs:
           VERSION: ${{ steps.meta.outputs.version }}
         run: |
           ARCHIVE="preston-check-${VERSION}.tar.gz"
+          # Stamp the tag version into the runner so the shipped artifact
+          # self-reports correctly (auto-tag bumps never edit master).
+          sed -i "s/^PRESTON_VERSION=.*/PRESTON_VERSION=\"${VERSION}\"/" preston-check.sh
           # Write the archive into ../ so tar isn't reading the directory
           # it's currently writing to (which causes "file changed as we read
           # it" errors and aborts the build).
@@ -51,6 +67,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ steps.meta.outputs.version }}
           generate_release_notes: true
           files: |
             preston-check-${{ steps.meta.outputs.version }}.tar.gz
@@ -73,6 +90,9 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          # On dispatch, build the image from the tagged tree, not master.
+          ref: ${{ inputs.tag || github.ref }}
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
 
@@ -93,6 +113,76 @@ jobs:
             ghcr.io/preston-check/scan:${{ needs.release.outputs.version }}
             ghcr.io/preston-check/scan:latest
 
+  # Point the tap formula at the new tarball BEFORE bottles are built, so
+  # the bottle job installs the new version. (Previously bottles were built
+  # from the still-old formula and packaged the prior release's tarball.)
+  # The stale bottle block is stripped here; update-tap re-adds it with
+  # fresh SHAs once the new bottles exist.
+  update-tap-url:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check tap PAT
+        id: check
+        env:
+          HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        run: |
+          if [[ -n "$HOMEBREW_TAP_TOKEN" ]]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::HOMEBREW_TAP_TOKEN not configured — skipping tap url update"
+          fi
+
+      - name: Checkout tap
+        if: steps.check.outputs.configured == 'true'
+        uses: actions/checkout@v4
+        with:
+          repository: preston-check/homebrew-tap
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          path: tap
+
+      - name: Update formula url/sha/version
+        if: steps.check.outputs.configured == 'true'
+        env:
+          VERSION: ${{ needs.release.outputs.version }}
+          SHA: ${{ needs.release.outputs.sha256 }}
+          URL: https://github.com/preston-check/preston-check/releases/download/v${{ needs.release.outputs.version }}/preston-check-${{ needs.release.outputs.version }}.tar.gz
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, re
+
+          VERSION = os.environ["VERSION"]
+          SHA     = os.environ["SHA"]
+          URL     = os.environ["URL"]
+
+          p = pathlib.Path("tap/Formula/preston-check.rb")
+          src = p.read_text()
+          src = re.sub(r'url\s+"[^"]*"',      f'url "{URL}"',         src, count=1)
+          src = re.sub(r'sha256\s+"[^"]*"',   f'sha256 "{SHA}"',      src, count=1)
+          src = re.sub(r'version\s+"[^"]*"',  f'version "{VERSION}"', src, count=1)
+          # Drop the stale bottle block so installs fall back to source
+          # until update-tap writes the new bottle SHAs.
+          src = re.sub(r'\n  bottle do\n.*?\n  end\n', '\n', src, flags=re.DOTALL)
+          p.write_text(src)
+          PY
+
+      - name: Commit + push
+        if: steps.check.outputs.configured == 'true'
+        working-directory: tap
+        env:
+          VERSION: ${{ needs.release.outputs.version }}
+        run: |
+          if git diff --quiet; then
+            echo "Formula already up to date — skipping commit"
+            exit 0
+          fi
+          git config user.name  "preston-check-bot"
+          git config user.email "bot@preston-check.com"
+          git add Formula/preston-check.rb
+          git commit -m "release: preston-check ${VERSION} (url/sha, bottles pending)"
+          git push
+
   # Build pre-compiled bottles for each supported platform so that
   # `brew install` never falls back to source (which requires CLT).
   # Each job runs on its native OS, builds the formula, and uploads
@@ -100,7 +190,7 @@ jobs:
   # downloads all bottles, computes their SHAs, and writes the
   # bottle do block into the tap formula.
   bottle:
-    needs: release
+    needs: [release, update-tap-url]
     permissions:
       contents: write
     strategy:
@@ -113,8 +203,8 @@ jobs:
             bottle_tag: arm64_sequoia
           - os: macos-14        # ARM macOS 14 Sonoma
             bottle_tag: arm64_sonoma
-          - os: macos-13        # Intel macOS 13 Ventura
-            bottle_tag: ventura
+          - os: macos-15-intel  # Intel macOS 15 Sequoia (macos-13 runners retired)
+            bottle_tag: sequoia
           - os: ubuntu-latest   # Linux x86_64
             bottle_tag: x86_64_linux
     runs-on: ${{ matrix.os }}
@@ -173,6 +263,9 @@ jobs:
         if: steps.check.outputs.configured == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.release.outputs.version }}
+          SHA: ${{ needs.release.outputs.sha256 }}
+          URL: https://github.com/preston-check/preston-check/releases/download/v${{ needs.release.outputs.version }}/preston-check-${{ needs.release.outputs.version }}.tar.gz
         run: |
           gh release download "v${VERSION}" \
             --repo preston-check/preston-check \
@@ -189,7 +282,7 @@ jobs:
           # Canonical display order for bottle OS tags
           OS_ORDER = [
             "arm64_tahoe", "arm64_sequoia", "arm64_sonoma",
-            "ventura", "x86_64_linux",
+            "sequoia", "x86_64_linux",
           ]
 
           bottles = {}
@@ -232,10 +325,6 @@ jobs:
           p.write_text(src)
           print(f"Updated formula: {len(ordered)} bottle(s) — {', '.join(t for t,_ in ordered)}")
           PY
-        env:
-          VERSION: ${{ needs.release.outputs.version }}
-          SHA: ${{ needs.release.outputs.sha256 }}
-          URL: https://github.com/preston-check/preston-check/releases/download/v${{ needs.release.outputs.version }}/preston-check-${{ needs.release.outputs.version }}.tar.gz
 
       - name: Commit + push
         if: steps.check.outputs.configured == 'true'

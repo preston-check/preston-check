@@ -1,0 +1,34 @@
+name: Workflow lint
+
+# Gate against unparseable or invalid workflow files. A workflow file with
+# a parse error (e.g. a duplicated key) produces a zero-second
+# startup_failure run on EVERY push — with no jobs, no steps, and no way
+# to alert from inside the file. This gate catches that class on the same
+# push that introduces it. See docs/pipeline-reliability.md.
+#
+# Security note: no untrusted input is interpolated into run: blocks.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/workflows/**'
+  pull_request:
+    paths:
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run actionlint
+        run: |
+          bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) 1.7.7
+          # Findings at info/style level are advisory noise; parse errors,
+          # unknown runner labels, and expression errors fail the build.
+          ./actionlint -color -ignore 'SC[0-9]+:(info|style):' .github/workflows/*.yml

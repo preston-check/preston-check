@@ -4,6 +4,39 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed — Release pipeline restored after silent 17-day outage
+
+`release.yml` carried a duplicated `env:` key (introduced in `bb682fae`)
+that GitHub's workflow parser rejects; every push since June 25 produced a
+zero-second `startup_failure` run and the manually pushed `v1.8.1` tag never
+became a release. Also fixed: the retired `macos-13` bottle runner (now
+`macos-15-intel`/`sequoia`), bottles being built from the not-yet-updated
+tap formula (they packaged the previous release's tarball), and release
+artifacts not self-reporting the tagged version (`PRESTON_VERSION` is now
+stamped at build time). `release.yml` gained a `workflow_dispatch` trigger
+to (re)release an existing tag. Full incident report in
+`docs/pipeline-reliability.md`.
+
+### Added — Self-monitoring reliability layer
+
+`workflow-lint.yml` gates every change under `.github/workflows/` with
+actionlint, so unparseable workflow files can no longer land silently.
+`pipeline-watchdog.yml` + `tools/watchdog.py` observe all workflow runs
+out-of-band every six hours: transient first-attempt failures are re-run
+automatically, a tag with no release re-dispatches `release.yml` (capped to
+avoid loops), and anything unhealable is e-mailed through the existing SES
+notification path.
+
+### Changed — Landing page counts are now reconciled automatically
+
+`tools/update_landing_stats.py` counts the shipped catalog the same way the
+runner discovers checks and rewrites every count on the landing page; the
+watchdog commits and redeploys when promotions cause drift. Headline
+corrected from the stale 294 to 340 (284 hand-curated + 36
+threat-intel-promoted + 20 deep smart-contract).
+
 ## [1.8.0] — 2026-05-08 — Auto-evolving threat-intel pipeline
 
 The most significant architectural addition since launch. Preston-Check now
