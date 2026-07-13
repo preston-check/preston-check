@@ -311,7 +311,18 @@ run_check() {
   if [[ "$provenance" == "auto" ]]; then
     local body status_record_path
     status_record_path=$(mktemp -t preston-record.XXXXXX)
-    PATH=/usr/bin:/bin SOURCE_DIR="${SOURCE_DIR:-.}" bash -c '
+    # Auto-generated checks run in a scrubbed environment (env -i): only PATH,
+    # HOME, LANG and SOURCE_DIR are passed through. This keeps the user's other
+    # environment — cloud credentials, tokens — out of reach of a check, even
+    # though the verification wall already blocks network and file-write. Only
+    # SOURCE_DIR is needed by the grep-based check skeleton; HOME/LANG keep
+    # grep/rg/find well-behaved.
+    env -i \
+      PATH=/usr/bin:/bin \
+      HOME="${HOME:-/tmp}" \
+      LANG="${LANG:-C}" \
+      SOURCE_DIR="${SOURCE_DIR:-.}" \
+      bash -c '
       set -uo pipefail
       unset IFS
       record() {

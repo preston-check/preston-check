@@ -83,8 +83,13 @@ Output ONLY this JSON object — no prose, no markdown fences, no explanation:
 
 ALLOWED COMMANDS (only these, nothing else):
   record  grep  rg  find  echo  printf  basename  dirname
-  head  tail  wc  sort  uniq  tr  cut  awk  sed  cat
-  test  [  [[  true  false  return
+  head  tail  wc  sort  uniq  tr
+  test  [  [[  true  false  return  break  continue
+
+  awk, sed, cat, and cut are NOT allowed and cause rejection. Use grep and rg
+  for all matching and extraction — a plain grep of "$SRC" reads files. Also:
+  the whole script must parse as ordinary bash — do NOT use case/esac, coproc,
+  or backslash-newline line continuations; stick to the skeleton below.
 
 VARIABLE ASSIGNMENT:
   CORRECT:   VARNAME=value          VARNAME=$(command)
@@ -103,7 +108,7 @@ ABSOLUTELY BANNED (script is silently rejected if any of these appear):
   Builtins:  local  declare  typeset  export  read  mapfile  readarray
              exit  unset  set  shopt  trap  enable  history  alias
   Other:     xargs  date  stat  ls  du  ps  id  whoami  env  printenv
-             python  python3  perl  ruby  node  make  sed -i  awk -i
+             python  python3  perl  ruby  node  make  awk  sed  cat  cut
   Patterns:  dollar-bang-var  printf -v  declare -n  IFS=  BASH_ENV=  ENV=
              PATH-overwrite  set -o  process-substitution  backticks
 

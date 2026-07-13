@@ -37,13 +37,22 @@ separation prompt design and before the subshell-isolated execution
 path. None of the three lines is sufficient on its own; together they
 form the verification wall.
 
-Validation is layered for robustness:
+Validation is layered:
   1. Pattern-based denylist always runs (catches dangerous primitives
      regardless of parsing success).
-  2. AST-based command-allowlist runs when bashlex can parse the
-     source.
-  3. Regex-based command-allowlist runs as a fallback when bashlex
-     cannot parse (still enforces the allowlist via line-start detection).
+  2. [[ ... ]] conditionals are normalised to a parseable no-op so
+     bashlex can parse real checks via its sound AST path (bashlex does
+     not implement [[ ]] and would otherwise reject every check).
+  3. AST-based command-allowlist runs on the normalised source. When
+     bashlex is present but still cannot parse (case/esac, coproc, line
+     continuations, ...), the check is REJECTED (fail closed) — an
+     unparseable check must never ship. The weaker regex scan is used
+     only when bashlex is not installed at all (never in CI).
+
+Historical note: awk/sed/cat/cut were removed from the allowlist after a
+review found program-text bypasses (awk print|"cmd", awk print>file, sed
+e/w/r) that the AST walker cannot see, plus unrestricted arbitrary-file
+reads. Zero shipped auto-checks used them; grep/rg/find cover detection.
 
 Exit codes: 0 if validation passes, 1 if any rule is violated, 2 on
 unexpected internal error (treated as a fail).
@@ -81,10 +90,6 @@ PERMITTED_COMMANDS: frozenset[str] = frozenset(
         "sort",
         "uniq",
         "tr",
-        "cut",
-        "awk",
-        "sed",
-        "cat",
         "test",
         "[",
         "[[",
@@ -92,6 +97,8 @@ PERMITTED_COMMANDS: frozenset[str] = frozenset(
         "false",
         ":",
         "return",
+        "break",
+        "continue",
     }
 )
 
@@ -194,6 +201,16 @@ DENIED_COMMANDS: frozenset[str] = frozenset(
         "gcc",
         "ld",
         "as",
+        # awk/sed/cat/cut removed from the allowlist entirely: zero shipped
+        # auto-checks use them, and each carries a program-text bypass the
+        # AST walker cannot see (awk system()/print|"cmd"/print>file, sed
+        # e/w/r commands) or an unrestricted arbitrary-file read (cat/cut).
+        # grep/rg/find fully cover static detection. Denied explicitly so the
+        # rejection reason is clear.
+        "awk",
+        "sed",
+        "cat",
+        "cut",
     }
 )
 
@@ -272,6 +289,33 @@ _PROHIBITED_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
         re.compile(r'\bawk\b[^|;&\n]*"[^"]*?\|\s*getline\b'),
         "awk program-text pipe getline (command injection)",
     ),
+    # awk output-pipe: print ... | "command" spawns a shell. Distinct from
+    # getline; this is the most common awk shell-escape.
+    (
+        re.compile(r"\bawk\b[^\n]*(?:print|printf)[^\n]*\|\s*\""),
+        "awk program-text output pipe to command (print | \"cmd\")",
+    ),
+    # awk output redirection: print ... > "file" / >> "file" writes files.
+    # Runs against non-stripped source so the awk program interior is visible.
+    (
+        re.compile(r"\bawk\b[^\n]*(?:print|printf)[^\n]*>>?\s*[\"'/]"),
+        "awk program-text output redirection to file",
+    ),
+    # GNU sed 'e' command (standalone, not the s///e flag) executes the
+    # pattern space or a given command as a shell command.
+    (
+        re.compile(r"\bsed\b[^\n]*'[^']*(?:^|;|\n)\s*[0-9$/]*\s*e\b"),
+        "sed 'e' command executes shell (GNU sed)",
+    ),
+    (
+        re.compile(r"\bsed\b[^\n]*(?:-e\s+)?['\"][0-9]*e\s"),
+        "sed 'e' command executes shell (GNU sed)",
+    ),
+    # sed w/W/r/R read or write arbitrary files, defeating read-only.
+    (
+        re.compile(r"\bsed\b[^\n]*['\"][^'\"]*[0-9$/,]*\s*[wWrR]\s+\S"),
+        "sed w/W/r/R file read/write is not permitted",
+    ),
     # awk program loaded from a variable reference — inline literal programs can be
     # statically inspected; variable-assembled programs cannot.
     # Matches awk "$VAR", awk $VAR, awk "${VAR}" when the variable is the FIRST argument
@@ -296,7 +340,10 @@ _PROHIBITED_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
     # (e.g. $'\x65\x76\x61\x6c' decodes to "eval"). It is not needed in any legitimate
     # auto-generated check, so it is prohibited unconditionally.
     (
-        re.compile(r"\$'"),
+        # Anchored to a token-start position so the ubiquitous blank-line
+        # idiom grep -v '^$' (where $' is the anchor '$' plus a closing
+        # quote, not an ANSI-C quote opener) is not falsely flagged.
+        re.compile(r"(?:^|[\s=(:,\"])\$'"),
         "ANSI-C quoting ($'...') is not permitted in auto-generated checks",
     ),
     # Backslash-newline line continuation allows a single logical command to span
@@ -335,9 +382,119 @@ _PROHIBITED_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
 )
 
 
+# Command-start positions for the no-bashlex fallback. Includes ')' (case
+# branches, subshell close) and '&' (background) in addition to line starts,
+# ';', pipes, '&&'/'||', and '('. Command-introducing keywords (then/do/else/
+# elif) and case terminators (;;) are normalised to ';' before scanning so a
+# denied command in those positions (e.g. 'y) curl' or 'then curl') is still
+# detected. '{'/'}' are deliberately excluded to avoid matching ${var}.
 _COMMAND_START_RE = re.compile(
-    r"(?:^|[\n;]|\|\||\&\&|\||\()\s*([a-zA-Z_][\w-]*)\b"
+    r"(?:^|[\n;)&]|\|\||\&\&|\||\()\s*([a-zA-Z_][\w-]*)\b"
 )
+
+_KEYWORD_TO_SEP_RE = re.compile(r"\b(?:then|do|else|elif)\b|;;&?|;&")
+
+
+def _extract_command_subs(source: str) -> tuple[str, list[str]]:
+    """Pull out every $(...) command substitution, replacing each with a
+    neutral placeholder and returning the interiors for independent validation.
+
+    bashlex cannot parse ||/&& inside $(...) (a legitimate construct like
+    $(rg -c X "$SRC" | wc -l || echo 0)), and it blanks nothing — so validating
+    substitution interiors separately both works around that limitation and
+    removes a blind spot (command subs inside double quotes). Single-quoted
+    regions are copied verbatim (no expansion there). $((...)) arithmetic is
+    left in place (it cannot invoke commands; nested $() inside it is caught by
+    the always-on denylist). Extraction runs before [[ ]] normalisation so a
+    substitution embedded in a test is preserved intact, not mangled.
+    """
+    inners: list[str] = []
+    out: list[str] = []
+    i, n = 0, len(source)
+    state = "normal"  # normal | single | double
+    while i < n:
+        c = source[i]
+        if state == "single":
+            out.append(c)
+            if c == "'":
+                state = "normal"
+            i += 1
+            continue
+        if state == "double":
+            if c == "\\" and i + 1 < n:
+                out.append(source[i : i + 2])
+                i += 2
+                continue
+            if c == '"':
+                state = "normal"
+                out.append(c)
+                i += 1
+                continue
+            # fall through to $( detection inside double quotes
+        else:  # normal
+            if c == "'":
+                state = "single"
+                out.append(c)
+                i += 1
+                continue
+            if c == '"':
+                state = "double"
+                out.append(c)
+                i += 1
+                continue
+        # $( command substitution (but not $(( arithmetic ))
+        if c == "$" and i + 1 < n and source[i + 1] == "(" and not (
+            i + 2 < n and source[i + 2] == "("
+        ):
+            depth = 1
+            j = i + 2
+            iq: str | None = None
+            while j < n and depth > 0:
+                cj = source[j]
+                if iq:
+                    if cj == "\\" and iq == '"' and j + 1 < n:
+                        j += 2
+                        continue
+                    if cj == iq:
+                        iq = None
+                elif cj in ('"', "'"):
+                    iq = cj
+                elif cj == "(":
+                    depth += 1
+                elif cj == ")":
+                    depth -= 1
+                    if depth == 0:
+                        break
+                j += 1
+            if depth == 0:
+                inners.append(source[i + 2 : j])
+                out.append("PSUBST")
+                i = j + 1
+                continue
+            # unbalanced — leave verbatim; bashlex will fail → fail closed
+        out.append(c)
+        i += 1
+    return "".join(out), inners
+
+
+def _normalize_double_bracket(source: str) -> str:
+    """Rewrite [[ ... ]] conditional expressions into a parseable no-op command
+    so bashlex can parse the check via its sound AST path.
+
+    bashlex does not implement [[ ]] and raises on the leading unary operators
+    (-z, -n, ...) that every generated check uses, which would otherwise force
+    the weaker regex fallback for 100% of real checks. We replace each
+    [[ <expr> ]] with ': <expr-with-test-operators-neutralised>'. The ':' is the
+    permitted no-op builtin; any $(...) command substitution embedded in the
+    test is preserved as an argument so the AST walker still descends into it
+    and enforces the allowlist there. Test-internal operators (&&, ||, !, ;)
+    are blanked so the residue is a single simple command's argument list rather
+    than several commands beginning with bare operands like '-n'.
+    """
+    def repl(m: re.Match[str]) -> str:
+        inner = re.sub(r"&&|\|\||;|(?<![0-9<>])!", " ", m.group(1))
+        return ": " + inner
+    return re.sub(r"\[\[(.*?)\]\]", repl, source, flags=re.DOTALL)
 
 
 def _strip_meta_block(source: str) -> str:
@@ -444,7 +601,8 @@ def _bare_command_name(word: str) -> str:
 
 
 def _validate_commands_via_ast(source: str) -> tuple[bool, list[str]]:
-    """Try AST validation. Returns (parsed_ok, violations)."""
+    """Try AST validation on already-normalised source. Returns (parsed_ok,
+    violations)."""
     if not _HAS_BASHLEX:
         return False, []
     try:
@@ -483,6 +641,9 @@ def _validate_commands_via_regex(source: str) -> list[str]:
     via regex and applies the allowlist; less precise than AST but enforces
     the same set of denials and allowlist."""
     no_strings = _strip_string_literals(source)
+    # Normalise command-introducing keywords and case terminators to ';' so the
+    # scanner recognises commands that follow them (then curl, y) curl, ;;).
+    no_strings = _KEYWORD_TO_SEP_RE.sub(";", no_strings)
     violations: list[str] = []
     seen: set[str] = set()
 
@@ -545,13 +706,41 @@ def validate_check(check_path: Path) -> dict[str, Any]:
     source = check_path.read_text(encoding="utf-8", errors="replace")
     cleaned = _strip_shebang_and_comments(_strip_meta_block(source))
 
+    # The always-on pattern denylist runs against the un-normalised source so
+    # inline awk/sed program text and ANSI-C quoting are still visible.
     pattern_issues = _check_pattern_violations(cleaned)
-    ast_ok, ast_issues = _validate_commands_via_ast(cleaned)
-    if ast_ok:
-        cmd_issues = ast_issues
+
+    if _HAS_BASHLEX:
+        # Validate the top-level source and every command-substitution interior
+        # as independent command contexts. Extraction runs first so a $(...) is
+        # never mangled by [[ ]] normalisation; each interior is then processed
+        # the same way (it may itself contain [[ ]] or nested $()).
+        cmd_issues = []
         validator_path = "ast"
+        worklist = [cleaned]
+        processed = 0
+        while worklist and processed < 500:  # bound guards against pathological nesting
+            processed += 1
+            residue, inners = _extract_command_subs(worklist.pop())
+            worklist.extend(inners)
+            ast_ok, ast_issues = _validate_commands_via_ast(
+                _normalize_double_bracket(residue)
+            )
+            if not ast_ok:
+                # Fail closed. A fragment the validator cannot parse must never
+                # ship; the old behaviour (fall through to a weaker regex scan)
+                # let constructs bashlex rejects — case/esac, coproc, line
+                # continuations — smuggle denied commands past the wall.
+                cmd_issues = [
+                    "unparseable by validator (auto-checks must use the standard grep skeleton)"
+                ]
+                validator_path = "ast-reject"
+                break
+            cmd_issues.extend(ast_issues)
     else:
-        cmd_issues = _validate_commands_via_regex(cleaned)
+        # bashlex unavailable (never in CI, which installs it). Degrade to the
+        # hardened regex scan rather than fail every check in local dev.
+        cmd_issues = _validate_commands_via_regex(_normalize_double_bracket(cleaned))
         validator_path = "regex-fallback"
 
     all_issues = pattern_issues + cmd_issues
@@ -559,7 +748,7 @@ def validate_check(check_path: Path) -> dict[str, Any]:
         "pass": len(all_issues) == 0,
         "reasons": all_issues,
         "checked_path": str(check_path),
-        "validator_version": "0.2.0",
+        "validator_version": "0.3.0",
         "validator_path": validator_path,
     }
 
