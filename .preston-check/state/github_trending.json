@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-13T18:03:32.863335+00:00",
-  "last_successful_fetch": "2026-07-13T18:03:37.183097+00:00",
+  "last_run": "2026-07-13T19:43:37.753255+00:00",
+  "last_successful_fetch": "2026-07-13T19:43:41.486246+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2051,7 +2051,13 @@
     "github:api-evangelist/cvent-hospitality-cloud",
     "github:hacbs-release-tests/collectors-no-cve-6780323b",
     "github:amritlc/CVE2ATTCK-High-Level-Simulation",
-    "github:Linuxoid-cn/Mi8E5-Unlocker-by-CVE-2026-43499"
+    "github:Linuxoid-cn/Mi8E5-Unlocker-by-CVE-2026-43499",
+    "github:VicenteCaba/cvet-backend",
+    "github:ExDev994/CVE-2026-49049",
+    "github:aldoesp/CVE",
+    "github:hacbs-release-tests/collectors-no-cve-525dcc4e",
+    "github:hacbs-release-tests/collectors-no-cve-8224306d",
+    "github:AdityaBhatt3010/React2Shell-CVE-2025-55182"
   ],
   "source_id": "github_trending",
   "stats": {
