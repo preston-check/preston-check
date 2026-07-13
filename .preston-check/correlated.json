@@ -1,6 +1,66 @@
 {
-  "candidate_count": 363,
+  "candidate_count": 366,
   "candidates": [
+    {
+      "canonical_id": "CVE-2019-8312",
+      "composite_confidence": 0.85,
+      "cwe": [],
+      "description": "Auto-synthesized 2026-05-23; canonical_id=CVE-2019-8312; sources=[rss_feeds]; variant=middle; rationale=Balanced approach combines direct sink detection with taint propagation patterns (sprintf/snprintf feeding into system/exec), matching D-Link firmware command injection chains while maintaining re",
+      "first_seen": "2026-07-13T11:02:24.297694+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-07-13T11:02:24.297694+00:00",
+      "merged_sources": [
+        "backlog_salvage"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "medium",
+      "source_type_count": 1,
+      "title": "Identifying Bugs in Router Firmware at Scale with Taint Analysis (CVE-2019-8312)"
+    },
+    {
+      "canonical_id": "CVE-2020-10882",
+      "composite_confidence": 0.85,
+      "cwe": [],
+      "description": "Auto-synthesized 2026-05-23; canonical_id=CVE-2020-10882; sources=[rss_feeds]; variant=strict; rationale=Strict pattern matches exact service names (tdpServer) and parameter names (slave_mac) known from CVE-2020-10882. Low false-positive rate by requiring explicit vulnerable identifiers, but may mis",
+      "first_seen": "2026-07-13T11:02:24.297694+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-07-13T11:02:24.297694+00:00",
+      "merged_sources": [
+        "backlog_salvage"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "medium",
+      "source_type_count": 1,
+      "title": "Analysis & Exploitation of a Recent TP-Link Archer A7 Vulnerability (CVE-2020-10882)"
+    },
+    {
+      "canonical_id": "CVE-2020-15999",
+      "composite_confidence": 0.85,
+      "cwe": [],
+      "description": "Auto-synthesized 2026-05-28; canonical_id=CVE-2020-15999; sources=[rss_feeds]; variant=strict; rationale=Strict pattern detects direct FreeType glyph loading calls (FT_Load_Glyph, FT_Outline_Decompose) which are the core of CVE-2020-15999 exploitation. Filters out test files to reduce false positive",
+      "first_seen": "2026-07-13T11:02:24.297694+00:00",
+      "frameworks": [],
+      "key_kind": "cve",
+      "languages": [],
+      "last_seen": "2026-07-13T11:02:24.297694+00:00",
+      "merged_sources": [
+        "backlog_salvage"
+      ],
+      "proactive_only": false,
+      "raw_records_count": 1,
+      "references": [],
+      "severity": "medium",
+      "source_type_count": 1,
+      "title": "Chrome 1-Day Hunting - Uncovering and Exploiting CVE-2020-15999 (CVE-2020-15999)"
+    },
     {
       "canonical_id": "CVE-2026-42941",
       "composite_confidence": 0.95,
