@@ -45,8 +45,21 @@ ROOT = Path(__file__).parent.parent
 TOOLS = ROOT / "tools"
 ATTESTATIONS = ROOT / "attestations"
 ACCEPTED = ROOT / "checks" / "community" / "accepted"
+PROPOSED = ROOT / "checks" / "community" / "proposed"
 RETRY_QUEUE = ROOT / ".preston-check" / "retry-queue"
 SUMMARY_FILE = ROOT / ".preston-check" / "orchestrate-summary.json"
+
+# Source-corroboration policy. A candidate is auto-merged and SHIPPED
+# (checks/community/accepted/) only when at least one of its sources is a
+# reactive authoritative feed. Candidates synthesised only from attacker-
+# influenceable proactive text (Reddit, Mastodon, mailing lists, RSS, GitHub
+# trending, conference/newsletter) are routed to the unverified tier
+# (checks/community/proposed/): committed and attested as an audit trail and
+# available to users via --include-proposed as labelled early warnings, but
+# not shipped as verified and not triggering a version release. The wall stops
+# malicious CODE regardless; this stops uncorroborated (possibly misleading)
+# detections from shipping as verified. See docs/pipeline-reliability.md.
+AUTHORITATIVE_SOURCES: frozenset[str] = frozenset({"kev", "ghsa", "nvd", "osv"})
 
 CANDIDATES_DIR = ROOT / ".preston-check" / "candidates"
 
@@ -233,14 +246,24 @@ def process_candidate(
     signed = _sign_attestation(attestation, candidate_check.stem, dry_run)
     summary["attestation"] = {"path": str(signed) if signed else None, "signed": signed is not None}
 
+    sources = set(candidate_meta.get("merged_sources", []))
+    if not sources and candidate_meta.get("source"):
+        sources = {candidate_meta["source"]}
+    corroborated = bool(sources & AUTHORITATIVE_SOURCES)
+    summary["corroborated"] = corroborated
+    summary["sources"] = sorted(sources)
+
     if dry_run:
-        summary["outcome"] = "would-promote"
+        summary["outcome"] = "would-promote" if corroborated else "would-hold:unverified"
     else:
-        ACCEPTED.mkdir(parents=True, exist_ok=True)
-        target = ACCEPTED / candidate_check.name
+        dest = ACCEPTED if corroborated else PROPOSED
+        dest.mkdir(parents=True, exist_ok=True)
+        target = dest / candidate_check.name
         shutil.move(str(candidate_check), str(target))
         summary["promoted_to"] = str(target)
-        summary["outcome"] = "promoted"
+        # 'promoted' → shipped as verified; 'promoted:unverified' → held in the
+        # proposed tier as a labelled early warning pending corroboration.
+        summary["outcome"] = "promoted" if corroborated else "promoted:unverified"
 
     return summary
 

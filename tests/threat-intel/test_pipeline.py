@@ -922,13 +922,49 @@ PRESTON_META
             ):
                 summary = orchestrate.process_candidate(
                     check,
-                    {"canonical_id": "CVE-2026-9999"},
+                    # kev is an authoritative source → corroborated → would-promote.
+                    {"canonical_id": "CVE-2026-9999", "merged_sources": ["kev"]},
                     nonexistent,
                     nonexistent,
                     dry_run=True,
                 )
             self.assertEqual(summary["outcome"], "would-promote")
             self.assertTrue(check.is_file(), "file must remain in place during dry run")
+
+    def test_source_corroboration_routing(self) -> None:
+        """Corroborated candidates promote; uncorroborated ones are held as
+        unverified early warnings (source-corroboration policy)."""
+        import orchestrate  # type: ignore[import-not-found]
+
+        gates = {
+            "_gate_sandbox": {"pass": True, "validator_version": "0.3.0", "reasons": []},
+            "_gate_validate": {"pass": True, "metrics": {"tpr": 0.9, "fpr": 0.01, "stability": 0.95}, "corpus_hashes": {}},
+            "_gate_adversarial": {"passes": True, "rounds": 1, "transcript_hash": "abc", "synth_model": "m", "adv_model": "o"},
+        }
+        for sources, expected in (
+            (["kev"], "would-promote"),
+            (["ghsa", "reddit"], "would-promote"),
+            (["reddit"], "would-hold:unverified"),
+            (["mastodon", "mailing_list"], "would-hold:unverified"),
+        ):
+            with tempfile.TemporaryDirectory() as td:
+                tmp = Path(td)
+                (tmp / "attestations").mkdir()
+                check = self._make_check(tmp, 'record "PASS" "P-700" "none"')
+                nonexistent = tmp / "corpus.tar.gz"
+                with (
+                    patch.object(orchestrate, "_gate_sandbox", return_value=gates["_gate_sandbox"]),
+                    patch.object(orchestrate, "_gate_validate", return_value=gates["_gate_validate"]),
+                    patch.object(orchestrate, "_gate_adversarial", return_value=gates["_gate_adversarial"]),
+                    patch.object(orchestrate, "ATTESTATIONS", tmp / "attestations"),
+                ):
+                    summary = orchestrate.process_candidate(
+                        check,
+                        {"canonical_id": "CVE-2026-9999", "merged_sources": sources},
+                        nonexistent, nonexistent, dry_run=True,
+                    )
+                self.assertEqual(summary["outcome"], expected, f"sources={sources}")
+                self.assertEqual(summary["corroborated"], expected == "would-promote", f"sources={sources}")
 
 
 class DriftDetectTests(unittest.TestCase):

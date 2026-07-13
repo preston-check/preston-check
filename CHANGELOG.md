@@ -29,6 +29,25 @@ automatically, a tag with no release re-dispatches `release.yml` (capped to
 avoid loops), and anything unhealable is e-mailed through the existing SES
 notification path.
 
+### Added — Source-corroboration policy and daily security self-audit
+
+Source-corroboration: a synthesized check is auto-merged and shipped only when
+corroborated by a reactive authoritative source (KEV/GHSA/NVD/OSV). Checks
+synthesized only from attacker-influenceable proactive text (Reddit, Mastodon,
+mailing lists, RSS, trending) are routed to the unverified `proposed/` tier —
+committed and attested, available via `--include-proposed`, and shown with an
+`[UNVERIFIED]` label as early warnings — rather than shipped as verified. This
+stops uncorroborated, possibly-misleading detections from reaching users as
+trusted while preserving their early-warning value.
+
+Daily security self-audit (`tools/security_selfaudit.py` +
+`security-selfaudit.yml`): re-runs the 2026-07-13 review's findings as daily
+invariants — verification-wall red-team soundness, shipped-check sound-AST
+integrity, and workflow security (no mutable action pins, no fetch-exec off
+main, no dispatch without actions:write, actionlint clean) — and emails plus
+fails red on any regression, so a security regression cannot persist beyond a
+day. Complements the 6-hourly liveness watchdog.
+
 ### Security — Verification wall hardened (confirmed bypasses closed)
 
 A full adversarial review found the sandbox wall — the control between

@@ -132,11 +132,23 @@ jobs:
           git config user.email "bot@preston-check.com"
           BRANCH="threat-intel/automerge-$RUN_ID"
           git checkout -b "$BRANCH" || true
-          git add checks/community/accepted attestations 2>/dev/null || true
+          # Stage BOTH tiers: accepted/ (corroborated → shipped) and proposed/
+          # (unverified early warnings → committed as an audit trail but not
+          # shipped as verified). Source-corroboration routing lives in
+          # tools/orchestrate.py.
+          git add checks/community/accepted checks/community/proposed attestations 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "nothing to promote"
             echo "pr_url=" >> "$GITHUB_OUTPUT"
+            echo "accepted_changed=false" >> "$GITHUB_OUTPUT"
             exit 0
+          fi
+          # Only a corroborated (shipping) promotion warrants a version release;
+          # an unverified-only cycle merges for the audit trail but cuts no tag.
+          if git diff --cached --name-only | grep -q '^checks/community/accepted/'; then
+            echo "accepted_changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "accepted_changed=false" >> "$GITHUB_OUTPUT"
           fi
           git commit -m "auto: promoted candidates from orchestrate run $RUN_ID"
           git push origin "$BRANCH"
@@ -179,7 +191,9 @@ jobs:
           exit 1
 
       - name: Tag release for merged promotion
-        if: steps.merge_pr.outputs.merged == 'true'
+        # Only when a corroborated (shipping) check landed — an unverified-only
+        # cycle merges for the audit trail but must not bump the shipped version.
+        if: steps.merge_pr.outputs.merged == 'true' && steps.open_pr.outputs.accepted_changed == 'true'
         run: |
           # Pushes made with GITHUB_TOKEN never fire on:push workflows, so
           # the auto-tag release bump must be dispatched explicitly.

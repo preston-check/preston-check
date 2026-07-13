@@ -1,0 +1,45 @@
+name: Security self-audit
+
+# Daily deterministic re-run of the 2026-07-13 security review's findings as
+# invariants: verification-wall soundness (red-team), shipped-check integrity
+# (sound AST validation), and workflow security (no mutable pins / fetch-exec /
+# dispatch-without-actions:write, actionlint clean). Emails and fails red on any
+# regression, so a security regression cannot persist longer than a day.
+# Complements the 6-hourly liveness watchdog. See docs/pipeline-reliability.md.
+#
+# Security note: no untrusted input is interpolated into run: blocks.
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-selfaudit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      PRESTON_NOTIFY_EMAIL: ${{ secrets.PRESTON_NOTIFY_EMAIL }}
+      SES_AWS_ACCESS_KEY_ID: ${{ secrets.SES_AWS_ACCESS_KEY_ID }}
+      SES_AWS_SECRET_ACCESS_KEY: ${{ secrets.SES_AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install bashlex pyyaml cryptography requests
+
+      - name: Install actionlint
+        run: bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/v1.7.12/scripts/download-actionlint.bash) 1.7.12 && sudo mv actionlint /usr/local/bin/
+
+      - name: Run security self-audit
+        run: python3 tools/security_selfaudit.py

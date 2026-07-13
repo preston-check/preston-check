@@ -57,6 +57,11 @@ WARN_COUNT=0
 SKIP_COUNT=0
 RESULTS=()
 
+# Set to "unverified" while iterating the community/proposed tier so findings
+# from checks synthesised only from attacker-influenceable proactive sources
+# (Reddit, Mastodon, mailing lists) are clearly labelled as early warnings.
+CHECK_TIER_LABEL=""
+
 # Parse args
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -105,7 +110,9 @@ while [[ $# -gt 0 ]]; do
       echo "  --telemetry-opt-in   Send anonymous score to State of Fintech Security report"
       echo "  --ai-augment         Add AI false-positive filter + explanations to FAIL/WARN findings"
       echo "  --ai-fix             Also generate suggested patches per finding (implies --ai-augment)"
-      echo "  --include-proposed   Run unreviewed community-contributed checks"
+      echo "  --include-proposed   Also run UNVERIFIED early-warning checks (proposed tier):"
+      echo "                       auto-generated from uncorroborated sources (social/mailing"
+      echo "                       lists), findings labelled [UNVERIFIED]. Off by default."
       echo "  --framework NAME     Run only checks whose metadata references NAME"
       echo "                       (e.g., MiCA, CCSS:9.0:Level2, OWASP-SC-Top-10:2025, FATF, OFAC, DORA)"
       echo "  --category VAL       Filter by metadata category (comma-separated for multiple)"
@@ -149,6 +156,13 @@ record() {
   local check="$2"
   local detail="$3"
   local findings="${4:-}"
+
+  # Mark findings from the unverified (proposed) tier so an early-warning
+  # check synthesised from uncorroborated sources is never mistaken for a
+  # framework-corroborated result.
+  if [[ "$CHECK_TIER_LABEL" == "unverified" && "$check" != "[UNVERIFIED]"* ]]; then
+    check="[UNVERIFIED] $check"
+  fi
 
   case $status in
     PASS) ((PASS_COUNT++)); color=$GREEN ;;
@@ -396,6 +410,7 @@ if [[ -n "$SINGLE_CHECK" ]]; then
     if [[ -f "$d/${SINGLE_CHECK}.sh" ]]; then found="$d/${SINGLE_CHECK}.sh"; break; fi
   done
   if [[ -n "$found" ]]; then
+    [[ "$found" == */community/proposed/* ]] && CHECK_TIER_LABEL="unverified" || CHECK_TIER_LABEL=""
     if should_run_check "$found"; then
       run_check "$found"
     else
@@ -410,6 +425,8 @@ if [[ -n "$SINGLE_CHECK" ]]; then
   fi
 else
   for d in "${CHECK_DIRS[@]}"; do
+    # The proposed tier is unverified early-warning content; label its findings.
+    [[ "$d" == */community/proposed ]] && CHECK_TIER_LABEL="unverified" || CHECK_TIER_LABEL=""
     for check_file in "$d"/*.sh; do
       [[ -f "$check_file" ]] || continue
       # In light mode, only run P-01 through P-20

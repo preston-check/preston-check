@@ -242,15 +242,21 @@ harness and a real accepted check.
 These are product-threat-model or policy calls rather than clear bugs, so they
 are surfaced rather than silently changed:
 
-Untrusted-source auto-merge. Reddit / Mastodon / mailing-list content is
-attacker-influenceable free text. The wall stops malicious code, but a crafted
-input could still steer synthesis toward a semantically misleading check (for
-example a false-PASS that hides a real vulnerability class) — "injecting bad
-information" that a shell-safety gate cannot catch. TPR/FPR validation is a
-partial mitigation (the check must fire on the positive corpus). Recommended
-option: auto-merge only candidates corroborated by a reactive authoritative
-source (KEV/GHSA/NVD/OSV) and route proactive-text-only candidates to a review
-label. This changes promotion policy, so it is left for explicit sign-off.
+Untrusted-source auto-merge. RESOLVED 2026-07-13 (source-corroboration policy,
+implemented in `tools/orchestrate.py`). Reddit / Mastodon / mailing-list
+content is attacker-influenceable free text; the wall stops malicious code, but
+a crafted input could still steer synthesis toward a semantically misleading
+check (a false-PASS hiding a real vulnerability class) that a shell-safety gate
+cannot catch. Now: a candidate is auto-merged and SHIPPED
+(`checks/community/accepted/`, version + release) only when at least one of its
+sources is a reactive authoritative feed (KEV/GHSA/NVD/OSV). Candidates
+synthesised only from proactive text are routed to the unverified tier
+(`checks/community/proposed/`): committed and attested as an audit trail,
+available to users who opt in with `--include-proposed`, and displayed with an
+`[UNVERIFIED]` label so an uncorroborated early warning is never mistaken for a
+framework-corroborated result. An unverified-only cycle merges for the audit
+trail but cuts no version release. This preserves the early-warning value of
+social/mailing-list signals without shipping them as verified.
 
 Structural prompt isolation. `synthesize.py` places candidate data in the LLM
 user message with prompt-based (not tool-argument) isolation. The wall is the
