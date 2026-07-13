@@ -4,7 +4,18 @@ All notable changes to Preston-Check are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 adheres to [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.8.6] — 2026-07-13 — Security & reliability overhaul
+
+The verification wall, self-monitoring, and promotion policy were audited and
+hardened end to end. This overhaul rolled out incrementally across the day's
+autonomous patch releases (v1.8.2–v1.8.6) and is fully live as of v1.8.6; the
+entries below consolidate it. Highlights: the sandbox wall's confirmed bypasses
+are closed and it now validates via a sound AST path with fail-closed rejection;
+a source-corroboration policy ships only framework-corroborated checks and
+quarantines uncorroborated early warnings to an opt-in `[UNVERIFIED]` tier; an
+out-of-band watchdog (6-hourly) and a deterministic daily security self-audit
+guarantee no regression persists beyond a day; and the release pipeline, which
+had been silently broken for 17 days, is restored and self-healing.
 
 ### Fixed — Release pipeline restored after silent 17-day outage
 
