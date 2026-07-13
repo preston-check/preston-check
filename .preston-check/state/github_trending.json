@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-13T04:39:03.102951+00:00",
-  "last_successful_fetch": "2026-07-13T04:39:05.743563+00:00",
+  "last_run": "2026-07-13T08:25:43.830008+00:00",
+  "last_successful_fetch": "2026-07-13T08:25:57.086877+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2029,7 +2029,13 @@
     "github:Linuxoid-cn/Mi8G3-Unlocker-by-CVE-2026-43499",
     "github:typedefabcd1234ntd/CVE-2026-13753-poc",
     "github:JanetKesinro/CVE_Intelligence_Risk_Prioritization_Platform",
-    "github:attaattaatta/cve_2026_frag_family_fix"
+    "github:attaattaatta/cve_2026_frag_family_fix",
+    "github:Is4yev/CVE-2026-57830",
+    "github:Is4yev/CVE-2026-57829",
+    "github:BryanLim123/cverse-website",
+    "github:joehquak/Mi8E5-Unlocker-by-CVE-2026-43499",
+    "github:CSCfi/ansible-role-cve-analysis",
+    "github:hacbs-release-tests/collectors-no-cve-d87af382"
   ],
   "source_id": "github_trending",
   "stats": {
