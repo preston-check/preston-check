@@ -57,6 +57,18 @@ REPO = os.environ.get("GITHUB_REPOSITORY", "preston-check/preston-check")
 BAD_CONCLUSIONS = {"failure", "startup_failure", "timed_out"}
 # Never auto-rerun ourselves; a watchdog rerun loop helps nobody.
 SELF_NAME = "Pipeline watchdog"
+# Workflows that perform stateful, non-idempotent operations (merging PRs,
+# pushing tags, publishing releases) must NOT be auto-re-run: the original run
+# may have partially completed (e.g. merged its PR), so a re-run re-does git
+# operations that now conflict with the changed repo state and fails again —
+# exactly what happened on 2026-07-13. Escalate these instead. Recovery is
+# handled elsewhere: the next scheduled orchestrate cycle processes pending
+# candidates fresh, and tag-without-release is reconciled by release dispatch.
+NO_RERUN_WORKFLOWS = {
+    "Threat-intel orchestrate",
+    "Auto-tag on threat-intel merge",
+    "Release",
+}
 RELEASE_DISPATCH_CAP = 3  # failed release runs per tag before escalating
 PROMOTION_TITLE_PREFIX = "auto: threat-intel orchestrate"
 PROMOTION_STUCK_HOURS = 24
@@ -221,6 +233,11 @@ def main() -> int:
             )
         elif run["name"] == SELF_NAME:
             escalations.append(f"watchdog's own run failed — {label}")
+        elif run["name"] in NO_RERUN_WORKFLOWS:
+            # Stateful workflow — a re-run would redo git/release operations that
+            # conflict with the now-changed repo state. Escalate; recovery comes
+            # from the next scheduled cycle / release reconciliation, not a re-run.
+            escalations.append(f"stateful workflow failed (not auto-re-run — next cycle recovers) — {label}")
         elif run["run_attempt"] == 1:
             if args.dry_run:
                 healed.append(f"[dry-run] would re-run: {label}")
