@@ -3,17 +3,26 @@ name: Auto-tag on threat-intel merge
 on:
   push:
     branches: [master]
+  # Dispatched by threat-intel-orchestrate after it merges a promotion PR:
+  # merges made with GITHUB_TOKEN never fire on:push workflows.
+  workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: auto-tag-release
+  cancel-in-progress: false
+
 jobs:
   tag:
     runs-on: ubuntu-latest
-    # Fires only when an auto-merge promotion PR lands on master.
-    # Covers both merge-commit format ("...threat-intel/automerge-...") and
-    # squash-commit format ("auto: threat-intel orchestrate ...").
+    # Fires on explicit dispatch, or when an auto-merge promotion PR lands
+    # on master via a human/PAT push. Covers both merge-commit format
+    # ("...threat-intel/automerge-...") and squash-commit format
+    # ("auto: threat-intel orchestrate ...").
     if: |
+      github.event_name == 'workflow_dispatch' ||
       contains(github.event.head_commit.message, 'threat-intel/automerge-') ||
       startsWith(github.event.head_commit.message, 'auto: promoted candidates') ||
       startsWith(github.event.head_commit.message, 'auto: threat-intel orchestrate')

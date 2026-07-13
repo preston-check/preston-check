@@ -58,6 +58,8 @@ BAD_CONCLUSIONS = {"failure", "startup_failure", "timed_out"}
 # Never auto-rerun ourselves; a watchdog rerun loop helps nobody.
 SELF_NAME = "Pipeline watchdog"
 RELEASE_DISPATCH_CAP = 3  # failed release runs per tag before escalating
+PROMOTION_TITLE_PREFIX = "auto: threat-intel orchestrate"
+PROMOTION_STUCK_HOURS = 24
 
 
 def _gh(path: str, method: str = "GET", body: dict | None = None) -> tuple[int, dict | list | None]:
@@ -245,10 +247,37 @@ def main() -> int:
             ok, msg = dispatch_workflow("release.yml", {"tag": tag})
             (healed if ok else escalations).append(f"release.yml for {tag}: {msg}")
 
-    # 4 — keep the public check count honest.
+    # 4 — promotion PRs must merge within a day; orchestrate merges its own
+    # PR (2026-07-13 fix), so anything sitting open means that leg broke
+    # again. NOT auto-merged here: stale promotion PRs carry per-run file
+    # numbering that collides once newer batches land — a human must look.
+    cutoff = (
+        datetime.datetime.now(datetime.timezone.utc)
+        - datetime.timedelta(hours=PROMOTION_STUCK_HOURS)
+    ).strftime("%Y-%m-%dT%H:%M:%SZ")
+    stuck: list[dict] = []
+    for page in range(1, 6):
+        status, prs = _gh(f"/repos/{REPO}/pulls?state=open&per_page=100&page={page}")
+        if status != 200 or not prs:
+            break
+        stuck.extend(
+            p for p in prs
+            if p["title"].startswith(PROMOTION_TITLE_PREFIX) and p["created_at"] < cutoff
+        )
+        if len(prs) < 100:
+            break
+    if stuck:
+        oldest = min(p["created_at"] for p in stuck)
+        escalations.append(
+            f"{len(stuck)} promotion PR(s) open for >{PROMOTION_STUCK_HOURS}h "
+            f"(oldest {oldest}) — the auto-merge leg is not landing them; "
+            f"e.g. {stuck[0]['html_url']}"
+        )
+
+    # 5 — keep the public check count honest.
     reconcile_landing(args.dry_run, healed, escalations)
 
-    # 5 — report.
+    # 6 — report.
     lines = ["Pipeline watchdog report", f"repo: {REPO}", ""]
     if healed:
         lines += ["Auto-healed / in progress:"] + [f"  - {h}" for h in healed] + [""]

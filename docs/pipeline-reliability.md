@@ -132,6 +132,37 @@ tap first (`update-tap-url` job), bottles build from the updated formula, and th
 bottle SHA block is appended after. If `HOMEBREW_TAP_TOKEN` is not configured both tap
 jobs skip gracefully, as before.
 
+## Addendum 2026-07-13: the missing merge leg
+
+A second silent stall was found the day after the release incident, while
+verifying that promoted checks had shipped. `tools/orchestrate.py` gates
+candidates and delegates the merge to "the workflow"; the orchestrate workflow
+labeled each promotion PR `auto-merge`, mailed a notification — and merged
+nothing. No workflow anywhere contained a merge step. The six PRs merged in
+May were merged by hand (the operator's second account); when the manual
+merging stopped on 2026-05-22, the catalog froze at 320 checks while
+orchestrate opened a new PR every cycle. Four hundred twenty promotion PRs
+accumulated, every run green, no alert — a liveness gap invisible to
+run-outcome monitoring.
+
+Three changes close it. The orchestrate workflow now squash-merges its own
+promotion PR immediately after opening it (the verification wall has already
+gated the candidates; the PR is an audit trail, not a review request), then
+explicitly dispatches `auto-tag-release.yml`, because pushes made with the
+Actions token never fire `on: push` workflows. `auto-tag-release.yml` gained
+the `workflow_dispatch` trigger and a concurrency group accordingly. And the
+watchdog now escalates any promotion PR open for more than 24 hours — the
+signal that this leg has broken again.
+
+The 420-PR backlog was resolved by merging only the newest PR and closing the
+rest: per-run file numbering (`738-…`, `739-…`) is assigned against the
+current `accepted/` tree, so the same CVE carries different filenames across
+stale PRs and bulk-merging them would collide. Closed candidates are not
+lost — the synthesis dedup only skips CVEs already present in `accepted/`,
+so anything still unpromoted re-proposes in later cycles and now merges
+automatically. For the same collision reason, the watchdog deliberately does
+NOT auto-merge stale promotion PRs; it escalates them to a human.
+
 ## Verification record (2026-07-12)
 
 actionlint clean across all workflow files after the fixes. Watchdog dry-run executed

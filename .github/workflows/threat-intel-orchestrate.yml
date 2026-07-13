@@ -151,6 +151,30 @@ jobs:
             || echo "$BRANCH_URL")
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
 
+      # The verification wall has already gated these candidates; the PR
+      # exists as an audit trail, not for review. This step is the merge
+      # leg that was missing until 2026-07-13 — PRs #7..#425 accumulated
+      # unmerged because nothing ever merged what the label promised.
+      - name: Auto-merge promotion PR
+        id: merge_pr
+        if: env.PRESTON_AUTOMERGE_ENABLED == 'true' && steps.open_pr.outputs.pr_url != ''
+        env:
+          PR_URL: ${{ steps.open_pr.outputs.pr_url }}
+        run: |
+          if gh pr merge --squash --delete-branch "$PR_URL"; then
+            echo "merged=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "merged=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::promotion PR not merged: $PR_URL — watchdog escalates promotion PRs stuck >24h"
+          fi
+
+      - name: Tag release for merged promotion
+        if: steps.merge_pr.outputs.merged == 'true'
+        run: |
+          # Pushes made with GITHUB_TOKEN never fire on:push workflows, so
+          # the auto-tag release bump must be dispatched explicitly.
+          gh workflow run auto-tag-release.yml --ref master
+
       - name: Send promotion notification
         if: env.PRESTON_AUTOMERGE_ENABLED == 'true'
         env:

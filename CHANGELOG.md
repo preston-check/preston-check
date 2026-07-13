@@ -29,6 +29,18 @@ automatically, a tag with no release re-dispatches `release.yml` (capped to
 avoid loops), and anything unhealable is e-mailed through the existing SES
 notification path.
 
+### Fixed — Promotion auto-merge leg existed in name only
+
+Since the first promotions in May, orchestrate opened PRs labeled
+`auto-merge` that nothing ever merged — the six May merges were manual, and
+420 promotion PRs accumulated silently after they stopped. Orchestrate now
+squash-merges its own promotion PR after the verification wall passes and
+dispatches the auto-tag release bump (Actions-token pushes cannot fire
+`on: push` workflows). The watchdog escalates promotion PRs stuck longer
+than 24 hours. Backlog resolved: newest PR merged, stale PRs closed —
+their candidates re-propose automatically. See the 2026-07-13 addendum in
+`docs/pipeline-reliability.md`.
+
 ### Changed — Landing page counts are now reconciled automatically
 
 `tools/update_landing_stats.py` counts the shipped catalog the same way the
