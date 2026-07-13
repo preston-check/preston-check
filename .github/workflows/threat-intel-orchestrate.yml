@@ -161,12 +161,21 @@ jobs:
         env:
           PR_URL: ${{ steps.open_pr.outputs.pr_url }}
         run: |
-          if gh pr merge --squash --delete-branch "$PR_URL"; then
-            echo "merged=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "merged=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::promotion PR not merged: $PR_URL — watchdog escalates promotion PRs stuck >24h"
-          fi
+          # Retry a few times: a just-opened PR can briefly report a pending
+          # mergeability state. If it still will not merge, fail the step —
+          # the PR stays open as an audit trail and the watchdog escalates it,
+          # but the red run gives an immediate signal rather than a 24h wait.
+          for attempt in 1 2 3; do
+            if gh pr merge --squash --delete-branch "$PR_URL"; then
+              echo "merged=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "merge attempt ${attempt} failed; retrying..."
+            sleep "$((attempt * 5))"
+          done
+          echo "merged=false" >> "$GITHUB_OUTPUT"
+          echo "::error::promotion PR not merged after retries: $PR_URL"
+          exit 1
 
       - name: Tag release for merged promotion
         if: steps.merge_pr.outputs.merged == 'true'

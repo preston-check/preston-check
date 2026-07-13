@@ -7,6 +7,9 @@ on:
       - 'tools/lint-check.sh'
       - 'lib/check_metadata.sh'
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -18,9 +21,12 @@ jobs:
 
       - name: Identify changed community checks
         id: changed
+        # SHAs are GitHub-controlled 40-hex values, but pass them via env
+        # rather than interpolating into the script, per the safe pattern.
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
         run: |
-          BASE="${{ github.event.pull_request.base.sha }}"
-          HEAD="${{ github.event.pull_request.head.sha }}"
           FILES=$(git diff --name-only "$BASE" "$HEAD" -- 'checks/community/**' | grep '\.sh$' || true)
           echo "files<<EOF" >> "$GITHUB_OUTPUT"
           echo "$FILES" >> "$GITHUB_OUTPUT"
@@ -28,6 +34,12 @@ jobs:
 
       - name: Run lint-check.sh on each changed file
         if: steps.changed.outputs.files != ''
+        # Pass the file list through env, NOT via ${{ }} interpolation into the
+        # script body: a PR can add a path containing quotes or $(...) and a
+        # direct interpolation would execute it on the runner. As an env value
+        # the filename stays inert data.
+        env:
+          FILES: ${{ steps.changed.outputs.files }}
         run: |
           chmod +x tools/lint-check.sh
           set -e
@@ -38,7 +50,7 @@ jobs:
             echo "  Linting $f"
             echo "============================================================================"
             tools/lint-check.sh "$f"
-          done <<< "${{ steps.changed.outputs.files }}"
+          done <<< "$FILES"
 
       - name: Verify shellcheck on all community checks
         run: |

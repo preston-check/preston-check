@@ -210,7 +210,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+        # Pinned to a commit SHA (was @master) so a release job holding
+        # contents: write does not run code from a mutable upstream branch.
+        uses: Homebrew/actions/setup-homebrew@18fcb8e3e06b4247c676c506750dc95ea7226479
 
       - name: Build bottle
         env:

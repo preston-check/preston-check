@@ -29,6 +29,34 @@ automatically, a tag with no release re-dispatches `release.yml` (capped to
 avoid loops), and anything unhealable is e-mailed through the existing SES
 notification path.
 
+### Security — Verification wall hardened (confirmed bypasses closed)
+
+A full adversarial review found the sandbox wall — the control between
+untrusted feeds and shipped shell checks — was bypassable: constructs bashlex
+cannot parse (`case/esac`) fell to a weaker regex scan that missed commands
+after `)` and shell keywords; awk/sed program-text escapes (`print|"cmd"`,
+`print>file`, sed `e`/`w`/`r`) and unrestricted `cat` reads passed; and denied
+commands hid inside double-quoted `$(...)`. Fixes: `[[ ]]` is normalised so
+real checks validate via the sound AST path; unparseable checks are rejected
+(fail closed); awk/sed/cat/cut are removed from the allowlist (zero checks used
+them; grep/rg/find suffice); every `$(...)` interior is validated independently.
+Red-team harness now at catch rate 1.0 / legit 1.0 across 488 variants, with
+the bypasses locked in as regression fixtures. Auto-generated checks also now
+run under a scrubbed environment (`env -i`). A pre-existing false positive on
+the `grep -v '^$'` idiom was fixed. See the 2026-07-13 addendum in
+`docs/pipeline-reliability.md`.
+
+### Fixed — More silent-failure gaps and workflow hardening
+
+Watchdog now turns red when it cannot deliver an alert (was exit 0 — a blind
+alert channel looked healthy) or when escalations remain. Auto-tag fails
+loudly when it loses every tag-push race; orchestrate fails when a promotion
+PR will not merge; ingest fails when every source fails in a cycle. Workflow
+injection surface reduced: `lint-community.yml` passes PR filenames via env
+not interpolation; `workflow-lint.yml` pins actionlint to a release tag (was
+`curl|bash` from `main`); `setup-homebrew` pinned to a SHA; `test.yml` scoped
+to read-only.
+
 ### Fixed — Promotion auto-merge leg existed in name only
 
 Since the first promotions in May, orchestrate opened PRs labeled

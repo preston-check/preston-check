@@ -292,6 +292,12 @@ def main() -> int:
     if summary_path:
         Path(summary_path).write_text("```\n" + report + "\n```\n")
 
+    # An alert that silently fails to send leaves a blind watchdog looking
+    # healthy — the exact class this watchdog exists to prevent. So when there
+    # is something to report, a failure (or absence) of the alert channel must
+    # turn the run RED rather than exit 0. A red run is visible in the Actions
+    # tab and reaches the actor via GitHub's own notifications.
+    alert_ok = True
     if (healed or escalations) and not args.dry_run:
         to_addr = os.environ.get("PRESTON_NOTIFY_EMAIL", "")
         if to_addr:
@@ -299,9 +305,20 @@ def main() -> int:
             subject = f"[preston-check] watchdog: {n_heal} auto-healed, {n_esc} need attention"
             ok, msg = send_email(to_addr, subject, report)
             print(f"alert e-mail: {msg}")
+            alert_ok = ok
         else:
             print("alert e-mail skipped: PRESTON_NOTIFY_EMAIL not set")
+            # Escalations with no way to notify a human is a real failure;
+            # auto-healed-only with no recipient configured is acceptable.
+            alert_ok = not escalations
 
+    if not alert_ok:
+        print("::error::watchdog could not deliver its alert — see report above", file=sys.stderr)
+        return 1
+    # Surface unresolved escalations as a non-zero exit too, so the run is red
+    # even when the e-mail went out: the operator still has work to do.
+    if escalations and not args.dry_run:
+        return 1
     return 0
 
 

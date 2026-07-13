@@ -81,11 +81,27 @@ jobs:
           SOURCES: ${{ steps.decide.outputs.sources }}
         run: |
           IFS=',' read -ra SRCS <<< "$SOURCES"
+          failed=0; total=0
           for src in "${SRCS[@]}"; do
+            total=$((total+1))
             echo "::group::Ingest $src"
-            python3 tools/ingest_runner.py --source "$src" || echo "  (failure on $src — non-fatal, will retry next cycle)"
+            # Per-source failure is non-fatal by design (graceful degradation:
+            # one source down should not fail the batch), but a tally is kept so
+            # a TOTAL outage does not pass silently.
+            if ! python3 tools/ingest_runner.py --source "$src"; then
+              failed=$((failed+1))
+              echo "::warning::ingest failed on $src — non-fatal, will retry next cycle"
+            fi
             echo "::endgroup::"
           done
+          echo "Ingest: $((total-failed))/$total sources succeeded"
+          # If EVERY source failed, the feed is stale and something systemic is
+          # wrong (network, all APIs, or a code regression). Fail the run so the
+          # watchdog re-runs it and, if it persists, escalates.
+          if [ "$total" -gt 0 ] && [ "$failed" -eq "$total" ]; then
+            echo "::error::all $total ingest sources failed this cycle"
+            exit 1
+          fi
 
       - name: Correlate signals across sources
         run: |

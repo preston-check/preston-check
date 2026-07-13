@@ -42,6 +42,7 @@ jobs:
           # Retry loop handles the race where two merges land within the same
           # 30-minute window — on each attempt we re-fetch tags so we always
           # compute a patch number strictly above whatever is already pushed.
+          pushed=""
           for attempt in 1 2 3; do
             git fetch --tags --quiet
 
@@ -66,9 +67,18 @@ jobs:
               # so the release must be dispatched explicitly.
               gh workflow run release.yml -f "tag=$NEW_TAG"
               echo "Tagged ${NEW_TAG} — release dispatched"
+              pushed="$NEW_TAG"
               break
             fi
 
             echo "Push failed (likely race with concurrent merge); re-fetching and retrying..."
             sleep "$((attempt * 3))"
           done
+
+          # If every attempt lost the race, no tag was pushed and no release
+          # will be cut. The watchdog cannot detect this (there is no new tag to
+          # notice), so fail loudly here rather than exit green.
+          if [ -z "$pushed" ]; then
+            echo "::error::auto-tag exhausted all retries; no tag pushed, no release dispatched"
+            exit 1
+          fi

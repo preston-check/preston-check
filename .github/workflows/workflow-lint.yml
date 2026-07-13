@@ -27,11 +27,13 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run actionlint
+        # Pinned to an immutable release tag (not main) so this workflow does
+        # not execute code from a mutable upstream branch on every run. The
+        # bootstrap script verifies the downloaded binary's checksum. Bump the
+        # version deliberately when new runner labels are needed — 1.7.12 knows
+        # the current label set (macos-15-intel, macos-26, ...).
         run: |
-          # Deliberately unpinned: actionlint ships a hardcoded runner-label
-          # database, and a pinned version goes stale in both directions
-          # (flags new labels as unknown, accepts retired ones).
-          bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/v1.7.12/scripts/download-actionlint.bash) 1.7.12
           # Findings at info/style level are advisory noise; parse errors,
           # unknown runner labels, and expression errors fail the build.
           ./actionlint -color -ignore 'SC[0-9]+:(info|style):' .github/workflows/*.yml
