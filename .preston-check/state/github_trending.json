@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-13T15:48:52.900531+00:00",
-  "last_successful_fetch": "2026-07-13T15:48:57.196066+00:00",
+  "last_run": "2026-07-13T18:03:32.863335+00:00",
+  "last_successful_fetch": "2026-07-13T18:03:37.183097+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2045,7 +2045,13 @@
     "github:hacbs-release-tests/collectors-no-cve-7a7a3e1a",
     "github:hacbs-release-tests/collectors-no-cve-ed8029e1",
     "github:3rd-party-integration-testing/cves-testing",
-    "github:olasuleimankh-commits/cveek-ux-report"
+    "github:olasuleimankh-commits/cveek-ux-report",
+    "github:itztadi/VulnChain",
+    "github:omarelshopky/cves",
+    "github:api-evangelist/cvent-hospitality-cloud",
+    "github:hacbs-release-tests/collectors-no-cve-6780323b",
+    "github:amritlc/CVE2ATTCK-High-Level-Simulation",
+    "github:Linuxoid-cn/Mi8E5-Unlocker-by-CVE-2026-43499"
   ],
   "source_id": "github_trending",
   "stats": {
