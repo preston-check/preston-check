@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-12T23:05:01.224814+00:00",
-  "last_successful_fetch": "2026-07-12T23:05:04.113307+00:00",
+  "last_run": "2026-07-13T00:07:44.348192+00:00",
+  "last_successful_fetch": "2026-07-13T00:07:48.389482+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
