@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-14T18:14:23.207228+00:00",
-  "last_successful_fetch": "2026-07-14T18:14:26.793078+00:00",
+  "last_run": "2026-07-14T20:20:02.808193+00:00",
+  "last_successful_fetch": "2026-07-14T20:20:06.572020+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2082,7 +2082,8 @@
     "github:RaniaMathlouthi/cve-poc-scraper-",
     "github:datarobot-oss/cve-sync",
     "github:CerberusMrXi/KrayinCRM-RCE-Exploit-CVE-2026-38526",
-    "github:YoussefKharrata/cve-ai-agent"
+    "github:YoussefKharrata/cve-ai-agent",
+    "github:HudzaifahArrantisi/CVE-2026-8181"
   ],
   "source_id": "github_trending",
   "stats": {
