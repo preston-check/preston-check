@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-14T11:41:24.934128+00:00",
-  "last_successful_fetch": "2026-07-14T11:41:28.824646+00:00",
+  "last_run": "2026-07-14T14:08:13.779124+00:00",
+  "last_successful_fetch": "2026-07-14T14:08:17.447961+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2072,7 +2072,10 @@
     "github:foxtertime/cve-by-claude",
     "github:hacbs-release-tests/collectors-no-cve-77ded966",
     "github:Bartixxx32/CVE-2026-43499-OnePlus15",
-    "github:IndiQuarks/vsftpd-cve-2011-2523-lab"
+    "github:IndiQuarks/vsftpd-cve-2011-2523-lab",
+    "github:musana/CVE-2026-15706",
+    "github:faresUnderScore999/sofrecom-cve-frontend",
+    "github:hacbs-release-tests/collectors-no-cve-7766b5d0"
   ],
   "source_id": "github_trending",
   "stats": {
