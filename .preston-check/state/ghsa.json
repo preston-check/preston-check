@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-14T20:20:02.733884+00:00",
-  "last_successful_fetch": "2026-07-14T20:20:02.735442+00:00",
+  "last_run": "2026-07-14T22:09:00.538535+00:00",
+  "last_successful_fetch": "2026-07-14T22:09:00.539031+00:00",
   "processed_ids": [
     "GHSA-xv59-967r-8726",
     "GHSA-39j6-4867-gg4w",
@@ -2515,7 +2515,14 @@
     "GHSA-j6r7-6fhx-77wx",
     "GHSA-g7mm-9vx7-jm7h",
     "GHSA-xrcf-6jh3-ggvx",
-    "GHSA-xw9q-2mv6-9fr8"
+    "GHSA-xw9q-2mv6-9fr8",
+    "GHSA-hgjx-r89m-m7v4",
+    "GHSA-x9vc-9ffq-p3gj",
+    "GHSA-qf34-295c-26v8",
+    "GHSA-7rx3-5wx3-5v76",
+    "GHSA-cm26-5974-52h8",
+    "GHSA-2cf7-hpwf-47h9",
+    "GHSA-g4x6-jcvr-9m3g"
   ],
   "source_id": "ghsa",
   "stats": {
