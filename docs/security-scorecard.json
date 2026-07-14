@@ -1,5 +1,5 @@
 {
-  "audit_hash": "e2621fb5f8b46f6d0c2e2dd39f9800a80ea69b07af3e82e3a2c92da495a385e5",
+  "audit_hash": "c44a37fe14cbcf8cb1bce52b9919d191208c164c4a006b2b0ff0e00b20425d3a",
   "audit_version": "1.0",
   "campaigns": [
     {
@@ -8,8 +8,8 @@
       "metric_value": 1.0,
       "passes": true,
       "raw": {
-        "attacks_caught": 408,
-        "attacks_total": 408,
+        "attacks_caught": 488,
+        "attacks_total": 488,
         "legit_pass_rate": 1.0
       },
       "threshold": 0.995
@@ -50,5 +50,5 @@
     }
   ],
   "overall_pass": true,
-  "ts": "2026-07-13T08:00:27.820617+00:00"
+  "ts": "2026-07-14T07:01:21.132966+00:00"
 }
