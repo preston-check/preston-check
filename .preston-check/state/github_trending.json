@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-15T03:26:14.435499+00:00",
-  "last_successful_fetch": "2026-07-15T03:26:17.625850+00:00",
+  "last_run": "2026-07-15T06:25:01.664622+00:00",
+  "last_successful_fetch": "2026-07-15T06:25:04.583305+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2090,7 +2090,12 @@
     "github:cmfat86/cvedca",
     "github:webshellseo8/CVE-2026-21628-POC",
     "github:pranavkaushik1/so-cve-study",
-    "github:manu-09-web/PruebaEduCVercel"
+    "github:manu-09-web/PruebaEduCVercel",
+    "github:im2sinister/CVE-2021-41773",
+    "github:xy-f0/CVE",
+    "github:HORKimhab/CVE-2026-15410",
+    "github:AJMultiHub/cve-tracker",
+    "github:Nav-del/CVE-RAG-Assistant"
   ],
   "source_id": "github_trending",
   "stats": {
