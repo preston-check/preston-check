@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-15T17:34:35.180802+00:00",
-  "last_successful_fetch": "2026-07-15T17:34:38.369370+00:00",
+  "last_run": "2026-07-15T19:33:07.518404+00:00",
+  "last_successful_fetch": "2026-07-15T19:33:11.069231+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2120,7 +2120,15 @@
     "github:WhatsWrongAndWhy/CVE-2015-1328",
     "github:WhatsWrongAndWhy/CVE-2016-9793",
     "github:WhatsWrongAndWhy/CVE-2016-8655",
-    "github:WhatsWrongAndWhy/CVE-2015-8550"
+    "github:WhatsWrongAndWhy/CVE-2015-8550",
+    "github:christopher-leese/cve-2015-1187-dir820l-firmware-reverse-engineering",
+    "github:DTrinidad411/async-cve-scanner",
+    "github:m4sh-wacker/CVE-2026-3891-Pix-for-WooCommerce-Plugin-Exploit",
+    "github:shinthink/CVE-2026-3891",
+    "github:shinthink/CVE-2026-13001",
+    "github:m4sh-wacker/CVE-2026-0594-ListSiteContributors-Plugin-Exploit",
+    "github:oscerd/CVE-2026-46591",
+    "github:Ch4120N/CVE-2026-58138"
   ],
   "source_id": "github_trending",
   "stats": {
