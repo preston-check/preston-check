@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-15T09:19:01.355677+00:00",
-  "last_successful_fetch": "2026-07-15T09:19:04.601943+00:00",
+  "last_run": "2026-07-15T11:44:56.442567+00:00",
+  "last_successful_fetch": "2026-07-15T11:45:00.422824+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2099,7 +2099,14 @@
     "github:danielfebrero/Fresh0day-PoCs",
     "github:sentinel-aidefense/CVE-2026-56164-EXP",
     "github:ctnBobong32/CVE-2026-43499-so-build",
-    "github:Cxyofficial/x200-cve-2026-43499"
+    "github:Cxyofficial/x200-cve-2026-43499",
+    "github:hacbs-release-tests/collectors-no-cve-41fa779e",
+    "github:hacbs-release-tests/collectors-no-cve-0f24407f",
+    "github:ndouglas-cloudsmith/CVE-2026-53359",
+    "github:hacbs-release-tests/collectors-no-cve-091b3567",
+    "github:0xrogg/CVE-2021-41773",
+    "github:hacbs-release-tests/collectors-no-cve-08a44d97",
+    "github:hacbs-release-tests/collectors-no-cve-cc32a4ec"
   ],
   "source_id": "github_trending",
   "stats": {
