@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-15T11:44:56.442567+00:00",
-  "last_successful_fetch": "2026-07-15T11:45:00.422824+00:00",
+  "last_run": "2026-07-15T14:04:30.789788+00:00",
+  "last_successful_fetch": "2026-07-15T14:04:34.334625+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2106,7 +2106,11 @@
     "github:hacbs-release-tests/collectors-no-cve-091b3567",
     "github:0xrogg/CVE-2021-41773",
     "github:hacbs-release-tests/collectors-no-cve-08a44d97",
-    "github:hacbs-release-tests/collectors-no-cve-cc32a4ec"
+    "github:hacbs-release-tests/collectors-no-cve-cc32a4ec",
+    "github:shinthink/magento-polyshell",
+    "github:fsrv-xyz/ubuntu-cve-api-server",
+    "github:akkki8844/patchlens-cve-triage-swarm",
+    "github:Kaivian/CVerify"
   ],
   "source_id": "github_trending",
   "stats": {
