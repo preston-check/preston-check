@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-14T22:09:00.587414+00:00",
-  "last_successful_fetch": "2026-07-14T22:09:04.289812+00:00",
+  "last_run": "2026-07-15T00:01:38.932581+00:00",
+  "last_successful_fetch": "2026-07-15T00:01:41.871509+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2087,7 +2087,9 @@
     "github:Ibrahim-Sartawi/CVE-2026-26718",
     "github:Ibrahim-Sartawi/CVE-2026-26719",
     "github:digital-biz-card/CveeBee",
-    "github:cmfat86/cvedca"
+    "github:cmfat86/cvedca",
+    "github:webshellseo8/CVE-2026-21628-POC",
+    "github:pranavkaushik1/so-cve-study"
   ],
   "source_id": "github_trending",
   "stats": {
