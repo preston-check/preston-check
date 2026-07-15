@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-15T21:11:54.926486+00:00",
-  "last_successful_fetch": "2026-07-15T21:11:59.616272+00:00",
+  "last_run": "2026-07-15T23:09:05.457792+00:00",
+  "last_successful_fetch": "2026-07-15T23:09:09.078536+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2130,7 +2130,11 @@
     "github:oscerd/CVE-2026-46591",
     "github:Ch4120N/CVE-2026-58138",
     "github:Kanak-CypherX/cve-2024-4577-lab",
-    "github:CerberusMrXi/CVE-2026-48909-Joomla-SP-Exploit"
+    "github:CerberusMrXi/CVE-2026-48909-Joomla-SP-Exploit",
+    "github:FernandoPechoFranco/CVestilos",
+    "github:te0rwx/CVE-2025-32433-Detection",
+    "github:x-spy/CVE-2026-43499-popsicle",
+    "github:gemstone-source/CVEs"
   ],
   "source_id": "github_trending",
   "stats": {
