@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-16T18:16:29.551487+00:00",
-  "last_successful_fetch": "2026-07-16T18:16:32.575454+00:00",
+  "last_run": "2026-07-16T20:08:59.335575+00:00",
+  "last_successful_fetch": "2026-07-16T20:09:03.069461+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2165,7 +2165,13 @@
     "github:Ozozuz/CVEravella",
     "github:ayyy7128/CVE-2026-43499-jinghu",
     "github:Xdezen/CVE-2025-8110",
-    "github:ahmadmarz10-hub/CVEsMarz"
+    "github:ahmadmarz10-hub/CVEsMarz",
+    "github:CerberusMrXi/WP-Bricks-Exploit-CVE-2024-25600",
+    "github:hacbs-release-tests/collectors-no-cve-7438c1bf",
+    "github:sadb98523-eng/CVE-2026-13001",
+    "github:JSONDerulo11/CVE",
+    "github:Lolicks/cve-global",
+    "github:bking34/cve-impact-analyzer"
   ],
   "source_id": "github_trending",
   "stats": {
