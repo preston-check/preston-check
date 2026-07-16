@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-16T11:50:41.301783+00:00",
-  "last_successful_fetch": "2026-07-16T11:50:44.935185+00:00",
+  "last_run": "2026-07-16T14:16:33.858034+00:00",
+  "last_successful_fetch": "2026-07-16T14:16:37.790945+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2147,7 +2147,15 @@
     "github:jaydarkseed757/rh-cve-pull",
     "github:tc4dy/CVE-2026-57821-PoC-Exploit",
     "github:JONATHAN-THIEBAUD/CVE_Tracker",
-    "github:nabhan-mohy/cve-2026-27483-lab"
+    "github:nabhan-mohy/cve-2026-27483-lab",
+    "github:hacbs-release-tests/collectors-no-cve-352d7960",
+    "github:Noah1020159/wp-cve",
+    "github:hacbs-release-tests/collectors-no-cve-253ecff0",
+    "github:ayyy7128/IonStack-CVE-2026-43499-jinghu",
+    "github:XaocZenon/CVE-2026-20896",
+    "github:RogoLabs/cvefloodline.org",
+    "github:EsnBl0ckdev/CVEzz",
+    "github:mattostin/CVE-Scanner"
   ],
   "source_id": "github_trending",
   "stats": {
