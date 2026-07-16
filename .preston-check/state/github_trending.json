@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-16T14:16:33.858034+00:00",
-  "last_successful_fetch": "2026-07-16T14:16:37.790945+00:00",
+  "last_run": "2026-07-16T16:37:45.894355+00:00",
+  "last_successful_fetch": "2026-07-16T16:37:49.039805+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2155,7 +2155,15 @@
     "github:XaocZenon/CVE-2026-20896",
     "github:RogoLabs/cvefloodline.org",
     "github:EsnBl0ckdev/CVEzz",
-    "github:mattostin/CVE-Scanner"
+    "github:mattostin/CVE-Scanner",
+    "github:P14nkT0n/CVEXPLOITS",
+    "github:giordy0424/CVE-2023-25690_lab",
+    "github:hacbs-release-tests/collectors-no-cve-864a4f06",
+    "github:Getime-Xiatian/Krin990_CVE_preload",
+    "github:CVERInc/cvertex",
+    "github:hacbs-release-tests/collectors-no-cve-21756bf3",
+    "github:Ozozuz/CVEravella",
+    "github:ayyy7128/CVE-2026-43499-jinghu"
   ],
   "source_id": "github_trending",
   "stats": {
