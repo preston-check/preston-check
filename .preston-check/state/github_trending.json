@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-16T20:08:59.335575+00:00",
-  "last_successful_fetch": "2026-07-16T20:09:03.069461+00:00",
+  "last_run": "2026-07-16T22:12:29.879630+00:00",
+  "last_successful_fetch": "2026-07-16T22:12:33.030109+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2171,7 +2171,8 @@
     "github:sadb98523-eng/CVE-2026-13001",
     "github:JSONDerulo11/CVE",
     "github:Lolicks/cve-global",
-    "github:bking34/cve-impact-analyzer"
+    "github:bking34/cve-impact-analyzer",
+    "github:vanditshah44/cveradar"
   ],
   "source_id": "github_trending",
   "stats": {
