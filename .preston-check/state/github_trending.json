@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-16T03:31:06.420040+00:00",
-  "last_successful_fetch": "2026-07-16T03:31:09.247678+00:00",
+  "last_run": "2026-07-16T06:28:16.170040+00:00",
+  "last_successful_fetch": "2026-07-16T06:28:19.748010+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2135,7 +2135,8 @@
     "github:te0rwx/CVE-2025-32433-Detection",
     "github:x-spy/CVE-2026-43499-popsicle",
     "github:gemstone-source/CVEs",
-    "github:etsien/cve-collector"
+    "github:etsien/cve-collector",
+    "github:HodayaDadon1/cve-intelligence-ai-monitoring-system"
   ],
   "source_id": "github_trending",
   "stats": {
