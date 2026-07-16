@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-15T23:09:05.457792+00:00",
-  "last_successful_fetch": "2026-07-15T23:09:09.078536+00:00",
+  "last_run": "2026-07-16T03:31:06.420040+00:00",
+  "last_successful_fetch": "2026-07-16T03:31:09.247678+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2134,7 +2134,8 @@
     "github:FernandoPechoFranco/CVestilos",
     "github:te0rwx/CVE-2025-32433-Detection",
     "github:x-spy/CVE-2026-43499-popsicle",
-    "github:gemstone-source/CVEs"
+    "github:gemstone-source/CVEs",
+    "github:etsien/cve-collector"
   ],
   "source_id": "github_trending",
   "stats": {
