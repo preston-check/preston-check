@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-17T14:51:25.228798+00:00",
-  "last_successful_fetch": "2026-07-17T14:51:28.294440+00:00",
+  "last_run": "2026-07-17T16:23:03.432758+00:00",
+  "last_successful_fetch": "2026-07-17T16:23:10.689346+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2199,7 +2199,10 @@
     "github:Rat5ak/Rat5ak-Nadsec-2026-CVE-CERTIFIED-HOOD-CLASSICS",
     "github:tahaXafous/CVE_PoC_Finder",
     "github:hacbs-release-tests/collectors-no-cve-902c7469",
-    "github:BardLaudian/CVE-2023-23752"
+    "github:BardLaudian/CVE-2023-23752",
+    "github:whoistekendra/cve-list-",
+    "github:oscerd/CVE-2026-48205",
+    "github:PN-Tester/CVE-2022-35497"
   ],
   "source_id": "github_trending",
   "stats": {
