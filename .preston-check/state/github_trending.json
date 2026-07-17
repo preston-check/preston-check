@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-17T10:08:08.351704+00:00",
-  "last_successful_fetch": "2026-07-17T10:08:10.929826+00:00",
+  "last_run": "2026-07-17T12:19:02.858378+00:00",
+  "last_successful_fetch": "2026-07-17T12:19:06.115825+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2189,7 +2189,14 @@
     "github:Wtrwx/cve_2026_43499_sm-t878u",
     "github:LoXoNo/CVE",
     "github:x-cmd/cve",
-    "github:borland6/MQ_HIGH_CVE"
+    "github:borland6/MQ_HIGH_CVE",
+    "github:karollooool/CVE-2026-50416-writeup-and-poc",
+    "github:sudichai/cve-destroyer",
+    "github:hacbs-release-tests/collectors-no-cve-ecb5d517",
+    "github:MiaPatsune/cve-2026-43499",
+    "github:nitinvarade/Cvent_CaseStudy",
+    "github:DavidCarliez/CVE-2026-50454-SYSTEM-Shell-PoC",
+    "github:Rat5ak/Rat5ak-Nadsec-2026-CVE-CERTIFIED-HOOD-CLASSICS"
   ],
   "source_id": "github_trending",
   "stats": {
