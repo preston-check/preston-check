@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-17T12:19:02.858378+00:00",
-  "last_successful_fetch": "2026-07-17T12:19:06.115825+00:00",
+  "last_run": "2026-07-17T14:51:25.228798+00:00",
+  "last_successful_fetch": "2026-07-17T14:51:28.294440+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2196,7 +2196,10 @@
     "github:MiaPatsune/cve-2026-43499",
     "github:nitinvarade/Cvent_CaseStudy",
     "github:DavidCarliez/CVE-2026-50454-SYSTEM-Shell-PoC",
-    "github:Rat5ak/Rat5ak-Nadsec-2026-CVE-CERTIFIED-HOOD-CLASSICS"
+    "github:Rat5ak/Rat5ak-Nadsec-2026-CVE-CERTIFIED-HOOD-CLASSICS",
+    "github:tahaXafous/CVE_PoC_Finder",
+    "github:hacbs-release-tests/collectors-no-cve-902c7469",
+    "github:BardLaudian/CVE-2023-23752"
   ],
   "source_id": "github_trending",
   "stats": {
