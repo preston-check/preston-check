@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-18T08:56:14.784771+00:00",
-  "last_successful_fetch": "2026-07-18T08:56:17.690773+00:00",
+  "last_run": "2026-07-18T10:36:00.472658+00:00",
+  "last_successful_fetch": "2026-07-18T10:36:03.610344+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2222,7 +2222,10 @@
     "github:anonymous99-Rise/github_cve_monitor",
     "github:oguz-kagan-akar/CVE-2026-41940-analysis",
     "github:Zmeewik/CVEn",
-    "github:saraibanezz/cvepmando"
+    "github:saraibanezz/cvepmando",
+    "github:viswanthanss/Cverify",
+    "github:CybersecSpirit/CVE-2026-63030",
+    "github:r35896285-jpg/magazin-cvetov"
   ],
   "source_id": "github_trending",
   "stats": {
