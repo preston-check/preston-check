@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-18T00:03:56.581647+00:00",
-  "last_successful_fetch": "2026-07-18T00:03:59.594604+00:00",
+  "last_run": "2026-07-18T03:25:38.041980+00:00",
+  "last_successful_fetch": "2026-07-18T03:25:41.817609+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2215,7 +2215,10 @@
     "github:ungabunga-ctf/CVE-2023-26039",
     "github:JDE-Projects/Simple-CVE-Tracker",
     "github:slate7/CVersus",
-    "github:boostedchaos/fleet-cve-scanner"
+    "github:boostedchaos/fleet-cve-scanner",
+    "github:0xP1ckl3d/cve2poc",
+    "github:tcyph3r/wp2shell-cve-2026-63030-root-cause",
+    "github:Staffardprobable495/fleet-cve-scanner"
   ],
   "source_id": "github_trending",
   "stats": {
