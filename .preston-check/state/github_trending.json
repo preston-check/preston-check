@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-17T23:02:36.356873+00:00",
-  "last_successful_fetch": "2026-07-17T23:02:39.217900+00:00",
+  "last_run": "2026-07-18T00:03:56.581647+00:00",
+  "last_successful_fetch": "2026-07-18T00:03:59.594604+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2213,7 +2213,9 @@
     "github:sebastianosrt/Public-reports-CVEs",
     "github:tc4dy/CVE-2026-15409-15410-Framework",
     "github:ungabunga-ctf/CVE-2023-26039",
-    "github:JDE-Projects/Simple-CVE-Tracker"
+    "github:JDE-Projects/Simple-CVE-Tracker",
+    "github:slate7/CVersus",
+    "github:boostedchaos/fleet-cve-scanner"
   ],
   "source_id": "github_trending",
   "stats": {
