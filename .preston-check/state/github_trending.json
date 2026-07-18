@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-18T15:08:51.306917+00:00",
-  "last_successful_fetch": "2026-07-18T15:08:55.460550+00:00",
+  "last_run": "2026-07-18T17:08:32.795629+00:00",
+  "last_successful_fetch": "2026-07-18T17:08:35.855305+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2237,7 +2237,11 @@
     "github:mverschu/CVE-2026-63030",
     "github:Y0sZz/cve-insight",
     "github:collin-joseph/web-based-network-scanning-system-with-automatic-cve-correlator",
-    "github:Kananosa/CVE-2026-43499-For-Xiaomi-17T-chagall"
+    "github:Kananosa/CVE-2026-43499-For-Xiaomi-17T-chagall",
+    "github:mrx-arafat/CVE-2026-63030-POC",
+    "github:trmuncy/Home-Lab-CVE-Automation",
+    "github:ElanoWiggers/cvelanowiggers",
+    "github:justconter/cve"
   ],
   "source_id": "github_trending",
   "stats": {
