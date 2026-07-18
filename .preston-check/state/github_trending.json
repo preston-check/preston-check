@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-18T17:08:32.795629+00:00",
-  "last_successful_fetch": "2026-07-18T17:08:35.855305+00:00",
+  "last_run": "2026-07-18T19:19:23.144593+00:00",
+  "last_successful_fetch": "2026-07-18T19:19:26.223799+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2241,7 +2241,11 @@
     "github:mrx-arafat/CVE-2026-63030-POC",
     "github:trmuncy/Home-Lab-CVE-Automation",
     "github:ElanoWiggers/cvelanowiggers",
-    "github:justconter/cve"
+    "github:justconter/cve",
+    "github:h3ck13r/CVE-2021-28235",
+    "github:J4ck3LSyN-Gen2/CVE-2026-63030-wp2r00t",
+    "github:stephent23/cve-analytics",
+    "github:theNareshofficial/CVE-2021-3129-Lab"
   ],
   "source_id": "github_trending",
   "stats": {
