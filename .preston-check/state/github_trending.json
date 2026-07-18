@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-18T22:01:44.684306+00:00",
-  "last_successful_fetch": "2026-07-18T22:01:47.379677+00:00",
+  "last_run": "2026-07-18T23:04:15.496318+00:00",
+  "last_successful_fetch": "2026-07-18T23:04:18.606647+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2251,7 +2251,8 @@
     "github:swipax/CVE-osomPoC",
     "github:ChiefYoru/CVE-2026-21628_PoC",
     "github:Vvambareesh/vulnerability-assessment-cve-analysis",
-    "github:ekomsSavior/FLOCK_CVE_SCANNER"
+    "github:ekomsSavior/FLOCK_CVE_SCANNER",
+    "github:Jvr2022/CVE-2026-46420"
   ],
   "source_id": "github_trending",
   "stats": {
