@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-18T06:14:47.439598+00:00",
-  "last_successful_fetch": "2026-07-18T06:14:50.131871+00:00",
+  "last_run": "2026-07-18T08:56:14.784771+00:00",
+  "last_successful_fetch": "2026-07-18T08:56:17.690773+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2220,7 +2220,9 @@
     "github:tcyph3r/wp2shell-cve-2026-63030-root-cause",
     "github:Staffardprobable495/fleet-cve-scanner",
     "github:anonymous99-Rise/github_cve_monitor",
-    "github:oguz-kagan-akar/CVE-2026-41940-analysis"
+    "github:oguz-kagan-akar/CVE-2026-41940-analysis",
+    "github:Zmeewik/CVEn",
+    "github:saraibanezz/cvepmando"
   ],
   "source_id": "github_trending",
   "stats": {
