@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-07-18T21:01:43.457654+00:00",
-  "last_successful_fetch": "2026-07-18T21:01:43.459259+00:00",
+  "last_run": "2026-07-18T22:01:47.581338+00:00",
+  "last_successful_fetch": "2026-07-18T22:01:47.582229+00:00",
   "processed_ids": [
-    "threatfox:124.222.99.196:8085",
-    "threatfox:154.88.103.33:8885",
-    "threatfox:106.13.121.167:8084",
-    "threatfox:vsdipcxs.persianeducation.ir",
-    "threatfox:pbgskytq.persianeducation.ir",
-    "threatfox:159.65.133.214:34567",
-    "threatfox:203.91.75.89:5006",
-    "threatfox:eludftjk.mellbeet.com",
-    "threatfox:165.232.169.49:34567",
     "threatfox:188.166.211.172:8001",
     "threatfox:78.153.136.8:8001",
     "threatfox:139.59.224.173:8001",
@@ -5001,7 +4992,16 @@
     "threatfox:xhozx.onjabet1.com",
     "threatfox:154.203.165.5:443",
     "threatfox:154.94.123.42:443",
-    "threatfox:154.94.123.43:443"
+    "threatfox:154.94.123.43:443",
+    "threatfox:flyi.jadoou.lat",
+    "threatfox:kkslot777.de.com",
+    "threatfox:caycn.tampabayspin.com",
+    "threatfox:jamaledmonds.com",
+    "threatfox:43.143.234.164:5003",
+    "threatfox:47.108.140.10:3185",
+    "threatfox:122.51.215.90:22",
+    "threatfox:221.132.16.23:3443",
+    "threatfox:o59dzghe.calculadoracomisiones.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
