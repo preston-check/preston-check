@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-19T21:03:38.743436+00:00",
-  "last_successful_fetch": "2026-07-19T21:03:42.624901+00:00",
+  "last_run": "2026-07-19T22:05:14.978251+00:00",
+  "last_successful_fetch": "2026-07-19T22:05:17.759875+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2282,7 +2282,8 @@
     "github:Resolvdd/CVE-2026-38526-PoC-htb-nexus",
     "github:Hardik-patni-08/cve-correlation-engine",
     "github:Hardik-patni-08/cve_analyzer",
-    "github:fm0ss/cve-2025-9951-ffmpeg-jp2-poc"
+    "github:fm0ss/cve-2025-9951-ffmpeg-jp2-poc",
+    "github:Fattcat/CVE-RedSunLight"
   ],
   "source_id": "github_trending",
   "stats": {
