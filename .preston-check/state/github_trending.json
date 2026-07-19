@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-19T06:40:21.806328+00:00",
-  "last_successful_fetch": "2026-07-19T06:40:24.999170+00:00",
+  "last_run": "2026-07-19T09:13:06.048370+00:00",
+  "last_successful_fetch": "2026-07-19T09:13:09.003726+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2258,7 +2258,11 @@
     "github:khoivan-security/cve-test",
     "github:c0gnit00/CVE_Imgs",
     "github:bluedragonsecurity/CVE-2026-46215-exploit-linux-7.0-uaf-stable",
-    "github:Kritagya2003/CVE-Intel"
+    "github:Kritagya2003/CVE-Intel",
+    "github:gitkhayrol/cve",
+    "github:CVE-Hunter-Leo/CVE",
+    "github:mjh134/CVE",
+    "github:SY115/CVE-Writeups"
   ],
   "source_id": "github_trending",
   "stats": {
