@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-07-18T23:04:19.044261+00:00",
-  "last_successful_fetch": "2026-07-18T23:04:19.045062+00:00",
+  "last_run": "2026-07-19T00:05:05.498660+00:00",
+  "last_successful_fetch": "2026-07-19T00:05:05.499407+00:00",
   "processed_ids": [
-    "threatfox:143.198.92.52:8001",
-    "threatfox:143.198.223.45:8001",
-    "threatfox:209.97.161.185:8001",
-    "threatfox:178.128.52.254:8001",
-    "threatfox:139.59.119.237:8001",
-    "threatfox:167.99.72.99:8001",
-    "threatfox:146.190.103.223:8001",
-    "threatfox:132.243.199.3:8001",
-    "threatfox:bmmp.ace90betyek.bet",
     "threatfox:https://henreques.lol/file.js",
     "threatfox:henreques.lol",
     "threatfox:https://henreques.lol/api/v1/session",
@@ -5001,7 +4992,16 @@
     "threatfox:43.143.234.164:22",
     "threatfox:221.132.16.23:22",
     "threatfox:4dc5hwj8.nextbahis.poker",
-    "threatfox:g9epkl53.site-asli-bedon-filter-1xbet.com"
+    "threatfox:g9epkl53.site-asli-bedon-filter-1xbet.com",
+    "threatfox:n5yqon6r.site-takhtenard-sharti-betland.com",
+    "threatfox:38.76.169.75:870",
+    "threatfox:130.94.34.66:6666",
+    "threatfox:bzki.jetbet.download",
+    "threatfox:lfumk.winston.bet",
+    "threatfox:43.164.191.203:110",
+    "threatfox:124.220.77.21:5003",
+    "threatfox:43.153.171.132:22",
+    "threatfox:43.164.191.203:143"
   ],
   "source_id": "abuse_ch",
   "stats": {
