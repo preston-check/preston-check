@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-19T17:11:20.308902+00:00",
-  "last_successful_fetch": "2026-07-19T17:11:24.389513+00:00",
+  "last_run": "2026-07-19T19:21:15.788786+00:00",
+  "last_successful_fetch": "2026-07-19T19:21:19.621951+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2275,7 +2275,10 @@
     "github:kgurnoor/gurnoor-Cvent-intern-end-ppt-pec",
     "github:dewcode91/CVE-2026-63030-POC",
     "github:Andrew-max365/JWPort-CVE-TEST",
-    "github:4B3R4M4-607D/CVE-2026-63030-POC"
+    "github:4B3R4M4-607D/CVE-2026-63030-POC",
+    "github:skelersecurity/wordpress-skelersecurity-core-security-CVE-2026-63030",
+    "github:Lukols-Dev/wp-cve-2026-63030-check",
+    "github:teyhouse/zero-cve-python"
   ],
   "source_id": "github_trending",
   "stats": {
