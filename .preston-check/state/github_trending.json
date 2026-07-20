@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-20T14:29:58.421818+00:00",
-  "last_successful_fetch": "2026-07-20T14:30:02.764643+00:00",
+  "last_run": "2026-07-20T16:40:57.044701+00:00",
+  "last_successful_fetch": "2026-07-20T16:41:00.182080+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2307,7 +2307,12 @@
     "github:soverineg/cve-2026-41940-PoC",
     "github:HELLBOY3110/cve-2026-16219-croogo-lab",
     "github:jacubes/CVE-2026-24061",
-    "github:oscerd/CVE-2026-49097"
+    "github:oscerd/CVE-2026-49097",
+    "github:oscerd/CVE-2026-49098",
+    "github:baktistr/cve-2026-23550-poc",
+    "github:jjuhric/cvetrace-go",
+    "github:sai-raj1991/cve-analyzer",
+    "github:BishopFox/CVE-2026-11374-check"
   ],
   "source_id": "github_trending",
   "stats": {
