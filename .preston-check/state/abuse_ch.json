@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-07-20T20:38:28.802738+00:00",
-  "last_successful_fetch": "2026-07-20T20:38:28.804177+00:00",
+  "last_run": "2026-07-20T22:09:33.327134+00:00",
+  "last_successful_fetch": "2026-07-20T22:09:33.327735+00:00",
   "processed_ids": [
-    "threatfox:er4goixf.zaribbala.bet",
-    "threatfox:ovya.logiccascade.top",
-    "threatfox:dhig.logiccascade.top",
-    "threatfox:176.53.159.46:8080",
-    "threatfox:38.54.61.225:443",
-    "threatfox:47.93.201.212:8080",
-    "threatfox:tjdxsecd.stacknexus.top",
-    "threatfox:stacknexus.top",
     "threatfox:mpsysysx.stacknexus.top",
     "threatfox:hihankidaha.cc",
     "threatfox:103.75.46.34:10801",
@@ -5001,7 +4993,15 @@
     "threatfox:15.235.3.224:80",
     "threatfox:15.235.3.224:8080",
     "threatfox:47.236.130.154:22",
-    "threatfox:43.139.108.161:21"
+    "threatfox:43.139.108.161:21",
+    "threatfox:wakgo.jbgroup21.com",
+    "threatfox:zztz.jetourmexico.com",
+    "threatfox:117.72.175.125:8090",
+    "threatfox:154.12.86.154:33306",
+    "threatfox:117.72.178.246:8081",
+    "threatfox:117.72.178.246:6379",
+    "threatfox:15.235.3.224:443",
+    "threatfox:txvii.hazaratbet.bet"
   ],
   "source_id": "abuse_ch",
   "stats": {

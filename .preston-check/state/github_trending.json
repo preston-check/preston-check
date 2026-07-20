@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-20T20:38:25.235850+00:00",
-  "last_successful_fetch": "2026-07-20T20:38:28.385849+00:00",
+  "last_run": "2026-07-20T22:09:30.001929+00:00",
+  "last_successful_fetch": "2026-07-20T22:09:33.027023+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2320,7 +2320,9 @@
     "github:jlee2834/Infrastructure-CVE-Monitor",
     "github:robinmichaelschaefer/cve_nvd_scanner",
     "github:hacbs-release-tests/collectors-no-cve-c7e6c35a",
-    "github:Fazliddin2105/cve-hunter"
+    "github:Fazliddin2105/cve-hunter",
+    "github:hacbs-release-tests/collectors-no-cve-d2d3e18e",
+    "github:hacbs-release-tests/collectors-no-cve-56b01d8d"
   ],
   "source_id": "github_trending",
   "stats": {
