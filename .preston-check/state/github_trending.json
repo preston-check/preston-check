@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-20T08:15:45.591673+00:00",
-  "last_successful_fetch": "2026-07-20T08:15:48.436442+00:00",
+  "last_run": "2026-07-20T11:54:09.911655+00:00",
+  "last_successful_fetch": "2026-07-20T11:54:13.266833+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2295,7 +2295,14 @@
     "github:hacbs-release-tests/collectors-no-cve-50b371d5",
     "github:meenalpannase/I3cverification-",
     "github:dadreu/cvetiivozduh",
-    "github:CakesTwix/Android-CVE-2026-43499"
+    "github:CakesTwix/Android-CVE-2026-43499",
+    "github:ShekharNarayanan/Covert_CVEP",
+    "github:csaf-tools/cve-description-comparison",
+    "github:gluckdev/router-cve-audit",
+    "github:0x00phantom-hat/CVE-2026-5029-Exploit",
+    "github:solankikeyur86783-art/CVE-bot",
+    "github:Thakkardarshan17/CVElite",
+    "github:victorbanyas/nginx-cve-remediation"
   ],
   "source_id": "github_trending",
   "stats": {
