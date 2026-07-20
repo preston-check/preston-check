@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-20T16:40:57.044701+00:00",
-  "last_successful_fetch": "2026-07-20T16:41:00.182080+00:00",
+  "last_run": "2026-07-20T19:04:12.941430+00:00",
+  "last_successful_fetch": "2026-07-20T19:04:16.017459+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2312,7 +2312,13 @@
     "github:baktistr/cve-2026-23550-poc",
     "github:jjuhric/cvetrace-go",
     "github:sai-raj1991/cve-analyzer",
-    "github:BishopFox/CVE-2026-11374-check"
+    "github:BishopFox/CVE-2026-11374-check",
+    "github:Ch4120N/CVE-2026-63030",
+    "github:dinosn/fastjson-jsontype-rce-lab",
+    "github:hacbs-release-tests/collectors-no-cve-a7d6c9cd",
+    "github:hacbs-release-tests/collectors-no-cve-e756680f",
+    "github:jlee2834/Infrastructure-CVE-Monitor",
+    "github:robinmichaelschaefer/cve_nvd_scanner"
   ],
   "source_id": "github_trending",
   "stats": {
