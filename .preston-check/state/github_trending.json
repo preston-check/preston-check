@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-21T18:23:04.559264+00:00",
-  "last_successful_fetch": "2026-07-21T18:23:07.766862+00:00",
+  "last_run": "2026-07-21T20:22:50.035508+00:00",
+  "last_successful_fetch": "2026-07-21T20:22:52.787212+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2364,7 +2364,11 @@
     "github:CerberusMrXi/CVE-2026-57588-Nessus-XML-Import-SQL-Injection-PoC",
     "github:tc4dy/CVE-2026-6875-PoC-Exploit",
     "github:ixZODiAK/CVE-2025-8110",
-    "github:Bhanunamikaze/WP2Shell-CVE-2026-63030-POC"
+    "github:Bhanunamikaze/WP2Shell-CVE-2026-63030-POC",
+    "github:vbrik/distro-package-cve-query",
+    "github:suominen/CVE-2026-42533",
+    "github:kaiokmo/cve-2025-10725-eda-demo",
+    "github:0xdak/CVE-2026-53595_exploit"
   ],
   "source_id": "github_trending",
   "stats": {
