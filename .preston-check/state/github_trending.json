@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-21T16:38:25.469846+00:00",
-  "last_successful_fetch": "2026-07-21T16:38:28.718021+00:00",
+  "last_run": "2026-07-21T18:23:04.559264+00:00",
+  "last_successful_fetch": "2026-07-21T18:23:07.766862+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2357,7 +2357,14 @@
     "github:Sana-404/CVE-2026-8838-Mitigation-and-Detection",
     "github:vdanen/rh-cve-checker",
     "github:Athology0000/cve-lab-landing",
-    "github:Cobrastrike62/CVE-2026-27626-POC"
+    "github:Cobrastrike62/CVE-2026-27626-POC",
+    "github:WhatsWrongAndWhy/CVE-2017-16995",
+    "github:WhatsWrongAndWhy/CVE-2017-1000112",
+    "github:yashkeral/cve-writeups",
+    "github:CerberusMrXi/CVE-2026-57588-Nessus-XML-Import-SQL-Injection-PoC",
+    "github:tc4dy/CVE-2026-6875-PoC-Exploit",
+    "github:ixZODiAK/CVE-2025-8110",
+    "github:Bhanunamikaze/WP2Shell-CVE-2026-63030-POC"
   ],
   "source_id": "github_trending",
   "stats": {
