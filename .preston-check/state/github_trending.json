@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-21T09:34:29.626202+00:00",
-  "last_successful_fetch": "2026-07-21T09:34:32.279544+00:00",
+  "last_run": "2026-07-21T11:57:22.583222+00:00",
+  "last_successful_fetch": "2026-07-21T11:57:25.571967+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2346,7 +2346,11 @@
     "github:SUSE/suse-add-cves",
     "github:johnhsb/dirty-frag-cve-2026-mitigation",
     "github:qianlijaingshan/n8n-cve-2026-21858",
-    "github:wanth3f1ag/CVE"
+    "github:wanth3f1ag/CVE",
+    "github:shjjgg/CVE-exp",
+    "github:Petalrain224/CVE-2026-43499-Redmi-Turbo5",
+    "github:hacbs-release-tests/collectors-no-cve-38e6023f",
+    "github:0xdak/CVE-2026-9198_exploit"
   ],
   "source_id": "github_trending",
   "stats": {
