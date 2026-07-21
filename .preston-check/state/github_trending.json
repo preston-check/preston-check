@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-21T06:38:01.672931+00:00",
-  "last_successful_fetch": "2026-07-21T06:38:04.351644+00:00",
+  "last_run": "2026-07-21T09:34:29.626202+00:00",
+  "last_successful_fetch": "2026-07-21T09:34:32.279544+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2340,7 +2340,13 @@
     "github:MinhHK68/CVE-2026-13156",
     "github:Unoong/CVE_BOT",
     "github:axion-dev-enterprise/cve-intel-estadopara",
-    "github:MSNightmare/LegacyHive"
+    "github:MSNightmare/LegacyHive",
+    "github:open-inc/cve-scanner",
+    "github:oscerd/CVE-2026-49099",
+    "github:SUSE/suse-add-cves",
+    "github:johnhsb/dirty-frag-cve-2026-mitigation",
+    "github:qianlijaingshan/n8n-cve-2026-21858",
+    "github:wanth3f1ag/CVE"
   ],
   "source_id": "github_trending",
   "stats": {
