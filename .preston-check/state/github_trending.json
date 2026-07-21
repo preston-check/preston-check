@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-21T00:06:30.006884+00:00",
-  "last_successful_fetch": "2026-07-21T00:06:32.658337+00:00",
+  "last_run": "2026-07-21T03:41:34.427364+00:00",
+  "last_successful_fetch": "2026-07-21T03:41:37.438946+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2324,7 +2324,15 @@
     "github:hacbs-release-tests/collectors-no-cve-d2d3e18e",
     "github:hacbs-release-tests/collectors-no-cve-56b01d8d",
     "github:NicPWNs/CVE-2026-62183",
-    "github:two35s/wp-cve-db"
+    "github:two35s/wp-cve-db",
+    "github:szk333333/rhel-cve-checker",
+    "github:GhostInExile/CVE-2026-63030-Wp2Shell",
+    "github:DappaNISM/mass_cve-2021-41773",
+    "github:bbldCVer/bbldCVer.github.io",
+    "github:DappaNISM/CVE-2022-0441",
+    "github:HydraSoft/CVE-2026-41089-Netlogon-RCE",
+    "github:aaddrick/kernel-cve-watch",
+    "github:vsermae/cpe2cves"
   ],
   "source_id": "github_trending",
   "stats": {
