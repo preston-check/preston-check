@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-22T18:18:50.209409+00:00",
-  "last_successful_fetch": "2026-07-22T18:18:53.417167+00:00",
+  "last_run": "2026-07-22T22:13:58.588840+00:00",
+  "last_successful_fetch": "2026-07-22T22:14:01.296765+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2407,7 +2407,12 @@
     "github:johnnygreeme/CVE-2023-21817",
     "github:DanielKevinn/CVE-2021-4376",
     "github:Frankfurt-AI-Safety/llm-cve-dynamics",
-    "github:zlatatikhomirova/cve-patch-annotator"
+    "github:zlatatikhomirova/cve-patch-annotator",
+    "github:hacbs-release-tests/collectors-no-cve-9dd282e0",
+    "github:dhpup/akp-platform-cve",
+    "github:dhpup/akp-monorepo-cve",
+    "github:dhpup/akp-infra-cve",
+    "github:BannerLizard87/cvevdojj"
   ],
   "source_id": "github_trending",
   "stats": {
