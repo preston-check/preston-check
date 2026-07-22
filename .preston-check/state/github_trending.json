@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-22T06:39:40.035735+00:00",
-  "last_successful_fetch": "2026-07-22T06:39:42.894232+00:00",
+  "last_run": "2026-07-22T09:34:47.897205+00:00",
+  "last_successful_fetch": "2026-07-22T09:34:51.097847+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2384,7 +2384,15 @@
     "github:yang5ynag/cve",
     "github:dsec909/cve",
     "github:Saksham811/cve-platform",
-    "github:WhatsWrongAndWhy/CVE-2023-2640-CVE-2023-32629"
+    "github:WhatsWrongAndWhy/CVE-2023-2640-CVE-2023-32629",
+    "github:jrld7/GIT-CVE_Analyzer",
+    "github:vasumathiIBM/CVE-remediator",
+    "github:hacbs-release-tests/collectors-no-cve-33ee2e9b",
+    "github:rpancham/vllm-cve-tracker",
+    "github:anurag-rvnkr1/CVE-Lookup-Platform",
+    "github:oscerd/CVE-2026-55993",
+    "github:123456170/VulnCopilot-AI-Powered-Vulnerability-Remediation-SBOM-CVE-Match-RAG-Patch-Auto-PR",
+    "github:rock4andruw/rhel-cve-tool"
   ],
   "source_id": "github_trending",
   "stats": {
