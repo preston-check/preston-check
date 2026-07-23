@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-23T07:42:39.654216+00:00",
-  "last_successful_fetch": "2026-07-23T07:42:42.923108+00:00",
+  "last_run": "2026-07-23T10:32:58.163810+00:00",
+  "last_successful_fetch": "2026-07-23T10:33:01.938564+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2420,7 +2420,13 @@
     "github:razureink/cve-2026-21509-office_security_bypass_reproduction",
     "github:razureink/cve-2026-0770-langflow_rce_reproduction",
     "github:Yukouf/wazuh-cve-alerter-mail",
-    "github:soralis0912/CVE-2026-43499-aristotle"
+    "github:soralis0912/CVE-2026-43499-aristotle",
+    "github:slaugur1/cve-assistant",
+    "github:Bailan766/rmx3888-cve-2026-43499-config",
+    "github:gagaltotal/CVE-2026-42533-nginx",
+    "github:Max78000/CVE-2026-0560-lollms",
+    "github:gagaltotal/CVE-2021-41773-apache",
+    "github:0xdak/CVE-2026-56121_exploit"
   ],
   "source_id": "github_trending",
   "stats": {
