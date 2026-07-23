@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-23T21:18:03.502674+00:00",
-  "last_successful_fetch": "2026-07-23T21:18:06.171213+00:00",
+  "last_run": "2026-07-23T23:08:11.015831+00:00",
+  "last_successful_fetch": "2026-07-23T23:08:13.299362+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2449,7 +2449,8 @@
     "github:abdirahmancadiir7-cmyk/CVE-Vulnerability-Scanner",
     "github:al7araziruby-jpg/CVE-2024-6387-OpenSSH-Analysis",
     "github:UnusualGiraffe/Mass-Scanner-CVE-2025-9242",
-    "github:dmesser/openshift-cve-diff"
+    "github:dmesser/openshift-cve-diff",
+    "github:BiiTts/POC-CVE-2026-65971"
   ],
   "source_id": "github_trending",
   "stats": {
