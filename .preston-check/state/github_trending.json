@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-23T17:42:23.039022+00:00",
-  "last_successful_fetch": "2026-07-23T17:42:26.046125+00:00",
+  "last_run": "2026-07-23T19:40:28.860367+00:00",
+  "last_successful_fetch": "2026-07-23T19:40:31.260510+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2442,7 +2442,11 @@
     "github:uroszeradjanin/cvecaramagic",
     "github:hacbs-release-tests/collectors-no-cve-01d17473",
     "github:hacbs-release-tests/collectors-no-cve-61cd1f0f",
-    "github:0xBlackash/CVE-2026-64600"
+    "github:0xBlackash/CVE-2026-64600",
+    "github:s-p4rk/CVE-2018-6574",
+    "github:hacbs-release-tests/collectors-no-cve-1bd9b9c7",
+    "github:FernandoCassioDev/CVE-2015-1328",
+    "github:abdirahmancadiir7-cmyk/CVE-Vulnerability-Scanner"
   ],
   "source_id": "github_trending",
   "stats": {
