@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-23T00:10:33.769042+00:00",
-  "last_successful_fetch": "2026-07-23T00:10:36.416489+00:00",
+  "last_run": "2026-07-23T04:26:44.683067+00:00",
+  "last_successful_fetch": "2026-07-23T04:26:47.302371+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2412,7 +2412,13 @@
     "github:dhpup/akp-platform-cve",
     "github:dhpup/akp-monorepo-cve",
     "github:dhpup/akp-infra-cve",
-    "github:BannerLizard87/cvevdojj"
+    "github:BannerLizard87/cvevdojj",
+    "github:Derek-Coleman-Associates-Corporation/cve-fix-check",
+    "github:razureink/cve-2026-63030_60137-wordpress_rce_reproduction",
+    "github:razureink/cve-2026-41940-cpanel_authbypass_reproduction",
+    "github:razureink/cve-2026-34486-tomcat_encrypt_bypass_reproduction",
+    "github:razureink/cve-2026-21509-office_security_bypass_reproduction",
+    "github:razureink/cve-2026-0770-langflow_rce_reproduction"
   ],
   "source_id": "github_trending",
   "stats": {
