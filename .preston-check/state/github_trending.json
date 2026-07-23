@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-23T15:20:33.503840+00:00",
-  "last_successful_fetch": "2026-07-23T15:20:36.215937+00:00",
+  "last_run": "2026-07-23T17:42:23.039022+00:00",
+  "last_successful_fetch": "2026-07-23T17:42:26.046125+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2436,7 +2436,13 @@
     "github:sachinlalms/sach-cve-checker",
     "github:nahamsec/wp-cve-intel",
     "github:m-misiura/cves",
-    "github:corelight/CVE-2022-26937"
+    "github:corelight/CVE-2022-26937",
+    "github:lfparizzi/CVE-TIP-120-Sensitive-information-disclosure",
+    "github:jeonghyeonbag98-boop/cvent-dashboard-apps-script",
+    "github:uroszeradjanin/cvecaramagic",
+    "github:hacbs-release-tests/collectors-no-cve-01d17473",
+    "github:hacbs-release-tests/collectors-no-cve-61cd1f0f",
+    "github:0xBlackash/CVE-2026-64600"
   ],
   "source_id": "github_trending",
   "stats": {
