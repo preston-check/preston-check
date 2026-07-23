@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-23T10:32:58.163810+00:00",
-  "last_successful_fetch": "2026-07-23T10:33:01.938564+00:00",
+  "last_run": "2026-07-23T12:46:32.073579+00:00",
+  "last_successful_fetch": "2026-07-23T12:46:35.373225+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2426,7 +2426,14 @@
     "github:gagaltotal/CVE-2026-42533-nginx",
     "github:Max78000/CVE-2026-0560-lollms",
     "github:gagaltotal/CVE-2021-41773-apache",
-    "github:0xdak/CVE-2026-56121_exploit"
+    "github:0xdak/CVE-2026-56121_exploit",
+    "github:Exploit-Garbage/0day-Rubbish",
+    "github:innsung/cvent-dashboard-vercel",
+    "github:kuniyal08/Copy-Fail-CVE-2026-31431-Lab",
+    "github:4minx/CVE-2026-14266",
+    "github:soralis0912/CVE-2026-43499-aristotle-apk",
+    "github:sumanshusohal/OHCAM-CVE-to-ATTACK",
+    "github:sachinlalms/sach-cve-checker"
   ],
   "source_id": "github_trending",
   "stats": {
