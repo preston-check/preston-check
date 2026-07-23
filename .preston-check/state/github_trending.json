@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-23T04:26:44.683067+00:00",
-  "last_successful_fetch": "2026-07-23T04:26:47.302371+00:00",
+  "last_run": "2026-07-23T07:42:39.654216+00:00",
+  "last_successful_fetch": "2026-07-23T07:42:42.923108+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2418,7 +2418,9 @@
     "github:razureink/cve-2026-41940-cpanel_authbypass_reproduction",
     "github:razureink/cve-2026-34486-tomcat_encrypt_bypass_reproduction",
     "github:razureink/cve-2026-21509-office_security_bypass_reproduction",
-    "github:razureink/cve-2026-0770-langflow_rce_reproduction"
+    "github:razureink/cve-2026-0770-langflow_rce_reproduction",
+    "github:Yukouf/wazuh-cve-alerter-mail",
+    "github:soralis0912/CVE-2026-43499-aristotle"
   ],
   "source_id": "github_trending",
   "stats": {
