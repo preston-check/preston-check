@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-24T06:36:17.655497+00:00",
-  "last_successful_fetch": "2026-07-24T06:36:20.175552+00:00",
+  "last_run": "2026-07-24T09:28:33.682726+00:00",
+  "last_successful_fetch": "2026-07-24T09:28:36.681065+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2457,7 +2457,13 @@
     "github:euisuh/CVEFixesUtil",
     "github:razureink/cve-2024-1708-connectwise_rce_reproduction",
     "github:ValeLyris/CVE",
-    "github:bobroberts2639/Pangolin-Nostromo-CVE-kev-snapshot-datamap"
+    "github:bobroberts2639/Pangolin-Nostromo-CVE-kev-snapshot-datamap",
+    "github:sho6000/kp-cve-scan",
+    "github:NursultanKoshoev11/CVESearch",
+    "github:ange-primiterra/CVE-2026-47761",
+    "github:vulnerability-lookup/cve-attack-mapping-paper",
+    "github:avidzcheetah/CVE-Triage-Patch-agent",
+    "github:razureink/cve-2021-44228-log4shell_rce_reproduction"
   ],
   "source_id": "github_trending",
   "stats": {
