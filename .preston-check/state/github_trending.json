@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-24T09:28:33.682726+00:00",
-  "last_successful_fetch": "2026-07-24T09:28:36.681065+00:00",
+  "last_run": "2026-07-24T11:52:23.956979+00:00",
+  "last_successful_fetch": "2026-07-24T11:52:27.849880+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2463,7 +2463,16 @@
     "github:ange-primiterra/CVE-2026-47761",
     "github:vulnerability-lookup/cve-attack-mapping-paper",
     "github:avidzcheetah/CVE-Triage-Patch-agent",
-    "github:razureink/cve-2021-44228-log4shell_rce_reproduction"
+    "github:razureink/cve-2021-44228-log4shell_rce_reproduction",
+    "github:shinthink/CVE-2026-63030",
+    "github:ebrasha/abdal-cve-2026-63030",
+    "github:ebrasha/abdal-cve-2026-60137",
+    "github:NurSima1471/cve-analyzer-assistant",
+    "github:hacbs-release-tests/collectors-no-cve-505ce8a6",
+    "github:hacbs-release-tests/collectors-no-cve-7f114f88",
+    "github:opensource-arrozconpollo191/CVE-2026-41089-Netlogon-RCE",
+    "github:hacbs-release-tests/collectors-no-cve-d41b288c",
+    "github:boobalover7/YellowKey-Bitlocker-CVE-2026-45585"
   ],
   "source_id": "github_trending",
   "stats": {
