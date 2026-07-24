@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-24T14:06:14.301440+00:00",
-  "last_successful_fetch": "2026-07-24T14:06:18.772596+00:00",
+  "last_run": "2026-07-24T15:42:23.559759+00:00",
+  "last_successful_fetch": "2026-07-24T15:42:26.738601+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2476,7 +2476,11 @@
     "github:mariakrusty/cvetbar-site",
     "github:electricsheep08/CVE-2025-27520",
     "github:oscerd/CVE-2026-49042",
-    "github:sbimoxa/cve-2021-43798-lab"
+    "github:sbimoxa/cve-2021-43798-lab",
+    "github:s-vx/CVE-2025-63408",
+    "github:borland6/IHS_HIGH_CVE",
+    "github:hacbs-release-tests/collectors-no-cve-29991486",
+    "github:hacbs-release-tests/collectors-no-cve-a73fe1e6"
   ],
   "source_id": "github_trending",
   "stats": {
