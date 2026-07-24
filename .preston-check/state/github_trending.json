@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-24T03:36:57.453779+00:00",
-  "last_successful_fetch": "2026-07-24T03:37:00.569624+00:00",
+  "last_run": "2026-07-24T06:36:17.655497+00:00",
+  "last_successful_fetch": "2026-07-24T06:36:20.175552+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2454,7 +2454,10 @@
     "github:eavil666/cve-poc-mapper",
     "github:imbas007/POC-CVE-2026-60206",
     "github:Caycon/cve-advisories",
-    "github:euisuh/CVEFixesUtil"
+    "github:euisuh/CVEFixesUtil",
+    "github:razureink/cve-2024-1708-connectwise_rce_reproduction",
+    "github:ValeLyris/CVE",
+    "github:bobroberts2639/Pangolin-Nostromo-CVE-kev-snapshot-datamap"
   ],
   "source_id": "github_trending",
   "stats": {
