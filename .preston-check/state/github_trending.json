@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-25T15:15:46.231667+00:00",
-  "last_successful_fetch": "2026-07-25T15:15:49.083165+00:00",
+  "last_run": "2026-07-25T17:11:30.164356+00:00",
+  "last_successful_fetch": "2026-07-25T17:11:33.223943+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2505,7 +2505,13 @@
     "github:hacbs-release-tests/collectors-no-cve-f31f33ea",
     "github:HORKimhab/CVE-2026-16723",
     "github:tan1540684326-QAQ/cve",
-    "github:0xDVRK/CVE-2026-41651"
+    "github:0xDVRK/CVE-2026-41651",
+    "github:joaovicdev/CVE-2026-26216",
+    "github:Mollywc/cve-selective-risk",
+    "github:HORKimhab/CVE-2026-32194",
+    "github:1337Skid/CVE-2026-51564",
+    "github:borland6/IBM_MW_CVE_LIST",
+    "github:HORKimhab/CVE-2026-54121"
   ],
   "source_id": "github_trending",
   "stats": {
