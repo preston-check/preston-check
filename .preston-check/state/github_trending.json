@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-25T06:26:12.040068+00:00",
-  "last_successful_fetch": "2026-07-25T06:26:14.655931+00:00",
+  "last_run": "2026-07-25T09:08:13.635700+00:00",
+  "last_successful_fetch": "2026-07-25T09:08:17.700057+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2490,7 +2490,13 @@
     "github:Martin-Jin/CVEditor",
     "github:lanepriest/cveejv",
     "github:fangtang7/CVE",
-    "github:letsr00t/CVE-2026-43494-PinTheft-PoC"
+    "github:letsr00t/CVE-2026-43494-PinTheft-PoC",
+    "github:bobroberts2639/Pangolin-Nostromo-CVE-datamap-pwa-4",
+    "github:4minx/CVE-2026-50522",
+    "github:cyberupdates365/2026-cve-and-zero-day-patch-database",
+    "github:cyberupdates365/ai-cyber-threats-and-cve-mitigation-tracker-2026",
+    "github:HORKimhab/CVE-2026-54900",
+    "github:gajgdm6-cpu/cve-report"
   ],
   "source_id": "github_trending",
   "stats": {
