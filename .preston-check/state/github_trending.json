@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-25T19:23:20.589308+00:00",
-  "last_successful_fetch": "2026-07-25T19:23:23.176863+00:00",
+  "last_run": "2026-07-25T21:06:00.793677+00:00",
+  "last_successful_fetch": "2026-07-25T21:06:03.206411+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2515,7 +2515,9 @@
     "github:neeraj-sharma-0/cve-rag",
     "github:takorunikatora/cveharvest",
     "github:tc4dy/CVE-2026-54121-PoC-Exploit",
-    "github:YumeSecurity/CVE-2022-35914"
+    "github:YumeSecurity/CVE-2022-35914",
+    "github:MrTiz/CVE-2023-35671",
+    "github:devalkotak/Reachability-CVE-Triage"
   ],
   "source_id": "github_trending",
   "stats": {
