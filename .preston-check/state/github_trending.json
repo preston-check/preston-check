@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-26T12:11:49.326842+00:00",
-  "last_successful_fetch": "2026-07-26T12:11:51.975651+00:00",
+  "last_run": "2026-07-26T14:42:46.777891+00:00",
+  "last_successful_fetch": "2026-07-26T14:42:49.499756+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2533,7 +2533,10 @@
     "github:xiaoqi20231006/cve-database",
     "github:Nxploited/CVE-2026-10818",
     "github:Silwalkg/Syntecxhub_Vulnerability-CVE-Scanner",
-    "github:northsia/CVE-2026-60137-With-Skip-SSL"
+    "github:northsia/CVE-2026-60137-With-Skip-SSL",
+    "github:waniaazam000-cpu/Professional-Vulnerability-CVE-Scanner",
+    "github:AdnaKoss/cve-rag-assistant",
+    "github:woshimaniubi8/CVE-2026-43499-root-KernelSU"
   ],
   "source_id": "github_trending",
   "stats": {
