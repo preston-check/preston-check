@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-26T04:35:41.809202+00:00",
-  "last_successful_fetch": "2026-07-26T04:35:45.516451+00:00",
+  "last_run": "2026-07-26T07:43:55.943855+00:00",
+  "last_successful_fetch": "2026-07-26T07:43:58.810099+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2521,7 +2521,11 @@
     "github:osso07-glitch/cve-trend-analyzer",
     "github:sigeavian/cvetzv",
     "github:doudoudedi/hackEmbedded",
-    "github:openeuler-mirror/cve-manager"
+    "github:openeuler-mirror/cve-manager",
+    "github:hacbs-release-tests/collectors-no-cve-0ea241a6",
+    "github:hacbs-release-tests/collectors-no-cve-db4e6736",
+    "github:jovingibsona-ctrl/NETSCAN-CVE-",
+    "github:hacbs-release-tests/collectors-no-cve-13cf26a0"
   ],
   "source_id": "github_trending",
   "stats": {
