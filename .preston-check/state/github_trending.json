@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-27T12:34:41.378025+00:00",
-  "last_successful_fetch": "2026-07-27T12:34:44.479810+00:00",
+  "last_run": "2026-07-27T15:49:02.952261+00:00",
+  "last_successful_fetch": "2026-07-27T15:49:06.359587+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2560,7 +2560,12 @@
     "github:imbas007/CVE-2026-42533",
     "github:hacbs-release-tests/collectors-no-cve-1ff53676",
     "github:ChPratik/CVE-2026-9830",
-    "github:ngtuonghung/CVE-2026-43501"
+    "github:ngtuonghung/CVE-2026-43501",
+    "github:voxpupuli/container_cve_report",
+    "github:tr3m0x/CVE-2019-25065-poc",
+    "github:l22Heart/cve_report",
+    "github:dnlid/CVE-2026-43499",
+    "github:x0jac0b0x/skullcandy-dime3-cve-2025-20701"
   ],
   "source_id": "github_trending",
   "stats": {
