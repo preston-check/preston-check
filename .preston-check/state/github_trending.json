@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-27T08:42:35.186247+00:00",
-  "last_successful_fetch": "2026-07-27T08:42:37.994305+00:00",
+  "last_run": "2026-07-27T12:34:41.378025+00:00",
+  "last_successful_fetch": "2026-07-27T12:34:44.479810+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2557,7 +2557,10 @@
     "github:kxom9ks/CVE-2024-27198-TeamCity",
     "github:hacbs-release-tests/collectors-no-cve-647a80a4",
     "github:Phucc29/CVE-2025-55182",
-    "github:imbas007/CVE-2026-42533"
+    "github:imbas007/CVE-2026-42533",
+    "github:hacbs-release-tests/collectors-no-cve-1ff53676",
+    "github:ChPratik/CVE-2026-9830",
+    "github:ngtuonghung/CVE-2026-43501"
   ],
   "source_id": "github_trending",
   "stats": {
