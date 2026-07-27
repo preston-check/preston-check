@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-27T15:49:02.952261+00:00",
-  "last_successful_fetch": "2026-07-27T15:49:06.359587+00:00",
+  "last_run": "2026-07-27T17:51:46.204239+00:00",
+  "last_successful_fetch": "2026-07-27T17:51:49.118045+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2565,7 +2565,15 @@
     "github:tr3m0x/CVE-2019-25065-poc",
     "github:l22Heart/cve_report",
     "github:dnlid/CVE-2026-43499",
-    "github:x0jac0b0x/skullcandy-dime3-cve-2025-20701"
+    "github:x0jac0b0x/skullcandy-dime3-cve-2025-20701",
+    "github:theopaid/CVE-2026-66731-Negative-Chunk-Size-Parsing-Causes-Memory-Corruption-leading-to-Server-Crash",
+    "github:hacbs-release-tests/collectors-no-cve-43fb273e",
+    "github:theopaid/CVE-2026-66730-Infinite-Loop-DoS-in-facil.io-MIME-Parser",
+    "github:theopaid/CVE-2026-66729-Out-of-Bounds-Read-in-facil.io-MIME-Parser-leads-to-Server-Crash",
+    "github:anonymous99-Rise/CVE",
+    "github:HieuPenguinnn/WordPress-CVE",
+    "github:doyeonyeah/devin-cve-remediation",
+    "github:KawaiiHachimi/CVE-2026-43499-pgp110"
   ],
   "source_id": "github_trending",
   "stats": {
