@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-26T22:08:27.679641+00:00",
-  "last_successful_fetch": "2026-07-26T22:08:31.442597+00:00",
+  "last_run": "2026-07-27T00:09:12.461749+00:00",
+  "last_successful_fetch": "2026-07-27T00:09:16.224083+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2541,7 +2541,8 @@
     "github:CerberusMrXi/cPanel-WHM-CVE-2026-41940-auth-bypass-exploit",
     "github:AskelaToN/ptbud-cve-index",
     "github:whoamicrash/sheetratexploit",
-    "github:2twjwh4ynm-rgb/guula-cvecara"
+    "github:2twjwh4ynm-rgb/guula-cvecara",
+    "github:gragot257/cveeim"
   ],
   "source_id": "github_trending",
   "stats": {
