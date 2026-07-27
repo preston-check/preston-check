@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-27T17:51:46.204239+00:00",
-  "last_successful_fetch": "2026-07-27T17:51:49.118045+00:00",
+  "last_run": "2026-07-27T19:48:29.395281+00:00",
+  "last_successful_fetch": "2026-07-27T19:48:31.969296+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2573,7 +2573,11 @@
     "github:anonymous99-Rise/CVE",
     "github:HieuPenguinnn/WordPress-CVE",
     "github:doyeonyeah/devin-cve-remediation",
-    "github:KawaiiHachimi/CVE-2026-43499-pgp110"
+    "github:KawaiiHachimi/CVE-2026-43499-pgp110",
+    "github:mac-123456789-lab/CVE-2026-39875-macOS-CUPS-LPE",
+    "github:saadhassan77/CVE-2025-64512---pdfminer.six-Remote-Code-Execution-RCE-",
+    "github:Skorpion96/CVE-2026-40000",
+    "github:aniqfakhrul/CVE-2026-54121"
   ],
   "source_id": "github_trending",
   "stats": {
