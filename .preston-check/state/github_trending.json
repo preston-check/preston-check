@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-27T00:09:12.461749+00:00",
-  "last_successful_fetch": "2026-07-27T00:09:16.224083+00:00",
+  "last_run": "2026-07-27T04:48:16.515513+00:00",
+  "last_successful_fetch": "2026-07-27T04:48:19.375221+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2542,7 +2542,12 @@
     "github:AskelaToN/ptbud-cve-index",
     "github:whoamicrash/sheetratexploit",
     "github:2twjwh4ynm-rgb/guula-cvecara",
-    "github:gragot257/cveeim"
+    "github:gragot257/cveeim",
+    "github:hptcybersecurity/CVE-2026",
+    "github:s-vx/CVE-2026-41179",
+    "github:Dungsocool/CVE-2026-60137_CVE-2026-63030",
+    "github:xingguangcuican6666/ABK_CVE_Fix_Module",
+    "github:bountybugtest/0dayPoCtest"
   ],
   "source_id": "github_trending",
   "stats": {
