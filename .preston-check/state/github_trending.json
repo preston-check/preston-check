@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-28T21:17:51.781211+00:00",
-  "last_successful_fetch": "2026-07-28T21:17:55.086079+00:00",
+  "last_run": "2026-07-28T23:12:38.991167+00:00",
+  "last_successful_fetch": "2026-07-28T23:12:41.539341+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2609,7 +2609,14 @@
     "github:hacbs-release-tests/collectors-no-cve-5729341a",
     "github:darses/CVE-2026-50522",
     "github:cduram/NotCVE-2026-0009",
-    "github:jesusevergarayhuatay-stack/cvedith"
+    "github:jesusevergarayhuatay-stack/cvedith",
+    "github:samael0x4/CVE-2026-9198",
+    "github:theopaid/CVE-2026-66748-Camaleon-CMS---Authenticated-RCE-via-select_eval-Custom-Field",
+    "github:hacbs-release-tests/collectors-no-cve-4e64bb43",
+    "github:hacbs-release-tests/collectors-no-cve-d110d1a3",
+    "github:hacbs-release-tests/collectors-no-cve-4db325a5",
+    "github:hacbs-release-tests/collectors-no-cve-6b400222",
+    "github:reidjessica642/CVES-API-backend"
   ],
   "source_id": "github_trending",
   "stats": {
