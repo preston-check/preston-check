@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-28T15:28:55.784153+00:00",
-  "last_successful_fetch": "2026-07-28T15:28:59.038917+00:00",
+  "last_run": "2026-07-28T17:43:00.414686+00:00",
+  "last_successful_fetch": "2026-07-28T17:43:03.663996+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2603,7 +2603,10 @@
     "github:mpecheux/cvesteph",
     "github:thijor/cvep-literature",
     "github:ywh-jfellus/CVE-2026-65761",
-    "github:0xBlackash/CVE-2026-53921"
+    "github:0xBlackash/CVE-2026-53921",
+    "github:tc4dy/CVE-2026-53921-PoC-Exploit",
+    "github:praksokchea/CVE-2025-6563",
+    "github:hacbs-release-tests/collectors-no-cve-5729341a"
   ],
   "source_id": "github_trending",
   "stats": {
