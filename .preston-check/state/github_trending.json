@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-28T12:07:15.226393+00:00",
-  "last_successful_fetch": "2026-07-28T12:07:18.160514+00:00",
+  "last_run": "2026-07-28T15:28:55.784153+00:00",
+  "last_successful_fetch": "2026-07-28T15:28:59.038917+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2593,7 +2593,17 @@
     "github:hacbs-release-tests/collectors-no-cve-ad46d75e",
     "github:zulalozdemir/CVE-Project",
     "github:tr3m0x/CVE-2025-6019",
-    "github:ZeroXSHDW/NIST_NVD_CVE_2.0_Convertor_JSON_To_XSLX"
+    "github:ZeroXSHDW/NIST_NVD_CVE_2.0_Convertor_JSON_To_XSLX",
+    "github:hacbs-release-tests/collectors-no-cve-a3f72090",
+    "github:hacbs-release-tests/collectors-no-cve-289980a5",
+    "github:jim-lahey69/snow-cve-risk-framework",
+    "github:leosp1983/cve-redhat",
+    "github:gabrielmicro1/cve-harden",
+    "github:JionaDev/VisionOneCVE",
+    "github:mpecheux/cvesteph",
+    "github:thijor/cvep-literature",
+    "github:ywh-jfellus/CVE-2026-65761",
+    "github:0xBlackash/CVE-2026-53921"
   ],
   "source_id": "github_trending",
   "stats": {
