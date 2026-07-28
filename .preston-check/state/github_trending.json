@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-27T23:16:30.451923+00:00",
-  "last_successful_fetch": "2026-07-27T23:16:33.362069+00:00",
+  "last_run": "2026-07-28T03:28:57.689779+00:00",
+  "last_successful_fetch": "2026-07-28T03:29:00.877567+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2577,7 +2577,9 @@
     "github:mac-123456789-lab/CVE-2026-39875-macOS-CUPS-LPE",
     "github:saadhassan77/CVE-2025-64512---pdfminer.six-Remote-Code-Execution-RCE-",
     "github:Skorpion96/CVE-2026-40000",
-    "github:aniqfakhrul/CVE-2026-54121"
+    "github:aniqfakhrul/CVE-2026-54121",
+    "github:ChPratik/CVE-2026-54121",
+    "github:anonymous99-Rise/CVE-Poc_All_in_One"
   ],
   "source_id": "github_trending",
   "stats": {
