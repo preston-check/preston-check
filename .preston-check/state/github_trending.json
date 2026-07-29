@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-29T12:13:13.851652+00:00",
-  "last_successful_fetch": "2026-07-29T12:13:17.179312+00:00",
+  "last_run": "2026-07-29T15:16:57.585734+00:00",
+  "last_successful_fetch": "2026-07-29T15:17:01.562443+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2631,7 +2631,11 @@
     "github:afertar/CVE-2026-16475-PoC",
     "github:m1d0b4n/linux-CVEs",
     "github:tc4dy/CVE-2026-61511-PoC-Exploit",
-    "github:Zedocun/Sharepoint-cve-2023-29375-incident-response"
+    "github:Zedocun/Sharepoint-cve-2023-29375-incident-response",
+    "github:hacbs-release-tests/collectors-no-cve-e68a9891",
+    "github:stazerwee-ui/ITE-AI-Application-CVE-Project",
+    "github:hammer-redhat/cve-pipeline",
+    "github:aj2108/cve-writeups"
   ],
   "source_id": "github_trending",
   "stats": {
