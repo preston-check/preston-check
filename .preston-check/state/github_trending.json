@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-29T21:09:05.119476+00:00",
-  "last_successful_fetch": "2026-07-29T21:09:07.667468+00:00",
+  "last_run": "2026-07-29T23:09:15.570429+00:00",
+  "last_successful_fetch": "2026-07-29T23:09:19.239327+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2645,7 +2645,14 @@
     "github:shinthink/CVE-2026-57827",
     "github:Anusha-Khan29/CVE-2025-70149-SQL-Injection",
     "github:0xBlackash/CVE-2026-66066",
-    "github:sbimoxa/cve-2021-41773-lab"
+    "github:sbimoxa/cve-2021-41773-lab",
+    "github:Groppoxx/CVE-2024-36104-PoC",
+    "github:RedTeamBrasil/CVE-2020-24028",
+    "github:blegbot1/cvetik-vpn",
+    "github:RedTeamBrasil/CVE-2019-19550",
+    "github:faresUnderScore999/cve_matcher",
+    "github:Zer0SumGam3/CVE-2026-66066-POC",
+    "github:hacbs-release-tests/collectors-no-cve-3fb0d52b"
   ],
   "source_id": "github_trending",
   "stats": {
