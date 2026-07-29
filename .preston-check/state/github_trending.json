@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-29T06:41:37.671826+00:00",
-  "last_successful_fetch": "2026-07-29T06:41:40.274692+00:00",
+  "last_run": "2026-07-29T09:45:50.170592+00:00",
+  "last_successful_fetch": "2026-07-29T09:45:52.648558+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2623,7 +2623,11 @@
     "github:ilizavr/CVE-2022-30024",
     "github:oracletimesten/cve",
     "github:goki-dev/CVextractor",
-    "github:Darabium/CVE-2024-28987"
+    "github:Darabium/CVE-2024-28987",
+    "github:hacbs-release-tests/collectors-no-cve-6e8853a6",
+    "github:roszedons/cvemmu",
+    "github:tc4dy/CVE-2026-61511",
+    "github:yapdongcheng/CVE-Project"
   ],
   "source_id": "github_trending",
   "stats": {
