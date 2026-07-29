@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-29T19:38:43.822748+00:00",
-  "last_successful_fetch": "2026-07-29T19:38:47.000063+00:00",
+  "last_run": "2026-07-29T21:09:05.119476+00:00",
+  "last_successful_fetch": "2026-07-29T21:09:07.667468+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2641,7 +2641,11 @@
     "github:jlyle/rh-cve-tools-in-a-container",
     "github:hacbs-release-tests/collectors-no-cve-2b0e1ba6",
     "github:Pravin761/CVE-2026-54107",
-    "github:dinosn/rustdesk-security-audit-2026"
+    "github:dinosn/rustdesk-security-audit-2026",
+    "github:shinthink/CVE-2026-57827",
+    "github:Anusha-Khan29/CVE-2025-70149-SQL-Injection",
+    "github:0xBlackash/CVE-2026-66066",
+    "github:sbimoxa/cve-2021-41773-lab"
   ],
   "source_id": "github_trending",
   "stats": {
