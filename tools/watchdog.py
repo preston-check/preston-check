@@ -55,7 +55,12 @@ API = "https://api.github.com"
 REPO = os.environ.get("GITHUB_REPOSITORY", "preston-check/preston-check")
 
 BAD_CONCLUSIONS = {"failure", "startup_failure", "timed_out"}
-# Never auto-rerun ourselves; a watchdog rerun loop helps nobody.
+# Never auto-rerun OR escalate ourselves. Re-running loops; escalating loops
+# harder: red-on-escalation (2026-07-13 hardening) plus self-observation turned
+# one bad cycle into permanent failure — each run escalated the previous run's
+# red, exited 1, and became the next run's evidence (2026-07-17..29, fifty
+# consecutive red runs). Crash coverage is the actor's GitHub notifications;
+# see docs/pipeline-reliability.md, addendum 2026-07-29.
 SELF_NAME = "Pipeline watchdog"
 # Workflows that perform stateful, non-idempotent operations (merging PRs,
 # pushing tags, publishing releases) must NOT be auto-re-run: the original run
@@ -222,6 +227,13 @@ def main() -> int:
     bad_runs, last_success = recent_runs(args.lookback_hours)
     for run in bad_runs:
         label = f"{run['name']} #{run['run_number']} ({run['conclusion']}, attempt {run['run_attempt']}) {run['html_url']}"
+        if run["name"] == SELF_NAME:
+            # Own past failures are pure echo: a deliberate escalation exit's
+            # causes are re-detected fresh from the API this cycle, and a
+            # crashed run either recovered (this run is alive) or persists
+            # (this run cannot report either — GitHub's own failure e-mail
+            # to the actor covers that case).
+            continue
         if run["created_at"] < last_success.get(run["workflow_id"], ""):
             # A newer run of this workflow already succeeded — the failure
             # was fixed or superseded; re-running the old commit is noise.
@@ -231,8 +243,6 @@ def main() -> int:
                 f"UNPARSEABLE WORKFLOW FILE — {label}. No in-band alert can ever "
                 f"fire for this file; fix {run.get('path', 'the workflow file')} now."
             )
-        elif run["name"] == SELF_NAME:
-            escalations.append(f"watchdog's own run failed — {label}")
         elif run["name"] in NO_RERUN_WORKFLOWS:
             # Stateful workflow — a re-run would redo git/release operations that
             # conflict with the now-changed repo state. Escalate; recovery comes

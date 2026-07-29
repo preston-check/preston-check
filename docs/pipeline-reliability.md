@@ -274,6 +274,31 @@ Auxiliary-loop push suppression. `drift-detection`, `rss-feed-discovery`, and
 silent. These are non-shipping maintenance loops; hardening them is lower
 priority than the ship path but noted for completeness.
 
+## Addendum 2026-07-29: the watchdog's echo loop
+
+The 2026-07-13 liveness hardening ("turns the run red … when unresolved escalations
+remain") interacted with the watchdog's habit of reporting its own failed runs to
+produce a permanent failure loop. On 2026-07-17 two Release runs failed; the watchdog
+escalated them — correctly — and, per the hardening, exited non-zero, turning its own
+run red. Every subsequent run then found that red watchdog run inside its 25-hour
+lookback, escalated "watchdog's own run failed", and exited non-zero in turn. The
+underlying Release failures aged out of the window within a day; the self-escalation
+never could, because each cycle manufactured the next cycle's evidence. The
+"superseded by a newer green run" guard cannot break the loop either — it needs a
+newer successful watchdog run, which the loop precludes. Fifty consecutive red runs
+and twelve days of four-a-day failure e-mails followed, all echo, no signal.
+
+The fix removes self-observation from the failed-run scan entirely: runs named
+"Pipeline watchdog" are skipped, not escalated. This loses nothing. A deliberately red
+self-run is an echo by construction — whatever caused it either still exists (this
+cycle re-detects it fresh from the API) or has resolved (nothing left to report). A
+crashed self-run is either transient (the current run being alive is the recovery) or
+persistent (the current run crashes too and could never have reported anyway).
+Coverage for the crash case was never the self-scan: it is the actor's GitHub
+notifications, as the residual-risk note above already records — the failure e-mails
+that surfaced this very incident. The deliberate red-on-escalation exit stays; it is
+correct for everything that is not the watchdog itself.
+
 ## Verification record (2026-07-12)
 
 actionlint clean across all workflow files after the fixes. Watchdog dry-run executed
