@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-30T20:22:40.385591+00:00",
-  "last_successful_fetch": "2026-07-30T20:22:43.823069+00:00",
+  "last_run": "2026-07-30T22:16:07.252131+00:00",
+  "last_successful_fetch": "2026-07-30T22:16:10.529418+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2681,7 +2681,11 @@
     "github:hacbs-release-tests/collectors-no-cve-c035edb1",
     "github:ribeiro-computer-vision/cvenv",
     "github:bluedragonsecurity/CVE-2005-0575-knet-exploit",
-    "github:ajavonwalter1234-lang/security-and-CVE-news-scraper-tool"
+    "github:ajavonwalter1234-lang/security-and-CVE-news-scraper-tool",
+    "github:Candisexterior171/CVE-2026-57827",
+    "github:shinthink/CVE-2026-65883",
+    "github:shinthink/CVE-2026-61424",
+    "github:andree554/CVE-2022-24903-Heap-based-buffer-overflow-Hand-On-Lab"
   ],
   "source_id": "github_trending",
   "stats": {
