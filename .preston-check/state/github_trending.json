@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-30T16:43:42.584002+00:00",
-  "last_successful_fetch": "2026-07-30T16:43:45.533167+00:00",
+  "last_run": "2026-07-30T18:40:55.003872+00:00",
+  "last_successful_fetch": "2026-07-30T18:40:59.080375+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2671,7 +2671,11 @@
     "github:merasil/cve-watch",
     "github:0xberka/cve-alert",
     "github:pmeenan/cve.meenan.dev",
-    "github:hacbs-release-tests/collectors-no-cve-4072422a"
+    "github:hacbs-release-tests/collectors-no-cve-4072422a",
+    "github:CerberusMrXi/FortiWeb-cve-2025-64446-RCE-exploit",
+    "github:pistone/RustCVE",
+    "github:poxsky/CVE-2026-XXXXX-Integer-Wraparound-in-Linux-Kernel-drm-xe-VM-Query-Pat",
+    "github:mcapmari/CVEye"
   ],
   "source_id": "github_trending",
   "stats": {
