@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-30T09:37:19.358380+00:00",
-  "last_successful_fetch": "2026-07-30T09:37:26.076697+00:00",
+  "last_run": "2026-07-30T12:00:47.394187+00:00",
+  "last_successful_fetch": "2026-07-30T12:00:50.499927+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2662,7 +2662,13 @@
     "github:originlab/cve",
     "github:AlexEreh/cvegochibot",
     "github:alazarbeyenenew2/cves_backend",
-    "github:wyh533512-dev/CVE-Disclosures"
+    "github:wyh533512-dev/CVE-Disclosures",
+    "github:Nowafen/CVE-2026-16723",
+    "github:katwalsaista-dot/CVE-EXPLOIT",
+    "github:thefreestyleresearcher/CVE-2025-49091-Gajim-RCE",
+    "github:akaiwen/cve",
+    "github:ilizavr/CVE-2022-24355",
+    "github:merasil/cve-watch"
   ],
   "source_id": "github_trending",
   "stats": {
