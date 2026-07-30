@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-30T03:19:36.936224+00:00",
-  "last_successful_fetch": "2026-07-30T03:19:39.955057+00:00",
+  "last_run": "2026-07-30T06:37:38.233662+00:00",
+  "last_successful_fetch": "2026-07-30T06:37:40.787863+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2652,7 +2652,12 @@
     "github:RedTeamBrasil/CVE-2019-19550",
     "github:faresUnderScore999/cve_matcher",
     "github:Zer0SumGam3/CVE-2026-66066-POC",
-    "github:hacbs-release-tests/collectors-no-cve-3fb0d52b"
+    "github:hacbs-release-tests/collectors-no-cve-3fb0d52b",
+    "github:cyeezy08/Kimai-CVE-2026-49865-POC",
+    "github:kenrohnd/cvetso",
+    "github:altamish1994/CVE_Published",
+    "github:R3n3r0/cve-2025-5915",
+    "github:EmbdCDACHyd/CVE"
   ],
   "source_id": "github_trending",
   "stats": {
