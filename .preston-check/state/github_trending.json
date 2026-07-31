@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-31T04:33:17.336530+00:00",
-  "last_successful_fetch": "2026-07-31T04:33:19.881827+00:00",
+  "last_run": "2026-07-31T08:07:29.402922+00:00",
+  "last_successful_fetch": "2026-07-31T08:07:32.503288+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2690,7 +2690,15 @@
     "github:konaa17/cve",
     "github:sajoo40447/cve-prioritization",
     "github:0JAE1012/cve-research-observatory",
-    "github:0xN4no/cve-pocs"
+    "github:0xN4no/cve-pocs",
+    "github:LuZe0y/pd2425-cve-2026-43499-config",
+    "github:KrakenEU/CVE-2026-54121-CertiGhost",
+    "github:hacbs-release-tests/collectors-no-cve-7723c261",
+    "github:fazilbaig1/CVE-2026-16723",
+    "github:nafiez/Metasploit-CVE-2026-54121-Certighost",
+    "github:233laoliu/mt6985-CVE-2026-43499",
+    "github:0JAE1012/cve-research-dashboard",
+    "github:afish3201-debug/CVE"
   ],
   "source_id": "github_trending",
   "stats": {
