@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-31T14:29:31.170749+00:00",
-  "last_successful_fetch": "2026-07-31T14:29:34.153949+00:00",
+  "last_run": "2026-07-31T16:52:40.258658+00:00",
+  "last_successful_fetch": "2026-07-31T16:52:43.184420+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2705,7 +2705,10 @@
     "github:Giangdurian/CVE-2026-21858-and-CVE-2025-68613",
     "github:baeseungwon1010/cve_collector",
     "github:artiwolf/cve-research",
-    "github:zuojiu567/cve"
+    "github:zuojiu567/cve",
+    "github:cvetacvetina-rgb/cvetacvetina-rgb.github.io",
+    "github:jinbaozi/openeuler-cve-contributor",
+    "github:rewanserver/cvecgy"
   ],
   "source_id": "github_trending",
   "stats": {
