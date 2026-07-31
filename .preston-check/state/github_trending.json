@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-31T08:07:29.402922+00:00",
-  "last_successful_fetch": "2026-07-31T08:07:32.503288+00:00",
+  "last_run": "2026-07-31T11:34:00.882118+00:00",
+  "last_successful_fetch": "2026-07-31T11:34:04.568691+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2698,7 +2698,8 @@
     "github:nafiez/Metasploit-CVE-2026-54121-Certighost",
     "github:233laoliu/mt6985-CVE-2026-43499",
     "github:0JAE1012/cve-research-dashboard",
-    "github:afish3201-debug/CVE"
+    "github:afish3201-debug/CVE",
+    "github:nabhan-mohy/Dirty-Frag-Research-CVE-2026-43284-"
   ],
   "source_id": "github_trending",
   "stats": {
