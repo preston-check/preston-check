@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-30T22:16:07.252131+00:00",
-  "last_successful_fetch": "2026-07-30T22:16:10.529418+00:00",
+  "last_run": "2026-07-31T00:12:40.477666+00:00",
+  "last_successful_fetch": "2026-07-31T00:12:42.929237+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2685,7 +2685,9 @@
     "github:Candisexterior171/CVE-2026-57827",
     "github:shinthink/CVE-2026-65883",
     "github:shinthink/CVE-2026-61424",
-    "github:andree554/CVE-2022-24903-Heap-based-buffer-overflow-Hand-On-Lab"
+    "github:andree554/CVE-2022-24903-Heap-based-buffer-overflow-Hand-On-Lab",
+    "github:HeltonPojo/CVE-2025-32432",
+    "github:konaa17/cve"
   ],
   "source_id": "github_trending",
   "stats": {
