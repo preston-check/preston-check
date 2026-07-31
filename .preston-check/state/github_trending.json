@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-07-31T18:41:22.150400+00:00",
-  "last_successful_fetch": "2026-07-31T18:41:25.987725+00:00",
+  "last_run": "2026-07-31T20:37:50.592085+00:00",
+  "last_successful_fetch": "2026-07-31T20:37:53.282379+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2714,7 +2714,9 @@
     "github:hacbs-release-tests/collectors-no-cve-b063dcc0",
     "github:hacbs-release-tests/collectors-no-cve-4092fc3b",
     "github:LordKoks/androidCVE",
-    "github:rezearcher/x402-cve-triage"
+    "github:rezearcher/x402-cve-triage",
+    "github:uchicago-library/cvebump",
+    "github:aj2108/CVE-2026-8337"
   ],
   "source_id": "github_trending",
   "stats": {
