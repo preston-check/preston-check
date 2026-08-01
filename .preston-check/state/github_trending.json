@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-01T20:13:59.582036+00:00",
-  "last_successful_fetch": "2026-08-01T20:14:02.846124+00:00",
+  "last_run": "2026-08-01T22:06:36.949881+00:00",
+  "last_successful_fetch": "2026-08-01T22:06:40.776766+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2743,7 +2743,10 @@
     "github:MorboAalst2/cve-dashboard",
     "github:MadExploits/CVE-2026-14483",
     "github:MuhammadWaseem29/Reverse-cve",
-    "github:fusiondrive/CVE-2026-43499-A36"
+    "github:fusiondrive/CVE-2026-43499-A36",
+    "github:BretMcDanel/CVE",
+    "github:nashiuso/CVEs",
+    "github:error-inside/CVE-2025-10897"
   ],
   "source_id": "github_trending",
   "stats": {
