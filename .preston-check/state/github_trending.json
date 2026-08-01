@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-01T00:09:11.866837+00:00",
-  "last_successful_fetch": "2026-08-01T00:09:14.904145+00:00",
+  "last_run": "2026-08-01T04:29:44.915101+00:00",
+  "last_successful_fetch": "2026-08-01T04:29:47.797754+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2717,7 +2717,9 @@
     "github:rezearcher/x402-cve-triage",
     "github:uchicago-library/cvebump",
     "github:aj2108/CVE-2026-8337",
-    "github:aaron-francis/devin-cve-remediator"
+    "github:aaron-francis/devin-cve-remediator",
+    "github:raihants/cve-2026-10702",
+    "github:abigmalon/submit_cve"
   ],
   "source_id": "github_trending",
   "stats": {
