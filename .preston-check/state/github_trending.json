@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-01T18:08:12.975276+00:00",
-  "last_successful_fetch": "2026-08-01T16:10:13.519309+00:00",
+  "last_run": "2026-08-01T20:13:59.582036+00:00",
+  "last_successful_fetch": "2026-08-01T20:14:02.846124+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2737,7 +2737,13 @@
     "github:liaomilk/CVE-2025-69212-for-myself",
     "github:envincion1991-cmyk/CVE-2026-51954",
     "github:0xBlackash/CVE-2026-64531",
-    "github:belky-me/vamp-cve-oracle"
+    "github:belky-me/vamp-cve-oracle",
+    "github:aj2108/CVE-2026-9833",
+    "github:Aspectonia/cvetnik",
+    "github:MorboAalst2/cve-dashboard",
+    "github:MadExploits/CVE-2026-14483",
+    "github:MuhammadWaseem29/Reverse-cve",
+    "github:fusiondrive/CVE-2026-43499-A36"
   ],
   "source_id": "github_trending",
   "stats": {
