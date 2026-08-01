@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-01T10:07:35.672779+00:00",
-  "last_successful_fetch": "2026-08-01T10:07:38.736481+00:00",
+  "last_run": "2026-08-01T12:09:11.028056+00:00",
+  "last_successful_fetch": "2026-08-01T12:09:13.673086+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2725,7 +2725,13 @@
     "github:MinhHK68/CVE-2026-13157",
     "github:RichardKabuto/CVE-2026-52370",
     "github:Zedocun/Incident-Analysis-Response-Check-Point-Security-Gateway-CVE-2024-24919-LFI-Exploitation",
-    "github:samael0x4/CVE-2026"
+    "github:samael0x4/CVE-2026",
+    "github:aj2108/CVE-2026-8237",
+    "github:maksimka2432fr23/cve-tracker-dashboard",
+    "github:CerberusMrXi/CVE-2023-44487-HTTP2-DoS-Rapid-Reset-Exploit",
+    "github:SivamaniKumar-tech/cve-sentinel",
+    "github:MinhHK68/CVE-2026-13158",
+    "github:SunnyYANGyaya/CVEIoTArchive"
   ],
   "source_id": "github_trending",
   "stats": {
