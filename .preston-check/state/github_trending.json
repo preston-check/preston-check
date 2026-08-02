@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-02T13:48:22.146387+00:00",
-  "last_successful_fetch": "2026-08-02T13:48:25.274869+00:00",
+  "last_run": "2026-08-02T15:13:33.680419+00:00",
+  "last_successful_fetch": "2026-08-02T15:13:37.573918+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2770,7 +2770,12 @@
     "github:goldendeer1585/cvephf",
     "github:Hurrrraaaa/CVE-2021-21972",
     "github:fair0934/open-source-cve-monitor",
-    "github:aj2108/CVE-2026-9809"
+    "github:aj2108/CVE-2026-9809",
+    "github:pantherica/CVE-Scanner",
+    "github:Tafloh/CVE-2019-1388-Privilege-Escalation--2021-",
+    "github:alpernae/CVE-2024-40422",
+    "github:jasonbernier/CVE-2026-39987",
+    "github:madb0o/cve"
   ],
   "source_id": "github_trending",
   "stats": {
