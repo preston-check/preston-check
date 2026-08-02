@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-02T17:11:34.038360+00:00",
-  "last_successful_fetch": "2026-08-02T17:11:37.546831+00:00",
+  "last_run": "2026-08-02T19:23:31.617255+00:00",
+  "last_successful_fetch": "2026-08-02T19:23:34.246042+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2780,7 +2780,12 @@
     "github:shinystar9298/cveluq",
     "github:freedomfoxvare/cve",
     "github:suvrajyotiroy1234/Cve",
-    "github:beergilm/cvewnq"
+    "github:beergilm/cvewnq",
+    "github:calmflow54310/cvexac",
+    "github:younglion45362/cvetvx",
+    "github:thalpius/microsoft-cve-2021-1675",
+    "github:royaleybovich/CVE-2026-3854-lab",
+    "github:CerberusMrXi/CVE-2025-48932-Invision-Community-SQLi-Exploit"
   ],
   "source_id": "github_trending",
   "stats": {
