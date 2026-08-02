@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-02T19:23:31.617255+00:00",
-  "last_successful_fetch": "2026-08-02T19:23:34.246042+00:00",
+  "last_run": "2026-08-02T21:06:56.197400+00:00",
+  "last_successful_fetch": "2026-08-02T21:06:59.838394+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2785,7 +2785,13 @@
     "github:younglion45362/cvetvx",
     "github:thalpius/microsoft-cve-2021-1675",
     "github:royaleybovich/CVE-2026-3854-lab",
-    "github:CerberusMrXi/CVE-2025-48932-Invision-Community-SQLi-Exploit"
+    "github:CerberusMrXi/CVE-2025-48932-Invision-Community-SQLi-Exploit",
+    "github:RevyHub/CVE-2026-43284---DirtyFrag-Analysis-THM-",
+    "github:Ema573/rocky-cve-guard",
+    "github:bravecrow0594/cvenqd",
+    "github:sanasimran1403-jpg/CVE-log4shell",
+    "github:polarnode74621/cvekfj",
+    "github:aj2108/CVE-2026-9806"
   ],
   "source_id": "github_trending",
   "stats": {
