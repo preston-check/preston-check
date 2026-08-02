@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-02T09:17:27.421732+00:00",
-  "last_successful_fetch": "2026-08-02T09:17:30.240562+00:00",
+  "last_run": "2026-08-02T11:28:30.187795+00:00",
+  "last_successful_fetch": "2026-08-02T11:28:33.580690+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2760,7 +2760,13 @@
     "github:litsasuk/CVE-POC",
     "github:Mohammad-008/rsfiles-CVE-2026-57827",
     "github:far00t01/CVE-2026-59941",
-    "github:boxiaolanya2008/CVE-2026-43499-Neo11Plus"
+    "github:boxiaolanya2008/CVE-2026-43499-Neo11Plus",
+    "github:ksc-cve/LVL-Structures",
+    "github:radio-tracer/radio-tracer-cve-import",
+    "github:gbuyssens/CVE-2026-41651",
+    "github:gbuyssens/CVE-2026-39987",
+    "github:livelyflow294/cvedgc",
+    "github:13743-shehla/CVE-CWE-and-NVD"
   ],
   "source_id": "github_trending",
   "stats": {
