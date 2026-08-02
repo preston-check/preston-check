@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-02T11:28:30.187795+00:00",
-  "last_successful_fetch": "2026-08-02T11:28:33.580690+00:00",
+  "last_run": "2026-08-02T13:48:22.146387+00:00",
+  "last_successful_fetch": "2026-08-02T13:48:25.274869+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2766,7 +2766,11 @@
     "github:gbuyssens/CVE-2026-41651",
     "github:gbuyssens/CVE-2026-39987",
     "github:livelyflow294/cvedgc",
-    "github:13743-shehla/CVE-CWE-and-NVD"
+    "github:13743-shehla/CVE-CWE-and-NVD",
+    "github:goldendeer1585/cvephf",
+    "github:Hurrrraaaa/CVE-2021-21972",
+    "github:fair0934/open-source-cve-monitor",
+    "github:aj2108/CVE-2026-9809"
   ],
   "source_id": "github_trending",
   "stats": {
