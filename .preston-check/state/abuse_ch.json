@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-02T21:07:00.321023+00:00",
-  "last_successful_fetch": "2026-08-02T21:07:00.321641+00:00",
+  "last_run": "2026-08-02T22:08:22.246488+00:00",
+  "last_successful_fetch": "2026-08-02T22:08:22.247200+00:00",
   "processed_ids": [
-    "threatfox:7832d59fea96fe229dda6dc7e9fb5aa4",
-    "threatfox:59a80a105dc161e0bf9566d260965111948c3eace7ed6cc073e40a8628e9cbb8",
-    "threatfox:4369226435b74ef91427cb5bbb31e259",
-    "threatfox:bed759e549a932e839a6fc57ae831105cc17bdd8ec86b5ba54d018f92f5d9795",
-    "threatfox:cea91d98fb1484954501a8b38d951686ed49eda8",
-    "threatfox:9aed790a18f214b04619837cd71546d3",
-    "threatfox:adbc4fa90c932a60fbfff9565c16b5554084dbf718d471fe6ebd9a0564026e88",
-    "threatfox:9c3eba3be4c18bff5e1df32eb7feb60b1926ec45",
-    "threatfox:8ec6066000f5585d6fefbc1d5a30fa094ac9893456dbf4085fec81e6b71cef3b",
     "threatfox:0f9a253afc55a8ebbd29a70c43d0e3cd668920f4",
     "threatfox:198.46.173.10:2404",
     "threatfox:f6ed2d18961a10d7f3683f68ae2f9645",
@@ -5001,7 +4992,16 @@
     "threatfox:1zgt04hh.healthfoodzone.com",
     "threatfox:covenantnewmd.com",
     "threatfox:j4j759y5.akabespokejewellers.com",
-    "threatfox:kaptureprefab.com"
+    "threatfox:kaptureprefab.com",
+    "threatfox:mjmdcdg.kfsteels.com",
+    "threatfox:kfsteels.com",
+    "threatfox:hlemxe.kzoomenofpurpose.com",
+    "threatfox:kzoomenofpurpose.com",
+    "threatfox:23.141.12.111:888",
+    "threatfox:23.141.12.111:22",
+    "threatfox:4.228.96.20:5000",
+    "threatfox:64.83.43.164:8888",
+    "threatfox:151.244.243.42:8081"
   ],
   "source_id": "abuse_ch",
   "stats": {
