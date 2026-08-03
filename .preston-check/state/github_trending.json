@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-03T08:39:17.392644+00:00",
-  "last_successful_fetch": "2026-08-03T08:39:20.706558+00:00",
+  "last_run": "2026-08-03T12:34:08.769991+00:00",
+  "last_successful_fetch": "2026-08-03T12:34:11.661247+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2808,7 +2808,17 @@
     "github:Vampsecure-Labs/vamp-cve-oracle",
     "github:HORKimhab/CVE-2026-17583",
     "github:manuelfona/cvevfw",
-    "github:terranovafr/awesome-ml-for-cve-analysis"
+    "github:terranovafr/awesome-ml-for-cve-analysis",
+    "github:shinthink/CVE-2026-60004",
+    "github:skoveit/CVE-2026-32941",
+    "github:villager1314/CVE-2026-64560-Analysis",
+    "github:octopusden/octopus-cve-automation",
+    "github:cyberflow24819/cvefix",
+    "github:polarnode74621/cveuxm",
+    "github:aj2108/CVE-2026-9848",
+    "github:johnnygreeme/CVE-2023-36874",
+    "github:Ech06/CVE_submit",
+    "github:siboy17/CVE-2022-21907-http.sys"
   ],
   "source_id": "github_trending",
   "stats": {
