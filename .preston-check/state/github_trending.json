@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-03T00:07:34.903728+00:00",
-  "last_successful_fetch": "2026-08-03T00:07:37.765393+00:00",
+  "last_run": "2026-08-03T04:40:37.654766+00:00",
+  "last_successful_fetch": "2026-08-03T04:40:40.062124+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2794,7 +2794,13 @@
     "github:aj2108/CVE-2026-9806",
     "github:George0Papasotiriou/CVE-2026-1337-AI-Coding-Assistant-Prompt-Injection-to-Sandbox-Escape",
     "github:AMaharaj16/CVE-Context",
-    "github:TrevoCastles/CVE-2026-31431-copy-fail"
+    "github:TrevoCastles/CVE-2026-31431-copy-fail",
+    "github:imbas007/CVE-2026-63223-POC",
+    "github:BiiTts/CVE-2026-52887-NocoBase-SQLi-RCE",
+    "github:BiiTts/CVE-2026-12940-Langflow-Unauth-RCE",
+    "github:Danush-Aries/cve-advisor-frontend",
+    "github:bingyu-83/cve-feishu-bot",
+    "github:TreasureBoy520/CVE-Discord-Notify"
   ],
   "source_id": "github_trending",
   "stats": {
