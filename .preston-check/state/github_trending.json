@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-04T21:23:13.587012+00:00",
-  "last_successful_fetch": "2026-08-04T21:23:17.386772+00:00",
+  "last_run": "2026-08-04T23:15:07.648728+00:00",
+  "last_successful_fetch": "2026-08-04T23:15:10.499971+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2874,7 +2874,11 @@
     "github:JVBotelho/cve-2026-69243-poc-aiohttp-smuggling",
     "github:miniblau/cve_hunter",
     "github:onixor/CVEs",
-    "github:0xdak/CVE-2026-59243_exploit"
+    "github:0xdak/CVE-2026-59243_exploit",
+    "github:nadirzhon/cve-forge",
+    "github:Sachinart/CVE-2026-60004-gitea-0day",
+    "github:Rohan-Joseph-2002/cve-vulnerability-exposure-pipeline",
+    "github:bdalrhmnhamdalalm-jpg/CVE-2018-15473-User-Enumeration-"
   ],
   "source_id": "github_trending",
   "stats": {
