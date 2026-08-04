@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-04T15:32:16.859846+00:00",
-  "last_successful_fetch": "2026-08-04T15:32:20.582033+00:00",
+  "last_run": "2026-08-04T18:00:46.767946+00:00",
+  "last_successful_fetch": "2026-08-04T18:00:50.895271+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2865,7 +2865,11 @@
     "github:lancastertroy/cvemf",
     "github:dasokkk/wapp2cve",
     "github:pipiyyb/cve",
-    "github:George0Papasotiriou/CVE-2026-22020-Weak-Seed-in-Quantum-Key-Distribution-Error-Correction"
+    "github:George0Papasotiriou/CVE-2026-22020-Weak-Seed-in-Quantum-Key-Distribution-Error-Correction",
+    "github:Donalhighnecked528/YellowKey-Bitlocker-CVE-2026-45585",
+    "github:namaek2/CVE-2025-70962",
+    "github:webshellseo8/CVE-2026-12720-Proof-of-Concept",
+    "github:CerberusMrXi/Apache-Lua-Buffer-Overflow-Exploit-CVE-2021-44790"
   ],
   "source_id": "github_trending",
   "stats": {
