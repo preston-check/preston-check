@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-04T09:45:45.357432+00:00",
-  "last_successful_fetch": "2026-08-04T09:45:49.836267+00:00",
+  "last_run": "2026-08-04T12:11:53.168915+00:00",
+  "last_successful_fetch": "2026-08-04T12:11:56.188744+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2846,7 +2846,22 @@
     "github:TannieLo/EN18031-1_CVE-report",
     "github:0xdak/CVE-2026-52680_exploit",
     "github:StackC00ki3/cves",
-    "github:hollabharath/cveda-pm2.5"
+    "github:hollabharath/cveda-pm2.5",
+    "github:George0Papasotiriou/CVE-2026-22012-Diameter-Protocol-Credit-Control-Bypass-in-5G",
+    "github:shalaudephi/cvelmc",
+    "github:0xdak/CVE-2025-32463_exploit",
+    "github:0xdak/CVE-2026-14483_exploit",
+    "github:George0Papasotiriou/CVE-2026-22011-iOS-MDM-Profile-Delivery-over-HTTP",
+    "github:voshimen795-ui/Cvecara-Trofej",
+    "github:George0Papasotiriou/CVE-2026-22010-Android-Intent-Redirection-to-Exported-Component",
+    "github:mabur/cvec234",
+    "github:George0Papasotiriou/CVE-2026-22009-Linux-eBPF-Map-Locking-Race-Use-After-Free",
+    "github:George0Papasotiriou/CVE-2026-22008-AWS-Lambda-Layer-Injection-via-Shared-Layer-ARN",
+    "github:George0Papasotiriou/CVE-2026-22007-NTP-monlist-Amplification-over-IPv6",
+    "github:George0Papasotiriou/CVE-2026-22006-XSLT-Server-Side-Injection-via-xsl-script-",
+    "github:George0Papasotiriou/CVE-2026-22005-OAuth-2.0-Device-Code-Phishing-Short-Interval-",
+    "github:George0Papasotiriou/CVE-2026-22004-Git-LFS-Pointer-Poisoning-Supply-Chain-",
+    "github:HackSpeak/MDEV-40470"
   ],
   "source_id": "github_trending",
   "stats": {
