@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-05T12:09:12.693540+00:00",
-  "last_successful_fetch": "2026-08-05T12:09:15.929979+00:00",
+  "last_run": "2026-08-05T15:24:01.489483+00:00",
+  "last_successful_fetch": "2026-08-05T15:24:04.672560+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2903,7 +2903,12 @@
     "github:TreasureBoy99/CVE-Poc_All_in_One",
     "github:TreasureBoy99/CVE-Discord-Notify",
     "github:TreasureBoy99/CVE",
-    "github:rey11997/cvewatch2"
+    "github:rey11997/cvewatch2",
+    "github:eagerwave92143/cvetix",
+    "github:hacbs-release-tests/collectors-no-cve-a3ac0365",
+    "github:xuwu-xuwu/CVE-2026-68004",
+    "github:hacbs-release-tests/collectors-no-cve-1762c140",
+    "github:rooboot501/CVE-project"
   ],
   "source_id": "github_trending",
   "stats": {
