@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-05T06:38:12.320998+00:00",
-  "last_successful_fetch": "2026-08-05T06:38:15.070266+00:00",
+  "last_run": "2026-08-05T09:44:02.798657+00:00",
+  "last_successful_fetch": "2026-08-05T09:44:06.600893+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2888,7 +2888,14 @@
     "github:muchdogesec/arango_cve_processor",
     "github:murf-xd/cve-2023-20768",
     "github:kalhoralireza/CVE-2026-17532",
-    "github:steelprod-prog/cvescritical_-"
+    "github:steelprod-prog/cvescritical_-",
+    "github:learner330/fastjson-cve-2026-16723",
+    "github:groftwasmancimbu/cvelqy",
+    "github:slyviakak23-cmyk/Lychick_Tvogo_Cveta",
+    "github:longngx04/CVE_enrichment_for_AI_assisted_SAST",
+    "github:hacbs-release-tests/collectors-no-cve-576f7387",
+    "github:hacbs-release-tests/collectors-no-cve-9f631bbf",
+    "github:0xdak/CVE-2026-44024_exploit"
   ],
   "source_id": "github_trending",
   "stats": {
