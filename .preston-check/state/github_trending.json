@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-05T19:49:56.093960+00:00",
-  "last_successful_fetch": "2026-08-05T19:50:00.351582+00:00",
+  "last_run": "2026-08-05T21:22:01.401344+00:00",
+  "last_successful_fetch": "2026-08-05T21:22:04.276130+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2917,7 +2917,12 @@
     "github:TreasureBoy99/Github-CVE-Listener",
     "github:DeathReaper00/CVE-Project",
     "github:jackfromeast/CVE-2025-30374",
-    "github:Abdo30004/cve-monitoring-tool"
+    "github:Abdo30004/cve-monitoring-tool",
+    "github:George0Papasotiriou/CVE-2026-23003-Cross-Chain-Bridge-Message-Forging-via-Missing-Origin-Chain-ID",
+    "github:AnggaTechI/CVE-2026-63030",
+    "github:George0Papasotiriou/CVE-2026-23002-5G-NAS-Message-Buffer-Overflow-in-gNodeB",
+    "github:9xh4kv/CVE-2025-8110",
+    "github:George0Papasotiriou/CVE-2026-23001-Hugging-Face-Transformers-Model-Deserialization-Arbitrary-Code-via-Pickle-"
   ],
   "source_id": "github_trending",
   "stats": {
