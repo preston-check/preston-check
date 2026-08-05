@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-04T23:15:07.648728+00:00",
-  "last_successful_fetch": "2026-08-04T23:15:10.499971+00:00",
+  "last_run": "2026-08-05T03:26:55.527207+00:00",
+  "last_successful_fetch": "2026-08-05T03:26:58.569812+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2878,7 +2878,11 @@
     "github:nadirzhon/cve-forge",
     "github:Sachinart/CVE-2026-60004-gitea-0day",
     "github:Rohan-Joseph-2002/cve-vulnerability-exposure-pipeline",
-    "github:bdalrhmnhamdalalm-jpg/CVE-2018-15473-User-Enumeration-"
+    "github:bdalrhmnhamdalalm-jpg/CVE-2018-15473-User-Enumeration-",
+    "github:BiiTts/CVE-2026-54917-SeaweedFS-Cross-Bucket-Traversal",
+    "github:JasonW88/esp32-cve-2025-27840-power-trace-experiment",
+    "github:ArtWide/cve-2026-13934",
+    "github:Iwillbewarlock/unisexy_edit-CVEO"
   ],
   "source_id": "github_trending",
   "stats": {
