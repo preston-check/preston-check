@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-05T21:22:01.401344+00:00",
-  "last_successful_fetch": "2026-08-05T21:22:04.276130+00:00",
+  "last_run": "2026-08-05T23:14:12.132548+00:00",
+  "last_successful_fetch": "2026-08-05T23:14:15.073043+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2922,7 +2922,8 @@
     "github:AnggaTechI/CVE-2026-63030",
     "github:George0Papasotiriou/CVE-2026-23002-5G-NAS-Message-Buffer-Overflow-in-gNodeB",
     "github:9xh4kv/CVE-2025-8110",
-    "github:George0Papasotiriou/CVE-2026-23001-Hugging-Face-Transformers-Model-Deserialization-Arbitrary-Code-via-Pickle-"
+    "github:George0Papasotiriou/CVE-2026-23001-Hugging-Face-Transformers-Model-Deserialization-Arbitrary-Code-via-Pickle-",
+    "github:Danedg/CVENG"
   ],
   "source_id": "github_trending",
   "stats": {
