@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-05T03:26:55.527207+00:00",
-  "last_successful_fetch": "2026-08-05T03:26:58.569812+00:00",
+  "last_run": "2026-08-05T06:38:12.320998+00:00",
+  "last_successful_fetch": "2026-08-05T06:38:15.070266+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2882,7 +2882,13 @@
     "github:BiiTts/CVE-2026-54917-SeaweedFS-Cross-Bucket-Traversal",
     "github:JasonW88/esp32-cve-2025-27840-power-trace-experiment",
     "github:ArtWide/cve-2026-13934",
-    "github:Iwillbewarlock/unisexy_edit-CVEO"
+    "github:Iwillbewarlock/unisexy_edit-CVEO",
+    "github:hacbs-release-tests/collectors-no-cve-9706021f",
+    "github:m1kb0k/CVE-2022-25012-dvr4-weak-password-encryption",
+    "github:muchdogesec/arango_cve_processor",
+    "github:murf-xd/cve-2023-20768",
+    "github:kalhoralireza/CVE-2026-17532",
+    "github:steelprod-prog/cvescritical_-"
   ],
   "source_id": "github_trending",
   "stats": {
