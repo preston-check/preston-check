@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-06T09:47:14.893337+00:00",
-  "last_successful_fetch": "2026-08-06T09:47:17.682099+00:00",
+  "last_run": "2026-08-06T12:12:45.202043+00:00",
+  "last_successful_fetch": "2026-08-06T12:12:48.103840+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2942,7 +2942,14 @@
     "github:cve-intelligence-assistant/cve-pulse",
     "github:hacbs-release-tests/collectors-no-cve-3131272e",
     "github:hacbs-release-tests/collectors-no-cve-9f324d87",
-    "github:cristhiansm0/TXDXCristhian_2023-CVE-38831"
+    "github:cristhiansm0/TXDXCristhian_2023-CVE-38831",
+    "github:hacbs-release-tests/collectors-no-cve-f5816722",
+    "github:hacbs-release-tests/collectors-no-cve-88c2e74b",
+    "github:hacbs-release-tests/collectors-no-cve-d8452b42",
+    "github:hacbs-release-tests/collectors-no-cve-d439c667",
+    "github:S0m1k/cvetokvbuket",
+    "github:nicolascardosocosta-creator/cveocomando",
+    "github:sentinel-aidefense/CVE-2026-0163-EXP"
   ],
   "source_id": "github_trending",
   "stats": {
