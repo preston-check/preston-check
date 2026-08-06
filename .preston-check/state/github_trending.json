@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-06T06:41:22.309420+00:00",
-  "last_successful_fetch": "2026-08-06T06:41:35.286394+00:00",
+  "last_run": "2026-08-06T09:47:14.893337+00:00",
+  "last_successful_fetch": "2026-08-06T09:47:17.682099+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2933,7 +2933,16 @@
     "github:DBCVE-org/cve-agent",
     "github:TreasureBoy99/github_cve_monitor",
     "github:FlowerWitch/CVE-2026-59774_docker",
-    "github:nadaalamri-9/cve-lakehouse-copilot"
+    "github:nadaalamri-9/cve-lakehouse-copilot",
+    "github:jollywave4195/cveapx",
+    "github:nguyenminhduc3103/CVE_TOOL_SIGMARULE",
+    "github:tc4dy/CVE-2026-58048-PoC-Exploit",
+    "github:Andyyyyuan/CVE-Poc",
+    "github:hacbs-release-tests/collectors-no-cve-4c1dc89d",
+    "github:cve-intelligence-assistant/cve-pulse",
+    "github:hacbs-release-tests/collectors-no-cve-3131272e",
+    "github:hacbs-release-tests/collectors-no-cve-9f324d87",
+    "github:cristhiansm0/TXDXCristhian_2023-CVE-38831"
   ],
   "source_id": "github_trending",
   "stats": {
