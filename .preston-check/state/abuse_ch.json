@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-07T21:51:46.567480+00:00",
-  "last_successful_fetch": "2026-08-07T21:51:46.568335+00:00",
+  "last_run": "2026-08-07T22:50:59.345175+00:00",
+  "last_successful_fetch": "2026-08-07T22:50:59.346049+00:00",
   "processed_ids": [
-    "threatfox:8.219.149.222:31337",
-    "threatfox:159.203.57.140:31337",
-    "threatfox:109.123.239.6:31337",
-    "threatfox:23.94.252.94:31337",
-    "threatfox:146.103.96.179:31337",
     "threatfox:144.172.114.134:31337",
     "threatfox:107.170.13.44:31337",
     "threatfox:51.158.144.212:31337",
@@ -5001,7 +4996,12 @@
     "threatfox:vmiyjlp.brain--defender.com",
     "threatfox:noopyr.eng--braindefender.com",
     "threatfox:eng--braindefender.com",
-    "threatfox:engbraindefender.com"
+    "threatfox:engbraindefender.com",
+    "threatfox:giyypma.dewa111.de.com",
+    "threatfox:lurxrx.spirosnet.com",
+    "threatfox:h431ijjv.dusanperisicmd.com",
+    "threatfox:8qkm1lut.mspa-naperville.com",
+    "threatfox:poentjakweg.com"
   ],
   "source_id": "abuse_ch",
   "stats": {

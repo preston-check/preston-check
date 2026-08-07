@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-07T21:51:42.888185+00:00",
-  "last_successful_fetch": "2026-08-07T21:51:46.126928+00:00",
+  "last_run": "2026-08-07T22:50:55.681366+00:00",
+  "last_successful_fetch": "2026-08-07T22:50:58.946908+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2996,7 +2996,11 @@
     "github:SunandM/poc-h2-CVE-2026-71554",
     "github:IlhomjonR/CVE-2026-67595",
     "github:IlhomjonR/CVE-2026-67598",
-    "github:0init/CVE-2026-45185"
+    "github:0init/CVE-2026-45185",
+    "github:0xBlackash/CVE-2026-64638",
+    "github:Linuxhackingid-official/XSS2Shell-CVE-2026-64638",
+    "github:nullRoot-Red/CVE-2026-23744",
+    "github:mittagoba/cvente"
   ],
   "source_id": "github_trending",
   "stats": {
