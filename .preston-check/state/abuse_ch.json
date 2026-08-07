@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-07T20:53:05.640137+00:00",
-  "last_successful_fetch": "2026-08-07T20:53:05.641808+00:00",
+  "last_run": "2026-08-07T21:51:46.567480+00:00",
+  "last_successful_fetch": "2026-08-07T21:51:46.568335+00:00",
   "processed_ids": [
-    "threatfox:51.222.139.22:31337",
-    "threatfox:207.180.234.231:31337",
-    "threatfox:78.17.212.59:31337",
-    "threatfox:153.75.81.30:31337",
-    "threatfox:50.6.37.154:31337",
-    "threatfox:38.55.232.215:31337",
-    "threatfox:217.182.129.250:31337",
     "threatfox:8.219.149.222:31337",
     "threatfox:159.203.57.140:31337",
     "threatfox:109.123.239.6:31337",
@@ -5001,7 +4994,14 @@
     "threatfox:c894ed71694fd28d60113b5594f9e61e5133a18f410960849e868b60b8beb973",
     "threatfox:2a5e7de67590ca8a60e1e3d518ac505ada2d5c28",
     "threatfox:5d4037b55e48dad64c3fdd1fe565ff5c",
-    "threatfox:62026426767207280fe942f9cc6e9aab"
+    "threatfox:62026426767207280fe942f9cc6e9aab",
+    "threatfox:yyxwfsq.buy-ignitra.com",
+    "threatfox:rufmpt.eng-eng-braindefender.com",
+    "threatfox:eng-eng-braindefender.com",
+    "threatfox:vmiyjlp.brain--defender.com",
+    "threatfox:noopyr.eng--braindefender.com",
+    "threatfox:eng--braindefender.com",
+    "threatfox:engbraindefender.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
