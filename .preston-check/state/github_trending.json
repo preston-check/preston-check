@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-07T00:11:26.611499+00:00",
-  "last_successful_fetch": "2026-08-07T00:11:29.760676+00:00",
+  "last_run": "2026-08-07T04:01:40.006518+00:00",
+  "last_successful_fetch": "2026-08-07T04:01:45.331332+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2954,7 +2954,11 @@
     "github:Saygong/early-warning-cve",
     "github:hacbs-release-tests/collectors-no-cve-5bb4027e",
     "github:sotoerwin-cpu/cverwinsoto",
-    "github:ST-Programmer/cvector"
+    "github:ST-Programmer/cvector",
+    "github:couch5foxioow/cvedkv",
+    "github:ugoohitjesh/cvesfc",
+    "github:jkhda456/quickCVE",
+    "github:dddwmr/CVE"
   ],
   "source_id": "github_trending",
   "stats": {
