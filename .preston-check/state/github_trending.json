@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-07T13:32:14.401815+00:00",
-  "last_successful_fetch": "2026-08-07T13:32:17.231203+00:00",
+  "last_run": "2026-08-07T15:05:06.534818+00:00",
+  "last_successful_fetch": "2026-08-07T15:05:10.068956+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2969,7 +2969,14 @@
     "github:Hunt-Benito/one-multiply-too-many-cve-2026-70638-llama-cpp-android-jni-integer-overflow",
     "github:Suzani-Sorensend/cvetuc",
     "github:R3n3r0/CVE-2026-0049",
-    "github:HackSpeak/CVE-2026-64564"
+    "github:HackSpeak/CVE-2026-64564",
+    "github:hacbs-release-tests/collectors-no-cve-077fd643",
+    "github:arslanben/my-CVEs",
+    "github:Giangdurian/CVE-2021-3129",
+    "github:doriovgugich/cvevey",
+    "github:Giangdurian/CVE-2026-41242",
+    "github:jceschell54/cveles",
+    "github:Hunt-Benito/go-without-bounds-cve-2026-67822-stack-overflow-in-tenda-w6-s-wifissidset"
   ],
   "source_id": "github_trending",
   "stats": {
