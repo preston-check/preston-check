@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-07T16:06:26.696989+00:00",
-  "last_successful_fetch": "2026-08-07T16:06:30.903946+00:00",
+  "last_run": "2026-08-07T17:59:10.933591+00:00",
+  "last_successful_fetch": "2026-08-07T17:59:14.179869+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2977,7 +2977,12 @@
     "github:Giangdurian/CVE-2026-41242",
     "github:jceschell54/cveles",
     "github:Hunt-Benito/go-without-bounds-cve-2026-67822-stack-overflow-in-tenda-w6-s-wifissidset",
-    "github:sfewer-r7/CVE-2026-63077"
+    "github:sfewer-r7/CVE-2026-63077",
+    "github:CerberusMrXi/CVE-2025-55182-Advanced-React-Server-Components-RCE-Exploit",
+    "github:froom98mucloon/cvejph",
+    "github:Ashwesker/Ashwesker-CVE-2025-68645",
+    "github:hacbs-release-tests/collectors-no-cve-36c0d68c",
+    "github:hacbs-release-tests/collectors-no-cve-9e44f6a9"
   ],
   "source_id": "github_trending",
   "stats": {
