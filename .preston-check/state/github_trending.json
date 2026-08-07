@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-07T15:05:06.534818+00:00",
-  "last_successful_fetch": "2026-08-07T15:05:10.068956+00:00",
+  "last_run": "2026-08-07T16:06:26.696989+00:00",
+  "last_successful_fetch": "2026-08-07T16:06:30.903946+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2976,7 +2976,8 @@
     "github:doriovgugich/cvevey",
     "github:Giangdurian/CVE-2026-41242",
     "github:jceschell54/cveles",
-    "github:Hunt-Benito/go-without-bounds-cve-2026-67822-stack-overflow-in-tenda-w6-s-wifissidset"
+    "github:Hunt-Benito/go-without-bounds-cve-2026-67822-stack-overflow-in-tenda-w6-s-wifissidset",
+    "github:sfewer-r7/CVE-2026-63077"
   ],
   "source_id": "github_trending",
   "stats": {
