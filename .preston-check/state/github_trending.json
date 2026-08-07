@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-07T05:47:52.044425+00:00",
-  "last_successful_fetch": "2026-08-07T05:47:54.778292+00:00",
+  "last_run": "2026-08-07T07:38:02.744388+00:00",
+  "last_successful_fetch": "2026-08-07T07:38:06.238823+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -2958,7 +2958,10 @@
     "github:couch5foxioow/cvedkv",
     "github:ugoohitjesh/cvesfc",
     "github:jkhda456/quickCVE",
-    "github:dddwmr/CVE"
+    "github:dddwmr/CVE",
+    "github:alreadyClosed/CVE-2026-39987",
+    "github:JohenLastGen-JLG/CVE-2026-11961",
+    "github:scmtord/cvedxm"
   ],
   "source_id": "github_trending",
   "stats": {
