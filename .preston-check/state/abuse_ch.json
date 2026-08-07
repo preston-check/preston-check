@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-07T22:50:59.345175+00:00",
-  "last_successful_fetch": "2026-08-07T22:50:59.346049+00:00",
+  "last_run": "2026-08-07T23:43:21.307744+00:00",
+  "last_successful_fetch": "2026-08-07T23:43:21.308483+00:00",
   "processed_ids": [
-    "threatfox:144.172.114.134:31337",
-    "threatfox:107.170.13.44:31337",
-    "threatfox:51.158.144.212:31337",
     "threatfox:213.255.246.182:31337",
     "threatfox:162.243.174.112:31337",
     "threatfox:172.237.155.114:31337",
@@ -5001,7 +4998,10 @@
     "threatfox:lurxrx.spirosnet.com",
     "threatfox:h431ijjv.dusanperisicmd.com",
     "threatfox:8qkm1lut.mspa-naperville.com",
-    "threatfox:poentjakweg.com"
+    "threatfox:poentjakweg.com",
+    "threatfox:kxrvczi.echo-xen.us",
+    "threatfox:pcsarm.eng-eng-slimsounds.com",
+    "threatfox:eng-eng-slimsounds.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
