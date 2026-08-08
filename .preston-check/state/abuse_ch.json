@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-08T15:39:56.067423+00:00",
-  "last_successful_fetch": "2026-08-08T15:39:56.068099+00:00",
+  "last_run": "2026-08-08T16:48:15.219495+00:00",
+  "last_successful_fetch": "2026-08-08T16:48:15.220182+00:00",
   "processed_ids": [
-    "threatfox:5aovmzuq.phomaivietnameserestaurant.com",
-    "threatfox:thebutlerspantrykitchenandhome.com",
-    "threatfox:pkdehbp.the-xbitcoinclub.com",
-    "threatfox:the-xbitcoinclub.com",
-    "threatfox:cmqpt5wv.ptologisticsandfreight.com",
-    "threatfox:bjxpwh.texasseafoodrestaurant.com",
-    "threatfox:texasseafoodrestaurant.com",
-    "threatfox:uvzfxyz.thewildbrow.com",
     "threatfox:149.30.232.214:46999",
     "threatfox:115.159.45.186:8084",
     "threatfox:thewildbrow.com",
@@ -5001,7 +4993,15 @@
     "threatfox:124.222.145.172:22",
     "threatfox:18inchgermanylovercapybara.space",
     "threatfox:apilcta.eng-us-us-sugarmute.com",
-    "threatfox:eng-us-us-sugarmute.com"
+    "threatfox:eng-us-us-sugarmute.com",
+    "threatfox:bitsjq.eng--usa-sugarmute.com",
+    "threatfox:eng--usa-sugarmute.com",
+    "threatfox:engusa-sugarmute.com",
+    "threatfox:45.207.211.207:80",
+    "threatfox:124.221.215.82:8080",
+    "threatfox:45.150.38.95:8080",
+    "threatfox:coaa0h4a.graphicstabletreviews.com",
+    "threatfox:wwdvqwb.en-sightfresh-us.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
