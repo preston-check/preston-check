@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-08-08T20:43:56.892444+00:00",
-  "last_successful_fetch": "2026-08-08T20:43:56.893416+00:00",
+  "last_run": "2026-08-08T21:41:18.875894+00:00",
+  "last_successful_fetch": "2026-08-08T21:41:18.876932+00:00",
   "processed_ids": [
-    "threatfox:rainfond.com",
-    "threatfox:raspberrypiforschools.com",
-    "threatfox:rcssolar.co.il",
-    "threatfox:rcssolar.com",
-    "threatfox:rebuildingtogetherdca.org",
-    "threatfox:primebuilderswallc.com",
-    "threatfox:prinmor.co.za",
-    "threatfox:printtex.pl",
-    "threatfox:probsts.com",
-    "threatfox:producegood.com",
     "threatfox:proindivisosgestionpropiedades.com",
     "threatfox:promosalutgirona.org",
     "threatfox:protestant.link",
@@ -5001,7 +4991,17 @@
     "threatfox:112.121.176.5:56003",
     "threatfox:112.121.176.6:56003",
     "threatfox:104.239.66.95:56003",
-    "threatfox:1.92.135.168:4321"
+    "threatfox:1.92.135.168:4321",
+    "threatfox:jyhdzq.eng-us--goldalign.com",
+    "threatfox:eng-usgoldalign.com",
+    "threatfox:s6inec20.federationofpbos.org",
+    "threatfox:185.199.199.159:8080",
+    "threatfox:185.199.199.159:8082",
+    "threatfox:45.92.170.238:8888",
+    "threatfox:halbckb.en-theslimsplitsmethod.com",
+    "threatfox:en-theslimsplitsmethod.com",
+    "threatfox:https://144.172.94.130/api/v1/agent/enroll",
+    "threatfox:144.172.94.130:443"
   ],
   "source_id": "abuse_ch",
   "stats": {
