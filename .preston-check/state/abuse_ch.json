@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-08T22:41:33.002024+00:00",
-  "last_successful_fetch": "2026-08-08T22:41:33.002948+00:00",
+  "last_run": "2026-08-08T23:38:58.376555+00:00",
+  "last_successful_fetch": "2026-08-08T23:38:58.377650+00:00",
   "processed_ids": [
-    "threatfox:psychotherapie-luxardo.at",
-    "threatfox:pumpelup.fr",
-    "threatfox:pureenergycycling.com",
     "threatfox:purewindowsok.com",
     "threatfox:pursuited.com",
     "threatfox:q-talent.vn",
@@ -5001,7 +4998,10 @@
     "threatfox:vurlod-jardins.ch",
     "threatfox:bnqvfp.eng-usa-sightfresh.com",
     "threatfox:sgkg29g4.gregoryschreiercabinetmaker.com",
-    "threatfox:tidptlj.buy-goldalign.com"
+    "threatfox:tidptlj.buy-goldalign.com",
+    "threatfox:gpkqkb.engus-prostavive.com",
+    "threatfox:5pv60e6t.tadkaindiaka.com",
+    "threatfox:axeypjx.eng-us-us-sugarmute.com"
   ],
   "source_id": "abuse_ch",
   "stats": {

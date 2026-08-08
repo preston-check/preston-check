@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-08T22:41:29.896830+00:00",
-  "last_successful_fetch": "2026-08-08T22:41:32.695110+00:00",
+  "last_run": "2026-08-08T23:38:55.396677+00:00",
+  "last_successful_fetch": "2026-08-08T23:38:58.064586+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3050,7 +3050,9 @@
     "github:frankremmy/cve-detection-lab",
     "github:thexin7/kernel-cve-analysis",
     "github:zhofist/cvemcs",
-    "github:zhofist/cveshl"
+    "github:zhofist/cveshl",
+    "github:MR-LeonardoGomes/XSS2Shell-CVE-2026-64638",
+    "github:nushm/cvewof"
   ],
   "source_id": "github_trending",
   "stats": {
