@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-08T07:08:59.856590+00:00",
-  "last_successful_fetch": "2026-08-08T07:09:02.471566+00:00",
+  "last_run": "2026-08-08T08:54:33.619874+00:00",
+  "last_successful_fetch": "2026-08-08T08:54:36.413386+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3020,7 +3020,9 @@
     "github:yogaGymn/XSS2Shell-CVE-2026-64638",
     "github:hacbs-release-tests/collectors-no-cve-17bb1d42",
     "github:jeffpecky/cve-monitor",
-    "github:AnggaTechI/CVE-2026-63077"
+    "github:AnggaTechI/CVE-2026-63077",
+    "github:HackSpeak/CVE-2026-64638",
+    "github:4minx/CVE-2026-64638"
   ],
   "source_id": "github_trending",
   "stats": {
