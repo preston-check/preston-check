@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-08-08T21:41:18.875894+00:00",
-  "last_successful_fetch": "2026-08-08T21:41:18.876932+00:00",
+  "last_run": "2026-08-08T22:41:33.002024+00:00",
+  "last_successful_fetch": "2026-08-08T22:41:33.002948+00:00",
   "processed_ids": [
-    "threatfox:proindivisosgestionpropiedades.com",
-    "threatfox:promosalutgirona.org",
-    "threatfox:protestant.link",
-    "threatfox:proysur.org",
-    "threatfox:psicologiaclinicainfantil.com",
-    "threatfox:psychogeographie.org",
     "threatfox:psychotherapie-luxardo.at",
     "threatfox:pumpelup.fr",
     "threatfox:pureenergycycling.com",
@@ -5001,7 +4995,13 @@
     "threatfox:halbckb.en-theslimsplitsmethod.com",
     "threatfox:en-theslimsplitsmethod.com",
     "threatfox:https://144.172.94.130/api/v1/agent/enroll",
-    "threatfox:144.172.94.130:443"
+    "threatfox:144.172.94.130:443",
+    "threatfox:sec-pal.org",
+    "threatfox:thedaveslawfirm.com",
+    "threatfox:vurlod-jardins.ch",
+    "threatfox:bnqvfp.eng-usa-sightfresh.com",
+    "threatfox:sgkg29g4.gregoryschreiercabinetmaker.com",
+    "threatfox:tidptlj.buy-goldalign.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
