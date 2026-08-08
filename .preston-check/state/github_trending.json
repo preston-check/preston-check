@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-08T04:17:21.698497+00:00",
-  "last_successful_fetch": "2026-08-08T04:17:25.726622+00:00",
+  "last_run": "2026-08-08T05:52:46.974031+00:00",
+  "last_successful_fetch": "2026-08-08T05:52:49.622715+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3013,7 +3013,10 @@
     "github:jingkeyimeng/CVE",
     "github:Saku0512/CVE-2026-71557-poc",
     "github:senxitoyshuyi-ui/IOT-CVE",
-    "github:ronamosa/CVE-2026-18953"
+    "github:ronamosa/CVE-2026-18953",
+    "github:MiniGh/cve2attack",
+    "github:tharun2509/Geometric-Transformations-Using-OpenCVexp4",
+    "github:overflow7782/CVEngineer"
   ],
   "source_id": "github_trending",
   "stats": {
