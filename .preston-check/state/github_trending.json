@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-08T10:46:31.097470+00:00",
-  "last_successful_fetch": "2026-08-08T10:46:34.661997+00:00",
+  "last_run": "2026-08-08T11:38:14.004654+00:00",
+  "last_successful_fetch": "2026-08-08T11:38:17.720321+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3025,7 +3025,9 @@
     "github:4minx/CVE-2026-64638",
     "github:BurnSkyup/CVE-2023-30000",
     "github:s3cretagent/delta-cve-gate",
-    "github:ARPSyndicate/cve-scores"
+    "github:ARPSyndicate/cve-scores",
+    "github:aryasahil96-manu/CVE-Disclosures",
+    "github:BurnSkyup/CVE-2023-32233-reproduction"
   ],
   "source_id": "github_trending",
   "stats": {
