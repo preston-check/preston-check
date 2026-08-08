@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-08T09:49:48.187713+00:00",
-  "last_successful_fetch": "2026-08-08T09:49:51.219975+00:00",
+  "last_run": "2026-08-08T10:46:31.097470+00:00",
+  "last_successful_fetch": "2026-08-08T10:46:34.661997+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3023,7 +3023,9 @@
     "github:AnggaTechI/CVE-2026-63077",
     "github:HackSpeak/CVE-2026-64638",
     "github:4minx/CVE-2026-64638",
-    "github:BurnSkyup/CVE-2023-30000"
+    "github:BurnSkyup/CVE-2023-30000",
+    "github:s3cretagent/delta-cve-gate",
+    "github:ARPSyndicate/cve-scores"
   ],
   "source_id": "github_trending",
   "stats": {
