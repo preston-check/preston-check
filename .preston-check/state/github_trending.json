@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-08T17:41:21.685667+00:00",
-  "last_successful_fetch": "2026-08-08T17:41:25.326332+00:00",
+  "last_run": "2026-08-08T18:53:39.579440+00:00",
+  "last_successful_fetch": "2026-08-08T18:53:42.207111+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3040,7 +3040,8 @@
     "github:masrikky/CVE-2026-64600-RefluXFS",
     "github:zhofist/cveiyc",
     "github:xolarrbullouray/cvefof",
-    "github:bodmrytexx/cvewmd"
+    "github:bodmrytexx/cvewmd",
+    "github:tvjb409acv/repo_5cvevppr"
   ],
   "source_id": "github_trending",
   "stats": {
