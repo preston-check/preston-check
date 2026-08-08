@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-08T18:53:39.579440+00:00",
-  "last_successful_fetch": "2026-08-08T18:53:42.207111+00:00",
+  "last_run": "2026-08-08T19:39:01.606430+00:00",
+  "last_successful_fetch": "2026-08-08T19:39:04.144556+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3041,7 +3041,9 @@
     "github:zhofist/cveiyc",
     "github:xolarrbullouray/cvefof",
     "github:bodmrytexx/cvewmd",
-    "github:tvjb409acv/repo_5cvevppr"
+    "github:tvjb409acv/repo_5cvevppr",
+    "github:andreysnascimento/cve-analysis",
+    "github:cybersecplayground/PoC-and-CVE-Vault"
   ],
   "source_id": "github_trending",
   "stats": {

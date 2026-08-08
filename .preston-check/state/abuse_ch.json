@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-08T18:53:42.573509+00:00",
-  "last_successful_fetch": "2026-08-08T18:53:42.574393+00:00",
+  "last_run": "2026-08-08T19:39:04.701257+00:00",
+  "last_successful_fetch": "2026-08-08T19:39:04.702138+00:00",
   "processed_ids": [
-    "threatfox:cannesresidencia.com",
-    "threatfox:kvetkoms.smallshopsandwhatknot.com",
-    "threatfox:dfojjm.angebagnia.com",
-    "threatfox:angebagnia.com",
-    "threatfox:103.41.19.111:8080",
-    "threatfox:setup.waveboard.one",
-    "threatfox:dth.travel",
     "threatfox:ecosweetbaby.es",
     "threatfox:cooperacionescolar.org",
     "threatfox:cscreate.com",
@@ -5001,7 +4994,14 @@
     "threatfox:4pm3ff8r.tacticalk9familycoin.com",
     "threatfox:blessedongrace.duckdns.org",
     "threatfox:kmvurly.en-slimsplitsmethod.com",
-    "threatfox:en-slimsplitsmethod.com"
+    "threatfox:en-slimsplitsmethod.com",
+    "threatfox:wyrntv.eng-usa-us-sugarmute.com",
+    "threatfox:eng-usa-us-sugarmute.com",
+    "threatfox:43.142.109.146:19726",
+    "threatfox:117.72.72.254:8080",
+    "threatfox:119.45.190.210:22",
+    "threatfox:183.60.226.2:993",
+    "threatfox:183.60.226.2:143"
   ],
   "source_id": "abuse_ch",
   "stats": {
