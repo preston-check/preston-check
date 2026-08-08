@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-08T14:44:50.405806+00:00",
-  "last_successful_fetch": "2026-08-08T14:44:53.943335+00:00",
+  "last_run": "2026-08-08T15:39:53.250373+00:00",
+  "last_successful_fetch": "2026-08-08T15:39:55.649162+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3036,7 +3036,8 @@
     "github:hacbs-release-tests/collectors-no-cve-a837067a",
     "github:comsroesti/cvejid",
     "github:adamk-codes/CVevaluator",
-    "github:toanln-cov/CVE-2026-66491"
+    "github:toanln-cov/CVE-2026-66491",
+    "github:masrikky/CVE-2026-64600-RefluXFS"
   ],
   "source_id": "github_trending",
   "stats": {

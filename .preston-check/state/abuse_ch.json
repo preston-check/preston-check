@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-08T14:44:54.306137+00:00",
-  "last_successful_fetch": "2026-08-08T14:44:54.306832+00:00",
+  "last_run": "2026-08-08T15:39:56.067423+00:00",
+  "last_successful_fetch": "2026-08-08T15:39:56.068099+00:00",
   "processed_ids": [
-    "threatfox:188.209.158.220:56003",
-    "threatfox:151.247.22.50:56003",
-    "threatfox:nyitbg.thebutlerspantrykitchenandhome.com",
-    "threatfox:38.43.93.183:13389",
-    "threatfox:120.24.31.212:20001",
-    "threatfox:117.72.72.254:995",
-    "threatfox:2.27.29.171:8080",
-    "threatfox:2.27.29.171:80",
-    "threatfox:qypefu.thebutlerspantrykitchenandhome.com",
     "threatfox:5aovmzuq.phomaivietnameserestaurant.com",
     "threatfox:thebutlerspantrykitchenandhome.com",
     "threatfox:pkdehbp.the-xbitcoinclub.com",
@@ -5001,7 +4992,16 @@
     "threatfox:192.255.236.156:8080",
     "threatfox:192.255.236.156:443",
     "threatfox:45.77.203.212:443",
-    "threatfox:45.77.203.212:80"
+    "threatfox:45.77.203.212:80",
+    "threatfox:oczdcn.eng-usa-slimsounds.com",
+    "threatfox:eng-usa-slimsounds.com",
+    "threatfox:124.221.215.82:4433",
+    "threatfox:124.221.215.82:443",
+    "threatfox:45.150.38.95:443",
+    "threatfox:124.222.145.172:22",
+    "threatfox:18inchgermanylovercapybara.space",
+    "threatfox:apilcta.eng-us-us-sugarmute.com",
+    "threatfox:eng-us-us-sugarmute.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
