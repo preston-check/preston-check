@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-09T05:54:37.855354+00:00",
-  "last_successful_fetch": "2026-08-09T05:54:41.722965+00:00",
+  "last_run": "2026-08-09T07:11:02.958391+00:00",
+  "last_successful_fetch": "2026-08-09T07:11:06.041744+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3057,7 +3057,10 @@
     "github:hacbs-release-tests/collectors-no-cve-d18bae6b",
     "github:hackThacker/Awesome-CVE-POC-Index",
     "github:patrickt2017/CVE-2026-19195-PoC",
-    "github:tobstealiea/cvehxn"
+    "github:tobstealiea/cvehxn",
+    "github:hacbs-release-tests/collectors-no-cve-7aa02220",
+    "github:alvadjackl/cvevao",
+    "github:0day-gov/THM-HackerHolidays-2026"
   ],
   "source_id": "github_trending",
   "stats": {
