@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-09T02:24:24.777784+00:00",
-  "last_successful_fetch": "2026-08-09T02:24:28.021035+00:00",
+  "last_run": "2026-08-09T04:32:40.321463+00:00",
+  "last_successful_fetch": "2026-08-09T04:32:44.174150+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3054,7 +3054,10 @@
     "github:MR-LeonardoGomes/XSS2Shell-CVE-2026-64638",
     "github:nushm/cvewof",
     "github:mamuaminu/cve-brief",
-    "github:hacbs-release-tests/collectors-no-cve-d18bae6b"
+    "github:hacbs-release-tests/collectors-no-cve-d18bae6b",
+    "github:hackThacker/Awesome-CVE-POC-Index",
+    "github:patrickt2017/CVE-2026-19195-PoC",
+    "github:tobstealiea/cvehxn"
   ],
   "source_id": "github_trending",
   "stats": {
