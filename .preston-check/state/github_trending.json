@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-09T15:41:46.358096+00:00",
-  "last_successful_fetch": "2026-08-09T15:41:49.448086+00:00",
+  "last_run": "2026-08-09T16:49:33.861596+00:00",
+  "last_successful_fetch": "2026-08-09T16:49:37.549540+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3068,7 +3068,8 @@
     "github:mariamadamball/cvelgd",
     "github:hanig/cvequality",
     "github:eh-amish/CVE-2026-64638-XSS-to-Shell-PoC",
-    "github:Polosss/By-Poloss..-..CVE-2026-15038-POC"
+    "github:Polosss/By-Poloss..-..CVE-2026-15038-POC",
+    "github:cusethitto3/cvednx"
   ],
   "source_id": "github_trending",
   "stats": {

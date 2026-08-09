@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-09T15:41:49.924267+00:00",
-  "last_successful_fetch": "2026-08-09T15:41:49.924900+00:00",
+  "last_run": "2026-08-09T16:49:37.925185+00:00",
+  "last_successful_fetch": "2026-08-09T16:49:37.925636+00:00",
   "processed_ids": [
-    "threatfox:https://pewtercanto.top/user/acl-dom",
-    "threatfox:pewtercanto.top",
-    "threatfox:https://pewtercanto.top/user/version-deploy.js",
-    "threatfox:dhatfu.apmlandscaping.com",
-    "threatfox:apmlandscaping.com",
-    "threatfox:45.87.53.6:8887",
-    "threatfox:45.87.53.6:8884",
     "threatfox:45.87.53.6:8886",
     "threatfox:81.70.21.248:22",
     "threatfox:iwffn03j.eastonfootandanklecenter.com",
@@ -5001,7 +4994,14 @@
     "threatfox:64.90.11.101:80",
     "threatfox:5j5spglj.engus-prostavive.com",
     "threatfox:wxfruqi.shop-digestistart.com",
-    "threatfox:prozenith-en-us.com"
+    "threatfox:prozenith-en-us.com",
+    "threatfox:qkyear.en-usa-sugarmute.us",
+    "threatfox:uv8fudow.eng--keyslimdrops.com",
+    "threatfox:64.90.11.101:8001",
+    "threatfox:uamidyb.en-us-en-prostawive.com",
+    "threatfox:37.221.66.27:443",
+    "threatfox:en-us-en-prostawive.com",
+    "threatfox:khypcp.en-usa-sightfresh.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
