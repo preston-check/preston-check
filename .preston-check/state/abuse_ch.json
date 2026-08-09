@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-09T20:47:48.808681+00:00",
-  "last_successful_fetch": "2026-08-09T20:47:48.809467+00:00",
+  "last_run": "2026-08-09T21:43:59.294251+00:00",
+  "last_successful_fetch": "2026-08-09T21:43:59.295030+00:00",
   "processed_ids": [
-    "threatfox:106.14.243.66:8080",
-    "threatfox:rdwebpentesting.info",
-    "threatfox:http://39.81.179.181:41855/Mozi.m",
-    "threatfox:http://123.14.253.47:58492/Mozi.m",
-    "threatfox:http://144.48.135.109:49866/Mozi.m",
-    "threatfox:http://103.26.82.237:43196/Mozi.m",
-    "threatfox:http://163.223.136.58:54559/Mozi.m",
     "threatfox:lghduo.bartinyatirim.com",
     "threatfox:smtulna.emeraldyachtship.com",
     "threatfox:emeraldyachtship.com",
@@ -5001,7 +4994,14 @@
     "threatfox:2.50.170.49:7707",
     "threatfox:128.90.59.58:1110",
     "threatfox:107.172.133.190:56002",
-    "threatfox:104.164.46.182:52203"
+    "threatfox:104.164.46.182:52203",
+    "threatfox:vwychan.en-us-en-usa-audizen.com",
+    "threatfox:xlmr6eq6.crownconnectpk.com",
+    "threatfox:pfbaej.enus-en-audizen.com",
+    "threatfox:enus-en-audizen.com",
+    "threatfox:http://tokjoza.shop:5200/settings",
+    "threatfox:http://shkpiva.shop:5627/notifications",
+    "threatfox:http://beljaro.shop:2536/folders"
   ],
   "source_id": "abuse_ch",
   "stats": {
