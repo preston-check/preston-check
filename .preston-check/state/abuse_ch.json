@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-09T18:55:55.086944+00:00",
-  "last_successful_fetch": "2026-08-09T18:55:55.087527+00:00",
+  "last_run": "2026-08-09T19:44:10.584111+00:00",
+  "last_successful_fetch": "2026-08-09T19:44:10.584823+00:00",
   "processed_ids": [
-    "threatfox:114.66.58.253:80",
-    "threatfox:palfxxt.encompassrealestateschool.com",
-    "threatfox:encompassrealestateschool.com",
-    "threatfox:akhkdv.ecopro-edu.com",
-    "threatfox:102.117.167.134:7443",
-    "threatfox:106.14.243.66:7777",
-    "threatfox:jov1rwpq.advanceddrivelines.com",
     "threatfox:uomcxv2i.ecryptobits.com",
     "threatfox:registry.lighttexture18.one",
     "threatfox:uyvjohl.empoweredwellnessteam.com",
@@ -5001,7 +4994,14 @@
     "threatfox:uaawnpt.en-us-en-us-echoxen.com",
     "threatfox:en-us-en-us-echoxen.com",
     "threatfox:tfgrzf.enus-bpzone.com",
-    "threatfox:enus-bpzone.com"
+    "threatfox:enus-bpzone.com",
+    "threatfox:rgutfmf.prosta--vive.us",
+    "threatfox:bebnmr.enus-echoxen.com",
+    "threatfox:otarires.ch",
+    "threatfox:enus-echoxen.com",
+    "threatfox:d9ycd24u.pro--prostavive.com",
+    "threatfox:111.229.135.130:8084",
+    "threatfox:139.196.181.1:8808"
   ],
   "source_id": "abuse_ch",
   "stats": {

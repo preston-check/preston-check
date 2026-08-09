@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-09T18:55:50.521907+00:00",
-  "last_successful_fetch": "2026-08-09T18:55:54.551484+00:00",
+  "last_run": "2026-08-09T19:44:07.540580+00:00",
+  "last_successful_fetch": "2026-08-09T19:44:10.389762+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3075,7 +3075,8 @@
     "github:gsadagopan/cve-2026-22747-sandbox",
     "github:r3vpwnx/CVE-2026-26119",
     "github:trimretgo/cvewmp",
-    "github:Loaxert/CVE-2025-59528-PoC"
+    "github:Loaxert/CVE-2025-59528-PoC",
+    "github:hacbs-release-tests/collectors-no-cve-b6ba591e"
   ],
   "source_id": "github_trending",
   "stats": {
