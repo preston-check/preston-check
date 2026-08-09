@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-09T16:49:37.925185+00:00",
-  "last_successful_fetch": "2026-08-09T16:49:37.925636+00:00",
+  "last_run": "2026-08-09T17:42:39.844486+00:00",
+  "last_successful_fetch": "2026-08-09T17:42:39.844998+00:00",
   "processed_ids": [
-    "threatfox:45.87.53.6:8886",
-    "threatfox:81.70.21.248:22",
-    "threatfox:iwffn03j.eastonfootandanklecenter.com",
-    "threatfox:eastonfootandanklecenter.com",
-    "threatfox:lbsmduw.certifiedairbalanceinlosangelesca.com",
     "threatfox:certifiedairbalanceinlosangelesca.com",
     "threatfox:zsupeg.angelnailsphenix.com",
     "threatfox:angelnailsphenix.com",
@@ -5001,7 +4996,12 @@
     "threatfox:uamidyb.en-us-en-prostawive.com",
     "threatfox:37.221.66.27:443",
     "threatfox:en-us-en-prostawive.com",
-    "threatfox:khypcp.en-usa-sightfresh.com"
+    "threatfox:khypcp.en-usa-sightfresh.com",
+    "threatfox:h0snck00.elcornerderaulmorote.com",
+    "threatfox:64.90.11.101:8089",
+    "threatfox:od8872b0.nurvearmor.us",
+    "threatfox:kiavqge.en-us-en-usa-audizen.com",
+    "threatfox:en-us-en-usa-audizen.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
