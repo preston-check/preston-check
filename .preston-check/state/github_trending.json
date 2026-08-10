@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-10T19:10:17.613881+00:00",
-  "last_successful_fetch": "2026-08-10T19:10:20.767230+00:00",
+  "last_run": "2026-08-10T20:56:40.528521+00:00",
+  "last_successful_fetch": "2026-08-10T20:56:43.874047+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3109,7 +3109,9 @@
     "github:cverapy/cvera_webb",
     "github:woo4826/security-wave-cve-harness-starter",
     "github:kagancapar/CVE-2026-5201",
-    "github:kagancapar/CVE-2021-47881"
+    "github:kagancapar/CVE-2021-47881",
+    "github:g0d150ne/CVE_2026_57827",
+    "github:g0d150ne/CVE-2025-2945"
   ],
   "source_id": "github_trending",
   "stats": {
