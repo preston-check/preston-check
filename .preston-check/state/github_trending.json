@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-10T13:37:38.115147+00:00",
-  "last_successful_fetch": "2026-08-10T13:37:41.398145+00:00",
+  "last_run": "2026-08-10T15:11:26.537807+00:00",
+  "last_successful_fetch": "2026-08-10T15:11:31.479848+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3096,7 +3096,13 @@
     "github:godoy-sec/CVE-2017-14980",
     "github:TreasureBoy99/cve_monitor",
     "github:IamDremig/CVE-2026-14802",
-    "github:parrishjustin5/cveiim"
+    "github:parrishjustin5/cveiim",
+    "github:hacbs-release-tests/collectors-no-cve-9f40f388",
+    "github:darumaseye/CVEs",
+    "github:MAELSIO/cvento-app",
+    "github:BryVotto/Cvent-Studio-playbook",
+    "github:HORKimhab/CVE-2026-34348",
+    "github:BoredHackerBlog/teamcity-CVE-2026-63077-pcap"
   ],
   "source_id": "github_trending",
   "stats": {
