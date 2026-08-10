@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-10T04:49:02.161289+00:00",
-  "last_successful_fetch": "2026-08-10T04:49:02.162102+00:00",
+  "last_run": "2026-08-10T06:18:51.958522+00:00",
+  "last_successful_fetch": "2026-08-10T06:18:51.959242+00:00",
   "processed_ids": [
-    "threatfox:dea0649857c76ceabba2ac3ecb1aa5960e92f1a5ef80b385a75903aa7edd2c3d",
-    "threatfox:dd79f535f6108df5bea9c3b2be064a09",
-    "threatfox:46038f8f6f10cbee2ea6654ab97a7664365087b7b86bb3ee783ae0428a411eb4",
     "threatfox:ad55499168f6028869bb7ebdd83406b948ede9f1",
     "threatfox:5f1146ec4c1130cd64af934de2687d6dc78330b3bc6c8486deb39b9305b10d72",
     "threatfox:aa1b178ea8f756e209b05880cfac8bbe",
@@ -5001,7 +4998,10 @@
     "threatfox:143.92.52.207:2078",
     "threatfox:169.58.150.130:7443",
     "threatfox:qmxskr.healthfoodzone.com",
-    "threatfox:lseeetm.federationofpbos.org"
+    "threatfox:lseeetm.federationofpbos.org",
+    "threatfox:kfbhnux.grannygshemporium.com",
+    "threatfox:ehhzba.rsfoodproducts.com",
+    "threatfox:lh3i8c4x.en-energyrevolution.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
