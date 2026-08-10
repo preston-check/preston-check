@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-10T08:47:50.522365+00:00",
-  "last_successful_fetch": "2026-08-10T08:47:54.754138+00:00",
+  "last_run": "2026-08-10T10:33:32.583208+00:00",
+  "last_successful_fetch": "2026-08-10T10:33:35.941371+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3088,7 +3088,10 @@
     "github:LazyBear8372/CVE-2023-31014_Lab",
     "github:hacbs-release-tests/collectors-no-cve-db38db2a",
     "github:Wyl-cmd/CVE-2017-7921-Research-Toolkit",
-    "github:AAAsleepking/cve-assetops-agent"
+    "github:AAAsleepking/cve-assetops-agent",
+    "github:fLipE23/php-cve-fixer",
+    "github:Saku0512/CVE-2026-9086-poc",
+    "github:open-flaw/CVE-2026-2005"
   ],
   "source_id": "github_trending",
   "stats": {
