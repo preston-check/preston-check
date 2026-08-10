@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-10T02:29:05.451683+00:00",
-  "last_successful_fetch": "2026-08-10T02:29:08.724755+00:00",
+  "last_run": "2026-08-10T04:48:58.715160+00:00",
+  "last_successful_fetch": "2026-08-10T04:49:01.594588+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3081,7 +3081,9 @@
     "github:Tobss8/GIGABYTE-H510M-K-V2-BIOS-SMM-Reverse-Engineering-CVE-2025-7026-7027-7028-7029-Research",
     "github:arleyna/CVE-2022-38599",
     "github:MADA0L/CVE-2026-39987-Poc",
-    "github:mamuaminu/cve-briefbot"
+    "github:mamuaminu/cve-briefbot",
+    "github:azizjaballah/cve-cvss-index-latest",
+    "github:phu1271997/cve-impact-registry"
   ],
   "source_id": "github_trending",
   "stats": {
