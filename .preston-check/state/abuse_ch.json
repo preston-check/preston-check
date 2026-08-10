@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-10T21:53:31.772887+00:00",
-  "last_successful_fetch": "2026-08-10T21:53:31.773677+00:00",
+  "last_run": "2026-08-10T22:52:15.634369+00:00",
+  "last_successful_fetch": "2026-08-10T22:52:15.635126+00:00",
   "processed_ids": [
-    "threatfox:43.166.246.26:143",
-    "threatfox:nnudyll.gilfordvillagenurseryschool.com",
-    "threatfox:43.166.246.26:25",
-    "threatfox:43.166.246.26:443",
-    "threatfox:45.43.143.17:5776",
-    "threatfox:167.172.71.69:8080",
-    "threatfox:xwmuyy.getpumpedli.org",
     "threatfox:getpumpedli.org",
     "threatfox:uxqlomf.ghpprofessionalpaintingllc.com",
     "threatfox:ghpprofessionalpaintingllc.com",
@@ -5001,7 +4994,14 @@
     "threatfox:89.125.244.131:80",
     "threatfox:192.252.179.24:8080",
     "threatfox:jqiltw.enus-tinnitrol.com",
-    "threatfox:enus-tinnitrol.com"
+    "threatfox:enus-tinnitrol.com",
+    "threatfox:lydbvsp.shop-mochalean.com",
+    "threatfox:shop-mochalean.com",
+    "threatfox:xgbkho.get-braindefender.com",
+    "threatfox:get-braindefender.com",
+    "threatfox:nsfpfas.goldelign.com",
+    "threatfox:goldelign.com",
+    "threatfox:vhdekj.en-web-echoxen.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
