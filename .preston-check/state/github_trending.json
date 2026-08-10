@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-09T23:41:53.892298+00:00",
-  "last_successful_fetch": "2026-08-09T23:41:57.049747+00:00",
+  "last_run": "2026-08-10T02:29:05.451683+00:00",
+  "last_successful_fetch": "2026-08-10T02:29:08.724755+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3078,7 +3078,10 @@
     "github:Loaxert/CVE-2025-59528-PoC",
     "github:hacbs-release-tests/collectors-no-cve-b6ba591e",
     "github:cheseneffralseth/cvejzc",
-    "github:Tobss8/GIGABYTE-H510M-K-V2-BIOS-SMM-Reverse-Engineering-CVE-2025-7026-7027-7028-7029-Research"
+    "github:Tobss8/GIGABYTE-H510M-K-V2-BIOS-SMM-Reverse-Engineering-CVE-2025-7026-7027-7028-7029-Research",
+    "github:arleyna/CVE-2022-38599",
+    "github:MADA0L/CVE-2026-39987-Poc",
+    "github:mamuaminu/cve-briefbot"
   ],
   "source_id": "github_trending",
   "stats": {
