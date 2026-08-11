@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-11T21:59:07.047861+00:00",
-  "last_successful_fetch": "2026-08-11T21:59:07.048560+00:00",
+  "last_run": "2026-08-11T22:57:08.662613+00:00",
+  "last_successful_fetch": "2026-08-11T22:57:08.663302+00:00",
   "processed_ids": [
-    "threatfox:hesentech.com.tw",
-    "threatfox:altitudefranklin.com",
-    "threatfox:tue-orange-04.cfd",
-    "threatfox:yixihmd.jdk-services.net",
-    "threatfox:101.42.176.50:80",
-    "threatfox:101.42.176.50:8080",
-    "threatfox:101.42.176.50:443",
     "threatfox:192.210.197.131:8080",
     "threatfox:43.166.246.26:993",
     "threatfox:txqyrx.jackpot138.de.com",
@@ -5001,7 +4994,14 @@
     "threatfox:43.225.157.17:22",
     "threatfox:35.209.195.28:80",
     "threatfox:43.225.157.17:8000",
-    "threatfox:43.225.157.17:443"
+    "threatfox:43.225.157.17:443",
+    "threatfox:ecdmso.greenestreetchurch.com",
+    "threatfox:yo1yin0j.enus-ignitra.com",
+    "threatfox:dzmmaqy.en-slimsounds.com",
+    "threatfox:188.49.80.159:443",
+    "threatfox:35.209.195.28:22",
+    "threatfox:kwcdmt.greaternewzionbc.org",
+    "threatfox:apfelundgold.ch"
   ],
   "source_id": "abuse_ch",
   "stats": {
