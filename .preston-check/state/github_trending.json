@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-11T06:00:16.412416+00:00",
-  "last_successful_fetch": "2026-08-11T06:00:20.387347+00:00",
+  "last_run": "2026-08-11T07:22:59.381760+00:00",
+  "last_successful_fetch": "2026-08-11T07:23:03.248479+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3122,7 +3122,11 @@
     "github:baeseungwon1010/cve_collector_public",
     "github:d3mio/Depshield-cve-alerter",
     "github:hacbs-release-tests/collectors-no-cve-27620d18",
-    "github:moovingGun/cve-harness-portfolio"
+    "github:moovingGun/cve-harness-portfolio",
+    "github:Ibonok/security-research-cve-list",
+    "github:giriaryan694-a11y/CVE-2026-64638-XSS2Shell_Lab",
+    "github:hacbs-release-tests/collectors-no-cve-348f3bea",
+    "github:yijiacloud/ghostlock-cve-2026-43499-4.19-k40"
   ],
   "source_id": "github_trending",
   "stats": {
