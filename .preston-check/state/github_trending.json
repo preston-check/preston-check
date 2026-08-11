@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-11T09:10:35.510233+00:00",
-  "last_successful_fetch": "2026-08-11T09:10:38.241062+00:00",
+  "last_run": "2026-08-11T11:00:56.332181+00:00",
+  "last_successful_fetch": "2026-08-11T11:00:59.625731+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3132,7 +3132,11 @@
     "github:sn0x-sharma/CVE-2026-44401",
     "github:karry7911-netizen/litellm-cve-codeql-case-0005",
     "github:karry7911-netizen/litellm-cve-codeql-case-0004",
-    "github:CuteeCat/CVE-2026-48710"
+    "github:CuteeCat/CVE-2026-48710",
+    "github:MarkLee131/PoC-Research-Papers",
+    "github:karry7911-netizen/litellm-cve-codeql-strict",
+    "github:hacbs-release-tests/collectors-no-cve-d07e943f",
+    "github:DriftJourneymanSaw/cveztnbg"
   ],
   "source_id": "github_trending",
   "stats": {
