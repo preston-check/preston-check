@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-11T13:35:39.826390+00:00",
-  "last_successful_fetch": "2026-08-11T13:35:42.777154+00:00",
+  "last_run": "2026-08-11T15:12:23.794447+00:00",
+  "last_successful_fetch": "2026-08-11T15:12:27.838940+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3141,7 +3141,14 @@
     "github:HackSpeak/CVE-2026-17106",
     "github:strangerHM/CVE-summarizer-and-lookup",
     "github:hacbs-release-tests/collectors-no-cve-3c936641",
-    "github:cverapy/cvera_site"
+    "github:cverapy/cvera_site",
+    "github:hacbs-release-tests/collectors-no-cve-ca512eb2",
+    "github:hacbs-release-tests/collectors-no-cve-b5ab8190",
+    "github:hacbs-release-tests/collectors-no-cve-0b9adaaf",
+    "github:cyb3rk0ala/CVE-2022-35914",
+    "github:zAx4hub/cve-to-commit-mapper",
+    "github:DRT709/Legacy-CVE---Proof-of-concept",
+    "github:beni9villa-oss/CVERA_SITIO-WEB"
   ],
   "source_id": "github_trending",
   "stats": {
