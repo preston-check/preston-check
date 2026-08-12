@@ -121,6 +121,20 @@ plus any persona as agent/system prompt; Ollama —
 Kimi/OpenAI-compatible — send `system` and `tools` from the JSON and
 execute the tool calls against the same server or CLI.
 
+## Packaging
+
+`tools/build_ai_addon_package.py` builds the end-user distributable:
+`dist/preston-check-ai-addon-<version>.tar.gz`, a self-contained tree
+(scanner stamped with the newest v* tag, full catalog, personas
+regenerated at build time, MCP server, `install-ai-addon.sh`,
+`MANUAL.md`/`MANUAL.pdf`) plus a `.sha256`. The PDF is generated with
+pandoc + weasyprint under CSS that repeats table headers across page
+breaks and never splits a row (the project PDF pagination rule); absent
+tooling skips the PDF with a log line. The installer is non-destructive
+by default — it prints instructions and only acts on explicit
+`--claude` / `--ollama` flags. Attaching the package to GitHub releases
+would touch release.yml and is an owner decision, not wired here.
+
 ## Regeneration
 
 Personas go stale as the catalog evolves. Regenerate with
