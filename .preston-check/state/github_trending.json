@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-11T23:53:24.594918+00:00",
-  "last_successful_fetch": "2026-08-11T23:53:27.846481+00:00",
+  "last_run": "2026-08-12T02:38:39.327310+00:00",
+  "last_successful_fetch": "2026-08-12T02:38:42.426470+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3157,7 +3157,10 @@
     "github:MSNightmare/ShieldBreak",
     "github:1amUnvalid/CVE-2025-10951",
     "github:OndrejDrapalik/node-tar-cve-demo",
-    "github:SneakyNachos/CVE-2026-2766-but-with-wasm"
+    "github:SneakyNachos/CVE-2026-2766-but-with-wasm",
+    "github:cvenugop/cvenugop",
+    "github:duan528/CVE-2026-67846-BOOM-NBDTLB",
+    "github:Arrnitage/CVE-2022-22947_exp"
   ],
   "source_id": "github_trending",
   "stats": {
