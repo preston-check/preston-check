@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-12T21:57:22.901986+00:00",
-  "last_successful_fetch": "2026-08-12T21:57:26.230261+00:00",
+  "last_run": "2026-08-12T22:55:14.123081+00:00",
+  "last_successful_fetch": "2026-08-12T22:55:18.098609+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3183,7 +3183,9 @@
     "github:686f6c61/POC-CopyEscape-CVE-2026-17106",
     "github:matesz44/cve-2026-39987",
     "github:DanielHallbro/CVE-Labs",
-    "github:gabenguyen-ps/cgr.python-cve-libs-demo"
+    "github:gabenguyen-ps/cgr.python-cve-libs-demo",
+    "github:gabenguyen-ps/cgr.java-maven-cve-libs-demo",
+    "github:enriquenegri-cyberlaw/boa-cve-2009-4496-analysis"
   ],
   "source_id": "github_trending",
   "stats": {
