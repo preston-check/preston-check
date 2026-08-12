@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-12T15:09:46.682893+00:00",
-  "last_successful_fetch": "2026-08-12T15:09:57.222383+00:00",
+  "last_run": "2026-08-12T17:08:39.699311+00:00",
+  "last_successful_fetch": "2026-08-12T17:08:42.674257+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3178,7 +3178,9 @@
     "github:Knz-source/CVE-2026-23111-POC-noddlenpottato",
     "github:hacbs-release-tests/collectors-no-cve-5da3dad1",
     "github:QM4RS/CVE-2026-0075",
-    "github:TzukuYu/cve-model-research"
+    "github:TzukuYu/cve-model-research",
+    "github:guard-wait/CVE-2026-64563_EXP",
+    "github:686f6c61/POC-CopyEscape-CVE-2026-17106"
   ],
   "source_id": "github_trending",
   "stats": {
