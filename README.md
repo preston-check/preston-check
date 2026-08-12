@@ -356,6 +356,23 @@ echo '~/DEV/preston-check/preston-check.sh --ci --config ~/DEV/preston-check/con
 chmod +x .git/hooks/pre-push
 ```
 
+## AI Add-on (Claude, Llama, Kimi)
+
+Load Preston-Check into any tool-calling LLM as a drop-in add-on: auditor
+personas compiled from the check catalog (strict/balanced/permissive
+postures, plus PCI-DSS, SOC2, ISO-27001, NIST-CSF, CIS-v8 and OWASP
+compliance lenses) and a dependency-free MCP server that exposes the real
+scanner as tools (`scan_path`, `list_checks`, `explain_check`). The
+persona gives the model Preston's judgment; the scanner gives it
+deterministic evidence.
+
+```bash
+claude mcp add preston-check -- python3 /path/to/preston-check/ai-addon/mcp/server.py
+ollama create preston-strict -f ai-addon/personas/ollama/Modelfile.preston-strict
+```
+
+See `ai-addon/README.md` for all loaders and `docs/ai-addon.md` for the design.
+
 ## Adding Custom Checks
 
 Create a new file in `checks/` following the naming convention:
