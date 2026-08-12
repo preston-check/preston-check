@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-12T08:36:40.159850+00:00",
-  "last_successful_fetch": "2026-08-12T08:36:43.230987+00:00",
+  "last_run": "2026-08-12T10:17:09.979276+00:00",
+  "last_successful_fetch": "2026-08-12T10:17:14.662397+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3171,7 +3171,9 @@
     "github:hacbs-release-tests/collectors-no-cve-cfbebd87",
     "github:E-R-Butch/F9360-CVE43499",
     "github:SevvalGurbuz/CVE-research",
-    "github:ahmadsofian/Automated-Vulnerability-Triage-CVE-Enriched-CLI"
+    "github:ahmadsofian/Automated-Vulnerability-Triage-CVE-Enriched-CLI",
+    "github:X3roxDev/cvewatch",
+    "github:hadhub/cve"
   ],
   "source_id": "github_trending",
   "stats": {
