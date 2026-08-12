@@ -72,3 +72,17 @@ Scans always run `--airgap` (no network) and never modify the target.
 ```bash
 python3 ai-addon/mcp/server.py --selftest
 ```
+
+## Distributable package and manual
+
+`MANUAL.md` is the full owner's manual (installation per host, persona
+and tool reference, recipes, troubleshooting). Build the self-contained
+package — scanner + catalog + personas + server + installer + manual
+(PDF included when pandoc/weasyprint are present) — with:
+
+```bash
+python3 tools/build_ai_addon_package.py
+# -> dist/preston-check-ai-addon-<version>.tar.gz (+ .sha256)
+```
+
+End users extract it anywhere and run `./install-ai-addon.sh`.
