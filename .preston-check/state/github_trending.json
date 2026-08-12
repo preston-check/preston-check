@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-12T10:17:09.979276+00:00",
-  "last_successful_fetch": "2026-08-12T10:17:14.662397+00:00",
+  "last_run": "2026-08-12T11:54:58.287413+00:00",
+  "last_successful_fetch": "2026-08-12T11:55:02.531622+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3173,7 +3173,8 @@
     "github:SevvalGurbuz/CVE-research",
     "github:ahmadsofian/Automated-Vulnerability-Triage-CVE-Enriched-CLI",
     "github:X3roxDev/cvewatch",
-    "github:hadhub/cve"
+    "github:hadhub/cve",
+    "github:IlhomjonR/PluckCMS-CSRF-RCE"
   ],
   "source_id": "github_trending",
   "stats": {
