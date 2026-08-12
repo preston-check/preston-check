@@ -325,7 +325,7 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Preston Security Audit
       run: |
         chmod +x ./tools/preston-check/preston-check.sh ./tools/preston-check/checks/*.sh

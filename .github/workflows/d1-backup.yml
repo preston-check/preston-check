@@ -33,10 +33,10 @@ jobs:
             echo "::notice::Cloudflare secrets not configured -- skipping D1 backup."
           fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: steps.check.outputs.configured == 'true'
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         if: steps.check.outputs.configured == 'true'
         with:
           node-version: '20'

@@ -45,7 +45,7 @@ jobs:
             echo "::notice::Cloudflare secrets not configured -- skipping customer deploy."
           fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: steps.check.outputs.configured == 'true'
 
       - name: Stage customer bundle
@@ -80,7 +80,7 @@ jobs:
             printf '/api/*\n  Cache-Control: no-store\n'
           } > out/_headers
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         if: steps.check.outputs.configured == 'true'
         with:
           node-version: '20'

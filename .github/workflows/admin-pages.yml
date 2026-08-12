@@ -43,7 +43,7 @@ jobs:
             echo "::notice::Set CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID in repo secrets to enable."
           fi
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         if: steps.check.outputs.configured == 'true'
 
       - name: Stage admin bundle
@@ -70,7 +70,7 @@ jobs:
           } > out/_headers
           ls -R out/ | head -30
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         if: steps.check.outputs.configured == 'true'
         with:
           node-version: '20'
