@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-12T06:23:56.090878+00:00",
-  "last_successful_fetch": "2026-08-12T06:24:00.056375+00:00",
+  "last_run": "2026-08-12T08:36:40.159850+00:00",
+  "last_successful_fetch": "2026-08-12T08:36:43.230987+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3165,7 +3165,13 @@
     "github:usernamevnq/CVEs",
     "github:4chech/CVE-2022-3590",
     "github:srushtinb/nvd-cve",
-    "github:showyano04/cve-daily-report"
+    "github:showyano04/cve-daily-report",
+    "github:aramosf/CVE-2026-68138",
+    "github:hacbs-release-tests/collectors-no-cve-47a4dfe9",
+    "github:hacbs-release-tests/collectors-no-cve-cfbebd87",
+    "github:E-R-Butch/F9360-CVE43499",
+    "github:SevvalGurbuz/CVE-research",
+    "github:ahmadsofian/Automated-Vulnerability-Triage-CVE-Enriched-CLI"
   ],
   "source_id": "github_trending",
   "stats": {
