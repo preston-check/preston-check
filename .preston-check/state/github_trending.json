@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-13T10:18:41.184913+00:00",
-  "last_successful_fetch": "2026-08-13T10:18:44.616839+00:00",
+  "last_run": "2026-08-13T11:55:32.102290+00:00",
+  "last_successful_fetch": "2026-08-13T11:55:35.683528+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3209,7 +3209,18 @@
     "github:i1naya/cvety",
     "github:josephfarah-ciso/CVE-2026-9999-exploit",
     "github:Hunt-Benito/the-sanitizer-is-the-weapon-cve-2026-68749-cve-2026-68750-quadratic-dos-in-elixir-html-sanitize-ex",
-    "github:HQ1995/Grok-Build-0days"
+    "github:HQ1995/Grok-Build-0days",
+    "github:hacbs-release-tests/collectors-no-cve-d2ea7aa4",
+    "github:hacbs-release-tests/collectors-no-cve-aa8d02ba",
+    "github:hochspot1-dotcom/cvetochniyray",
+    "github:chengbochuan3/CVE-Windows-Protocol",
+    "github:chengbochuan3/CVE-Network-Device",
+    "github:chengbochuan3/CVE-Enterprise-Software",
+    "github:chengbochuan3/CVE-CICD-Security",
+    "github:chengbochuan3/CVE-Confluence",
+    "github:chengbochuan3/CVE-Web-Framework",
+    "github:chengbochuan3/CVE-Apache-Ecosystem",
+    "github:hacbs-release-tests/collectors-no-cve-b184e84c"
   ],
   "source_id": "github_trending",
   "stats": {
