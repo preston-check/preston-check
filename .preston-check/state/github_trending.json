@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-13T17:07:55.218496+00:00",
-  "last_successful_fetch": "2026-08-13T17:07:58.883742+00:00",
+  "last_run": "2026-08-13T19:15:45.005224+00:00",
+  "last_successful_fetch": "2026-08-13T19:15:48.618608+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3228,7 +3228,12 @@
     "github:markostevanovic050/cvecara_splendor",
     "github:OmriBaso/SCCM-CVE-2026-47301-Remote-Code-Execution-Exploit",
     "github:HORKimhab/CVE-2026-53413",
-    "github:WHOISshuvam/ivia-cve-pocs"
+    "github:WHOISshuvam/ivia-cve-pocs",
+    "github:olaffx/clipwire",
+    "github:Jevon1999/cve-notifier",
+    "github:Oncillaa/cve-scanner",
+    "github:securezeron/cve_reports",
+    "github:CVEs-Labs/CVE-2026-21877"
   ],
   "source_id": "github_trending",
   "stats": {
