@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-13T06:40:14.103085+00:00",
-  "last_successful_fetch": "2026-08-13T06:40:16.748885+00:00",
+  "last_run": "2026-08-13T08:40:11.198013+00:00",
+  "last_successful_fetch": "2026-08-13T08:40:14.613265+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3200,7 +3200,14 @@
     "github:chengbochuan3/CVE-Learn",
     "github:Rat5ak/CVE-2026-66804-CrossDevice-Service-EoP",
     "github:enhansome/enhansome-cve-poc",
-    "github:akhila-guruju/cve-scanner"
+    "github:akhila-guruju/cve-scanner",
+    "github:0xBlackash/CVE-2026-72898",
+    "github:hacbs-release-tests/collectors-no-cve-09e1d95f",
+    "github:hacbs-release-tests/collectors-no-cve-c9a7eac8",
+    "github:hacbs-release-tests/collectors-no-cve-39ac0d77",
+    "github:Type010/cve-2025-21479-iqoo11pro",
+    "github:i1naya/cvety",
+    "github:josephfarah-ciso/CVE-2026-9999-exploit"
   ],
   "source_id": "github_trending",
   "stats": {
