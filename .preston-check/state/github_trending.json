@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-13T05:00:01.160249+00:00",
-  "last_successful_fetch": "2026-08-13T05:00:04.103599+00:00",
+  "last_run": "2026-08-13T06:40:14.103085+00:00",
+  "last_successful_fetch": "2026-08-13T06:40:16.748885+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3199,7 +3199,8 @@
     "github:Cec1c/CVE-CPAMP",
     "github:chengbochuan3/CVE-Learn",
     "github:Rat5ak/CVE-2026-66804-CrossDevice-Service-EoP",
-    "github:enhansome/enhansome-cve-poc"
+    "github:enhansome/enhansome-cve-poc",
+    "github:akhila-guruju/cve-scanner"
   ],
   "source_id": "github_trending",
   "stats": {
