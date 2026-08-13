@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-12T23:54:13.419061+00:00",
-  "last_successful_fetch": "2026-08-12T23:54:16.145760+00:00",
+  "last_run": "2026-08-13T02:40:45.054769+00:00",
+  "last_successful_fetch": "2026-08-13T02:40:47.856514+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3188,7 +3188,11 @@
     "github:enriquenegri-cyberlaw/boa-cve-2009-4496-analysis",
     "github:andrewlinuxadmin/ocp-cve",
     "github:MaximilianoMeyer/cve_monitor",
-    "github:aramosf/CVE-2026-24031"
+    "github:aramosf/CVE-2026-24031",
+    "github:1563669740/CVE-ATTACK-EvidenceChain",
+    "github:hacbs-release-tests/collectors-no-cve-57eba2f5",
+    "github:hacbs-release-tests/collectors-no-cve-3c4e694e",
+    "github:shinyoungyou/cve_lookup"
   ],
   "source_id": "github_trending",
   "stats": {
