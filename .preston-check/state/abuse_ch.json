@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-13T22:02:00.942645+00:00",
-  "last_successful_fetch": "2026-08-13T22:02:00.943353+00:00",
+  "last_run": "2026-08-13T22:57:03.620705+00:00",
+  "last_successful_fetch": "2026-08-13T22:57:03.621416+00:00",
   "processed_ids": [
-    "threatfox:quiltlegacy.net",
-    "threatfox:c4nrz428.gregoryschreiercabinetmaker.com",
-    "threatfox:g5u8gksz.federationofpbos.org",
-    "threatfox:pcwhlb.qummy-group.com",
-    "threatfox:38.55.145.42:8081",
     "threatfox:38.55.145.42:80",
     "threatfox:38.55.145.42:443",
     "threatfox:rybmyip.osbratstvojedinstvo.com",
@@ -5001,7 +4996,12 @@
     "threatfox:end-now.org",
     "threatfox:http://offdrer.click:8811/imports",
     "threatfox:47.236.130.154:2095",
-    "threatfox:103.83.87.158:4040"
+    "threatfox:103.83.87.158:4040",
+    "threatfox:asturiasferreteria.com",
+    "threatfox:daacadelectric.co.ke",
+    "threatfox:dorsaroofandbuild.com",
+    "threatfox:dvkspgroup.com",
+    "threatfox:bauleitung-mallorca.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
