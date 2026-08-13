@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-13T19:15:45.005224+00:00",
-  "last_successful_fetch": "2026-08-13T19:15:48.618608+00:00",
+  "last_run": "2026-08-13T20:57:19.724863+00:00",
+  "last_successful_fetch": "2026-08-13T20:57:22.841358+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3233,7 +3233,12 @@
     "github:Jevon1999/cve-notifier",
     "github:Oncillaa/cve-scanner",
     "github:securezeron/cve_reports",
-    "github:CVEs-Labs/CVE-2026-21877"
+    "github:CVEs-Labs/CVE-2026-21877",
+    "github:CVEasy/cveasy-mcp",
+    "github:ozcanpng/CVE-2026-73673",
+    "github:PerfectPoH/cve-2019-10070-apache-atlas-xss",
+    "github:besh0x79/CVEGrimoire",
+    "github:s-amnajafri/CVE-2021-41773-Apache-Lab"
   ],
   "source_id": "github_trending",
   "stats": {
