@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-13T22:56:59.320712+00:00",
-  "last_successful_fetch": "2026-08-13T22:57:02.992819+00:00",
+  "last_run": "2026-08-13T23:53:00.934152+00:00",
+  "last_successful_fetch": "2026-08-13T23:53:03.837209+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3243,7 +3243,11 @@
     "github:hacbs-release-tests/collectors-no-cve-637ddad9",
     "github:hacbs-release-tests/collectors-no-cve-f4b5efdb",
     "github:pimpamebanihah/cve-2026-43499-app.so",
-    "github:pimpamebanihah/cve-2026-43499-app.s0"
+    "github:pimpamebanihah/cve-2026-43499-app.s0",
+    "github:blacktop/cves",
+    "github:hacbs-release-tests/collectors-no-cve-0575bb6d",
+    "github:charlenenicer/cve-reachability-agent",
+    "github:elshanmammadoov/CVE-PoC-School-Management-System-PHP-XSS"
   ],
   "source_id": "github_trending",
   "stats": {
