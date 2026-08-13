@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-13T15:09:36.243058+00:00",
-  "last_successful_fetch": "2026-08-13T15:09:39.553208+00:00",
+  "last_run": "2026-08-13T17:07:55.218496+00:00",
+  "last_successful_fetch": "2026-08-13T17:07:58.883742+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3227,7 +3227,8 @@
     "github:sonalisarkar-2003/FTP-vsFTPD-CVE-2011-2523-VAPT-Report",
     "github:markostevanovic050/cvecara_splendor",
     "github:OmriBaso/SCCM-CVE-2026-47301-Remote-Code-Execution-Exploit",
-    "github:HORKimhab/CVE-2026-53413"
+    "github:HORKimhab/CVE-2026-53413",
+    "github:WHOISshuvam/ivia-cve-pocs"
   ],
   "source_id": "github_trending",
   "stats": {
