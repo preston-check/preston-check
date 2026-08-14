@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-14T16:01:38.682784+00:00",
-  "last_successful_fetch": "2026-08-14T16:01:38.683956+00:00",
+  "last_run": "2026-08-14T17:05:41.394433+00:00",
+  "last_successful_fetch": "2026-08-14T17:05:41.395401+00:00",
   "processed_ids": [
-    "threatfox:streamsurge.site",
-    "threatfox:http://2.26.252.48:8080/gate/handshake",
-    "threatfox:http://2.26.252.48:8080/gate/complete",
     "threatfox:http://2.26.252.48:8080/gate/chunk",
     "threatfox:sribcag.starfishdancestudio.com",
     "threatfox:starfishdancestudio.com",
@@ -5001,7 +4998,10 @@
     "threatfox:111.170.148.132:443",
     "threatfox:111.170.148.132:80",
     "threatfox:62.85.24.150:8808",
-    "threatfox:https://wvtransportes.com.br/"
+    "threatfox:https://wvtransportes.com.br/",
+    "threatfox:104.234.168.143:443",
+    "threatfox:111.170.148.132:8888",
+    "threatfox:68.64.181.23:19999"
   ],
   "source_id": "abuse_ch",
   "stats": {

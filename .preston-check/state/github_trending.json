@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-14T16:01:34.529202+00:00",
-  "last_successful_fetch": "2026-08-14T16:01:38.299546+00:00",
+  "last_run": "2026-08-14T17:05:37.993720+00:00",
+  "last_successful_fetch": "2026-08-14T17:05:40.868588+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3280,7 +3280,9 @@
     "github:SANR01/CVE-2021-41773-Exploit-Lab",
     "github:hacbs-release-tests/collectors-no-cve-cdef321e",
     "github:Kentox493/CVE-2026-42945_NginxRift",
-    "github:lxxexxbxx/CVE-2026-33017"
+    "github:lxxexxbxx/CVE-2026-33017",
+    "github:hacbs-release-tests/collectors-no-cve-91c00404",
+    "github:madhavanthwal2004-creator/scanner_cve_project679"
   ],
   "source_id": "github_trending",
   "stats": {
