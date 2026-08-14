@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-14T18:03:36.206930+00:00",
-  "last_successful_fetch": "2026-08-14T18:03:36.207641+00:00",
+  "last_run": "2026-08-14T19:09:15.663173+00:00",
+  "last_successful_fetch": "2026-08-14T19:09:15.663963+00:00",
   "processed_ids": [
-    "threatfox:https://2.26.96.192/upload",
-    "threatfox:2.26.96.192:443",
-    "threatfox:154.221.25.38:443",
-    "threatfox:83.229.123.185:443",
-    "threatfox:110.42.64.35:80",
-    "threatfox:zyzdto.storia-riferimenti.org",
-    "threatfox:wcsfgwq.springsconstruction.net",
-    "threatfox:storia-riferimenti.org",
-    "threatfox:springsconstruction.net",
     "threatfox:186.241.125.215:22",
     "threatfox:104.243.47.67:8080",
     "threatfox:95.169.1.103:8443",
@@ -5001,7 +4992,16 @@
     "threatfox:7xonfe62.en-usa-sugarmute.us",
     "threatfox:https://vuaketdinh.com/",
     "threatfox:sys32.ch",
-    "threatfox:qeecqeu6.go-neuroxen.com"
+    "threatfox:qeecqeu6.go-neuroxen.com",
+    "threatfox:45.66.248.156:7443",
+    "threatfox:43.143.118.200:8084",
+    "threatfox:43.143.118.200:8443",
+    "threatfox:gtg-tobacco.de",
+    "threatfox:https://nu7.sm188dadu.top/",
+    "threatfox:nu7.sm188dadu.top",
+    "threatfox:https://nu7.10001slot.org/",
+    "threatfox:nu7.10001slot.org",
+    "threatfox:111.170.148.132:60000"
   ],
   "source_id": "abuse_ch",
   "stats": {
