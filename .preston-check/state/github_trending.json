@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-14T13:34:33.186754+00:00",
-  "last_successful_fetch": "2026-08-14T13:34:36.526593+00:00",
+  "last_run": "2026-08-14T15:02:58.790039+00:00",
+  "last_successful_fetch": "2026-08-14T15:03:01.877412+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3271,7 +3271,11 @@
     "github:hacbs-release-tests/collectors-no-cve-e1e93c51",
     "github:intenz/cvescan-web",
     "github:intenz/cvescan-api",
-    "github:neverendingsupport/cve-curriculum"
+    "github:neverendingsupport/cve-curriculum",
+    "github:Kentox493/CVE-2026-46300_Fragnesia",
+    "github:oxstussz-eng/Kerberos-CVE-2026-27912",
+    "github:hacbs-release-tests/collectors-no-cve-80861ce7",
+    "github:aramosf/CVE-2026-54433"
   ],
   "source_id": "github_trending",
   "stats": {
