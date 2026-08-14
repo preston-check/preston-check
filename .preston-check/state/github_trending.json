@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-14T04:57:37.183114+00:00",
-  "last_successful_fetch": "2026-08-14T04:57:39.851016+00:00",
+  "last_run": "2026-08-14T06:23:29.148402+00:00",
+  "last_successful_fetch": "2026-08-14T06:23:32.207707+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3253,7 +3253,9 @@
     "github:hacbs-release-tests/collectors-no-cve-35daba89",
     "github:Bugel/cve-2026-43499-m3q-azf1",
     "github:yqhao-2002/cvebench2tb",
-    "github:lr-elaina520/cve-analysis"
+    "github:lr-elaina520/cve-analysis",
+    "github:Aisultan05/wordpress-cve-benchmark",
+    "github:hayunfa/CVE_Checker"
   ],
   "source_id": "github_trending",
   "stats": {
