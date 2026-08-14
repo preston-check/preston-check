@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-14T17:05:41.394433+00:00",
-  "last_successful_fetch": "2026-08-14T17:05:41.395401+00:00",
+  "last_run": "2026-08-14T18:03:36.206930+00:00",
+  "last_successful_fetch": "2026-08-14T18:03:36.207641+00:00",
   "processed_ids": [
-    "threatfox:http://2.26.252.48:8080/gate/chunk",
-    "threatfox:sribcag.starfishdancestudio.com",
-    "threatfox:starfishdancestudio.com",
-    "threatfox:asyfrainvite.cyou",
-    "threatfox:144.202.88.116:8443",
     "threatfox:https://2.26.96.192/upload",
     "threatfox:2.26.96.192:443",
     "threatfox:154.221.25.38:443",
@@ -5001,7 +4996,12 @@
     "threatfox:https://wvtransportes.com.br/",
     "threatfox:104.234.168.143:443",
     "threatfox:111.170.148.132:8888",
-    "threatfox:68.64.181.23:19999"
+    "threatfox:68.64.181.23:19999",
+    "threatfox:o0hs8g3u.web-sighttfresh.com",
+    "threatfox:7xonfe62.en-usa-sugarmute.us",
+    "threatfox:https://vuaketdinh.com/",
+    "threatfox:sys32.ch",
+    "threatfox:qeecqeu6.go-neuroxen.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
