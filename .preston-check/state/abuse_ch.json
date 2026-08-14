@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-14T20:40:03.514550+00:00",
-  "last_successful_fetch": "2026-08-14T20:40:03.515730+00:00",
+  "last_run": "2026-08-14T21:35:38.627168+00:00",
+  "last_successful_fetch": "2026-08-14T21:35:38.628042+00:00",
   "processed_ids": [
-    "threatfox:qxowqwa.theriveroaks1603.com",
-    "threatfox:theriveroaks1603.com",
-    "threatfox:n7u8r9di.romeroautodetails.com",
-    "threatfox:pik.tb88cuka.top",
-    "threatfox:oqavsq.sunvalleysurf.com",
     "threatfox:freshmorningdew.top",
     "threatfox:sunvalleysurf.com",
     "threatfox:rgiisgy.thelovebugsband.com",
@@ -5001,7 +4996,12 @@
     "threatfox:fos41h2r.app8k.xyz",
     "threatfox:http://topxgax.click:4930/files",
     "threatfox:http://mrlketo.shop:8932/messages",
-    "threatfox:http://vexdico.shop:8539/images"
+    "threatfox:http://vexdico.shop:8539/images",
+    "threatfox:xp2v23h9.goldalignn.com",
+    "threatfox:64.94.84.119:8080",
+    "threatfox:64.94.84.119:443",
+    "threatfox:64.94.84.119:80",
+    "threatfox:https://89.167.3.143"
   ],
   "source_id": "abuse_ch",
   "stats": {
