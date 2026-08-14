@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-14T10:13:42.258252+00:00",
-  "last_successful_fetch": "2026-08-14T10:13:45.776062+00:00",
+  "last_run": "2026-08-14T11:53:04.608032+00:00",
+  "last_successful_fetch": "2026-08-14T11:53:08.582228+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3260,7 +3260,11 @@
     "github:hacbs-release-tests/collectors-no-cve-1e1556d7",
     "github:hacbs-release-tests/collectors-no-cve-0a016a2c",
     "github:WAz1nR9/CVE",
-    "github:khoile1806/CVE-Hunt"
+    "github:khoile1806/CVE-Hunt",
+    "github:Jsluev/deti-vmesto-cvetov",
+    "github:hacbs-release-tests/collectors-no-cve-3d2d08a7",
+    "github:harshal561/cve-analysis-lab",
+    "github:Limingxi6/cve-2020-9373-netgear-r6400"
   ],
   "source_id": "github_trending",
   "stats": {
