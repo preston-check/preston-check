@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-08-15T06:53:37.427274+00:00",
-  "last_successful_fetch": "2026-08-15T06:53:37.428264+00:00",
+  "last_run": "2026-08-15T07:38:16.300723+00:00",
+  "last_successful_fetch": "2026-08-15T07:38:16.301428+00:00",
   "processed_ids": [
-    "threatfox:emsaluminium.fr",
-    "threatfox:encofradosamazon.com",
-    "threatfox:helpdesk.pushit.it",
-    "threatfox:joao-martins.com",
-    "threatfox:karmactive.com",
-    "threatfox:libella-wordpress.awebi-lab.com",
     "threatfox:mail.encofradosamazon.com",
     "threatfox:vamoscurtiromelhor.com.br",
     "threatfox:www.museoshaghenbeck.mx",
@@ -5001,7 +4995,13 @@
     "threatfox:mvb.rs",
     "threatfox:bvm9kxn7.gut--drops.com",
     "threatfox:gtmdura4.en-us-slimsplits.com",
-    "threatfox:90uk7unu.eachway-multiplier.com"
+    "threatfox:90uk7unu.eachway-multiplier.com",
+    "threatfox:timelevel12.com",
+    "threatfox:http://mrlketo.shop:8932/images",
+    "threatfox:http://vexdico.shop:8539/events",
+    "threatfox:204.194.53.9:80",
+    "threatfox:204.194.53.9:8443",
+    "threatfox:207.148.126.156:8084"
   ],
   "source_id": "abuse_ch",
   "stats": {
