@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-15T16:36:15.194036+00:00",
-  "last_successful_fetch": "2026-08-15T16:36:19.287952+00:00",
+  "last_run": "2026-08-15T17:30:46.442350+00:00",
+  "last_successful_fetch": "2026-08-15T17:30:49.056408+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3334,7 +3334,10 @@
     "github:Y4y17/CVE",
     "github:CamsShaft/IonStack-S22-cve-2026-43499",
     "github:turab-usmani/cve-backport",
-    "github:CvetkoWebsite/CvetkoGmbHWebsite"
+    "github:CvetkoWebsite/CvetkoGmbHWebsite",
+    "github:0xTerror/CVE-2023-22047-Oracle-PeopleSoft-LFI",
+    "github:0xTerror/CVE-2023-22047---Oracle-PeopleSoft-LFI",
+    "github:oguzylmzx/CVE-2025-64512-pdfminer-PoC"
   ],
   "source_id": "github_trending",
   "stats": {
