@@ -1,8 +1,7 @@
 {
-  "last_run": "2026-08-15T03:49:38.317009+00:00",
-  "last_successful_fetch": "2026-08-15T03:49:38.318007+00:00",
+  "last_run": "2026-08-15T04:41:57.185065+00:00",
+  "last_successful_fetch": "2026-08-15T04:41:57.185965+00:00",
   "processed_ids": [
-    "threatfox:ba77ebc4ee8500a0baaa5e2cddf8076a",
     "threatfox:7997927159d0477fcb755d0befa26ca2",
     "threatfox:3279610d12c4309a5b2fdc7ebc9cfb66",
     "threatfox:974e9a9579927b2935140b6813f89692",
@@ -5001,7 +5000,8 @@
     "threatfox:62.72.59.224:7713",
     "threatfox:http://bravplo.click:7713/reviews",
     "threatfox:meps.co.mz",
-    "threatfox:flexsportpools.com"
+    "threatfox:flexsportpools.com",
+    "threatfox:https://blaze-x.com/"
   ],
   "source_id": "abuse_ch",
   "stats": {
