@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-15T13:38:12.514817+00:00",
-  "last_successful_fetch": "2026-08-15T13:38:15.120780+00:00",
+  "last_run": "2026-08-15T14:33:59.590205+00:00",
+  "last_successful_fetch": "2026-08-15T14:34:02.887282+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3325,7 +3325,11 @@
     "github:YonLiud/CVE-2017-7494",
     "github:yourong-poc/cve-tracker",
     "github:Vivi-Xray/Xray-s-cve-",
-    "github:evdenis/cvehound"
+    "github:evdenis/cvehound",
+    "github:Alixploit22/CVE-2026-6440",
+    "github:dinosn/cve-2026-71362-magento-lab",
+    "github:Alixploit22/CVEX2SHEL",
+    "github:Alixploit22/CVE-2026-53587"
   ],
   "source_id": "github_trending",
   "stats": {
