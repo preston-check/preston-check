@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-15T18:42:59.920477+00:00",
-  "last_successful_fetch": "2026-08-15T18:43:03.019284+00:00",
+  "last_run": "2026-08-15T19:29:36.807218+00:00",
+  "last_successful_fetch": "2026-08-15T19:29:41.069659+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3337,7 +3337,8 @@
     "github:CvetkoWebsite/CvetkoGmbHWebsite",
     "github:0xTerror/CVE-2023-22047-Oracle-PeopleSoft-LFI",
     "github:0xTerror/CVE-2023-22047---Oracle-PeopleSoft-LFI",
-    "github:oguzylmzx/CVE-2025-64512-pdfminer-PoC"
+    "github:oguzylmzx/CVE-2025-64512-pdfminer-PoC",
+    "github:judgedbykira/CVE-2026-20896-Gitea-Authentication-Bypass"
   ],
   "source_id": "github_trending",
   "stats": {

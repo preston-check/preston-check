@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-15T18:43:03.438643+00:00",
-  "last_successful_fetch": "2026-08-15T18:43:03.439708+00:00",
+  "last_run": "2026-08-15T19:29:41.383084+00:00",
+  "last_successful_fetch": "2026-08-15T19:29:41.383772+00:00",
   "processed_ids": [
-    "threatfox:https://ttf.slotmacau188e.top/",
-    "threatfox:ttf.slotmacau188e.top",
-    "threatfox:irical.cogniserge.us",
-    "threatfox:xwnmveu.echoxenweb.us",
-    "threatfox:echoxenweb.us",
     "threatfox:cogniserge.us",
     "threatfox:https://test-project-one-xi-63.vercel.app/api",
     "threatfox:https://ttf.bayototo.org/",
@@ -5001,7 +4996,12 @@
     "threatfox:111.170.148.132:13000",
     "threatfox:quadra.com",
     "threatfox:lpsbdveg.eng-usa--goldalign.com",
-    "threatfox:quantix-finance.pro"
+    "threatfox:quantix-finance.pro",
+    "threatfox:180.76.53.183:4433",
+    "threatfox:106.14.16.18:22",
+    "threatfox:102.117.167.183:7443",
+    "threatfox:sessionx.net",
+    "threatfox:bxb41a9q.federationofpbos.org"
   ],
   "source_id": "abuse_ch",
   "stats": {
