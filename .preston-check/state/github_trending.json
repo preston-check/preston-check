@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-15T05:35:46.773168+00:00",
-  "last_successful_fetch": "2026-08-15T05:35:49.358184+00:00",
+  "last_run": "2026-08-15T06:53:34.467370+00:00",
+  "last_successful_fetch": "2026-08-15T06:53:37.124009+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3304,7 +3304,11 @@
     "github:hacbs-release-tests/collectors-no-cve-9e92e680",
     "github:hacbs-release-tests/collectors-no-cve-5a6e2b80",
     "github:hacbs-release-tests/collectors-no-cve-30016291",
-    "github:fusiondrive/CVE-2026-43499-ZFOLD4"
+    "github:fusiondrive/CVE-2026-43499-ZFOLD4",
+    "github:isukasanuj/CVE-2025-70559",
+    "github:HORKimhab/CVE-RUBY",
+    "github:Induj1/cve-twin",
+    "github:krymszuch-stack/cvelocity"
   ],
   "source_id": "github_trending",
   "stats": {
