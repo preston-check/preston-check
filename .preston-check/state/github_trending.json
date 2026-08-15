@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-15T21:30:54.257147+00:00",
-  "last_successful_fetch": "2026-08-15T21:30:57.372485+00:00",
+  "last_run": "2026-08-15T22:33:41.518272+00:00",
+  "last_successful_fetch": "2026-08-15T22:33:45.289480+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3344,7 +3344,11 @@
     "github:DekaCube/cvector",
     "github:nicoibarburu/CVE-2021-4034",
     "github:opaxial/CVE-2026-9830",
-    "github:SaiTeja-Erukude/CVE-2026-47103-python-statemachine-rce"
+    "github:SaiTeja-Erukude/CVE-2026-47103-python-statemachine-rce",
+    "github:r2qa/CVE-2026-17544",
+    "github:axfinrinner/cvecop",
+    "github:clatriing/cvevhk",
+    "github:SaiTeja-Erukude/CVE-2026-9147-uproot-rce"
   ],
   "source_id": "github_trending",
   "stats": {
