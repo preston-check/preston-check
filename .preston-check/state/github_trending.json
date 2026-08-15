@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-14T23:32:03.834087+00:00",
-  "last_successful_fetch": "2026-08-14T23:32:07.772483+00:00",
+  "last_run": "2026-08-15T01:45:53.724170+00:00",
+  "last_successful_fetch": "2026-08-15T01:45:56.254807+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3295,7 +3295,9 @@
     "github:kubradmrgc/akilli-cve-analizi",
     "github:gaurigoyal615-lgtm/cve-patch-correlator",
     "github:Hsuant/VulnScope",
-    "github:mangetoncompost/cve-2024-1709"
+    "github:mangetoncompost/cve-2024-1709",
+    "github:DuyDuongDuyDuong/CVE-2021-36934-DLL-Hijacking-DFIR-Investigation",
+    "github:DuyDuongDuyDuong/CVE-2024-4577-Exploitation-AsyncRAT-Deployment-DFIR-Investigation"
   ],
   "source_id": "github_trending",
   "stats": {
