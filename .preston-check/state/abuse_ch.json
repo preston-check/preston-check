@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-15T01:45:56.483581+00:00",
-  "last_successful_fetch": "2026-08-15T01:45:56.484768+00:00",
+  "last_run": "2026-08-15T03:00:15.661033+00:00",
+  "last_successful_fetch": "2026-08-15T03:00:15.661956+00:00",
   "processed_ids": [
-    "threatfox:app.malcare.me",
-    "threatfox:https://app.malcare.me/js/pub.min.js",
-    "threatfox:css.xjsx.lol",
     "threatfox:https://enter-pverif-code.info/a29445abc0f12a36",
     "threatfox:https://enter-pverif-code.info/api.php",
     "threatfox:cobbandcocourt.com.au",
@@ -5001,7 +4998,10 @@
     "threatfox:kxkdfydq.crownconnectpk.com",
     "threatfox:jastapway.com",
     "threatfox:arezzofrigo.it",
-    "threatfox:hub4.cdndock.click"
+    "threatfox:hub4.cdndock.click",
+    "threatfox:alpentransitboerse.ch",
+    "threatfox:deryabakbak.com.tr",
+    "threatfox:wc2z5pjy.digeststart.us"
   ],
   "source_id": "abuse_ch",
   "stats": {
