@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-15T07:38:16.300723+00:00",
-  "last_successful_fetch": "2026-08-15T07:38:16.301428+00:00",
+  "last_run": "2026-08-15T08:40:53.219765+00:00",
+  "last_successful_fetch": "2026-08-15T08:40:53.220700+00:00",
   "processed_ids": [
-    "threatfox:mail.encofradosamazon.com",
-    "threatfox:vamoscurtiromelhor.com.br",
-    "threatfox:www.museoshaghenbeck.mx",
     "threatfox:grvzzd.templeofazrael.org",
     "threatfox:templeofazrael.org",
     "threatfox:xpxxxro.tnrautomotive.net",
@@ -5001,7 +4998,10 @@
     "threatfox:http://vexdico.shop:8539/events",
     "threatfox:204.194.53.9:80",
     "threatfox:204.194.53.9:8443",
-    "threatfox:207.148.126.156:8084"
+    "threatfox:207.148.126.156:8084",
+    "threatfox:111.229.216.164:7963",
+    "threatfox:106.15.104.224:1234",
+    "threatfox:5bpers6h.en-en-usa-sightfresh.com"
   ],
   "source_id": "abuse_ch",
   "stats": {

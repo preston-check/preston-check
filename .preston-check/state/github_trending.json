@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-15T07:38:12.829984+00:00",
-  "last_successful_fetch": "2026-08-15T07:38:15.897019+00:00",
+  "last_run": "2026-08-15T08:40:50.200297+00:00",
+  "last_successful_fetch": "2026-08-15T08:40:52.878431+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3310,7 +3310,12 @@
     "github:Induj1/cve-twin",
     "github:krymszuch-stack/cvelocity",
     "github:saaheerpurav/cve-twin",
-    "github:Rinne666/cve"
+    "github:Rinne666/cve",
+    "github:B1ueD0g/cocos-cve-regression-evidence",
+    "github:Gooichand/CVE_Vulnerability_Dashboard_Project",
+    "github:mreza-en/cve-2021-21994_POC",
+    "github:aykhan019/cve-2022-1471-jira-lab",
+    "github:coruna19980101/coruna"
   ],
   "source_id": "github_trending",
   "stats": {
