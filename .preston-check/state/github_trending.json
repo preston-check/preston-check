@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-15T12:54:52.015370+00:00",
-  "last_successful_fetch": "2026-08-15T12:54:54.883105+00:00",
+  "last_run": "2026-08-15T13:38:12.514817+00:00",
+  "last_successful_fetch": "2026-08-15T13:38:15.120780+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3323,7 +3323,9 @@
     "github:harshiys/CVE-2007-2447-Exploitation-SIEM-Detection-Lab",
     "github:mhkh333/ARP-CVE-1000-Dataset",
     "github:YonLiud/CVE-2017-7494",
-    "github:yourong-poc/cve-tracker"
+    "github:yourong-poc/cve-tracker",
+    "github:Vivi-Xray/Xray-s-cve-",
+    "github:evdenis/cvehound"
   ],
   "source_id": "github_trending",
   "stats": {
