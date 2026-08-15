@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-15T10:33:47.967424+00:00",
-  "last_successful_fetch": "2026-08-15T10:33:50.701773+00:00",
+  "last_run": "2026-08-15T11:30:07.969115+00:00",
+  "last_successful_fetch": "2026-08-15T11:30:10.435184+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3318,7 +3318,8 @@
     "github:coruna19980101/coruna",
     "github:4minx/CVE-2026-72898",
     "github:Hunt-Benito/bring-your-own-key-cve-2026-73678-unauthenticated-rce-in-mindsdb-cowork",
-    "github:lionels-cyber/CVE-2024-45519-Zimbra-Real-Fix"
+    "github:lionels-cyber/CVE-2024-45519-Zimbra-Real-Fix",
+    "github:H4zaz/CVE-2026-8793"
   ],
   "source_id": "github_trending",
   "stats": {
