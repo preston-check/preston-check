@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-15T22:33:45.931861+00:00",
-  "last_successful_fetch": "2026-08-15T22:33:45.932678+00:00",
+  "last_run": "2026-08-15T23:30:06.385733+00:00",
+  "last_successful_fetch": "2026-08-15T23:30:06.386990+00:00",
   "processed_ids": [
-    "threatfox:jycatdj.echoxien.com",
-    "threatfox:echoxien.com",
-    "threatfox:vwydbb.cognisurgeusa.com",
-    "threatfox:cognisurgeusa.com",
-    "threatfox:prunarok.lol",
-    "threatfox:wuserrosok.cfd",
-    "threatfox:noabasteb.lol",
     "threatfox:violcuglu.cfd",
     "threatfox:frimwanbav.lol",
     "threatfox:kefaisce.cfd",
@@ -5001,7 +4994,14 @@
     "threatfox:b199f70d109357f81c2f147318b424d91fd635449b19c9610f50e428a0c68e8e",
     "threatfox:jcagence.com",
     "threatfox:7cz5jg6k.enus-goldalign.com",
-    "threatfox:rilzg1u6.shop-sightfresh.com"
+    "threatfox:rilzg1u6.shop-sightfresh.com",
+    "threatfox:http://mrlketo.shop:8932/permissions",
+    "threatfox:66.228.41.52:7567",
+    "threatfox:http://kupzovo.shop:7567/posts",
+    "threatfox:joe.sm188dadu.top",
+    "threatfox:https://joe.sm188dadu.top/",
+    "threatfox:joe.10001slot.org",
+    "threatfox:hmwtez6m.getbraindefender.us"
   ],
   "source_id": "abuse_ch",
   "stats": {
