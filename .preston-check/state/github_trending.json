@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-15T20:34:21.220143+00:00",
-  "last_successful_fetch": "2026-08-15T20:34:24.409455+00:00",
+  "last_run": "2026-08-15T21:30:54.257147+00:00",
+  "last_successful_fetch": "2026-08-15T21:30:57.372485+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3342,7 +3342,9 @@
     "github:SaiTeja-Erukude/CVE-2026-47117-openmed-rce",
     "github:SARTHAK2511/dsh-cve-audit",
     "github:DekaCube/cvector",
-    "github:nicoibarburu/CVE-2021-4034"
+    "github:nicoibarburu/CVE-2021-4034",
+    "github:opaxial/CVE-2026-9830",
+    "github:SaiTeja-Erukude/CVE-2026-47103-python-statemachine-rce"
   ],
   "source_id": "github_trending",
   "stats": {

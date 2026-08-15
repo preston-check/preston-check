@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-15T20:34:24.872957+00:00",
-  "last_successful_fetch": "2026-08-15T20:34:24.874388+00:00",
+  "last_run": "2026-08-15T21:30:57.539015+00:00",
+  "last_successful_fetch": "2026-08-15T21:30:57.539968+00:00",
   "processed_ids": [
-    "threatfox:wwtbgml.en-audizenn.com",
-    "threatfox:en-audizenn.com",
-    "threatfox:lvksnl.diegestistart.com",
     "threatfox:diegestistart.com",
     "threatfox:jvvd7wco.greenestreetchurch.com",
     "threatfox:telemetras.pro",
@@ -5001,7 +4998,10 @@
     "threatfox:143.110.197.12:65000",
     "threatfox:124.198.131.110:56003",
     "threatfox:109.227.57.186:4433",
-    "threatfox:107.173.177.168:56003"
+    "threatfox:107.173.177.168:56003",
+    "threatfox:dt6wrsv7.en-usa-sightfresh.com",
+    "threatfox:172.93.144.140:8580",
+    "threatfox:b199f70d109357f81c2f147318b424d91fd635449b19c9610f50e428a0c68e8e"
   ],
   "source_id": "abuse_ch",
   "stats": {
