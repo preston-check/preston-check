@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-15T03:00:15.661033+00:00",
-  "last_successful_fetch": "2026-08-15T03:00:15.661956+00:00",
+  "last_run": "2026-08-15T03:49:38.317009+00:00",
+  "last_successful_fetch": "2026-08-15T03:49:38.318007+00:00",
   "processed_ids": [
-    "threatfox:https://enter-pverif-code.info/a29445abc0f12a36",
-    "threatfox:https://enter-pverif-code.info/api.php",
-    "threatfox:cobbandcocourt.com.au",
-    "threatfox:173.224.219.231:443",
-    "threatfox:108.181.253.47:443",
-    "threatfox:ftp.4bagh.net",
-    "threatfox:ff709591615a26f037a465ce97cc59d6",
-    "threatfox:1ecaf7098bedaa4ffae0fff3e077f937",
     "threatfox:ba77ebc4ee8500a0baaa5e2cddf8076a",
     "threatfox:7997927159d0477fcb755d0befa26ca2",
     "threatfox:3279610d12c4309a5b2fdc7ebc9cfb66",
@@ -5001,7 +4993,15 @@
     "threatfox:hub4.cdndock.click",
     "threatfox:alpentransitboerse.ch",
     "threatfox:deryabakbak.com.tr",
-    "threatfox:wc2z5pjy.digeststart.us"
+    "threatfox:wc2z5pjy.digeststart.us",
+    "threatfox:v22eqt8a.drubenginecologo.com",
+    "threatfox:milpl8xr.eng-neuroxen.com",
+    "threatfox:bodenindexpunkte.ch",
+    "threatfox:http://vexdico.shop:8539/categories",
+    "threatfox:62.72.59.224:7713",
+    "threatfox:http://bravplo.click:7713/reviews",
+    "threatfox:meps.co.mz",
+    "threatfox:flexsportpools.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
