@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-08-16T04:46:13.674014+00:00",
-  "last_successful_fetch": "2026-08-16T04:46:13.674829+00:00",
+  "last_run": "2026-08-16T05:37:45.429928+00:00",
+  "last_successful_fetch": "2026-08-16T05:37:45.430887+00:00",
   "processed_ids": [
-    "threatfox:gigirestaurant.es",
-    "threatfox:georgebakes.com",
-    "threatfox:editorialsumma.com",
-    "threatfox:dubay-family.de",
     "threatfox:safetyaudits.ai",
     "threatfox:steammasters.pl",
     "threatfox:lisatodd-author.com",
@@ -5001,7 +4997,11 @@
     "threatfox:brandlet.ch",
     "threatfox:docs4apps.com",
     "threatfox:eyupsultanveteriner.com",
-    "threatfox:118.184.173.168:8084"
+    "threatfox:118.184.173.168:8084",
+    "threatfox:101.42.255.92:8001",
+    "threatfox:2.27.63.244:443",
+    "threatfox:p4wao0pc.americaneaglependant.net",
+    "threatfox:americaneaglependant.net"
   ],
   "source_id": "abuse_ch",
   "stats": {
