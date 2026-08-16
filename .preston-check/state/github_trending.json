@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-16T16:37:11.259009+00:00",
-  "last_successful_fetch": "2026-08-16T16:37:15.063937+00:00",
+  "last_run": "2026-08-16T17:29:41.068406+00:00",
+  "last_successful_fetch": "2026-08-16T17:30:07.665159+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3379,7 +3379,10 @@
     "github:RizkyDaffy/cve-mck-2026",
     "github:StackOverflowExcept1on/CVE-2021-36393",
     "github:cvehouse/cvehouse.com",
-    "github:jinyu-eco/cmip6-arctic-cveg"
+    "github:jinyu-eco/cmip6-arctic-cveg",
+    "github:minanagehsalalma/CVE-2026-6837-zyxel-export-cgi-command-injection",
+    "github:minanagehsalalma/zyxel-social-login-bypass-cve-2026-8508",
+    "github:ksdk0905/cvehko"
   ],
   "source_id": "github_trending",
   "stats": {
