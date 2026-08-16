@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-16T08:42:09.199980+00:00",
-  "last_successful_fetch": "2026-08-16T08:42:12.345360+00:00",
+  "last_run": "2026-08-16T09:37:14.271303+00:00",
+  "last_successful_fetch": "2026-08-16T09:37:17.395987+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3360,7 +3360,8 @@
     "github:hacbs-release-tests/collectors-no-cve-42f311f7",
     "github:coruna19980101/darksword",
     "github:hacbs-release-tests/collectors-no-cve-cb254efd",
-    "github:eoniboogie/CVE_Disclosures"
+    "github:eoniboogie/CVE_Disclosures",
+    "github:eh-amish/Windows-Defender-Security-Auditor-CVE-2026-50656-"
   ],
   "source_id": "github_trending",
   "stats": {
