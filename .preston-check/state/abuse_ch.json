@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-16T07:39:31.318284+00:00",
-  "last_successful_fetch": "2026-08-16T07:39:31.319236+00:00",
+  "last_run": "2026-08-16T08:42:12.843920+00:00",
+  "last_successful_fetch": "2026-08-16T08:42:12.845042+00:00",
   "processed_ids": [
-    "threatfox:intercongress.gmbh",
-    "threatfox:avaloneyecare.acedigitalsempire.com",
-    "threatfox:emtec-engineers.com",
     "threatfox:headwayestimating.com",
     "threatfox:corebilling.com",
     "threatfox:animeclub2.com",
@@ -5001,7 +4998,10 @@
     "threatfox:americaneaglependant.us",
     "threatfox:mdckuwait.com",
     "threatfox:marco-elling.de",
-    "threatfox:z8l6eurt.gtacauto.com"
+    "threatfox:z8l6eurt.gtacauto.com",
+    "threatfox:85.17.151.21:55615",
+    "threatfox:augenzentrum-willisau.ch",
+    "threatfox:aefaa46082749a5d322ccada8e12edec3c24e34777db26865d1f357749261e6c"
   ],
   "source_id": "abuse_ch",
   "stats": {
