@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-16T09:37:14.271303+00:00",
-  "last_successful_fetch": "2026-08-16T09:37:17.395987+00:00",
+  "last_run": "2026-08-16T10:34:37.509503+00:00",
+  "last_successful_fetch": "2026-08-16T10:34:40.104874+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3361,7 +3361,10 @@
     "github:coruna19980101/darksword",
     "github:hacbs-release-tests/collectors-no-cve-cb254efd",
     "github:eoniboogie/CVE_Disclosures",
-    "github:eh-amish/Windows-Defender-Security-Auditor-CVE-2026-50656-"
+    "github:eh-amish/Windows-Defender-Security-Auditor-CVE-2026-50656-",
+    "github:snehil00121/Public_CVEs_Exploit",
+    "github:Alixploit22/CVE-2025-11740",
+    "github:v-yun/vuln-report-skill"
   ],
   "source_id": "github_trending",
   "stats": {
