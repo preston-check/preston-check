@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-16T18:42:16.675764+00:00",
-  "last_successful_fetch": "2026-08-16T18:42:16.676628+00:00",
+  "last_run": "2026-08-16T19:29:12.289796+00:00",
+  "last_successful_fetch": "2026-08-16T19:29:12.290432+00:00",
   "processed_ids": [
-    "threatfox:121.5.27.17:443",
-    "threatfox:1302768123-l3a4w496qm.ap-shanghai.tencentscf.com",
-    "threatfox:183.60.226.2:995",
-    "threatfox:124.221.92.3:8085",
-    "threatfox:178.16.52.35:4433",
-    "threatfox:68.178.205.17:7443",
-    "threatfox:enh878lb.fungame777.co",
-    "threatfox:ssjwwje.eng-eng-gutdrops.com",
     "threatfox:eng-eng-gutdrops.com",
     "threatfox:jhmysc.eng--mitoyn.com",
     "threatfox:eng--mitoyn.com",
@@ -5001,7 +4993,15 @@
     "threatfox:console.plan-stack2.click",
     "threatfox:https://rnd.sm188dadu.top/",
     "threatfox:rnd.10001slot.org",
-    "threatfox:rnd.sm188dadu.top"
+    "threatfox:rnd.sm188dadu.top",
+    "threatfox:http://ch737693.tw1.ru/L1nc0In.php",
+    "threatfox:fneoe5ij.ballyflush.us",
+    "threatfox:ballyflush.us",
+    "threatfox:108.174.153.97:7443",
+    "threatfox:101.42.104.134:8082",
+    "threatfox:47.94.224.229:3306",
+    "threatfox:47.94.224.229:21",
+    "threatfox:47.94.224.229:22"
   ],
   "source_id": "abuse_ch",
   "stats": {
