@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-16T20:33:51.689385+00:00",
-  "last_successful_fetch": "2026-08-16T20:33:51.690092+00:00",
+  "last_run": "2026-08-16T21:30:34.288195+00:00",
+  "last_successful_fetch": "2026-08-16T21:30:34.288739+00:00",
   "processed_ids": [
-    "threatfox:004wisu6.habbofutbol.com",
-    "threatfox:eng--nervearmor.com",
-    "threatfox:engnervearmor.com",
-    "threatfox:zirzuuw.eng-sugarmute.us",
-    "threatfox:eng-sugarmute.us",
-    "threatfox:hitstp.com",
-    "threatfox:155.2.192.235:8041",
     "threatfox:njdwpg.eng--nitrilean.com",
     "threatfox:engnitrilean.com",
     "threatfox:bstocks.netlify.app",
@@ -5001,7 +4994,14 @@
     "threatfox:https://samid.com.br/",
     "threatfox:bimba.anix-to.com",
     "threatfox:pava21r5.slimsplits.com",
-    "threatfox:47.122.115.225:13152"
+    "threatfox:47.122.115.225:13152",
+    "threatfox:ping.south-loop.click",
+    "threatfox:tsadd1wd.beast--force.com",
+    "threatfox:2.27.4.236:5552",
+    "threatfox:beast--force.com",
+    "threatfox:https://www.kentertiyatrosu.org/",
+    "threatfox:https://www.mkperinat.com/",
+    "threatfox:moleroos.pro"
   ],
   "source_id": "abuse_ch",
   "stats": {
