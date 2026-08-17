@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-17T03:08:44.081802+00:00",
-  "last_successful_fetch": "2026-08-17T03:08:46.587341+00:00",
+  "last_run": "2026-08-17T04:53:35.592015+00:00",
+  "last_successful_fetch": "2026-08-17T04:53:39.693282+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3405,7 +3405,9 @@
     "github:yacholasser23/cvewlc",
     "github:imfht/cve-cn",
     "github:toanln-cov/CVE-2026-74251",
-    "github:hereticL1nk/EITS-Portal-Exploit-CVE-2026-31367-PoC"
+    "github:hereticL1nk/EITS-Portal-Exploit-CVE-2026-31367-PoC",
+    "github:ahm3dgg/cve-2018-8611",
+    "github:uedhawb/cvehmd"
   ],
   "source_id": "github_trending",
   "stats": {
