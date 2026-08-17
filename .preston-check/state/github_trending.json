@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-17T18:53:30.500140+00:00",
-  "last_successful_fetch": "2026-08-17T18:53:34.653383+00:00",
+  "last_run": "2026-08-17T19:35:51.806090+00:00",
+  "last_successful_fetch": "2026-08-17T19:35:55.050959+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3433,7 +3433,11 @@
     "github:Cognition-Cognizant-Customers/uc-cve-remediation-regulatory-compliance",
     "github:loanvui/CVE-2026-62737",
     "github:CyberAuth/CVE-2026-20079",
-    "github:Ps23102004/cvewatch-local"
+    "github:Ps23102004/cvewatch-local",
+    "github:chhhd/1TEAM-CVE-Analysis-Evaluation-System",
+    "github:jconig/cve-lookup",
+    "github:hacbs-release-tests/collectors-no-cve-818594a1",
+    "github:hacbs-release-tests/collectors-no-cve-03882b2e"
   ],
   "source_id": "github_trending",
   "stats": {
