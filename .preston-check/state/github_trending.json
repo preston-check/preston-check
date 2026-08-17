@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-17T11:35:39.277663+00:00",
-  "last_successful_fetch": "2026-08-17T11:35:43.417588+00:00",
+  "last_run": "2026-08-17T13:02:16.145992+00:00",
+  "last_successful_fetch": "2026-08-17T13:02:19.582678+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3425,7 +3425,8 @@
     "github:BiuTrap/CVE-2026-59310",
     "github:satyamsingh12345/cve-scanner",
     "github:Lulztigre/cve-2026-41042",
-    "github:hacbs-release-tests/collectors-no-cve-5b5d84f8"
+    "github:hacbs-release-tests/collectors-no-cve-5b5d84f8",
+    "github:hacbs-release-tests/collectors-no-cve-141252ff"
   ],
   "source_id": "github_trending",
   "stats": {
