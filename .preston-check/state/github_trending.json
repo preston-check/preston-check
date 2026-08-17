@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-17T01:51:36.822170+00:00",
-  "last_successful_fetch": "2026-08-17T01:52:23.132956+00:00",
+  "last_run": "2026-08-17T03:08:44.081802+00:00",
+  "last_successful_fetch": "2026-08-17T03:08:46.587341+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3400,7 +3400,12 @@
     "github:samirafi/CVE-Severity-Detection-",
     "github:thamhelthak/cvewev",
     "github:bakonblitz-debug/cve-watch",
-    "github:stemshop-top/cve-research"
+    "github:stemshop-top/cve-research",
+    "github:Afrouper/MavenDependencyCVE-Scanner",
+    "github:yacholasser23/cvewlc",
+    "github:imfht/cve-cn",
+    "github:toanln-cov/CVE-2026-74251",
+    "github:hereticL1nk/EITS-Portal-Exploit-CVE-2026-31367-PoC"
   ],
   "source_id": "github_trending",
   "stats": {
