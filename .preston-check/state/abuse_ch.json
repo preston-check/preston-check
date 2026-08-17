@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-17T20:38:14.047359+00:00",
-  "last_successful_fetch": "2026-08-17T20:38:14.048144+00:00",
+  "last_run": "2026-08-17T21:35:11.829441+00:00",
+  "last_successful_fetch": "2026-08-17T21:35:11.830120+00:00",
   "processed_ids": [
-    "threatfox:en-us-goldaligns.com",
-    "threatfox:http://tokjoza.shop:5200/attachments",
-    "threatfox:http://shkpiva.shop:5627/tokens",
-    "threatfox:http://beljaro.shop:2536/accounts",
-    "threatfox:authorljmatin.com",
-    "threatfox:98.191.191.44:8080",
-    "threatfox:91.92.42.22:443",
-    "threatfox:91.92.34.73:43283",
     "threatfox:77.237.97.58:4433",
     "threatfox:31.77.195.32:4321",
     "threatfox:209.99.190.23:56014",
@@ -5001,7 +4993,15 @@
     "threatfox:118.107.5.200:56001",
     "threatfox:118.107.5.200:56002",
     "threatfox:104.243.248.63:401",
-    "threatfox:http://kupzovo.shop:7567/tasks"
+    "threatfox:http://kupzovo.shop:7567/tasks",
+    "threatfox:designtrustventures.co.ke",
+    "threatfox:i79y6sn0.snaptigen.com",
+    "threatfox:60.204.204.24:5000",
+    "threatfox:154.201.95.162:8886",
+    "threatfox:172.93.221.193:22",
+    "threatfox:https://games.ccsam.ca/",
+    "threatfox:diesinggemeinschaft.de",
+    "threatfox:om6q0drg.eng-usa-slimsounds.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
