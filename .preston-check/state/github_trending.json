@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-17T22:35:44.551975+00:00",
-  "last_successful_fetch": "2026-08-17T22:35:47.647547+00:00",
+  "last_run": "2026-08-17T23:32:25.537839+00:00",
+  "last_successful_fetch": "2026-08-17T23:32:28.135601+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3443,7 +3443,9 @@
     "github:yacholasser23/cvesmy",
     "github:IlhomjonR/CVE-2026-70376",
     "github:IlhomjonR/CVE-2026-71518",
-    "github:securifera/CVE-2026-20217"
+    "github:securifera/CVE-2026-20217",
+    "github:HORKimhab/CVE-2026-15826-CVE-2026-15748",
+    "github:lenhahot/cvemus"
   ],
   "source_id": "github_trending",
   "stats": {
