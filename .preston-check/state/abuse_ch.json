@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-17T05:45:57.079328+00:00",
-  "last_successful_fetch": "2026-08-17T05:45:57.080425+00:00",
+  "last_run": "2026-08-17T07:11:56.267763+00:00",
+  "last_successful_fetch": "2026-08-17T07:11:56.268678+00:00",
   "processed_ids": [
-    "threatfox:217.60.241.48:424",
-    "threatfox:130.12.182.79:418",
-    "threatfox:130.12.182.79:425",
-    "threatfox:217.60.241.48:418",
-    "threatfox:217.60.241.31:418",
-    "threatfox:217.60.241.50:418",
-    "threatfox:217.60.241.31:419",
-    "threatfox:217.60.241.48:419",
-    "threatfox:217.60.241.50:419",
     "threatfox:217.60.241.48:428",
     "threatfox:217.60.241.50:428",
     "threatfox:217.60.241.31:428",
@@ -5001,7 +4992,16 @@
     "threatfox:belly--flush.us",
     "threatfox:156.251.16.29:7800",
     "threatfox:156.251.16.29:7811",
-    "threatfox:https://62.238.59.215"
+    "threatfox:https://62.238.59.215",
+    "threatfox:47.108.140.10:8088",
+    "threatfox:114.132.46.254:9001",
+    "threatfox:120.79.192.53:80",
+    "threatfox:glaube.li",
+    "threatfox:cem.mesoptik.com",
+    "threatfox:185.34.147.32:80",
+    "threatfox:34.150.91.139:443",
+    "threatfox:allmobiletools.net",
+    "threatfox:s570wlpz.us-us-us-goldalign.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
