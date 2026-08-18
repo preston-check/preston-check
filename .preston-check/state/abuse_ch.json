@@ -1,9 +1,7 @@
 {
-  "last_run": "2026-08-18T17:37:39.633479+00:00",
-  "last_successful_fetch": "2026-08-18T17:37:39.634735+00:00",
+  "last_run": "2026-08-18T18:52:40.625151+00:00",
+  "last_successful_fetch": "2026-08-18T18:52:40.626034+00:00",
   "processed_ids": [
-    "threatfox:pacificrimindustries.com.au",
-    "threatfox:217.60.195.187:7075",
     "threatfox:151.241.154.218:2021",
     "threatfox:wkblxv.shop-thyrafemmebalance.com",
     "threatfox:104.249.10.187:7004",
@@ -5001,7 +4999,9 @@
     "threatfox:gpbohyg5.greaternewzionbc.org",
     "threatfox:infodatalis.com",
     "threatfox:telemetryloop.net",
-    "threatfox:ukwearstore.org"
+    "threatfox:ukwearstore.org",
+    "threatfox:glara.info",
+    "threatfox:3.80.49.187:7443"
   ],
   "source_id": "abuse_ch",
   "stats": {
