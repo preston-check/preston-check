@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-18T16:44:39.471784+00:00",
-  "last_successful_fetch": "2026-08-18T16:44:42.483902+00:00",
+  "last_run": "2026-08-18T17:37:36.153942+00:00",
+  "last_successful_fetch": "2026-08-18T17:37:39.173850+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3479,7 +3479,11 @@
     "github:typedefabcd1234ntd/CVE-2026-19501-poc",
     "github:ksotaria1337/CVE-2026-19598",
     "github:VelesSecurity/CVE-2021-1675-PrintNightmare-Analysis",
-    "github:albarbaro/cve-ink"
+    "github:albarbaro/cve-ink",
+    "github:hacbs-release-tests/collectors-no-cve-1a1a2aa1",
+    "github:bahaash2004/CVE-Dataset-Curator",
+    "github:hacbs-release-tests/collectors-no-cve-29f55ac3",
+    "github:hacbs-release-tests/collectors-no-cve-b85d6019"
   ],
   "source_id": "github_trending",
   "stats": {
