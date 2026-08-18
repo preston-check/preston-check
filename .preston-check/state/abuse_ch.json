@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-08-18T05:39:37.932439+00:00",
-  "last_successful_fetch": "2026-08-18T05:39:37.933486+00:00",
+  "last_run": "2026-08-18T06:59:47.043600+00:00",
+  "last_successful_fetch": "2026-08-18T06:59:47.044514+00:00",
   "processed_ids": [
-    "threatfox:en-us-slimsplitsmethod.com",
-    "threatfox:cpvmfg.com",
-    "threatfox:37.120.146.146:37393",
-    "threatfox:104.249.130.248:5960",
-    "threatfox:onboard.radiantfluxstudio.com",
-    "threatfox:foxybridge.ch",
-    "threatfox:46.183.218.151:37393",
-    "threatfox:185.14.92.102:443",
-    "threatfox:llasvij.en-us-odizen.com",
-    "threatfox:196.251.121.163:14555",
     "threatfox:ynbfqi.enus-synaptigen.com",
     "threatfox:enus-synaptigen.com",
     "threatfox:5.223.80.130:318",
@@ -5001,7 +4991,17 @@
     "threatfox:detallesbordados.com",
     "threatfox:evolvevss.com",
     "threatfox:seniorcarenation.com",
-    "threatfox:ss2e-conseil.com"
+    "threatfox:ss2e-conseil.com",
+    "threatfox:pro-alps.ch",
+    "threatfox:hnf94jta.get-goldalign.com",
+    "threatfox:http://vexdico.shop:8539/transactions",
+    "threatfox:http://202.9.122.47:36267/Mozi.m",
+    "threatfox:http://36.255.33.118:34346/Mozi.m",
+    "threatfox:103.236.84.103:443",
+    "threatfox:117.72.159.96:22",
+    "threatfox:110.42.255.63:9999",
+    "threatfox:143.198.84.165:8443",
+    "threatfox:whale-complex.site"
   ],
   "source_id": "abuse_ch",
   "stats": {
