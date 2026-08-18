@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-18T11:34:56.962261+00:00",
-  "last_successful_fetch": "2026-08-18T11:35:01.054666+00:00",
+  "last_run": "2026-08-18T13:03:58.936571+00:00",
+  "last_successful_fetch": "2026-08-18T13:04:01.862762+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3461,7 +3461,11 @@
     "github:hacbs-release-tests/collectors-no-cve-4a942eb5",
     "github:hacbs-release-tests/collectors-no-cve-a9ccb64f",
     "github:Neeraj-301224/cver_magazine_scraping",
-    "github:sidvootla/cve-vulnerability-analysis"
+    "github:sidvootla/cve-vulnerability-analysis",
+    "github:gitchw/ghostlock-cve-2026-43499",
+    "github:EnzoCeron/cve-management-system",
+    "github:VOE9/cve-explain",
+    "github:leegal1992/cve-tracker-db"
   ],
   "source_id": "github_trending",
   "stats": {
