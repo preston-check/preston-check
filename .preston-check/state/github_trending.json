@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-18T01:46:57.342301+00:00",
-  "last_successful_fetch": "2026-08-18T01:46:59.920405+00:00",
+  "last_run": "2026-08-18T03:05:10.636724+00:00",
+  "last_successful_fetch": "2026-08-18T03:05:21.201739+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3449,7 +3449,9 @@
     "github:linux-tools/vivo_iqoo_neo_9_root_research_on_CVE-2025-21479",
     "github:EQSTLab/CVE-2026-60004",
     "github:HORKimhab/CVE-2026-65400",
-    "github:andykrohg/acs-cve-plugin"
+    "github:andykrohg/acs-cve-plugin",
+    "github:cipher131/cve-exploit-mapper",
+    "github:test3cd3wqe/CVE-2026-69099-poc"
   ],
   "source_id": "github_trending",
   "stats": {

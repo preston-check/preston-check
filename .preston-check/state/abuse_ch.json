@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-18T01:47:00.183840+00:00",
-  "last_successful_fetch": "2026-08-18T01:47:00.184614+00:00",
+  "last_run": "2026-08-18T03:05:21.444313+00:00",
+  "last_successful_fetch": "2026-08-18T03:05:21.444982+00:00",
   "processed_ids": [
-    "threatfox:55f6b5e510fe2149eb713cce3aa68ec07d313c12",
-    "threatfox:fd7cee5a13218f6d00b40e85579c6f4b4f06d5432b9fb785b0b81f8547c197f4",
-    "threatfox:eb63f8a9af89d85b71ca649ed826c4244aa81e39",
     "threatfox:ae9893c7a60b298f3f45b85726e09a98",
     "threatfox:6c8ee646afb6b19ade6af5333c52c5263103f949",
     "threatfox:2be02d3def1b116c668cc84e628e2065",
@@ -5001,7 +4998,10 @@
     "threatfox:noproblimmo-by-nathanael.com",
     "threatfox:mechbot.ch",
     "threatfox:perfectcoupe.ch",
-    "threatfox:myhandyplus.com"
+    "threatfox:myhandyplus.com",
+    "threatfox:sensducollectif.fr",
+    "threatfox:142.4.58.48:1223",
+    "threatfox:kl9usd0a.federationofpbos.org"
   ],
   "source_id": "abuse_ch",
   "stats": {
