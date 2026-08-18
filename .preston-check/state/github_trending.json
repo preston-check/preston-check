@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-18T21:34:00.743808+00:00",
-  "last_successful_fetch": "2026-08-18T21:34:03.956630+00:00",
+  "last_run": "2026-08-18T22:36:22.564117+00:00",
+  "last_successful_fetch": "2026-08-18T22:36:26.441188+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3494,7 +3494,9 @@
     "github:hacbs-release-tests/collectors-no-cve-cbcf3f60",
     "github:hacbs-release-tests/collectors-no-cve-627de41a",
     "github:sundarrr22/cve-triage-agent",
-    "github:AC8999/CVE-2025-5880"
+    "github:AC8999/CVE-2025-5880",
+    "github:codeb0ssx/CVE-2026-64849-PoC",
+    "github:Boreas37/CVE-2026-44848-PoC"
   ],
   "source_id": "github_trending",
   "stats": {
