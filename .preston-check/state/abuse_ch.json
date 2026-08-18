@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-08-18T03:05:21.444313+00:00",
-  "last_successful_fetch": "2026-08-18T03:05:21.444982+00:00",
+  "last_run": "2026-08-18T03:54:51.245573+00:00",
+  "last_successful_fetch": "2026-08-18T03:54:51.246220+00:00",
   "processed_ids": [
-    "threatfox:ae9893c7a60b298f3f45b85726e09a98",
-    "threatfox:6c8ee646afb6b19ade6af5333c52c5263103f949",
-    "threatfox:2be02d3def1b116c668cc84e628e2065",
-    "threatfox:24d5d3e5095d9bd866d657c646d5c4035e64315c7ba3c17b230415f0bef8c0d3",
-    "threatfox:2ac9f75fc9bc14e8f57e319630c3f9dde3a814f5",
-    "threatfox:a65f533d10703afcd9cc1210ca559b75",
-    "threatfox:45c985d787b9f8730c4b05555f8ecf28f9c58f0948c5180108ca185441ab145a",
-    "threatfox:ee8bd9222c943d35f0702143c7606aef6a62b229ffc109a468537322e917a9e1",
-    "threatfox:fdb6448a3ac57e511a53cda07945be8f",
-    "threatfox:893cf55eb5c958896580854b7f5c44e1",
     "threatfox:f02eb5040f50f5bdade4c2a2114ec43c33bdf4a7fd9051f9f7d411eb50b1474e",
     "threatfox:35170d38f2089910e6dc71ea9a2fd202f6dd2736",
     "threatfox:a6a6674d13230442f10b0b6663a5e659f9d3a072b8e575fd332baa5ff685a1d6",
@@ -5001,7 +4991,17 @@
     "threatfox:myhandyplus.com",
     "threatfox:sensducollectif.fr",
     "threatfox:142.4.58.48:1223",
-    "threatfox:kl9usd0a.federationofpbos.org"
+    "threatfox:kl9usd0a.federationofpbos.org",
+    "threatfox:associacaoconfianca.org.br",
+    "threatfox:solothurn-stadtfuehrungen.ch",
+    "threatfox:royalscandalcinema.ch",
+    "threatfox:pedze.ch",
+    "threatfox:stewart-brown-events.com",
+    "threatfox:scherler-so.ch",
+    "threatfox:rooj.fr",
+    "threatfox:groupelavorent.ch",
+    "threatfox:111.170.148.132:18000",
+    "threatfox:109.248.160.184:22"
   ],
   "source_id": "abuse_ch",
   "stats": {
