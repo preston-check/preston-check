@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-18T22:36:27.221513+00:00",
-  "last_successful_fetch": "2026-08-18T22:36:27.222823+00:00",
+  "last_run": "2026-08-18T23:31:51.012591+00:00",
+  "last_successful_fetch": "2026-08-18T23:31:51.013724+00:00",
   "processed_ids": [
-    "threatfox:185.100.87.43:443",
-    "threatfox:35ac7fd4f6a4a0c5205bc8ded0e95e8b",
-    "threatfox:53189d7078ad0dafd0839c7abae6e7341fa231534d7679d55b4eb926a815f9e3",
-    "threatfox:9a3663d69557c443d7b9a78d56e17a5a9c2c52fc",
-    "threatfox:50b31d5497e5ddfc759cbd45e0fe1e3e65206e14",
-    "threatfox:9d8769b7f24569f7354e9e02edb7da70",
-    "threatfox:30775e2858200f6e4c8fe45afd8a9668",
-    "threatfox:9ad28b6bfe14bc39c7d39dcd8a14bc8de2bc82440bf987195282cd8da6b01e21",
-    "threatfox:517911f9c99ca4a108b8ef55a7ebb146df64115645c11a414acfa12e7ef13d21",
     "threatfox:bd303a671cea5856574bd25e00abb2e66ffb4cea",
     "threatfox:6e0b578df775a68eb99ec013b51f79500a185fdf",
     "threatfox:e0c8055d7614d54fbd58c39fec94bfb9",
@@ -5001,7 +4992,16 @@
     "threatfox:coachgaetan.ch",
     "threatfox:batoille.ch",
     "threatfox:orsi-demenagement.ch",
-    "threatfox:physiotherapie-baden.ch"
+    "threatfox:physiotherapie-baden.ch",
+    "threatfox:xn--alpentransitbrse-ywb.ch",
+    "threatfox:essencewellnessclinic.co.nz",
+    "threatfox:schoeb-holzbau.ch",
+    "threatfox:u9rna55z.us-theslimsplitsmethod.com",
+    "threatfox:clean-wp.com",
+    "threatfox:47.94.224.229:888",
+    "threatfox:dolceresio.ch",
+    "threatfox:vacunacionlibre.org",
+    "threatfox:getmybooze.co.nz"
   ],
   "source_id": "abuse_ch",
   "stats": {
