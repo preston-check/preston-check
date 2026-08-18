@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-18T07:48:59.890825+00:00",
-  "last_successful_fetch": "2026-08-18T07:49:03.164791+00:00",
+  "last_run": "2026-08-18T08:50:00.970940+00:00",
+  "last_successful_fetch": "2026-08-18T08:50:03.854700+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3455,7 +3455,10 @@
     "github:burjoy/CVE-2024-40275_Scanner",
     "github:suominen/CVE-2026-68138",
     "github:davkharrr/CVE-2026-19478-PoC",
-    "github:1neptune/ShieldBreak"
+    "github:1neptune/ShieldBreak",
+    "github:hacbs-release-tests/collectors-no-cve-fd4849ab",
+    "github:hacbs-release-tests/collectors-no-cve-eff04e08",
+    "github:hacbs-release-tests/collectors-no-cve-4a942eb5"
   ],
   "source_id": "github_trending",
   "stats": {
