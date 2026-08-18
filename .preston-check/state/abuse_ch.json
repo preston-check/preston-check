@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-18T03:54:51.245573+00:00",
-  "last_successful_fetch": "2026-08-18T03:54:51.246220+00:00",
+  "last_run": "2026-08-18T04:46:48.095450+00:00",
+  "last_successful_fetch": "2026-08-18T04:46:48.096073+00:00",
   "processed_ids": [
-    "threatfox:f02eb5040f50f5bdade4c2a2114ec43c33bdf4a7fd9051f9f7d411eb50b1474e",
-    "threatfox:35170d38f2089910e6dc71ea9a2fd202f6dd2736",
-    "threatfox:a6a6674d13230442f10b0b6663a5e659f9d3a072b8e575fd332baa5ff685a1d6",
-    "threatfox:0c20fb53da56369ffb8c90706b8d1c05e76fc3e0",
-    "threatfox:123.207.203.20:55501",
-    "threatfox:117.24.4.112:4521",
-    "threatfox:bztmkx.en-us-slimsounds.com",
     "threatfox:en-us-slimsounds.com",
     "threatfox:enus-sleeplean.us",
     "threatfox:poc.sm188auto.top",
@@ -5001,7 +4994,14 @@
     "threatfox:rooj.fr",
     "threatfox:groupelavorent.ch",
     "threatfox:111.170.148.132:18000",
-    "threatfox:109.248.160.184:22"
+    "threatfox:109.248.160.184:22",
+    "threatfox:http://kupzovo.shop:7567/transactions",
+    "threatfox:http://mrlketo.shop:8932/posts",
+    "threatfox:110.42.255.63:3000",
+    "threatfox:110.42.255.63:9000",
+    "threatfox:109.176.19.75:8081",
+    "threatfox:111.231.172.132:3389",
+    "threatfox:5efvflg4.en-en-usa-sightfresh.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
