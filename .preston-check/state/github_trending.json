@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-19T21:35:23.741591+00:00",
-  "last_successful_fetch": "2026-08-19T21:35:43.005141+00:00",
+  "last_run": "2026-08-19T22:36:04.959184+00:00",
+  "last_successful_fetch": "2026-08-19T22:36:16.613477+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3555,7 +3555,8 @@
     "github:Rajzamal/CVE-Disclosures",
     "github:Master-Mind-007/CVE-Intel-Bot",
     "github:Begitdj/cve-2019-2215-markw",
-    "github:tahseen-fatima01/cve-exploit-tool"
+    "github:tahseen-fatima01/cve-exploit-tool",
+    "github:VivianUba/grandstream-cve-2026-2329-analysis"
   ],
   "source_id": "github_trending",
   "stats": {
