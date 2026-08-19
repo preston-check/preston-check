@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-19T19:34:17.291615+00:00",
-  "last_successful_fetch": "2026-08-19T19:34:20.723476+00:00",
+  "last_run": "2026-08-19T20:39:33.787368+00:00",
+  "last_successful_fetch": "2026-08-19T20:39:36.804336+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3550,7 +3550,12 @@
     "github:hacbs-release-tests/collectors-no-cve-d2a69f72",
     "github:hacbs-release-tests/collectors-no-cve-8e65a328",
     "github:ViterVPoli/cve-risk-risk-reporter",
-    "github:superb24ED/cve_scanner"
+    "github:superb24ED/cve_scanner",
+    "github:alimuraat/CVE",
+    "github:Rajzamal/CVE-Disclosures",
+    "github:Master-Mind-007/CVE-Intel-Bot",
+    "github:Begitdj/cve-2019-2215-markw",
+    "github:tahseen-fatima01/cve-exploit-tool"
   ],
   "source_id": "github_trending",
   "stats": {
