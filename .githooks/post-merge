@@ -1,0 +1,32 @@
+#!/bin/bash
+# Post-merge hook: refresh the shared blockchain-sources export after a pull.
+#
+# The threat-intel pipeline's RSS feed-discovery job (rss-feed-discovery.yml)
+# commits new feeds to tools/ingest_sources.py in CI. When you `git pull` those
+# commits, this hook regenerates the canonical blockchain feed list and the
+# synced copy in the sibling wallet-verify repo — so feeds added by automation
+# reach wallet-verify too, not just the ones you add by hand.
+#
+# Non-fatal by design: every failure path swallows its error.
+#
+# Active only when this clone has opted into .githooks:
+#   git config --local core.hooksPath .githooks
+
+set -uo pipefail
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+
+# ORIG_HEAD is the pre-merge tip; compare the merged range. If the diff or
+# ORIG_HEAD is unavailable for any reason, fall back to regenerating anyway.
+if git rev-parse --verify --quiet ORIG_HEAD >/dev/null 2>&1; then
+    if ! git diff-tree -r --name-only ORIG_HEAD HEAD 2>/dev/null | grep -q '^tools/ingest_sources\.py$'; then
+        exit 0
+    fi
+fi
+
+if ! command -v python3 >/dev/null 2>&1; then
+    exit 0
+fi
+
+python3 "$ROOT/tools/export_sources.py" --quiet || true
+exit 0

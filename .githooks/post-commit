@@ -1,0 +1,29 @@
+#!/bin/bash
+# Post-commit hook: refresh the shared blockchain-sources export.
+#
+# When a commit touches the feed registry (tools/ingest_sources.py), regenerate
+# the canonical blockchain feed list and the synced copy in the sibling
+# wallet-verify repo, so the shared list stays current "as you add" feeds.
+#
+# Non-fatal by design: post-commit cannot abort a commit, and every failure
+# path swallows its error so a missing python3 or absent wallet-verify checkout
+# never disrupts your workflow.
+#
+# Active only when this clone has opted into .githooks:
+#   git config --local core.hooksPath .githooks
+
+set -uo pipefail
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)" || exit 0
+
+# Only act when the just-made commit changed the feed registry.
+if ! git diff-tree --no-commit-id --name-only -r HEAD 2>/dev/null | grep -q '^tools/ingest_sources\.py$'; then
+    exit 0
+fi
+
+if ! command -v python3 >/dev/null 2>&1; then
+    exit 0
+fi
+
+python3 "$ROOT/tools/export_sources.py" --quiet || true
+exit 0

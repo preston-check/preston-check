@@ -55,3 +55,30 @@ For a multi-collaborator setup, a stronger control is GitHub-side
 ruleset path protection; install that and the hook becomes
 redundant (but not harmful — defense in depth). See
 `docs/threat-intel-pipeline-design.md` for the broader threat model.
+
+### `post-commit` and `post-merge`
+
+Keep the shared blockchain feed export in sync with the feed registry.
+Both hooks watch `tools/ingest_sources.py` and, when it changes, run
+`python3 tools/export_sources.py --quiet` to regenerate the canonical
+blockchain feed list and the synced copy in the sibling `wallet-verify`
+repo.
+
+- `post-commit` fires after you commit a change to the feed registry
+  (e.g. you add a blockchain RSS feed by hand).
+- `post-merge` fires after `git pull`/merge brings in registry changes
+  — notably the commits that `rss-feed-discovery.yml` makes in CI — so
+  feeds added by automation reach `wallet-verify` too.
+
+Behaviour:
+
+- Commits/merges that don't touch `tools/ingest_sources.py`: hooks exit
+  silently.
+- Both hooks are strictly non-fatal: a missing `python3` or an absent
+  `wallet-verify` checkout is swallowed, never disrupting your commit or
+  merge.
+
+The generated files are gitignored in both repos (local-only), so these
+hooks never produce anything that gets committed. To refresh manually at
+any time: `python3 tools/export_sources.py`. See `docs/shared-sources.md`
+for the full design.
