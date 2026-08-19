@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-19T10:40:17.466100+00:00",
-  "last_successful_fetch": "2026-08-19T10:40:21.221891+00:00",
+  "last_run": "2026-08-19T11:35:15.951098+00:00",
+  "last_successful_fetch": "2026-08-19T11:35:18.625673+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3526,7 +3526,8 @@
     "github:hacbs-release-tests/collectors-no-cve-6a8fd1e2",
     "github:bebarossi/grav-cve-2024-28116",
     "github:pemarine/cve-2026-41940-PoC",
-    "github:realstatus/CVE-2026-47858"
+    "github:realstatus/CVE-2026-47858",
+    "github:MattiaCervelli/CVE-2025-24893_Analysis"
   ],
   "source_id": "github_trending",
   "stats": {
