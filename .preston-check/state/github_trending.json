@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-19T01:49:00.792745+00:00",
-  "last_successful_fetch": "2026-08-19T01:49:03.869927+00:00",
+  "last_run": "2026-08-19T03:07:01.657852+00:00",
+  "last_successful_fetch": "2026-08-19T03:07:05.641383+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3497,7 +3497,8 @@
     "github:AC8999/CVE-2025-5880",
     "github:codeb0ssx/CVE-2026-64849-PoC",
     "github:Boreas37/CVE-2026-44848-PoC",
-    "github:BiuTrap/CVE-2026-64849"
+    "github:BiuTrap/CVE-2026-64849",
+    "github:MHermosillo7/CVE-Project"
   ],
   "source_id": "github_trending",
   "stats": {
