@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-19T07:01:19.217063+00:00",
-  "last_successful_fetch": "2026-08-19T07:01:22.685086+00:00",
+  "last_run": "2026-08-19T07:49:25.210010+00:00",
+  "last_successful_fetch": "2026-08-19T07:49:28.417097+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3511,7 +3511,10 @@
     "github:HORKimhab/CVE-2024-8068-CVE-2024-8069",
     "github:Superman-L/CVE-2026-16723",
     "github:SUDO-PANIC6/CVE-a35-A356EXXSADZG2",
-    "github:diandiandia/cve-ghsa-draft"
+    "github:diandiandia/cve-ghsa-draft",
+    "github:HORKimhab/CVE-2026-73072",
+    "github:kittysanto/cvemnp",
+    "github:pengaov/cveuxm"
   ],
   "source_id": "github_trending",
   "stats": {
