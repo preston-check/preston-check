@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-08-19T03:56:58.327522+00:00",
-  "last_successful_fetch": "2026-08-19T03:56:58.328856+00:00",
+  "last_run": "2026-08-19T04:47:28.801798+00:00",
+  "last_successful_fetch": "2026-08-19T04:47:28.802657+00:00",
   "processed_ids": [
-    "threatfox:5d7722b943f00885e36f4753fd1f38c4f27fa413",
-    "threatfox:4d90b1e99d379183f7d5c6d7f4652a60",
-    "threatfox:83c5950a60b559579b88052b0072868f",
-    "threatfox:498666399cb1eafb5e8e2998d430ab67bccfa7b511e8bcb6be5011b09548eac4",
     "threatfox:b7cc6e2011a2ed201c231ffd31f7def2fcbda2a3",
     "threatfox:0c727b71e15797ea16dc3ff98641b67d5dea0b101965711276a72bc03d2ebec3",
     "threatfox:sight-fresh.net",
@@ -5001,7 +4997,11 @@
     "threatfox:124.222.128.197:8084",
     "threatfox:183.60.226.2:7000",
     "threatfox:zemgeneve.ch",
-    "threatfox:ilgiardinodeibambini.ch"
+    "threatfox:ilgiardinodeibambini.ch",
+    "threatfox:galfetti.ch",
+    "threatfox:47.108.86.120:80",
+    "threatfox:47.108.86.120:8080",
+    "threatfox:47.108.86.120:443"
   ],
   "source_id": "abuse_ch",
   "stats": {
