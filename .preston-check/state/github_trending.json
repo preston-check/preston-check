@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-19T13:04:50.229467+00:00",
-  "last_successful_fetch": "2026-08-19T13:04:54.742017+00:00",
+  "last_run": "2026-08-19T13:54:09.368183+00:00",
+  "last_successful_fetch": "2026-08-19T13:54:13.806123+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3529,7 +3529,9 @@
     "github:realstatus/CVE-2026-47858",
     "github:MattiaCervelli/CVE-2025-24893_Analysis",
     "github:actions-marketplace-validations/CVector-Energy_claude-code-session",
-    "github:HackSpeak/CVE-2026-53365"
+    "github:HackSpeak/CVE-2026-53365",
+    "github:queria/cvelistV5-partial-test",
+    "github:andreamammano89-maker/CVE-2021-42013_821311"
   ],
   "source_id": "github_trending",
   "stats": {
