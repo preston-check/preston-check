@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-08-19T20:39:37.492894+00:00",
-  "last_successful_fetch": "2026-08-19T20:39:37.494358+00:00",
+  "last_run": "2026-08-19T21:35:43.709743+00:00",
+  "last_successful_fetch": "2026-08-19T21:35:43.710924+00:00",
   "processed_ids": [
-    "threatfox:176.98.182.217:8443",
-    "threatfox:160.119.71.134:2",
-    "threatfox:160.119.71.134:2049",
-    "threatfox:160.119.71.134:23",
-    "threatfox:http://105.184.49.165:53813/Mozi.m",
-    "threatfox:http://36.70.68.244:54909/Mozi.m",
     "threatfox:http://115.50.94.75:59466/Mozi.m",
     "threatfox:118.195.158.209:8083",
     "threatfox:43.143.118.200:22",
@@ -5001,7 +4995,13 @@
     "threatfox:sci-lumiere.ci",
     "threatfox:noise.lat",
     "threatfox:grupoplivesa.com",
-    "threatfox:grvt.lat"
+    "threatfox:grvt.lat",
+    "threatfox:https://agendaurbanaribeira.gal/",
+    "threatfox:el9ozjuh.cardislim.com",
+    "threatfox:cardislim.com",
+    "threatfox:aranmap.com",
+    "threatfox:theta-coaching.world",
+    "threatfox:agroindustriaadl.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
