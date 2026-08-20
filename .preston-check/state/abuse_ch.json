@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-20T18:55:06.746427+00:00",
-  "last_successful_fetch": "2026-08-20T18:55:06.747692+00:00",
+  "last_run": "2026-08-20T19:39:16.107621+00:00",
+  "last_successful_fetch": "2026-08-20T19:39:16.108654+00:00",
   "processed_ids": [
-    "threatfox:byz.sm188dadu.top",
-    "threatfox:https://byz.sm188dadu.top/",
-    "threatfox:byz.10001slot.org",
-    "threatfox:https://byz.10001slot.org/",
-    "threatfox:bungeefly.ch",
-    "threatfox:20.215.224.217:7000",
-    "threatfox:156.239.47.245:3232",
-    "threatfox:31.171.131.250:7443",
-    "threatfox:danneventhire.com.au",
     "threatfox:contabjf.com.br",
     "threatfox:colorvinaccia.it",
     "threatfox:ka3xwdti.en-us-superbrain.com",
@@ -5001,7 +4992,16 @@
     "threatfox:restaurantsawadika.ca",
     "threatfox:nadiaspeaks.com",
     "threatfox:a8ps09r7.easybatteryfixed.us",
-    "threatfox:easybatteryfixed.us"
+    "threatfox:easybatteryfixed.us",
+    "threatfox:burn-burnblend.com",
+    "threatfox:apartments-review261634860.sbs",
+    "threatfox:osuna.ch",
+    "threatfox:dbagroup.cl",
+    "threatfox:129.211.11.213:8888",
+    "threatfox:129.211.11.213:443",
+    "threatfox:124.221.47.107:22",
+    "threatfox:124.221.47.107:8080",
+    "threatfox:fdl-int.ch"
   ],
   "source_id": "abuse_ch",
   "stats": {

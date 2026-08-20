@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-20T18:55:02.612068+00:00",
-  "last_successful_fetch": "2026-08-20T18:55:06.090680+00:00",
+  "last_run": "2026-08-20T19:39:12.789150+00:00",
+  "last_successful_fetch": "2026-08-20T19:39:15.897768+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3599,7 +3599,12 @@
     "github:johnnyuppet/cvefkb",
     "github:ghostpels/CVE-2026-18366",
     "github:7cvega15-code/7cvega15-code",
-    "github:elkhaoudari/CVE-2018-7600-PoC"
+    "github:elkhaoudari/CVE-2018-7600-PoC",
+    "github:dodeepsink/CVE-2026-39987.py",
+    "github:uskovaflame-code/cvety",
+    "github:nischaldinesh/kg_agent_cve_attack_graph",
+    "github:LuisMagagnien/plataforma-open-cve.io",
+    "github:credibledata/cve-malloy-demo"
   ],
   "source_id": "github_trending",
   "stats": {
