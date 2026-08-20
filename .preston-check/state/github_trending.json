@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-20T13:57:28.062164+00:00",
-  "last_successful_fetch": "2026-08-20T13:57:33.956395+00:00",
+  "last_run": "2026-08-20T14:49:10.280290+00:00",
+  "last_successful_fetch": "2026-08-20T14:49:14.364116+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3587,7 +3587,8 @@
     "github:hacbs-release-tests/collectors-no-cve-1b08167c",
     "github:K0NGR3SS/cve-signal",
     "github:Cxyofficial/k50g-pocof4gt-cve-2026-43499-test",
-    "github:ahmetalperx/dp-cvep-speller"
+    "github:ahmetalperx/dp-cvep-speller",
+    "github:chiricktheseal/bsc_thesis_adaptive_classification_cVEP"
   ],
   "source_id": "github_trending",
   "stats": {
