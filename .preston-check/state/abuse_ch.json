@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-08-20T21:37:55.896798+00:00",
-  "last_successful_fetch": "2026-08-20T21:37:55.897771+00:00",
+  "last_run": "2026-08-20T22:39:24.716524+00:00",
+  "last_successful_fetch": "2026-08-20T22:39:24.717258+00:00",
   "processed_ids": [
-    "threatfox:f191f756996a14a11e5445fa7103d302efd510cf2fbf920e6c0c8ed51d512e36",
-    "threatfox:bezelek.shop",
-    "threatfox:ajnfqs.com",
-    "threatfox:ogtqavytw.usa--us-audizen.com",
-    "threatfox:usa--us-audizen.com",
-    "threatfox:fortuneskyline.app",
     "threatfox:rhoneassetservices.ch",
     "threatfox:effectsaesthetics.com",
     "threatfox:https://lagerraum-mieten-luzern.ch/",
@@ -5001,7 +4995,13 @@
     "threatfox:82.39.109.102:8090",
     "threatfox:https://ksr-racingparts.com/",
     "threatfox:v19k5zdn.cogniclyr.com",
-    "threatfox:cogniclyr.com"
+    "threatfox:cogniclyr.com",
+    "threatfox:106.54.41.209:22",
+    "threatfox:43.134.42.247:8080",
+    "threatfox:129.211.11.213:8443",
+    "threatfox:tlvg.ch",
+    "threatfox:isl4eo0i.echo--free.com",
+    "threatfox:echo--free.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
