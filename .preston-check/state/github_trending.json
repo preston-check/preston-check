@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-20T04:48:04.286861+00:00",
-  "last_successful_fetch": "2026-08-20T04:48:08.399478+00:00",
+  "last_run": "2026-08-20T05:41:33.867518+00:00",
+  "last_successful_fetch": "2026-08-20T05:41:37.419948+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3567,7 +3567,10 @@
     "github:googs1025/hwpoc",
     "github:nitish1402/httpclient5-cve-lab",
     "github:ahntenna/cvepass",
-    "github:magabut/cvechecker"
+    "github:magabut/cvechecker",
+    "github:Tristanlimyr/custom_cvector",
+    "github:Hz-zH299/cve-reproduce-reports",
+    "github:harshal561/CVE-Analysis-Lab"
   ],
   "source_id": "github_trending",
   "stats": {
