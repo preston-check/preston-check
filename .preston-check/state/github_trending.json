@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-20T15:45:11.156379+00:00",
-  "last_successful_fetch": "2026-08-20T15:45:13.919777+00:00",
+  "last_run": "2026-08-20T16:47:23.881190+00:00",
+  "last_successful_fetch": "2026-08-20T16:47:27.231620+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3590,7 +3590,9 @@
     "github:ahmetalperx/dp-cvep-speller",
     "github:chiricktheseal/bsc_thesis_adaptive_classification_cVEP",
     "github:Hunt-Benito/the-same-key-opens-every-box-cve-2026-71960-hard-coded-jwt-secret-in-cudy-wr3000-mesh-mqtt",
-    "github:hacbs-release-tests/collectors-no-cve-b0783a0b"
+    "github:hacbs-release-tests/collectors-no-cve-b0783a0b",
+    "github:Yel1oww/n8n-Docker-CVE-Watch",
+    "github:schultzjennifer6723/cvedvm"
   ],
   "source_id": "github_trending",
   "stats": {
