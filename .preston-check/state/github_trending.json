@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-20T16:47:23.881190+00:00",
-  "last_successful_fetch": "2026-08-20T16:47:27.231620+00:00",
+  "last_run": "2026-08-20T17:40:00.599619+00:00",
+  "last_successful_fetch": "2026-08-20T17:40:04.325301+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3592,7 +3592,10 @@
     "github:Hunt-Benito/the-same-key-opens-every-box-cve-2026-71960-hard-coded-jwt-secret-in-cudy-wr3000-mesh-mqtt",
     "github:hacbs-release-tests/collectors-no-cve-b0783a0b",
     "github:Yel1oww/n8n-Docker-CVE-Watch",
-    "github:schultzjennifer6723/cvedvm"
+    "github:schultzjennifer6723/cvedvm",
+    "github:nastar-id/CVE-2026-18315-PoC",
+    "github:hotgluexyz/tap-cvent",
+    "github:bugrabastaban/securehub-cve-rag"
   ],
   "source_id": "github_trending",
   "stats": {
