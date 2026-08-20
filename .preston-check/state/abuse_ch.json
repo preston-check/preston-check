@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-08-20T03:06:34.605171+00:00",
-  "last_successful_fetch": "2026-08-20T03:06:34.606478+00:00",
+  "last_run": "2026-08-20T03:56:24.178575+00:00",
+  "last_successful_fetch": "2026-08-20T03:56:24.180121+00:00",
   "processed_ids": [
-    "threatfox:https://gonznlez.surf/api/v1/verify",
-    "threatfox:a9d1561ed0d23a5473d68069337e2f8e7862f7b72b74251eb63ccc883ba9459f",
-    "threatfox:albexmoving.se",
-    "threatfox:68.183.221.133:8080",
-    "threatfox:https://eko.sm188dadu.top/",
-    "threatfox:eko.sm188dadu.top",
-    "threatfox:47.76.217.146:8885",
-    "threatfox:8.163.2.81:8443",
-    "threatfox:192.229.96.31:9000",
-    "threatfox:https://eko.10001slot.org/",
     "threatfox:eko.10001slot.org",
     "threatfox:123.56.83.34:8083",
     "threatfox:beatricemoren.se",
@@ -5001,7 +4991,17 @@
     "threatfox:services-froid-climatisation-guyane.fr",
     "threatfox:lincoln-barbershop.fr",
     "threatfox:https://richplusglobal.com/",
-    "threatfox:121.127.253.206:8856"
+    "threatfox:121.127.253.206:8856",
+    "threatfox:nkht88l2.bio--dentix.com",
+    "threatfox:bio--dentix.com",
+    "threatfox:osflx2hg.eng-eng-slimsounds.com",
+    "threatfox:https://sci-lumiere.ci/",
+    "threatfox:http://kupzovo.shop:7567/webhooks",
+    "threatfox:papillon-international.ch",
+    "threatfox:43.99.86.192:443",
+    "threatfox:34.124.183.110:8080",
+    "threatfox:prophavengh.com",
+    "threatfox:suarezleonseguridad.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
