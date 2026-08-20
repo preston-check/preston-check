@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-20T08:51:32.502549+00:00",
-  "last_successful_fetch": "2026-08-20T08:51:36.022062+00:00",
+  "last_run": "2026-08-20T09:46:16.504817+00:00",
+  "last_successful_fetch": "2026-08-20T09:46:20.028223+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3576,7 +3576,8 @@
     "github:magikh0e/CVEs",
     "github:IISI-2001001/sentinel-cve",
     "github:hacbs-release-tests/collectors-no-cve-b6756d94",
-    "github:anirbala98/CVE-2026-67206"
+    "github:anirbala98/CVE-2026-67206",
+    "github:rhysarla2-art/CVE-severity-slm"
   ],
   "source_id": "github_trending",
   "stats": {
