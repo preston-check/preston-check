@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-08-20T10:41:49.039274+00:00",
-  "last_successful_fetch": "2026-08-20T10:41:49.040203+00:00",
+  "last_run": "2026-08-20T11:37:12.660049+00:00",
+  "last_successful_fetch": "2026-08-20T11:37:12.660996+00:00",
   "processed_ids": [
-    "threatfox:71aa9766db343fa5de8e83e8d8eef912df3f7396116cd7ceef34631dd46ea2ad",
-    "threatfox:aebc9415806e19d1ba80c52a3f56e6d179f4533719de573858dd000a16e39445",
-    "threatfox:912fec8feb08f3d12c55a727e281ab1481f4ca78",
-    "threatfox:3ccbd54fd6fdc48aa373f711e5605d4dc43ed0ffd889affc3a6f54a121f0fb1c",
-    "threatfox:8d79eac22a55b1fcd24d1554ebfb1754593fb884",
-    "threatfox:88fc68ca8feb4f6f92ebbbe209aac64f",
     "threatfox:dcc8ef83e4e3d049623a9332af88ec089668b257",
     "threatfox:874d95b5c266401f5d397312ee0d604f",
     "threatfox:45b50d177e9f8a01f4f0c33c2dfff5563fa85efe",
@@ -5001,7 +4995,13 @@
     "threatfox:80.190.77.86:8008",
     "threatfox:4.193.136.143:443",
     "threatfox:109.227.40.60:4433",
-    "threatfox:104.243.248.63:84"
+    "threatfox:104.243.248.63:84",
+    "threatfox:https://freedomfamiliesfoundation.org/",
+    "threatfox:oaq1h9w2.crownconnectpk.com",
+    "threatfox:sie5uyp7.brn-peak.net",
+    "threatfox:brn-peak.net",
+    "threatfox:lslmt39k.app8k.xyz",
+    "threatfox:eskacangtvri.com"
   ],
   "source_id": "abuse_ch",
   "stats": {

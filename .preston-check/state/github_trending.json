@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-20T10:41:46.065925+00:00",
-  "last_successful_fetch": "2026-08-20T10:41:48.791824+00:00",
+  "last_run": "2026-08-20T11:36:58.933065+00:00",
+  "last_successful_fetch": "2026-08-20T11:37:12.287548+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3579,7 +3579,11 @@
     "github:anirbala98/CVE-2026-67206",
     "github:rhysarla2-art/CVE-severity-slm",
     "github:NoNFake/cve-cli",
-    "github:lanicer/cve-2026-41940-PoC"
+    "github:lanicer/cve-2026-41940-PoC",
+    "github:hacbs-release-tests/collectors-no-cve-2f4260d9",
+    "github:hacbs-release-tests/collectors-no-cve-6b16e595",
+    "github:hacbs-release-tests/collectors-no-cve-50ab7641",
+    "github:hacbs-release-tests/collectors-no-cve-cc5590b4"
   ],
   "source_id": "github_trending",
   "stats": {
