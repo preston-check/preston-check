@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-20T11:37:12.660049+00:00",
-  "last_successful_fetch": "2026-08-20T11:37:12.660996+00:00",
+  "last_run": "2026-08-20T13:07:25.630707+00:00",
+  "last_successful_fetch": "2026-08-20T13:07:25.631958+00:00",
   "processed_ids": [
-    "threatfox:dcc8ef83e4e3d049623a9332af88ec089668b257",
-    "threatfox:874d95b5c266401f5d397312ee0d604f",
-    "threatfox:45b50d177e9f8a01f4f0c33c2dfff5563fa85efe",
-    "threatfox:12e9d8974b6021e549b309d3bb4828b2",
-    "threatfox:b68c10aec5bd9bf2d0e9824f9567a15dae7aa324611fbd3ca0bff6eeea16facc",
-    "threatfox:ec33eec246480c76716f671989cf9f88",
-    "threatfox:9dd9b279ae65e62914145778f8cdb5b8f7625b923d6d962de7e95d4a3bd621bc",
-    "threatfox:7cc5a4e4fc0916abe5e6d7fb53498690",
-    "threatfox:c195a5af0a52953841461699e674037b289386e2a755c66b1c03615289f677bb",
     "threatfox:0137321ebd328c50947623dcfe46ad4d089791f2",
     "threatfox:590dc6eed412993e18a6533bfdbd28f9",
     "threatfox:19673cc34b19c23b617aaf6d23e9c84f9927a52d5a52fc6f4b307981a1e5f83d",
@@ -5001,7 +4992,16 @@
     "threatfox:sie5uyp7.brn-peak.net",
     "threatfox:brn-peak.net",
     "threatfox:lslmt39k.app8k.xyz",
-    "threatfox:eskacangtvri.com"
+    "threatfox:eskacangtvri.com",
+    "threatfox:https://fdrv.beeyuskincare.co.nz/download.php/Complete_Package_Inspection_And_Damage_Verification_Mp4",
+    "threatfox:104.239.66.83:1804",
+    "threatfox:45.141.148.10:4001",
+    "threatfox:serve2lead.com",
+    "threatfox:sakti188jp.com",
+    "threatfox:http://noveclo.click:8654/subscriptions",
+    "threatfox:http://cleasion.click:8202/sessions",
+    "threatfox:80.190.77.86:2000",
+    "threatfox:185.92.190.174:8896"
   ],
   "source_id": "abuse_ch",
   "stats": {
