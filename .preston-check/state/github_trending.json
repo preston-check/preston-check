@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-21T21:34:50.970171+00:00",
-  "last_successful_fetch": "2026-08-21T21:34:56.358329+00:00",
+  "last_run": "2026-08-21T22:36:10.322739+00:00",
+  "last_successful_fetch": "2026-08-21T22:36:13.341354+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3660,7 +3660,8 @@
     "github:Kulik-Labs-Development/Ghost-CMS-Code-Injection-Audit-CVE-2026-26980",
     "github:Stacyy-Were/CVE-Lab",
     "github:MiguelCarino/CVE-data",
-    "github:R1zoro/Bobble-CVE"
+    "github:R1zoro/Bobble-CVE",
+    "github:CyberOwl555/cve-watch"
   ],
   "source_id": "github_trending",
   "stats": {

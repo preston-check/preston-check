@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-08-21T21:34:57.055066+00:00",
-  "last_successful_fetch": "2026-08-21T21:34:57.055762+00:00",
+  "last_run": "2026-08-21T22:36:13.889601+00:00",
+  "last_successful_fetch": "2026-08-21T22:36:13.890282+00:00",
   "processed_ids": [
-    "threatfox:bvhqwydv.greenestreetchurch.com",
-    "threatfox:82.66.176.223:6666",
-    "threatfox:cwagencies.london",
     "threatfox:ddukerealtor.com",
     "threatfox:colombacresco.com",
     "threatfox:6cad154538301583429bf7ebe03f812afa33e4d2207ce54b2e488f3cc74e4eba",
@@ -5001,7 +4998,10 @@
     "threatfox:dm75pxy7.eng--cardioslim.com",
     "threatfox:ccy6w1d1.en-en--cardioslim.com",
     "threatfox:en-en-en-theeloncode.com",
-    "threatfox:eng--cardioslim.com"
+    "threatfox:eng--cardioslim.com",
+    "threatfox:192.229.96.31:9090",
+    "threatfox:http://zakuiru.shop:9048/tokens",
+    "threatfox:http://kupzovo.shop:7567/tags"
   ],
   "source_id": "abuse_ch",
   "stats": {
