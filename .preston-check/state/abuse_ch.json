@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-21T20:35:50.738870+00:00",
-  "last_successful_fetch": "2026-08-21T20:35:50.739588+00:00",
+  "last_run": "2026-08-21T21:34:57.055066+00:00",
+  "last_successful_fetch": "2026-08-21T21:34:57.055762+00:00",
   "processed_ids": [
-    "threatfox:kv73gaf5.get-goldalign.com",
-    "threatfox:149.88.66.234:2020",
-    "threatfox:http://vexdico.shop:8539/users",
-    "threatfox:http://kupzovo.shop:7567/subscriptions",
-    "threatfox:2zslmvx8.theslimsplitsmethod.us",
     "threatfox:bvhqwydv.greenestreetchurch.com",
     "threatfox:82.66.176.223:6666",
     "threatfox:cwagencies.london",
@@ -5001,7 +4996,12 @@
     "threatfox:185.34.147.33:80",
     "threatfox:185.34.147.31:80",
     "threatfox:104.249.10.86:56001",
-    "threatfox:104.249.10.86:56002"
+    "threatfox:104.249.10.86:56002",
+    "threatfox:3q0j1xn2.en-en-en-theeloncode.com",
+    "threatfox:dm75pxy7.eng--cardioslim.com",
+    "threatfox:ccy6w1d1.en-en--cardioslim.com",
+    "threatfox:en-en-en-theeloncode.com",
+    "threatfox:eng--cardioslim.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
