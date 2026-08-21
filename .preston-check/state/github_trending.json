@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-21T13:55:56.339693+00:00",
-  "last_successful_fetch": "2026-08-21T13:56:00.286349+00:00",
+  "last_run": "2026-08-21T14:48:28.573886+00:00",
+  "last_successful_fetch": "2026-08-21T14:48:32.178939+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3640,7 +3640,12 @@
     "github:kamini1007/DNE_CVE_Remediation_project",
     "github:Boreas37/CVE-2026-64824-PoC",
     "github:Boreas37/CVE-2026-69084-PoC",
-    "github:Boreas37/CVE-2026-64638-PoC-XSS2Shell-"
+    "github:Boreas37/CVE-2026-64638-PoC-XSS2Shell-",
+    "github:iamkirkbater/cve-checker",
+    "github:gabivas/cvechecker",
+    "github:n4f1l2009-cloud/sec-cve-scraper",
+    "github:sg-summer/cve",
+    "github:BoaThor/CVE-Resources"
   ],
   "source_id": "github_trending",
   "stats": {
