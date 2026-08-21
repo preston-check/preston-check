@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-21T15:44:01.735077+00:00",
-  "last_successful_fetch": "2026-08-21T15:44:05.439127+00:00",
+  "last_run": "2026-08-21T16:47:34.961095+00:00",
+  "last_successful_fetch": "2026-08-21T16:47:37.775745+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3648,7 +3648,8 @@
     "github:BoaThor/CVE-Resources",
     "github:hacbs-release-tests/collectors-no-cve-c7791588",
     "github:Hunt-Benito/rendering-code-outside-the-sandbox-cve-2026-76036-dawn-webgpu-buffer-overflow-in-chrome-on-android",
-    "github:Pasindu-sd/CVE-2025-69212-Exploit"
+    "github:Pasindu-sd/CVE-2025-69212-Exploit",
+    "github:foxirain/CVE-Portfolio-Public"
   ],
   "source_id": "github_trending",
   "stats": {
