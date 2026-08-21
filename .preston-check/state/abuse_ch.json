@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-21T03:12:35.675633+00:00",
-  "last_successful_fetch": "2026-08-21T03:12:35.676645+00:00",
+  "last_run": "2026-08-21T04:50:16.883029+00:00",
+  "last_successful_fetch": "2026-08-21T04:50:16.884055+00:00",
   "processed_ids": [
-    "threatfox:150.109.93.78:8001",
-    "threatfox:43.128.113.133:8001",
-    "threatfox:43.129.180.120:8001",
-    "threatfox:43.134.49.218:8001",
-    "threatfox:lthicpjqc7gkn5eq3epxndc2uig3yngvcbdya4u3m3byjod5km4yuwqd.onion",
-    "threatfox:914ff51fb60247cf13897b1bc950a190",
-    "threatfox:7ee443b0530bb9fe4c36c0faafdeb6bc",
     "threatfox:cc666mzpsjhn3yi6t7hqkwi5thjeh7prxg3mndpceb7xtchsbsmct3ad.onion",
     "threatfox:rz45lyi2ehl2e2xs3ivwbah65tumebztmypmtqpc6cigc3wadwjicgad.onion",
     "threatfox:http://153.117.13.202:57672/Mozi.m",
@@ -5001,7 +4994,14 @@
     "threatfox:43.136.76.42:8080",
     "threatfox:https://rblxgivex.com/",
     "threatfox:o7ve5wvj.cognigen-plus.net",
-    "threatfox:cognigen-plus.net"
+    "threatfox:cognigen-plus.net",
+    "threatfox:rechsteiner-holzbau.ch",
+    "threatfox:xbcuwv1m.defenseflashlight.com",
+    "threatfox:defenseflashlight.com",
+    "threatfox:202.61.139.46:7800",
+    "threatfox:202.61.139.46:7811",
+    "threatfox:gwgsl6k1.en-belly--flush.com",
+    "threatfox:pidorsas.site"
   ],
   "source_id": "abuse_ch",
   "stats": {
