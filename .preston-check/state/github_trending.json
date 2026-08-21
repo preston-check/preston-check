@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-21T08:53:40.775166+00:00",
-  "last_successful_fetch": "2026-08-21T08:53:44.306283+00:00",
+  "last_run": "2026-08-21T09:48:35.187931+00:00",
+  "last_successful_fetch": "2026-08-21T09:48:38.258532+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3623,7 +3623,10 @@
     "github:iamyugachang/skillshare-cve-backup",
     "github:muskaankhan-star/sonar-cve-agent",
     "github:hacbs-release-tests/collectors-no-cve-bdeb5cef",
-    "github:20000419/CVE-2026-39113"
+    "github:20000419/CVE-2026-39113",
+    "github:PwnedBytes0x1/cveye",
+    "github:hacbs-release-tests/collectors-no-cve-0982c021",
+    "github:iAm-182/wp-cve-alert"
   ],
   "source_id": "github_trending",
   "stats": {
