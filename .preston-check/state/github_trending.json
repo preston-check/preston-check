@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-21T22:36:10.322739+00:00",
-  "last_successful_fetch": "2026-08-21T22:36:13.341354+00:00",
+  "last_run": "2026-08-21T23:33:54.732598+00:00",
+  "last_successful_fetch": "2026-08-21T23:33:57.256566+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3661,7 +3661,8 @@
     "github:Stacyy-Were/CVE-Lab",
     "github:MiguelCarino/CVE-data",
     "github:R1zoro/Bobble-CVE",
-    "github:CyberOwl555/cve-watch"
+    "github:CyberOwl555/cve-watch",
+    "github:sentinel-aidefense/CVE-2026-69836-EXP"
   ],
   "source_id": "github_trending",
   "stats": {
