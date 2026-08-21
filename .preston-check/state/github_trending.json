@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-21T01:53:28.688683+00:00",
-  "last_successful_fetch": "2026-08-21T01:53:31.459931+00:00",
+  "last_run": "2026-08-21T03:12:31.453065+00:00",
+  "last_successful_fetch": "2026-08-21T03:12:35.218501+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3608,7 +3608,13 @@
     "github:n0xdaemon/cve-2026-19478",
     "github:Snizi/CVE-2026-18963-Exploit",
     "github:SneakyNachos/CVE-2026-2796-and-CVE-2026-2768-escape-the-wasm-box",
-    "github:rafael-eslucas/cvet"
+    "github:rafael-eslucas/cvet",
+    "github:hacbs-release-tests/collectors-no-cve-66e93ca4",
+    "github:hacbs-release-tests/collectors-no-cve-eebc4cfa",
+    "github:hacbs-release-tests/collectors-no-cve-1d91a760",
+    "github:nhh9905/CVE-2026-34344",
+    "github:hacbs-release-tests/collectors-no-cve-815f6cc5",
+    "github:Baba01hacker666/CVE-2026-33032"
   ],
   "source_id": "github_trending",
   "stats": {
