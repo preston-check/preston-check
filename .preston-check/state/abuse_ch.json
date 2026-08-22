@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-22T18:45:13.359537+00:00",
-  "last_successful_fetch": "2026-08-22T18:45:13.360452+00:00",
+  "last_run": "2026-08-22T19:30:52.870221+00:00",
+  "last_successful_fetch": "2026-08-22T19:30:52.870987+00:00",
   "processed_ids": [
-    "threatfox:54.149.132.52:50050",
-    "threatfox:47.254.74.124:50050",
-    "threatfox:158.247.224.146:50050",
-    "threatfox:64.83.47.231:50050",
-    "threatfox:101.42.183.92:50050",
     "threatfox:64.90.17.97:50050",
     "threatfox:47.254.3.109:50050",
     "threatfox:70.39.181.128:50050",
@@ -5001,7 +4996,12 @@
     "threatfox:eng-flashburnn.com",
     "threatfox:pivotpoint.ch",
     "threatfox:advouch.com",
-    "threatfox:borellavoguedeco.com"
+    "threatfox:borellavoguedeco.com",
+    "threatfox:35.198.202.239:8080",
+    "threatfox:kzvek799.eng--theeloncode.com",
+    "threatfox:segolab.ch",
+    "threatfox:eng--theeloncode.com",
+    "threatfox:dhi-cm.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
