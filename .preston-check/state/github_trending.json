@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-22T04:43:51.419571+00:00",
-  "last_successful_fetch": "2026-08-22T04:43:54.673377+00:00",
+  "last_run": "2026-08-22T05:37:14.993778+00:00",
+  "last_successful_fetch": "2026-08-22T05:37:18.092664+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3669,7 +3669,8 @@
     "github:llaytynher/CVE-2026-0740-upload-template",
     "github:toanln-cov/CVE-2026-74252",
     "github:raz0rgirl/cve-notifier",
-    "github:daehyuh/CVE-2026-47883"
+    "github:daehyuh/CVE-2026-47883",
+    "github:hypnguyen1209/CVE-2026-62911"
   ],
   "source_id": "github_trending",
   "stats": {
