@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-22T14:33:01.199078+00:00",
-  "last_successful_fetch": "2026-08-22T14:33:03.857600+00:00",
+  "last_run": "2026-08-22T15:31:48.336567+00:00",
+  "last_successful_fetch": "2026-08-22T15:31:51.993755+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3688,7 +3688,11 @@
     "github:514-koishi-514/Kintsugi_CVE",
     "github:sofiabrown61537/cverjv",
     "github:quliyevresul7777/CVE-2019-9053",
-    "github:Gr7sAG0oq11/cvedbo"
+    "github:Gr7sAG0oq11/cvedbo",
+    "github:qsvggff-spec/oppo-A5-PRO-5G-CVE-2026-43499",
+    "github:d4ytox/CVE-2021-22204",
+    "github:d4ytox/CVE-2021-21425",
+    "github:ryone101/FreshCVE_Bot"
   ],
   "source_id": "github_trending",
   "stats": {

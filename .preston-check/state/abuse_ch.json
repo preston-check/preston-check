@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-22T14:33:04.091928+00:00",
-  "last_successful_fetch": "2026-08-22T14:33:04.092989+00:00",
+  "last_run": "2026-08-22T15:31:52.624949+00:00",
+  "last_successful_fetch": "2026-08-22T15:31:52.625768+00:00",
   "processed_ids": [
-    "threatfox:43.129.180.120:9034",
-    "threatfox:coldformat.info",
-    "threatfox:https://coldformat.info/usa",
-    "threatfox:https://rnd.10001slot.org",
-    "threatfox:http://105.224.117.178:50959/Mozi.m",
-    "threatfox:https://hadiordan.lol/mods/api/log-download",
-    "threatfox:https://hadiordan.lol/ws",
-    "threatfox:https://hadiordan.lol/?p=",
     "threatfox:https://hadiordan.lol/get/config",
     "threatfox:https://hadiordan.lol/babayla/zor/yarisirlar/",
     "threatfox:hadiordan.lol",
@@ -5001,7 +4993,15 @@
     "threatfox:zefybeky.workers.dev",
     "threatfox:209.99.191.164:31337",
     "threatfox:123.57.230.199:443",
-    "threatfox:3dtraining.fr"
+    "threatfox:3dtraining.fr",
+    "threatfox:106.54.41.209:21116",
+    "threatfox:43.143.14.43:8443",
+    "threatfox:89.163.135.20:8013",
+    "threatfox:9r28j8f6.lckd.store",
+    "threatfox:lckd.store",
+    "threatfox:64.227.76.201:25001",
+    "threatfox:209.38.109.169:25001",
+    "threatfox:164.92.149.181:25001"
   ],
   "source_id": "abuse_ch",
   "stats": {
