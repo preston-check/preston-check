@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-22T08:42:50.937073+00:00",
-  "last_successful_fetch": "2026-08-22T08:42:53.607045+00:00",
+  "last_run": "2026-08-22T09:36:50.494715+00:00",
+  "last_successful_fetch": "2026-08-22T09:36:54.353249+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3676,7 +3676,12 @@
     "github:hacbs-release-tests/collectors-no-cve-87ae46c6",
     "github:hacbs-release-tests/collectors-no-cve-2c20236a",
     "github:thomas135305/cveqvh",
-    "github:Minime794/CVE-2016-5195"
+    "github:Minime794/CVE-2016-5195",
+    "github:TKar0/TKar0-CvePoc",
+    "github:Dungsocool/CVE-2020-13671",
+    "github:rl1987/n8n-nodes-cve-scraper",
+    "github:acheong08/CVE-2026-65400",
+    "github:xianyuchen2077/Kintsugi-cve"
   ],
   "source_id": "github_trending",
   "stats": {
