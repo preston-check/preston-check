@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-22T16:36:15.118449+00:00",
-  "last_successful_fetch": "2026-08-22T16:36:18.915654+00:00",
+  "last_run": "2026-08-22T17:31:35.686676+00:00",
+  "last_successful_fetch": "2026-08-22T17:31:39.396776+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3694,7 +3694,11 @@
     "github:d4ytox/CVE-2021-21425",
     "github:ryone101/FreshCVE_Bot",
     "github:K3ysTr0K3R/CVE-2026-9198",
-    "github:gahrydum/cveatt"
+    "github:gahrydum/cveatt",
+    "github:CVE-0xSSH/llm-tunnelbox",
+    "github:jesinmilesh/CVE",
+    "github:ejajmahmud/dependency-vulnerability-remediation-bot-fastapi-cve-remediation-agent-v2026-b58",
+    "github:dimashenkov/gitpython-cve-test"
   ],
   "source_id": "github_trending",
   "stats": {
