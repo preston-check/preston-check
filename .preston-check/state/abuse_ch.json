@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-22T20:34:49.597523+00:00",
-  "last_successful_fetch": "2026-08-22T20:34:49.598086+00:00",
+  "last_run": "2026-08-22T21:31:52.788338+00:00",
+  "last_successful_fetch": "2026-08-22T21:31:52.789067+00:00",
   "processed_ids": [
-    "threatfox:103.217.186.180:55554",
-    "threatfox:165.22.81.15:8443",
-    "threatfox:https://hulusi.lol/mods/api/log-download",
-    "threatfox:https://hulusi.lol/ws",
-    "threatfox:https://hulusi.lol/?p=",
     "threatfox:https://hulusi.lol/get/config",
     "threatfox:https://hulusi.lol/babayla/zor/yarisirlar/",
     "threatfox:157.245.194.180:9035",
@@ -5001,7 +4996,12 @@
     "threatfox:35.73.165.146:80",
     "threatfox:195.177.94.193:7443",
     "threatfox:195.177.94.217:7443",
-    "threatfox:aureverre.ch"
+    "threatfox:aureverre.ch",
+    "threatfox:atriumvillas.ch",
+    "threatfox:41.234.45.136:8808",
+    "threatfox:qj73eba3.eng--trumptoken.com",
+    "threatfox:alfa-90.com",
+    "threatfox:eng--trumptoken.com"
   ],
   "source_id": "abuse_ch",
   "stats": {

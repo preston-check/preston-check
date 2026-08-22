@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-22T20:34:46.020526+00:00",
-  "last_successful_fetch": "2026-08-22T20:34:49.123894+00:00",
+  "last_run": "2026-08-22T21:31:44.804456+00:00",
+  "last_successful_fetch": "2026-08-22T21:31:52.274144+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3706,7 +3706,10 @@
     "github:capivara-research/CVE-Exploitation",
     "github:WildanDeveloper/CVE-2026-58231",
     "github:YonLiud/CVE-2026-76904",
-    "github:s1ko/CVE-2026-52618"
+    "github:s1ko/CVE-2026-52618",
+    "github:capivara-research/WordPress-Path-Traversal-CVE-2019-11447",
+    "github:sofiamoore510142/cvesha",
+    "github:3a7/CVE-Watch"
   ],
   "source_id": "github_trending",
   "stats": {
