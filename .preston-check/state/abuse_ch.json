@@ -1,9 +1,7 @@
 {
-  "last_run": "2026-08-22T17:31:39.862170+00:00",
-  "last_successful_fetch": "2026-08-22T17:31:39.862902+00:00",
+  "last_run": "2026-08-22T18:45:13.359537+00:00",
+  "last_successful_fetch": "2026-08-22T18:45:13.360452+00:00",
   "processed_ids": [
-    "threatfox:43.106.16.169:50050",
-    "threatfox:47.251.17.93:50050",
     "threatfox:54.149.132.52:50050",
     "threatfox:47.254.74.124:50050",
     "threatfox:158.247.224.146:50050",
@@ -5001,7 +4999,9 @@
     "threatfox:eng-homepowershield.com",
     "threatfox:c5xxg0v3.eng-flashburnn.com",
     "threatfox:eng-flashburnn.com",
-    "threatfox:pivotpoint.ch"
+    "threatfox:pivotpoint.ch",
+    "threatfox:advouch.com",
+    "threatfox:borellavoguedeco.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
