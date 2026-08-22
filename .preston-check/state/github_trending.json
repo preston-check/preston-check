@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-22T09:36:50.494715+00:00",
-  "last_successful_fetch": "2026-08-22T09:36:54.353249+00:00",
+  "last_run": "2026-08-22T10:34:54.180302+00:00",
+  "last_successful_fetch": "2026-08-22T10:34:57.118665+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3681,7 +3681,9 @@
     "github:Dungsocool/CVE-2020-13671",
     "github:rl1987/n8n-nodes-cve-scraper",
     "github:acheong08/CVE-2026-65400",
-    "github:xianyuchen2077/Kintsugi-cve"
+    "github:xianyuchen2077/Kintsugi-cve",
+    "github:TURROKS/CVE_Prioritizer",
+    "github:0xBlackash/CVE-2026-32475"
   ],
   "source_id": "github_trending",
   "stats": {
