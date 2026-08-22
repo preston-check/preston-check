@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-22T05:37:14.993778+00:00",
-  "last_successful_fetch": "2026-08-22T05:37:18.092664+00:00",
+  "last_run": "2026-08-22T06:55:36.044262+00:00",
+  "last_successful_fetch": "2026-08-22T06:56:13.059768+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3670,7 +3670,9 @@
     "github:toanln-cov/CVE-2026-74252",
     "github:raz0rgirl/cve-notifier",
     "github:daehyuh/CVE-2026-47883",
-    "github:hypnguyen1209/CVE-2026-62911"
+    "github:hypnguyen1209/CVE-2026-62911",
+    "github:Sharlong-Wen/cve-showcase",
+    "github:tranhop26/cve-remediation-release-gate"
   ],
   "source_id": "github_trending",
   "stats": {

@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-08-22T05:37:18.515253+00:00",
-  "last_successful_fetch": "2026-08-22T05:37:18.515763+00:00",
+  "last_run": "2026-08-22T06:56:13.484711+00:00",
+  "last_successful_fetch": "2026-08-22T06:56:13.485336+00:00",
   "processed_ids": [
-    "threatfox:andliberty.us",
-    "threatfox:elliptical-rabbit.icu",
-    "threatfox:43.132.212.50:661",
-    "threatfox:43.132.212.50:662",
     "threatfox:http://tokjoza.shop:5200/users",
     "threatfox:http://shkpiva.shop:5627/tasks",
     "threatfox:http://mrlketo.shop:8932/collections",
@@ -5001,7 +4997,11 @@
     "threatfox:113.44.89.87:22",
     "threatfox:43.155.168.253:8888",
     "threatfox:d8f3565o.abell.store",
-    "threatfox:abell.store"
+    "threatfox:abell.store",
+    "threatfox:ties-education.org",
+    "threatfox:217.60.195.33:17541",
+    "threatfox:http://zakuiru.shop:9048/products",
+    "threatfox:http://kupzovo.shop:7567/profiles"
   ],
   "source_id": "abuse_ch",
   "stats": {
