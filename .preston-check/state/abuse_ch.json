@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-22T19:30:52.870221+00:00",
-  "last_successful_fetch": "2026-08-22T19:30:52.870987+00:00",
+  "last_run": "2026-08-22T20:34:49.597523+00:00",
+  "last_successful_fetch": "2026-08-22T20:34:49.598086+00:00",
   "processed_ids": [
-    "threatfox:64.90.17.97:50050",
-    "threatfox:47.254.3.109:50050",
-    "threatfox:70.39.181.128:50050",
-    "threatfox:140.99.130.213:443",
-    "threatfox:120.48.91.111:80",
-    "threatfox:103.193.151.121:50050",
-    "threatfox:101.34.235.48:80",
-    "threatfox:http://125.42.11.109:35349/Mozi.m",
-    "threatfox:192.227.128.8:8443",
     "threatfox:103.217.186.180:55554",
     "threatfox:165.22.81.15:8443",
     "threatfox:https://hulusi.lol/mods/api/log-download",
@@ -5001,7 +4992,16 @@
     "threatfox:kzvek799.eng--theeloncode.com",
     "threatfox:segolab.ch",
     "threatfox:eng--theeloncode.com",
-    "threatfox:dhi-cm.com"
+    "threatfox:dhi-cm.com",
+    "threatfox:wfss.ch",
+    "threatfox:80.190.77.86:9909",
+    "threatfox:80.190.77.86:222",
+    "threatfox:6hawco2w.eng-neurosharp.us",
+    "threatfox:eng-neurosharp.us",
+    "threatfox:35.73.165.146:80",
+    "threatfox:195.177.94.193:7443",
+    "threatfox:195.177.94.217:7443",
+    "threatfox:aureverre.ch"
   ],
   "source_id": "abuse_ch",
   "stats": {
