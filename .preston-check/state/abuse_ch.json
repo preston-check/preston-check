@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-08-23T20:35:05.417655+00:00",
-  "last_successful_fetch": "2026-08-23T20:35:05.418810+00:00",
+  "last_run": "2026-08-23T21:31:32.699814+00:00",
+  "last_successful_fetch": "2026-08-23T21:31:32.700792+00:00",
   "processed_ids": [
-    "threatfox:https://maymun.lol/ws",
-    "threatfox:https://maymun.lol/?p=",
-    "threatfox:https://maymun.lol/babayla/zor/yarisirlar/",
-    "threatfox:https://maymun.lol/get/config",
-    "threatfox:maymun.lol",
-    "threatfox:168.144.188.31:8001",
-    "threatfox:201.79.5.223:8001",
-    "threatfox:161.35.74.220:8001",
-    "threatfox:64.227.187.82:8001",
-    "threatfox:138.197.15.223:8001",
     "threatfox:142.93.205.111:8001",
     "threatfox:159.89.193.17:8001",
     "threatfox:143.198.84.165:8001",
@@ -5001,7 +4991,17 @@
     "threatfox:196.251.121.124:56001",
     "threatfox:194.9.6.125:443",
     "threatfox:154.201.82.106:56003",
-    "threatfox:13.205.33.34:7443"
+    "threatfox:13.205.33.34:7443",
+    "threatfox:vlttkdma.eng-us-neurowave.com",
+    "threatfox:eng-us-neurowave.com",
+    "threatfox:193.161.193.99:31712",
+    "threatfox:https://uroprocto.com.br/",
+    "threatfox:https://wewnetrznywymiar.com/",
+    "threatfox:https://www.zegenergytech.com/",
+    "threatfox:https://vahousingsolutions.com/",
+    "threatfox:https://studiofabris.it/",
+    "threatfox:2zj0cj0t.eng--thebrainsong.com",
+    "threatfox:eng--thebrainsong.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
