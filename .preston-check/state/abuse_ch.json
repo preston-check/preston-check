@@ -1,8 +1,7 @@
 {
-  "last_run": "2026-08-23T09:37:58.113453+00:00",
-  "last_successful_fetch": "2026-08-23T09:37:58.114351+00:00",
+  "last_run": "2026-08-23T10:35:50.108483+00:00",
+  "last_successful_fetch": "2026-08-23T10:35:50.109342+00:00",
   "processed_ids": [
-    "threatfox:76i045oo.alldayslimtea.uk",
     "threatfox:https://www.phonglong.com/",
     "threatfox:https://simple88.net/",
     "threatfox:https://glaube.at/",
@@ -5001,7 +5000,8 @@
     "threatfox:wingji.com",
     "threatfox:wj2vge4z.eng-usa-neurowave.com",
     "threatfox:eng-usa-neurowave.com",
-    "threatfox:89.144.53.144:7443"
+    "threatfox:89.144.53.144:7443",
+    "threatfox:130.12.182.39:2600"
   ],
   "source_id": "abuse_ch",
   "stats": {
