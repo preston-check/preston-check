@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-23T10:35:46.383841+00:00",
-  "last_successful_fetch": "2026-08-23T10:35:49.747283+00:00",
+  "last_run": "2026-08-23T11:30:49.269344+00:00",
+  "last_successful_fetch": "2026-08-23T11:30:51.920928+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3727,7 +3727,10 @@
     "github:XiaoBaiLovesStirring/cve-2026-0013-poc",
     "github:hillamanda916/cvepcv",
     "github:madaaca/cvegwa",
-    "github:baysquodt/cvevnr"
+    "github:baysquodt/cvevnr",
+    "github:barun121/CVE-2024-9264-in-Grafana-11.x",
+    "github:dev-hub85/CVE-Crawler",
+    "github:zliang512/cve"
   ],
   "source_id": "github_trending",
   "stats": {
