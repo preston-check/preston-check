@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-23T21:31:29.378318+00:00",
-  "last_successful_fetch": "2026-08-23T21:31:32.299806+00:00",
+  "last_run": "2026-08-23T22:33:45.612550+00:00",
+  "last_successful_fetch": "2026-08-23T22:33:48.374271+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3747,7 +3747,10 @@
     "github:chessalekin/cve-2026-9198_exploit",
     "github:milosCvetkovicDev/milosCvetkovicDev",
     "github:allifunbling/cvejze",
-    "github:eric-cyber-git/cve-extraction-bench"
+    "github:eric-cyber-git/cve-extraction-bench",
+    "github:robrwo/perl-Dist-Zilla-Plugin-Test-CVE",
+    "github:jalp24/openclaw-render-template-mt6cve9c",
+    "github:xiaoyouxiaojian/cvesya"
   ],
   "source_id": "github_trending",
   "stats": {
