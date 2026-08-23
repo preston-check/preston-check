@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-23T06:56:45.598685+00:00",
-  "last_successful_fetch": "2026-08-23T06:56:45.599553+00:00",
+  "last_run": "2026-08-23T07:43:01.126015+00:00",
+  "last_successful_fetch": "2026-08-23T07:43:01.126880+00:00",
   "processed_ids": [
-    "threatfox:ope.com.br",
-    "threatfox:getmagicthimble.com",
-    "threatfox:gbs-guinee.com",
-    "threatfox:offerteschilderwerken.be",
-    "threatfox:carolinajane.net",
-    "threatfox:phonglong.com",
-    "threatfox:erubhug7.eng-slimsounds.com",
     "threatfox:fdda100481ab895fa5c81d4b2ed55176d36b988feb213fa6145478c9fa197fa9",
     "threatfox:raw.githubusercontent.co",
     "threatfox:ffec9d57ae6924f08a8d815ecf33d152e4d7783ac8177da2bad6912680eed45a",
@@ -5001,7 +4994,14 @@
     "threatfox:106.54.41.209:81",
     "threatfox:45.8.46.122:22",
     "threatfox:45.8.46.122:5432",
-    "threatfox:giftcardbazaar.com"
+    "threatfox:giftcardbazaar.com",
+    "threatfox:unlmqfl5.eng-usa-neurovera.com",
+    "threatfox:eng-usa-neurovera.com",
+    "threatfox:111.170.148.132:5080",
+    "threatfox:27.124.18.7:9999",
+    "threatfox:47.93.159.68:8084",
+    "threatfox:38.76.183.197:60000",
+    "threatfox:45.8.46.122:8888"
   ],
   "source_id": "abuse_ch",
   "stats": {
