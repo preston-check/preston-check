@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-23T15:32:29.670116+00:00",
-  "last_successful_fetch": "2026-08-23T15:32:32.770121+00:00",
+  "last_run": "2026-08-23T16:37:42.734743+00:00",
+  "last_successful_fetch": "2026-08-23T16:37:46.489072+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3738,7 +3738,9 @@
     "github:dakonya/cve-scanner",
     "github:gagantirupathi/Syntecxhub_CVE_SCANNER",
     "github:toanln-cov/CVE-2026-66917",
-    "github:toanln-cov/CVE-2026-66916"
+    "github:toanln-cov/CVE-2026-66916",
+    "github:SneakyNachos/CVE-2026-15718-who-put-ptrs-in-my-wasm",
+    "github:fifetischi/cvecqj"
   ],
   "source_id": "github_trending",
   "stats": {
