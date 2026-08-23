@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-23T17:30:37.678066+00:00",
-  "last_successful_fetch": "2026-08-23T17:30:59.900934+00:00",
+  "last_run": "2026-08-23T18:44:17.687877+00:00",
+  "last_successful_fetch": "2026-08-23T18:44:21.616257+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3741,7 +3741,10 @@
     "github:toanln-cov/CVE-2026-66916",
     "github:SneakyNachos/CVE-2026-15718-who-put-ptrs-in-my-wasm",
     "github:fifetischi/cvecqj",
-    "github:wasee187/CVE-vulnerability-clustering"
+    "github:wasee187/CVE-vulnerability-clustering",
+    "github:sofiabrown61537/cveggs",
+    "github:CerberusMrXi/phpMyAdmin-CVE-2020-5504-Exploit",
+    "github:chessalekin/cve-2026-9198_exploit"
   ],
   "source_id": "github_trending",
   "stats": {
