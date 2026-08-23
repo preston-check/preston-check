@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-23T18:44:22.401649+00:00",
-  "last_successful_fetch": "2026-08-23T18:44:22.403073+00:00",
+  "last_run": "2026-08-23T19:30:01.584792+00:00",
+  "last_successful_fetch": "2026-08-23T19:30:01.585774+00:00",
   "processed_ids": [
-    "threatfox:sahelactivistesniger.org",
-    "threatfox:sputim.ch",
-    "threatfox:skiimo.club",
-    "threatfox:xoa01tps.gut--drops.com",
-    "threatfox:osmos.ch",
-    "threatfox:localbiz-ai.com",
-    "threatfox:petitionscitoyennes.fr",
-    "threatfox:ogbc.ch",
     "threatfox:poolservice-schroeder.ch",
     "threatfox:permatec.ch",
     "threatfox:pastefsuisse.ch",
@@ -5001,7 +4993,15 @@
     "threatfox:dr88.live",
     "threatfox:boulevard.com.kw",
     "threatfox:bureauofbusiness.com.au",
-    "threatfox:blog.worldcuptickets.io"
+    "threatfox:blog.worldcuptickets.io",
+    "threatfox:yatxpal6.lckd.store",
+    "threatfox:zirjnsf2.eng-us-glycofree.com",
+    "threatfox:eng-us-glycofree.com",
+    "threatfox:54.183.237.74:443",
+    "threatfox:54.183.237.74:18082",
+    "threatfox:estelle-romens.com",
+    "threatfox:cognacps.fr",
+    "threatfox:yainvest.ai"
   ],
   "source_id": "abuse_ch",
   "stats": {
