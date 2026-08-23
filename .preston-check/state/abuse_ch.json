@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-08-23T08:43:52.684459+00:00",
-  "last_successful_fetch": "2026-08-23T08:43:52.685322+00:00",
+  "last_run": "2026-08-23T09:37:58.113453+00:00",
+  "last_successful_fetch": "2026-08-23T09:37:58.114351+00:00",
   "processed_ids": [
-    "threatfox:156.252.60.18:22012",
-    "threatfox:cafedeprelaz.ch",
-    "threatfox:194.116.236.83:15608",
-    "threatfox:194.116.236.83:15609",
     "threatfox:76i045oo.alldayslimtea.uk",
     "threatfox:https://www.phonglong.com/",
     "threatfox:https://simple88.net/",
@@ -5001,7 +4997,11 @@
     "threatfox:8m7qs0tb.eng--glycofree.com",
     "threatfox:https://thinkomdigital.com/",
     "threatfox:eng--nervealive.com",
-    "threatfox:eng--glycofree.com"
+    "threatfox:eng--glycofree.com",
+    "threatfox:wingji.com",
+    "threatfox:wj2vge4z.eng-usa-neurowave.com",
+    "threatfox:eng-usa-neurowave.com",
+    "threatfox:89.144.53.144:7443"
   ],
   "source_id": "abuse_ch",
   "stats": {
