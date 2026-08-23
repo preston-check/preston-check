@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-23T05:39:02.401141+00:00",
-  "last_successful_fetch": "2026-08-23T05:39:02.402130+00:00",
+  "last_run": "2026-08-23T06:56:45.598685+00:00",
+  "last_successful_fetch": "2026-08-23T06:56:45.599553+00:00",
   "processed_ids": [
-    "threatfox:wulcano.com",
-    "threatfox:shaikhsalman.net",
-    "threatfox:newyorkcasinohotels.com",
-    "threatfox:360-solutions.com.au",
-    "threatfox:singaporecasinogames.com",
-    "threatfox:prestigeurgentcare.net",
-    "threatfox:zonreizen.nl",
     "threatfox:ope.com.br",
     "threatfox:getmagicthimble.com",
     "threatfox:gbs-guinee.com",
@@ -5001,7 +4994,14 @@
     "threatfox:eng-usa-glycomute.com",
     "threatfox:tnphomes.com",
     "threatfox:https://homeinnovationsunlimited.com/",
-    "threatfox:https://authenticcarebd.xyz/"
+    "threatfox:https://authenticcarebd.xyz/",
+    "threatfox:indogenband.com",
+    "threatfox:hashtagshopbd.com",
+    "threatfox:growmag.com",
+    "threatfox:106.54.41.209:81",
+    "threatfox:45.8.46.122:22",
+    "threatfox:45.8.46.122:5432",
+    "threatfox:giftcardbazaar.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
