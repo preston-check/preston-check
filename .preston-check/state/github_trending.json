@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-23T22:33:45.612550+00:00",
-  "last_successful_fetch": "2026-08-23T22:33:48.374271+00:00",
+  "last_run": "2026-08-23T23:31:30.385129+00:00",
+  "last_successful_fetch": "2026-08-23T23:31:33.608584+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3750,7 +3750,14 @@
     "github:eric-cyber-git/cve-extraction-bench",
     "github:robrwo/perl-Dist-Zilla-Plugin-Test-CVE",
     "github:jalp24/openclaw-render-template-mt6cve9c",
-    "github:xiaoyouxiaojian/cvesya"
+    "github:xiaoyouxiaojian/cvesya",
+    "github:GigSaw69/wp2shell-cve",
+    "github:endrazine/rocq-cve-poc-21682",
+    "github:endrazine/rocq-cve-poc-12155",
+    "github:endrazine/rocq-cve-poc-22024",
+    "github:endrazine/rocq-cve-poc-21683",
+    "github:endrazine/rocq-cve-poc-22287",
+    "github:endrazine/lean-cve-poc-14484"
   ],
   "source_id": "github_trending",
   "stats": {
