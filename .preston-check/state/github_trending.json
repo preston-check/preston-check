@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-23T07:42:57.023212+00:00",
-  "last_successful_fetch": "2026-08-23T07:43:00.462986+00:00",
+  "last_run": "2026-08-23T08:43:48.436817+00:00",
+  "last_successful_fetch": "2026-08-23T08:43:52.285878+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3724,7 +3724,10 @@
     "github:MatJosephs/CVEs",
     "github:Bottelet/omarchy-cve-watcher",
     "github:7b964ktxpc-web/studio_cvetov_nsk",
-    "github:XiaoBaiLovesStirring/cve-2026-0013-poc"
+    "github:XiaoBaiLovesStirring/cve-2026-0013-poc",
+    "github:hillamanda916/cvepcv",
+    "github:madaaca/cvegwa",
+    "github:baysquodt/cvevnr"
   ],
   "source_id": "github_trending",
   "stats": {

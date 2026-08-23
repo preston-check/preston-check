@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-08-23T07:43:01.126015+00:00",
-  "last_successful_fetch": "2026-08-23T07:43:01.126880+00:00",
+  "last_run": "2026-08-23T08:43:52.684459+00:00",
+  "last_successful_fetch": "2026-08-23T08:43:52.685322+00:00",
   "processed_ids": [
-    "threatfox:fdda100481ab895fa5c81d4b2ed55176d36b988feb213fa6145478c9fa197fa9",
-    "threatfox:raw.githubusercontent.co",
-    "threatfox:ffec9d57ae6924f08a8d815ecf33d152e4d7783ac8177da2bad6912680eed45a",
-    "threatfox:ujdq6i5l.drubenginecologo.com",
-    "threatfox:hermanoscalatayud.com",
-    "threatfox:https://rex.sm188dadu.top/",
-    "threatfox:https://rex.1131gg.org/",
-    "threatfox:rex.sm188dadu.top",
-    "threatfox:rex.1131gg.org",
-    "threatfox:156.252.60.18:22011",
     "threatfox:156.252.60.18:22012",
     "threatfox:cafedeprelaz.ch",
     "threatfox:194.116.236.83:15608",
@@ -5001,7 +4991,17 @@
     "threatfox:27.124.18.7:9999",
     "threatfox:47.93.159.68:8084",
     "threatfox:38.76.183.197:60000",
-    "threatfox:45.8.46.122:8888"
+    "threatfox:45.8.46.122:8888",
+    "threatfox:p4m4q08g.eng--neurowave.us",
+    "threatfox:https://royalvet.es/",
+    "threatfox:eng--neurowave.us",
+    "threatfox:111.230.241.141:18084",
+    "threatfox:118.190.217.226:18084",
+    "threatfox:ch79s29o.eng--nervealive.com",
+    "threatfox:8m7qs0tb.eng--glycofree.com",
+    "threatfox:https://thinkomdigital.com/",
+    "threatfox:eng--nervealive.com",
+    "threatfox:eng--glycofree.com"
   ],
   "source_id": "abuse_ch",
   "stats": {
