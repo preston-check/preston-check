@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-08-23T13:41:41.555368+00:00",
-  "last_successful_fetch": "2026-08-23T13:41:41.556270+00:00",
+  "last_run": "2026-08-23T14:35:01.018852+00:00",
+  "last_successful_fetch": "2026-08-23T14:35:01.019723+00:00",
   "processed_ids": [
-    "threatfox:https://leitebrasil.com.br/",
-    "threatfox:https://www.havenpresents.com/",
-    "threatfox:https://purnama-4d.com/",
-    "threatfox:https://natuurlijkheidi.nl/",
-    "threatfox:https://modernfuji-ksa.com/",
-    "threatfox:https://chumak.io/",
-    "threatfox:https://leadsforest.com/",
-    "threatfox:https://bodychekwellness.com/",
-    "threatfox:https://helpgrandparents.org/",
-    "threatfox:mclesgrenades.ch",
     "threatfox:indicequalitesols.ch",
     "threatfox:zentrum-freisein.ch",
     "threatfox:bettinahehl.ch",
@@ -5001,7 +4991,17 @@
     "threatfox:djspe30g.eng-usa-heroup.com",
     "threatfox:my-woe.com",
     "threatfox:wgsomias.com",
-    "threatfox:eng-usa-heroup.com"
+    "threatfox:eng-usa-heroup.com",
+    "threatfox:http://cj45439.tw1.ru/3464bd73.php",
+    "threatfox:87.76.146.91:6522",
+    "threatfox:211.161.232.30:4782",
+    "threatfox:185.53.179.136:443",
+    "threatfox:khvzuqji.eng-usa-neurowave.us",
+    "threatfox:rexhahmetaj.ch",
+    "threatfox:81.69.226.164:12345",
+    "threatfox:182.255.91.104:2095",
+    "threatfox:182.255.91.104:8080",
+    "threatfox:bedataexcellent.ch"
   ],
   "source_id": "abuse_ch",
   "stats": {
