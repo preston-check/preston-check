@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-24T10:49:10.117389+00:00",
-  "last_successful_fetch": "2026-08-24T10:49:14.077114+00:00",
+  "last_run": "2026-08-24T11:38:49.410165+00:00",
+  "last_successful_fetch": "2026-08-24T11:38:52.339537+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3804,7 +3804,9 @@
     "github:hacbs-release-tests/collectors-no-cve-ee0cf2dc",
     "github:christian-cahig/CVE154_AY-2026-2027-S1",
     "github:h00die/POC-CVE-2026-19679",
-    "github:Splinter0/CVE-2018-5803"
+    "github:Splinter0/CVE-2018-5803",
+    "github:cvegaz/cvegaz",
+    "github:eramandeep/cve-agent-poc"
   ],
   "source_id": "github_trending",
   "stats": {
