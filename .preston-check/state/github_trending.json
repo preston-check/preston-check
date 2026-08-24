@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-24T08:59:40.956268+00:00",
-  "last_successful_fetch": "2026-08-24T08:59:44.428836+00:00",
+  "last_run": "2026-08-24T09:58:34.554355+00:00",
+  "last_successful_fetch": "2026-08-24T09:58:38.378404+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3799,7 +3799,9 @@
     "github:XiaoBaiLovesStirring/CVE-2025-48595-Exploit",
     "github:CPAN-Security/Test-CVE",
     "github:hacbs-release-tests/collectors-no-cve-f35b467b",
-    "github:shubhamsahu96/CVE-Risk-Prioritization-System"
+    "github:shubhamsahu96/CVE-Risk-Prioritization-System",
+    "github:artienemat/cveqpv",
+    "github:hacbs-release-tests/collectors-no-cve-ee0cf2dc"
   ],
   "source_id": "github_trending",
   "stats": {
