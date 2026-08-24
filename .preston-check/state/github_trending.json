@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-24T16:51:37.168717+00:00",
-  "last_successful_fetch": "2026-08-24T16:51:40.772432+00:00",
+  "last_run": "2026-08-24T17:40:04.638773+00:00",
+  "last_successful_fetch": "2026-08-24T17:40:08.884766+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3835,7 +3835,12 @@
     "github:hacbs-release-tests/collectors-no-cve-b5fd09f5",
     "github:iamsunildev/CVee",
     "github:oscerd/CVE-2026-28672",
-    "github:jasona7/ChatCVE"
+    "github:jasona7/ChatCVE",
+    "github:tburakdirlik/cve-hunting",
+    "github:jrh-mann/cve-bench",
+    "github:SebasPV27/Explotacion-RCE-Pentesting-BlueKeep-CVE-2019-0708-",
+    "github:hacbs-release-tests/collectors-no-cve-200c6c45",
+    "github:cvemapping/cve-labs"
   ],
   "source_id": "github_trending",
   "stats": {

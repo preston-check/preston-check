@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-08-24T16:51:41.342659+00:00",
-  "last_successful_fetch": "2026-08-24T16:51:41.343645+00:00",
+  "last_run": "2026-08-24T17:40:09.484241+00:00",
+  "last_successful_fetch": "2026-08-24T17:40:09.485125+00:00",
   "processed_ids": [
-    "threatfox:66.154.103.109:31337",
-    "threatfox:103.185.249.13:31337",
-    "threatfox:162.19.175.48:31337",
-    "threatfox:146.56.214.130:31337",
     "threatfox:91.208.162.174:31337",
     "threatfox:116.202.158.114:31337",
     "threatfox:78.17.93.74:31337",
@@ -5001,7 +4997,11 @@
     "threatfox:http://zakuiru.shop:9048/collections",
     "threatfox:http://shhsift.click:7647/articles",
     "threatfox:catfee.net",
-    "threatfox:155.117.155.141:8443"
+    "threatfox:155.117.155.141:8443",
+    "threatfox:eng-en-us-synadentix.com",
+    "threatfox:an818f37.en-us-en-theeloncode.com",
+    "threatfox:en-us-en-theeloncode.com",
+    "threatfox:semekonoplje.rs"
   ],
   "source_id": "abuse_ch",
   "stats": {
