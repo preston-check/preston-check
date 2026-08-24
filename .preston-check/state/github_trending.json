@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-24T15:51:06.240041+00:00",
-  "last_successful_fetch": "2026-08-24T15:51:09.768112+00:00",
+  "last_run": "2026-08-24T16:51:37.168717+00:00",
+  "last_successful_fetch": "2026-08-24T16:51:40.772432+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3829,7 +3829,13 @@
     "github:woshikingwang/cve-all",
     "github:fevar54/CVE-2026-68820-Mitigation-PoC-",
     "github:kyos-public/keycloak-cve-2026-18963-hunt",
-    "github:oscerd/CVE-2026-66907"
+    "github:oscerd/CVE-2026-66907",
+    "github:hacbs-release-tests/collectors-no-cve-7295d65f",
+    "github:oscerd/CVE-2026-63039",
+    "github:hacbs-release-tests/collectors-no-cve-b5fd09f5",
+    "github:iamsunildev/CVee",
+    "github:oscerd/CVE-2026-28672",
+    "github:jasona7/ChatCVE"
   ],
   "source_id": "github_trending",
   "stats": {
