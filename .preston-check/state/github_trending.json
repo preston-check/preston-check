@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-24T07:15:44.091280+00:00",
-  "last_successful_fetch": "2026-08-24T07:15:47.182546+00:00",
+  "last_run": "2026-08-24T08:59:40.956268+00:00",
+  "last_successful_fetch": "2026-08-24T08:59:44.428836+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3794,7 +3794,12 @@
     "github:hacbs-release-tests/collectors-no-cve-db65d9ab",
     "github:HOZAIFAN/wifi-security-scanner-cve-compliance-audit",
     "github:hacbs-release-tests/collectors-no-cve-9c5fb0f6",
-    "github:relaxcloud-cn/vuln-db"
+    "github:relaxcloud-cn/vuln-db",
+    "github:minh3102011/CVE-2026-18963_analyst",
+    "github:XiaoBaiLovesStirring/CVE-2025-48595-Exploit",
+    "github:CPAN-Security/Test-CVE",
+    "github:hacbs-release-tests/collectors-no-cve-f35b467b",
+    "github:shubhamsahu96/CVE-Risk-Prioritization-System"
   ],
   "source_id": "github_trending",
   "stats": {
