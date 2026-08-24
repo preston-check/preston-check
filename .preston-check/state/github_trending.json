@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-24T14:54:45.645034+00:00",
-  "last_successful_fetch": "2026-08-24T14:54:49.318191+00:00",
+  "last_run": "2026-08-24T15:51:06.240041+00:00",
+  "last_successful_fetch": "2026-08-24T15:51:09.768112+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3819,7 +3819,17 @@
     "github:hacbs-release-tests/collectors-no-cve-f3db5195",
     "github:hacbs-release-tests/collectors-no-cve-21d02d40",
     "github:oscerd/CVE-2026-59230",
-    "github:hacbs-release-tests/collectors-no-cve-ff468d40"
+    "github:hacbs-release-tests/collectors-no-cve-ff468d40",
+    "github:oscerd/CVE-2026-60093",
+    "github:Chloe1997/verilator_fix_CVE",
+    "github:hacbs-release-tests/collectors-no-cve-4220008c",
+    "github:hibakarroumi/veille-cve-llm",
+    "github:hacbs-release-tests/collectors-no-cve-5d3f4bab",
+    "github:oscerd/CVE-2026-66906",
+    "github:woshikingwang/cve-all",
+    "github:fevar54/CVE-2026-68820-Mitigation-PoC-",
+    "github:kyos-public/keycloak-cve-2026-18963-hunt",
+    "github:oscerd/CVE-2026-66907"
   ],
   "source_id": "github_trending",
   "stats": {
