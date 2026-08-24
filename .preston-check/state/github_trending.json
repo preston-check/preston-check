@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-23T23:31:30.385129+00:00",
-  "last_successful_fetch": "2026-08-23T23:31:33.608584+00:00",
+  "last_run": "2026-08-24T01:54:01.155362+00:00",
+  "last_successful_fetch": "2026-08-24T01:54:04.113041+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3757,7 +3757,12 @@
     "github:endrazine/rocq-cve-poc-22024",
     "github:endrazine/rocq-cve-poc-21683",
     "github:endrazine/rocq-cve-poc-22287",
-    "github:endrazine/lean-cve-poc-14484"
+    "github:endrazine/lean-cve-poc-14484",
+    "github:cveet/cveet.github.io",
+    "github:Aditya062005/Cvent",
+    "github:turtleSimulator3000/cVectors",
+    "github:rj412517/cvempt",
+    "github:yisyelane/cveshn"
   ],
   "source_id": "github_trending",
   "stats": {
