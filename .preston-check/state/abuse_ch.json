@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-08-24T01:54:04.484872+00:00",
-  "last_successful_fetch": "2026-08-24T01:54:04.485804+00:00",
+  "last_run": "2026-08-24T03:12:37.700061+00:00",
+  "last_successful_fetch": "2026-08-24T03:12:37.701094+00:00",
   "processed_ids": [
-    "threatfox:kaybol.lol",
-    "threatfox:161.35.74.220:8080",
-    "threatfox:shhuster.lol",
-    "threatfox:https://shhuster.lol/api/v1/verify",
-    "threatfox:https://shhuster.lol/api/v1/session",
-    "threatfox:wazezajo.workers.dev",
     "threatfox:https://shhuster.lol/api/v1/status",
     "threatfox:https://essek.lol/mods/api/log-download",
     "threatfox:https://essek.lol/ws",
@@ -5001,7 +4995,13 @@
     "threatfox:209.200.246.194:32126",
     "threatfox:acsdomaindsadas.click",
     "threatfox:207.180.248.154:8202",
-    "threatfox:http://cq215681.tw1.ru/477ded33.php"
+    "threatfox:http://cq215681.tw1.ru/477ded33.php",
+    "threatfox:43.143.14.43:8084",
+    "threatfox:27.124.18.3:9999",
+    "threatfox:eng-eng-burnblend.com",
+    "threatfox:hammer-gruppe.ch",
+    "threatfox:200.25.86.137:333",
+    "threatfox:49.233.185.40:8085"
   ],
   "source_id": "abuse_ch",
   "stats": {
