@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-24T03:12:37.700061+00:00",
-  "last_successful_fetch": "2026-08-24T03:12:37.701094+00:00",
+  "last_run": "2026-08-24T04:56:29.206417+00:00",
+  "last_successful_fetch": "2026-08-24T04:56:29.207434+00:00",
   "processed_ids": [
-    "threatfox:https://shhuster.lol/api/v1/status",
-    "threatfox:https://essek.lol/mods/api/log-download",
-    "threatfox:https://essek.lol/ws",
-    "threatfox:https://essek.lol/?p=",
-    "threatfox:https://essek.lol/get/config",
-    "threatfox:https://essek.lol/babayla/zor/yarisirlar/",
-    "threatfox:essek.lol",
-    "threatfox:http://111.92.157.255:49080/Mozi.m",
     "threatfox:http://175.107.3.113:55166/Mozi.m",
     "threatfox:http://196.251.121.142/install.sh",
     "threatfox:178.16.52.177:443",
@@ -5001,7 +4993,15 @@
     "threatfox:eng-eng-burnblend.com",
     "threatfox:hammer-gruppe.ch",
     "threatfox:200.25.86.137:333",
-    "threatfox:49.233.185.40:8085"
+    "threatfox:49.233.185.40:8085",
+    "threatfox:156.234.7.14:447",
+    "threatfox:app.dinkfoundry.com",
+    "threatfox:counselor.ch",
+    "threatfox:blanautch.com",
+    "threatfox:41377be5f0885a5ed3a553ed97cd9f4762c70e99d688e011f8d7782bb7de3321",
+    "threatfox:0e7d1a0e06c0110ad1c05be41894c4bcab4de73420dfb8fd9b9f0581975ef429",
+    "threatfox:1fn6h515.eng-usa-glycofree.com",
+    "threatfox:jvzw0nks.devle.store"
   ],
   "source_id": "abuse_ch",
   "stats": {
