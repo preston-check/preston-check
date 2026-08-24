@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-24T04:56:29.206417+00:00",
-  "last_successful_fetch": "2026-08-24T04:56:29.207434+00:00",
+  "last_run": "2026-08-24T05:49:19.384143+00:00",
+  "last_successful_fetch": "2026-08-24T05:49:19.385330+00:00",
   "processed_ids": [
-    "threatfox:http://175.107.3.113:55166/Mozi.m",
-    "threatfox:http://196.251.121.142/install.sh",
-    "threatfox:178.16.52.177:443",
-    "threatfox:110.42.255.63:80",
-    "threatfox:43.128.113.133:9034",
-    "threatfox:0lzsb0vjg5.workers.dev",
-    "threatfox:45.90.98.27:3778",
-    "threatfox:xuhahyce.workers.dev",
-    "threatfox:150.109.93.78:9034",
     "threatfox:20294fe9ec6b7763a8fd58f23be53be7",
     "threatfox:y7m9sw9mvw.workers.dev",
     "threatfox:65vp9dlz.us-theslimsplitsmethod.com",
@@ -5001,7 +4992,16 @@
     "threatfox:41377be5f0885a5ed3a553ed97cd9f4762c70e99d688e011f8d7782bb7de3321",
     "threatfox:0e7d1a0e06c0110ad1c05be41894c4bcab4de73420dfb8fd9b9f0581975ef429",
     "threatfox:1fn6h515.eng-usa-glycofree.com",
-    "threatfox:jvzw0nks.devle.store"
+    "threatfox:jvzw0nks.devle.store",
+    "threatfox:fingerprint-verification.info",
+    "threatfox:nx7k0dvp.eng--memorylift.com",
+    "threatfox:7wagrm1i.mulip.store",
+    "threatfox:https://cdn.jsdelivr.net/gh/marye4562/4hf7gdy44d5/36gd&hdk",
+    "threatfox:eng-eng-cardioslim.com",
+    "threatfox:ndg2zyyn.ejash.store",
+    "threatfox:43.140.219.182:4321",
+    "threatfox:af9aaa599b8082dbe04bf1784956e8775331097c5c5bae2f85ac163e08b0e187",
+    "threatfox:79b15f0d4987e0b3dbe23075487a0d984b2b857bf4c71ed1ca73bebd110c3801"
   ],
   "source_id": "abuse_ch",
   "stats": {

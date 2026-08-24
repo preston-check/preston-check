@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-24T04:56:26.440870+00:00",
-  "last_successful_fetch": "2026-08-24T04:56:28.954399+00:00",
+  "last_run": "2026-08-24T05:49:16.059086+00:00",
+  "last_successful_fetch": "2026-08-24T05:49:19.083613+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3788,7 +3788,9 @@
     "github:gduma-phData/patch-CVE-2025-31800",
     "github:PholCast/cve-dashboard-frontend",
     "github:openeuler-mirror/cve-ease",
-    "github:vinzabe/cve-triage-engine"
+    "github:vinzabe/cve-triage-engine",
+    "github:vinzabe/cve-exploit-predictor",
+    "github:theawakened0209/cve-graphrag-assistant"
   ],
   "source_id": "github_trending",
   "stats": {
