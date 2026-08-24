@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-08-24T17:40:09.484241+00:00",
-  "last_successful_fetch": "2026-08-24T17:40:09.485125+00:00",
+  "last_run": "2026-08-24T18:54:40.822022+00:00",
+  "last_successful_fetch": "2026-08-24T18:54:40.822969+00:00",
   "processed_ids": [
-    "threatfox:91.208.162.174:31337",
-    "threatfox:116.202.158.114:31337",
-    "threatfox:78.17.93.74:31337",
-    "threatfox:185.141.60.111:31337",
-    "threatfox:213.145.86.42:31337",
     "threatfox:137.74.73.61:31337",
     "threatfox:66.63.162.235:31337",
     "threatfox:158.247.221.23:31337",
@@ -5001,7 +4996,12 @@
     "threatfox:eng-en-us-synadentix.com",
     "threatfox:an818f37.en-us-en-theeloncode.com",
     "threatfox:en-us-en-theeloncode.com",
-    "threatfox:semekonoplje.rs"
+    "threatfox:semekonoplje.rs",
+    "threatfox:http://zakuiru.shop:9048/notifications",
+    "threatfox:http://kupzovo.shop:7567/invoices",
+    "threatfox:http://kupzovo.shop:7567/permissions",
+    "threatfox:9bfndx1c.eng--theeloncode.com",
+    "threatfox:www.augenarzt-willisau.ch"
   ],
   "source_id": "abuse_ch",
   "stats": {
