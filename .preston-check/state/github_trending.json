@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-24T13:08:47.340632+00:00",
-  "last_successful_fetch": "2026-08-24T13:08:50.449101+00:00",
+  "last_run": "2026-08-24T14:54:45.645034+00:00",
+  "last_successful_fetch": "2026-08-24T14:54:49.318191+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3811,7 +3811,15 @@
     "github:hacbs-release-tests/collectors-no-cve-34d53ca6",
     "github:shjala/eve-cvewatch",
     "github:h00die/POC-CVE-2026-19626",
-    "github:wnfxsa1213/cve-database"
+    "github:wnfxsa1213/cve-database",
+    "github:hacbs-release-tests/collectors-no-cve-25ec959a",
+    "github:schmittwilliam5662/cvegog",
+    "github:oscerd/CVE-2026-63621",
+    "github:Costinelos/net-sentinel-cve",
+    "github:hacbs-release-tests/collectors-no-cve-f3db5195",
+    "github:hacbs-release-tests/collectors-no-cve-21d02d40",
+    "github:oscerd/CVE-2026-59230",
+    "github:hacbs-release-tests/collectors-no-cve-ff468d40"
   ],
   "source_id": "github_trending",
   "stats": {
