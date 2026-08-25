@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-25T03:08:24.566858+00:00",
-  "last_successful_fetch": "2026-08-25T03:08:24.567764+00:00",
+  "last_run": "2026-08-25T04:49:36.989138+00:00",
+  "last_successful_fetch": "2026-08-25T04:49:36.990288+00:00",
   "processed_ids": [
-    "threatfox:stevsns.lol",
-    "threatfox:https://stevsns.lol/api/v1/session",
-    "threatfox:https://stevsns.lol/api/v1/verify",
-    "threatfox:https://stevsns.lol/api/v1/status",
-    "threatfox:cdnmedia.trailsyamahamotor.com",
-    "threatfox:142.93.205.111:8080",
-    "threatfox:7x8grafo.en-us-energyrevolution.com",
-    "threatfox:fol9.com",
     "threatfox:https://bytesolving.info/",
     "threatfox:https://3pattipkr.com.pk/",
     "threatfox:https://777szgame.pk/",
@@ -5001,7 +4993,15 @@
     "threatfox:q8xbauhe.en-us-en-genesisrevival.com",
     "threatfox:en-us-en-genesisrevival.com",
     "threatfox:d5mkg5ct.en-prosta-fense.com",
-    "threatfox:en-prosta-fense.com"
+    "threatfox:en-prosta-fense.com",
+    "threatfox:hut.yourbodybydesign.me",
+    "threatfox:124.221.46.243:8084",
+    "threatfox:1.13.179.86:8084",
+    "threatfox:dev.blendup.xyz",
+    "threatfox:yzqkbsps.en-us-en-biobooster.com",
+    "threatfox:en-us-en-biobooster.com",
+    "threatfox:en-us-eloncode.com",
+    "threatfox:209.250.249.153:8080"
   ],
   "source_id": "abuse_ch",
   "stats": {

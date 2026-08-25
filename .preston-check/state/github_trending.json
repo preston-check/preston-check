@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T03:08:21.748561+00:00",
-  "last_successful_fetch": "2026-08-25T03:08:24.359907+00:00",
+  "last_run": "2026-08-25T04:49:21.771411+00:00",
+  "last_successful_fetch": "2026-08-25T04:49:36.261972+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3860,7 +3860,9 @@
     "github:hacbs-release-tests/collectors-no-cve-bd79822a",
     "github:hacbs-release-tests/collectors-no-cve-af55ee54",
     "github:tony102741/CVE-2026-15469",
-    "github:Anhquan-1508/CVE-2026-18963"
+    "github:Anhquan-1508/CVE-2026-18963",
+    "github:hacbs-release-tests/collectors-no-cve-f05fa203",
+    "github:uLl0a/cve-2022-42475-poc"
   ],
   "source_id": "github_trending",
   "stats": {
