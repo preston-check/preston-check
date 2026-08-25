@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T15:54:59.080072+00:00",
-  "last_successful_fetch": "2026-08-25T15:55:03.043040+00:00",
+  "last_run": "2026-08-25T16:50:45.367695+00:00",
+  "last_successful_fetch": "2026-08-25T16:50:56.468875+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3914,7 +3914,12 @@
     "github:poky1084/cve-anomaly-detection",
     "github:gh0stuncle/CVE-2018-16763_fuel_cms_exploit",
     "github:a-brown63232/cvezmz",
-    "github:OpenEvalz/eval-cve_bench"
+    "github:OpenEvalz/eval-cve_bench",
+    "github:debugactiveprocess/CVE-2026-18963",
+    "github:regularpooria/CWE_CVE_Mapping",
+    "github:ayush-sri/cve-tracker-agent",
+    "github:ckq7703/CVE-2020-1472",
+    "github:khwajasaad267-coder/cve-2024-4577-lab"
   ],
   "source_id": "github_trending",
   "stats": {
