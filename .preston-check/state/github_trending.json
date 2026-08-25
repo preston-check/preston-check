@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T17:40:22.558548+00:00",
-  "last_successful_fetch": "2026-08-25T17:40:25.500249+00:00",
+  "last_run": "2026-08-25T18:53:10.216589+00:00",
+  "last_successful_fetch": "2026-08-25T18:53:13.152709+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3921,7 +3921,11 @@
     "github:ckq7703/CVE-2020-1472",
     "github:khwajasaad267-coder/cve-2024-4577-lab",
     "github:BishopFox/CVE-2026-58073-check",
-    "github:ejajmahmud/cve-vulnerability-patch-remediation-bot-fastapi-cve-patch-bot-core-v2026-b62"
+    "github:ejajmahmud/cve-vulnerability-patch-remediation-bot-fastapi-cve-patch-bot-core-v2026-b62",
+    "github:phall-teleport/cve-reporter-docker-image",
+    "github:hacbs-release-tests/collectors-no-cve-730437af",
+    "github:samueldonkor02-collab/Vulnerability-Scanning-Lab-Greenbone-OpenVAS-Authenticated-Scan-CVE-Lookup-CVSS-Scoring-",
+    "github:hacbs-release-tests/collectors-no-cve-dd62d94e"
   ],
   "source_id": "github_trending",
   "stats": {
