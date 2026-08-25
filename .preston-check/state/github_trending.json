@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T07:03:42.448376+00:00",
-  "last_successful_fetch": "2026-08-25T07:03:48.124311+00:00",
+  "last_run": "2026-08-25T07:54:09.461997+00:00",
+  "last_successful_fetch": "2026-08-25T07:54:12.306556+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3869,7 +3869,10 @@
     "github:lunamoore775727/cveksf",
     "github:hacbs-release-tests/collectors-no-cve-6c7fcade",
     "github:jaf0rk/CVE-2026-5281-CVE-2026-11057-fullchain",
-    "github:peterslisa6220/cvepni"
+    "github:peterslisa6220/cvepni",
+    "github:finnvle/CVE-2022-28906-POC",
+    "github:hacbs-release-tests/collectors-no-cve-e30d78ab",
+    "github:Omkar-cvedi/Omkar-cvedi"
   ],
   "source_id": "github_trending",
   "stats": {
