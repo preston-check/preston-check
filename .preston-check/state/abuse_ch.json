@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-25T01:47:40.905699+00:00",
-  "last_successful_fetch": "2026-08-25T01:47:40.906684+00:00",
+  "last_run": "2026-08-25T03:08:24.566858+00:00",
+  "last_successful_fetch": "2026-08-25T03:08:24.567764+00:00",
   "processed_ids": [
-    "threatfox:64.227.187.82:9034",
-    "threatfox:2r1be19qxe.workers.dev",
-    "threatfox:lovaloku.workers.dev",
-    "threatfox:khpi2hz48i.workers.dev",
-    "threatfox:64.227.187.82:8443",
-    "threatfox:https://bob.1001gacor.org",
-    "threatfox:31.77.227.102:9506",
-    "threatfox:31.77.227.102:9",
     "threatfox:stevsns.lol",
     "threatfox:https://stevsns.lol/api/v1/session",
     "threatfox:https://stevsns.lol/api/v1/verify",
@@ -5001,7 +4993,15 @@
     "threatfox:http://bazadar.shop:5728/webhooks",
     "threatfox:http://shhsift.click:7647/transactions",
     "threatfox:http://zonxh.shop:7728/addresses",
-    "threatfox:http://zakuiru.shop:9048/addresses"
+    "threatfox:http://zakuiru.shop:9048/addresses",
+    "threatfox:http://shhsift.click:7647/accounts",
+    "threatfox:http://zonxh.shop:7728/reviews",
+    "threatfox:sisdias.com",
+    "threatfox:http://niskioglasi.rs/test2/Panel/fre.php",
+    "threatfox:q8xbauhe.en-us-en-genesisrevival.com",
+    "threatfox:en-us-en-genesisrevival.com",
+    "threatfox:d5mkg5ct.en-prosta-fense.com",
+    "threatfox:en-prosta-fense.com"
   ],
   "source_id": "abuse_ch",
   "stats": {

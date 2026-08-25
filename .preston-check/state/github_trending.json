@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T01:47:37.395627+00:00",
-  "last_successful_fetch": "2026-08-25T01:47:40.729995+00:00",
+  "last_run": "2026-08-25T03:08:21.748561+00:00",
+  "last_successful_fetch": "2026-08-25T03:08:24.359907+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3853,7 +3853,14 @@
     "github:hacbs-release-tests/collectors-no-cve-2b7801c4",
     "github:hacbs-release-tests/collectors-no-cve-30be1dfc",
     "github:cVenturaDev/cVenturaDev",
-    "github:Boreas37/CVE-2026-32475-PoC"
+    "github:Boreas37/CVE-2026-32475-PoC",
+    "github:Slagzz/CVE-2026-9254",
+    "github:GMJayy/wp-cve-poc",
+    "github:Slagzz/CVE-2026-16348",
+    "github:hacbs-release-tests/collectors-no-cve-bd79822a",
+    "github:hacbs-release-tests/collectors-no-cve-af55ee54",
+    "github:tony102741/CVE-2026-15469",
+    "github:Anhquan-1508/CVE-2026-18963"
   ],
   "source_id": "github_trending",
   "stats": {
