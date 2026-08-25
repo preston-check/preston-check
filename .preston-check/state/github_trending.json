@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T08:54:39.112651+00:00",
-  "last_successful_fetch": "2026-08-25T08:54:42.404538+00:00",
+  "last_run": "2026-08-25T09:47:17.623142+00:00",
+  "last_successful_fetch": "2026-08-25T09:47:21.038109+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3876,7 +3876,10 @@
     "github:RCoeurjoly/nix-formal-cve",
     "github:Anoshkhan/cve-sindh",
     "github:Anoshkhan/CVE",
-    "github:0xbinder/CVE_2019_2215"
+    "github:0xbinder/CVE_2019_2215",
+    "github:RenatoAntunovic/cve",
+    "github:evdenis/cvehound-spatch",
+    "github:0xnu11byte/0dayIntelligence"
   ],
   "source_id": "github_trending",
   "stats": {
