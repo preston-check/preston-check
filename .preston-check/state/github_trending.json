@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T05:41:51.005319+00:00",
-  "last_successful_fetch": "2026-08-25T05:41:54.160882+00:00",
+  "last_run": "2026-08-25T07:03:42.448376+00:00",
+  "last_successful_fetch": "2026-08-25T07:03:48.124311+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3866,7 +3866,10 @@
     "github:BlackHatExploitation/Exploit-For-CVE-2026-18963",
     "github:selecthch/CVE-2026-41551",
     "github:jesusdominguez87/CVE-2025-5548",
-    "github:lunamoore775727/cveksf"
+    "github:lunamoore775727/cveksf",
+    "github:hacbs-release-tests/collectors-no-cve-6c7fcade",
+    "github:jaf0rk/CVE-2026-5281-CVE-2026-11057-fullchain",
+    "github:peterslisa6220/cvepni"
   ],
   "source_id": "github_trending",
   "stats": {
