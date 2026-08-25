@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T19:40:44.759178+00:00",
-  "last_successful_fetch": "2026-08-25T19:40:48.019407+00:00",
+  "last_run": "2026-08-25T20:40:18.747138+00:00",
+  "last_successful_fetch": "2026-08-25T20:40:21.483022+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3932,7 +3932,9 @@
     "github:infinitegrit26/sonar-cve-agent",
     "github:hacbs-release-tests/collectors-no-cve-c7d74124",
     "github:rafabd1/CVE-2026-75604-poc",
-    "github:hacbs-release-tests/collectors-no-cve-50290d61"
+    "github:hacbs-release-tests/collectors-no-cve-50290d61",
+    "github:hacbs-release-tests/collectors-no-cve-a98b1a96",
+    "github:hacbs-release-tests/collectors-no-cve-3e91f9a3"
   ],
   "source_id": "github_trending",
   "stats": {
