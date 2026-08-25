@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T14:01:21.599918+00:00",
-  "last_successful_fetch": "2026-08-25T14:01:25.202832+00:00",
+  "last_run": "2026-08-25T14:58:11.576531+00:00",
+  "last_successful_fetch": "2026-08-25T14:58:22.803326+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3896,7 +3896,17 @@
     "github:kalhoralireza/CVE-2026-17532-lab",
     "github:thijor/dp-cvep-decoder",
     "github:RayD15/CVelora",
-    "github:SneakyNachos/CVE-2026-4692-trust-me-im-in-rdm"
+    "github:SneakyNachos/CVE-2026-4692-trust-me-im-in-rdm",
+    "github:hacbs-release-tests/collectors-no-cve-3a5ea5a7",
+    "github:gman0x00/keycloak-CVE-2026-18963",
+    "github:hacbs-release-tests/collectors-no-cve-42fa2ac5",
+    "github:Cjayversola/CCM101-cversola",
+    "github:hacbs-release-tests/collectors-no-cve-7ead991e",
+    "github:hacbs-release-tests/collectors-no-cve-e9ec6b15",
+    "github:hacbs-release-tests/collectors-no-cve-028a3b96",
+    "github:str8outtaheap/webkit-cves",
+    "github:hacbs-release-tests/collectors-no-cve-e834ed06",
+    "github:hacbs-release-tests/collectors-no-cve-dc36483d"
   ],
   "source_id": "github_trending",
   "stats": {
