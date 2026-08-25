@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-08-25T07:54:12.638599+00:00",
-  "last_successful_fetch": "2026-08-25T07:54:12.639601+00:00",
+  "last_run": "2026-08-25T08:54:42.784960+00:00",
+  "last_successful_fetch": "2026-08-25T08:54:42.785880+00:00",
   "processed_ids": [
-    "threatfox:redony-tiszafured.hu",
-    "threatfox:redpebblephotography.com",
-    "threatfox:reslerovaordinace.cz",
-    "threatfox:riscmtpnotes.com",
-    "threatfox:rokhthokmarathinews.com",
-    "threatfox:rotospace.pl",
-    "threatfox:randysavages.com",
-    "threatfox:rdltreinamentos.com.br",
     "threatfox:positive.wales",
     "threatfox:predragzec.com",
     "threatfox:pressekort.com",
@@ -5001,7 +4993,15 @@
     "threatfox:45.8.46.122:8080",
     "threatfox:91.92.240.88:8080",
     "threatfox:easycompany.ch",
-    "threatfox:anup-nastik.ch"
+    "threatfox:anup-nastik.ch",
+    "threatfox:https://mail.quwatt.com/",
+    "threatfox:toad.ampwin123.com",
+    "threatfox:150.129.80.247:8083",
+    "threatfox:143.92.62.110:8083",
+    "threatfox:114.132.178.92:8084",
+    "threatfox:91.92.240.88:443",
+    "threatfox:theatre-du-chateau.ch",
+    "threatfox:https://cdn.jsdelivr.net/gh/marye4562/df64gre7j/yd98gh3s"
   ],
   "source_id": "abuse_ch",
   "stats": {
