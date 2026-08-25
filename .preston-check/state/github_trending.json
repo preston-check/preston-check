@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T14:58:11.576531+00:00",
-  "last_successful_fetch": "2026-08-25T14:58:22.803326+00:00",
+  "last_run": "2026-08-25T15:54:59.080072+00:00",
+  "last_successful_fetch": "2026-08-25T15:55:03.043040+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3906,7 +3906,15 @@
     "github:hacbs-release-tests/collectors-no-cve-028a3b96",
     "github:str8outtaheap/webkit-cves",
     "github:hacbs-release-tests/collectors-no-cve-e834ed06",
-    "github:hacbs-release-tests/collectors-no-cve-dc36483d"
+    "github:hacbs-release-tests/collectors-no-cve-dc36483d",
+    "github:Spiritt11/cve-threat-dasboard",
+    "github:pyshawon/CVE-Exploit-POC",
+    "github:LindHunt/CVE-2026-26211",
+    "github:fevar54/CVE-2026-32635-Angular-XSS-Mitigation-",
+    "github:poky1084/cve-anomaly-detection",
+    "github:gh0stuncle/CVE-2018-16763_fuel_cms_exploit",
+    "github:a-brown63232/cvezmz",
+    "github:OpenEvalz/eval-cve_bench"
   ],
   "source_id": "github_trending",
   "stats": {
