@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T13:06:33.653645+00:00",
-  "last_successful_fetch": "2026-08-25T13:06:36.616117+00:00",
+  "last_run": "2026-08-25T14:01:21.599918+00:00",
+  "last_successful_fetch": "2026-08-25T14:01:25.202832+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3888,7 +3888,15 @@
     "github:hacbs-release-tests/collectors-no-cve-d17a3d3a",
     "github:mia-moore44630/cvefrk",
     "github:meher4567/edge-cve-orchestrator",
-    "github:quantumproxies/cve-api-examples"
+    "github:quantumproxies/cve-api-examples",
+    "github:kiranpnair8/cvep_eegdata",
+    "github:hacbs-release-tests/collectors-no-cve-181d87cf",
+    "github:hacbs-release-tests/collectors-no-cve-4abc89c9",
+    "github:hacbs-release-tests/collectors-no-cve-089e2a98",
+    "github:kalhoralireza/CVE-2026-17532-lab",
+    "github:thijor/dp-cvep-decoder",
+    "github:RayD15/CVelora",
+    "github:SneakyNachos/CVE-2026-4692-trust-me-im-in-rdm"
   ],
   "source_id": "github_trending",
   "stats": {

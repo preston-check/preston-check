@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-08-25T13:06:37.039717+00:00",
-  "last_successful_fetch": "2026-08-25T13:06:37.041467+00:00",
+  "last_run": "2026-08-25T14:01:25.556298+00:00",
+  "last_successful_fetch": "2026-08-25T14:01:25.557288+00:00",
   "processed_ids": [
-    "threatfox:maestranzaprecision.com",
-    "threatfox:156.251.16.249:7800",
-    "threatfox:156.251.16.249:7811",
-    "threatfox:ametiqbanking.com",
-    "threatfox:groupewagner.be",
-    "threatfox:prophelab.com",
-    "threatfox:jackbeer.fr",
     "threatfox:vb-zone.com",
     "threatfox:47.98.102.101:8084",
     "threatfox:58.87.71.33:1999",
@@ -5001,7 +4994,14 @@
     "threatfox:138.124.62.8:49376",
     "threatfox:138.124.62.8:54123",
     "threatfox:138.124.62.8:61543",
-    "threatfox:147.45.116.15:7193"
+    "threatfox:147.45.116.15:7193",
+    "threatfox:en-leptozan-us.com",
+    "threatfox:sv41ylmi.eng--nervealive.com",
+    "threatfox:45.8.46.122:3232",
+    "threatfox:80.190.77.86:30700",
+    "threatfox:3.238.106.234:7443",
+    "threatfox:182.92.78.7:80",
+    "threatfox:2.27.202.130:7443"
   ],
   "source_id": "abuse_ch",
   "stats": {
