@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-25T18:53:10.216589+00:00",
-  "last_successful_fetch": "2026-08-25T18:53:13.152709+00:00",
+  "last_run": "2026-08-25T19:40:44.759178+00:00",
+  "last_successful_fetch": "2026-08-25T19:40:48.019407+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3925,7 +3925,14 @@
     "github:phall-teleport/cve-reporter-docker-image",
     "github:hacbs-release-tests/collectors-no-cve-730437af",
     "github:samueldonkor02-collab/Vulnerability-Scanning-Lab-Greenbone-OpenVAS-Authenticated-Scan-CVE-Lookup-CVSS-Scoring-",
-    "github:hacbs-release-tests/collectors-no-cve-dd62d94e"
+    "github:hacbs-release-tests/collectors-no-cve-dd62d94e",
+    "github:HORKimhab/CVE-2026-73570",
+    "github:HORKimhab/CVE-2026-35273",
+    "github:abdulrafay25-svg/CVE-2021-41773-Exploit",
+    "github:infinitegrit26/sonar-cve-agent",
+    "github:hacbs-release-tests/collectors-no-cve-c7d74124",
+    "github:rafabd1/CVE-2026-75604-poc",
+    "github:hacbs-release-tests/collectors-no-cve-50290d61"
   ],
   "source_id": "github_trending",
   "stats": {
