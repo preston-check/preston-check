@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-24T23:31:01.194670+00:00",
-  "last_successful_fetch": "2026-08-24T22:38:48.957769+00:00",
+  "last_run": "2026-08-25T01:47:37.395627+00:00",
+  "last_successful_fetch": "2026-08-25T01:47:40.729995+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3851,7 +3851,9 @@
     "github:CuteeCat/CVE-2026-77806",
     "github:CCoopSec/SmartCameraCVEs",
     "github:hacbs-release-tests/collectors-no-cve-2b7801c4",
-    "github:hacbs-release-tests/collectors-no-cve-30be1dfc"
+    "github:hacbs-release-tests/collectors-no-cve-30be1dfc",
+    "github:cVenturaDev/cVenturaDev",
+    "github:Boreas37/CVE-2026-32475-PoC"
   ],
   "source_id": "github_trending",
   "stats": {
