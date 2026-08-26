@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-26T07:04:18.956786+00:00",
-  "last_successful_fetch": "2026-08-26T07:04:22.236699+00:00",
+  "last_run": "2026-08-26T07:55:29.027930+00:00",
+  "last_successful_fetch": "2026-08-26T07:55:32.115648+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3954,7 +3954,11 @@
     "github:ChiefYoru/Exploit-CVE-2026-56705",
     "github:hacbs-release-tests/collectors-no-cve-d56dad0c",
     "github:zenzue/CVE-2026-55040",
-    "github:kangjikjik/cve-rag-chatbot"
+    "github:kangjikjik/cve-rag-chatbot",
+    "github:hacbs-release-tests/collectors-no-cve-7edcfe50",
+    "github:hacbs-release-tests/collectors-no-cve-1238734a",
+    "github:hacbs-release-tests/collectors-no-cve-d61dd328",
+    "github:Hafeez232/Windows-CVEs-Dataset"
   ],
   "source_id": "github_trending",
   "stats": {
