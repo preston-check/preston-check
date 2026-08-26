@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-08-26T09:53:25.023137+00:00",
-  "last_successful_fetch": "2026-08-26T09:53:25.024084+00:00",
+  "last_run": "2026-08-26T10:47:45.875755+00:00",
+  "last_successful_fetch": "2026-08-26T10:47:45.877162+00:00",
   "processed_ids": [
-    "threatfox:ncsirt.org.sz",
-    "threatfox:necckaduna.com.ng",
-    "threatfox:necckaduna.gov.ng",
-    "threatfox:obesidadydiabetes.info",
-    "threatfox:ofi-med.pl",
-    "threatfox:onlinetarabar.ir",
-    "threatfox:openmedia.ro",
-    "threatfox:ovarquitectura.com",
-    "threatfox:oztutustekstil.com",
     "threatfox:pasoapasofam.com",
     "threatfox:polepsyepernon.fr",
     "threatfox:rotariosjurica.org",
@@ -5001,7 +4992,16 @@
     "threatfox:124.222.150.13:8084",
     "threatfox:118.178.143.61:8084",
     "threatfox:68.221.168.156:443",
-    "threatfox:compraventa.ebainet.es"
+    "threatfox:compraventa.ebainet.es",
+    "threatfox:4lu4vaih.en-us--menbalancepro.com",
+    "threatfox:k45ks1jv.enus-mindvault.com",
+    "threatfox:enus-mindvault.com",
+    "threatfox:http://fresok.top:9048/customers",
+    "threatfox:http://Cryptovectorhub3.lol:5478/accounts",
+    "threatfox:207.148.126.156:28884",
+    "threatfox:39.107.139.26:80",
+    "threatfox:149.104.28.204:8084",
+    "threatfox:141.11.109.12:7443"
   ],
   "source_id": "abuse_ch",
   "stats": {
