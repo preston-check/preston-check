@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-26T03:14:40.724043+00:00",
-  "last_successful_fetch": "2026-08-26T03:14:44.316658+00:00",
+  "last_run": "2026-08-26T04:51:15.104382+00:00",
+  "last_successful_fetch": "2026-08-26T04:51:18.890571+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -3946,7 +3946,10 @@
     "github:sanathSK07/cve",
     "github:AlejoCS7/AlejandroCaicedoCVESP",
     "github:matthewblitzy/CVE-Demo",
-    "github:faresUnderScore999/sofrecom-cve-backend"
+    "github:faresUnderScore999/sofrecom-cve-backend",
+    "github:AlejoCS7/AlejandroCVENG",
+    "github:AlejoCS7/Alejandro-CVESP",
+    "github:gabrielunknown/CVE-2026-73570"
   ],
   "source_id": "github_trending",
   "stats": {
