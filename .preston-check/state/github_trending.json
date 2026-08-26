@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-26T19:16:50.364732+00:00",
-  "last_successful_fetch": "2026-08-26T19:16:53.147056+00:00",
+  "last_run": "2026-08-26T23:25:04.569115+00:00",
+  "last_successful_fetch": "2026-08-26T23:25:07.786516+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4001,7 +4001,9 @@
     "github:yellowkeycve2026/YellowKey-BitLocker-CVE-2026-45585",
     "github:SKT2402/CyberSecure-News-CVE",
     "github:andersonchristopher69/cvejil",
-    "github:Squ1shification/PNGboomer-CVE-2026-77622"
+    "github:Squ1shification/PNGboomer-CVE-2026-77622",
+    "github:SyedAnas01/cve-credits-attribution",
+    "github:praneethnaidu1910-cmd/cve-2023-23397-purple-team"
   ],
   "source_id": "github_trending",
   "stats": {
