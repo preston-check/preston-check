@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-27T09:33:29.326811+00:00",
-  "last_successful_fetch": "2026-08-27T09:33:33.273281+00:00",
+  "last_run": "2026-08-27T20:21:05.553021+00:00",
+  "last_successful_fetch": "2026-08-27T20:21:08.968083+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4011,7 +4011,8 @@
     "github:EQSTLab/CVE-2026-72898",
     "github:lunamoore112027/cveghz",
     "github:DataAvailable/OneCVE",
-    "github:HORKimhab/CVE-2015-3246"
+    "github:HORKimhab/CVE-2015-3246",
+    "github:SneakyNachos/CVE-2026-74936-gc-potato"
   ],
   "source_id": "github_trending",
   "stats": {
