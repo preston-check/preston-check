@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-26T23:25:04.569115+00:00",
-  "last_successful_fetch": "2026-08-26T23:25:07.786516+00:00",
+  "last_run": "2026-08-27T09:33:29.326811+00:00",
+  "last_successful_fetch": "2026-08-27T09:33:33.273281+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4003,7 +4003,15 @@
     "github:andersonchristopher69/cvejil",
     "github:Squ1shification/PNGboomer-CVE-2026-77622",
     "github:SyedAnas01/cve-credits-attribution",
-    "github:praneethnaidu1910-cmd/cve-2023-23397-purple-team"
+    "github:praneethnaidu1910-cmd/cve-2023-23397-purple-team",
+    "github:khan-huzaib/RAG-PROJECT_CVE_MITRE_MAPPING",
+    "github:Alevtinka19/CVE-2026-3844",
+    "github:nawalacheker1/CVE-2026-46331",
+    "github:cvelinho/cvelinho.github.io",
+    "github:EQSTLab/CVE-2026-72898",
+    "github:lunamoore112027/cveghz",
+    "github:DataAvailable/OneCVE",
+    "github:HORKimhab/CVE-2015-3246"
   ],
   "source_id": "github_trending",
   "stats": {
