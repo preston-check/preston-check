@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-29T09:00:25.508758+00:00",
-  "last_successful_fetch": "2026-08-29T09:00:27.872964+00:00",
+  "last_run": "2026-08-29T14:25:14.690726+00:00",
+  "last_successful_fetch": "2026-08-29T14:25:25.311957+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4027,7 +4027,11 @@
     "github:dr-tharma/cve-insights-2.0",
     "github:cyberia-to/cve",
     "github:mathivadhanis505/cve_test",
-    "github:givenyiko/Syntecxhub_vulnerability_cve_scanner"
+    "github:givenyiko/Syntecxhub_vulnerability_cve_scanner",
+    "github:FranklinF25/cve-2026-42533",
+    "github:aungko186/YellowKey-BitLocker-CVE-2026-45585",
+    "github:yora1928/PaperCut-CVE-2026-81578-82078",
+    "github:dhiabargougui/cve-vulnerability-tracker"
   ],
   "source_id": "github_trending",
   "stats": {
