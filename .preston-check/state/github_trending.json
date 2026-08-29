@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-29T02:07:12.528035+00:00",
-  "last_successful_fetch": "2026-08-29T02:07:26.040556+00:00",
+  "last_run": "2026-08-29T09:00:25.508758+00:00",
+  "last_successful_fetch": "2026-08-29T09:00:27.872964+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4020,7 +4020,14 @@
     "github:sizzlingmed/repo-i03cve34",
     "github:UbaidullahWaleed1/cve-watch",
     "github:miajackson4466/cverww",
-    "github:BiiTts/CVE-2026-82286-gpt-crawler-Arbitrary-File-Write"
+    "github:BiiTts/CVE-2026-82286-gpt-crawler-Arbitrary-File-Write",
+    "github:TheSIG-king/cve-sentinel",
+    "github:KaiserdesMonats/CVE-2026-21962-Blog",
+    "github:Hunt-Benito/your-bot-my-inbox-cve-2026-68929-fastgpt-unauthenticated-wechat-channel-hijack",
+    "github:dr-tharma/cve-insights-2.0",
+    "github:cyberia-to/cve",
+    "github:mathivadhanis505/cve_test",
+    "github:givenyiko/Syntecxhub_vulnerability_cve_scanner"
   ],
   "source_id": "github_trending",
   "stats": {
