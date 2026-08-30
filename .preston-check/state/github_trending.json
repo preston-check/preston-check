@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-30T12:48:38.687141+00:00",
-  "last_successful_fetch": "2026-08-30T12:48:41.248577+00:00",
+  "last_run": "2026-08-30T17:23:41.388564+00:00",
+  "last_successful_fetch": "2026-08-30T17:23:43.942578+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4052,7 +4052,9 @@
     "github:Vaibhav91one/nextjs-cve-lab",
     "github:Vaibhav91one/spring4shell-cve-lab",
     "github:Vaibhav91one/apache-cve-lab",
-    "github:Aleph-Kim/cve"
+    "github:Aleph-Kim/cve",
+    "github:suruurism/cve-writeups-and-pocs",
+    "github:foxirain/CVE-public"
   ],
   "source_id": "github_trending",
   "stats": {
