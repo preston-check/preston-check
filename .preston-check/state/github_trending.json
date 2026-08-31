@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-30T23:26:07.715105+00:00",
-  "last_successful_fetch": "2026-08-30T23:26:10.486328+00:00",
+  "last_run": "2026-08-31T05:24:30.135777+00:00",
+  "last_successful_fetch": "2026-08-31T05:24:32.756983+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4062,7 +4062,13 @@
     "github:FranklinF25/cve-2026-42945",
     "github:AndyVale/CVEXpert",
     "github:drg-tdc-cve/tdc-plantillas",
-    "github:JotaEspig/CVE-2025-66478-PoC-Reverse-Shell"
+    "github:JotaEspig/CVE-2025-66478-PoC-Reverse-Shell",
+    "github:LoneWolfXD/cve-rag",
+    "github:silversub1106/CVE-vs-GGUF-",
+    "github:kemrec/CVE-2025-0324-axis-vapix-privesc",
+    "github:moderneinc/rewrite-cve-2026-22732",
+    "github:Arungharami/DriftCVE-NLP",
+    "github:coruna19980101/darksword-en"
   ],
   "source_id": "github_trending",
   "stats": {
