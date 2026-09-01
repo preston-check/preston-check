@@ -123,6 +123,36 @@ jobs:
             --negative-corpus corpus/snapshots/negative-run.tar.gz \
             --max-candidates 5
 
+      # Lint the checks this cycle just generated, before they are committed.
+      # Until 2026-09-01 nothing did: the promotion PR's lint run never survived
+      # the merge race (see the wait step below), and a merge made with the
+      # Actions token does not fire on:push workflows, so master saw no lint
+      # either. Fail-closed — an unlintable check must not land. Both tools are
+      # needed: lint-check.sh records a shellcheck failure as a warning and
+      # still exits 0, so it gates metadata and forbidden patterns, not shell
+      # correctness.
+      - name: Lint generated checks
+        if: env.PRESTON_AUTOMERGE_ENABLED == 'true'
+        run: |
+          set -euo pipefail
+          # Porcelain format is two status columns plus a space, so the path
+          # starts at column 4. Covers untracked (new) and modified checks.
+          FILES=$(git status --porcelain --untracked-files=all -- checks/community \
+                  | cut -c4- | grep '\.sh$' || true)
+          if [ -z "$FILES" ]; then
+            echo "no generated checks this cycle"
+            exit 0
+          fi
+          command -v shellcheck >/dev/null 2>&1 \
+            || { sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck; }
+          chmod +x tools/lint-check.sh
+          while IFS= read -r f; do
+            [ -n "$f" ] || continue
+            echo "--- linting $f"
+            shellcheck -S warning "$f"
+            tools/lint-check.sh "$f"
+          done <<< "$FILES"
+
       - name: Open promotion PR
         id: open_pr
         if: env.PRESTON_AUTOMERGE_ENABLED == 'true'
@@ -163,6 +193,35 @@ jobs:
               2>/dev/null \
             || echo "$BRANCH_URL")
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+
+      # The PR's checks must finish BEFORE the merge below deletes the branch.
+      # Merging immediately (the behaviour until 2026-09-01) tore the merge ref
+      # out from under the just-dispatched pull_request runs, which then died
+      # with zero jobs and conclusion=failure — three phantom red runs per
+      # promotion cycle, and ones rerun-failed-jobs could never heal because a
+      # jobless run has no failed job to retry (docs/pipeline-reliability.md,
+      # addendum 2026-08-31). Waiting also makes these checks a real gate for
+      # the first time: on failure the merge step is skipped, the PR stays open,
+      # and the watchdog's stuck-promotion check escalates it after a day.
+      - name: Wait for promotion PR checks
+        if: env.PRESTON_AUTOMERGE_ENABLED == 'true' && steps.open_pr.outputs.pr_url != ''
+        timeout-minutes: 20
+        env:
+          PR_URL: ${{ steps.open_pr.outputs.pr_url }}
+        run: |
+          set -euo pipefail
+          # A just-opened PR reports no checks for a few seconds, and
+          # `gh pr checks` cannot distinguish "none registered yet" from
+          # "a check failed" by exit code. Poll until at least one check run
+          # exists against the pushed head, then watch it to completion.
+          SHA=$(git rev-parse HEAD)
+          for _ in $(seq 1 24); do
+            n=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${SHA}/check-runs" \
+                  --jq '.total_count' 2>/dev/null || echo 0)
+            [ "${n:-0}" -gt 0 ] && break
+            sleep 5
+          done
+          gh pr checks "$PR_URL" --watch --fail-fast
 
       # The verification wall has already gated these candidates; the PR
       # exists as an audit trail, not for review. This step is the merge

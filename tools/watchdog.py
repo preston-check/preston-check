@@ -134,10 +134,25 @@ def recent_runs(lookback_hours: int) -> tuple[list[dict], dict[int, str]]:
 
 
 def rerun_failed(run: dict) -> tuple[bool, str]:
-    status, _ = _gh(f"/repos/{REPO}/actions/runs/{run['id']}/rerun-failed-jobs", method="POST", body={})
+    """Re-run a failed run, preferring the cheaper failed-jobs-only retry.
+
+    A run that died before creating any jobs answers 403 "This workflow run
+    cannot be retried" here: rerun-failed-jobs retries *failed jobs*, and there
+    are none. That is exactly the zero-step class this watchdog exists to catch,
+    so refusing at that point left the one failure mode it most needs to heal
+    permanently unhealable (2026-08-31 promotion-PR race; see
+    docs/pipeline-reliability.md). The full re-run endpoint accepts such runs,
+    so fall back to it before escalating.
+    """
+    run_path = f"/repos/{REPO}/actions/runs/{run['id']}"
+    status, _ = _gh(f"{run_path}/rerun-failed-jobs", method="POST", body={})
     if status == 201:
         return True, "re-run queued"
-    return False, f"re-run refused (HTTP {status})"
+    partial_status = status
+    status, _ = _gh(f"{run_path}/rerun", method="POST", body={})
+    if status == 201:
+        return True, "full re-run queued (no failed jobs to retry)"
+    return False, f"re-run refused (HTTP {partial_status}, full re-run HTTP {status})"
 
 
 def latest_semver_tag() -> str | None:

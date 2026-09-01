@@ -19,6 +19,12 @@ jobs:
       - name: Install shellcheck
         run: sudo apt-get update && sudo apt-get install -y shellcheck
 
+      # lint-check.sh delegates its forbidden-construct gate to
+      # tools/sandbox_validate.py, which needs bashlex for its sound AST path;
+      # without it the validator falls back to a weaker command-start heuristic.
+      - name: Install bashlex
+        run: pip install bashlex
+
       - name: Identify changed community checks
         id: changed
         # SHAs are GitHub-controlled 40-hex values, but pass them via env

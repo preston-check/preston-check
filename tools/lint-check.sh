@@ -42,32 +42,28 @@ else
   warn "shellcheck not installed; skipping (CI will run it)"
 fi
 
-# 2. Forbidden patterns
-FORBIDDEN_PATTERNS=(
-  "curl[[:space:]]"
-  "wget[[:space:]]"
-  "nc[[:space:]]"
-  "ncat[[:space:]]"
-  "telnet[[:space:]]"
-  "ssh[[:space:]]"
-  "scp[[:space:]]"
-  "rsync[[:space:]]"
-  "ftp[[:space:]]"
-  "/dev/tcp"
-  "/dev/udp"
-  "[[:space:]]eval[[:space:]]"
-  "[[:space:]]source[[:space:]]\\\$"
-  "exec[[:space:]]+[\$\"']"
-)
-
-for pat in "${FORBIDDEN_PATTERNS[@]}"; do
-  # Skip lines inside the PRESTON_META block (where these words may appear in metadata strings)
-  if awk '/^[[:space:]]*PRESTON_META[[:space:]]*$/{flag=!flag; next} !flag' "$FILE" | \
-     grep -nE "$pat" >/dev/null 2>&1; then
-    err "Forbidden pattern detected: '$pat' (network calls, eval, and exec are banned in community checks)"
-  fi
-done
-[[ $ERRORS -eq 0 ]] && ok "no forbidden patterns"
+# 2. Forbidden constructs — network calls, eval, exec, arbitrary file writes
+#
+# Delegated to tools/sandbox_validate.py rather than matched with regexes. The
+# pattern list this replaced scanned the PRESTON_META block instead of the code:
+# its awk boundary toggled only on the closing delimiter, never on the opening
+# `: <<'PRESTON_META'`, so it inspected the metadata prose and skipped the script
+# body entirely. That inverted both directions — it flagged descriptions
+# containing "ussync parameters" while passing a check whose body called curl and
+# eval (2026-08-31; see docs/pipeline-reliability.md). sandbox_validate parses the
+# script with bashlex and fails closed, and is the same gate the threat-intel
+# pipeline already runs on every synthesized candidate.
+SANDBOX="$SCRIPT_DIR/tools/sandbox_validate.py"
+if ! command -v python3 >/dev/null 2>&1; then
+  err "python3 not found; cannot verify forbidden constructs (this gate fails closed)"
+elif [[ ! -f "$SANDBOX" ]]; then
+  err "sandbox_validate.py not found at $SANDBOX; cannot verify forbidden constructs"
+elif SANDBOX_OUT=$(python3 "$SANDBOX" "$FILE" 2>&1); then
+  ok "no forbidden constructs"
+else
+  err "forbidden construct detected (network calls, eval, and exec are banned in community checks)"
+  printf '%s\n' "$SANDBOX_OUT" | sed 's/^/       /' >&2
+fi
 
 # 3. PRESTON_META block exists
 if ! grep -q "^[[:space:]]*PRESTON_META[[:space:]]*$" "$FILE"; then
