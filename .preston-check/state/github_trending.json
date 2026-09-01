@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-01T10:00:12.095730+00:00",
-  "last_successful_fetch": "2026-09-01T10:00:15.255079+00:00",
+  "last_run": "2026-09-01T14:47:31.336783+00:00",
+  "last_successful_fetch": "2026-09-01T14:47:34.102389+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4096,7 +4096,14 @@
     "github:thijor/dp-cvep-speller",
     "github:csmadhuengineer/cve-risk-monitoring-dashboard",
     "github:EQSTLab/CVE-2026-18963",
-    "github:andre1ws/db-cvetok"
+    "github:andre1ws/db-cvetok",
+    "github:jgamblin/monthlyCVEStats",
+    "github:sm1ee/cvefind",
+    "github:anderson-l92819/cveluw",
+    "github:EwanSiou/CVewan",
+    "github:Tronde/rhel_cve_checker",
+    "github:Botti01/eBPF-CVE-exploitation",
+    "github:unknowerror-hub/-AI-CVE-SCANER-SYSTEM"
   ],
   "source_id": "github_trending",
   "stats": {
