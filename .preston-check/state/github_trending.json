@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-01T18:25:10.128567+00:00",
-  "last_successful_fetch": "2026-09-01T18:25:13.550786+00:00",
+  "last_run": "2026-09-01T21:43:58.090642+00:00",
+  "last_successful_fetch": "2026-09-01T21:44:01.222021+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4107,7 +4107,10 @@
     "github:meher4567/os-cve-orchestrator",
     "github:whip39fang/cveuiw",
     "github:hacbs-release-tests/collectors-no-cve-6decf19e",
-    "github:Zahid01711/cve-anomaly-detection-lstm"
+    "github:Zahid01711/cve-anomaly-detection-lstm",
+    "github:Ghxstsec/CVE-2026-39987",
+    "github:Ish3ng0m4/CVE-2026-24061-Telnetd",
+    "github:yozot/CVE-related-resources"
   ],
   "source_id": "github_trending",
   "stats": {
