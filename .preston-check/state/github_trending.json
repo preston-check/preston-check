@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-08-31T23:46:48.707358+00:00",
-  "last_successful_fetch": "2026-08-31T23:46:51.714532+00:00",
+  "last_run": "2026-09-01T04:58:31.838131+00:00",
+  "last_successful_fetch": "2026-09-01T04:58:39.289101+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4082,7 +4082,9 @@
     "github:Lazurnet/cve_demo",
     "github:bluefromho/cveiuy",
     "github:bpickett2019/cvent-ui-automation",
-    "github:Gosha2251/PB1_PD18_Cvetkovs_Deniss"
+    "github:Gosha2251/PB1_PD18_Cvetkovs_Deniss",
+    "github:FranciscoOssian/cveck",
+    "github:nicole7415651/cvebnn"
   ],
   "source_id": "github_trending",
   "stats": {
