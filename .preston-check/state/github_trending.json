@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-01T04:58:31.838131+00:00",
-  "last_successful_fetch": "2026-09-01T04:58:39.289101+00:00",
+  "last_run": "2026-09-01T10:00:12.095730+00:00",
+  "last_successful_fetch": "2026-09-01T10:00:15.255079+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4084,7 +4084,19 @@
     "github:bpickett2019/cvent-ui-automation",
     "github:Gosha2251/PB1_PD18_Cvetkovs_Deniss",
     "github:FranciscoOssian/cveck",
-    "github:nicole7415651/cvebnn"
+    "github:nicole7415651/cvebnn",
+    "github:actions-marketplace-validations/CVector-Energy_claude-code-memory",
+    "github:codev-workshops/uc-cve-remediation-regulatory-compliance",
+    "github:codev-workshops/uc-cve-remediation-regulatory-compliance-lab",
+    "github:Trachinus/CVE-2026-27472-and-CVE-2026-27474",
+    "github:Cxyofficial/k50g-pocof4gt-cve-2026-43499-poc",
+    "github:Kihara-1/postgresql-cve-2026-14662",
+    "github:lilil3333/cve",
+    "github:Trachinus/CVE-2026-27475",
+    "github:thijor/dp-cvep-speller",
+    "github:csmadhuengineer/cve-risk-monitoring-dashboard",
+    "github:EQSTLab/CVE-2026-18963",
+    "github:andre1ws/db-cvetok"
   ],
   "source_id": "github_trending",
   "stats": {
