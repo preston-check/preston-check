@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-02T04:22:38.580861+00:00",
-  "last_successful_fetch": "2026-09-02T04:22:41.505812+00:00",
+  "last_run": "2026-09-02T09:31:36.732276+00:00",
+  "last_successful_fetch": "2026-09-02T09:31:40.759314+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4118,7 +4118,14 @@
     "github:hacbs-release-tests/collectors-no-cve-71567d55",
     "github:lcm1746/cve_eve",
     "github:nabeelmkhan/CVE-2026-78837",
-    "github:ixpqxi/CVE_LIST"
+    "github:ixpqxi/CVE_LIST",
+    "github:hacbs-release-tests/collectors-no-cve-6fc635e8",
+    "github:hacbs-release-tests/collectors-no-cve-03815a36",
+    "github:wawyw/cve_report",
+    "github:SAP-system-update/CVE-2026-58231",
+    "github:HORKimhab/CVE-2026-7899",
+    "github:MeetFireAgain/cve",
+    "github:rvmhndr/Dashboard-Monitoring-CVE1"
   ],
   "source_id": "github_trending",
   "stats": {
