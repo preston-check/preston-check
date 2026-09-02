@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-02T00:03:24.739280+00:00",
-  "last_successful_fetch": "2026-09-02T00:03:28.671449+00:00",
+  "last_run": "2026-09-02T04:22:38.580861+00:00",
+  "last_successful_fetch": "2026-09-02T04:22:41.505812+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4113,7 +4113,12 @@
     "github:yozot/CVE-related-resources",
     "github:Adisasoc/CVE-2024-49138-SOC-Investigation",
     "github:gabrielftanaka/CVE-2026-82221-PoC",
-    "github:CStockdale1/nextcloud-cve-2023-49792-research"
+    "github:CStockdale1/nextcloud-cve-2023-49792-research",
+    "github:0xMarcio/pocindex",
+    "github:hacbs-release-tests/collectors-no-cve-71567d55",
+    "github:lcm1746/cve_eve",
+    "github:nabeelmkhan/CVE-2026-78837",
+    "github:ixpqxi/CVE_LIST"
   ],
   "source_id": "github_trending",
   "stats": {
