@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-01T21:43:58.090642+00:00",
-  "last_successful_fetch": "2026-09-01T21:44:01.222021+00:00",
+  "last_run": "2026-09-02T00:03:24.739280+00:00",
+  "last_successful_fetch": "2026-09-02T00:03:28.671449+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4110,7 +4110,10 @@
     "github:Zahid01711/cve-anomaly-detection-lstm",
     "github:Ghxstsec/CVE-2026-39987",
     "github:Ish3ng0m4/CVE-2026-24061-Telnetd",
-    "github:yozot/CVE-related-resources"
+    "github:yozot/CVE-related-resources",
+    "github:Adisasoc/CVE-2024-49138-SOC-Investigation",
+    "github:gabrielftanaka/CVE-2026-82221-PoC",
+    "github:CStockdale1/nextcloud-cve-2023-49792-research"
   ],
   "source_id": "github_trending",
   "stats": {
