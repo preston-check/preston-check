@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-02T18:36:46.282563+00:00",
-  "last_successful_fetch": "2026-09-02T18:36:49.568013+00:00",
+  "last_run": "2026-09-02T21:46:07.909029+00:00",
+  "last_successful_fetch": "2026-09-02T21:46:11.260437+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4137,7 +4137,9 @@
     "github:hacbs-release-tests/collectors-no-cve-1f34fd1c",
     "github:EXEcution-py/CVE-2026-9055",
     "github:publicgoodsfunding/pub-cve-study",
-    "github:cvenkatapathi/cvenkatapathi"
+    "github:cvenkatapathi/cvenkatapathi",
+    "github:debjitpurohit/cve_flask_server",
+    "github:R4Wbytes/phpbb-cve-2026-48611-scanner"
   ],
   "source_id": "github_trending",
   "stats": {
