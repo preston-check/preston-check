@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-03T11:06:58.078198+00:00",
-  "last_successful_fetch": "2026-09-03T11:07:01.682593+00:00",
+  "last_run": "2026-09-03T14:59:03.711949+00:00",
+  "last_successful_fetch": "2026-09-03T14:59:06.811768+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4154,7 +4154,12 @@
     "github:hacbs-release-tests/collectors-no-cve-76db5639",
     "github:weifeng-coder/some-CVEs-",
     "github:HackSpeak/CVE-2026-62735",
-    "github:byt3l0rd/CVE-2026-13001"
+    "github:byt3l0rd/CVE-2026-13001",
+    "github:digiprosec/CVE-2026-80428",
+    "github:hacbs-release-tests/collectors-no-cve-a04763c7",
+    "github:str8outtaheap/android-cves",
+    "github:canonical/cve-service",
+    "github:str8outtaheap/chrome-cves"
   ],
   "source_id": "github_trending",
   "stats": {
