@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-03T23:59:43.494235+00:00",
-  "last_successful_fetch": "2026-09-03T23:59:46.206101+00:00",
+  "last_run": "2026-09-04T04:22:21.142547+00:00",
+  "last_successful_fetch": "2026-09-04T04:22:23.944693+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4164,7 +4164,12 @@
     "github:n0c71v3x/CVE-2026-78745",
     "github:hellkkid/CVE-2026-56718",
     "github:SilverRuler/copy-fail-CVE-2026-31431",
-    "github:RenatoPMF/cveguard-agente"
+    "github:RenatoPMF/cveguard-agente",
+    "github:lem0n817/CVE-2017-12617-POC",
+    "github:lem0n817/CVE-2020-1938-Tomcat-FileRead",
+    "github:mJace/rh-cve-review",
+    "github:Useless-Noob-hub/cve",
+    "github:abraxas/veneficus-implant-public"
   ],
   "source_id": "github_trending",
   "stats": {
