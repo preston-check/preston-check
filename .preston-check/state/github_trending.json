@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-04T23:58:46.800092+00:00",
-  "last_successful_fetch": "2026-09-04T23:58:49.792506+00:00",
+  "last_run": "2026-09-05T04:17:46.804754+00:00",
+  "last_successful_fetch": "2026-09-05T04:17:49.881677+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4191,7 +4191,12 @@
     "github:hacbs-release-tests/collectors-no-cve-973d412d",
     "github:hacbs-release-tests/collectors-no-cve-89aca1cf",
     "github:bayoroNathan/cvEnLigne",
-    "github:hacbs-release-tests/collectors-no-cve-17fde0d8"
+    "github:hacbs-release-tests/collectors-no-cve-17fde0d8",
+    "github:Tenor-Z/CVE-2025-4255---Buffer-Overflow",
+    "github:LLLSSSWWW/CVE-Research",
+    "github:joaovicdev/EXPLOIT-CVE-2026-22778",
+    "github:LeotheGGman/Langflow-RCE-CVE-2025-3248",
+    "github:abraxas/veneficus"
   ],
   "source_id": "github_trending",
   "stats": {
