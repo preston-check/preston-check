@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-05T08:59:20.264064+00:00",
-  "last_successful_fetch": "2026-09-05T08:59:23.796041+00:00",
+  "last_run": "2026-09-05T12:37:47.817967+00:00",
+  "last_successful_fetch": "2026-09-05T12:37:51.162537+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4199,7 +4199,27 @@
     "github:abraxas/veneficus",
     "github:goldendivider/cve-2026-6471-postgres-logical-decoding-dlopen",
     "github:nitipoom-jaroonchaipipat/cve-data",
-    "github:dahnutz/zimbra-cve-2026-73570-ir"
+    "github:dahnutz/zimbra-cve-2026-73570-ir",
+    "github:massyn/nvd-cve",
+    "github:Nazgulion/cvex",
+    "github:Ritinify/CVE-2025-29927-PoC",
+    "github:avadheshcissp/cve-triage-copilot",
+    "github:zast-cve-benchmark/studiocms-v0.3.0",
+    "github:zast-cve-benchmark/reposilite-3.5.11",
+    "github:zast-cve-benchmark/openmetadata-v1.2.3",
+    "github:zast-cve-benchmark/nl-portal-backend-libraries-v3.0.2",
+    "github:zast-cve-benchmark/n8n-io_n8n-v1.98.1",
+    "github:zast-cve-benchmark/n8n-io_n8n-v0.216.0",
+    "github:zast-cve-benchmark/flowise-v3.0.12",
+    "github:zast-cve-benchmark/flowise-v1.8.2",
+    "github:zast-cve-benchmark/dragonfly-v2.0.3",
+    "github:zast-cve-benchmark/directus-v10.5.3",
+    "github:zast-cve-benchmark/dadrus-heimdall-v0.17.10",
+    "github:zast-cve-benchmark/chancms-v3.1.2",
+    "github:zast-cve-benchmark/blakeblackshear-frigate-v0.16.1",
+    "github:zast-cve-benchmark/arachnys-cabot",
+    "github:zast-cve-benchmark/apache-shenyu-v2.4.0",
+    "github:zast-cve-benchmark/apache-helix-v1.0.4"
   ],
   "source_id": "github_trending",
   "stats": {
