@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-05T21:09:20.903745+00:00",
-  "last_successful_fetch": "2026-09-05T21:09:23.918469+00:00",
+  "last_run": "2026-09-05T23:49:37.981672+00:00",
+  "last_successful_fetch": "2026-09-05T23:49:40.501912+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4235,7 +4235,11 @@
     "github:eddinos2/CVE-2026-78938",
     "github:0xlyvio/CVE-2020-10770-keycloak-exploit-poc",
     "github:0xlyvio/CVE-2026-1529-Keycloak-Exploit-Tool",
-    "github:0xlyvio/CVE-2026-18963-keycloak"
+    "github:0xlyvio/CVE-2026-18963-keycloak",
+    "github:atiilla/CVE-2026-27876",
+    "github:maxwellchristina8/cvezfn",
+    "github:juanpoch/CVE-2026-73570",
+    "github:eddinos2/CVE-2026-28956-jxl-messages-surface"
   ],
   "source_id": "github_trending",
   "stats": {
