@@ -1,0 +1,59 @@
+name: Quality gate
+
+# The pre-deployment acceptance gate. Every workflow that can reach production
+# calls this via `uses:` and makes its deploy jobs `needs:` it, so nothing
+# ships without it passing. tests/quality-gate/suites/invariants.mjs asserts
+# that wiring, which means removing the gate from a deploy workflow fails the
+# gate itself rather than quietly disabling it.
+on:
+  workflow_call:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - 'workers/**'
+      - 'web/**'
+      - 'tests/quality-gate/**'
+      - '.github/workflows/quality-gate.yml'
+
+# Never run two gates for the same ref concurrently — they bind fixed ports.
+concurrency:
+  group: quality-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+
+      # Node 24, not the repo-wide 20: wrangler >= 4.87 requires Node >= 22,
+      # and only >= 4.87 supports the compatibility_date these Workers declare.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install Python YAML (workflow-gating invariant)
+        run: pip install pyyaml
+
+      - name: Install browser for rendered front-end checks
+        run: |
+          npm install --no-save playwright@1.56.0
+          npx playwright install --with-deps chromium
+
+      - name: Run quality gate
+        run: node tests/quality-gate/run.mjs
+
+      - name: Upload wrangler logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-gate-logs
+          path: /tmp/qg-*/wrangler.log
+          if-no-files-found: ignore
+          retention-days: 7

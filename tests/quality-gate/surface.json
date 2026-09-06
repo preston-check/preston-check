@@ -1,0 +1,164 @@
+{
+  "_comment": [
+    "Authoritative inventory of every deployable surface: worker routes, Stripe",
+    "webhook event types, and rendered front-end pages.",
+    "",
+    "This file is the definition of '100% coverage'. The runner (run.mjs) fails",
+    "if any id here is not asserted by a suite, and fails if a suite reports an",
+    "id absent from here. drift-check.mjs independently re-derives routes and",
+    "webhook cases from the Worker sources and fails if they disagree with this",
+    "file — so adding a route or event without adding a test breaks the gate.",
+    "",
+    "Adding an entry here without a matching assertion FAILS. That is the point."
+  ],
+
+  "workers": {
+    "auth": {
+      "dir": "workers/auth",
+      "port": 8801,
+      "schema": "workers/auth/schema.sql",
+      "routes": [
+        { "id": "auth.options",                 "method": "OPTIONS", "path": "/request-code",  "expect": 200 },
+        { "id": "auth.request-code.bad-json",   "method": "POST",    "path": "/request-code",  "expect": 400 },
+        { "id": "auth.request-code.bad-email",  "method": "POST",    "path": "/request-code",  "expect": 400 },
+        { "id": "auth.request-code.ok",         "method": "POST",    "path": "/request-code",  "expect": 200 },
+        { "id": "auth.request-code.ratelimit",  "method": "POST",    "path": "/request-code",  "expect": 429 },
+        { "id": "auth.verify-code.bad-json",    "method": "POST",    "path": "/verify-code",   "expect": 400 },
+        { "id": "auth.verify-code.bad-format",  "method": "POST",    "path": "/verify-code",   "expect": 400 },
+        { "id": "auth.verify-code.expired",     "method": "POST",    "path": "/verify-code",   "expect": 401 },
+        { "id": "auth.verify-code.wrong",       "method": "POST",    "path": "/verify-code",   "expect": 401 },
+        { "id": "auth.verify-code.ok",          "method": "POST",    "path": "/verify-code",   "expect": 200 },
+        { "id": "auth.me.anon",                 "method": "GET",     "path": "/me",            "expect": 401 },
+        { "id": "auth.me.bearer",               "method": "GET",     "path": "/me",            "expect": 200 },
+        { "id": "auth.me.cookie",               "method": "GET",     "path": "/me",            "expect": 200 },
+        { "id": "auth.me.malformed-token",      "method": "GET",     "path": "/me",            "expect": 401 },
+        { "id": "auth.logout.ok",               "method": "POST",    "path": "/logout",        "expect": 200 },
+        { "id": "auth.logout.invalidates",      "method": "GET",     "path": "/me",            "expect": 401 },
+        { "id": "auth.notfound",                "method": "GET",     "path": "/nope",          "expect": 404 }
+      ]
+    },
+
+    "billing": {
+      "dir": "workers/billing",
+      "port": 8802,
+      "schema": "workers/billing/schema.sql",
+      "routes": [
+        { "id": "billing.options",                  "method": "OPTIONS", "path": "/checkout",        "expect": 200 },
+        { "id": "billing.checkout.bad-json",        "method": "POST",    "path": "/checkout",        "expect": 400 },
+        { "id": "billing.checkout.unknown-plan",    "method": "POST",    "path": "/checkout",        "expect": 400 },
+        { "id": "billing.checkout.bad-email",       "method": "POST",    "path": "/checkout",        "expect": 400 },
+        { "id": "billing.checkout.ok",              "method": "POST",    "path": "/checkout",        "expect": 200 },
+        { "id": "billing.checkout.ratelimit",       "method": "POST",    "path": "/checkout",        "expect": 429 },
+        { "id": "billing.webhook.bad-signature",    "method": "POST",    "path": "/webhook",         "expect": 400 },
+        { "id": "billing.webhook.bad-json",         "method": "POST",    "path": "/webhook",         "expect": 400 },
+        { "id": "billing.webhook.duplicate",        "method": "POST",    "path": "/webhook",         "expect": 200 },
+        { "id": "billing.billing-portal.bad-json",  "method": "POST",    "path": "/billing-portal",  "expect": 400 },
+        { "id": "billing.billing-portal.bad-email", "method": "POST",    "path": "/billing-portal",  "expect": 400 },
+        { "id": "billing.billing-portal.no-cust",   "method": "POST",    "path": "/billing-portal",  "expect": 404 },
+        { "id": "billing.billing-portal.ok",        "method": "POST",    "path": "/billing-portal",  "expect": 200 },
+        { "id": "billing.license.bad-json",         "method": "POST",    "path": "/license",         "expect": 400 },
+        { "id": "billing.license.bad-session-id",   "method": "POST",    "path": "/license",         "expect": 400 },
+        { "id": "billing.license.incomplete",       "method": "POST",    "path": "/license",         "expect": 400 },
+        { "id": "billing.notfound",                 "method": "GET",     "path": "/nope",            "expect": 404 }
+      ],
+      "webhook_events": [
+        { "id": "webhook.checkout.session.completed",      "type": "checkout.session.completed" },
+        { "id": "webhook.customer.subscription.created",   "type": "customer.subscription.created" },
+        { "id": "webhook.customer.subscription.updated",   "type": "customer.subscription.updated" },
+        { "id": "webhook.customer.subscription.deleted",   "type": "customer.subscription.deleted" },
+        { "id": "webhook.invoice.paid",                    "type": "invoice.paid" },
+        { "id": "webhook.invoice.payment_failed",          "type": "invoice.payment_failed" },
+        { "id": "webhook.invoice.finalized",               "type": "invoice.finalized" }
+      ]
+    },
+
+    "telemetry": {
+      "dir": "workers/telemetry",
+      "port": 8803,
+      "schema": "workers/telemetry/schema.sql",
+      "routes": [
+        { "id": "telemetry.options",        "method": "OPTIONS", "path": "/", "expect": 200 },
+        { "id": "telemetry.method-block",   "method": "GET",     "path": "/", "expect": 405 },
+        { "id": "telemetry.bad-json",       "method": "POST",    "path": "/", "expect": 400 },
+        { "id": "telemetry.bad-payload",    "method": "POST",    "path": "/", "expect": 400 },
+        { "id": "telemetry.ok",             "method": "POST",    "path": "/", "expect": 200 },
+        { "id": "telemetry.persists",       "method": "POST",    "path": "/", "expect": 200 }
+      ]
+    },
+
+    "get": {
+      "dir": "workers/get",
+      "port": 8804,
+      "schema": null,
+      "routes": [
+        { "id": "get.install-sh", "method": "GET", "path": "/install.sh", "expect": 200 },
+        { "id": "get.redirect",   "method": "GET", "path": "/anything",   "expect": 302 }
+      ]
+    }
+  },
+
+  "_frontend_note": [
+    "Pages are served from the layout the deploy workflow actually publishes,",
+    "not from the source tree. admin and customer are staged into an out/ dir",
+    "with index.html at the root and shared art under landing/assets — so the",
+    "relative '../landing/assets/x.svg' in their markup clamps to",
+    "'/landing/assets/x.svg' exactly as it does in production. Serving the",
+    "source tree instead makes those assets 404 in the test and pass in prod,",
+    "which is the wrong way round for a gate.",
+    "",
+    "The `stage` lists mirror the cp lines in the deploy workflows; drift-check",
+    "compares them and fails if they diverge."
+  ],
+
+  "frontend_apps": {
+    "landing": {
+      "workflow": "pages.yml",
+      "root": "web/landing",
+      "stage": null
+    },
+    "admin": {
+      "workflow": "admin-pages.yml",
+      "stage": [
+        ["web/admin/index.html", "index.html"],
+        ["web/admin/styles.css", "styles.css"],
+        ["web/admin/app.js", "app.js"],
+        ["web/admin/README.md", "README.md"],
+        ["web/landing/icons", "landing/icons"],
+        ["web/landing/assets", "landing/assets"]
+      ]
+    },
+    "customer": {
+      "workflow": "customer-pages.yml",
+      "stage": [
+        ["web/customer/index.html", "index.html"],
+        ["web/customer/styles.css", "styles.css"],
+        ["web/customer/app.js", "app.js"],
+        ["web/customer/README.md", "README.md"],
+        ["web/landing/icons", "landing/icons"],
+        ["web/landing/assets", "landing/assets"]
+      ]
+    }
+  },
+
+  "frontends": [
+    { "id": "fe.landing.index",   "app": "landing",  "page": "index.html",   "requires": ["Preston-Check"] },
+    { "id": "fe.landing.privacy", "app": "landing",  "page": "privacy.html", "requires": ["Privacy"] },
+    { "id": "fe.landing.refund",  "app": "landing",  "page": "refund.html",  "requires": ["Refund"] },
+    { "id": "fe.landing.terms",   "app": "landing",  "page": "terms.html",   "requires": ["Terms"] },
+    { "id": "fe.admin.index",     "app": "admin",    "page": "index.html",
+      "requires": ["Customers", "Licenses", "Threat-Intel"],
+      "why": "the admin shell's nav — absent if app.js fails to build the dashboard" },
+    { "id": "fe.customer.index",  "app": "customer", "page": "index.html",
+      "requires": ["Sign in to your portal", "Send sign-in code"],
+      "why": "the unauthenticated sign-in entry point — the whole customer funnel starts here" }
+  ],
+
+  "invariants": [
+    { "id": "inv.no-stripe-api-base-in-deployed-config",
+      "why": "STRIPE_API_BASE is a test-only seam. If it ever appears in a wrangler.toml or deploy workflow it would redirect live payment traffic." },
+    { "id": "inv.no-secrets-in-repo",
+      "why": "Stripe/SES/session secrets must only ever arrive via `wrangler secret put`, never committed." },
+    { "id": "inv.deploy-workflows-gated",
+      "why": "Every deploy workflow must depend on the quality gate. This invariant is what stops the gate being quietly bypassed." }
+  ]
+}
