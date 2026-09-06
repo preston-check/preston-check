@@ -305,3 +305,50 @@ actionlint clean across all workflow files after the fixes. Watchdog dry-run exe
 locally against the live API before first scheduled run. v1.8.1 release healed by the
 first watchdog dispatch; landing page count corrected and redeployed. Details in the
 commit that introduced this file and in CHANGELOG.md.
+
+## Addendum 2026-09-06 — one broken bottle leg silently unbottled every platform
+
+Homebrew dropped macOS Intel x86_64 support (announced August 2025, effective
+September 2026). The `pcre2` dependency stopped publishing an Intel bottle, so the
+`bottle (macos-15-intel, sequoia)` leg began failing on every release with "the
+following formula cannot be installed from bottle and must be built from source".
+That much was visible: fifteen red Release runs between 2026-09-01 and 2026-09-06.
+
+What was not visible is that the failure was never confined to Intel. `update-tap`
+declared `needs: [release, bottle]`, and a matrix job concludes `failure` when any
+leg fails — `fail-fast: false` lets the sibling legs finish but does not change the
+job's aggregate result, and `needs` reads the aggregate. So `update-tap` was skipped
+on every release. By then `update-tap-url` had already stripped the `bottle do` block
+from the tap formula, deliberately, on the assumption that `update-tap` would write
+fresh SHAs back a few minutes later. With that job skipped, the assumption never
+held: the formula shipped with no bottle block at all, and `brew install
+preston-check` built from source on all four platforms whose bottles had in fact
+built successfully and been uploaded to the release. Verified identical across the
+seven releases from 2026-09-04 to 2026-09-06 — one failed leg, `update-tap` skipped,
+every time.
+
+The lesson is that stripping state early is only safe if the step that restores it
+cannot be skipped. The strip was guarded by nothing; the restore was guarded by the
+success of five independent platform builds.
+
+Three changes. The Intel leg is removed from the matrix rather than left to fail,
+because no configuration of it can succeed while its dependencies ship no Intel
+bottle; Apple dropped Intel in macOS 27 and GitHub retires Intel runners in 2027, so
+Intel users now take the documented source-build path. `update-tap` now runs under
+`if: !cancelled() && needs.release.result == 'success'`, publishing whichever bottles
+did build, so a single broken platform degrades that platform alone — it still waits
+on `bottle` via `needs`, it simply no longer requires every leg to have passed. And
+the zero-bottle case, which is the state that went unnoticed here, now emits a
+`::error::` annotation naming the consequence instead of printing "0 bottle(s)" and
+moving on.
+
+## Verification record (2026-09-06)
+
+actionlint clean on release.yml. The embedded `update-tap` formula-rewriting script
+was extracted and exercised against a fixture tap in three cases: three of four
+bottles present, which produced a well-formed three-entry `bottle do` block inserted
+after the version line; zero bottles present, which produced the `::error::`
+annotation and no block; and a rewrite over an already-present block, which left
+exactly one `bottle do` block, confirming the pre-existing replace path was not
+disturbed. End-to-end confirmation requires the next release to show `update-tap`
+concluding `success` and the tap formula carrying four bottle SHAs.

@@ -203,8 +203,13 @@ jobs:
             bottle_tag: arm64_sequoia
           - os: macos-14        # ARM macOS 14 Sonoma
             bottle_tag: arm64_sonoma
-          - os: macos-15-intel  # Intel macOS 15 Sequoia (macos-13 runners retired)
-            bottle_tag: sequoia
+          # No Intel macOS leg. Homebrew dropped macOS Intel x86_64 support
+          # (announced August 2025, effective September 2026), so dependencies
+          # such as pcre2 no longer publish an Intel bottle and
+          # `brew install --build-bottle` refuses with "cannot be installed
+          # from bottle and must be built from source". Apple dropped Intel in
+          # macOS 27 and GitHub retires Intel runners in 2027. Intel users fall
+          # back to a source build, which still works but needs the CLT.
           - os: ubuntu-latest   # Linux x86_64
             bottle_tag: x86_64_linux
     runs-on: ${{ matrix.os }}
@@ -239,6 +244,16 @@ jobs:
 
   update-tap:
     needs: [release, bottle]
+    # Run even when a bottle leg failed, publishing whatever bottles did build.
+    # A matrix job concludes `failure` if ANY leg fails (fail-fast: false only
+    # lets the siblings finish), so until 2026-09-06 a single broken platform
+    # skipped this job entirely — and because update-tap-url has already
+    # stripped the stale bottle block by then, the formula was left with NO
+    # bottle block at all. One broken platform silently removed bottles for
+    # every platform and `brew install` built from source everywhere. Degrade
+    # the failed platform only. `release` must still have succeeded: without
+    # its version/sha256 outputs there is nothing to write.
+    if: ${{ !cancelled() && needs.release.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check tap PAT
@@ -281,10 +296,12 @@ jobs:
           SHA     = os.environ.get("SHA", "")
           URL     = os.environ.get("URL", "")
 
-          # Canonical display order for bottle OS tags
+          # Canonical display order for bottle OS tags. The Intel "sequoia" tag
+          # went with the Intel matrix leg; any tag not listed here still
+          # publishes, it just sorts after these.
           OS_ORDER = [
             "arm64_tahoe", "arm64_sequoia", "arm64_sonoma",
-            "sequoia", "x86_64_linux",
+            "x86_64_linux",
           ]
 
           bottles = {}
@@ -325,7 +342,16 @@ jobs:
                   src = re.sub(r'(  version\s+"[^"]*"\n)', r'\1' + bottle_block, src, count=1)
 
           p.write_text(src)
-          print(f"Updated formula: {len(ordered)} bottle(s) — {', '.join(t for t,_ in ordered)}")
+          if ordered:
+              print(f"Updated formula: {len(ordered)} bottle(s) — {', '.join(t for t,_ in ordered)}")
+          else:
+              # Never let a bottle-less publish pass quietly. update-tap-url has
+              # already stripped the old block, so reaching here means the tap
+              # ships with no bottles at all — the exact silent state that went
+              # unnoticed from the Intel breakage onwards.
+              print(f"::error::No bottles found for v{VERSION} — formula published with "
+                    "url/sha only, so brew install builds from source on EVERY "
+                    "platform. Check the bottle job's matrix legs.")
           PY
 
       - name: Commit + push
