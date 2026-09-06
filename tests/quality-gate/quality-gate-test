@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+###############################################################################
+# quality-gate-test — pre-deployment acceptance gate for Preston-Check.
+#
+#   ./tests/quality-gate/quality-gate-test              # full gate
+#   ./tests/quality-gate/quality-gate-test --only auth  # one suite (cannot gate)
+#
+# Boots every Worker under the real workerd runtime with real local D1/KV,
+# exercises every route and Stripe webhook event, renders every front-end page
+# in headless Chromium, checks deployment invariants, then reconciles what was
+# actually asserted against tests/quality-gate/surface.json.
+#
+# Exit 0 means safe to deploy. Anything else means do not deploy.
+###############################################################################
+set -uo pipefail
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# --- Node >= 22 is required -------------------------------------------------
+# wrangler >= 4.87 needs Node >= 22, and only >= 4.87 supports the
+# compatibility_date these Workers declare. Rather than fail with a wrangler
+# stack trace, look for a usable Node and say plainly what is needed.
+need_major=22
+node_ok() { [ -x "$1" ] && [ "$("$1" -e 'process.stdout.write(String(process.versions.node.split(".")[0]))' 2>/dev/null || echo 0)" -ge "$need_major" ]; }
+
+NODE_BIN=""
+if node_ok "$(command -v node || true)"; then
+  NODE_BIN="$(command -v node)"
+else
+  # nvm / homebrew installs, newest first.
+  while IFS= read -r cand; do
+    if node_ok "$cand"; then NODE_BIN="$cand"; break; fi
+  done < <(
+    ls -d "$HOME"/.nvm/versions/node/*/bin/node 2>/dev/null | sort -Vr
+    ls -d /opt/homebrew/opt/node@*/bin/node /usr/local/opt/node@*/bin/node 2>/dev/null | sort -Vr
+  )
+fi
+
+if [ -z "$NODE_BIN" ]; then
+  cur="$(node --version 2>/dev/null || echo 'not installed')"
+  cat >&2 <<EOF
+
+  quality-gate-test requires Node >= ${need_major} (found: ${cur}).
+
+  The gate runs each Worker under wrangler/workerd. wrangler >= 4.87 requires
+  Node >= 22, and earlier wrangler refuses the compatibility_date declared in
+  workers/*/wrangler.toml — so an older Node cannot run this gate at all.
+
+  Install one of:
+      nvm install 24
+      brew install node@24
+
+  CI runs this on Node 24 (see .github/workflows/quality-gate.yml).
+
+EOF
+  exit 2
+fi
+
+exec "$NODE_BIN" "$HERE/run.mjs" "$@"

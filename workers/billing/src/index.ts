@@ -41,6 +41,9 @@ interface Env {
   STRIPE_PRICE_PRO_PER_REPO: string;
   STRIPE_PRICE_PRO_UNLIMITED: string;
   LICENSE_SIGNING_KEY: string;     // PEM-encoded Ed25519 private key (set via wrangler secret)
+
+  // Test-only override, unset in production. See stripeBase() below.
+  STRIPE_API_BASE?: string;
 }
 
 const PLAN_TO_PRICE_KEY: Record<string, keyof Env> = {
@@ -56,10 +59,19 @@ function corsHeaders(origin: string): HeadersInit {
   };
 }
 
+// Base URL for the Stripe API. Always api.stripe.com in production — the
+// binding exists only so the quality gate can point the Worker at a local
+// mock and exercise the success paths of /checkout, /billing-portal and
+// /license, which are otherwise unreachable without live Stripe credentials.
+// Never set STRIPE_API_BASE in a deployed environment.
+function stripeBase(env: Env): string {
+  return env.STRIPE_API_BASE || 'https://api.stripe.com';
+}
+
 // Stripe API call — POST x-www-form-urlencoded with Bearer auth.
 async function stripeRequest(env: Env, path: string, body: Record<string, string>): Promise<any> {
   const params = new URLSearchParams(body);
-  const r = await fetch(`https://api.stripe.com/v1/${path}`, {
+  const r = await fetch(`${stripeBase(env)}/v1/${path}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
@@ -391,7 +403,7 @@ async function handleLicenseDownload(request: Request, env: Env): Promise<Respon
   }
 
   const params = new URLSearchParams({ 'expand[0]': 'subscription' });
-  const sessResp = await fetch(`https://api.stripe.com/v1/checkout/sessions/${sessionId}?${params}`, {
+  const sessResp = await fetch(`${stripeBase(env)}/v1/checkout/sessions/${sessionId}?${params}`, {
     headers: { 'Authorization': `Bearer ${env.STRIPE_SECRET_KEY}` },
   });
   const sess: any = await sessResp.json();

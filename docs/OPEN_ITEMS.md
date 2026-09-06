@@ -8,6 +8,7 @@ the exact condition that would unblock them.
 | # | Received | Request | Status |
 |---|----------|---------|--------|
 | 1 | 2026-09-06 | Failure alerts arriving for the last few days — find the failing workflow(s), diagnose the actual cause from run logs, fix, and verify. | DONE 2026-09-06 — three defects found; two fixed and verified at runtime, one merged and awaiting its first live cycle (see Blocked #2). Release run 34064649300 green end-to-end; tap formula carries 4 bottles again. |
+| 4 | 2026-09-06 | Build `quality-gate-test`: a fully comprehensive acceptance test covering 100% of endpoints, webhooks, functionality and rendered front ends. Must be runnable ahead of every deployment, and NO deployment may reach production without it passing. | IN PROGRESS — audit complete: no such gate exists today and NO deploy workflow is gated on any test. Building the gate + enforcement. Diego 2026-09-06: "if you do not have it, finish it and deliver this" — build in full, no split. |
 
 ## Blocked
 

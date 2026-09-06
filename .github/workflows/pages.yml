@@ -32,7 +32,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # No deployment without the acceptance gate. Removing this block, or
+  # dropping the `needs:` below, fails tests/quality-gate/suites/invariants.mjs
+  # (inv.deploy-workflows-gated) — the gate defends its own wiring.
+  quality-gate:
+    uses: ./.github/workflows/quality-gate.yml
+
   build:
+    needs: quality-gate
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

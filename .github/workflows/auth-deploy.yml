@@ -21,7 +21,14 @@ permissions:
   contents: read
 
 jobs:
+  # No deployment without the acceptance gate. Removing this block, or
+  # dropping the `needs:` below, fails tests/quality-gate/suites/invariants.mjs
+  # (inv.deploy-workflows-gated) — the gate defends its own wiring.
+  quality-gate:
+    uses: ./.github/workflows/quality-gate.yml
+
   deploy:
+    needs: quality-gate
     runs-on: ubuntu-latest
     steps:
       - name: Check Cloudflare credentials
