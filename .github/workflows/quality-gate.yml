@@ -17,9 +17,13 @@ on:
       - 'tests/quality-gate/**'
       - '.github/workflows/quality-gate.yml'
 
-# Never run two gates for the same ref concurrently — they bind fixed ports.
+# Scope the group to the CALLING workflow, not just the ref. When invoked via
+# workflow_call, github.workflow is the caller's name — so the seven deploy
+# workflows that all fire on one master push each get their own group. Keying
+# on the ref alone put them in a single group with cancel-in-progress, and they
+# cancelled each other: on 2026-09-06 one master push cancelled five deploys.
 concurrency:
-  group: quality-gate-${{ github.ref }}
+  group: quality-gate-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
