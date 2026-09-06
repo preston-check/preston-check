@@ -68,9 +68,13 @@ export async function run(r, worker) {
   const accounts = worker.query(`SELECT email FROM accounts WHERE email='${EMAIL}'`);
   r.truthy('auth.verify-code.ok', 'account row upserted in D1', accounts.length === 1);
 
-  // Code is single-use: KV entry must be gone after a successful verify.
-  r.truthy('auth.verify-code.ok', 'code consumed from KV after use',
-    !worker.kvGet('CODES', `code:${EMAIL}`));
+  // Codes must be single-use. Asserted behaviourally — replaying the same code
+  // must be refused — rather than by inspecting KV for the deleted key: the
+  // security property is "not replayable", and a KV-internals check both
+  // depends on the CLI's miss semantics and would keep passing if the delete
+  // moved somewhere else.
+  const replay = await req(base, '/verify-code', jsonPost({ email: EMAIL, code }));
+  r.status('auth.verify-code.ok', 'a used code cannot be replayed', replay, 401);
 
   // --- /me ---
   r.status('auth.me.anon', 'unauthenticated /me is 401',

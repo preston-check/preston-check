@@ -7,6 +7,7 @@
  * no check because it trains people to re-run the gate until it goes green.
  */
 
+import { randomBytes } from 'node:crypto';
 import { req, json, sleep } from '../lib/harness.mjs';
 
 const jsonPost = (body) => ({
@@ -15,6 +16,12 @@ const jsonPost = (body) => ({
   body: typeof body === 'string' ? body : JSON.stringify(body),
 });
 
+/**
+ * Shape derived from validatePayload() in workers/telemetry/src/index.ts, not
+ * invented: repo_hash must be 64-char lowercase hex (or "unhashable"), and
+ * timestamp must be an ISO-8601 *string* matching
+ * ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$ — a Unix integer is rejected.
+ */
 function validPayload(repoHash) {
   return {
     repo_hash: repoHash,
@@ -22,8 +29,13 @@ function validPayload(repoHash) {
     tier: 'free',
     lang: 'shell',
     pass: 40, fail: 2, warn: 3, skip: 1, total: 46,
-    timestamp: Math.floor(Date.now() / 1000),
+    timestamp: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z'),
   };
+}
+
+/** A unique, schema-valid 64-char lowercase-hex repo_hash per run. */
+function newRepoHash() {
+  return randomBytes(32).toString('hex');
 }
 
 export async function run(r, worker) {
@@ -39,7 +51,12 @@ export async function run(r, worker) {
   r.status('telemetry.bad-payload', 'structurally invalid payload rejected',
     await req(base, '/', jsonPost({ not: 'a scan' })), 400);
 
-  const repoHash = `qg${Date.now()}`;
+  // A Unix-integer timestamp is the natural wrong guess (it is what this suite
+  // originally sent); assert it is refused so the ISO-string contract stays pinned.
+  r.status('telemetry.bad-payload', 'numeric timestamp refused',
+    await req(base, '/', jsonPost({ ...validPayload(newRepoHash()), timestamp: 1788736237 })), 400);
+
+  const repoHash = newRepoHash();
   const ok = await req(base, '/', jsonPost(validPayload(repoHash)));
   r.status('telemetry.ok', 'valid scan payload accepted', ok, 200);
   r.equal('telemetry.ok', 'responds { ok: true }', (await json(ok))?.ok, true);
