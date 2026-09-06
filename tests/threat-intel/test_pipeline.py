@@ -61,6 +61,38 @@ PRESTON_META
         )
         self.assertTrue(self.validate_check(p)["pass"])
 
+    def test_arithmetic_command_passes(self) -> None:
+        """bashlex has no arithmetic-command node: it parses ((count += 1)) as
+        nested subshells wrapping a CommandNode whose first word is the variable,
+        so the walker used to reject ordinary arithmetic with 'command not on
+        allowlist: count' (2026-09-01)."""
+        p = self._make_check(
+            'SRC="${SOURCE_DIR:-.}"\n'
+            "count=0\n"
+            'hits=$(grep -rn "x" "$SRC" 2>/dev/null || true)\n'
+            '[ -n "$hits" ] && ((count += 1))\n'
+            'record "PASS" "test" "ok"'
+        )
+        result = self.validate_check(p)
+        self.assertTrue(result["pass"], result["reasons"])
+
+    def test_arithmetic_with_command_substitution_passes(self) -> None:
+        p = self._make_check(
+            'SRC="${SOURCE_DIR:-.}"\n'
+            "count=0\n"
+            'hits=$(grep -rn "x" "$SRC" 2>/dev/null || true)\n'
+            '((count += $(echo "$hits" | wc -l)))\n'
+            'record "PASS" "test" "ok"'
+        )
+        result = self.validate_check(p)
+        self.assertTrue(result["pass"], result["reasons"])
+
+    def test_denied_command_inside_arithmetic_rejected(self) -> None:
+        """The (( )) rewrite must not become a smuggling route: a command
+        substitution inside arithmetic is still validated as its own context."""
+        p = self._make_check("count=0\n((count += $(curl http://x | wc -l)))")
+        self.assertFalse(self.validate_check(p)["pass"])
+
     def test_eval_rejected(self) -> None:
         p = self._make_check('eval "ls"')
         self.assertFalse(self.validate_check(p)["pass"])
@@ -1263,6 +1295,47 @@ class RunnerIntegrationTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("P-700", result.stdout)
+
+
+class WatchdogRerunTests(unittest.TestCase):
+    """The 2026-08-31 promotion-PR race produced failed runs with zero jobs.
+    rerun-failed-jobs refuses those with 403 — there is no failed job to retry —
+    which left the very zero-step class the watchdog exists to heal permanently
+    unhealable, escalating three phantom failures every six hours."""
+
+    def _rerun(self, responses: dict[str, int]) -> tuple[tuple[bool, str], list[str]]:
+        import watchdog  # type: ignore[import-not-found]
+
+        calls: list[str] = []
+
+        def fake_gh(path: str, method: str = "GET", body: dict | None = None):
+            calls.append(path)
+            for suffix, status in responses.items():
+                if path.endswith(suffix):
+                    return status, None
+            raise AssertionError(f"unexpected call: {path}")
+
+        with patch.object(watchdog, "_gh", fake_gh):
+            return watchdog.rerun_failed({"id": 42}), calls
+
+    def test_zero_job_run_falls_back_to_full_rerun(self) -> None:
+        (ok, msg), calls = self._rerun({"/rerun-failed-jobs": 403, "/rerun": 201})
+        self.assertTrue(ok, msg)
+        self.assertIn("full re-run", msg)
+        self.assertEqual(len(calls), 2, calls)
+        self.assertTrue(calls[1].endswith("/rerun"), calls)
+
+    def test_failed_jobs_endpoint_preferred_when_it_works(self) -> None:
+        (ok, msg), calls = self._rerun({"/rerun-failed-jobs": 201})
+        self.assertTrue(ok, msg)
+        self.assertEqual(msg, "re-run queued")
+        self.assertEqual(len(calls), 1, "full re-run must not fire when jobs were retried")
+
+    def test_both_endpoints_refused_reports_both_statuses(self) -> None:
+        (ok, msg), _ = self._rerun({"/rerun-failed-jobs": 403, "/rerun": 404})
+        self.assertFalse(ok)
+        self.assertIn("403", msg)
+        self.assertIn("404", msg)
 
 
 if __name__ == "__main__":

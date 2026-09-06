@@ -497,6 +497,51 @@ def _normalize_double_bracket(source: str) -> str:
     return re.sub(r"\[\[(.*?)\]\]", repl, source, flags=re.DOTALL)
 
 
+def _normalize_arithmetic(source: str) -> str:
+    """Rewrite (( ... )) arithmetic commands into a parseable no-op command.
+
+    bashlex has no arithmetic-command node. It parses `((count += 1))` as a pair
+    of nested subshells wrapping a CommandNode whose first word is the *variable*
+    name, so the AST walker reported `command not on allowlist: count` for
+    perfectly ordinary arithmetic and rejected the check. Generated checks happen
+    never to use the construct, which kept the false positive latent until
+    lint-check.sh began routing hand-written community checks through this
+    validator (2026-09-01; see docs/pipeline-reliability.md).
+
+    Rewriting to ': <expr>' keeps ':' — the same permitted no-op builtin
+    _normalize_double_bracket relies on — as the command word. An arithmetic
+    context cannot invoke a command, so nothing is hidden by the rewrite: any
+    $(...) has already been lifted out by _extract_command_subs and validated as
+    its own context before this runs.
+
+    Scanning is paren-balanced rather than regex-based because a non-greedy
+    `\\(\\((.*?)\\)\\)` stops at the first `))`, which truncates nested forms.
+    A `$((...))` arithmetic *expansion* is left alone: only a `((` that is not
+    preceded by `$` opens an arithmetic command.
+    """
+    out: list[str] = []
+    i, n = 0, len(source)
+    while i < n:
+        if source.startswith("((", i) and (i == 0 or source[i - 1] != "$"):
+            depth, j = 0, i
+            while j < n:
+                if source[j] == "(":
+                    depth += 1
+                elif source[j] == ")":
+                    depth -= 1
+                    if depth == 0:
+                        break
+                j += 1
+            if depth == 0 and source.startswith("))", j - 1):
+                out.append(": " + source[i + 2 : j - 1])
+                i = j + 1
+                continue
+            # Unbalanced — leave verbatim so bashlex fails and the wall fails closed.
+        out.append(source[i])
+        i += 1
+    return "".join(out)
+
+
 def _strip_meta_block(source: str) -> str:
     """Strip the PRESTON_META heredoc so it doesn't get parsed as bash."""
     pattern = re.compile(
@@ -724,7 +769,7 @@ def validate_check(check_path: Path) -> dict[str, Any]:
             residue, inners = _extract_command_subs(worklist.pop())
             worklist.extend(inners)
             ast_ok, ast_issues = _validate_commands_via_ast(
-                _normalize_double_bracket(residue)
+                _normalize_arithmetic(_normalize_double_bracket(residue))
             )
             if not ast_ok:
                 # Fail closed. A fragment the validator cannot parse must never
@@ -740,7 +785,9 @@ def validate_check(check_path: Path) -> dict[str, Any]:
     else:
         # bashlex unavailable (never in CI, which installs it). Degrade to the
         # hardened regex scan rather than fail every check in local dev.
-        cmd_issues = _validate_commands_via_regex(_normalize_double_bracket(cleaned))
+        cmd_issues = _validate_commands_via_regex(
+            _normalize_arithmetic(_normalize_double_bracket(cleaned))
+        )
         validator_path = "regex-fallback"
 
     all_issues = pattern_issues + cmd_issues

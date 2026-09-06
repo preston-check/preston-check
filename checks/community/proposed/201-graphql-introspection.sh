@@ -29,16 +29,10 @@ SRC="${SOURCE_DIR:-.}"
 found=0
 
 # TypeScript / JavaScript: Apollo Server, GraphQL Yoga, Mercurius
-ts_hits=$(grep -rn --include="*.ts" --include="*.tsx" --include="*.js" \
-  -E "introspection[[:space:]]*:[[:space:]]*true" "$SRC" 2>/dev/null \
-  | grep -v "test\|spec\|node_modules\|dist\|\.next" \
-  | head -10)
+ts_hits=$(grep -rn --include="*.ts" --include="*.tsx" --include="*.js" -E "introspection[[:space:]]*:[[:space:]]*true" "$SRC" 2>/dev/null | grep -v "test\|spec\|node_modules\|dist\|\.next" | head -10)
 
 # Java: graphql-java, dgs-framework
-java_hits=$(grep -rn --include="*.java" \
-  -E "IntrospectionEnabled[[:space:]]*\\([[:space:]]*true|setIntrospectionEnabled\\([[:space:]]*true" "$SRC" 2>/dev/null \
-  | grep -v "test\|Test\|target" \
-  | head -10)
+java_hits=$(grep -rn --include="*.java" -E "IntrospectionEnabled[[:space:]]*\\([[:space:]]*true|setIntrospectionEnabled\\([[:space:]]*true" "$SRC" 2>/dev/null | grep -v "test\|Test\|target" | head -10)
 
 [[ -n "$ts_hits" ]] && ((found += $(echo "$ts_hits" | wc -l)))
 [[ -n "$java_hits" ]] && ((found += $(echo "$java_hits" | wc -l)))
