@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-07T04:27:53.909313+00:00",
-  "last_successful_fetch": "2026-09-07T04:27:56.804492+00:00",
+  "last_run": "2026-09-07T10:10:35.442567+00:00",
+  "last_successful_fetch": "2026-09-07T10:10:38.536933+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4264,7 +4264,21 @@
     "github:HKenzoKimura/CVE-2021-1675",
     "github:Eliot-code/CVE-2026-52924",
     "github:zast-cve-benchmark/vertx-web-v3.5.2",
-    "github:ShashankD210/OSINT-Recon---Technology-Detection-CVE-Lookup"
+    "github:ShashankD210/OSINT-Recon---Technology-Detection-CVE-Lookup",
+    "github:quokka867/SpaceBreacher",
+    "github:hacbs-release-tests/collectors-no-cve-4c96ad8f",
+    "github:Nikhil-Ladha/cve-smasher-claude-plugin",
+    "github:hacbs-release-tests/collectors-no-cve-789f988e",
+    "github:Netanel4959/cve-vulnerability-analogizer",
+    "github:hacbs-release-tests/collectors-no-cve-c3c6f2fc",
+    "github:gregoryjason612/cveffq",
+    "github:mobilehackinglab/CVE-2026-28576-poc",
+    "github:VSvalinX/CVE-2025-5548",
+    "github:iustin24/gitssrf-gim-cve-parent",
+    "github:iustin24/gitssrf-gim-cve-sub",
+    "github:pwnzillaa/cves-collection",
+    "github:meob/PG_CVE",
+    "github:coruna19980101/coruna-v2"
   ],
   "source_id": "github_trending",
   "stats": {
