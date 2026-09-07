@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-07T10:10:35.442567+00:00",
-  "last_successful_fetch": "2026-09-07T10:10:38.536933+00:00",
+  "last_run": "2026-09-07T16:25:10.846847+00:00",
+  "last_successful_fetch": "2026-09-07T16:25:14.342522+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4278,7 +4278,17 @@
     "github:iustin24/gitssrf-gim-cve-sub",
     "github:pwnzillaa/cves-collection",
     "github:meob/PG_CVE",
-    "github:coruna19980101/coruna-v2"
+    "github:coruna19980101/coruna-v2",
+    "github:Ceymox/StyleSmugglerShield",
+    "github:Juses24/CVE-Bash-auditor",
+    "github:ozdil/omarchy-cve-radar",
+    "github:moksh-nfsu/CVE-2026-36392",
+    "github:0x00phantom-hat/CVE-2026-11991-Exploit",
+    "github:ahasane975-ctrl/stage_cve",
+    "github:Bugatsec/X-CVE-Alert",
+    "github:ahasane975-ctrl/cve",
+    "github:0xbishopq/cve-analysis",
+    "github:DENNET0/topCVE"
   ],
   "source_id": "github_trending",
   "stats": {
