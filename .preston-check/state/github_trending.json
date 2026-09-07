@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-07T16:25:10.846847+00:00",
-  "last_successful_fetch": "2026-09-07T16:25:14.342522+00:00",
+  "last_run": "2026-09-07T20:31:33.167197+00:00",
+  "last_successful_fetch": "2026-09-07T20:31:36.242345+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4288,7 +4288,12 @@
     "github:Bugatsec/X-CVE-Alert",
     "github:ahasane975-ctrl/cve",
     "github:0xbishopq/cve-analysis",
-    "github:DENNET0/topCVE"
+    "github:DENNET0/topCVE",
+    "github:jyzwi5pu20/cvetme",
+    "github:stapat1245/CVE-2026-39987-PoC",
+    "github:Daru0613/CVE_scanner",
+    "github:alvaropike/feed-cves",
+    "github:cve-2025-33073/ataque"
   ],
   "source_id": "github_trending",
   "stats": {
