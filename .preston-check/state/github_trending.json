@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-07T20:31:33.167197+00:00",
-  "last_successful_fetch": "2026-09-07T20:31:36.242345+00:00",
+  "last_run": "2026-09-07T23:27:22.268066+00:00",
+  "last_successful_fetch": "2026-09-07T23:27:25.709836+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4293,7 +4293,8 @@
     "github:stapat1245/CVE-2026-39987-PoC",
     "github:Daru0613/CVE_scanner",
     "github:alvaropike/feed-cves",
-    "github:cve-2025-33073/ataque"
+    "github:cve-2025-33073/ataque",
+    "github:MSNightmare/ShieldCrash"
   ],
   "source_id": "github_trending",
   "stats": {
