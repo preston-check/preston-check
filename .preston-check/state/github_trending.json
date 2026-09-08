@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-07T23:27:22.268066+00:00",
-  "last_successful_fetch": "2026-09-07T23:27:25.709836+00:00",
+  "last_run": "2026-09-08T04:26:25.307495+00:00",
+  "last_successful_fetch": "2026-09-08T04:26:28.998177+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4294,7 +4294,13 @@
     "github:Daru0613/CVE_scanner",
     "github:alvaropike/feed-cves",
     "github:cve-2025-33073/ataque",
-    "github:MSNightmare/ShieldCrash"
+    "github:MSNightmare/ShieldCrash",
+    "github:HORKimhab/CVE-2026-10795",
+    "github:linan-OO/CVE-2026-52307",
+    "github:ejajmahmud/distributed-pubsub-websocket-bus-fastapi-cve-patch-bot-v2026-b68",
+    "github:MiraVerdel/cvet-nochi",
+    "github:hacbs-release-tests/collectors-no-cve-fbc83b6c",
+    "github:hacbs-release-tests/collectors-no-cve-4d7b7653"
   ],
   "source_id": "github_trending",
   "stats": {
