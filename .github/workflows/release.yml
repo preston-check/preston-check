@@ -24,8 +24,15 @@ jobs:
   quality-gate:
     uses: ./.github/workflows/quality-gate.yml
 
+  # A release ships the CLI, lib/ and the 1146 checks — none of which the
+  # quality gate exercises (it covers the Workers and front ends). Until
+  # 2026-09-08 a release was gated only on code it does not ship, so a broken
+  # scanner could reach users while tests for it were failing elsewhere.
+  cli-tests:
+    uses: ./.github/workflows/test.yml
+
   release:
-    needs: quality-gate
+    needs: [quality-gate, cli-tests]
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.meta.outputs.version }}
