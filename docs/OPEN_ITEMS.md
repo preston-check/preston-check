@@ -19,17 +19,19 @@ the exact condition that would unblock them.
 | 2 | Promotion-PR race fix (PR #861, master `c53decbc`) is merged but has not yet run. | The next threat-intel orchestrate cycle that has candidates opens a promotion PR. Its `Tests`, `Lint community checks` and `Security Audit` runs must complete green rather than dying with `jobs: []`. |
 | 3 | Watchdog alert e-mails continue for up to one more cycle. | The two pre-fix Release failures (runs 34000628028, 34012753556) age out of the 25-hour lookback, expected after ~2026-09-07 05:00 UTC. Self-resolving; act only if alerts persist past 06:00 UTC. |
 
-## Open coverage gaps (from the 2026-09-08 audit)
+## Coverage gaps — CLOSED 2026-09-08
 
-Diego 2026-09-08: close **all four**. Detail and rationale in `docs/quality-gate-coverage.md`.
+Diego asked for all four; all four are closed and verified in CI
+(run 34232259442: **170 passed, 0 failed, 74 surfaces**).
+Current scope and its deliberate limits: `docs/quality-gate-coverage.md`.
 
-| Gap | Why it matters |
-|-----|----------------|
-| Licence generation (`generateLicenseFile`, Ed25519) never executes — `LICENSE_SIGNING_KEY` unset in gate runs | The file a paying customer receives on completing checkout is untested |
-| Front-end interaction — 534 lines of app.js never driven (sign-in flow, checkout, licence download) | Only initial render is asserted; the customer funnel itself is unverified |
-| SES SigV4 + Resend delivery paths never run | Hand-rolled SigV4 signing is entirely untested |
-| CLI / lib/ / 1146 checks not in the gate | Covered by the `Tests` workflow, now a release dependency, but outside the gate |
-| `action.yml`, `install.sh`, `docker/`, `ai-addon/` (38 files) | No coverage at all |
+| Gap | Closed by |
+|-----|-----------|
+| Licence generation never executed | Throwaway Ed25519 key per run; the issued licence is verified by `lib/license.sh` — the CLI's own openssl verifier — and a tampered payload must be rejected |
+| Front-end interaction never driven | `suites/flow.mjs` drives the sign-in funnel in a browser against real Workers: login screen → e-mail → code step → verify → signed-in → token persisted |
+| SES SigV4 never run | `lib/ses.mjs` independently re-derives the signature from the received request; the request is still signed for the real SES host |
+| CLI / lib/ / checks outside the gate | `suites/cli.mjs`: run-tests.sh, metadata evidence, corpus size + bash validity, fixture scans, airgapped self-scan, `--framework` |
+| `action.yml`, `install.sh`, `docker/`, `ai-addon/` | `suites/packaging.mjs`, including a non-root `USER` assertion on the image |
 
 ## Notes for the next session
 
