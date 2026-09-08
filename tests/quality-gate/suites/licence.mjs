@@ -33,13 +33,16 @@ function verifyWithCli(root, licenceText, publicPem) {
   writeFileSync(pubPath, publicPem);
 
   try {
-    // PRESTON_PUBKEY points at a path that does not exist so the operator key
-    // cannot accidentally satisfy the check; only the SaaS key we supply can.
+    // PRESTON_PUBKEY must point at a real key that simply does not match:
+    // load_license() returns early with "public key not found" if the operator
+    // key is absent, so a non-existent path never reaches the SaaS branch at
+    // all. The shipped operator key is the honest choice — it mirrors
+    // production, where that key exists but cannot verify a SaaS-issued licence.
     const out = execFileSync('bash', ['-c', `
       set -uo pipefail
       SCRIPT_DIR="${root}"
       export PRESTON_LICENSE="${licPath}"
-      export PRESTON_PUBKEY="${dir}/absent.pem"
+      export PRESTON_PUBKEY="${root}/lib/license_pubkey.pem"
       export PRESTON_PUBKEY_SAAS="${pubPath}"
       source "${root}/lib/license.sh"
       load_license

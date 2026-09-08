@@ -136,11 +136,13 @@ export async function run(r, root, apps, authWorker, billingBase) {
         `status said: ${await page.evaluate(() => (document.getElementById('login-status') || {}).textContent || '')}`);
 
       // A session that is not persisted means the next page load logs them out.
-      const stored = await page.evaluate(() =>
-        localStorage.getItem('pc_session') || sessionStorage.getItem('pc_session') || '');
+      // Key taken from storeToken() in web/customer/app.js, not guessed.
+      const stored = await page.evaluate(() => {
+        try { return localStorage.getItem('pc_session_token') || ''; } catch { return ''; }
+      });
       r.truthy('flow.customer-signin', 'the session token is persisted client-side',
-        typeof stored === 'string' && stored.length > 0,
-        'no session token found in local/session storage after sign-in');
+        /^[a-f0-9]{64}$/.test(stored),
+        `localStorage['pc_session_token'] held ${JSON.stringify(stored)}`);
     }
 
     r.truthy('flow.customer-signin', 'the journey raised no uncaught exceptions',
