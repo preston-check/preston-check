@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-08T04:26:25.307495+00:00",
-  "last_successful_fetch": "2026-09-08T04:26:28.998177+00:00",
+  "last_run": "2026-09-08T09:34:45.673539+00:00",
+  "last_successful_fetch": "2026-09-08T09:34:48.588164+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4300,7 +4300,11 @@
     "github:ejajmahmud/distributed-pubsub-websocket-bus-fastapi-cve-patch-bot-v2026-b68",
     "github:MiraVerdel/cvet-nochi",
     "github:hacbs-release-tests/collectors-no-cve-fbc83b6c",
-    "github:hacbs-release-tests/collectors-no-cve-4d7b7653"
+    "github:hacbs-release-tests/collectors-no-cve-4d7b7653",
+    "github:m1-k-k/port-cve-scanner",
+    "github:686f6c61/POC-AIOWPM-CVE-2026-19949",
+    "github:fientix/CVE-2026-8732-PoC",
+    "github:thejitudon/cve-scanner"
   ],
   "source_id": "github_trending",
   "stats": {
