@@ -22,6 +22,8 @@ import { fileURLToPath } from 'node:url';
 import { Results, banner, warn, info } from './lib/harness.mjs';
 import { Worker } from './lib/worker.mjs';
 import { startStripeMock, WEBHOOK_SECRET } from './lib/stripe.mjs';
+import { makeLicenceKeypair } from './lib/licence.mjs';
+import { startSesMock, SES_KEY_ID, SES_SECRET, SES_REGION } from './lib/ses.mjs';
 import { checkDrift } from './drift-check.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -33,6 +35,7 @@ const only = argv.includes('--only') ? argv[argv.indexOf('--only') + 1] : null;
 const wants = (name) => !only || only.split(',').includes(name);
 
 const STRIPE_MOCK_PORT = 8899;
+const SES_MOCK_PORT = 8898;
 
 /** Every id the inventory says must be covered. */
 function expectedIds() {
@@ -43,6 +46,7 @@ function expectedIds() {
   }
   for (const f of SURFACE.frontends) ids.push(f.id);
   for (const i of SURFACE.invariants) ids.push(i.id);
+  for (const a of (SURFACE.artefacts || [])) ids.push(a.id);
   return ids;
 }
 
@@ -52,6 +56,7 @@ async function main() {
   const results = new Results();
   const started = [];
   let stripeMock = null;
+  let sesMock = null;
 
   try {
     // ---------- Workers ----------
@@ -63,9 +68,12 @@ async function main() {
       await run(results, w);
     }
 
-    if (wants('billing') || wants('webhook')) {
+    if (wants('billing') || wants('webhook') || wants('licence')) {
       stripeMock = await startStripeMock(STRIPE_MOCK_PORT);
       info(`stripe mock listening on ${stripeMock.base}`);
+      // Throwaway signing pair per run: the real key is a Worker secret, and
+      // without one set the licence path could never execute at all.
+      const licenceKeys = makeLicenceKeypair();
       const w = new Worker(ROOT, SURFACE.workers.billing, 'billing');
       w.seed();
       await w.start({
@@ -74,8 +82,13 @@ async function main() {
         STRIPE_WEBHOOK_SECRET: WEBHOOK_SECRET,
         STRIPE_PRICE_PRO_PER_REPO: 'price_qg_per_repo',
         STRIPE_PRICE_PRO_UNLIMITED: 'price_qg_unlimited',
+        LICENSE_SIGNING_KEY: licenceKeys.pkcs8B64,
       });
       started.push(w);
+      if (wants('licence')) {
+        const { run } = await import('./suites/licence.mjs');
+        await run(results, w, ROOT, licenceKeys.publicPem);
+      }
       if (wants('billing')) {
         const { run } = await import('./suites/billing.mjs');
         await run(results, w);
@@ -84,6 +97,27 @@ async function main() {
         const { run } = await import('./suites/webhook.mjs');
         await run(results, w, SURFACE.workers.billing.webhook_events);
       }
+    }
+
+    // A second auth instance, this one with SES credentials. Kept separate so
+    // the primary auth suite still exercises the no-credentials fallback,
+    // which is what a misconfigured deploy actually hits.
+    if (wants('email')) {
+      sesMock = await startSesMock(SES_MOCK_PORT);
+      info(`ses mock listening on ${sesMock.base}`);
+      const spec = { ...SURFACE.workers.auth, port: SURFACE.workers.auth.port + 40 };
+      const w = new Worker(ROOT, spec, 'auth-ses');
+      w.seed();
+      await w.start({
+        SESSION_SECRET: 'qg-session-secret',
+        SES_API_BASE: sesMock.base,
+        SES_AWS_ACCESS_KEY_ID: SES_KEY_ID,
+        SES_AWS_SECRET_ACCESS_KEY: SES_SECRET,
+        SES_AWS_REGION: SES_REGION,
+      });
+      started.push(w);
+      const { run } = await import('./suites/email.mjs');
+      await run(results, w, sesMock);
     }
 
     if (wants('telemetry')) {
@@ -108,6 +142,48 @@ async function main() {
       await run(results, ROOT, SURFACE.frontends, SURFACE.frontend_apps);
     }
 
+    // ---------- Customer journey, browser to real Workers ----------
+    // Dedicated instances: the page origin must be in ALLOW_ORIGIN for the
+    // browser's cross-origin calls to be permitted, and the shared instances
+    // deliberately keep the production origin so CORS is asserted as deployed.
+    if (wants('flow')) {
+      const { FLOW_PAGE_ORIGIN, run } = await import('./suites/flow.mjs');
+      if (!stripeMock) stripeMock = await startStripeMock(STRIPE_MOCK_PORT);
+
+      const authSpec = { ...SURFACE.workers.auth, port: SURFACE.workers.auth.port + 60 };
+      const aw = new Worker(ROOT, authSpec, 'auth-flow');
+      aw.seed();
+      await aw.start({ SESSION_SECRET: 'qg-flow-secret', ALLOW_ORIGIN: FLOW_PAGE_ORIGIN });
+      started.push(aw);
+
+      const billSpec = { ...SURFACE.workers.billing, port: SURFACE.workers.billing.port + 60 };
+      const bw = new Worker(ROOT, billSpec, 'billing-flow');
+      bw.seed();
+      await bw.start({
+        ALLOW_ORIGIN: FLOW_PAGE_ORIGIN,
+        STRIPE_API_BASE: stripeMock.base,
+        STRIPE_SECRET_KEY: 'sk_test_quality_gate',
+        STRIPE_WEBHOOK_SECRET: WEBHOOK_SECRET,
+        STRIPE_PRICE_PRO_PER_REPO: 'price_qg_per_repo',
+        STRIPE_PRICE_PRO_UNLIMITED: 'price_qg_unlimited',
+      });
+      started.push(bw);
+
+      await run(results, ROOT, SURFACE.frontend_apps, aw, bw.base);
+    }
+
+    // ---------- The shipped CLI artefact ----------
+    if (wants('cli')) {
+      const { run } = await import('./suites/cli.mjs');
+      await run(results, ROOT);
+    }
+
+    // ---------- Packaging surface ----------
+    if (wants('packaging')) {
+      const { run } = await import('./suites/packaging.mjs');
+      await run(results, ROOT);
+    }
+
     // ---------- Deployment invariants ----------
     if (wants('invariants')) {
       const { run } = await import('./suites/invariants.mjs');
@@ -119,6 +195,7 @@ async function main() {
   } finally {
     for (const w of started) w.stop();
     if (stripeMock) await stripeMock.close();
+    if (sesMock) await sesMock.close();
   }
 
   // ---------- Coverage reconciliation ----------
