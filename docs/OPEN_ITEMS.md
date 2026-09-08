@@ -16,8 +16,8 @@ the exact condition that would unblock them.
 
 | # | Item | Unblocks when |
 |---|------|---------------|
-| 2 | Promotion-PR race fix (PR #861, master `c53decbc`) is merged but has not yet run. | The next threat-intel orchestrate cycle that has candidates opens a promotion PR. Its `Tests`, `Lint community checks` and `Security Audit` runs must complete green rather than dying with `jobs: []`. |
-| 3 | Watchdog alert e-mails continue for up to one more cycle. | The two pre-fix Release failures (runs 34000628028, 34012753556) age out of the 25-hour lookback, expected after ~2026-09-07 05:00 UTC. Self-resolving; act only if alerts persist past 06:00 UTC. |
+| 2 | **REGRESSION — promotion stalled 2026-09-06 → 2026-09-08.** PR #861's "wait for promotion PR checks" was built on a wrong diagnosis. Runs on a PR opened by `github-actions[bot]` are created `action_required` and never start, so the wait polled a verdict that could never arrive, timed out, and skipped the merge. PRs #879–#882 open, no new checks reaching master for two days. Correct fix pushed: master `d6ed898d` approves the pending runs first (workflow already holds `actions: write`). | (a) the next orchestrate cycle **with candidates** shows `Approve the promotion PR's pending checks` → checks green → merge; and (b) the #879–#882 backlog is drained. Draining needs an approve-then-merge loop per PR — the sandbox classifier blocks that mutating loop, so it needs Diego's go-ahead or a permission rule. |
+| 3 | ~~Watchdog alerts from the pre-fix Release failures~~ — **original cause RESOLVED**; runs 34000628028/34012753556 have aged out of the 25h lookback. | Nothing outstanding of its own. The watchdog is still red, but now for one correct reason: it is reporting item #2 (`1 promotion PR(s) open for >24h ... e.g. #879`). It caught the regression. Alerts stop when #2 is drained. |
 
 ## Coverage gaps — CLOSED 2026-09-08
 
