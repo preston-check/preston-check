@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-08T09:34:45.673539+00:00",
-  "last_successful_fetch": "2026-09-08T09:34:48.588164+00:00",
+  "last_run": "2026-09-08T21:47:52.518435+00:00",
+  "last_successful_fetch": "2026-09-08T21:47:55.254752+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4304,7 +4304,22 @@
     "github:m1-k-k/port-cve-scanner",
     "github:686f6c61/POC-AIOWPM-CVE-2026-19949",
     "github:fientix/CVE-2026-8732-PoC",
-    "github:thejitudon/cve-scanner"
+    "github:thejitudon/cve-scanner",
+    "github:hacbs-release-tests/collectors-no-cve-1da39b94",
+    "github:Codemelia/CVE-Remediation-Tool",
+    "github:hacbs-release-tests/collectors-no-cve-4bfa3198",
+    "github:amis13/SPIP-CVE-2024-23659-",
+    "github:Emxiai/CVE",
+    "github:Abdinasir909/CVE_-ANALYSIS-",
+    "github:ZHOUCC-CPU/cve-2023-23397-detection-lab",
+    "github:Technosecurity/CVE-Intelligence-Dashboard-",
+    "github:iss4cf0ng/Nday-ToyStore",
+    "github:hacbs-release-tests/collectors-no-cve-35d5fe9a",
+    "github:avaldez6adb-code/cvesau",
+    "github:INVOICE-GEEK-SQUAD-LK4/repo-li3cveaz",
+    "github:r3vpwnx/CVE-2025-8110",
+    "github:r3vpwnx/CVE-2025-58434",
+    "github:r3vpwnx/CVE-2025-55182"
   ],
   "source_id": "github_trending",
   "stats": {
