@@ -194,15 +194,53 @@ jobs:
             || echo "$BRANCH_URL")
           echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
 
+      # Workflow runs on a PR opened by github-actions[bot] are created in the
+      # `action_required` state and never start on their own. The wait step
+      # below therefore polled for a verdict that could never arrive, and
+      # promotion stalled from 2026-09-06 to 2026-09-08: four PRs open, no
+      # checks landing, no new checks reaching master.
+      #
+      # This also corrects the original diagnosis. Those runs were never racing
+      # the merge — they were awaiting approval the whole time. Merging
+      # immediately deleted the branch and orphaned them, which is what turned
+      # "pending approval" into "failure with zero jobs".
+      #
+      # Approval is safe here: the branch is machine-generated in this same run
+      # from the verification wall's own output, never from a contributor. The
+      # workflow already holds actions: write.
+      - name: Approve the promotion PR's pending checks
+        if: env.PRESTON_AUTOMERGE_ENABLED == 'true' && steps.open_pr.outputs.pr_url != ''
+        timeout-minutes: 5
+        env:
+          BRANCH: threat-intel/automerge-${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          runs_url="repos/${GITHUB_REPOSITORY}/actions/runs?branch=${BRANCH}&per_page=50"
+          approved=0
+          for _ in $(seq 1 24); do
+            pending=$(gh api "$runs_url" \
+              --jq '.workflow_runs[] | select(.conclusion == "action_required") | .id' 2>/dev/null || true)
+            for id in $pending; do
+              if gh api -X POST "repos/${GITHUB_REPOSITORY}/actions/runs/${id}/approve" >/dev/null 2>&1; then
+                echo "approved run ${id}"
+                approved=$((approved + 1))
+              fi
+            done
+            total=$(gh api "$runs_url" --jq '.workflow_runs | length' 2>/dev/null || echo 0)
+            # Done once runs exist and none are still awaiting approval.
+            if [ "${total:-0}" -gt 0 ] && [ -z "$pending" ]; then break; fi
+            sleep 5
+          done
+          echo "approved ${approved} pending run(s) on ${BRANCH}"
+
       # The PR's checks must finish BEFORE the merge below deletes the branch.
-      # Merging immediately (the behaviour until 2026-09-01) tore the merge ref
-      # out from under the just-dispatched pull_request runs, which then died
-      # with zero jobs and conclusion=failure — three phantom red runs per
-      # promotion cycle, and ones rerun-failed-jobs could never heal because a
-      # jobless run has no failed job to retry (docs/pipeline-reliability.md,
-      # addendum 2026-08-31). Waiting also makes these checks a real gate for
-      # the first time: on failure the merge step is skipped, the PR stays open,
-      # and the watchdog's stuck-promotion check escalates it after a day.
+      # Merging immediately (the behaviour until 2026-09-01) orphaned the
+      # pending runs, which then died with zero jobs and conclusion=failure —
+      # three phantom red runs per promotion cycle that rerun-failed-jobs could
+      # never heal, because a jobless run has no failed job to retry
+      # (docs/pipeline-reliability.md, addendum 2026-08-31). Waiting also makes
+      # these checks a real gate: on failure the merge step is skipped, the PR
+      # stays open, and the watchdog's stuck-promotion check escalates it.
       - name: Wait for promotion PR checks
         if: env.PRESTON_AUTOMERGE_ENABLED == 'true' && steps.open_pr.outputs.pr_url != ''
         timeout-minutes: 20

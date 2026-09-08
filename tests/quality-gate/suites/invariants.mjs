@@ -42,21 +42,30 @@ print(json.dumps({
 export async function run(r, root) {
   r.suite('Deployment invariants');
 
-  // --- 1. The test-only Stripe seam must never appear in deployed config ---
+  // --- 1. Test-only API seams must never appear in deployed config ---
+  // STRIPE_API_BASE redirects payment traffic; SES_API_BASE redirects sign-in
+  // e-mails. Both default to the real endpoint and exist only so the gate can
+  // exercise paths that need live credentials. Either one set in a deployed
+  // config would silently divert production traffic to somewhere else.
+  const SEAMS = ['STRIPE_API_BASE', 'SES_API_BASE'];
   const leaks = [];
-  for (const f of ['workers/billing/wrangler.toml', 'workers/auth/wrangler.toml',
-                   'workers/telemetry/wrangler.toml', 'workers/get/wrangler.toml']) {
+  const configs = [
+    'workers/billing/wrangler.toml', 'workers/auth/wrangler.toml',
+    'workers/telemetry/wrangler.toml', 'workers/get/wrangler.toml',
+    ...DEPLOY_WORKFLOWS.map(f => `.github/workflows/${f}`),
+  ];
+  for (const f of configs) {
     const p = join(root, f);
-    if (existsSync(p) && readFileSync(p, 'utf8').includes('STRIPE_API_BASE')) leaks.push(f);
-  }
-  for (const f of DEPLOY_WORKFLOWS) {
-    const p = join(root, '.github/workflows', f);
-    if (existsSync(p) && readFileSync(p, 'utf8').includes('STRIPE_API_BASE')) leaks.push(f);
+    if (!existsSync(p)) continue;
+    const text = readFileSync(p, 'utf8');
+    for (const seam of SEAMS) {
+      if (text.includes(seam)) leaks.push(`${seam} in ${f}`);
+    }
   }
   r.record('inv.no-stripe-api-base-in-deployed-config',
-    'STRIPE_API_BASE appears in no deployed config',
+    'no test-only API seam appears in a deployed config',
     leaks.length === 0,
-    leaks.length ? `would redirect live payment traffic: ${leaks.join(', ')}` : null);
+    leaks.length ? `would divert production traffic: ${leaks.join(', ')}` : null);
 
   // --- 2. No live secrets committed ---
   // Matches a key SHAPE, not a bare prefix: docs legitimately write
@@ -108,11 +117,14 @@ export async function run(r, root) {
       try { jobs = loadWorkflow(root, file); }
       catch (e) { ungated.push(`${file} (unparseable: ${e.message.split('\n')[0]})`); continue; }
 
-      const gateJobs = Object.entries(jobs)
-        .filter(([, j]) => (j.uses || '').includes('quality-gate.yml'))
-        .map(([name]) => name);
+      // Jobs that ARE gates rather than jobs that need gating. test.yml counts:
+      // it is a verification step (release.yml calls it for the CLI), so it
+      // must not be treated as an ungated deploying job.
+      const isGateCall = (j) => /quality-gate\.yml|test\.yml/.test(j.uses || '');
+      const gateJobs = Object.entries(jobs).filter(([, j]) => isGateCall(j)).map(([name]) => name);
 
-      if (gateJobs.length === 0) { ungated.push(`${file} (never calls the gate)`); continue; }
+      const callsQualityGate = Object.values(jobs).some(j => (j.uses || '').includes('quality-gate.yml'));
+      if (!callsQualityGate) { ungated.push(`${file} (never calls the gate)`); continue; }
 
       // Calling the gate is not enough — every other job must depend on it,
       // directly or transitively. Compute the closure of gated jobs.
@@ -135,4 +147,33 @@ export async function run(r, root) {
     `all ${DEPLOY_WORKFLOWS.length} deploy workflows depend on the quality gate`,
     ungated.length === 0,
     ungated.join(' | ') || null);
+
+  // --- 4. A release must be gated on tests for what it actually ships ---
+  // This gate covers the Workers and front ends. release.yml ships the CLI,
+  // lib/ and the checks, which no suite here touches — so it must additionally
+  // depend on test.yml. Asserted separately from inv.deploy-workflows-gated
+  // because that one is satisfied by the quality gate alone, which would leave
+  // the shipped artefact untested.
+  let releaseProblem = null;
+  try {
+    const jobs = loadWorkflow(root, 'release.yml');
+    const cliTestJobs = Object.entries(jobs)
+      .filter(([, j]) => (j.uses || '').includes('test.yml'))
+      .map(([name]) => name);
+
+    if (cliTestJobs.length === 0) {
+      releaseProblem = 'release.yml never calls test.yml — the CLI it ships is untested';
+    } else {
+      const rel = jobs['release'];
+      const needs = Array.isArray(rel?.needs) ? rel.needs : (rel?.needs ? [rel.needs] : []);
+      if (!needs.some(n => cliTestJobs.includes(n))) {
+        releaseProblem = `release.yml calls test.yml but the release job does not need it (needs: ${needs.join(', ') || 'none'})`;
+      }
+    }
+  } catch (e) {
+    releaseProblem = `could not parse release.yml: ${e.message.split('\n')[0]}`;
+  }
+  r.record('inv.release-gated-on-cli-tests',
+    'release.yml depends on the tests for the CLI it ships',
+    releaseProblem === null, releaseProblem);
 }

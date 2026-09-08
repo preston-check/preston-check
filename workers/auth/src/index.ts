@@ -43,6 +43,11 @@ interface Env {
   SES_AWS_SECRET_ACCESS_KEY?: string;
   SES_AWS_REGION?: string;
   SESSION_SECRET?: string;
+
+  // Test-only override, unset in production. The request is still SIGNED for
+  // the real SES host, so the signature under test is byte-identical to the
+  // one production sends; only the destination changes. See sendCodeEmailViaSES.
+  SES_API_BASE?: string;
 }
 
 function corsHeaders(origin: string): HeadersInit {
@@ -197,7 +202,11 @@ async function sendCodeEmailViaSES(env: Env, email: string, code: string): Promi
     dateStamp,
   });
 
-  const r = await fetch(`https://${host}${path}`, {
+  // Signed above for `host` (the real SES endpoint) regardless of where the
+  // request is sent, so the quality gate verifies the exact signature
+  // production would produce. SES_API_BASE is never set in a deployed config.
+  const endpoint = env.SES_API_BASE || `https://${host}`;
+  const r = await fetch(`${endpoint}${path}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
