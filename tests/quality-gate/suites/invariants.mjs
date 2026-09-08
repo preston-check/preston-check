@@ -42,21 +42,30 @@ print(json.dumps({
 export async function run(r, root) {
   r.suite('Deployment invariants');
 
-  // --- 1. The test-only Stripe seam must never appear in deployed config ---
+  // --- 1. Test-only API seams must never appear in deployed config ---
+  // STRIPE_API_BASE redirects payment traffic; SES_API_BASE redirects sign-in
+  // e-mails. Both default to the real endpoint and exist only so the gate can
+  // exercise paths that need live credentials. Either one set in a deployed
+  // config would silently divert production traffic to somewhere else.
+  const SEAMS = ['STRIPE_API_BASE', 'SES_API_BASE'];
   const leaks = [];
-  for (const f of ['workers/billing/wrangler.toml', 'workers/auth/wrangler.toml',
-                   'workers/telemetry/wrangler.toml', 'workers/get/wrangler.toml']) {
+  const configs = [
+    'workers/billing/wrangler.toml', 'workers/auth/wrangler.toml',
+    'workers/telemetry/wrangler.toml', 'workers/get/wrangler.toml',
+    ...DEPLOY_WORKFLOWS.map(f => `.github/workflows/${f}`),
+  ];
+  for (const f of configs) {
     const p = join(root, f);
-    if (existsSync(p) && readFileSync(p, 'utf8').includes('STRIPE_API_BASE')) leaks.push(f);
-  }
-  for (const f of DEPLOY_WORKFLOWS) {
-    const p = join(root, '.github/workflows', f);
-    if (existsSync(p) && readFileSync(p, 'utf8').includes('STRIPE_API_BASE')) leaks.push(f);
+    if (!existsSync(p)) continue;
+    const text = readFileSync(p, 'utf8');
+    for (const seam of SEAMS) {
+      if (text.includes(seam)) leaks.push(`${seam} in ${f}`);
+    }
   }
   r.record('inv.no-stripe-api-base-in-deployed-config',
-    'STRIPE_API_BASE appears in no deployed config',
+    'no test-only API seam appears in a deployed config',
     leaks.length === 0,
-    leaks.length ? `would redirect live payment traffic: ${leaks.join(', ')}` : null);
+    leaks.length ? `would divert production traffic: ${leaks.join(', ')}` : null);
 
   // --- 2. No live secrets committed ---
   // Matches a key SHAPE, not a bare prefix: docs legitimately write

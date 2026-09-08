@@ -21,7 +21,7 @@ the exact condition that would unblock them.
 
 ## Open coverage gaps (from the 2026-09-08 audit)
 
-Not yet scoped with Diego. Detail and rationale in `docs/quality-gate-coverage.md`.
+Diego 2026-09-08: close **all four**. Detail and rationale in `docs/quality-gate-coverage.md`.
 
 | Gap | Why it matters |
 |-----|----------------|
