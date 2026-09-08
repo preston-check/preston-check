@@ -1,6 +1,12 @@
 name: Tests
 
 on:
+  # Callable so release.yml can depend on it. The quality gate covers the
+  # Workers and front ends; these jobs are what actually exercise the CLI,
+  # lib/ and the checks — which is the artefact a release ships. Until
+  # 2026-09-08 a release was gated only on the Workers gate, so a broken
+  # scanner could ship even though tests for it existed and were failing.
+  workflow_call:
   push:
     branches: [master, main]
   pull_request:

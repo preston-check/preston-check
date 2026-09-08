@@ -108,11 +108,14 @@ export async function run(r, root) {
       try { jobs = loadWorkflow(root, file); }
       catch (e) { ungated.push(`${file} (unparseable: ${e.message.split('\n')[0]})`); continue; }
 
-      const gateJobs = Object.entries(jobs)
-        .filter(([, j]) => (j.uses || '').includes('quality-gate.yml'))
-        .map(([name]) => name);
+      // Jobs that ARE gates rather than jobs that need gating. test.yml counts:
+      // it is a verification step (release.yml calls it for the CLI), so it
+      // must not be treated as an ungated deploying job.
+      const isGateCall = (j) => /quality-gate\.yml|test\.yml/.test(j.uses || '');
+      const gateJobs = Object.entries(jobs).filter(([, j]) => isGateCall(j)).map(([name]) => name);
 
-      if (gateJobs.length === 0) { ungated.push(`${file} (never calls the gate)`); continue; }
+      const callsQualityGate = Object.values(jobs).some(j => (j.uses || '').includes('quality-gate.yml'));
+      if (!callsQualityGate) { ungated.push(`${file} (never calls the gate)`); continue; }
 
       // Calling the gate is not enough — every other job must depend on it,
       // directly or transitively. Compute the closure of gated jobs.
@@ -135,4 +138,33 @@ export async function run(r, root) {
     `all ${DEPLOY_WORKFLOWS.length} deploy workflows depend on the quality gate`,
     ungated.length === 0,
     ungated.join(' | ') || null);
+
+  // --- 4. A release must be gated on tests for what it actually ships ---
+  // This gate covers the Workers and front ends. release.yml ships the CLI,
+  // lib/ and the checks, which no suite here touches — so it must additionally
+  // depend on test.yml. Asserted separately from inv.deploy-workflows-gated
+  // because that one is satisfied by the quality gate alone, which would leave
+  // the shipped artefact untested.
+  let releaseProblem = null;
+  try {
+    const jobs = loadWorkflow(root, 'release.yml');
+    const cliTestJobs = Object.entries(jobs)
+      .filter(([, j]) => (j.uses || '').includes('test.yml'))
+      .map(([name]) => name);
+
+    if (cliTestJobs.length === 0) {
+      releaseProblem = 'release.yml never calls test.yml — the CLI it ships is untested';
+    } else {
+      const rel = jobs['release'];
+      const needs = Array.isArray(rel?.needs) ? rel.needs : (rel?.needs ? [rel.needs] : []);
+      if (!needs.some(n => cliTestJobs.includes(n))) {
+        releaseProblem = `release.yml calls test.yml but the release job does not need it (needs: ${needs.join(', ') || 'none'})`;
+      }
+    }
+  } catch (e) {
+    releaseProblem = `could not parse release.yml: ${e.message.split('\n')[0]}`;
+  }
+  r.record('inv.release-gated-on-cli-tests',
+    'release.yml depends on the tests for the CLI it ships',
+    releaseProblem === null, releaseProblem);
 }

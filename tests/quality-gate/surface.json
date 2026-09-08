@@ -159,6 +159,8 @@
     { "id": "inv.no-secrets-in-repo",
       "why": "Stripe/SES/session secrets must only ever arrive via `wrangler secret put`, never committed." },
     { "id": "inv.deploy-workflows-gated",
-      "why": "Every deploy workflow must depend on the quality gate. This invariant is what stops the gate being quietly bypassed." }
+      "why": "Every deploy workflow must depend on the quality gate. This invariant is what stops the gate being quietly bypassed." },
+    { "id": "inv.release-gated-on-cli-tests",
+      "why": "This gate covers the Workers and front ends, not the CLI/lib/checks that release.yml actually ships. Without a separate dependency on test.yml a release is gated only on code it does not ship." }
   ]
 }
