@@ -16,8 +16,8 @@ the exact condition that would unblock them.
 
 | # | Item | Unblocks when |
 |---|------|---------------|
-| 2 | **REGRESSION — promotion stalled 2026-09-06 → 2026-09-08.** PR #861's "wait for promotion PR checks" was built on a wrong diagnosis. Runs on a PR opened by `github-actions[bot]` are created `action_required` and never start, so the wait polled a verdict that could never arrive, timed out, and skipped the merge. PRs #879–#882 open, no new checks reaching master for two days. Correct fix pushed: master `d6ed898d` approves the pending runs first (workflow already holds `actions: write`). | (a) the next orchestrate cycle **with candidates** shows `Approve the promotion PR's pending checks` → checks green → merge; and (b) the #879–#882 backlog is drained. Draining needs an approve-then-merge loop per PR — the sandbox classifier blocks that mutating loop, so it needs Diego's go-ahead or a permission rule. |
-| 3 | ~~Watchdog alerts from the pre-fix Release failures~~ — **original cause RESOLVED**; runs 34000628028/34012753556 have aged out of the 25h lookback. | Nothing outstanding of its own. The watchdog is still red, but now for one correct reason: it is reporting item #2 (`1 promotion PR(s) open for >24h ... e.g. #879`). It caught the regression. Alerts stop when #2 is drained. |
+| 2 | ~~Promotion stalled 2026-09-06 → 2026-09-08~~ | **DONE 2026-09-08.** Fix on master `d6ed898d`: the orchestrate job approves its own branch's pending runs before waiting. Proven live on PR #883's own cycle — `Approve the promotion PR's pending checks: success`, log `approved 4 pending run(s)`. Backlog fully drained: #879–#883 all merged (`a33ce3fa`, `398af421`, `3d42e66c`, `d81556df`, `36f58795`). No open promotion PRs. |
+| 3 | ~~Watchdog alerts from the pre-fix Release failures~~ | **DONE 2026-09-08.** Original cause aged out; the stuck-promotion alert cleared once the backlog drained. The watchdog correctly detected the regression while it existed. |
 
 ## Coverage gaps — CLOSED 2026-09-08
 
@@ -32,6 +32,16 @@ Current scope and its deliberate limits: `docs/quality-gate-coverage.md`.
 | SES SigV4 never run | `lib/ses.mjs` independently re-derives the signature from the received request; the request is still signed for the real SES host |
 | CLI / lib/ / checks outside the gate | `suites/cli.mjs`: run-tests.sh, metadata evidence, corpus size + bash validity, fixture scans, airgapped self-scan, `--framework` |
 | `action.yml`, `install.sh`, `docker/`, `ai-addon/` | `suites/packaging.mjs`, including a non-root `USER` assertion on the image |
+
+## Watch next session
+
+`update-tap` on Release #461 (run 34290284288) failed at "Commit + push" with
+`remote: fatal error in commit_refs` — a GitHub-side transient, not a
+fast-forward rejection. The commit landed anyway (tap has
+`bottles: preston-check 1.8.431` and the formula carries all four bottle SHAs),
+so no action was needed. But the push has no retry, and several releases fired
+back to back while draining the backlog. If this recurs, add a retry with
+`git pull --rebase` around that push rather than letting the run go red.
 
 ## Notes for the next session
 
