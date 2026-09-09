@@ -56,4 +56,12 @@ EOF
   exit 2
 fi
 
+# Put the chosen Node's bin dir first on PATH, not just exec its binary. The
+# harness shells out to `npx wrangler`, which resolves through PATH — so
+# selecting the binary alone left wrangler running under whatever Node happened
+# to be on PATH (v20 locally) and failing "requires at least Node.js v22" while
+# the gate itself ran on 24.
+NODE_BIN_DIR="$(dirname "$NODE_BIN")"
+export PATH="$NODE_BIN_DIR:$PATH"
+
 exec "$NODE_BIN" "$HERE/run.mjs" "$@"

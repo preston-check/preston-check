@@ -9,7 +9,8 @@
  */
 
 import { spawn, execFileSync } from 'node:child_process';
-import { mkdtempSync, rmSync, readFileSync, existsSync } from 'node:fs';
+import { mkdtempSync, rmSync, readFileSync, existsSync, readdirSync } from 'node:fs';
+import { DatabaseSync } from 'node:sqlite';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { info, warn, sleep } from './harness.mjs';
@@ -108,20 +109,44 @@ export class Worker {
     } catch { return '(no wrangler log)'; }
   }
 
-  /** Read rows straight out of the local D1, to prove writes really landed. */
+  /**
+   * Locate miniflare's backing SQLite for a storage kind ("d1" or "kv").
+   * Layout: <persist>/v3/<kind>/miniflare-<X>Object/<hash>.sqlite, with
+   * metadata.sqlite alongside it.
+   */
+  _storeDbs(kind, objectDir) {
+    const dir = join(this.persist, 'v3', kind, objectDir);
+    if (!existsSync(dir)) return [];
+    return readdirSync(dir)
+      .filter(n => n.endsWith('.sqlite') && !n.startsWith('metadata'))
+      .map(n => join(dir, n));
+  }
+
+  /**
+   * Read rows straight out of the local D1, to prove writes really landed.
+   *
+   * Reads miniflare's SQLite directly rather than shelling out to
+   * `wrangler d1 execute`. A second wrangler process against a --persist-to
+   * directory that `wrangler dev` is already serving kills the dev server:
+   * on macOS the very next request dies with ECONNRESET, which is how the
+   * auth suite failed on the first local run. Direct reads also avoid paying
+   * an npx startup per assertion.
+   */
   query(sql) {
-    const toml = join(this.dir, 'wrangler.toml');
-    const db = dbNameFrom(toml);
+    const files = this._storeDbs('d1', 'miniflare-D1DatabaseObject');
+    if (!files.length) { warn(`${this.name}: no local D1 store found`); return []; }
+    // Opened read-write: a few suites seed fixture rows through here. SQLite
+    // is in WAL mode, so this coexists with the running Worker's reads.
+    let db;
     try {
-      const out = execFileSync('npx', [
-        ...WRANGLER, 'd1', 'execute', db,
-        '--local', '--command', sql, '--persist-to', this.persist, '--json', '-y',
-      ], { cwd: this.dir, stdio: 'pipe', env: { ...process.env, CI: '1' } }).toString();
-      const parsed = JSON.parse(out.slice(out.indexOf('[')));
-      return parsed?.[0]?.results ?? [];
+      db = new DatabaseSync(files[0]);
+      const stmt = db.prepare(sql);
+      return /^\s*(select|with|pragma)/i.test(sql) ? stmt.all() : (stmt.run(), []);
     } catch (e) {
-      warn(`${this.name}: D1 query failed: ${e.message.split('\n')[0]}`);
+      warn(`${this.name}: D1 query failed: ${String(e.message).split('\n')[0]}`);
       return [];
+    } finally {
+      try { db?.close(); } catch { }
     }
   }
 
@@ -130,17 +155,36 @@ export class Worker {
    * code so the verify-code happy path is exercised end to end. Reading real
    * KV state rather than scraping the log keeps this deterministic — the log
    * line is written by a fire-and-forget console.log with no flush guarantee.
+   *
+   * miniflare stores the key index in `_mf_entries` and the value in a blob
+   * file under v3/kv/<namespace>/blobs/<blob_id>. Read directly, for the same
+   * reason as query(): spawning wrangler here resets the live dev server.
    */
   kvGet(binding, key) {
-    try {
-      const out = execFileSync('npx', [
-        ...WRANGLER, 'kv', 'key', 'get', key,
-        '--binding', binding, '--local', '--persist-to', this.persist, '--text',
-      ], { cwd: this.dir, stdio: 'pipe', env: { ...process.env, CI: '1' } }).toString();
-      return out.trim();
-    } catch {
-      return null;
+    for (const file of this._storeDbs('kv', 'miniflare-KVNamespaceObject')) {
+      let db;
+      try {
+        db = new DatabaseSync(file, { readOnly: true });
+        const row = db.prepare(
+          'SELECT blob_id, expiration FROM _mf_entries WHERE key = ?'
+        ).get(key);
+        if (!row) continue;
+        // Honour TTL: an expired entry is absent as far as the Worker is
+        // concerned, so the harness must not report it as present.
+        if (row.expiration && Number(row.expiration) <= Date.now()) continue;
+
+        const kvRoot = join(this.persist, 'v3', 'kv');
+        for (const ns of readdirSync(kvRoot)) {
+          const blob = join(kvRoot, ns, 'blobs', row.blob_id);
+          if (existsSync(blob)) return readFileSync(blob, 'utf8');
+        }
+      } catch {
+        // try the next namespace store
+      } finally {
+        try { db?.close(); } catch { }
+      }
     }
+    return null;
   }
 
   stop() {
