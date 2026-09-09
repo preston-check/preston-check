@@ -1,0 +1,48 @@
+name: Contract checks
+
+# Verifies that the real Stripe and SES APIs still accept the requests this
+# code builds and still return the shapes it parses. The quality gate covers
+# those integrations through mocks, which cannot detect third-party drift.
+#
+# Deliberately NOT wired into any deploy workflow. A Stripe or AWS outage would
+# otherwise block every deployment, making production releases depend on
+# someone else's uptime. Drift is caught within a day and alerted instead.
+on:
+  # The daily cron is commented out until STRIPE_TEST_SECRET_KEY exists as a
+  # repository secret. With it missing the run fails by design — credentials
+  # absent is reported as a failure, never a silent skip — and a scheduled
+  # failure would have the watchdog e-mailing drift alerts every day for a
+  # known, tracked gap. Uncomment in the same change that adds the secret.
+  # schedule:
+  #   - cron: '17 6 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: contract-checks
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      # Matches the quality gate; node:sqlite and the shared harness need >= 22.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      # Drift alerting is the pipeline watchdog's job, not a bespoke mailer
+      # here. It already scans this repo's failed runs every six hours and
+      # e-mails them, so a red run on this workflow surfaces through proven
+      # infrastructure rather than a second notification path to maintain.
+      - name: Run contract checks
+        env:
+          STRIPE_TEST_SECRET_KEY: ${{ secrets.STRIPE_TEST_SECRET_KEY }}
+          SES_AWS_ACCESS_KEY_ID: ${{ secrets.SES_AWS_ACCESS_KEY_ID }}
+          SES_AWS_SECRET_ACCESS_KEY: ${{ secrets.SES_AWS_SECRET_ACCESS_KEY }}
+        run: node tests/contract/run.mjs
