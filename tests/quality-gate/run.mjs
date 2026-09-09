@@ -184,6 +184,12 @@ async function main() {
       await run(results, ROOT);
     }
 
+    // ---------- The published Docker image ----------
+    if (wants('docker')) {
+      const { run } = await import('./suites/docker.mjs');
+      await run(results, ROOT);
+    }
+
     // ---------- Deployment invariants ----------
     if (wants('invariants')) {
       const { run } = await import('./suites/invariants.mjs');

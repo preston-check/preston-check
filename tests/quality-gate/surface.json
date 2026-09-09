@@ -538,6 +538,10 @@
     {
       "id": "pkg.ai-addon",
       "why": "the paid AI add-on's shell and JSON assets"
+    },
+    {
+      "id": "pkg.docker-image",
+      "why": "the image is built and a real scan run through it; linting the Dockerfile proves only that it parses"
     }
   ]
 }
