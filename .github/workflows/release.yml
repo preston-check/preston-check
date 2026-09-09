@@ -148,6 +148,14 @@ jobs:
             echo "::notice::HOMEBREW_TAP_TOKEN not configured — skipping tap url update"
           fi
 
+      # These jobs otherwise never check out this repo, so tools/tap-push.sh
+      # would not exist at ../tools/. Self MUST come first: a default-path
+      # checkout cleans the workspace root and would delete tap/ if it ran
+      # second.
+      - name: Checkout preston-check (for tools/tap-push.sh)
+        if: steps.check.outputs.configured == 'true'
+        uses: actions/checkout@v5
+
       - name: Checkout tap
         if: steps.check.outputs.configured == 'true'
         uses: actions/checkout@v5
@@ -187,15 +195,8 @@ jobs:
         env:
           VERSION: ${{ needs.release.outputs.version }}
         run: |
-          if git diff --quiet; then
-            echo "Formula already up to date — skipping commit"
-            exit 0
-          fi
-          git config user.name  "preston-check-bot"
-          git config user.email "bot@preston-check.com"
-          git add Formula/preston-check.rb
-          git commit -m "release: preston-check ${VERSION} (url/sha, bottles pending)"
-          git push
+          ../tools/tap-push.sh "${VERSION}" \
+            "release: preston-check ${VERSION} (url/sha, bottles pending)"
 
   # Build pre-compiled bottles for each supported platform so that
   # `brew install` never falls back to source (which requires CLT).
@@ -281,6 +282,14 @@ jobs:
             echo "configured=false" >> "$GITHUB_OUTPUT"
             echo "::notice::HOMEBREW_TAP_TOKEN not configured — skipping tap update"
           fi
+
+      # These jobs otherwise never check out this repo, so tools/tap-push.sh
+      # would not exist at ../tools/. Self MUST come first: a default-path
+      # checkout cleans the workspace root and would delete tap/ if it ran
+      # second.
+      - name: Checkout preston-check (for tools/tap-push.sh)
+        if: steps.check.outputs.configured == 'true'
+        uses: actions/checkout@v5
 
       - name: Checkout tap
         if: steps.check.outputs.configured == 'true'
@@ -374,12 +383,4 @@ jobs:
         env:
           VERSION: ${{ needs.release.outputs.version }}
         run: |
-          if git diff --quiet; then
-            echo "Formula already up to date — skipping commit"
-            exit 0
-          fi
-          git config user.name  "preston-check-bot"
-          git config user.email "bot@preston-check.com"
-          git add Formula/preston-check.rb
-          git commit -m "bottles: preston-check ${VERSION}"
-          git push
+          ../tools/tap-push.sh "${VERSION}" "bottles: preston-check ${VERSION}"
