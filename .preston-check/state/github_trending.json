@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-08T21:47:52.518435+00:00",
-  "last_successful_fetch": "2026-09-08T21:47:55.254752+00:00",
+  "last_run": "2026-09-09T00:07:33.200350+00:00",
+  "last_successful_fetch": "2026-09-09T00:07:36.138872+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4319,7 +4319,24 @@
     "github:INVOICE-GEEK-SQUAD-LK4/repo-li3cveaz",
     "github:r3vpwnx/CVE-2025-8110",
     "github:r3vpwnx/CVE-2025-58434",
-    "github:r3vpwnx/CVE-2025-55182"
+    "github:r3vpwnx/CVE-2025-55182",
+    "github:hacbs-release-tests/collectors-no-cve-4733cde7",
+    "github:hacbs-release-tests/collectors-no-cve-672aa6dd",
+    "github:BomboBombone/CVE-2026-74239",
+    "github:BomboBombone/CVE-2026-73321",
+    "github:BomboBombone/CVE-2026-73320",
+    "github:BomboBombone/CVE-2026-73319",
+    "github:BomboBombone/CVE-2026-73318",
+    "github:BomboBombone/CVE-2026-73317",
+    "github:BomboBombone/CVE-2026-73316",
+    "github:BomboBombone/CVE-2026-73315",
+    "github:BomboBombone/CVE-2026-73314",
+    "github:BomboBombone/CVE-2026-73313",
+    "github:BomboBombone/CVE-2026-73312",
+    "github:BomboBombone/CVE-2026-73311",
+    "github:BomboBombone/CVE-2026-73310",
+    "github:BomboBombone/CVE-2026-73309",
+    "github:k0i5/windows-defender-0day-"
   ],
   "source_id": "github_trending",
   "stats": {
