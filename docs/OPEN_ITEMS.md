@@ -52,6 +52,12 @@ turn and has now been fixed rather than watched.
 ## Notes for the next session
 
 The quality gate needs **Node >= 22**; this repo's other workflows pin Node 20,
-and `.github/workflows/quality-gate.yml` deliberately pins 24. Locally the gate
-needs `nvm install 24` — Diego's current Node is 20.20.2, which can run the
-front-end and invariant suites but not the Worker suites.
+and `.github/workflows/quality-gate.yml` deliberately pins 24. Node 24.21.0 is
+now installed locally via nvm (2026-09-09) and the full gate passes on Diego's
+machine — `./tests/quality-gate/quality-gate-test` selects a suitable Node
+itself, including from `~/.nvm`, so no `nvm use` is needed first.
+
+The gate also needs a reachable Docker daemon (for `suites/docker.mjs`) and
+Playwright with chromium (`npm install --no-save playwright@1.56.0 && npx
+playwright install chromium`). Both are present locally; both are treated as
+failures rather than skips if missing.
