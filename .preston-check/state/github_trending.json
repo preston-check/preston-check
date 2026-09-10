@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-10T11:10:45.452398+00:00",
-  "last_successful_fetch": "2026-09-10T11:10:48.746967+00:00",
+  "last_run": "2026-09-10T16:19:32.616276+00:00",
+  "last_successful_fetch": "2026-09-10T16:19:35.679039+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4374,7 +4374,13 @@
     "github:towngear1/cvenwsn",
     "github:andre1ws/db-cvetok-garna",
     "github:JafarAkhondali/cvelith",
-    "github:mariakrusty/cvetyconf"
+    "github:mariakrusty/cvetyconf",
+    "github:ZeroDayVPN/CVE-2026-83991-WriteUP-and-PoC",
+    "github:isbjorn-io/k8s-cve-triage",
+    "github:LinYuanyi1/cve-request-poc",
+    "github:cramirez103/nvd-cve-tracker",
+    "github:amudijog-eng/cve-sentinel",
+    "github:thesevenths/vuln_agent"
   ],
   "source_id": "github_trending",
   "stats": {
