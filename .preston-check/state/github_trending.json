@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-10T01:00:36.155022+00:00",
-  "last_successful_fetch": "2026-09-10T01:00:38.853214+00:00",
+  "last_run": "2026-09-10T05:53:59.401560+00:00",
+  "last_successful_fetch": "2026-09-10T05:54:02.434935+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4369,7 +4369,8 @@
     "github:Stavros65/fishnet-company-cve",
     "github:AC8999/CVE-2025-27636-RCE-in-Apache-Camel",
     "github:whiteclover0542/Today_CVE_information",
-    "github:Soskalai/CVE-2026-77578"
+    "github:Soskalai/CVE-2026-77578",
+    "github:J3ff-R3y/cve-cmdb-checker"
   ],
   "source_id": "github_trending",
   "stats": {
