@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-10T16:19:32.616276+00:00",
-  "last_successful_fetch": "2026-09-10T16:19:35.679039+00:00",
+  "last_run": "2026-09-10T19:35:44.190284+00:00",
+  "last_successful_fetch": "2026-09-10T19:35:48.988013+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4380,7 +4380,11 @@
     "github:LinYuanyi1/cve-request-poc",
     "github:cramirez103/nvd-cve-tracker",
     "github:amudijog-eng/cve-sentinel",
-    "github:thesevenths/vuln_agent"
+    "github:thesevenths/vuln_agent",
+    "github:Rakhmatovdev/cved",
+    "github:hacbs-release-tests/collectors-no-cve-932ec0d6",
+    "github:hacbs-release-tests/collectors-no-cve-f761cb31",
+    "github:tabrah1234/cvehklq"
   ],
   "source_id": "github_trending",
   "stats": {
