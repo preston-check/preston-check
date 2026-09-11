@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-11T19:36:56.871058+00:00",
-  "last_successful_fetch": "2026-09-11T19:36:59.714523+00:00",
+  "last_run": "2026-09-11T22:30:31.105838+00:00",
+  "last_successful_fetch": "2026-09-11T22:30:34.164740+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4420,7 +4420,9 @@
     "github:g2wgzglmc8/cvebhp",
     "github:rhel-labs/zt-image-mode-cve-package",
     "github:cflowsec/CVE-2026-14962",
-    "github:VuxNx/Rasterfall"
+    "github:VuxNx/Rasterfall",
+    "github:Faceless0x7/CVE-2026-89013",
+    "github:Faceless0x7/CVE-2026-89012"
   ],
   "source_id": "github_trending",
   "stats": {
