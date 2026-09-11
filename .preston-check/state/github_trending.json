@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-11T11:11:20.725184+00:00",
-  "last_successful_fetch": "2026-09-11T11:11:24.308975+00:00",
+  "last_run": "2026-09-11T16:23:39.713997+00:00",
+  "last_successful_fetch": "2026-09-11T16:23:43.768089+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4400,7 +4400,17 @@
     "github:morbocanni/cvetjco",
     "github:crenwick93/ao-cve-remediation",
     "github:SyntaxMethod/CVE-2026-41089-Netlogon-RCE-PoC",
-    "github:uikhy1589/Payment-Copy-jf7cvez1"
+    "github:uikhy1589/Payment-Copy-jf7cvez1",
+    "github:hotplugin0x01/CVE-2026-85612",
+    "github:ZeroDayEvil/CVE-2026-20805-PoC",
+    "github:mhtsec/CVE-2026-85706",
+    "github:hacbs-release-tests/collectors-no-cve-c4f7c07d",
+    "github:roshanyadav7/Machine-Learning-CVE",
+    "github:WadesWeaponShed/CheckPoint-CVE-Webscanner",
+    "github:cflowsec/CVE-2026-15667",
+    "github:viktormilojevic/Cvecara",
+    "github:guneykabel/cve-2026-85706",
+    "github:exploitintel/eip-cve-public-v4"
   ],
   "source_id": "github_trending",
   "stats": {
