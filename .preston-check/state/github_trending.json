@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-11T22:30:31.105838+00:00",
-  "last_successful_fetch": "2026-09-11T22:30:34.164740+00:00",
+  "last_run": "2026-09-12T01:03:30.221656+00:00",
+  "last_successful_fetch": "2026-09-12T01:03:33.392800+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4422,7 +4422,10 @@
     "github:cflowsec/CVE-2026-14962",
     "github:VuxNx/Rasterfall",
     "github:Faceless0x7/CVE-2026-89013",
-    "github:Faceless0x7/CVE-2026-89012"
+    "github:Faceless0x7/CVE-2026-89012",
+    "github:MataKucing-OFC/CVE-2026-49049",
+    "github:ZeroDayEvil/CVE-2026-54121-Certighost",
+    "github:ZeroDayEvil/CVE-2026-21858-n8n-FullChain"
   ],
   "source_id": "github_trending",
   "stats": {
