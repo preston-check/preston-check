@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-12T19:14:51.460177+00:00",
-  "last_successful_fetch": "2026-09-12T19:14:55.475946+00:00",
+  "last_run": "2026-09-12T22:12:36.991790+00:00",
+  "last_successful_fetch": "2026-09-12T22:12:39.579220+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4436,7 +4436,12 @@
     "github:nscho84/cveyzi",
     "github:Xernary/CVE-2026-82539",
     "github:uLl0a/CVE-2026-50751",
-    "github:tejassnaikk/cve-risk"
+    "github:tejassnaikk/cve-risk",
+    "github:infernosalex/CVE-2026-33439-Python-PoC",
+    "github:chadmanwalles-pe/cvemgv",
+    "github:brannydaniev/cvetnj",
+    "github:25164494-creator/CveLookup",
+    "github:astinosr/cveznu"
   ],
   "source_id": "github_trending",
   "stats": {
