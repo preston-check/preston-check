@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-12T22:12:36.991790+00:00",
-  "last_successful_fetch": "2026-09-12T22:12:39.579220+00:00",
+  "last_run": "2026-09-13T00:54:41.463936+00:00",
+  "last_successful_fetch": "2026-09-13T00:54:44.403870+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4441,7 +4441,13 @@
     "github:chadmanwalles-pe/cvemgv",
     "github:brannydaniev/cvetnj",
     "github:25164494-creator/CveLookup",
-    "github:astinosr/cveznu"
+    "github:astinosr/cveznu",
+    "github:hacbs-release-tests/collectors-no-cve-0296c2bf",
+    "github:the-vibe-dev/CVE-GHSA",
+    "github:mnwdde/Cvetyata",
+    "github:nbadije11/cvenvq",
+    "github:mnwdde/Cvetya",
+    "github:ritahteg/cveyij"
   ],
   "source_id": "github_trending",
   "stats": {
