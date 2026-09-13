@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-13T06:01:50.967614+00:00",
-  "last_successful_fetch": "2026-09-13T06:01:53.573066+00:00",
+  "last_run": "2026-09-13T11:42:00.816684+00:00",
+  "last_successful_fetch": "2026-09-13T11:42:03.661797+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4450,7 +4450,11 @@
     "github:ritahteg/cveyij",
     "github:DAEMON-404/PoC-CVE-2025-24071",
     "github:maropaleuton/cvefuv",
-    "github:magebase/cve-zero-day-ticket-generator-action"
+    "github:magebase/cve-zero-day-ticket-generator-action",
+    "github:karimdu95-commits/eagle-eyes-cve-db",
+    "github:user445213/CVE-2026-78006",
+    "github:hui191/cve-2026-43499-aak-an00",
+    "github:BL0odz/JFrog_CVE-2026-65615-ByGLM"
   ],
   "source_id": "github_trending",
   "stats": {
