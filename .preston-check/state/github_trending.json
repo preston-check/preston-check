@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-13T00:54:41.463936+00:00",
-  "last_successful_fetch": "2026-09-13T00:54:44.403870+00:00",
+  "last_run": "2026-09-13T06:01:50.967614+00:00",
+  "last_successful_fetch": "2026-09-13T06:01:53.573066+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4447,7 +4447,10 @@
     "github:mnwdde/Cvetyata",
     "github:nbadije11/cvenvq",
     "github:mnwdde/Cvetya",
-    "github:ritahteg/cveyij"
+    "github:ritahteg/cveyij",
+    "github:DAEMON-404/PoC-CVE-2025-24071",
+    "github:maropaleuton/cvefuv",
+    "github:magebase/cve-zero-day-ticket-generator-action"
   ],
   "source_id": "github_trending",
   "stats": {
