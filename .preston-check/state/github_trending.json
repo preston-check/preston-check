@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-13T19:23:34.309309+00:00",
-  "last_successful_fetch": "2026-09-13T19:23:36.931472+00:00",
+  "last_run": "2026-09-13T22:22:10.298578+00:00",
+  "last_successful_fetch": "2026-09-13T22:22:13.227003+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4465,7 +4465,12 @@
     "github:reprodev/cvedeck-site",
     "github:erberkan/CVE-2026-42536-PoC",
     "github:nicolobertuzzi06-source/cvelox-pdf",
-    "github:BardLaudian/CVE-2025-24071"
+    "github:BardLaudian/CVE-2025-24071",
+    "github:Cverlan/cverlan.github.io",
+    "github:trayperp1/cvelgt",
+    "github:fabioschorn/cve-random-maze",
+    "github:hrisa-se/cvezhv",
+    "github:reprodev/cvedeck"
   ],
   "source_id": "github_trending",
   "stats": {
