@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-14T13:56:03.506689+00:00",
-  "last_successful_fetch": "2026-09-14T13:56:06.509871+00:00",
+  "last_run": "2026-09-14T19:17:29.739880+00:00",
+  "last_successful_fetch": "2026-09-14T19:17:32.924124+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4481,7 +4481,11 @@
     "github:arunachaleswaranms/cve-research-radar",
     "github:r00t-byte/Pwnkit-CVE-2021-4034-LPE",
     "github:gdegrange/CVE-Reports",
-    "github:Dogukanada74/cve-hybrid-retrieval"
+    "github:Dogukanada74/cve-hybrid-retrieval",
+    "github:wrathfulDiety/cve-nasa-cfs-io-lib-tctf-oob",
+    "github:karan9970/cve-predictor",
+    "github:itres-labs/CVE-2026-61797",
+    "github:rezayw/CVE-RiskEngine-RF"
   ],
   "source_id": "github_trending",
   "stats": {
