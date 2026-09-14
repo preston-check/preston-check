@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-14T19:17:29.739880+00:00",
-  "last_successful_fetch": "2026-09-14T19:17:32.924124+00:00",
+  "last_run": "2026-09-14T23:05:18.195797+00:00",
+  "last_successful_fetch": "2026-09-14T23:05:22.082514+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4485,7 +4485,8 @@
     "github:wrathfulDiety/cve-nasa-cfs-io-lib-tctf-oob",
     "github:karan9970/cve-predictor",
     "github:itres-labs/CVE-2026-61797",
-    "github:rezayw/CVE-RiskEngine-RF"
+    "github:rezayw/CVE-RiskEngine-RF",
+    "github:RhinoSecurityLabs/CVEs"
   ],
   "source_id": "github_trending",
   "stats": {
