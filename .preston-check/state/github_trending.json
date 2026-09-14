@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-14T06:09:15.369834+00:00",
-  "last_successful_fetch": "2026-09-14T06:09:19.168100+00:00",
+  "last_run": "2026-09-14T13:56:03.506689+00:00",
+  "last_successful_fetch": "2026-09-14T13:56:06.509871+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4477,7 +4477,11 @@
     "github:hacbs-release-tests/collectors-no-cve-2527393d",
     "github:accessmodifier364/cve-2026-43499-firetv-sheldonp-writeup",
     "github:HarshRajSinghania/CVE-2026-90782-s2opc-status-clobber",
-    "github:NikhilYadav-icounter/CVE-intel_UI"
+    "github:NikhilYadav-icounter/CVE-intel_UI",
+    "github:arunachaleswaranms/cve-research-radar",
+    "github:r00t-byte/Pwnkit-CVE-2021-4034-LPE",
+    "github:gdegrange/CVE-Reports",
+    "github:Dogukanada74/cve-hybrid-retrieval"
   ],
   "source_id": "github_trending",
   "stats": {
