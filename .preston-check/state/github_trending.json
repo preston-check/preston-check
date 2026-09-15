@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-15T13:28:09.617118+00:00",
-  "last_successful_fetch": "2026-09-15T13:28:12.362703+00:00",
+  "last_run": "2026-09-15T18:08:04.561731+00:00",
+  "last_successful_fetch": "2026-09-15T18:08:07.995935+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4501,7 +4501,14 @@
     "github:ant-tar/cvent",
     "github:FLX-0x00/CVE-2026-59550",
     "github:crenwick93/ao-cve-remediation-scalable",
-    "github:jun2e0/CVE_Write_Up"
+    "github:jun2e0/CVE_Write_Up",
+    "github:TopRichard/cvenv",
+    "github:hacbs-release-tests/collectors-no-cve-a56f5fc5",
+    "github:Oscar-Collado/langflow-CVE-2026-17633-PoC",
+    "github:bw4bbnalvd/cvettt",
+    "github:aggamsingh/CVEScope",
+    "github:hd-exe/CVE-2009-2265-fix",
+    "github:cflowsec/CVE-2026-12944"
   ],
   "source_id": "github_trending",
   "stats": {
