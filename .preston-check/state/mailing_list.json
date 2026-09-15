@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-15T16:55:26.394727+00:00",
-  "last_successful_fetch": "2026-09-15T16:55:26.395307+00:00",
+  "last_run": "2026-09-15T21:17:06.534439+00:00",
+  "last_successful_fetch": "2026-09-15T21:17:06.535254+00:00",
   "processed_ids": [
     "oss-security:2026/05/08/9",
     "oss-security:2026/05/08/8",
@@ -1583,7 +1583,20 @@
     "oss-security:2026/09/14/31",
     "oss-security:2026/09/14/30",
     "oss-security:2026/09/15/1",
-    "oss-security:2026/09/15/2"
+    "oss-security:2026/09/15/2",
+    "oss-security:2026/09/15/15",
+    "oss-security:2026/09/15/14",
+    "oss-security:2026/09/15/13",
+    "oss-security:2026/09/15/12",
+    "oss-security:2026/09/15/11",
+    "oss-security:2026/09/15/10",
+    "oss-security:2026/09/15/9",
+    "oss-security:2026/09/15/8",
+    "oss-security:2026/09/15/7",
+    "oss-security:2026/09/15/6",
+    "oss-security:2026/09/15/5",
+    "oss-security:2026/09/15/4",
+    "oss-security:2026/09/15/3"
   ],
   "source_id": "mailing_list",
   "stats": {
