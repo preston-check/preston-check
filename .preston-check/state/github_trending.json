@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-15T01:24:42.599525+00:00",
-  "last_successful_fetch": "2026-09-15T01:24:45.410545+00:00",
+  "last_run": "2026-09-15T07:38:58.438776+00:00",
+  "last_successful_fetch": "2026-09-15T07:39:02.515080+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4488,7 +4488,9 @@
     "github:rezayw/CVE-RiskEngine-RF",
     "github:RhinoSecurityLabs/CVEs",
     "github:sreetejlakkam/Cverse_hyd_gemini",
-    "github:SAAITAAMAA/Godot-0day-UNIX-OS-Command-Injection"
+    "github:SAAITAAMAA/Godot-0day-UNIX-OS-Command-Injection",
+    "github:kaicver1234/cver123",
+    "github:riandycandra/gitlab-cve-scanner"
   ],
   "source_id": "github_trending",
   "stats": {
