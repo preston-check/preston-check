@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-16T13:26:53.607940+00:00",
-  "last_successful_fetch": "2026-09-16T13:26:57.668290+00:00",
+  "last_run": "2026-09-16T18:09:03.134006+00:00",
+  "last_successful_fetch": "2026-09-16T18:09:06.373989+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4527,7 +4527,11 @@
     "github:MikeDiavels/cve-crlf-injection-simple-ajax-contact-form",
     "github:shivammittal2403/cve-2026-80428-ctf",
     "github:Sphynx-HenryAY/cve-wiki",
-    "github:p1temax/Fishing-Platform"
+    "github:p1temax/Fishing-Platform",
+    "github:cklinisme/doris-spark-connector-cve",
+    "github:cflowsec/CVE-2026-89026",
+    "github:pepestack/CVertidor",
+    "github:huaguiqi/asus-i005-cve-2026-43499"
   ],
   "source_id": "github_trending",
   "stats": {
