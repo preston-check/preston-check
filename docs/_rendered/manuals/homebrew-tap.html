@@ -300,8 +300,32 @@ one because Homebrew expects taps to be their own repos.</p>
 <h2 id="installing-from-the-tap-end-user">Installing from the tap (end
 user)</h2>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> tap preston-check/preston-check</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check</span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> trust <span class="at">--tap</span> preston-check/tap</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> tap preston-check/tap</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check</span></code></pre></div>
+<p><code>brew trust</code> is required from Homebrew 6.0 onwards.
+<code>$HOMEBREW_REQUIRE_TAP_TRUST</code> defaults to true, and an
+untrusted non-official tap is refused at load time with
+<code>Refusing to load formula ... from untrusted tap</code>, which
+<code>brew tap</code> then reports as
+<code>Cannot tap preston-check/tap: invalid syntax in tap!</code>. That
+message names neither trust nor the real cause and reads like a broken
+formula; it is not. Trust must precede the tap, because the tap is the
+step that fails.</p>
+<p>There is an escape hatch,
+<code>$HOMEBREW_NO_REQUIRE_TAP_TRUST</code>, but upstream marks it “not
+recommended and will be removed in a later release”, so neither this
+manual nor the release pipeline uses it.</p>
+<p>The tap serves Apple Silicon macOS 15 and 26 and x86_64 Linux — the
+platforms <code>release.yml</code> declares in
+<code>EXPECTED_BOTTLE_TAGS</code> and builds bottles for. macOS 11
+through 14 and every Intel Mac are Homebrew support tier 3, where
+bottles are no longer published for Preston-Check or for its
+<code>bash</code>, <code>coreutils</code>, <code>gawk</code> and
+<code>grep</code> dependencies; <code>brew install</code> refuses there
+rather than building, so those users take <code>install.sh</code>
+instead. Point anyone on a tier 3 machine at
+<code>curl -fsSL https://get.preston-check.com/install.sh | sh</code>.</p>
 <p>After the first install, future updates land via:</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> update <span class="kw">&amp;&amp;</span> <span class="ex">brew</span> upgrade preston-check</span></code></pre></div>
@@ -392,11 +416,12 @@ class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb5-1"><a href="
 <h2 id="verifying-after-a-bump">Verifying after a bump</h2>
 <div class="sourceCode" id="cb6"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Force-update the tap&#39;s local cache and try install</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> untap preston-check/preston-check <span class="dv">2</span><span class="op">&gt;</span>/dev/null</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> tap preston-check/preston-check</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--version</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Should print: preston-check 1.7.5 (or whatever the new version is)</span></span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> untap preston-check/tap <span class="dv">2</span><span class="op">&gt;</span>/dev/null</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> trust <span class="at">--tap</span> preston-check/tap</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> tap preston-check/tap</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--version</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Should print: preston-check 1.7.5 (or whatever the new version is)</span></span></code></pre></div>
 <h2 id="audit-trail">Audit trail</h2>
 <p>Every formula bump becomes a commit on the homebrew-tap repo’s master
 branch. Easy to inspect: <code>git log Formula/preston-check.rb</code>

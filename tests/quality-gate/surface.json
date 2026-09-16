@@ -484,6 +484,14 @@
     {
       "id": "inv.release-gated-on-cli-tests",
       "why": "This gate covers the Workers and front ends, not the CLI/lib/checks that release.yml actually ships. Without a separate dependency on test.yml a release is gated only on code it does not ship."
+    },
+    {
+      "id": "inv.brew-tap-trusted-before-use",
+      "why": "Homebrew 6.0 refuses to load formulae from untrusted non-official taps and reports it as 'invalid syntax in tap!', naming neither trust nor the cause. Untrusted, every bottle leg fails AND every user's brew install fails. Covers the docs and release.yml as one category, including the ordering: trusting after tapping still fails."
+    },
+    {
+      "id": "inv.bottle-tags-match-matrix",
+      "why": "The platforms the bottle matrix builds and the set update-tap verifies were published are two lists that must agree. When they drifted a platform vanished from users' installs with every job green: the Intel bottle was missing for 15 releases, and v1.8.468 published three of four platforms without a single red step."
     }
   ],
   "artefacts": [

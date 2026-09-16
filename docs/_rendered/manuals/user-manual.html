@@ -305,10 +305,23 @@ compliance scope.</p>
 <h2 id="install">Install</h2>
 <p>Five channels, all kept in lockstep on every release. Pick the one
 that matches your environment.</p>
-<p><strong>Homebrew</strong> (macOS, or Linux with brew):</p>
+<p><strong>Homebrew</strong> (Apple Silicon macOS 15 or later, or Linux
+with brew):</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> tap preston-check/preston-check</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check</span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> trust <span class="at">--tap</span> preston-check/tap</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> tap preston-check/tap</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check</span></code></pre></div>
+<p>The <code>brew trust</code> line is required on Homebrew 6.0 and
+later, which refuses to load formulae from non-official taps until they
+are trusted, and it must run before <code>brew tap</code> because it is
+the tap step that is refused.</p>
+<p>On macOS 14 or older, and on Intel Macs, take the curl-bash installer
+below instead. Homebrew classes those as support tier 3 and no longer
+publishes bottles for them, including for the <code>bash</code>,
+<code>coreutils</code>, <code>gawk</code> and <code>grep</code> this
+formula depends on, so <code>brew install</code> stops with “The
+following formulae cannot be installed from bottles and must be built
+from source”.</p>
 <p><strong>Docker</strong> (any system with Docker):</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-v</span> <span class="st">&quot;</span><span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span><span class="st">:/src&quot;</span> ghcr.io/preston-check/scan:latest</span></code></pre></div>

@@ -61,7 +61,8 @@ PDF mapped to the control catalog, hand it to your auditor.
 ## How it works
 
 ```bash
-brew install preston-check/preston-check/preston-check
+brew trust --tap preston-check/tap
+brew install preston-check/tap/preston-check
 preston-check --high-and-up --ci --report security-audit.md
 ```
 

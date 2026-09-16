@@ -458,3 +458,66 @@ annotation and no block; and a rewrite over an already-present block, which left
 exactly one `bottle do` block, confirming the pre-existing replace path was not
 disturbed. End-to-end confirmation requires the next release to show `update-tap`
 concluding `success` and the tap formula carrying four bottle SHAs.
+
+## Addendum 2026-09-16 — the same platform failure, one tier further down
+
+Releases #494 to #498 failed over 2026-09-15 and 2026-09-16, and the watchdog
+reported them correctly as stateful failures it would not re-run. Three of the four
+bottle legs were green; only `bottle (macos-14, arm64_sonoma)` failed, with the
+message the Intel leg produced a fortnight earlier: "The following formulae cannot
+be installed from bottles and must be built from source — readline, bash and
+coreutils". Homebrew had moved ARM macOS 11 through 14 into support tier 3, where
+"CI coverage is unavailable; bottles will rarely be built or published". Our own
+dependencies stopped having Sonoma bottles, and `brew install --build-bottle`
+refuses rather than building them.
+
+That leg cannot be made to pass in any useful sense. Forcing a source build of the
+dependencies would produce an `arm64_sonoma` bottle no one can install, because a
+macOS 14 user needs those same dependencies and Homebrew will refuse them there
+too. The leg is therefore removed, exactly as the Intel leg was, and macOS 14 and
+Intel users are pointed at `install.sh`, which is POSIX sh and needs no Homebrew
+dependencies at all. That path was already documented in the formula's caveats;
+it is now stated wherever Homebrew is offered, including the landing page, which
+until today gave a tier 3 visitor a command that could only fail and no
+alternative.
+
+The more interesting defect is the one that let this run for five releases without
+a red `update-tap`. The 2026-09-06 guard asked whether *any* bottle existed. Three
+of four satisfied it, so v1.8.465 through v1.8.468 published a formula missing an
+entire platform, and every job reported success — the same silent-platform-loss
+failure as the Intel episode, in a shape the Intel fix did not cover. A count is
+not a set. `release.yml` now declares `EXPECTED_BOTTLE_TAGS` once at the workflow
+level; the matrix builds exactly those tags, and `update-tap` fails when any one of
+them is absent from the published formula. The failure is raised *after* the tap
+push rather than instead of it: publishing three bottles and going red is better
+for users than aborting and leaving the tap on `update-tap-url`'s bottle-less
+commit, which would mean source builds on every platform instead of one.
+
+Two lists that must agree will eventually disagree, so the quality gate now holds
+them together. `inv.bottle-tags-match-matrix` parses `release.yml` and fails if the
+matrix legs and `EXPECTED_BOTTLE_TAGS` differ in either direction, or if the
+`update-tap` guard stops reading the declaration. Adding a platform to the matrix
+without declaring it, removing one without undeclaring it, and orphaning the
+declaration were each provoked and each failed the gate.
+
+The tap-trust breakage behind Releases #486–#490 resolved itself upstream. By
+Release #498 every leg logged "Trusted formula preston-check/tap/preston-check"
+immediately after tapping, with no trust call in the workflow at all, and the
+runners were fetching homebrew/brew branches named `trust-bare-tap-argv` and
+`trust-normalise-tap-reference` in the same run. The `brew trust --tap` call is
+kept as cover in case that tightens again, but made non-fatal: the tap and install
+that follow are the real verdict, and an upstream change to a command we only use
+defensively must not be able to break a release.
+
+## Verification record (2026-09-16)
+
+The `update-tap` rewriting script was extracted from the workflow and executed
+against a fixture tap in three states. All three expected tags present produced a
+three-entry `bottle do` block and an empty `missing` output. One tag absent
+produced a two-entry block — the tap still gains the bottles that built — plus the
+`::error::` annotation and `missing=arm64_sequoia`, which the post-push step turns
+into a failed job. No bottles at all produced a formula with no `bottle do` block
+and every tag listed as missing; that path also now strips a stale block rather
+than leaving a previous release's SHAs attached to this release's URL. The three
+invariant provocations described above were each observed failing, and the gate
+passes with them reverted.

@@ -231,9 +231,13 @@ languages because the catalog grew organically from a
 Java/TypeScript-heavy fintech codebase. This document audits current
 coverage, identifies gaps, and lays out the roadmap.</p>
 <h2 id="current-coverage-matrix">Current coverage matrix</h2>
-<p>The numbers below count distinct check scripts that include patterns
-for each language (via <code>grep --include="*.&lt;ext&gt;"</code>). A
-single check can target multiple languages.</p>
+<p>The numbers below count distinct check scripts that include grep
+patterns targeting each language extension
+(<code>grep --include="*.&lt;ext&gt;"</code>). A single check script can
+target multiple languages and is counted once per language. Counts are
+as of v1.8.1 and reflect the polyglot expansion delivered in v1.3.0
+together with the ongoing addition of language blocks to general
+checks.</p>
 <table>
 <thead>
 <tr>
@@ -245,9 +249,21 @@ single check can target multiple languages.</p>
 </thead>
 <tbody>
 <tr>
+<td>Rust</td>
+<td><code>*.rs</code></td>
+<td>140</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td>Go</td>
+<td><code>*.go</code></td>
+<td>138</td>
+<td>Excellent</td>
+</tr>
+<tr>
 <td>Java</td>
 <td><code>*.java</code></td>
-<td>195</td>
+<td>133</td>
 <td>Excellent</td>
 </tr>
 <tr>
@@ -257,22 +273,22 @@ single check can target multiple languages.</p>
 <td>Excellent</td>
 </tr>
 <tr>
+<td>Python</td>
+<td><code>*.py</code></td>
+<td>62</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>YAML</td>
+<td><code>*.yml</code>/<code>*.yaml</code></td>
+<td>73</td>
+<td>Config-wide</td>
+</tr>
+<tr>
 <td>SQL</td>
 <td><code>*.sql</code></td>
 <td>36</td>
 <td>Strong</td>
-</tr>
-<tr>
-<td>Python</td>
-<td><code>*.py</code></td>
-<td>11</td>
-<td>Limited</td>
-</tr>
-<tr>
-<td>Go</td>
-<td><code>*.go</code></td>
-<td>11</td>
-<td>Limited</td>
 </tr>
 <tr>
 <td>JavaScript</td>
@@ -281,28 +297,16 @@ single check can target multiple languages.</p>
 <td>Sparse</td>
 </tr>
 <tr>
-<td>Rust</td>
-<td><code>*.rs</code></td>
-<td>3</td>
-<td>Sparse</td>
-</tr>
-<tr>
-<td>Dart</td>
-<td><code>*.dart</code></td>
-<td>2</td>
-<td>Mobile-only</td>
-</tr>
-<tr>
 <td>Terraform</td>
 <td><code>*.tf</code></td>
 <td>6</td>
 <td>Infra-only</td>
 </tr>
 <tr>
-<td>YAML</td>
-<td><code>*.yml</code>/<code>*.yaml</code></td>
-<td>73</td>
-<td>Config-wide</td>
+<td>Dart</td>
+<td><code>*.dart</code></td>
+<td>2</td>
+<td>Mobile-only</td>
 </tr>
 <tr>
 <td>Properties</td>
@@ -344,16 +348,21 @@ single check can target multiple languages.</p>
 </table>
 <p>Language profiles in <code>lang/detect.sh</code> exist for
 <code>java</code>, <code>go</code>, <code>python</code>,
-<code>typescript</code>/<code>javascript</code>, with a generic
-fallback. There is no Rust profile, which means the auto-detected
-pattern variables for Rust codebases default to the fallback — most
-checks then look for Java patterns and find nothing.</p>
+<code>typescript</code>/<code>javascript</code>, <code>rust</code>, and
+<code>solidity</code> with a generic fallback. All six primary scan
+languages (Java, TypeScript, Go, Rust, Python, SQL) have dedicated
+detect.sh profiles as of v1.3.0.</p>
 <h2 id="gap-analysis">Gap analysis</h2>
-<p>The user’s stated requirement is coverage for Node.js, Java, Go, and
-Rust. Java is solid. Node.js TypeScript is solid; pure JavaScript is
-thin but the patterns largely overlap with TypeScript. <strong>Go and
-Rust are real gaps</strong> that need investment before launch claims of
-“polyglot fintech security scanner” hold up.</p>
+<p>The four primary languages (Java, TypeScript/Node.js, Go, Rust) now
+have excellent coverage following the v1.3.0 polyglot expansion. Java
+and TypeScript were already solid; Go and Rust reached parity with the
+P-490–P-505 dedicated check suites plus language blocks added across the
+broad catalog. Behavioral tests in
+<code>tests/lib/test_go_checks.sh</code> and
+<code>tests/lib/test_rust_checks.sh</code> guard the Go and Rust
+detection logic against regressions. JavaScript remains thin (pure-JS
+files, not TypeScript), but patterns largely overlap with the TypeScript
+suite.</p>
 <p>Beyond the user’s stated four, three more languages deserve
 coverage:</p>
 <p>Kotlin is increasingly common in JVM-based fintechs (notably across

@@ -9,12 +9,25 @@ CI integration, and the upgrade paths to Pro and Enterprise tiers.
 
 Pick the channel that fits your environment.
 
-**Homebrew** (macOS or Linux with brew):
+**Homebrew** (Apple Silicon macOS 15 or later, or Linux with brew):
 
 ```bash
+brew trust --tap preston-check/tap
 brew tap preston-check/tap
 brew install preston-check
 ```
+
+Homebrew 6.0 will not load a formula from a non-official tap until you trust
+it, so the `brew trust` line is required and must come first. Without it,
+`brew tap` fails with `Cannot tap preston-check/tap: invalid syntax in tap!` —
+that is a trust refusal, not a problem with the formula.
+
+On macOS 14 or older, and on every Intel Mac, use the curl-bash installer
+below rather than Homebrew. Homebrew classes those as support tier 3 and no
+longer publishes bottles for them — not for Preston-Check, and not for the
+`bash`, `coreutils`, `gawk` and `grep` it depends on — so `brew install` stops
+with "The following formulae cannot be installed from bottles and must be built
+from source". The installer needs none of those.
 
 **Docker** (any system with Docker):
 

@@ -176,4 +176,108 @@ export async function run(r, root) {
   r.record('inv.release-gated-on-cli-tests',
     'release.yml depends on the tests for the CLI it ships',
     releaseProblem === null, releaseProblem);
+
+  // --- 5. Anything that taps or installs from our tap must trust it first ---
+  // Homebrew 6.0 refuses to LOAD formulae from a non-official tap unless it is
+  // trusted ($HOMEBREW_REQUIRE_TAP_TRUST, default true), and reports the
+  // refusal as "Cannot tap preston-check/tap: invalid syntax in tap!" — naming
+  // neither trust nor the cause, and reading like a defect in our own Ruby.
+  //
+  // This broke every bottle leg on all four platforms from v1.8.456 onwards
+  // (Releases #486–#490) and, far worse, broke `brew install` for every user on
+  // Homebrew 6.0+, because the published install instructions never mentioned
+  // brew trust. Install docs ARE the product on a distribution channel: a
+  // documented command that cannot work is a shipped defect, not a typo. So
+  // this check covers the docs and the workflow as one category.
+  const trustProblems = [];
+  let tapRefs = [];
+  try {
+    tapRefs = execFileSync('git', [
+      'grep', '-lE', 'brew (tap|install|info|untap) preston-check/tap', '--', '.',
+      // Historical records and generated output must not be rewritten to
+      // satisfy a check about what we tell users to run today.
+      ':(exclude)CHANGELOG.md',
+      ':(exclude)docs/OPEN_ITEMS.md',
+      ':(exclude)docs/sessions/*',
+      ':(exclude)docs/_rendered/*',
+      ':(exclude)tests/quality-gate/*',
+    ], { cwd: root, stdio: 'pipe' }).toString().trim().split('\n').filter(Boolean);
+  } catch {
+    // git grep exits 1 on no matches. Nothing references the tap at all, which
+    // would itself mean the install instructions vanished.
+    trustProblems.push('no file references the tap — install instructions are missing');
+  }
+
+  for (const f of tapRefs) {
+    if (!/brew trust/.test(readFileSync(join(root, f), 'utf8'))) {
+      trustProblems.push(`${f} tells the reader to tap/install without brew trust`);
+    }
+  }
+
+  // Ordering is the part that regresses silently: `brew trust` AFTER `brew tap`
+  // still reads correctly but fails, because the tap is the step being refused.
+  const relPath = join(root, '.github/workflows/release.yml');
+  if (existsSync(relPath)) {
+    const rel = readFileSync(relPath, 'utf8');
+    const trustAt = rel.indexOf('brew trust --tap preston-check/tap');
+    const tapAt = rel.indexOf('brew tap preston-check/tap');
+    if (trustAt === -1) {
+      trustProblems.push('release.yml never trusts the tap — every bottle leg will fail');
+    } else if (tapAt !== -1 && trustAt > tapAt) {
+      trustProblems.push('release.yml trusts the tap AFTER tapping it — the tap is what gets refused');
+    }
+  }
+
+  r.record('inv.brew-tap-trusted-before-use',
+    'every documented and automated brew tap/install trusts the tap first',
+    trustProblems.length === 0, trustProblems.join(' | ') || null);
+
+  // --- 6. The platforms we build must be the platforms we verify ---
+  // release.yml declares EXPECTED_BOTTLE_TAGS once; the bottle matrix builds
+  // them and update-tap fails when one is missing from the published formula.
+  // Two lists that must agree are exactly how a platform disappears quietly:
+  // the Intel leg was removed from the matrix and nothing noticed the tap had
+  // stopped carrying an Intel bottle for 15 releases. A leg added or removed
+  // without touching the declaration fails here instead.
+  const bottleProblems = [];
+  try {
+    const out = execFileSync('python3', ['-c', `
+import yaml, json, sys
+d = yaml.safe_load(open(sys.argv[1]))
+matrix = (((d.get('jobs') or {}).get('bottle') or {}).get('strategy') or {}).get('matrix') or {}
+print(json.dumps({
+  'declared': ((d.get('env') or {}).get('EXPECTED_BOTTLE_TAGS') or '').split(),
+  'matrix': [leg.get('bottle_tag') for leg in (matrix.get('include') or [])],
+}))
+`, join(root, '.github/workflows/release.yml')], { stdio: 'pipe' }).toString();
+    const { declared, matrix } = JSON.parse(out);
+
+    if (declared.length === 0) {
+      bottleProblems.push('release.yml declares no EXPECTED_BOTTLE_TAGS — nothing verifies what the tap ships');
+    }
+    if (matrix.length === 0) {
+      bottleProblems.push('release.yml has no bottle matrix legs — every platform would build from source');
+    }
+    const onlyMatrix = matrix.filter(t => !declared.includes(t));
+    const onlyDeclared = declared.filter(t => !matrix.includes(t));
+    if (onlyMatrix.length) {
+      bottleProblems.push(`built but never verified: ${onlyMatrix.join(', ')}`);
+    }
+    if (onlyDeclared.length) {
+      bottleProblems.push(`expected but never built: ${onlyDeclared.join(', ')}`);
+    }
+
+    // A declaration nothing reads is decoration. update-tap's guard must be the
+    // thing consuming it, or the two lists agree while the tap goes unchecked.
+    const relSrc = readFileSync(join(root, '.github/workflows/release.yml'), 'utf8');
+    if (!relSrc.includes('os.environ.get("EXPECTED_BOTTLE_TAGS"')) {
+      bottleProblems.push('update-tap never reads EXPECTED_BOTTLE_TAGS — the missing-bottle guard is not wired');
+    }
+  } catch (e) {
+    bottleProblems.push(`could not parse release.yml: ${e.message.split('\n')[0]}`);
+  }
+
+  r.record('inv.bottle-tags-match-matrix',
+    'the bottle platforms release.yml builds are exactly the ones it verifies were published',
+    bottleProblems.length === 0, bottleProblems.join(' | ') || null);
 }

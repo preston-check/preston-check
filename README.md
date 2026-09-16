@@ -26,8 +26,13 @@ Named after Preston X, a real hacker who created multiple fake accounts, bypasse
 ## Install
 
 ```bash
-# Homebrew (macOS / Linux)
+# Homebrew (Apple Silicon macOS 15+, or Linux)
+# brew trust is required on Homebrew 6.0+ and must come first.
+brew trust --tap preston-check/tap
 brew tap preston-check/tap && brew install preston-check
+
+# macOS 14 or older, or an Intel Mac: Homebrew no longer publishes bottles for
+# those (support tier 3), including for bash/coreutils, so use the script below.
 
 # Docker
 docker run --rm -v $(pwd):/src ghcr.io/preston-check/scan:latest

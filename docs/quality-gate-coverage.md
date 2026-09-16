@@ -52,24 +52,33 @@ sets a failure mode and resolves a download source; the Dockerfile declares a
 base image, an entrypoint and a non-root `USER`, and its entrypoint script
 parses; every shell and JSON asset under `ai-addon/` parses.
 
+**The Docker image.** Built from the Dockerfile on every run, then exercised:
+`--help` responds, `id -un` inside the container proves it is not running as
+root, and a real scan over a mounted tree produces a populated result. Since
+2026-09-09 this is a build-and-run, not a lint of the Dockerfile.
+
 **Invariants.** No test-only API seam (`STRIPE_API_BASE`, `SES_API_BASE`) in a
 deployed config; no live secrets committed; all seven deploy workflows depend
-on the gate; and `release.yml` additionally depends on the CLI tests, because
-this gate does not ship what a release ships.
+on the gate; `release.yml` additionally depends on the CLI tests, because this
+gate does not ship what a release ships; every file that tells a reader to tap
+or install from our tap also tells them to trust it, and `release.yml` trusts
+before tapping; and the bottle platforms `release.yml` builds are exactly the
+ones it verifies reached the published formula, so a platform cannot drop out
+of users' installs while every job stays green.
 
 ## Known limits
 
 These are deliberate, not oversights.
 
-The Docker image is linted rather than built and run — a multi-minute build in
-a pre-deploy gate gets skipped, and a skipped check is not a check.
-
 The scanner is asserted to run to completion on the fixtures rather than to
 produce an exact finding set; per-check detection accuracy is the corpus TPR/FPR
 job, not this gate's.
 
-Stripe and SES are exercised through mocks. Real API compatibility is not
-covered, only the request this code constructs and the responses it handles.
+Stripe and SES are exercised through mocks here: this gate covers the request
+this code constructs and the responses it handles, not the live provider. Real
+API compatibility is the separate contract suite (`tests/contract/run.mjs`,
+`contract-checks.yml`), where SES is checked against real AWS; the Stripe half
+waits on a `STRIPE_TEST_SECRET_KEY` repo secret.
 
 `--only <suite>` skips coverage reconciliation and prints a warning; such a run
 cannot gate a deploy.

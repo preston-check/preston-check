@@ -17,6 +17,16 @@ permissions:
   contents: write
   packages: write
 
+# The platforms a release MUST produce a bottle for, declared once. The bottle
+# matrix below builds exactly these, and update-tap fails the job if any of them
+# is missing from the published formula. Keeping one list is the point: when the
+# Intel leg went away the matrix shrank while nothing checked what the tap
+# actually carried, so a platform could vanish from users' installs with every
+# job still green. tests/quality-gate/suites/invariants.mjs
+# (inv.bottle-tags-match-matrix) fails if this list and the matrix disagree.
+env:
+  EXPECTED_BOTTLE_TAGS: arm64_tahoe arm64_sequoia x86_64_linux
+
 jobs:
   # No deployment without the acceptance gate. Removing this block, or
   # dropping the `needs:` below, fails tests/quality-gate/suites/invariants.mjs
@@ -216,8 +226,17 @@ jobs:
             bottle_tag: arm64_tahoe
           - os: macos-15        # ARM macOS 15 Sequoia
             bottle_tag: arm64_sequoia
-          - os: macos-14        # ARM macOS 14 Sonoma
-            bottle_tag: arm64_sonoma
+          # No macOS 14 Sonoma leg. Homebrew moved ARM macOS 11–14 to support
+          # Tier 3 ("CI coverage is unavailable; bottles will rarely be built or
+          # published"), so readline, bash and coreutils no longer publish an
+          # arm64_sonoma bottle and `brew install --build-bottle` refuses with
+          # "The following formulae cannot be installed from bottles and must be
+          # built from source". This failed every Release from #494 (2026-09-15)
+          # to #498. Forcing --build-from-source would produce a bottle nobody
+          # can use: a macOS 14 user installing it still needs those same
+          # dependencies, which brew will still refuse to bottle for them.
+          # Sonoma users install with the script instead (README, and the
+          # formula's own caveats), which needs no Homebrew dependencies.
           # No Intel macOS leg. Homebrew dropped macOS Intel x86_64 support
           # (announced August 2025, effective September 2026), so dependencies
           # such as pcre2 no longer publish an Intel bottle and
@@ -238,6 +257,30 @@ jobs:
         env:
           VERSION: ${{ needs.release.outputs.version }}
         run: |
+          # Homebrew 6.0 refuses to LOAD formulae from a non-official tap until
+          # that tap is explicitly trusted ($HOMEBREW_REQUIRE_TAP_TRUST, default
+          # true). `brew tap` clones the tap fine and then dies enumerating its
+          # formulae, reporting "Invalid formula (<os_tag>)" once per bottle tag
+          # and summarising as "Cannot tap preston-check/tap: invalid syntax in
+          # tap!" — a message that names neither trust nor the real cause, and
+          # which reads as a defect in our own Ruby. It is not. This broke every
+          # bottle leg on all four platforms from v1.8.456 (2026-09-13) onwards.
+          #
+          # Trust must come BEFORE the tap, since it is the tap that fails.
+          # `brew trust --tap` works on a tap that is not yet installed; it only
+          # writes the trust store. The documented escape hatch
+          # $HOMEBREW_NO_REQUIRE_TAP_TRUST is marked "not recommended and will
+          # be removed in a later release" upstream, so it is not used here.
+          #
+          # Non-fatal, because by Release #498 (2026-09-16) Homebrew had started
+          # granting the trust itself — every leg logs "Trusted formula
+          # preston-check/tap/preston-check" straight after tapping, with no
+          # trust call in the workflow at all. Upstream is still moving here
+          # (the runners fetched homebrew/brew branches trust-bare-tap-argv and
+          # trust-normalise-tap-reference in that same run), so the call stays as
+          # cover for a re-tightening — but it must never be the thing that
+          # breaks a release. The tap and install below are the real verdict.
+          brew trust --tap preston-check/tap || true
           HOMEBREW_NO_INSTALL_CLEANUP=1 brew tap preston-check/tap
           HOMEBREW_NO_INSTALL_CLEANUP=1 brew install --build-bottle \
             preston-check/tap/preston-check
@@ -300,6 +343,7 @@ jobs:
           path: tap
 
       - name: Download bottles and update formula
+        id: formula
         if: steps.check.outputs.configured == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
@@ -319,13 +363,12 @@ jobs:
           SHA     = os.environ.get("SHA", "")
           URL     = os.environ.get("URL", "")
 
-          # Canonical display order for bottle OS tags. The Intel "sequoia" tag
-          # went with the Intel matrix leg; any tag not listed here still
-          # publishes, it just sorts after these.
-          OS_ORDER = [
-            "arm64_tahoe", "arm64_sequoia", "arm64_sonoma",
-            "x86_64_linux",
-          ]
+          # The platforms this release must carry, from the single declaration
+          # at the top of this workflow. Also the canonical display order; a tag
+          # not listed still publishes, it just sorts after these.
+          EXPECTED = os.environ.get("EXPECTED_BOTTLE_TAGS", "").split()
+          if not EXPECTED:
+              raise SystemExit("EXPECTED_BOTTLE_TAGS is empty — nothing to verify against")
 
           bottles = {}
           for f in sorted(glob.glob("/tmp/bottles/*.bottle.tar.gz")):
@@ -336,8 +379,8 @@ jobs:
                   sha = hashlib.sha256(pathlib.Path(f).read_bytes()).hexdigest()
                   bottles[tag] = sha
 
-          ordered = [(t, bottles[t]) for t in OS_ORDER if t in bottles]
-          ordered += [(t, s) for t, s in sorted(bottles.items()) if t not in OS_ORDER]
+          ordered = [(t, bottles[t]) for t in EXPECTED if t in bottles]
+          ordered += [(t, s) for t, s in sorted(bottles.items()) if t not in EXPECTED]
 
           p = pathlib.Path("tap/Formula/preston-check.rb")
           src = p.read_text()
@@ -363,18 +406,38 @@ jobs:
                   src = re.sub(r'\n  bottle do\n.*?\n  end\n', bottle_block, src, flags=re.DOTALL)
               else:
                   src = re.sub(r'(  version\s+"[^"]*"\n)', r'\1' + bottle_block, src, count=1)
+          else:
+              # No bottles at all: drop any block that is still there rather
+              # than leave last release's shas attached to this version's url.
+              # update-tap-url normally strips it first, so this only matters
+              # when that step did not run — and a bottle block whose shas
+              # belong to another version fails brew install for everyone.
+              src = re.sub(r'\n  bottle do\n.*?\n  end\n', '\n', src, flags=re.DOTALL)
 
           p.write_text(src)
-          if ordered:
-              print(f"Updated formula: {len(ordered)} bottle(s) — {', '.join(t for t,_ in ordered)}")
-          else:
-              # Never let a bottle-less publish pass quietly. update-tap-url has
-              # already stripped the old block, so reaching here means the tap
-              # ships with no bottles at all — the exact silent state that went
-              # unnoticed from the Intel breakage onwards.
-              print(f"::error::No bottles found for v{VERSION} — formula published with "
-                    "url/sha only, so brew install builds from source on EVERY "
-                    "platform. Check the bottle job's matrix legs.")
+          print(f"Updated formula: {len(ordered)} bottle(s) — "
+                f"{', '.join(t for t, _ in ordered) or 'none'}")
+
+          # Every expected platform must be present. Counting bottles is not
+          # enough: v1.8.468 published three of four and every job went green,
+          # because the only guard here asked whether ANY bottle existed. A
+          # platform that drops out of the matrix, or whose leg fails, then
+          # disappears from users' installs silently — which is how the Intel
+          # breakage ran for 15 releases.
+          missing = [t for t in EXPECTED if t not in bottles]
+          if missing:
+              print(f"::error::v{VERSION} is missing bottle(s): {', '.join(missing)} — "
+                    "brew install builds from source on those platforms. Check the "
+                    "bottle matrix legs, or drop the platform from "
+                    "EXPECTED_BOTTLE_TAGS if it is deliberately unsupported.")
+
+          # Reported, not raised. The bottles that DID build are worth more to
+          # users than a clean abort: failing here would skip the push below and
+          # leave the tap on update-tap-url's bottle-less commit, i.e. source
+          # builds on EVERY platform instead of one. The job still fails, at the
+          # step after the push.
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write(f"missing={' '.join(missing)}\n")
           PY
 
       - name: Commit + push
@@ -384,3 +447,16 @@ jobs:
           VERSION: ${{ needs.release.outputs.version }}
         run: |
           ../tools/tap-push.sh "${VERSION}" "bottles: preston-check ${VERSION}"
+
+      # The tap now carries the best set of bottles that built, and this is
+      # where an incomplete set becomes red. Ordered after the push on purpose:
+      # publishing three bottles and failing loudly beats publishing none.
+      - name: Fail if any expected bottle is missing
+        if: steps.check.outputs.configured == 'true' && steps.formula.outputs.missing != ''
+        env:
+          MISSING: ${{ steps.formula.outputs.missing }}
+          VERSION: ${{ needs.release.outputs.version }}
+        run: |
+          echo "v${VERSION} published without bottles for: ${MISSING}"
+          echo "brew install builds from source on those platforms."
+          exit 1

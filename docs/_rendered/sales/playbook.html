@@ -316,7 +316,9 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-q</span> <span class="st">&#39;&quot;url&quot;&#39;</span> <span class="kw">&amp;&amp;</span> <span class="bu">echo</span> <span class="st">&quot;checkout: OK&quot;</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">&quot;checkout: FAIL&quot;</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Homebrew formula points at latest tag</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> info preston-check/preston-check/preston-check <span class="dv">2</span><span class="op">&gt;</span>/dev/null <span class="kw">|</span> <span class="fu">grep</span> version</span></code></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># brew info loads the formula, so the tap must be trusted first on Homebrew 6.0+</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> trust <span class="at">--tap</span> preston-check/tap <span class="op">&gt;</span>/dev/null</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> info preston-check/tap/preston-check <span class="dv">2</span><span class="op">&gt;</span>/dev/null <span class="kw">|</span> <span class="fu">grep</span> version</span></code></pre></div>
 <p>All four should report green. If any fail, fix before reaching
 out.</p>
 <h2 id="promo-codes-live-ready-to-use">Promo codes (live, ready to
@@ -411,7 +413,7 @@ session-polling attack that named the project), not regex pulled from
 public repos.
 
 Three install paths:
-  brew install preston-check/preston-check/preston-check
+  brew trust --tap preston-check/tap &amp;&amp; brew install preston-check/tap/preston-check
   docker run --rm -v $(pwd):/src ghcr.io/preston-check/scan:latest
   curl -fsSL https://get.preston-check.com/install.sh | sh
 
@@ -440,7 +442,7 @@ I&#39;ve got 5 founding-customer slots at 50% off the first year. Code:
 EARLY50 on the Stripe checkout. 14-day refund-no-questions-asked.
 
 Demo (10 min): https://calendly.com/preston-check/intro
-Try it now: brew install preston-check/preston-check/preston-check
+Try it now: brew trust --tap preston-check/tap &amp;&amp; brew install preston-check/tap/preston-check
 
 — Preston</code></pre>
 <h3 id="warm-intro-referral">Warm intro — referral</h3>
@@ -458,7 +460,7 @@ FATF, etc. Open-source under Apache 2.0, scans run locally (no source
 code leaves your machine), AI-augmented findings include suggested
 patches.
 
-Easy to try: `brew install preston-check/preston-check/preston-check`
+Easy to try: `brew trust --tap preston-check/tap &amp;&amp; brew install preston-check/tap/preston-check`
 then run `preston-check --high-and-up` in any repo.
 
 Happy to do a 15-min walk-through of the kind of findings + suggested
@@ -520,7 +522,7 @@ show v1.7.x - Have the customer portal
 real Stripe Checkout URL ready (use FOUNDING100 if it’s the right
 close)</p>
 <p><strong>Act 1 — install + scan</strong> (3 min)</p>
-<pre><code>brew install preston-check/preston-check/preston-check
+<pre><code>brew trust --tap preston-check/tap &amp;&amp; brew install preston-check/tap/preston-check
 preston-check --high-and-up</code></pre>
 <p>Let it run. Talk while the output streams: explain the 294 checks,
 the catalog curation, the 1.3M traces it was validated against. By the
@@ -617,8 +619,8 @@ the subscription 2. Generate a license file:
 <code>tools/issue-license.sh --customer &lt;slug&gt; --tier pro --expires +1y</code>
 3. Email the customer: - Welcome message - Attach the
 <code>.license</code> file - Install path reminder:
-<code>brew install preston-check/preston-check/preston-check</code> -
-License install location: <code>~/.preston-check/license</code> -
+<code>brew trust --tap preston-check/tap &amp;&amp; brew install preston-check/tap/preston-check</code>
+- License install location: <code>~/.preston-check/license</code> -
 Quick-start command:
 <code>preston-check --high-and-up --report security-audit.md</code> -
 Direct link to schedule a 30-min onboarding call</p>

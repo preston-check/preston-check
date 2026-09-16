@@ -32,7 +32,9 @@ curl -s -X POST 'https://preston-check-billing.preston-check-edge.workers.dev/ch
   | grep -q '"url"' && echo "checkout: OK" || echo "checkout: FAIL"
 
 # Homebrew formula points at latest tag
-brew info preston-check/preston-check/preston-check 2>/dev/null | grep version
+# brew info loads the formula, so the tap must be trusted first on Homebrew 6.0+
+brew trust --tap preston-check/tap >/dev/null
+brew info preston-check/tap/preston-check 2>/dev/null | grep version
 ```
 
 All four should report green. If any fail, fix before reaching out.
@@ -94,7 +96,7 @@ session-polling attack that named the project), not regex pulled from
 public repos.
 
 Three install paths:
-  brew install preston-check/preston-check/preston-check
+  brew trust --tap preston-check/tap && brew install preston-check/tap/preston-check
   docker run --rm -v $(pwd):/src ghcr.io/preston-check/scan:latest
   curl -fsSL https://get.preston-check.com/install.sh | sh
 
@@ -127,7 +129,7 @@ I've got 5 founding-customer slots at 50% off the first year. Code:
 EARLY50 on the Stripe checkout. 14-day refund-no-questions-asked.
 
 Demo (10 min): https://calendly.com/preston-check/intro
-Try it now: brew install preston-check/preston-check/preston-check
+Try it now: brew trust --tap preston-check/tap && brew install preston-check/tap/preston-check
 
 — Preston
 ```
@@ -149,7 +151,7 @@ FATF, etc. Open-source under Apache 2.0, scans run locally (no source
 code leaves your machine), AI-augmented findings include suggested
 patches.
 
-Easy to try: `brew install preston-check/preston-check/preston-check`
+Easy to try: `brew trust --tap preston-check/tap && brew install preston-check/tap/preston-check`
 then run `preston-check --high-and-up` in any repo.
 
 Happy to do a 15-min walk-through of the kind of findings + suggested
@@ -216,7 +218,7 @@ The wow-moment sequence in order. Don't deviate; this is what works.
 
 **Act 1 — install + scan** (3 min)
 ```
-brew install preston-check/preston-check/preston-check
+brew trust --tap preston-check/tap && brew install preston-check/tap/preston-check
 preston-check --high-and-up
 ```
 Let it run. Talk while the output streams: explain the 294 checks,
@@ -285,7 +287,7 @@ Once a Stripe webhook fires for the first paying customer:
 3. Email the customer:
    - Welcome message
    - Attach the `.license` file
-   - Install path reminder: `brew install preston-check/preston-check/preston-check`
+   - Install path reminder: `brew trust --tap preston-check/tap && brew install preston-check/tap/preston-check`
    - License install location: `~/.preston-check/license`
    - Quick-start command: `preston-check --high-and-up --report security-audit.md`
    - Direct link to schedule a 30-min onboarding call

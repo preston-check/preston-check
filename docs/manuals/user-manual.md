@@ -21,12 +21,23 @@ compliance scope.
 Five channels, all kept in lockstep on every release. Pick the one that
 matches your environment.
 
-**Homebrew** (macOS, or Linux with brew):
+**Homebrew** (Apple Silicon macOS 15 or later, or Linux with brew):
 
 ```bash
+brew trust --tap preston-check/tap
 brew tap preston-check/tap
 brew install preston-check
 ```
+
+The `brew trust` line is required on Homebrew 6.0 and later, which refuses to
+load formulae from non-official taps until they are trusted, and it must run
+before `brew tap` because it is the tap step that is refused.
+
+On macOS 14 or older, and on Intel Macs, take the curl-bash installer below
+instead. Homebrew classes those as support tier 3 and no longer publishes
+bottles for them, including for the `bash`, `coreutils`, `gawk` and `grep` this
+formula depends on, so `brew install` stops with "The following formulae cannot
+be installed from bottles and must be built from source".
 
 **Docker** (any system with Docker):
 

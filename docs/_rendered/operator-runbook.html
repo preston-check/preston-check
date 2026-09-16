@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Preston-Check Maintainers" />
-  <meta name="dcterms.date" content="2026-05-04" />
+  <meta name="dcterms.date" content="2026-05-06" />
   <title>Preston-Check — Operator Runbook</title>
   <style>
     /* Default styles provided by pandoc.
@@ -293,7 +293,7 @@
 <p class="subtitle">Deployed URLs, resource IDs, deploy procedures,
 emergency response</p>
 <p class="author">Preston-Check Maintainers</p>
-<p class="date">2026-05-04</p>
+<p class="date">2026-05-06</p>
 </header>
 <h1 id="operator-runbook">Operator Runbook</h1>
 <p>The single-page reference for everything deployed. Bookmark this file
@@ -329,6 +329,12 @@ hardware-bound machine.</p>
 <td>none</td>
 </tr>
 <tr>
+<td>Legal pages</td>
+<td><code>https://preston-check.com/{terms,privacy,refund}.html</code></td>
+<td>GitHub Pages</td>
+<td>none</td>
+</tr>
+<tr>
 <td>GitHub Pages mirror</td>
 <td><code>https://preston-check.github.io/preston-check/</code></td>
 <td>GitHub Pages (default subdomain)</td>
@@ -338,7 +344,7 @@ hardware-bound machine.</p>
 <td>Customer portal</td>
 <td><code>https://app.preston-check.com/</code></td>
 <td>Cloudflare Pages (<code>preston-check-customer</code> project)</td>
-<td>none yet (production will add magic-link)</td>
+<td>magic-link via auth Worker</td>
 </tr>
 <tr>
 <td>Admin portal</td>
@@ -347,16 +353,25 @@ hardware-bound machine.</p>
 <td>Cloudflare Access — operator email + 6-digit PIN</td>
 </tr>
 <tr>
-<td>Telemetry endpoint</td>
-<td><code>https://app.preston-check.com/api/v1/telemetry</code></td>
-<td>Cloudflare Pages Function on customer-portal project</td>
-<td>none (public POST endpoint by design)</td>
+<td>Auth Worker</td>
+<td><code>https://preston-check-auth.preston-check-edge.workers.dev/</code></td>
+<td>Cloudflare Workers</td>
+<td>per-endpoint (POST <code>/request-code</code>,
+<code>/verify-code</code>, GET <code>/me</code>, POST
+<code>/logout</code>)</td>
 </tr>
 <tr>
-<td>Standalone telemetry Worker</td>
+<td>Billing Worker</td>
+<td><code>https://preston-check-billing.preston-check-edge.workers.dev/</code></td>
+<td>Cloudflare Workers</td>
+<td>per-endpoint (POST <code>/checkout</code>, <code>/webhook</code>,
+<code>/billing-portal</code>, <code>/license</code>)</td>
+</tr>
+<tr>
+<td>Telemetry Worker</td>
 <td><code>https://preston-check-telemetry.preston-check-edge.workers.dev/</code></td>
 <td>Cloudflare Workers</td>
-<td>none (alternative endpoint, same D1+KV)</td>
+<td>none (public POST endpoint by design)</td>
 </tr>
 </tbody>
 </table>
@@ -396,9 +411,39 @@ push</td>
 </tr>
 <tr>
 <td>Workers script</td>
+<td>Auth</td>
+<td><code>preston-check-auth</code></td>
+<td>Magic-link authentication; deploys from
+<code>workers/auth/</code></td>
+</tr>
+<tr>
+<td>Workers script</td>
+<td>Billing</td>
+<td><code>preston-check-billing</code></td>
+<td>Stripe Checkout + webhook + portal + license issuance; deploys from
+<code>workers/billing/</code></td>
+</tr>
+<tr>
+<td>Workers script</td>
 <td>Telemetry collector</td>
 <td><code>preston-check-telemetry</code></td>
 <td>Standalone Worker; deploys from <code>workers/telemetry/</code></td>
+</tr>
+<tr>
+<td>D1 database</td>
+<td>Auth</td>
+<td><code>preston-check-auth</code>
+(<code>fb99b043-dd02-4a84-b264-07ae4aa766d1</code>)</td>
+<td>accounts + sessions tables. Schema in
+<code>workers/auth/schema.sql</code>.</td>
+</tr>
+<tr>
+<td>D1 database</td>
+<td>Billing</td>
+<td><code>preston-check-billing</code>
+(<code>abeeb20d-935f-4551-8d2e-a8eaecee8c0b</code>)</td>
+<td>customers + subscriptions + invoices + webhook_events. Schema in
+<code>workers/billing/schema.sql</code>.</td>
 </tr>
 <tr>
 <td>D1 database</td>
@@ -410,10 +455,30 @@ push</td>
 </tr>
 <tr>
 <td>KV namespace</td>
-<td>Aggregations + rate-limit</td>
+<td>Auth codes</td>
+<td><code>CODES</code>
+(<code>29537c75a6424519b1ccfe748aae7fd9</code>)</td>
+<td>6-digit sign-in codes (10-min TTL) + per-email rate limits</td>
+</tr>
+<tr>
+<td>KV namespace</td>
+<td>Billing nonces</td>
+<td><code>STATE</code></td>
+<td>Short-lived idempotency keys + per-email checkout rate limits</td>
+</tr>
+<tr>
+<td>KV namespace</td>
+<td>Telemetry aggregations</td>
 <td><code>AGGREGATE</code>
 (<code>330983ec5b464dab8ae2f338d40512f5</code>)</td>
-<td>Used by both the Worker and the Pages Function</td>
+<td>Used by Worker + Pages Function</td>
+</tr>
+<tr>
+<td>R2 bucket</td>
+<td>D1 backup target</td>
+<td><code>preston-check-d1-backups</code></td>
+<td>Created on first nightly run; nightly auth + billing dumps under
+<code>auth/</code> and <code>billing/</code> prefixes</td>
 </tr>
 <tr>
 <td>Workers subdomain</td>
@@ -437,7 +502,9 @@ preston-check-customer → Settings → Functions</td>
 </tbody>
 </table>
 <h2 id="dns-records">DNS records</h2>
-<p>In Route 53 hosted zone <code>preston-check.com.</code>:</p>
+<p>In Route 53 hosted zone <code>preston-check.com.</code> (zone ID
+<code>Z05163633TTJD7W45GALS</code>). The domain itself is registered at
+Route 53, separate from the hosted zone.</p>
 <table>
 <colgroup>
 <col style="width: 20%" />
@@ -477,12 +544,42 @@ preston-check-customer → Settings → Functions</td>
 <td>300</td>
 <td>Customer portal</td>
 </tr>
+<tr>
+<td><code>preston-check.com.</code></td>
+<td>MX</td>
+<td><code>10 inbound-smtp.us-east-1.amazonaws.com.</code></td>
+<td>300</td>
+<td>Inbound mail to SES</td>
+</tr>
+<tr>
+<td><code>preston-check.com.</code></td>
+<td>TXT</td>
+<td><code>v=spf1 include:amazonses.com -all</code></td>
+<td>300</td>
+<td>SPF (SES outbound + inbound)</td>
+</tr>
+<tr>
+<td><code>_dmarc.preston-check.com.</code></td>
+<td>TXT</td>
+<td><code>v=DMARC1; p=none; rua=mailto:postmaster@preston-check.com</code></td>
+<td>300</td>
+<td>DMARC reporting</td>
+</tr>
+<tr>
+<td><code>*._domainkey.preston-check.com.</code></td>
+<td>CNAME (×3)</td>
+<td>(DKIM tokens issued by SES)</td>
+<td>300</td>
+<td>DKIM signing for outbound</td>
+</tr>
 </tbody>
 </table>
-<p>(Hosted zone ID <code>Z05163633TTJD7W45GALS</code>. The domain itself
-is registered at Route 53, separate from the hosted zone.)</p>
 <h2 id="github-repository">GitHub repository</h2>
 <table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
 <thead>
 <tr>
 <th></th>
@@ -504,7 +601,7 @@ is registered at Route 53, separate from the hosted zone.)</p>
 </tr>
 <tr>
 <td>Latest tag</td>
-<td><code>v1.7.5</code></td>
+<td><code>v1.7.10</code></td>
 </tr>
 <tr>
 <td>License</td>
@@ -516,13 +613,23 @@ is registered at Route 53, separate from the hosted zone.)</p>
 </tr>
 <tr>
 <td>GitHub Action</td>
-<td><code>preston-check/scan-action</code> (separate repo)</td>
+<td><code>preston-check/scan-action</code> (separate repo, still a
+placeholder — not yet referenced by any active workflow; reserved for
+the eventual published action)</td>
+</tr>
+<tr>
+<td>Container registry</td>
+<td>GitHub Container Registry
+(<code>ghcr.io/preston-check/preston-check</code>) — replaced Docker Hub
+on 2026-05-04</td>
 </tr>
 </tbody>
 </table>
 <h2 id="repository-secrets">Repository secrets</h2>
 <p>Set under repo Settings → Secrets and variables → Actions. Never
-logged, never echoed in workflow output.</p>
+logged, never echoed in workflow output. Always pipe values via
+<code>printf '%s'</code>, never <code>echo</code> (echo adds a trailing
+newline that breaks SigV4 / token validation).</p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -539,14 +646,26 @@ logged, never echoed in workflow output.</p>
 <tbody>
 <tr>
 <td><code>CLOUDFLARE_API_TOKEN</code></td>
-<td>admin-pages, customer-pages, telemetry-deploy</td>
-<td>Scoped to Cloudflare Pages + Workers + KV + D1; rotate via dashboard
-→ My Profile → API Tokens → Roll</td>
+<td>all CF deploy workflows</td>
+<td>Scoped to Cloudflare Pages + Workers + KV + D1 + R2; rotate via
+dashboard → My Profile → API Tokens → Roll</td>
 </tr>
 <tr>
 <td><code>CLOUDFLARE_ACCOUNT_ID</code></td>
-<td>same workflows</td>
+<td>all CF deploy workflows</td>
 <td>Not a credential — Cloudflare account identifier</td>
+</tr>
+<tr>
+<td><code>SES_AWS_ACCESS_KEY_ID</code></td>
+<td>auth-deploy.yml</td>
+<td>Pushed into auth Worker as runtime secret; IAM user
+<code>preston-check-ses</code> scoped to <code>ses:SendEmail</code> on
+<code>preston-check.com</code> only</td>
+</tr>
+<tr>
+<td><code>SES_AWS_SECRET_ACCESS_KEY</code></td>
+<td>auth-deploy.yml</td>
+<td>Companion to above</td>
 </tr>
 <tr>
 <td><code>HOMEBREW_TAP_TOKEN</code></td>
@@ -554,15 +673,67 @@ logged, never echoed in workflow output.</p>
 <td>Optional — if absent, formula is bumped manually. PAT with write
 access to <code>preston-check/homebrew-tap</code></td>
 </tr>
+</tbody>
+</table>
+<h2 id="worker-secrets-set-via-wrangler-secret-put">Worker secrets (set
+via <code>wrangler secret put</code>)</h2>
+<p>These live inside Cloudflare and never appear in the repo or in GH
+Actions logs. Inspect with
+<code>wrangler secret list --name &lt;worker&gt;</code>.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
 <tr>
-<td><code>DOCKERHUB_USERNAME</code></td>
-<td>release.yml (docker job)</td>
-<td>Optional — if absent, Docker image is not pushed</td>
+<th>Worker</th>
+<th>Secret</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>preston-check-auth</code></td>
+<td><code>SES_AWS_ACCESS_KEY_ID</code>,
+<code>SES_AWS_SECRET_ACCESS_KEY</code></td>
+<td>SES SigV4 sending. Synced from GH secrets on each auth deploy.</td>
 </tr>
 <tr>
-<td><code>DOCKERHUB_TOKEN</code></td>
-<td>release.yml (docker job)</td>
-<td>Optional</td>
+<td><code>preston-check-auth</code></td>
+<td><code>RESEND_API_KEY</code> (optional)</td>
+<td>Fallback when SES is misconfigured.</td>
+</tr>
+<tr>
+<td><code>preston-check-auth</code></td>
+<td><code>SESSION_SECRET</code> (optional)</td>
+<td>Salt for <code>ip_hash</code> column. Defaults to empty if
+unset.</td>
+</tr>
+<tr>
+<td><code>preston-check-billing</code></td>
+<td><code>STRIPE_SECRET_KEY</code></td>
+<td><code>sk_live_...</code> — billing API.</td>
+</tr>
+<tr>
+<td><code>preston-check-billing</code></td>
+<td><code>STRIPE_WEBHOOK_SECRET</code></td>
+<td><code>whsec_...</code> — verifies webhook signature.</td>
+</tr>
+<tr>
+<td><code>preston-check-billing</code></td>
+<td><code>STRIPE_PRICE_PRO_PER_REPO</code>,
+<code>STRIPE_PRICE_PRO_UNLIMITED</code></td>
+<td>Stripe price IDs from the live products.</td>
+</tr>
+<tr>
+<td><code>preston-check-billing</code></td>
+<td><code>LICENSE_SIGNING_KEY</code></td>
+<td>PEM-encoded Ed25519 private key. The corresponding public key is
+checked into <code>lib/license_saas_pubkey.pem</code> and the runner
+verifies licenses against either it or
+<code>lib/license_pubkey.pem</code> (operator-issued).</td>
 </tr>
 </tbody>
 </table>
@@ -584,7 +755,7 @@ access to <code>preston-check/homebrew-tap</code></td>
 <tr>
 <td><code>pages.yml</code></td>
 <td>Push to master touching <code>web/landing/**</code></td>
-<td>Deploys public landing to GitHub Pages</td>
+<td>Deploys public landing (incl. legal pages) to GitHub Pages</td>
 </tr>
 <tr>
 <td><code>admin-pages.yml</code></td>
@@ -594,17 +765,33 @@ access to <code>preston-check/homebrew-tap</code></td>
 <tr>
 <td><code>customer-pages.yml</code></td>
 <td>Push touching <code>web/customer/**</code> or shared assets</td>
-<td>Deploys customer portal + Pages Function (telemetry endpoint)</td>
+<td>Deploys customer portal to Cloudflare Pages</td>
+</tr>
+<tr>
+<td><code>auth-deploy.yml</code></td>
+<td>Push touching <code>workers/auth/**</code></td>
+<td>Syncs SES secrets into Worker, then deploys Worker</td>
+</tr>
+<tr>
+<td><code>billing-deploy.yml</code></td>
+<td>Push touching <code>workers/billing/**</code></td>
+<td>Deploys billing Worker</td>
 </tr>
 <tr>
 <td><code>telemetry-deploy.yml</code></td>
 <td>Push touching <code>workers/telemetry/**</code></td>
-<td>Deploys standalone Worker (alternative to Pages Function)</td>
+<td>Deploys telemetry Worker</td>
+</tr>
+<tr>
+<td><code>d1-backup.yml</code></td>
+<td>Daily 03:00 UTC + manual dispatch</td>
+<td>Exports auth + billing D1 to R2 bucket
+<code>preston-check-d1-backups</code></td>
 </tr>
 <tr>
 <td><code>release.yml</code></td>
 <td>Tag push (<code>v*</code>)</td>
-<td>Build tarball + sha256 + GitHub Release; Docker image; Homebrew
+<td>Build tarball + sha256 + GitHub Release; GHCR image; Homebrew
 bump</td>
 </tr>
 <tr>
@@ -623,61 +810,237 @@ bump</td>
 <td>Pulls fintech-relevant CVEs from NIST NVD; opens PR with draft
 checks</td>
 </tr>
+<tr>
+<td><code>preston-check.yml</code></td>
+<td>Every push + PR to master</td>
+<td>Self-audit: runs the in-repo
+<code>./preston-check.sh --full --airgap --ci-soft</code> and uploads
+the markdown report as an artifact. Soft mode means findings don’t fail
+the build (yet); promote to <code>--ci</code> once the catalog is tuned
+for self-application.</td>
+</tr>
 </tbody>
 </table>
 <h2 id="health-checks">Health checks</h2>
-<p>A trivial bash one-liner that confirms every public surface is
-up:</p>
+<p>Confirms every public surface is up:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> u <span class="kw">in</span> <span class="dt">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  https://preston-check.com/ <span class="dt">\</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  https://app.preston-check.com/ <span class="dt">\</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  https://admin.preston-check.com/ <span class="dt">\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  https://app.preston-check.com/api/v1/telemetry<span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">printf</span> <span class="st">&quot;%-55s &quot;</span> <span class="st">&quot;</span><span class="va">$u</span><span class="st">&quot;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">curl</span> <span class="at">-so</span> /dev/null <span class="at">-w</span> <span class="st">&quot;%{http_code}\n&quot;</span> <span class="st">&quot;</span><span class="va">$u</span><span class="st">&quot;</span> <span class="at">--max-time</span> 6</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
-<p>Expected codes: <code>200 200 302 405</code> (admin → 302 because
-Access redirect; telemetry → 405 because GET without POST is
-method-not-allowed).</p>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  https://preston-check.com/terms.html <span class="dt">\</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  https://preston-check.com/privacy.html <span class="dt">\</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  https://preston-check.com/refund.html <span class="dt">\</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  https://app.preston-check.com/ <span class="dt">\</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  https://admin.preston-check.com/<span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">printf</span> <span class="st">&quot;%-55s &quot;</span> <span class="st">&quot;</span><span class="va">$u</span><span class="st">&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">curl</span> <span class="at">-so</span> /dev/null <span class="at">-w</span> <span class="st">&quot;%{http_code}\n&quot;</span> <span class="st">&quot;</span><span class="va">$u</span><span class="st">&quot;</span> <span class="at">--max-time</span> 6</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code></pre></div>
+<p>Expected codes: <code>200 200 200 200 200 302</code> (admin → 302
+because Access redirect).</p>
+<p>End-to-end Worker probe (no payment needed):</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Auth Worker — request a code (will actually email you, so use a throwaway)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sS</span> <span class="at">-X</span> POST https://preston-check-auth.preston-check-edge.workers.dev/request-code <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;email&quot;:&quot;smoke@preston-check.com&quot;}&#39;</span>    <span class="co"># expect: {&quot;sent&quot;:true,&quot;via&quot;:&quot;ses&quot;}</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Billing Worker — checkout returns a Stripe URL</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sS</span> <span class="at">-X</span> POST https://preston-check-billing.preston-check-edge.workers.dev/checkout <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="at">-H</span> <span class="st">&#39;Origin: https://app.preston-check.com&#39;</span> <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">-d</span> <span class="st">&#39;{&quot;plan&quot;:&quot;pro_per_repo&quot;,&quot;email&quot;:&quot;smoke@preston-check.com&quot;,&quot;org_name&quot;:&quot;Smoke&quot;}&#39;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># expect: {&quot;url&quot;:&quot;https://checkout.stripe.com/c/pay/cs_live_...&quot;,&quot;id&quot;:&quot;cs_live_...&quot;}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Inbound mail probe — sends to support@ and verifies S3 delivery</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="va">AWS_PROFILE</span><span class="op">=</span>dev <span class="va">AWS_REGION</span><span class="op">=</span>us-east-1 <span class="ex">aws</span> sesv2 send-email <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--from-email-address</span> <span class="st">&#39;Preston-Check &lt;preston@preston-check.com&gt;&#39;</span> <span class="dt">\</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--destination</span> <span class="st">&#39;ToAddresses=support@preston-check.com&#39;</span> <span class="dt">\</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--content</span> <span class="st">&#39;Simple={Subject={Data=Probe,Charset=UTF-8},Body={Text={Data=ping,Charset=UTF-8}}}&#39;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sleep</span> 8</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="va">AWS_PROFILE</span><span class="op">=</span>dev <span class="va">AWS_REGION</span><span class="op">=</span>us-east-1 <span class="ex">aws</span> s3 ls s3://preston-check-inbound-mail/incoming/ <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-1</span></span></code></pre></div>
+<h2 id="aws-resources-account-356697059290-region-us-east-1">AWS
+resources (account 356697059290, region us-east-1)</h2>
+<p>The AWS account is managed under the operator’s existing dev profile
+(<code>AWS_PROFILE=dev</code>). Resources are scoped to
+preston-check.com so they can be migrated to a Preston-Check-only
+account later without unwinding personal email or other domains.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Identifier</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SES domain identity</td>
+<td><code>preston-check.com</code></td>
+<td>Outbound + inbound. DKIM_SUCCESS, ProductionAccess enabled
+(85,500/day quota)</td>
+</tr>
+<tr>
+<td>IAM user</td>
+<td><code>preston-check-ses</code></td>
+<td>Worker-side SES sending. Inline policy
+<code>PrestonCheckSESSendOnly</code> allows
+<code>ses:SendEmail</code>/<code>ses:SendRawEmail</code> on the
+preston-check.com identity ARN only</td>
+</tr>
+<tr>
+<td>S3 bucket</td>
+<td><code>preston-check-inbound-mail</code></td>
+<td>Inbound mail dropbox. Public access blocked. Bucket policy allows
+<code>s3:PutObject</code> only from <code>ses.amazonaws.com</code> with
+<code>AWS:SourceAccount</code> 356697059290</td>
+</tr>
+<tr>
+<td>SES rule set</td>
+<td><code>INBOUND_MAIL</code> (active)</td>
+<td>Existing rule set; we added rule <code>support-to-s3</code> matching
+recipients <code>["preston-check.com"]</code> with action
+<code>S3Action(BucketName=preston-check-inbound-mail, ObjectKeyPrefix=incoming/)</code></td>
+</tr>
+<tr>
+<td>Route 53 hosted zone</td>
+<td><code>Z05163633TTJD7W45GALS</code> for
+<code>preston-check.com.</code></td>
+<td>All DNS for the domain</td>
+</tr>
+</tbody>
+</table>
+<p>Inbound mail flow: <code>support@preston-check.com</code> → MX → SES
+→ receipt rule → S3 <code>incoming/</code> prefix. Polling vs push is
+currently polling (operator runs <code>aws s3 ls</code> periodically); a
+Lambda forwarder is the next iteration if volume warrants.</p>
+<h2 id="stripe-live-mode">Stripe live mode</h2>
+<p>Stripe is the source of truth for billing state; D1 holds a
+denormalised mirror populated by the webhook handler.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mode</td>
+<td>Live</td>
+</tr>
+<tr>
+<td>API version pinned via header</td>
+<td><code>2024-04-10</code> (set on calls that use <code>coupon</code>
+parameter)</td>
+</tr>
+<tr>
+<td>Webhook endpoint</td>
+<td><code>https://preston-check-billing.preston-check-edge.workers.dev/webhook</code></td>
+</tr>
+<tr>
+<td>Webhook events subscribed</td>
+<td><code>checkout.session.completed</code>,
+<code>customer.subscription.{created,updated,deleted}</code>,
+<code>invoice.{paid,payment_failed,finalized}</code></td>
+</tr>
+<tr>
+<td>Webhook payload format</td>
+<td>snapshots (set explicitly when creating the endpoint)</td>
+</tr>
+<tr>
+<td>Customer Portal</td>
+<td>Configured; opens via <code>POST /billing-portal</code> returning a
+session URL</td>
+</tr>
+</tbody>
+</table>
+<p>Promo codes (live):</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Code</th>
+<th>Discount</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FOUNDING100</code></td>
+<td>100% off, first 10 redemptions</td>
+<td>Founding-customer / smoke-test path with no card charge</td>
+</tr>
+<tr>
+<td><code>EARLY50</code></td>
+<td>50% off, first 6 months</td>
+<td>Early adopter outreach</td>
+</tr>
+<tr>
+<td><code>CONFERENCE</code></td>
+<td>50% off, first 3 months</td>
+<td>Conference / event attendees</td>
+</tr>
+<tr>
+<td><code>SOC2READY</code></td>
+<td>30% off, first 12 months</td>
+<td>SOC 2 / compliance ICP</td>
+</tr>
+<tr>
+<td><code>PARTNER25</code></td>
+<td>25% off forever</td>
+<td>Partner referral incentive</td>
+</tr>
+</tbody>
+</table>
 <h2 id="deploy-procedures">Deploy procedures</h2>
 <h3 id="standard-release-flow">Standard release flow</h3>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Bump PRESTON_VERSION in preston-check.sh</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Update CHANGELOG.md</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Commit</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;vX.Y.Z: ...&quot;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Tag + push</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">-a</span> vX.Y.Z <span class="at">-m</span> <span class="st">&quot;vX.Y.Z: short summary&quot;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin master <span class="at">--tags</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Bump PRESTON_VERSION in preston-check.sh</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Update CHANGELOG.md</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Commit</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">&quot;vX.Y.Z: ...&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Tag + push</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> tag <span class="at">-a</span> vX.Y.Z <span class="at">-m</span> <span class="st">&quot;vX.Y.Z: short summary&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin master <span class="at">--tags</span></span></code></pre></div>
 <p>The <code>release.yml</code> workflow then auto-creates the GitHub
 Release with <code>install.sh</code> + tarball + sha256 sidecar. If
 <code>HOMEBREW_TAP_TOKEN</code> is set, the homebrew formula is also
 bumped automatically.</p>
 <h3 id="manual-homebrew-bump-if-auto-bump-unavailable">Manual homebrew
 bump (if auto-bump unavailable)</h3>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">SHA</span><span class="op">=</span><span class="va">$(</span><span class="ex">curl</span> <span class="at">-fsSL</span> https://github.com/preston-check/preston-check/releases/download/vX.Y.Z/preston-check-X.Y.Z.tar.gz.sha256 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{print $1}&#39;</span><span class="va">)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> /tmp/homebrew-tap pull</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit Formula/preston-check.rb: url, sha256, version</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> /tmp/homebrew-tap commit <span class="at">-am</span> <span class="st">&quot;preston-check X.Y.Z&quot;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> /tmp/homebrew-tap push</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">SHA</span><span class="op">=</span><span class="va">$(</span><span class="ex">curl</span> <span class="at">-fsSL</span> https://github.com/preston-check/preston-check/releases/download/vX.Y.Z/preston-check-X.Y.Z.tar.gz.sha256 <span class="kw">|</span> <span class="fu">awk</span> <span class="st">&#39;{print $1}&#39;</span><span class="va">)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> /tmp/homebrew-tap pull</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Edit Formula/preston-check.rb: url, sha256, version</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> /tmp/homebrew-tap commit <span class="at">-am</span> <span class="st">&quot;preston-check X.Y.Z&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> <span class="at">-C</span> /tmp/homebrew-tap push</span></code></pre></div>
 <h3 id="one-off-cloudflare-admin-tasks">One-off Cloudflare admin
 tasks</h3>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_API_TOKEN</span><span class="op">=</span><span class="st">&quot;...&quot;</span>   <span class="co"># from repo secrets, or operator&#39;s local</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_ACCOUNT_ID</span><span class="op">=</span><span class="st">&quot;...&quot;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all Pages projects</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-H</span> <span class="st">&quot;Authorization: Bearer </span><span class="va">$CLOUDFLARE_API_TOKEN</span><span class="st">&quot;</span> <span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://api.cloudflare.com/client/v4/accounts/</span><span class="va">$CLOUDFLARE_ACCOUNT_ID</span><span class="st">/pages/projects&quot;</span> <span class="dt">\</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="ex">python3</span> <span class="at">-m</span> json.tool</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Query the telemetry D1 directly</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="at">--command</span> <span class="st">&quot;SELECT count(*) FROM scans&quot;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Tail the customer-portal Function logs</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> pages deployment tail <span class="at">--project-name</span><span class="op">=</span>preston-check-customer</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_API_TOKEN</span><span class="op">=</span><span class="st">&quot;...&quot;</span>   <span class="co"># from repo secrets, or operator&#39;s local</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">CLOUDFLARE_ACCOUNT_ID</span><span class="op">=</span><span class="st">&quot;...&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List all Pages projects</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-H</span> <span class="st">&quot;Authorization: Bearer </span><span class="va">$CLOUDFLARE_API_TOKEN</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://api.cloudflare.com/client/v4/accounts/</span><span class="va">$CLOUDFLARE_ACCOUNT_ID</span><span class="st">/pages/projects&quot;</span> <span class="dt">\</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">|</span> <span class="ex">python3</span> <span class="at">-m</span> json.tool</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Query the telemetry D1 directly</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> d1 execute preston-check-telemetry <span class="at">--remote</span> <span class="at">--command</span> <span class="st">&quot;SELECT count(*) FROM scans&quot;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Tail the customer-portal Function logs</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ex">wrangler</span> pages deployment tail <span class="at">--project-name</span><span class="op">=</span>preston-check-customer</span></code></pre></div>
 <h2 id="emergency-response">Emergency response</h2>
 <h3 id="compromised-cloudflare-api-token">Compromised Cloudflare API
 token</h3>
@@ -694,20 +1057,50 @@ D1: Edit)</li>
 </ol>
 <h3 id="compromised-license-signing-key">Compromised license signing
 key</h3>
-<p>The Ed25519 keypair lives at
-<code>~/.preston-check/keys/private.pem</code> on the operator’s
-hardware-bound machine. If compromised:</p>
+<p>There are two keypairs:</p>
+<p>The operator-side key at
+<code>~/.preston-check/keys/private.pem</code> (hardware-bound) signs
+licenses issued out-of-band by the operator. The corresponding public
+half is <code>lib/license_pubkey.pem</code> checked into the repo.</p>
+<p>The SaaS-side key is held as Worker secret
+<code>LICENSE_SIGNING_KEY</code> on the billing Worker and signs
+licenses issued automatically by the <code>/license</code> endpoint
+after Stripe payment. The corresponding public half is
+<code>lib/license_saas_pubkey.pem</code>.</p>
+<p>If either is compromised:</p>
 <ol type="1">
-<li>Generate a new keypair via
-<code>tools/setup-signing-key.sh</code></li>
-<li>Replace <code>lib/license_pubkey.pem</code> with the new public
-half</li>
+<li>Generate a new keypair
+(<code>openssl genpkey -algorithm ED25519 -out new_private.pem; openssl pkey -in new_private.pem -pubout -out new_public.pem</code>)</li>
+<li>Replace the corresponding public PEM in the repo
+(<code>lib/license_pubkey.pem</code> for operator,
+<code>lib/license_saas_pubkey.pem</code> for SaaS)</li>
+<li>For the SaaS key:
+<code>cat new_private.pem | wrangler secret put LICENSE_SIGNING_KEY --name preston-check-billing</code></li>
 <li>Re-issue every active license against the new key</li>
 <li>Push a new release (any vX.Y.Z) so customers get the updated public
-key</li>
-<li>The old private key file gets deleted; old licenses no longer verify
-after the next pull</li>
+key on their next <code>brew upgrade</code> / <code>git pull</code></li>
+<li>Old licenses no longer verify; old private key file gets
+deleted</li>
 </ol>
+<h3 id="compromised-ses-iam-key">Compromised SES IAM key</h3>
+<p>The IAM user <code>preston-check-ses</code> keys are stored both as
+GH Actions secrets (<code>SES_AWS_ACCESS_KEY_ID</code>,
+<code>SES_AWS_SECRET_ACCESS_KEY</code>) and as Worker secrets on the
+auth Worker. Rotation order matters — never delete-before-replace:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create new key</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">AWS_PROFILE</span><span class="op">=</span>dev <span class="ex">aws</span> iam create-access-key <span class="at">--user-name</span> preston-check-ses</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Update GH secrets (printf, not echo)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">&#39;%s&#39;</span> <span class="st">&quot;</span><span class="va">$NEW_AKID</span><span class="st">&quot;</span>   <span class="kw">|</span> <span class="ex">gh</span> secret set SES_AWS_ACCESS_KEY_ID <span class="at">-R</span> preston-check/preston-check</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">&#39;%s&#39;</span> <span class="st">&quot;</span><span class="va">$NEW_SECRET</span><span class="st">&quot;</span> <span class="kw">|</span> <span class="ex">gh</span> secret set SES_AWS_SECRET_ACCESS_KEY <span class="at">-R</span> preston-check/preston-check</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Trigger auth-deploy to push new keys into the Worker</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">gh</span> workflow run auth-deploy.yml <span class="at">-R</span> preston-check/preston-check <span class="at">--ref</span> master</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Smoke test</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-sS</span> <span class="at">-X</span> POST https://preston-check-auth.preston-check-edge.workers.dev/request-code <span class="dt">\</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="at">-d</span> <span class="st">&#39;{&quot;email&quot;:&quot;smoke@preston-check.com&quot;}&#39;</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Only after smoke test passes — deactivate, then delete old key</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="va">AWS_PROFILE</span><span class="op">=</span>dev <span class="ex">aws</span> iam update-access-key <span class="at">--user-name</span> preston-check-ses <span class="at">--access-key-id</span> <span class="va">$OLD_AKID</span> <span class="at">--status</span> Inactive</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="va">AWS_PROFILE</span><span class="op">=</span>dev <span class="ex">aws</span> iam delete-access-key <span class="at">--user-name</span> preston-check-ses <span class="at">--access-key-id</span> <span class="va">$OLD_AKID</span></span></code></pre></div>
 <h3 id="customer-portal-compromised-data-leak">Customer portal
 compromised / data leak</h3>
 <p>Customer portal currently has no real customer data — mock skeleton
@@ -744,26 +1137,46 @@ Actions independently)</li>
 <h2 id="monitoring-observability">Monitoring &amp; observability</h2>
 <p>What’s currently in place:</p>
 <ul>
+<li><strong>Cloudflare Workers Logs (Live Logs)</strong> — both auth and
+billing Workers wrap their <code>fetch</code> handler in a global
+try/catch that emits structured JSON on errors. View at dashboard →
+Workers &amp; Pages → Worker → Logs. Bodies and the Stripe signature
+header are never logged. Each 500 includes a <code>request_id</code>
+returned to the client for correlation.</li>
+<li><strong><code>wrangler tail</code></strong> — for live tailing
+during incidents:
+<code>wrangler tail preston-check-auth --format pretty</code> (or
+<code>preston-check-billing</code>).</li>
 <li><strong>Cloudflare Pages dashboard</strong> — deploy history,
 function logs, custom domain status. Per-project at
 <code>dash.cloudflare.com/&lt;account&gt;/pages/view/&lt;project&gt;</code>.</li>
 <li><strong>GitHub Actions tab</strong> — every workflow run, with logs.
 <code>https://github.com/preston-check/preston-check/actions</code></li>
 <li><strong>D1 query interface</strong> —
-<code>wrangler d1 execute preston-check-telemetry --remote --command "..."</code>
-for ad-hoc queries against the telemetry dataset.</li>
+<code>wrangler d1 execute preston-check-{auth,billing,telemetry} --remote --command "..."</code>
+for ad-hoc queries.</li>
+<li><strong>D1 nightly backups</strong> — <code>.sql</code> dumps in
+<code>s3://preston-check-d1-backups/{auth,billing}/YYYYMMDDTHHMMSSZ.sql</code>.
+Restore via
+<code>wrangler d1 execute --remote --file &lt;dump&gt;</code> after
+creating an empty target DB.</li>
+<li><strong>SES sending stats</strong> —
+<code>aws ses get-send-statistics</code> for delivery / bounce /
+complaint counters.</li>
 <li><strong>Cloudflare Web Analytics</strong> — not yet enabled; the
 bound projects’ “Web analytics” tab in the Pages dashboard activates
 it.</li>
 </ul>
 <p>What’s not in place yet:</p>
 <ul>
-<li>Sentry / Honeycomb / Datadog integration — the eventual goal but the
-project is too low-volume to justify yet</li>
-<li>Status page — public uptime monitor at
+<li>Sentry / Honeycomb / Datadog — Cloudflare Workers Logs is sufficient
+at current volume; revisit when 500s/day exceeds what’s manageable in
+the Live Logs view</li>
+<li>Public status page at
 <code>https://status.preston-check.com/</code></li>
-<li>Daily KPI digest email — pulls from D1 + the GitHub stats API, lands
-in operator inbox</li>
+<li>Daily KPI digest email</li>
+<li>S3-to-email forwarder for the support inbox (currently polled
+manually via <code>aws s3 ls</code>)</li>
 </ul>
 <h2 id="anonymity-pseudonymity-notes">Anonymity / pseudonymity
 notes</h2>
@@ -790,19 +1203,25 @@ actual mailbox via Cloudflare Email Routing or equivalent).</p>
 <h2 id="where-things-live-file-system-map">Where things live
 (file-system map)</h2>
 <pre><code>/web/landing/    — public landing page (deploys to preston-check.com via GitHub Pages)
+/web/landing/{terms,privacy,refund}.html   — legal pages, footer-linked
 /web/landing/icons/    — proprietary 23-icon SVG set, shared by all surfaces
 /web/landing/assets/    — logomark, wordmark, score-badge, watermark
 /web/admin/      — admin portal SPA (deploys to admin.preston-check.com via Cloudflare Pages)
 /web/customer/   — customer portal SPA (deploys to app.preston-check.com via Cloudflare Pages)
-/web/customer/functions/api/v1/telemetry/index.ts   — telemetry endpoint (Pages Function)
-/workers/telemetry/   — standalone telemetry Worker (alternative to Pages Function)
+
+/workers/auth/        — magic-link auth Worker (preston-check-auth)
+/workers/billing/     — Stripe Checkout + webhook + portal + license-issuance Worker (preston-check-billing)
+/workers/telemetry/   — telemetry collector Worker (preston-check-telemetry)
 
 /lib/   — runner libraries (license, telemetry, ai_analyze, ai_autofix, branding, oss_detection)
+/lib/license_pubkey.pem        — operator-side public key
+/lib/license_saas_pubkey.pem   — SaaS-side public key (companion to LICENSE_SIGNING_KEY Worker secret)
 /checks/   — catalog (294 checks total: core + community/{verified,accepted,proposed})
 /modules/smart-contract-audit/   — separate runner for deep contract audits
-/tools/   — operator scripts (issue-license, setup-signing-key, sync-threat-intel, integrations)
-/.github/workflows/   — eight CI workflows (pages, admin-pages, customer-pages, telemetry-deploy, release, test, lint-community, threat-intel-sync)
-/docs/   — design docs (architecture, portals-and-kpis, strategy/, etc.)</code></pre>
+/tools/   — operator scripts (issue-license, setup-signing-key, sync-threat-intel, integrations, build-docs)
+/.github/workflows/   — twelve CI workflows (pages, admin-pages, customer-pages, auth-deploy, billing-deploy, telemetry-deploy, d1-backup, release, test, lint-community, threat-intel-sync, preston-check)
+/docs/   — design docs (architecture, portals-and-kpis, strategy/, sales/, etc.)
+/docs/sales/   — playbook, promo-codes, first-five-targets exercise</code></pre>
 <h2 id="updating-this-runbook">Updating this runbook</h2>
 <p>This file lives at <code>docs/operator-runbook.md</code> in the
 public repo. Keep it current — every time a new resource is provisioned,

@@ -16,6 +16,86 @@ the exact condition that would unblock them.
 | 6 | 2026-09-09 | Tap pushes had no retry and could silently downgrade the formula. | DONE 2026-09-09 — `tools/tap-push.sh` replaces both push sites; retries with backoff, rebases on rejection, and refuses to publish a stale version (checked before committing, since the older push is a clean fast-forward when a newer release landed first). Verified against real git repos across four cases including the downgrade attempt. Master `4b681c8d`. |
 | 5 | 2026-09-08 | "Are we at 100% coverage?" — audit the gate's real coverage against the product. | ANSWERED 2026-09-08 — no. 100% of a 59-surface inventory, but that inventory excludes licence generation, front-end interaction, SES/Resend delivery, the CLI/lib/checks, action.yml, install.sh, docker/ and ai-addon/. Written up in `docs/quality-gate-coverage.md`. Structural hole closed same day: `release.yml` now depends on `test.yml` (`inv.release-gated-on-cli-tests`). Remaining gaps OPEN below. |
 
+| 10 | 2026-09-14 | Watchdog: Release #486–#490 all failed (2026-09-13 13:03 → 2026-09-14 08:26). Diagnose from run logs, fix, verify. | FIXED, AWAITING LIVE RUN — three defects, below. Gate green locally (177 passed, 0 failed, 76 surfaces). Not DONE until a bottle leg goes green and the tap formula carries 4 bottles again. |
+| 11 | 2026-09-14 | (found while fixing #10) Quality-gate harness aborts the ENTIRE run when one `req()` exceeds its 15s timeout. Observed once under four concurrent wrangler servers: the `get` suite raised `AbortError`, 27 surfaces then reported as "never asserted" and the gate said FAILED. Re-run was 177/177, so it is a flake — but a flake that blocks all 7 deploy workflows and produces a misleading coverage report. | OPEN — needs a decision on failure isolation, see the question posed to Diego 2026-09-14. |
+| 12 | 2026-09-14 | (found while fixing #10) `docs/_rendered/` is committed but never rebuilt in CI, so it silently drifts from `docs/`. `operator-runbook`, `architecture`, `language-coverage` and `index` were already stale before this session. | OPEN — the rendered manuals are what customers receive; nothing currently detects the drift. |
+| 13 | 2026-09-16 | Watchdog alert: Release #494–#498 failing (2026-09-15 → 2026-09-16). Diagnose from run logs, fix, verify. | FIXED, AWAITING LIVE RUN — see "Item 13" below. Not DONE until a Release run shows 3/3 bottle legs green, `update-tap` success, and the tap formula carrying arm64_tahoe + arm64_sequoia + x86_64_linux. |
+
+## Item 10 — the three defects behind Releases #486–#490
+
+Homebrew 6.0 will not load a formula from a non-official tap until that tap is
+trusted (`$HOMEBREW_REQUIRE_TAP_TRUST`, default true). It surfaces the refusal
+as `Cannot tap preston-check/tap: invalid syntax in tap!`, preceded by one
+`Invalid formula (<os_tag>)` line per bottle tag. That message names neither
+trust nor the cause and reads like broken Ruby in our own formula. It is not.
+
+1. **Every bottle leg failed** on all four platforms from v1.8.456 onwards,
+   because `release.yml` tapped without trusting. Fixed: `brew trust --tap
+   preston-check/tap` before `brew tap`. Order matters — the tap is the step
+   being refused, so trusting afterwards still fails.
+
+2. **`update-tap` went green while publishing a bottle-less formula.** The
+   zero-bottle guard printed `::error::` and nothing else; an annotation does
+   not change the exit code. v1.8.457–v1.8.460 all shipped with no `bottle do`
+   block, so `brew install` built from source on every platform. Fixed:
+   `raise SystemExit(1)`.
+
+3. **Every published install instruction was broken for end users**, not just
+   CI — the trust refusal hits anyone on Homebrew 6.0+. `brew trust` added to
+   README, landing page, getting-started, user manual, distribution, the tap
+   manual, the selling sheet and the sales playbook, plus the source formula
+   header. The sales material additionally pointed at
+   `preston-check/preston-check/preston-check`, a tap that has never existed;
+   corrected to `preston-check/tap/preston-check`.
+
+Mechanism: `inv.brew-tap-trusted-before-use` in the quality gate. It greps every
+tracked file that tells a reader to tap/install from our tap and fails unless
+that file also mentions `brew trust`, and separately asserts that `release.yml`
+trusts *before* tapping. Both failure modes were provoked and observed failing.
+Records and generated output (`CHANGELOG.md`, `docs/sessions/`,
+`docs/_rendered/`, `OPEN_ITEMS.md`) are excluded so history is not rewritten to
+satisfy a check about present-day instructions.
+
+## Item 13 — Releases #494–#498, and why nothing went red when a platform vanished
+
+Only one leg failed: `bottle (macos-14, arm64_sonoma)`, with "The following
+formulae cannot be installed from bottles and must be built from source —
+readline, bash and coreutils". Homebrew has moved ARM macOS 11–14 to support
+tier 3, so neither Preston-Check nor its dependencies get Sonoma bottles, and
+`--build-bottle` refuses rather than building them. The leg cannot succeed, and
+a forced source build would produce a bottle no macOS 14 user could install
+anyway — their `brew install` still needs those same dependencies.
+
+1. **macOS 14 leg removed** from the matrix, as the Intel leg was on 2026-09-06
+   for the identical reason. Tier 3 users take `install.sh`, which is POSIX sh
+   and needs no Homebrew dependencies. That path is now stated wherever
+   Homebrew is offered — README, getting-started, user manual, tap manual, the
+   formula caveats, and the landing page, which until now handed a tier 3
+   visitor a command that could only fail, with no alternative on the page.
+
+2. **The guard counted instead of comparing.** It failed only when *zero*
+   bottles existed, so v1.8.465–v1.8.468 published three of four platforms with
+   every job green — silent platform loss again, in a shape the Intel fix did
+   not cover. `release.yml` now declares `EXPECTED_BOTTLE_TAGS` once at workflow
+   level; the matrix builds exactly those, and `update-tap` fails when any is
+   missing from the published formula. The failure is raised *after* the tap
+   push: publishing three bottles and going red beats aborting and leaving the
+   tap bottle-less on every platform.
+
+3. **`brew trust` (item 10) resolved upstream.** Release #498 shows every leg
+   logging `Trusted formula preston-check/tap/preston-check` right after
+   tapping, with no trust call on master at all; the runners were fetching
+   homebrew/brew branches `trust-bare-tap-argv` and
+   `trust-normalise-tap-reference` in that same run. The call still ships as
+   cover against a re-tightening, but non-fatal — a defensive call must not be
+   able to break a release.
+
+Mechanism: `inv.bottle-tags-match-matrix` parses `release.yml` and fails if the
+matrix legs and `EXPECTED_BOTTLE_TAGS` disagree in either direction, or if
+`update-tap` stops reading the declaration. All three were provoked and
+observed failing. The shipped `update-tap` script was extracted and executed
+against a fixture tap for all-present, one-missing and none-present.
+
 ## Blocked
 
 | # | Item | Unblocks when |

@@ -381,8 +381,9 @@ generate a PDF mapped to the control catalog, hand it to your
 auditor.</p>
 <h2 id="how-it-works">How it works</h2>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check/preston-check/preston-check</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--high-and-up</span> <span class="at">--ci</span> <span class="at">--report</span> security-audit.md</span></code></pre></div>
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> trust <span class="at">--tap</span> preston-check/tap</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install preston-check/tap/preston-check</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">preston-check</span> <span class="at">--high-and-up</span> <span class="at">--ci</span> <span class="at">--report</span> security-audit.md</span></code></pre></div>
 <p>A typical fintech codebase scan completes in 30 seconds to 3 minutes
 depending on size and severity filter. The report is plain Markdown plus
 a PDF version, with three-tier triage (FAIL must fix, WARN review, PASS

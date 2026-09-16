@@ -1,10 +1,16 @@
 # Homebrew formula for Preston-Check
 #
 # Tap setup (one-time):
+#   brew trust --tap preston-check/tap
 #   brew tap preston-check/tap
 #
 # Install:
 #   brew install preston-check
+#
+# brew trust is required on Homebrew 6.0+ and must come BEFORE brew tap: an
+# untrusted non-official tap is refused at load time, which brew reports as
+# "Cannot tap preston-check/tap: invalid syntax in tap!" — a message that names
+# neither trust nor the cause and reads like a defect in this file.
 #
 # The version, URL, SHA256, and bottle block are updated by the release
 # pipeline on each tagged release.
@@ -57,7 +63,9 @@ class PrestonCheck < Formula
       For Pro/Enterprise tier, install your license at:
         ~/.preston-check/license
 
-      If brew install fails (e.g. on a beta macOS without a bottle yet):
+      Bottles cover Apple Silicon macOS 15 and 26, and x86_64 Linux. On macOS
+      14 or older, on an Intel Mac, or on a macOS beta with no bottle yet,
+      install with the script instead — it needs no Homebrew dependencies:
         curl -fsSL https://github.com/preston-check/preston-check/releases/latest/download/install.sh | sh
 
       Documentation: https://preston-check.com

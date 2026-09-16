@@ -17,9 +17,29 @@ their own repos.
 ## Installing from the tap (end user)
 
 ```bash
+brew trust --tap preston-check/tap
 brew tap preston-check/tap
 brew install preston-check
 ```
+
+`brew trust` is required from Homebrew 6.0 onwards. `$HOMEBREW_REQUIRE_TAP_TRUST`
+defaults to true, and an untrusted non-official tap is refused at load time with
+`Refusing to load formula ... from untrusted tap`, which `brew tap` then reports
+as `Cannot tap preston-check/tap: invalid syntax in tap!`. That message names
+neither trust nor the real cause and reads like a broken formula; it is not.
+Trust must precede the tap, because the tap is the step that fails.
+
+There is an escape hatch, `$HOMEBREW_NO_REQUIRE_TAP_TRUST`, but upstream marks
+it "not recommended and will be removed in a later release", so neither this
+manual nor the release pipeline uses it.
+
+The tap serves Apple Silicon macOS 15 and 26 and x86_64 Linux — the platforms
+`release.yml` declares in `EXPECTED_BOTTLE_TAGS` and builds bottles for. macOS
+11 through 14 and every Intel Mac are Homebrew support tier 3, where bottles
+are no longer published for Preston-Check or for its `bash`, `coreutils`,
+`gawk` and `grep` dependencies; `brew install` refuses there rather than
+building, so those users take `install.sh` instead. Point anyone on a tier 3
+machine at `curl -fsSL https://get.preston-check.com/install.sh | sh`.
 
 After the first install, future updates land via:
 
@@ -128,7 +148,8 @@ end
 
 ```bash
 # Force-update the tap's local cache and try install
-brew untap preston-check/preston-check 2>/dev/null
+brew untap preston-check/tap 2>/dev/null
+brew trust --tap preston-check/tap
 brew tap preston-check/tap
 brew install preston-check
 preston-check --version
