@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-16T11:53:34.312163+00:00",
-  "last_successful_fetch": "2026-09-16T11:53:34.312468+00:00",
+  "last_run": "2026-09-16T15:58:23.889678+00:00",
+  "last_successful_fetch": "2026-09-16T15:58:23.889966+00:00",
   "processed_ids": [
     "CVE-2026-6973",
     "CVE-2026-0300",
@@ -1712,11 +1712,12 @@
     "CVE-2026-42016",
     "CVE-2026-42018",
     "CVE-2026-85706",
-    "CVE-2026-76461"
+    "CVE-2026-76461",
+    "CVE-2026-58704"
   ],
   "source_id": "kev",
   "stats": {
-    "total_fetched": 2934768,
-    "total_relevant": 1711
+    "total_fetched": 2936479,
+    "total_relevant": 1712
   }
 }
