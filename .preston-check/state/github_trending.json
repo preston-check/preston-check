@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-15T22:09:07.288894+00:00",
-  "last_successful_fetch": "2026-09-15T22:09:10.081952+00:00",
+  "last_run": "2026-09-16T01:21:31.062730+00:00",
+  "last_successful_fetch": "2026-09-16T01:21:33.780268+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4513,7 +4513,9 @@
     "github:Ish3ng0m4/CVE-2026-38526-KrayinCRM",
     "github:KoffiRazak1/cve-intelligence",
     "github:prashantdangii/cve_radar",
-    "github:linexira/cvenbp"
+    "github:linexira/cvenbp",
+    "github:inteleon404/Common-Vulnerabilities-and-Exposures",
+    "github:oldgi/cve2action"
   ],
   "source_id": "github_trending",
   "stats": {
