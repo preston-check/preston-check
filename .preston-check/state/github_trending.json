@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-17T20:14:48.254956+00:00",
-  "last_successful_fetch": "2026-09-17T20:14:51.468835+00:00",
+  "last_run": "2026-09-17T23:31:11.746882+00:00",
+  "last_successful_fetch": "2026-09-17T23:31:14.835412+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4558,7 +4558,9 @@
     "github:YOUR-PAYMENT-SUCCESSFULLY-ASDB4/repo-s678cveb",
     "github:kalnux/CVE-2026-1961-foreman-poc",
     "github:buraksekili/cve-sentinel",
-    "github:YOUR-PAYMENT-SUCCESSFULLY-786U/repo-cvebetjv"
+    "github:YOUR-PAYMENT-SUCCESSFULLY-786U/repo-cvebetjv",
+    "github:K3ysTr0K3R/CVE-2026-32604",
+    "github:abraxas/CVE-2026-87796"
   ],
   "source_id": "github_trending",
   "stats": {
