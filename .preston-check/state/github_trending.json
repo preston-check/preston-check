@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-17T16:53:05.165432+00:00",
-  "last_successful_fetch": "2026-09-17T16:53:08.614773+00:00",
+  "last_run": "2026-09-17T20:14:48.254956+00:00",
+  "last_successful_fetch": "2026-09-17T20:14:51.468835+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4552,7 +4552,13 @@
     "github:JJ/CVE4u",
     "github:gouldnicholas/cve-credits",
     "github:hacbs-release-tests/collectors-no-cve-2e65ea05",
-    "github:SangSenimanWartefak/CVE-2026-80467"
+    "github:SangSenimanWartefak/CVE-2026-80467",
+    "github:FUNFACTOR1/ArchiveBox-OpenCode-Prompt-Injection-to-RCE-CVSS-10.0",
+    "github:williamchen-pm/cve-in-plain-english",
+    "github:YOUR-PAYMENT-SUCCESSFULLY-ASDB4/repo-s678cveb",
+    "github:kalnux/CVE-2026-1961-foreman-poc",
+    "github:buraksekili/cve-sentinel",
+    "github:YOUR-PAYMENT-SUCCESSFULLY-786U/repo-cvebetjv"
   ],
   "source_id": "github_trending",
   "stats": {
