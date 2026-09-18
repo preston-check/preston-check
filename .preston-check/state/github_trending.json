@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-17T23:31:11.746882+00:00",
-  "last_successful_fetch": "2026-09-17T23:31:14.835412+00:00",
+  "last_run": "2026-09-18T04:34:21.781025+00:00",
+  "last_successful_fetch": "2026-09-18T04:34:24.503174+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4560,7 +4560,12 @@
     "github:buraksekili/cve-sentinel",
     "github:YOUR-PAYMENT-SUCCESSFULLY-786U/repo-cvebetjv",
     "github:K3ysTr0K3R/CVE-2026-32604",
-    "github:abraxas/CVE-2026-87796"
+    "github:abraxas/CVE-2026-87796",
+    "github:codeyeon1/cvec",
+    "github:suominen/CVE-2026-81642",
+    "github:LEEBONGHAK/knvd_cve_parser",
+    "github:tc4dy/CVE-2026-85706-PoC-Toolkit",
+    "github:yowj7iihf2/cvecny"
   ],
   "source_id": "github_trending",
   "stats": {
