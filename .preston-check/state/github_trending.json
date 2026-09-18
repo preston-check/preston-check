@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-18T09:38:59.336504+00:00",
-  "last_successful_fetch": "2026-09-18T09:39:03.160624+00:00",
+  "last_run": "2026-09-18T14:25:39.094946+00:00",
+  "last_successful_fetch": "2026-09-18T14:25:42.394792+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4570,7 +4570,10 @@
     "github:Winfrost/calcetto-cve",
     "github:mustafaansarii/cvenhance-app",
     "github:nebuloss/piCVert",
-    "github:ContainerCVE/ContainerCVE"
+    "github:ContainerCVE/ContainerCVE",
+    "github:anchore/dataset-security-cve5-enriched",
+    "github:choiinsoo03-coder/CVE",
+    "github:RiyanTriadi/cvezy"
   ],
   "source_id": "github_trending",
   "stats": {
