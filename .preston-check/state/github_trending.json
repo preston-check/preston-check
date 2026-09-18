@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-18T18:21:48.786079+00:00",
-  "last_successful_fetch": "2026-09-18T18:21:51.381305+00:00",
+  "last_run": "2026-09-18T21:36:50.327600+00:00",
+  "last_successful_fetch": "2026-09-18T21:36:54.343768+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4579,7 +4579,12 @@
     "github:gfullsec/CVE-Hunter",
     "github:INV-54654K/Security-Plan-dyqz2cve",
     "github:abraxas/CVE-2026-75827",
-    "github:abraxas/CVE-2026-82226"
+    "github:abraxas/CVE-2026-82226",
+    "github:Jayesh-Dev21/PoC_CVE-2024-28157",
+    "github:Cyreslab-AI/circl-cve-search-mcp-server",
+    "github:foxtertime/CVE-09.26",
+    "github:affix/cursr-multiple-cve",
+    "github:amirsalehpirhade-del/Ceo-CVE"
   ],
   "source_id": "github_trending",
   "stats": {
