@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-18T14:25:39.094946+00:00",
-  "last_successful_fetch": "2026-09-18T14:25:42.394792+00:00",
+  "last_run": "2026-09-18T18:21:48.786079+00:00",
+  "last_successful_fetch": "2026-09-18T18:21:51.381305+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4573,7 +4573,13 @@
     "github:ContainerCVE/ContainerCVE",
     "github:anchore/dataset-security-cve5-enriched",
     "github:choiinsoo03-coder/CVE",
-    "github:RiyanTriadi/cvezy"
+    "github:RiyanTriadi/cvezy",
+    "github:abraxas/CVE-2026-11387-WooCommerce-SMS-OTP",
+    "github:abraxas/CVE-2026-19089-WooCommerce-Tyche",
+    "github:gfullsec/CVE-Hunter",
+    "github:INV-54654K/Security-Plan-dyqz2cve",
+    "github:abraxas/CVE-2026-75827",
+    "github:abraxas/CVE-2026-82226"
   ],
   "source_id": "github_trending",
   "stats": {
