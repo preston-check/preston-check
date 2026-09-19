@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-19T17:57:39.894179+00:00",
-  "last_successful_fetch": "2026-09-19T17:57:42.827661+00:00",
+  "last_run": "2026-09-19T20:33:21.665241+00:00",
+  "last_successful_fetch": "2026-09-19T20:33:24.690047+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4600,7 +4600,13 @@
     "github:K0NGR3SS/FreshCVE_Bot",
     "github:josenapoli/Telegram-CVES-Publicados-Bot",
     "github:HarshuGG/cvefinder",
-    "github:ChauffeurTransformer/cveeqlsm"
+    "github:ChauffeurTransformer/cveeqlsm",
+    "github:murrez/CVE-2026-92229",
+    "github:murrez/CVE-2026-84434",
+    "github:murrez/CVE-2026-89274",
+    "github:abraxas/CVE-2026-81648",
+    "github:parkscaroline8105/cvetqd",
+    "github:abraxas/CVE-2026-81294"
   ],
   "source_id": "github_trending",
   "stats": {
