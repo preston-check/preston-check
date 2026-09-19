@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-09-19T20:33:25.074029+00:00",
-  "last_successful_fetch": "2026-09-19T20:33:25.075359+00:00",
+  "last_run": "2026-09-19T22:56:08.944075+00:00",
+  "last_successful_fetch": "2026-09-19T22:56:08.944937+00:00",
   "processed_ids": [
-    "threatfox:154.91.61.106:8074",
-    "threatfox:124.223.188.23:8080",
-    "threatfox:50.114.172.219:20001",
-    "threatfox:dev.groupe-psi.com",
-    "threatfox:ton-orientation-professionnelle.fr",
-    "threatfox:http://teculse.click:9210/comments",
     "threatfox:http://arqtsop.shop:9932/accounts",
     "threatfox:http://trwehop.shop:5627/subscriptions",
     "threatfox:www.ratanenggworks.com",
@@ -5001,7 +4995,13 @@
     "threatfox:http://180.148.33.24/info.zip",
     "threatfox:http://186.235.86.129/Photo.scr",
     "threatfox:http://103.242.12.143:1234/?h=103.242.12.143&p=1234&t=ws&a=w64&stage=true",
-    "threatfox:https://oi.1betasia.org"
+    "threatfox:https://oi.1betasia.org",
+    "threatfox:dqd5eykr.persianeducation.ir",
+    "threatfox:evz9hzhn.bonuscode.in",
+    "threatfox:bonuscode.in",
+    "threatfox:101.43.31.60:123",
+    "threatfox:vaago81750.workers.dev",
+    "threatfox:bukawomi.workers.dev"
   ],
   "source_id": "abuse_ch",
   "stats": {
