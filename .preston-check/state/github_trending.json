@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-19T10:51:14.443693+00:00",
-  "last_successful_fetch": "2026-09-19T10:51:17.538896+00:00",
+  "last_run": "2026-09-19T14:20:48.383640+00:00",
+  "last_successful_fetch": "2026-09-19T14:20:52.039835+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4595,7 +4595,10 @@
     "github:Andy-over/cve-security-agent",
     "github:damnkrishna/CVE-2025-32433-LAB",
     "github:mallikarjun-mg80/CVE-Intelligence-Hub",
-    "github:aronyuan-ai/ibm-jdk-cve"
+    "github:aronyuan-ai/ibm-jdk-cve",
+    "github:yikesoftware/Tenda_CVE_Request",
+    "github:K0NGR3SS/FreshCVE_Bot",
+    "github:josenapoli/Telegram-CVES-Publicados-Bot"
   ],
   "source_id": "github_trending",
   "stats": {
