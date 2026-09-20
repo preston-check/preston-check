@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-20T19:23:20.159836+00:00",
-  "last_successful_fetch": "2026-09-20T19:23:22.586330+00:00",
+  "last_run": "2026-09-20T22:23:10.027978+00:00",
+  "last_successful_fetch": "2026-09-20T22:23:13.070015+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4629,7 +4629,11 @@
     "github:Wh02m1/CVE-2026-78306-POC",
     "github:devrodT2/CVE-2026-28609-matroska-pcm-oob",
     "github:murrez/CVE-2026-88854",
-    "github:iqt97km6be/cveoth"
+    "github:iqt97km6be/cveoth",
+    "github:akash0x00/zoneminder-1.29-1.30-rce-exploit",
+    "github:hacbs-release-tests/collectors-no-cve-9b0aded0",
+    "github:hacbs-release-tests/collectors-no-cve-68fc0bd1",
+    "github:Wh02m1/CVE-2026-78306"
   ],
   "source_id": "github_trending",
   "stats": {
