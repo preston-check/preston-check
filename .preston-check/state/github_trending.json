@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-20T01:01:08.838033+00:00",
-  "last_successful_fetch": "2026-09-20T01:01:11.540521+00:00",
+  "last_run": "2026-09-20T06:07:42.676378+00:00",
+  "last_successful_fetch": "2026-09-20T06:07:45.202652+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4612,7 +4612,14 @@
     "github:MohammadAliMehri/cve-2021-44790-lab",
     "github:it1013/CVELookupService",
     "github:nfohunt/telegram-0click-crash",
-    "github:merrittnicholas0/cvewwd"
+    "github:merrittnicholas0/cvewwd",
+    "github:suominen/CVE-2026-53266",
+    "github:ALVINNNNN/cve-suppression-poc",
+    "github:raddymungmidzin/cvei",
+    "github:pattersonpaige43/cverri",
+    "github:suominen/CVE-2025-39682",
+    "github:chandrimanath04-hue/CVE-2024-31218-WEBHOOD-LAB",
+    "github:suominen/CVE-2025-39964"
   ],
   "source_id": "github_trending",
   "stats": {
