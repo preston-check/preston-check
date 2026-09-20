@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-20T12:15:35.575183+00:00",
-  "last_successful_fetch": "2026-09-20T12:15:38.367204+00:00",
+  "last_run": "2026-09-20T16:45:48.543105+00:00",
+  "last_successful_fetch": "2026-09-20T16:45:51.719856+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4621,7 +4621,10 @@
     "github:chandrimanath04-hue/CVE-2024-31218-WEBHOOD-LAB",
     "github:suominen/CVE-2025-39964",
     "github:Rubby2001/CVE-POCS",
-    "github:NIkhilSaravade/cve-remediation-agent"
+    "github:NIkhilSaravade/cve-remediation-agent",
+    "github:omarrrfds/sorcecode-rev-prompt-for-bughunter-cvehunters-",
+    "github:nlink-jp/cve-lookup",
+    "github:eazytrick666-png/Cvetochniy_p"
   ],
   "source_id": "github_trending",
   "stats": {
