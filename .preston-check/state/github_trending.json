@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-21T19:20:12.699996+00:00",
-  "last_successful_fetch": "2026-09-21T19:20:15.349244+00:00",
+  "last_run": "2026-09-21T23:13:22.245390+00:00",
+  "last_successful_fetch": "2026-09-21T23:13:25.061104+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4654,7 +4654,9 @@
     "github:aleal-IA/cvet-fichas",
     "github:subfieb-source/systemdeta-ne4cveiv",
     "github:yasouxken/cve-2026-41940-PoC",
-    "github:kfemelue/cve_scanner_ui"
+    "github:kfemelue/cve_scanner_ui",
+    "github:FUNFACTOR1/ArchiveBox-RCE-Exploit-CVE-XSS-to-Command-Injection-CVSS-10.0",
+    "github:rmhowe425/POC-CVE-2026-93680"
   ],
   "source_id": "github_trending",
   "stats": {
