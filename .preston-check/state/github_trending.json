@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-21T01:01:26.550485+00:00",
-  "last_successful_fetch": "2026-09-21T01:01:30.279920+00:00",
+  "last_run": "2026-09-21T06:13:57.214987+00:00",
+  "last_successful_fetch": "2026-09-21T06:14:00.426631+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4636,7 +4636,12 @@
     "github:Wh02m1/CVE-2026-78306",
     "github:rockmelodies/cve-cnvd-cnnvd-submission-skill",
     "github:o-sec/CVE-2026-41452-poc",
-    "github:Mr-Crux-Ansata/cve-vulnerability-classifier"
+    "github:Mr-Crux-Ansata/cve-vulnerability-classifier",
+    "github:nhu2222555-beep/CVE-2024-10220-githooks",
+    "github:ExDev994/CVE-2026-90817",
+    "github:windsonzong/Cve92H",
+    "github:lzty/CVE-2026-94129",
+    "github:thrilokh-q123/CVE-2025-23134_fixes_code"
   ],
   "source_id": "github_trending",
   "stats": {
