@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-21T13:59:19.757162+00:00",
-  "last_successful_fetch": "2026-09-21T13:59:22.717979+00:00",
+  "last_run": "2026-09-21T19:20:12.699996+00:00",
+  "last_successful_fetch": "2026-09-21T19:20:15.349244+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4649,7 +4649,12 @@
     "github:land-Y/cvELD_Image_Studio",
     "github:raafatabualazm/streambox-cve-2026-28618",
     "github:doxsir/cvedigest-ui",
-    "github:thmons-warford/cverq"
+    "github:thmons-warford/cverq",
+    "github:Analyzesa/cve-analyzer",
+    "github:aleal-IA/cvet-fichas",
+    "github:subfieb-source/systemdeta-ne4cveiv",
+    "github:yasouxken/cve-2026-41940-PoC",
+    "github:kfemelue/cve_scanner_ui"
   ],
   "source_id": "github_trending",
   "stats": {
