@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-22T14:45:07.274168+00:00",
-  "last_successful_fetch": "2026-09-22T14:45:10.742363+00:00",
+  "last_run": "2026-09-22T18:48:30.691260+00:00",
+  "last_successful_fetch": "2026-09-22T18:48:34.948841+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4671,7 +4671,15 @@
     "github:hacbs-release-tests/collectors-no-cve-0404e675",
     "github:hacbs-release-tests/collectors-no-cve-6be049f9",
     "github:xavierchorro/cve-tracker",
-    "github:0xBlackash/CVE-2026-93485"
+    "github:0xBlackash/CVE-2026-93485",
+    "github:sudo-xyz/discord-badge-spoofer",
+    "github:zephyrcore/discord-username-sniper",
+    "github:ressl/cve-2026-87902-poc",
+    "github:aviflombaum/rails-cve",
+    "github:mbajamr/cveng",
+    "github:the-grizzly-bear/cve-exploits",
+    "github:sinemandaraj/PAYMENT-cvet25k4",
+    "github:abraxas/CVE-2026-87902"
   ],
   "source_id": "github_trending",
   "stats": {
