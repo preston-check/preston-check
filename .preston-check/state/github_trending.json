@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-22T04:45:37.344722+00:00",
-  "last_successful_fetch": "2026-09-22T04:45:41.222511+00:00",
+  "last_run": "2026-09-22T09:52:38.745489+00:00",
+  "last_successful_fetch": "2026-09-22T09:52:42.408986+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4658,7 +4658,13 @@
     "github:FUNFACTOR1/ArchiveBox-RCE-Exploit-CVE-XSS-to-Command-Injection-CVSS-10.0",
     "github:rmhowe425/POC-CVE-2026-93680",
     "github:Aayushbankar/cve-2026-28576",
-    "github:rioteguhsantoso/cve-scraper-diskominfotik"
+    "github:rioteguhsantoso/cve-scraper-diskominfotik",
+    "github:murrez/CVE-2026-13355",
+    "github:yeilsila/cvebs",
+    "github:HORKimhab/CVE-2026-93485",
+    "github:ghost0x02/cve-osint",
+    "github:TolgaHanGunler/kernel-cve-runbook",
+    "github:jlzhjp/cvec-demo"
   ],
   "source_id": "github_trending",
   "stats": {
