@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-23T00:23:25.491684+00:00",
-  "last_successful_fetch": "2026-09-23T00:23:28.656322+00:00",
+  "last_run": "2026-09-23T05:53:28.903414+00:00",
+  "last_successful_fetch": "2026-09-23T05:53:32.010129+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4687,7 +4687,12 @@
     "github:cverapy/cvera_web_site",
     "github:zkrxnp/WSP-CVEHUB",
     "github:eliluzu/cvelisa",
-    "github:SangSenimanWartefak/CVE-2026-5118"
+    "github:SangSenimanWartefak/CVE-2026-5118",
+    "github:jrsilva31798-jpg/painel-tarefas-ceem-cvel",
+    "github:howemelissa0/cvecaj",
+    "github:coactionbrittlemaidenhair51/CVE-2026-42978-PoC-Research",
+    "github:dinosn/cve-2026-87902-wordpress-lfi-lab",
+    "github:sharin1966/cvezj"
   ],
   "source_id": "github_trending",
   "stats": {
