@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-24T19:04:15.175707+00:00",
-  "last_successful_fetch": "2026-09-24T19:04:18.020943+00:00",
+  "last_run": "2026-09-24T22:20:13.293684+00:00",
+  "last_successful_fetch": "2026-09-24T22:20:16.585619+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4759,7 +4759,9 @@
     "github:hacbs-release-tests/collectors-no-cve-42e24c1b",
     "github:fedius01/cve-triage",
     "github:xkazu007/cve-blog",
-    "github:CYBERMED1C/Exploited-CVE-Watch"
+    "github:CYBERMED1C/Exploited-CVE-Watch",
+    "github:lucacapacci/cve",
+    "github:n-WN/cve-2024-0402-lab-assets"
   ],
   "source_id": "github_trending",
   "stats": {
