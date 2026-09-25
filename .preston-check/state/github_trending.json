@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-24T22:20:13.293684+00:00",
-  "last_successful_fetch": "2026-09-24T22:20:16.585619+00:00",
+  "last_run": "2026-09-25T01:25:17.294075+00:00",
+  "last_successful_fetch": "2026-09-25T01:25:21.023186+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4761,7 +4761,11 @@
     "github:xkazu007/cve-blog",
     "github:CYBERMED1C/Exploited-CVE-Watch",
     "github:lucacapacci/cve",
-    "github:n-WN/cve-2024-0402-lab-assets"
+    "github:n-WN/cve-2024-0402-lab-assets",
+    "github:BiiTts/CVE-2026-72001-Pangolin-Cross-Org-Auth-Bypass",
+    "github:joaovicdev/EXPLOIT-CVE-2026-87902",
+    "github:khellwan/CVE-2026-87902_PoC",
+    "github:connorjaydunn/CVE-2026-79417"
   ],
   "source_id": "github_trending",
   "stats": {
