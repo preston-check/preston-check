@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-25T01:25:17.294075+00:00",
-  "last_successful_fetch": "2026-09-25T01:25:21.023186+00:00",
+  "last_run": "2026-09-25T07:41:08.764465+00:00",
+  "last_successful_fetch": "2026-09-25T07:41:11.744760+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4765,7 +4765,13 @@
     "github:BiiTts/CVE-2026-72001-Pangolin-Cross-Org-Auth-Bypass",
     "github:joaovicdev/EXPLOIT-CVE-2026-87902",
     "github:khellwan/CVE-2026-87902_PoC",
-    "github:connorjaydunn/CVE-2026-79417"
+    "github:connorjaydunn/CVE-2026-79417",
+    "github:DeathShotXD/Comment2Shell",
+    "github:InertFluid/cve-2026-61732-lab",
+    "github:xv8lsl6e0e/cveas",
+    "github:yerek75/cveup",
+    "github:muhoash1624/cvez",
+    "github:onurdemi/cvepool"
   ],
   "source_id": "github_trending",
   "stats": {
