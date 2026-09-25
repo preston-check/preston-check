@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-25T18:30:48.532497+00:00",
-  "last_successful_fetch": "2026-09-25T18:30:51.435347+00:00",
+  "last_run": "2026-09-25T22:14:31.117941+00:00",
+  "last_successful_fetch": "2026-09-25T22:14:34.151614+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4782,7 +4782,16 @@
     "github:hacbs-release-tests/collectors-no-cve-90522632",
     "github:Ermensonx/sudotimewarp-cve-2026-96512-",
     "github:hofuman/CVE",
-    "github:3em0/cve_repo"
+    "github:3em0/cve_repo",
+    "github:anthonyk2923/CVE-2026-94609",
+    "github:abraxas/CVE-2026-96512",
+    "github:datakoot/cve-watch",
+    "github:abraxas/CVE-2026-86350",
+    "github:NGSecure/cve_tasks20260925B",
+    "github:NGSecure/cve_tasks20260925A",
+    "github:abraxas/CVE-2026-62062",
+    "github:vinniboy021-blip/CVE",
+    "github:sdodson/CVE-2026-46595-proof"
   ],
   "source_id": "github_trending",
   "stats": {
