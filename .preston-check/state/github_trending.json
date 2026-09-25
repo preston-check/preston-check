@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-25T13:40:08.950335+00:00",
-  "last_successful_fetch": "2026-09-25T13:40:20.820202+00:00",
+  "last_run": "2026-09-25T18:30:48.532497+00:00",
+  "last_successful_fetch": "2026-09-25T18:30:51.435347+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4777,7 +4777,12 @@
     "github:anchore/dataset-security-cve5-control",
     "github:hacbs-release-tests/collectors-no-cve-a5f35f7a",
     "github:fmillbroubhcolf/cveh",
-    "github:TrulyDelulu/Team-othy_CVE-Remediation-Bob"
+    "github:TrulyDelulu/Team-othy_CVE-Remediation-Bob",
+    "github:Fattcat/CVE-Notificator",
+    "github:hacbs-release-tests/collectors-no-cve-90522632",
+    "github:Ermensonx/sudotimewarp-cve-2026-96512-",
+    "github:hofuman/CVE",
+    "github:3em0/cve_repo"
   ],
   "source_id": "github_trending",
   "stats": {
