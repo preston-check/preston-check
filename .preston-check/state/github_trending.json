@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-27T13:52:55.514981+00:00",
-  "last_successful_fetch": "2026-09-27T13:53:06.586444+00:00",
+  "last_run": "2026-09-27T18:18:09.175959+00:00",
+  "last_successful_fetch": "2026-09-27T18:18:12.521399+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4826,7 +4826,12 @@
     "github:techupdate24/citrix-netscaler-cve-2026-8452-rce",
     "github:suominen/CVE-2026-93834",
     "github:wonderfulsta/zr2XN-cVe",
-    "github:jed-parsec/CVE-2026-63030-60137-wp2shell-lab"
+    "github:jed-parsec/CVE-2026-63030-60137-wp2shell-lab",
+    "github:josemour8/CVE-2026-93399",
+    "github:predyy/CVE-2026-28695",
+    "github:jacksonkari7/cvezd",
+    "github:khanna419/cve-2021-43798-lab",
+    "github:redrabbitdevs/CVE-Dashboard"
   ],
   "source_id": "github_trending",
   "stats": {
