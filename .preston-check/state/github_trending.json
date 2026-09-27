@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-26T22:42:12.611708+00:00",
-  "last_successful_fetch": "2026-09-26T22:42:16.388442+00:00",
+  "last_run": "2026-09-27T01:21:11.101420+00:00",
+  "last_successful_fetch": "2026-09-27T01:21:13.588681+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4816,7 +4816,8 @@
     "github:raflesiait/CVE-2020-14008",
     "github:Muskann02/cve-2021-44228-lab",
     "github:Gillarchnganasan2735/CVE-2026-41089-Netlogon-RCE-PoC",
-    "github:qeize/cve-2026-97163-payload"
+    "github:qeize/cve-2026-97163-payload",
+    "github:x5hx85zye2/cvenbq"
   ],
   "source_id": "github_trending",
   "stats": {
