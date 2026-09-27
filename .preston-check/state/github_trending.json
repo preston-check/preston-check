@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-27T01:21:11.101420+00:00",
-  "last_successful_fetch": "2026-09-27T01:21:13.588681+00:00",
+  "last_run": "2026-09-27T08:02:22.701877+00:00",
+  "last_successful_fetch": "2026-09-27T08:02:25.330238+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4817,7 +4817,14 @@
     "github:Muskann02/cve-2021-44228-lab",
     "github:Gillarchnganasan2735/CVE-2026-41089-Netlogon-RCE-PoC",
     "github:qeize/cve-2026-97163-payload",
-    "github:x5hx85zye2/cvenbq"
+    "github:x5hx85zye2/cvenbq",
+    "github:v4naxx/YellowKey-BitLocker-CVE-2026-45585",
+    "github:4xura/CVE-2026-44011-craftcms-auth-rce",
+    "github:Wizen-Labs/ai-cve-analyzer-lab",
+    "github:burleyfeed/cves",
+    "github:raflesiait/CVE-2020-14008---ManageEngine",
+    "github:techupdate24/citrix-netscaler-cve-2026-8452-rce",
+    "github:suominen/CVE-2026-93834"
   ],
   "source_id": "github_trending",
   "stats": {
