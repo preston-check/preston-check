@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-28T00:37:25.358189+00:00",
-  "last_successful_fetch": "2026-09-28T00:37:28.026072+00:00",
+  "last_run": "2026-09-28T06:44:21.616690+00:00",
+  "last_successful_fetch": "2026-09-28T06:44:25.618742+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4837,7 +4837,11 @@
     "github:khush-613/CVE-2026-34990-poc",
     "github:kashishtopi/cve-pocs",
     "github:Maalfer/CVE-2026-87902-exploit",
-    "github:ferpalma21/Automated-Next.js-Security-Scanner-for-CVE-2025-29927"
+    "github:ferpalma21/Automated-Next.js-Security-Scanner-for-CVE-2025-29927",
+    "github:Noorkhalel/CVE-2026-34990-CUPS-LPE-PoC",
+    "github:qlgtyjpuhdrovg/cvex",
+    "github:HuynhBuiWs/Import-CVE-Observatory",
+    "github:pbr91ph4n7/cvesdk"
   ],
   "source_id": "github_trending",
   "stats": {
