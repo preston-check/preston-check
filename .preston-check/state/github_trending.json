@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-29T15:42:48.793306+00:00",
-  "last_successful_fetch": "2026-09-29T15:42:52.328824+00:00",
+  "last_run": "2026-09-29T20:41:52.274926+00:00",
+  "last_successful_fetch": "2026-09-29T20:41:55.317000+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4872,7 +4872,12 @@
     "github:gqw4i9h7fb/cvebec",
     "github:primesec-dev/grafana_mythos_cve-2025-4123",
     "github:vblzx/CVE-Description-Predictor",
-    "github:Azrof88/UnifiedCVE-CWE-Dataset"
+    "github:Azrof88/UnifiedCVE-CWE-Dataset",
+    "github:allenjoyce87/cvepkg",
+    "github:sysadmin420/AVM-FRITZ-Box-CVE-2024-54767-Exploit",
+    "github:Customer-Workshop/uc-cve-remediation-regulatory-compliance",
+    "github:tonydelouvre/CVE-2026-87902",
+    "github:rh33t/CVE-2026-33439-Poc"
   ],
   "source_id": "github_trending",
   "stats": {
