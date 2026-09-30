@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-09-30T06:37:56.072628+00:00",
-  "last_successful_fetch": "2026-09-30T06:37:59.168035+00:00",
+  "last_run": "2026-09-30T13:36:48.506472+00:00",
+  "last_successful_fetch": "2026-09-30T13:36:53.261950+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4881,7 +4881,14 @@
     "github:hacefresko/CVEs",
     "github:diedentsu/cvez",
     "github:loongarch64-releases/cve-bin-tool",
-    "github:Cowboy-Chad/cve-osint-1"
+    "github:Cowboy-Chad/cve-osint-1",
+    "github:adonisglobal/cve-lens",
+    "github:smashyalts/cve-scanner",
+    "github:BrooGraham23/cvesaef3jba",
+    "github:hacbs-release-tests/collectors-no-cve-79b6ee1e",
+    "github:LaArana12/CVE-2026-39987-Marimo-Preauth-RCE",
+    "github:hacbs-release-tests/collectors-no-cve-e42e175e",
+    "github:Dulceicolas44/cve9vm2x"
   ],
   "source_id": "github_trending",
   "stats": {
