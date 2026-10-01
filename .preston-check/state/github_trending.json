@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-01T05:42:22.884570+00:00",
-  "last_successful_fetch": "2026-10-01T05:42:26.876278+00:00",
+  "last_run": "2026-10-01T13:03:12.693871+00:00",
+  "last_successful_fetch": "2026-10-01T13:03:16.191747+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4903,7 +4903,16 @@
     "github:realsandeep1271-ui/cve-intelligence-bot",
     "github:jtatman/cve-exploit-lookup-api",
     "github:sophia-woo/cvety",
-    "github:Danush-Aries/cve-advisor"
+    "github:Danush-Aries/cve-advisor",
+    "github:R0nov4/basalam",
+    "github:bencuitee/cvep",
+    "github:hansenroy36/cvewp",
+    "github:Ech333/agent-cve-scanners",
+    "github:kijunkim03/cve-vulnerability-analysis",
+    "github:itskesfet/CVeil",
+    "github:danielw98/linux-kernel-cve-triage-2026",
+    "github:tonydelouvre/CVE-2026-102425",
+    "github:dashen666666-gif/coruna"
   ],
   "source_id": "github_trending",
   "stats": {
