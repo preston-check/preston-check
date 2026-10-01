@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-01T13:03:12.693871+00:00",
-  "last_successful_fetch": "2026-10-01T13:03:16.191747+00:00",
+  "last_run": "2026-10-01T18:49:44.902827+00:00",
+  "last_successful_fetch": "2026-10-01T18:49:48.154949+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4912,7 +4912,13 @@
     "github:itskesfet/CVeil",
     "github:danielw98/linux-kernel-cve-triage-2026",
     "github:tonydelouvre/CVE-2026-102425",
-    "github:dashen666666-gif/coruna"
+    "github:dashen666666-gif/coruna",
+    "github:pervinzahidli/CVE-2026-103977",
+    "github:afterdarksys/cveguard",
+    "github:thebellate/cvec",
+    "github:yel1337/CVE-2025-47947",
+    "github:dashaun-tanzu/recent-cve-news",
+    "github:Codru1/CVE-PoCs"
   ],
   "source_id": "github_trending",
   "stats": {
