@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-02T16:14:04.646728+00:00",
-  "last_successful_fetch": "2026-10-02T16:14:08.865601+00:00",
+  "last_run": "2026-10-02T21:17:26.867487+00:00",
+  "last_successful_fetch": "2026-10-02T21:17:29.940001+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4933,7 +4933,12 @@
     "github:exsaperdana76/cvexsa",
     "github:longg66/cve-2025-21479_iqooneo7speed",
     "github:jaggedweeke/cvelor",
-    "github:RomaHnat/CVecta"
+    "github:RomaHnat/CVecta",
+    "github:LipeOzyy/CVE-2026-42322",
+    "github:Mohnad-AL-saif/MyCVEs",
+    "github:decalage2/detect_CVE-2026-86950",
+    "github:TuftedOwl/cve-dashboard",
+    "github:Scyrix-LLC/CVE-2026-88773"
   ],
   "source_id": "github_trending",
   "stats": {
