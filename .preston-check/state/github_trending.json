@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-03T17:12:33.014845+00:00",
-  "last_successful_fetch": "2026-10-03T17:12:36.283067+00:00",
+  "last_run": "2026-10-03T21:08:57.154757+00:00",
+  "last_successful_fetch": "2026-10-03T21:09:01.046743+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4959,7 +4959,9 @@
     "github:lifelightdev/MonAgentCVEtLettreDeMotivation",
     "github:Gyr0sbr/Vulnerability-CVE-Scanner",
     "github:u230709018/cve-triage-agent",
-    "github:bennekrouf/cvenom-landing"
+    "github:bennekrouf/cvenom-landing",
+    "github:diamorphine666/CVE-2024-51482",
+    "github:ivanidknow/cve-triage"
   ],
   "source_id": "github_trending",
   "stats": {
