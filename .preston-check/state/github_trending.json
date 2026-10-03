@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-03T12:27:57.416921+00:00",
-  "last_successful_fetch": "2026-10-03T12:28:00.154422+00:00",
+  "last_run": "2026-10-03T17:12:33.014845+00:00",
+  "last_successful_fetch": "2026-10-03T17:12:36.283067+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4953,7 +4953,13 @@
     "github:fxddc7hndj/cvef",
     "github:p4i91jkeuq/cvequ",
     "github:mulinvenka/cveii",
-    "github:saitoken241/CVE-2026-4480-POC"
+    "github:saitoken241/CVE-2026-4480-POC",
+    "github:digital-duck/cve-coder",
+    "github:Vladislav-JB/keys-reklama-cvety",
+    "github:lifelightdev/MonAgentCVEtLettreDeMotivation",
+    "github:Gyr0sbr/Vulnerability-CVE-Scanner",
+    "github:u230709018/cve-triage-agent",
+    "github:bennekrouf/cvenom-landing"
   ],
   "source_id": "github_trending",
   "stats": {
