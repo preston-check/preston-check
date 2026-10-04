@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-04T06:47:09.976258+00:00",
-  "last_successful_fetch": "2026-10-04T06:47:13.277116+00:00",
+  "last_run": "2026-10-04T13:09:07.950511+00:00",
+  "last_successful_fetch": "2026-10-04T13:09:11.047066+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4966,7 +4966,10 @@
     "github:NovaSecOps/CVEBeacon",
     "github:s4m98/CVE-2023-23752",
     "github:nebula8547/cver",
-    "github:AdminHcat/CVE-2026-43499-5.15"
+    "github:AdminHcat/CVE-2026-43499-5.15",
+    "github:d4ytox/CVE-2022-44384",
+    "github:Nxploited/CVE-2026-96451",
+    "github:allisonerin9316/cvea"
   ],
   "source_id": "github_trending",
   "stats": {
