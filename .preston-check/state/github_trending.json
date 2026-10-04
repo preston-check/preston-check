@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-04T13:09:07.950511+00:00",
-  "last_successful_fetch": "2026-10-04T13:09:11.047066+00:00",
+  "last_run": "2026-10-04T18:06:24.480166+00:00",
+  "last_successful_fetch": "2026-10-04T18:06:28.310570+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4969,7 +4969,9 @@
     "github:AdminHcat/CVE-2026-43499-5.15",
     "github:d4ytox/CVE-2022-44384",
     "github:Nxploited/CVE-2026-96451",
-    "github:allisonerin9316/cvea"
+    "github:allisonerin9316/cvea",
+    "github:K52-ai/CVE-2026-83627",
+    "github:sifatnotes/-Recon-MySQL-SSH-ICA-CVE-2026-13247-Tomcat"
   ],
   "source_id": "github_trending",
   "stats": {
