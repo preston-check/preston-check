@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-05T06:55:38.416260+00:00",
-  "last_successful_fetch": "2026-10-05T06:55:41.170406+00:00",
+  "last_run": "2026-10-05T15:55:09.438368+00:00",
+  "last_successful_fetch": "2026-10-05T15:55:13.519985+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4981,7 +4981,12 @@
     "github:torrescaitlin3187/cvet",
     "github:tidalzephyr25/cvep",
     "github:olive-timber24/cveqj",
-    "github:mendezkevin4397/cvetz"
+    "github:mendezkevin4397/cvetz",
+    "github:asmasyedcn-hash/Two-LayerHybridCVENetworkAnalysis-ComplexNetworksAnalysis-",
+    "github:a23bc/ALI-AN00-cve-2026-43499",
+    "github:hacbs-release-tests/collectors-no-cve-73c90c29",
+    "github:crenwick93/ao-cve-remediation-simplified",
+    "github:Dora46/veille-cyber-cve-llm"
   ],
   "source_id": "github_trending",
   "stats": {
