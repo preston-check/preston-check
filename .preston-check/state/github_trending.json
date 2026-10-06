@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-10-06T17:08:46.115471+00:00",
-  "last_successful_fetch": "2026-10-06T17:08:50.520435+00:00",
+  "last_run": "2026-10-06T22:36:38.983553+00:00",
+  "last_successful_fetch": "2026-10-06T22:36:42.769048+00:00",
   "processed_ids": [
-    "github:Defacto-ridgepole254/CVE-2026-41940-Exploit-PoC",
-    "github:Recorded-texteditor120/CVE-2026-31802",
-    "github:usevebu3783/awesome-mcp-security",
-    "github:hamzamalik3461/CVE-2026-20841",
     "github:nomi-sec/PoC-in-GitHub",
     "github:MauriGonzalez22/top-solana-token-creator-tools",
     "github:Halim45/PoCs",
@@ -5001,7 +4997,11 @@
     "github:fyoung-outlier/cve_tracker",
     "github:hoangphi01/CVE_tracker",
     "github:hacbs-release-tests/collectors-no-cve-66ec6cb2",
-    "github:hacbs-release-tests/collectors-no-cve-11e384ab"
+    "github:hacbs-release-tests/collectors-no-cve-11e384ab",
+    "github:ashardev002/CVE-2025-32463_chwoot",
+    "github:c0dem4sters/CVE-2026-57967",
+    "github:ycdxsb/PocOrExp_in_Github",
+    "github:Frizzardsecurity/CVE-2025-55182"
   ],
   "source_id": "github_trending",
   "stats": {
