@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-05T22:34:05.125933+00:00",
-  "last_successful_fetch": "2026-10-05T22:34:08.944143+00:00",
+  "last_run": "2026-10-06T02:54:37.877157+00:00",
+  "last_successful_fetch": "2026-10-06T02:54:40.423153+00:00",
   "processed_ids": [
     "github:adysec/nuclei_poc",
     "github:ashardev002/CVE-2025-32463_chwoot",
@@ -4989,7 +4989,11 @@
     "github:Dora46/veille-cyber-cve-llm",
     "github:Cognition-Partner-Workshops-mirror/uc-cve-remediation-regulatory-compliance",
     "github:taitioooo/cve-weekly-reports",
-    "github:brian-cve/Pokimon2"
+    "github:brian-cve/Pokimon2",
+    "github:szeying89/cvedashboard",
+    "github:sabuweis/CVERoot",
+    "github:abraxas/cve-2026-105221-gist-tls",
+    "github:HORKimhab/CVE-2026-96940"
   ],
   "source_id": "github_trending",
   "stats": {
