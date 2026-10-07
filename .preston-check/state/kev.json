@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-07T16:26:03.598768+00:00",
-  "last_successful_fetch": "2026-10-07T16:26:03.599007+00:00",
+  "last_run": "2026-10-07T21:27:06.389205+00:00",
+  "last_successful_fetch": "2026-10-07T21:27:06.389446+00:00",
   "processed_ids": [
     "CVE-2026-6973",
     "CVE-2026-0300",
@@ -1740,7 +1740,7 @@
   ],
   "source_id": "kev",
   "stats": {
-    "total_fetched": 3141617,
+    "total_fetched": 3143351,
     "total_relevant": 1735
   }
 }
