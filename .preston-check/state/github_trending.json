@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-10-07T17:46:27.788420+00:00",
-  "last_successful_fetch": "2026-10-07T17:46:30.891200+00:00",
+  "last_run": "2026-10-07T23:01:09.338884+00:00",
+  "last_successful_fetch": "2026-10-07T23:01:12.554824+00:00",
   "processed_ids": [
-    "github:joshuavanderpoll/CVE-2026-44262",
-    "github:digitalsurgn/CVE-2025-4632_POC",
-    "github:dinhvaren/cve-2026-33937",
-    "github:peyefounder/peye",
-    "github:K3ysTr0K3R/CVE-2023-43208-EXPLOIT",
-    "github:1N3/BlackWidow",
-    "github:whattheslime/CVE-2026-0740",
-    "github:bayazid-bit/CVE-2019-11043",
-    "github:dragonked2/Egyscan",
-    "github:Chocapikk/CVE-2026-21858",
     "github:kOaDT/poc-cve-2025-55182",
     "github:ChrisSub08/CVE-2026-32238_RemoteCodeExecutionOpenEMR8.0.0",
     "github:FlyfishSec/rcX",
@@ -5001,7 +4991,17 @@
     "github:Hasyros/CVE-2026-101162-xss-wp-ultimate-review",
     "github:Hasyros/CVE-2026-101161-dos-wp-ultimate-review-shortcode",
     "github:Hasyros/CVE-2026-101160-dos-wp-ultimate-review-rating",
-    "github:ZeroMemoryEx/CVE-2025-26125"
+    "github:ZeroMemoryEx/CVE-2025-26125",
+    "github:trickest/cve",
+    "github:GhostTroops/TOP",
+    "github:secnotes/searchpoc",
+    "github:Mr-xn/Penetration_Testing_POC",
+    "github:showy-headteacher114/cve-2025-66398",
+    "github:Farhan9488/CVE-2025-55182-research",
+    "github:mayank729/CVE-2025-55182-scanner",
+    "github:Seiya-Nakagawa/cve-notifier",
+    "github:dferrand/ibmi-cve-ptf-map",
+    "github:corunalab/coruna"
   ],
   "source_id": "github_trending",
   "stats": {
