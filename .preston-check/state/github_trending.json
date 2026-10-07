@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-10-06T22:36:38.983553+00:00",
-  "last_successful_fetch": "2026-10-06T22:36:42.769048+00:00",
+  "last_run": "2026-10-07T02:17:22.026426+00:00",
+  "last_successful_fetch": "2026-10-07T02:17:25.389948+00:00",
   "processed_ids": [
-    "github:nomi-sec/PoC-in-GitHub",
-    "github:MauriGonzalez22/top-solana-token-creator-tools",
-    "github:Halim45/PoCs",
-    "github:adamchabchi/WaSonar",
-    "github:krispsy1/cs2-realtime-demo-radar",
-    "github:iksanwkk/CVE-2025-55182-exp",
     "github:ahmed-dev-op/CVE-2025-55182",
     "github:9988700/CVE-2025-55182-POC-NEXTJS",
     "github:wiixx44/CVE-2025-55182",
@@ -5001,7 +4995,13 @@
     "github:ashardev002/CVE-2025-32463_chwoot",
     "github:c0dem4sters/CVE-2026-57967",
     "github:ycdxsb/PocOrExp_in_Github",
-    "github:Frizzardsecurity/CVE-2025-55182"
+    "github:Frizzardsecurity/CVE-2025-55182",
+    "github:hamzamalik3461/CVE-2026-20841",
+    "github:Recorded-texteditor120/CVE-2026-31802",
+    "github:usevebu3783/awesome-mcp-security",
+    "github:sysdopllc/vestacp-config-eval-rce",
+    "github:abraxas/CVE-2026-59358",
+    "github:secjuhl/CVE-2022-0185"
   ],
   "source_id": "github_trending",
   "stats": {
