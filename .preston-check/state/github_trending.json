@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-10-08T10:26:16.415952+00:00",
-  "last_successful_fetch": "2026-10-08T10:26:20.388768+00:00",
+  "last_run": "2026-10-08T17:50:25.185690+00:00",
+  "last_successful_fetch": "2026-10-08T17:50:28.250131+00:00",
   "processed_ids": [
-    "github:piquard-j/cve-timeline",
-    "github:vermava/mcp-cve-project",
-    "github:mihnasdsad/CVE-2025-32463",
     "github:HiteshGorana/susvibes-jupyter-server-cve-2026-35397",
     "github:ammarm0010/CVE-2025-49144_PoC",
     "github:TMA84/cvealert",
@@ -5001,7 +4998,10 @@
     "github:nicky-quist/cve-exploit-prediction",
     "github:hackthacker-sec/Awesome-CVE-POC-Index",
     "github:CodeStartUp/New-cve",
-    "github:getdrive/wso2_cve-2026-5430_lab"
+    "github:getdrive/wso2_cve-2026-5430_lab",
+    "github:hacbs-release-tests/collectors-no-cve-53ba8a0f",
+    "github:daffainfo/cvelist",
+    "github:artemdobrovolskii1-bit/Cvety-kopeysk"
   ],
   "source_id": "github_trending",
   "stats": {
