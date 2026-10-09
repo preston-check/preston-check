@@ -1,9 +1,7 @@
 {
-  "last_run": "2026-10-09T13:07:23.654068+00:00",
-  "last_successful_fetch": "2026-10-09T13:07:28.788454+00:00",
+  "last_run": "2026-10-09T19:29:10.801942+00:00",
+  "last_successful_fetch": "2026-10-09T19:29:13.721435+00:00",
   "processed_ids": [
-    "github:waryas/WaryasSWHE",
-    "github:D3NIZ1921/THM-0day_Writeup-TR-",
     "github:SnailSploit/CVE-2025-11171",
     "github:Liaabnormal676/find-cve-agent",
     "github:prabass91/cve-telegram-bot",
@@ -5001,7 +4999,9 @@
     "github:brian-cve/Biocrisis",
     "github:hacbs-release-tests/collectors-no-cve-6f0c9272",
     "github:hacbs-release-tests/collectors-no-cve-dcecb16c",
-    "github:aghdetngf/cybervault-cve-intel"
+    "github:aghdetngf/cybervault-cve-intel",
+    "github:ekrunch/rh-cve-parser",
+    "github:gotr00t0day/CVE-2026-21589"
   ],
   "source_id": "github_trending",
   "stats": {
