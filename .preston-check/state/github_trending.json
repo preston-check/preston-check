@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-10-09T23:59:06.072021+00:00",
-  "last_successful_fetch": "2026-10-09T23:59:09.704124+00:00",
+  "last_run": "2026-10-10T05:42:39.456848+00:00",
+  "last_successful_fetch": "2026-10-10T05:42:42.091858+00:00",
   "processed_ids": [
-    "github:prabass91/cve-telegram-bot",
-    "github:Learningdisordercapital35/CVE_2025_24257----NOT-MINE",
-    "github:Jumpthereness578/CVE-2026-2991",
-    "github:microsoft/msft-linux-cve-analysis",
-    "github:pierce403/cvehunt",
     "github:Jimmy-F7/cvesearch",
     "github:EntroVyx/CVE-2026-33534",
     "github:0xBlackash/CVE-2026-43284",
@@ -5001,7 +4996,12 @@
     "github:ekrunch/rh-cve-parser",
     "github:gotr00t0day/CVE-2026-21589",
     "github:Malikhardy23/CVE-Lookup-Tool",
-    "github:This-Is-CvE/ServiceCheckWebApp"
+    "github:This-Is-CvE/ServiceCheckWebApp",
+    "github:Grandzumsmash/cvedluwi",
+    "github:smitp1553/CVE",
+    "github:zseeu1/CVEHOT",
+    "github:praneshnikhar/cve-lens",
+    "github:ITroyeSivan/Saker"
   ],
   "source_id": "github_trending",
   "stats": {
