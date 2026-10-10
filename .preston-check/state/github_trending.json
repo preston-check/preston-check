@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-10-10T05:42:39.456848+00:00",
-  "last_successful_fetch": "2026-10-10T05:42:42.091858+00:00",
+  "last_run": "2026-10-10T12:23:09.941559+00:00",
+  "last_successful_fetch": "2026-10-10T12:23:13.695421+00:00",
   "processed_ids": [
-    "github:Jimmy-F7/cvesearch",
-    "github:EntroVyx/CVE-2026-33534",
-    "github:0xBlackash/CVE-2026-43284",
-    "github:jeonghanlee/cve-mitigation",
-    "github:megafart1/CVE-2026-2472-Vertex-AI-SDK-Google-Cloud",
     "github:6abc/Copy-Fail-CVE-2026-31431-dirty-frag-CVE-2026-43284",
     "github:agg-mb/cvedashboard",
     "github:M-nj/cvelistv5-cveServicesAdapterTest",
@@ -5001,7 +4996,12 @@
     "github:smitp1553/CVE",
     "github:zseeu1/CVEHOT",
     "github:praneshnikhar/cve-lens",
-    "github:ITroyeSivan/Saker"
+    "github:ITroyeSivan/Saker",
+    "github:TMA84/cvealert",
+    "github:webserverdude/f5_CVE-2026-21589_mitigation",
+    "github:florianppn/CVEille",
+    "github:ct4qr8dysg53/cveh",
+    "github:Masuer-mengxing/CVE-2026-103690"
   ],
   "source_id": "github_trending",
   "stats": {
