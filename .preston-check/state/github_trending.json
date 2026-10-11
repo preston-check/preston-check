@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-11T13:58:36.802900+00:00",
-  "last_successful_fetch": "2026-10-11T13:58:39.749364+00:00",
+  "last_run": "2026-10-11T18:48:19.056774+00:00",
+  "last_successful_fetch": "2026-10-11T18:48:33.512075+00:00",
   "processed_ids": [
     "github:chnzzh/iDRAC-CVE-lib",
     "github:KRAJSTOF/cve-zero-trust-host-auditor",
