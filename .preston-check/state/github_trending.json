@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-10-11T00:54:35.022873+00:00",
-  "last_successful_fetch": "2026-10-11T00:54:37.710060+00:00",
+  "last_run": "2026-10-11T07:05:01.793186+00:00",
+  "last_successful_fetch": "2026-10-11T07:05:05.046997+00:00",
   "processed_ids": [
-    "github:alyaapm/CVE-2025-55182-shellinteractive",
-    "github:Ghost121111/Blackash-CVE-2025-55182",
-    "github:135Research/cve-case-study-3-public",
-    "github:juccoblak/CVE-2025-6554",
-    "github:Marinek/cve-sentinel",
-    "github:chnzzh/OpenSSL-CVE-lib",
     "github:chnzzh/Redfish-CVE-lib",
     "github:Johnny9802/cve_management",
     "github:chnzzh/iDRAC-CVE-lib",
@@ -5001,7 +4995,13 @@
     "github:karandarjishack/everyday-cve",
     "github:rix4uni/cvemapping",
     "github:AlexHess123/cve-signal",
-    "github:hophtien/CVE-2025-54424"
+    "github:hophtien/CVE-2025-54424",
+    "github:silver-meteor67/cveq",
+    "github:LINJUNGZHU/CVE-Online-Food-Ordering-System",
+    "github:toyplan/cve-2025-24813",
+    "github:Wayang1337/CVE-2025-57819",
+    "github:Zimo-666/E5350-cves",
+    "github:Zimo-666/WRT54GL-cves"
   ],
   "source_id": "github_trending",
   "stats": {
