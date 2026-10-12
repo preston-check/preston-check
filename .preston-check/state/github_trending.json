@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-10-11T22:48:53.387123+00:00",
-  "last_successful_fetch": "2026-10-11T22:49:03.568274+00:00",
+  "last_run": "2026-10-12T02:17:53.364921+00:00",
+  "last_successful_fetch": "2026-10-12T02:17:56.264833+00:00",
   "processed_ids": [
-    "github:chnzzh/iDRAC-CVE-lib",
-    "github:KRAJSTOF/cve-zero-trust-host-auditor",
-    "github:Dullpurple-sloop726/CVE-2026-31431-Linux-Copy-Fail",
-    "github:Firstp1ck/cve-check",
-    "github:allergydietgenusandrena136/cve-mcp-server",
-    "github:cristianovisk/cves_data_intelligence",
-    "github:adminlove520/github_cve_monitor",
-    "github:roomme13/cveupdate",
     "github:AgileAdaptiveTools/sadp-cves",
     "github:Sonisi5085/CVE-2026-XNU-AIO-KEVENT-UAF",
     "github:iXeor/NVD-CVE-Checker",
@@ -5001,7 +4993,15 @@
     "github:Zimo-666/E5350-cves",
     "github:Zimo-666/WRT54GL-cves",
     "github:odemeytam-ui/nginx-cve-rebuild",
-    "github:dominikmi/cves_analytics"
+    "github:dominikmi/cves_analytics",
+    "github:lins601/AutoCVE",
+    "github:Be-zerk/cveprio",
+    "github:M-nj/cvelistv5-cveServicesAdapterTest",
+    "github:fl0ydsec/CVE-2026-91136",
+    "github:Riftweld/langflow-cve-2026-9198",
+    "github:joshuaweiiii/CVE_Compass",
+    "github:pareshkubernetes/cve-reporter",
+    "github:xijiangyue-0op/0day-skill"
   ],
   "source_id": "github_trending",
   "stats": {
