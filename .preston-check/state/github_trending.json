@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-10-12T10:38:32.024475+00:00",
-  "last_successful_fetch": "2026-10-12T10:38:35.477112+00:00",
+  "last_run": "2026-10-12T20:14:23.130605+00:00",
+  "last_successful_fetch": "2026-10-12T20:14:26.826075+00:00",
   "processed_ids": [
-    "github:MrOplus/CVE-2026-41940",
-    "github:MAEN1-prog/CVE-2025-2304",
-    "github:Riquelme54322/CVE-2025-5419",
-    "github:hyu164/Terrminus-CVE-2026-2406",
-    "github:obrunolima1910/CVE-2026-24061",
-    "github:jim2478/CVE-Archive",
-    "github:salman5230/CVE-2025-59287",
-    "github:dvjnelsonia/SourceCodester-Banking-CVE",
-    "github:Katirinata/CMD-Exploit-CVE-2024-RCE-AboRady-FUD-25765-Injection",
     "github:secnotes/daily-cve-nvd",
     "github:minhngoc9119/cve-poc-dashboard",
     "github:babyshen/freebsd-CVE-2026-7270",
@@ -5001,7 +4992,16 @@
     "github:Vulnogram/cve-index",
     "github:allergydietgenusandrena136/cve-mcp-server",
     "github:Learningdisordercapital35/CVE_2025_24257----NOT-MINE",
-    "github:kbsery/dsh-seagull-cybersecurity-plugin"
+    "github:kbsery/dsh-seagull-cybersecurity-plugin",
+    "github:Inteleon404/Common-Vulnerabilities-and-Exposures",
+    "github:Gigachad07-root/cve-watch",
+    "github:Apiratchai/CVE-2026-84411-reproduction",
+    "github:Darnxca/CVE-finder",
+    "github:peter17/wordpress-cve",
+    "github:acandoo/predictive-cve",
+    "github:0xgh0stri13y/CVE-2026-109519",
+    "github:Yozarseef95/CVE-2023-31594",
+    "github:yda88/iOSym"
   ],
   "source_id": "github_trending",
   "stats": {
