@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-10-14T15:04:07.383539+00:00",
-  "last_successful_fetch": "2026-10-14T15:04:11.503704+00:00",
+  "last_run": "2026-10-14T19:18:37.631972+00:00",
+  "last_successful_fetch": "2026-10-14T19:18:41.267507+00:00",
   "processed_ids": [
-    "github:BastianXploited/CVE-2025-15030",
-    "github:api-evangelist/cvent",
-    "github:api-evangelist/cvent-social-tables",
     "github:api-evangelist/cvent-platform",
     "github:api-evangelist/cvent-event-cloud",
     "github:api-evangelist/cvent-community",
@@ -5001,7 +4998,10 @@
     "github:hacbs-release-tests/collectors-no-cve-75e635c9",
     "github:ABC00012345/CVE-2026-74580",
     "github:whoamiihuh7-cpu/CVE-monitoring-Skill",
-    "github:ashu7ank/CVE-2026-92392"
+    "github:ashu7ank/CVE-2026-92392",
+    "github:hacbs-release-tests/collectors-no-cve-ee802e1f",
+    "github:CVEProject/cve-reference-ingest-data",
+    "github:tc4dy/CVE-2026-29000-PoC-Exploit"
   ],
   "source_id": "github_trending",
   "stats": {
