@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-10-14T10:05:13.788320+00:00",
-  "last_successful_fetch": "2026-10-14T10:05:17.028453+00:00",
+  "last_run": "2026-10-14T15:04:07.383539+00:00",
+  "last_successful_fetch": "2026-10-14T15:04:11.503704+00:00",
   "processed_ids": [
-    "github:OWASP/cve-lite-cli",
-    "github:jintile/CVE-Daily-Update",
-    "github:Hex0rc1st/CVE_POC_monitor",
-    "github:KlaasStessens/CVE-2023-46604",
-    "github:0x0d3ad/CVE-2020-14008",
-    "github:hrykx-zy/CVEReq",
-    "github:mosciidev/CVEStorage",
-    "github:alexgar207/Shellshock-Attack-CVE--2014-6271-",
-    "github:rootdz1337/APXScanner",
-    "github:BastianXploited/CVE-2026-0740",
     "github:BastianXploited/CVE-2025-15030",
     "github:api-evangelist/cvent",
     "github:api-evangelist/cvent-social-tables",
@@ -5001,7 +4991,17 @@
     "github:sequritte/cve",
     "github:thewhatdohe/CVE-2026-107692",
     "github:q0524/cve-2026-44825-challenge",
-    "github:p1temax/Spearhook"
+    "github:p1temax/Spearhook",
+    "github:joshuavanderpoll/CVE-2026-104748",
+    "github:yaman3696/CVeate",
+    "github:m7arm4n/CVE-2017-7921",
+    "github:CaptainAI-Labs/CaptainAI-LPE-CVE-2026-52993",
+    "github:Klykk-Labs/k-cve",
+    "github:RafaelDevc/cve-watcher",
+    "github:hacbs-release-tests/collectors-no-cve-75e635c9",
+    "github:ABC00012345/CVE-2026-74580",
+    "github:whoamiihuh7-cpu/CVE-monitoring-Skill",
+    "github:ashu7ank/CVE-2026-92392"
   ],
   "source_id": "github_trending",
   "stats": {
