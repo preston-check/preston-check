@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-10-14T23:09:16.356471+00:00",
-  "last_successful_fetch": "2026-10-14T23:09:20.520251+00:00",
+  "last_run": "2026-10-15T04:27:35.122439+00:00",
+  "last_successful_fetch": "2026-10-15T04:27:38.529850+00:00",
   "processed_ids": [
-    "github:xsscx/fuzz",
-    "github:ryan2929/CVE-2026-43284-",
-    "github:ubuntu/desktop-cve-import",
-    "github:v3rycl0p3r/CVE-2025-32463",
-    "github:v3rycl0p3r/CVE-PoC-CVE-2025-58434",
-    "github:jgamblin/OpenClawCVEs",
-    "github:jgamblin/KalmanCVE",
     "github:0xMarcio/cve",
     "github:rsnakeactual/cvedata",
     "github:Johnnyzhou666/langgrinch-cve-2025-68664-analysis",
@@ -5001,7 +4994,14 @@
     "github:chnzzh/iDRAC-CVE-lib",
     "github:hacbs-release-tests/collectors-no-cve-480edfc4",
     "github:roomme13/cveupdate",
-    "github:Primandito/CVE-2026-107081"
+    "github:Primandito/CVE-2026-107081",
+    "github:cvelasquez2026/hajitsu-cve",
+    "github:hacbs-release-tests/collectors-no-cve-74b77402",
+    "github:secnotes/daily-cve-nvd",
+    "github:minhngoc9119/cve-poc-dashboard",
+    "github:Kavish-Jadhav/A-Structural-Break-in-CVE-Publication-Counts-Source-Composition-and-Scenario-Forecasts-2010-2027",
+    "github:Ife-ella/CVE-vulnerability",
+    "github:Priya-0067/CVE-Citrix-Watchtower"
   ],
   "source_id": "github_trending",
   "stats": {
