@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-15T16:58:07.432214+00:00",
-  "last_successful_fetch": "2026-10-15T16:58:07.434874+00:00",
+  "last_run": "2026-10-15T21:20:37.152380+00:00",
+  "last_successful_fetch": "2026-10-15T21:20:37.156427+00:00",
   "processed_ids": [
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-307/",
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-306/",
@@ -651,7 +651,26 @@
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-754/",
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-753/",
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-752/",
-    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-757/"
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-757/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-776/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-775/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-774/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-773/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-772/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-771/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-770/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-769/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-768/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-767/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-766/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-765/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-764/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-763/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-762/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-761/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-760/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-759/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-758/"
   ],
   "source_id": "conference_zdi",
   "stats": {
