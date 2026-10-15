@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-10-15T14:54:57.064122+00:00",
-  "last_successful_fetch": "2026-10-15T14:55:00.285574+00:00",
+  "last_run": "2026-10-15T19:03:54.785880+00:00",
+  "last_successful_fetch": "2026-10-15T19:03:57.971484+00:00",
   "processed_ids": [
-    "github:thundermiracle/nextjs-cve-csp-nonce",
-    "github:MJ-bin/POC_CVE-2024-4322",
-    "github:Goultarde/CVE-2024-46987",
-    "github:jackylinuxcom/cve-tools",
     "github:AndyVale/CVEvsCWE",
     "github:Crihexe/v8-poc-CVE-2026-5865",
     "github:0xBlackash/CVE-2026-20131",
@@ -5001,7 +4997,11 @@
     "github:hacbs-release-tests/collectors-no-cve-7869ece6",
     "github:crisprss/CVEs",
     "github:Alaatk/CVE-2024-27674",
-    "github:feiguang-ai/plz110-6.12.69-cve-2026-64560-ksu"
+    "github:feiguang-ai/plz110-6.12.69-cve-2026-64560-ksu",
+    "github:ayberkaarda/CVExecuter",
+    "github:j-curreri/cve-recall-bench",
+    "github:AndreiIonascu17/cvelab",
+    "github:pduggusa/redis-cve-2026-23479-check"
   ],
   "source_id": "github_trending",
   "stats": {
