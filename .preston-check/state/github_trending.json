@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-10-15T04:27:35.122439+00:00",
-  "last_successful_fetch": "2026-10-15T04:27:38.529850+00:00",
+  "last_run": "2026-10-15T09:48:03.436815+00:00",
+  "last_successful_fetch": "2026-10-15T09:48:06.539688+00:00",
   "processed_ids": [
-    "github:0xMarcio/cve",
-    "github:rsnakeactual/cvedata",
-    "github:Johnnyzhou666/langgrinch-cve-2025-68664-analysis",
-    "github:BillyAfro/vuln-scanner-cve-mapper.py",
-    "github:Wanghuidi/CVE",
-    "github:cybot555/LODi-cvevp",
     "github:Wise-Security/CVE-2026-38945",
     "github:QianBoShuo-HDC/cve",
     "github:Morton-Li/copy-fail-CVE-2026-31431",
@@ -5001,7 +4995,13 @@
     "github:minhngoc9119/cve-poc-dashboard",
     "github:Kavish-Jadhav/A-Structural-Break-in-CVE-Publication-Counts-Source-Composition-and-Scenario-Forecasts-2010-2027",
     "github:Ife-ella/CVE-vulnerability",
-    "github:Priya-0067/CVE-Citrix-Watchtower"
+    "github:Priya-0067/CVE-Citrix-Watchtower",
+    "github:pertsu/cve-severity-snapshot-analyzer",
+    "github:dferrand/cve-fix-viewer",
+    "github:Roger1312-git/CVE-Fortinet-Tracking",
+    "github:Boiann/cvek-art-gallery",
+    "github:richard0day/CVE-Monitor-Html",
+    "github:onuroktay14/cvelist"
   ],
   "source_id": "github_trending",
   "stats": {
