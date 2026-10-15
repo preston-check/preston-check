@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-10-15T19:03:54.785880+00:00",
-  "last_successful_fetch": "2026-10-15T19:03:57.971484+00:00",
+  "last_run": "2026-10-15T22:11:35.134976+00:00",
+  "last_successful_fetch": "2026-10-15T22:11:45.147201+00:00",
   "processed_ids": [
-    "github:AndyVale/CVEvsCWE",
-    "github:Crihexe/v8-poc-CVE-2026-5865",
-    "github:0xBlackash/CVE-2026-20131",
-    "github:DebaA17/CVE-scanner-cli",
     "github:Al3xx-sec/CVE-2023-34468-POC",
     "github:telexintegrations/telex-cve-monitor",
     "github:hgyc/CVE-stand",
@@ -5001,7 +4997,11 @@
     "github:ayberkaarda/CVExecuter",
     "github:j-curreri/cve-recall-bench",
     "github:AndreiIonascu17/cvelab",
-    "github:pduggusa/redis-cve-2026-23479-check"
+    "github:pduggusa/redis-cve-2026-23479-check",
+    "github:M3aCulpa/CVE-2026-104715",
+    "github:hacbs-release-tests/collectors-no-cve-e89edc08",
+    "github:Lapius7/cve.lapius7.com",
+    "github:Asilturkmen/CVeditor"
   ],
   "source_id": "github_trending",
   "stats": {
