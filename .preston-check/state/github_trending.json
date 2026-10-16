@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-10-15T22:11:35.134976+00:00",
-  "last_successful_fetch": "2026-10-15T22:11:45.147201+00:00",
+  "last_run": "2026-10-16T01:14:11.225432+00:00",
+  "last_successful_fetch": "2026-10-16T01:14:13.913584+00:00",
   "processed_ids": [
-    "github:Al3xx-sec/CVE-2023-34468-POC",
-    "github:telexintegrations/telex-cve-monitor",
-    "github:hgyc/CVE-stand",
-    "github:fabse-hack/CVE-2024-3829",
-    "github:ycseo-git/CVE-2023-22527",
-    "github:tw181802/CVES",
     "github:gtamir02-png/cve-ai-agentdashboard",
     "github:Nwelely/CVE-GENius-2",
     "github:canomer/CVE-2026-36980-Kernel-BSOD-DoS-PoC",
@@ -5001,7 +4995,13 @@
     "github:M3aCulpa/CVE-2026-104715",
     "github:hacbs-release-tests/collectors-no-cve-e89edc08",
     "github:Lapius7/cve.lapius7.com",
-    "github:Asilturkmen/CVeditor"
+    "github:Asilturkmen/CVeditor",
+    "github:shlln/CVE-2026-90847",
+    "github:Valerie-kote/cvetochki",
+    "github:dmcclung/cve-backport",
+    "github:hoodoer/VsockDrop-Adapted-CVE-2026-53365",
+    "github:mark-Aryan/Codexploit-cve-threat-intelligence",
+    "github:hacbs-release-tests/collectors-no-cve-093653c4"
   ],
   "source_id": "github_trending",
   "stats": {
