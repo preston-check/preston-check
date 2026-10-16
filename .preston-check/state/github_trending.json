@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-10-16T20:59:28.965711+00:00",
-  "last_successful_fetch": "2026-10-16T20:59:33.368064+00:00",
+  "last_run": "2026-10-16T23:30:44.824034+00:00",
+  "last_successful_fetch": "2026-10-16T23:30:48.715920+00:00",
   "processed_ids": [
-    "github:rosvik/cve-import",
-    "github:joshuavanderpoll/CVE-2021-3129",
-    "github:mikhailartamonov/router-cve-audit",
     "github:TalhaChougle/cveradar",
     "github:foreztgump/cve_json",
     "github:Mohd5L/cve-assistant",
@@ -5001,7 +4998,10 @@
     "github:BIBILZERODAY/CVE-2026-60137---WordPress-Core-Critical-SQL-Injection-SQLi-PoC",
     "github:7Ragnarok7/CVE-2026-19607",
     "github:BIBILZERODAY/CVE-2026-104736---Proof-of-Concept-PoC-Exploit-Details",
-    "github:jgamblin/KalmanCVE"
+    "github:jgamblin/KalmanCVE",
+    "github:cybliminal/cve-2026-111283-bmc-helix-network-management-local-administrator-any-password",
+    "github:labeebaryanbackup/PortCVE",
+    "github:asvorg/CVE-2026-59970-poc"
   ],
   "source_id": "github_trending",
   "stats": {
