@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-10-16T01:14:11.225432+00:00",
-  "last_successful_fetch": "2026-10-16T01:14:13.913584+00:00",
+  "last_run": "2026-10-16T07:04:23.588404+00:00",
+  "last_successful_fetch": "2026-10-16T07:04:27.193944+00:00",
   "processed_ids": [
-    "github:gtamir02-png/cve-ai-agentdashboard",
-    "github:Nwelely/CVE-GENius-2",
-    "github:canomer/CVE-2026-36980-Kernel-BSOD-DoS-PoC",
-    "github:canomer/CVE-2026-36981-Kernel-EoP-PoC",
-    "github:keerthanap8898/CveToad",
-    "github:AndyVale/CVEtoLabels",
     "github:ossf/cve-bin-tool",
     "github:Karim33z/CVE-2026-31431",
     "github:RaikyHH/CVE-Processor",
@@ -5001,7 +4995,13 @@
     "github:dmcclung/cve-backport",
     "github:hoodoer/VsockDrop-Adapted-CVE-2026-53365",
     "github:mark-Aryan/Codexploit-cve-threat-intelligence",
-    "github:hacbs-release-tests/collectors-no-cve-093653c4"
+    "github:hacbs-release-tests/collectors-no-cve-093653c4",
+    "github:Sidesploitx/CVE-2026-108598",
+    "github:petangZi/Smpm12gkb.sch.id-cve",
+    "github:hacbs-release-tests/collectors-no-cve-9871bb54",
+    "github:akinerkisa/blindllama-cve-2026-102697",
+    "github:lion9453/CVE-2026-96889-nextjs-rce",
+    "github:rxsklife/CVE-2026-104745"
   ],
   "source_id": "github_trending",
   "stats": {
