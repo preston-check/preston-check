@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-10-16T12:20:23.779124+00:00",
-  "last_successful_fetch": "2026-10-16T12:20:29.053056+00:00",
+  "last_run": "2026-10-16T17:21:03.262655+00:00",
+  "last_successful_fetch": "2026-10-16T17:21:07.653783+00:00",
   "processed_ids": [
-    "github:zycoder0day/CVE-2026-3844",
-    "github:kaleth4/CVE-2026-7482",
-    "github:canomer/CVE-2025-54110-Kernel-EoP-PoC",
-    "github:RoflSecurity/rssr_cve",
-    "github:CSIS1971/cvew",
-    "github:rebugui/open-cve-scanner",
-    "github:ccui1207/Cve_Lab",
     "github:app-sre/acs-cve-prom-exporter",
     "github:ltdenard/cve_lookup",
     "github:Cver-H/Cver-H.github.io",
@@ -5001,7 +4994,14 @@
     "github:FurkanKAYAPINAR/CVE-2026-108097",
     "github:WaarlandIT/cve-explainer",
     "github:StefanoAndreatta/CVE-2026-51366-SQL-Injection-leading-to-Remote-Code-Execution",
-    "github:StefanoAndreatta/CVE-2026-51367-Insecure-Direct-Object-Reference-IDOR"
+    "github:StefanoAndreatta/CVE-2026-51367-Insecure-Direct-Object-Reference-IDOR",
+    "github:BadGhost520/ESurfingClient-CVersion",
+    "github:netherportal3/discord-cve-monitor",
+    "github:jintile/CVE-Daily-Update",
+    "github:hacbs-release-tests/collectors-no-cve-3d42819d",
+    "github:ctsit/redcap_cve_2026_90817_scan",
+    "github:OWASP/cve-lite-cli",
+    "github:Hex0rc1st/CVE_POC_monitor"
   ],
   "source_id": "github_trending",
   "stats": {
