@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-10-17T19:18:53.950358+00:00",
-  "last_successful_fetch": "2026-10-17T19:18:56.623846+00:00",
+  "last_run": "2026-10-17T22:13:24.452303+00:00",
+  "last_successful_fetch": "2026-10-17T22:13:27.334701+00:00",
   "processed_ids": [
-    "github:cve415/cve-core-agent",
-    "github:mamutstudios/CVEQUIPO8",
-    "github:anurag-saran/cve-comparator",
-    "github:yuezhaoshanmu/cve",
-    "github:adelie-ai/cve-mcp",
     "github:skraft9/my-cve-publications",
     "github:CVEU/cveu.github.io",
     "github:benedictleong/CVE-Automation",
@@ -5001,7 +4996,12 @@
     "github:Bam0x7/linux-kernel-cve-exploit",
     "github:strategistae0-ias/CVE_Monitoring",
     "github:0xCyp1337/CVE-2026-48907-RCE",
-    "github:kize7/CVE-2026-94169"
+    "github:kize7/CVE-2026-94169",
+    "github:SoftwareDesignTEC/cvexpert-mobile",
+    "github:Sidhantag/cve-dedup-engine",
+    "github:linux-analysis/cvehound",
+    "github:linux-analysis/cvehound-spatch",
+    "github:NicolePeterson464/cve-search_mcp"
   ],
   "source_id": "github_trending",
   "stats": {
