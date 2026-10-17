@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-10-17T09:14:14.722674+00:00",
-  "last_successful_fetch": "2026-10-17T09:14:22.490596+00:00",
+  "last_run": "2026-10-17T13:40:00.172847+00:00",
+  "last_successful_fetch": "2026-10-17T13:40:03.408271+00:00",
   "processed_ids": [
-    "github:olowostandard1/CVE-2023-38831-WinRAR-Vulnerability-Analysis",
-    "github:ycseo-git/CVE-2020-11800",
-    "github:anach-ai/CVE-2026-41940",
     "github:rjcrowderschaefer/Cvent_Code_Files",
     "github:KendraMar/CVE-copy-paste-agentic-flow",
     "github:anchore/cve-data-enrichment",
@@ -5001,7 +4998,10 @@
     "github:Quaerendir/cve-2026-99999-audit",
     "github:hoor113/CVE-2022-23305-Demo-and-Whitebox-Report",
     "github:maosasagawa/pmx110-cve-2026-64560",
-    "github:ubuntu/desktop-cve-import"
+    "github:ubuntu/desktop-cve-import",
+    "github:ollie-blue/CVE_2023_3460",
+    "github:totsiaw/cve-2026-64560-rmx6699",
+    "github:ChaYeWuu/prague-CVE-2026-64560-OS4.0"
   ],
   "source_id": "github_trending",
   "stats": {
