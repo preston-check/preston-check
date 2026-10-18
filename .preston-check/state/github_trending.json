@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-10-18T20:33:56.164562+00:00",
-  "last_successful_fetch": "2026-10-18T20:33:59.114516+00:00",
+  "last_run": "2026-10-18T23:03:19.226206+00:00",
+  "last_successful_fetch": "2026-10-18T23:03:22.890115+00:00",
   "processed_ids": [
-    "github:tomerpeled92/CVE",
-    "github:nanabingies/CVE-2024-0582",
-    "github:liamromanis101/Dead.Letter-CVE-2026-45185",
-    "github:FAHDCHH/CVE_WatchDog_BE",
     "github:rcribelar-nucleus/demo-php-cve-2024-2961",
     "github:therohantilwani/Reddit_CVE_detection",
     "github:azefzafyoussef/CVE-2026-34621",
@@ -5001,7 +4997,11 @@
     "github:api-evangelist/cvent-social-tables",
     "github:api-evangelist/cvent-community",
     "github:cvelasquezr8/cvelasquezr8",
-    "github:YuriiKL/CVE-7f3da-demo"
+    "github:YuriiKL/CVE-7f3da-demo",
+    "github:renatovascon/cvet-clinica-veterinaria",
+    "github:patrickmgarrity/Anthropic-Credited-CVEs",
+    "github:wojpo/CVEdle",
+    "github:cpwjdgh/CVE-2025-3248-CTF-Lab"
   ],
   "source_id": "github_trending",
   "stats": {
