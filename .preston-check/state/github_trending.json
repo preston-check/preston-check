@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-10-19T15:31:52.833078+00:00",
-  "last_successful_fetch": "2026-10-19T15:31:56.462219+00:00",
+  "last_run": "2026-10-19T21:00:10.203022+00:00",
+  "last_successful_fetch": "2026-10-19T21:00:14.284187+00:00",
   "processed_ids": [
-    "github:deden000/cve-interview-repo",
-    "github:Gvte-Kali/AirGappedCVE",
-    "github:JafarAkhondali/cve-and-cybersec-research",
-    "github:mawussid/CVE-2026-41651-Python",
-    "github:yuzenchen/cve-report",
-    "github:ayoopriyanshu/cve-mapper",
-    "github:Diktrome/-cve_2026_31431_python3-5",
     "github:MeghaSajeev03/Syntecxhub_Vulnerability_CVE-Scanner",
     "github:tc4dy/CVE-2026-0073-PoC-Exploit",
     "github:0xBlackash/CVE-2026-44277",
@@ -5001,7 +4994,14 @@
     "github:hinatajimenez59/cve-search_mcp",
     "github:Mothra-1/CVE-2026-105105",
     "github:nsrg-fmlorg/kpatch-alma-cve-2026-99999",
-    "github:linzuaf-2ran-c/messages"
+    "github:linzuaf-2ran-c/messages",
+    "github:striga-ai/CVE-2026-103663",
+    "github:NormalCrazy000/cve_detector",
+    "github:Uyoyoliz/CVE-Vulnerability-Report",
+    "github:K52-ai/CVE-2026-63030",
+    "github:Dorflex-DD/CVE-Monitor",
+    "github:LHeiakim/CVE-2026-75045-PoC",
+    "github:hacbs-release-tests/collectors-no-cve-1033f86d"
   ],
   "source_id": "github_trending",
   "stats": {
