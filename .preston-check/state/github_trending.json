@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-10-18T23:03:19.226206+00:00",
-  "last_successful_fetch": "2026-10-18T23:03:22.890115+00:00",
+  "last_run": "2026-10-19T01:08:51.112211+00:00",
+  "last_successful_fetch": "2026-10-19T01:08:53.643821+00:00",
   "processed_ids": [
-    "github:rcribelar-nucleus/demo-php-cve-2024-2961",
-    "github:therohantilwani/Reddit_CVE_detection",
-    "github:azefzafyoussef/CVE-2026-34621",
     "github:CamilaCristina3/Cverde-agro-ecommerce-",
     "github:couchcryptid/cve-intelligence-aggregator",
     "github:s-ccs/2025_FaPra_cVEP",
@@ -5001,7 +4998,10 @@
     "github:renatovascon/cvet-clinica-veterinaria",
     "github:patrickmgarrity/Anthropic-Credited-CVEs",
     "github:wojpo/CVEdle",
-    "github:cpwjdgh/CVE-2025-3248-CTF-Lab"
+    "github:cpwjdgh/CVE-2025-3248-CTF-Lab",
+    "github:ydkdk12345-bot/CVE-2024-23897-CTF",
+    "github:realasmo/cve-poc-lab",
+    "github:api-evangelist/cvent"
   ],
   "source_id": "github_trending",
   "stats": {
