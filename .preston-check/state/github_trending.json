@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-10-19T01:08:51.112211+00:00",
-  "last_successful_fetch": "2026-10-19T01:08:53.643821+00:00",
+  "last_run": "2026-10-19T07:40:38.990147+00:00",
+  "last_successful_fetch": "2026-10-19T07:40:42.509172+00:00",
   "processed_ids": [
-    "github:CamilaCristina3/Cverde-agro-ecommerce-",
-    "github:couchcryptid/cve-intelligence-aggregator",
-    "github:s-ccs/2025_FaPra_cVEP",
-    "github:OmarElfarouk00/CyberWatch-CVE-Version-SPA",
-    "github:hijrahassalam/bug-bounty-hunting-agent",
-    "github:KaiSanch/csc131-cve-project",
-    "github:Arushi1092/NIST-CVE-Intelligence-System",
     "github:UBC-ORCA/cve2-tinyrvv",
     "github:kikechans/CVE-2024-32019-Netdata-ndsudo-PrivEsc",
     "github:jun2e0/CVE-2025-26788",
@@ -5001,7 +4994,14 @@
     "github:cpwjdgh/CVE-2025-3248-CTF-Lab",
     "github:ydkdk12345-bot/CVE-2024-23897-CTF",
     "github:realasmo/cve-poc-lab",
-    "github:api-evangelist/cvent"
+    "github:api-evangelist/cvent",
+    "github:rsnakeactual/cvedata",
+    "github:hacbs-release-tests/collectors-no-cve-10bd8d05",
+    "github:ZeroDayEvil/CVE-2026-43499",
+    "github:oscerd/CVE-2026-80344",
+    "github:adewlee87-rgb/cve-2023-4911-looney-tunables",
+    "github:raspberrypi/cve-list",
+    "github:secwitness/CVE-2011-2523-vsftpd-backdoor-analysis"
   ],
   "source_id": "github_trending",
   "stats": {
