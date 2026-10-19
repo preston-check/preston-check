@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-10-19T07:40:38.990147+00:00",
-  "last_successful_fetch": "2026-10-19T07:40:42.509172+00:00",
+  "last_run": "2026-10-19T15:31:52.833078+00:00",
+  "last_successful_fetch": "2026-10-19T15:31:56.462219+00:00",
   "processed_ids": [
-    "github:UBC-ORCA/cve2-tinyrvv",
-    "github:kikechans/CVE-2024-32019-Netdata-ndsudo-PrivEsc",
-    "github:jun2e0/CVE-2025-26788",
-    "github:bitbcybr/way2poc_cve-2026-34475",
-    "github:cve-security-ost/cve-platform",
-    "github:lucacapacci/cve_news",
-    "github:masjadaan/CVE-2025-29338",
-    "github:rosvik/cve.li",
-    "github:hanifahhanundz/bug-bounty-hunting-agent",
     "github:deden000/cve-interview-repo",
     "github:Gvte-Kali/AirGappedCVE",
     "github:JafarAkhondali/cve-and-cybersec-research",
@@ -5001,7 +4992,16 @@
     "github:oscerd/CVE-2026-80344",
     "github:adewlee87-rgb/cve-2023-4911-looney-tunables",
     "github:raspberrypi/cve-list",
-    "github:secwitness/CVE-2011-2523-vsftpd-backdoor-analysis"
+    "github:secwitness/CVE-2011-2523-vsftpd-backdoor-analysis",
+    "github:Str8Action/pypi-cve-freshness-radar-kit",
+    "github:anchore/cve-data-enrichment",
+    "github:hacbs-release-tests/collectors-no-cve-d2e57682",
+    "github:nsrg-fmlorg/kpatch-rocky-cve-2026-99999",
+    "github:hacbs-release-tests/collectors-no-cve-3d49b43a",
+    "github:hinatajimenez59/cve-search_mcp",
+    "github:Mothra-1/CVE-2026-105105",
+    "github:nsrg-fmlorg/kpatch-alma-cve-2026-99999",
+    "github:linzuaf-2ran-c/messages"
   ],
   "source_id": "github_trending",
   "stats": {
