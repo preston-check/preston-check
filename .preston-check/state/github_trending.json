@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-10-20T05:56:47.377072+00:00",
-  "last_successful_fetch": "2026-10-20T05:56:50.341224+00:00",
+  "last_run": "2026-10-20T11:26:07.464516+00:00",
+  "last_successful_fetch": "2026-10-20T11:26:11.327880+00:00",
   "processed_ids": [
-    "github:MCREUDEN/cve-topic-evolution",
-    "github:pixelotes/lab-cve-2023-4863",
-    "github:FelipeSilvany/cves_publicadas",
-    "github:mdbox037a/cvesee",
-    "github:cisagov/cyhy-cvesync",
-    "github:rafelcalia/report_cvendas_clima",
-    "github:CpanelInc/tech-cvecheck",
     "github:vika-chashina/cvetiii",
     "github:gscariott/ansible-cve-copyfail",
     "github:cdkovacs/HelloCVE",
@@ -5001,7 +4994,14 @@
     "github:01luyicheng/CVE-2026-99999",
     "github:bRicci571/cve-search_mcp",
     "github:ExDev994/CVE-2026-111058-CVE-2026-111057-mercury-rce",
-    "github:Harsh7902/CVE-Vulnerability-Intelligence-Platform"
+    "github:Harsh7902/CVE-Vulnerability-Intelligence-Platform",
+    "github:mjgolden-bit/cve_check",
+    "github:sidvootla/cve-analysis-webapp",
+    "github:Chandankumar775/cve-explainer",
+    "github:Maxime-BRIN/win10-cve-observatory",
+    "github:billybobbain/cve2store",
+    "github:Sayre-Tnunu/chainguard-cve-rebuild",
+    "github:jonbondani/CVE-2025-5548"
   ],
   "source_id": "github_trending",
   "stats": {
