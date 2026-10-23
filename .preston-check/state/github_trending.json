@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-10-23T14:58:10.608862+00:00",
-  "last_successful_fetch": "2026-10-23T14:58:13.981411+00:00",
+  "last_run": "2026-10-23T19:06:55.646927+00:00",
+  "last_successful_fetch": "2026-10-23T19:06:58.695852+00:00",
   "processed_ids": [
-    "github:ochebotar/copy-fail-CVE-2026-31431-detection-probe",
-    "github:PavolSloboda/CVE_scraper",
-    "github:amnnrth/CVE-2025-34291_cors_security_scanner",
-    "github:fearlessresponsesolution/cve-pocs-ui",
-    "github:fearlessresponsesolution/cve-pocs",
-    "github:VodkaVortex/CVEReaper",
     "github:Pro100VlaD1CK/cve-risk-analyzer",
     "github:joel6948/CVE-Writeups",
     "github:hershate/CVE-Lookup-skill",
@@ -5001,7 +4995,13 @@
     "github:kacem101/cveq",
     "github:abbos200405/CVE-Research",
     "github:Team-transformer/quorum-cve-triage",
-    "github:o-sec/CVE-2024-48990"
+    "github:o-sec/CVE-2024-48990",
+    "github:aarsaputra/php2shell",
+    "github:stolostron/cve-bot-instance",
+    "github:Noshadi-sec/cve-2026-109618-109619-poc",
+    "github:yliucherish/cve-research",
+    "github:basesixtythree/B63-POC-CVE-2026-115560",
+    "github:lesterlam/onigmo-cve-2026-110264"
   ],
   "source_id": "github_trending",
   "stats": {
