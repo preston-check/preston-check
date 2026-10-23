@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-10-22T23:16:37.803703+00:00",
-  "last_successful_fetch": "2026-10-22T23:16:42.495088+00:00",
+  "last_run": "2026-10-23T04:38:29.514336+00:00",
+  "last_successful_fetch": "2026-10-23T04:38:32.407061+00:00",
   "processed_ids": [
-    "github:visceralcc/cven",
-    "github:SamJUK/cve-watcher",
-    "github:lirantal/cisa-kev-matching-npm-cve",
-    "github:lirantal/cve-cvss-calculator",
-    "github:lirantal/CVE-2024-21532-PoC-ggit",
-    "github:lirantal/CVE-2024-21533-PoC-ggit",
     "github:lirantal/CVE-2024-27983-nodejs-http2",
     "github:lirantal/safe-eval-2-CVE",
     "github:lirantal/vulnerable-nextjs-14-CVE-2025-29927",
@@ -5001,7 +4995,13 @@
     "github:xaviware/go-gitlab-cve-2026-110264-scanner",
     "github:mc493/php2shell-enterprise-hardening-cve-2026-109618-109619",
     "github:barmi/cve-patch-auditor",
-    "github:BeluRenda/CVE-Finder"
+    "github:BeluRenda/CVE-Finder",
+    "github:axon003/php-legacy-cve-2026-109618",
+    "github:SecurityTapestry-Queen/nvd-cve-api-search",
+    "github:jared-lee-cw/cve-feed",
+    "github:Hardik007007/CVE-2026-31158-Boolean-Based-SQL-Injection-in-CRM-Login",
+    "github:Saturate/CVE-2026-111497",
+    "github:LaRemontada12/CVE-2026-39987-Marimo-Preauth-RCE"
   ],
   "source_id": "github_trending",
   "stats": {
