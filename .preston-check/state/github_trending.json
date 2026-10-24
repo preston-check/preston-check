@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-10-24T20:42:13.200653+00:00",
-  "last_successful_fetch": "2026-10-24T20:42:16.703022+00:00",
+  "last_run": "2026-10-24T23:07:09.962527+00:00",
+  "last_successful_fetch": "2026-10-24T23:07:13.456207+00:00",
   "processed_ids": [
-    "github:Victherich/2008-CVE-ESUT-ALUMNI",
-    "github:fevar54/FULL-ANALYSIS---CVE-2026-45829-ChromaDB-",
-    "github:wvverez/CVE-2021-41773-PoC",
-    "github:Maxime288/Fragnesia-CVE-2026-46300",
-    "github:yusufdalbudak/CVE-2026-42945",
-    "github:yilakabay/CVerve",
     "github:dashaun-tanzu/saa-cves-1-5-demo",
     "github:CryptoGenNepal/CVE-KEV-RSS",
     "github:ghollingworth/cve-list",
@@ -5001,7 +4995,13 @@
     "github:utkarsssh17/cve-2026-110152-chrome-ngle-rce-poc",
     "github:hacbs-release-tests/collectors-no-cve-5e8ed02e",
     "github:testerxma/cve-2021-31166-poc",
-    "github:sh3llc0d3-0x15/CVE-2026-38526-Exploit"
+    "github:sh3llc0d3-0x15/CVE-2026-38526-Exploit",
+    "github:al4n4n/ZDI-CAN-33549",
+    "github:syrex1013/CVE-2026-111497-node2shell",
+    "github:ghostintheprompt/cve_lab",
+    "github:danarhirany300-ctrl/CVE-2026-56190-Windows-Server-2022-RDP",
+    "github:hevnsnt/CVEngine",
+    "github:korniko98/distro-cve-checker"
   ],
   "source_id": "github_trending",
   "stats": {
