@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-10-24T00:38:13.054900+00:00",
-  "last_successful_fetch": "2026-10-24T00:38:16.182000+00:00",
+  "last_run": "2026-10-24T05:43:22.554869+00:00",
+  "last_successful_fetch": "2026-10-24T05:43:25.558563+00:00",
   "processed_ids": [
-    "github:Al-Lord0x/CVE-Farm-",
-    "github:redeyesecurity/RES-cve-content-forge",
-    "github:sai-teja-girimaji/cve-intelligence-dashboard",
-    "github:drjoeycadieux/cve-nginx",
-    "github:AlexHill52/Old-556-CVE-Validation",
-    "github:RogoLabs/CVETime",
-    "github:jsavyasachi/CVE-data-model",
-    "github:wnaspy/CVE",
-    "github:RedCrazyGhost/CVE-2026-42945",
-    "github:Maxime288/CVE-2026-8838-RCE",
     "github:WoodConner/cve_livepatch_agent",
     "github:destroyer929/NLP_CVE",
     "github:learner202649/CVE-2026-35030-PoC",
@@ -5001,7 +4991,17 @@
     "github:CompleteTech-LLC/node-cve-2026-106071-check",
     "github:CompleteTech-LLC/node-cve-2026-106070-check",
     "github:CompleteTech-LLC/node-cve-2026-106074-check",
-    "github:CompleteTech-LLC/node-cve-2026-106072-check"
+    "github:CompleteTech-LLC/node-cve-2026-106072-check",
+    "github:svengong/vuln-repro-agent",
+    "github:NyuHendrix/CVE-VulnFinder",
+    "github:yashpatilofficial/cve-alerts",
+    "github:TERRENCE-REX/CVE",
+    "github:ltdenard/cve_lookup",
+    "github:basumobai/cve",
+    "github:SWAPI03/cve-copilot",
+    "github:Notifierservice/cve",
+    "github:Galeax/CVE2CAPEC",
+    "github:0xff0k0a0i/cve-check"
   ],
   "source_id": "github_trending",
   "stats": {
