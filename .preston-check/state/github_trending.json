@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-10-24T23:07:09.962527+00:00",
-  "last_successful_fetch": "2026-10-24T23:07:13.456207+00:00",
+  "last_run": "2026-10-25T01:07:27.962037+00:00",
+  "last_successful_fetch": "2026-10-25T01:07:31.075034+00:00",
   "processed_ids": [
-    "github:dashaun-tanzu/saa-cves-1-5-demo",
-    "github:CryptoGenNepal/CVE-KEV-RSS",
-    "github:ghollingworth/cve-list",
-    "github:thanujbtech-lgtm/tenable_cve",
     "github:atyronesmith/cve-skill",
     "github:vanhari/CVE-2024-37054",
     "github:mourafuseti/VULNERAVEL-CVE-2018-14847---CREDENCIAIS-EXTRAIDAS",
@@ -5001,7 +4997,11 @@
     "github:ghostintheprompt/cve_lab",
     "github:danarhirany300-ctrl/CVE-2026-56190-Windows-Server-2022-RDP",
     "github:hevnsnt/CVEngine",
-    "github:korniko98/distro-cve-checker"
+    "github:korniko98/distro-cve-checker",
+    "github:mostofajr7-sudo/CVE-2026-109618-CVE-2026-109619-php2shell-",
+    "github:StiJans/php8-cve-109618-109619-fix",
+    "github:Meelaad/cve-triage",
+    "github:yeonjin1230/cve_news_monitor"
   ],
   "source_id": "github_trending",
   "stats": {
