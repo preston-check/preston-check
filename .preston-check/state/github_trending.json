@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-10-25T07:31:46.296723+00:00",
-  "last_successful_fetch": "2026-10-25T07:31:49.333631+00:00",
+  "last_run": "2026-10-25T13:08:48.320428+00:00",
+  "last_successful_fetch": "2026-10-25T13:08:51.291244+00:00",
   "processed_ids": [
-    "github:ZeroPathAI/autogpt-CVE-2026-30950-poc",
-    "github:xntony/CVE-PoC",
-    "github:Name-Unavailable404/cve-lookup-tool",
-    "github:abluva-research/CVE-Taxonomy-QAIL-Dataset",
-    "github:ausstin07/Syntecxhub_Project_CVE-Scanner-main",
-    "github:thanujbtech-lgtm/hackernews_cve",
-    "github:rahultb-sec/CVE-2026-33829-Writeup",
-    "github:24520597-blip/CVE-2025-99999",
     "github:kasireddy-sec/cve-intelligence-automation",
     "github:igt1257/netapp-cve-checker",
     "github:nu11secur1ty/CVE-nu11secur1ty",
@@ -5001,7 +4993,15 @@
     "github:therohantilwani/Reddit_CVE_detection",
     "github:fangfengxiang/php-cve-e2e",
     "github:thanujbtech-lgtm/tenable_cve",
-    "github:qw216nm225/php74-cve-test"
+    "github:qw216nm225/php74-cve-test",
+    "github:juninmd/cve-radar",
+    "github:bennekrouf/frontend-cvenom",
+    "github:bennekrouf/backend-cvenom",
+    "github:filesos/php-eol-cve-backports",
+    "github:ojppresido/CVE-Apowersoft-LetsView-LPE",
+    "github:catscarlet/php-fpm-docker-PHP-7.4-CVE-2026-109618-109619-free",
+    "github:OneSide-stack/cvephp",
+    "github:YounesHfa/CVE-2026-74580"
   ],
   "source_id": "github_trending",
   "stats": {
