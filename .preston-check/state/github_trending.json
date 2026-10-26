@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-10-26T10:59:35.235778+00:00",
-  "last_successful_fetch": "2026-10-26T10:59:39.939833+00:00",
+  "last_run": "2026-10-26T17:17:48.522533+00:00",
+  "last_successful_fetch": "2026-10-26T17:17:52.633308+00:00",
   "processed_ids": [
-    "github:gl-inet/CVE-issues",
-    "github:Excis3/CVE-Disclosure",
-    "github:bndxn/cve-awareness",
-    "github:96613686/CVE-2026-45584",
-    "github:hayageek/smar_cve_finder",
-    "github:nb-dog/cves",
-    "github:PandaInRed/redos-kernel-cve-patches",
-    "github:yuri-regulus-25/CVE_Notification",
-    "github:Gleaming0427/cve-agent",
-    "github:AyseYagmurSuzgun/CVERSE",
     "github:ridhinva/CVE-2026-9082",
     "github:dana-log/cveeet",
     "github:pepe091205/cve-hunter",
@@ -5001,7 +4991,17 @@
     "github:AzirX1337/CVE-2026-98260-OnePlus16-PYB110-Jailbreak",
     "github:0xBlackash/CVE-2026-111497",
     "github:acceptha/bin-cve-patch-guide",
-    "github:cve-search/pyvariot"
+    "github:cve-search/pyvariot",
+    "github:dev-maple/php2shell-CVE-2026-109619",
+    "github:aix567/WhitePhosphorus",
+    "github:eagleofanadolu/php2shell-poc",
+    "github:hacbs-release-tests/collectors-no-cve-27e1cba4",
+    "github:umars28/cve-check",
+    "github:jessoan/CVE-2025-5548",
+    "github:krisrchesney/cve-kev-predictor",
+    "github:hacbs-release-tests/collectors-no-cve-33ab9365",
+    "github:bhagyranaweera/Syntecxhub_CVE_Scanner",
+    "github:woshigenm/CVE-2026-98260"
   ],
   "source_id": "github_trending",
   "stats": {
