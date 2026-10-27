@@ -1,11 +1,7 @@
 {
-  "last_run": "2026-10-27T20:01:09.414350+00:00",
-  "last_successful_fetch": "2026-10-27T20:01:14.169091+00:00",
+  "last_run": "2026-10-27T23:43:29.340947+00:00",
+  "last_successful_fetch": "2026-10-27T23:43:33.125671+00:00",
   "processed_ids": [
-    "github:messier51a/ot-cve-review",
-    "github:chennuoABC/CVE",
-    "github:YasmeenAlgendy23/CVE_Intelligence_Assistant",
-    "github:reschjonas/CVE-2026-24135",
     "github:0xStevan/cve-tracker",
     "github:mein-0/cve-2025-7771",
     "github:N1et/CVE-2026-46529",
@@ -5001,7 +4997,11 @@
     "github:jrussellfreelance/cve-watch",
     "github:Breitec/cve-tracker",
     "github:emirwtz/CVE-2026-71195",
-    "github:emirwtz/CVE-2026-94300"
+    "github:emirwtz/CVE-2026-94300",
+    "github:al4n4n/CVE-2026-25253-research",
+    "github:hacbs-release-tests/collectors-no-cve-e23d77cc",
+    "github:hevnsnt/cvENGINE-sentinel",
+    "github:ojodebrujo/Escaneo_CVE_Local"
   ],
   "source_id": "github_trending",
   "stats": {
