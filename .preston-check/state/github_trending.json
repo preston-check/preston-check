@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-10-26T22:36:01.235821+00:00",
-  "last_successful_fetch": "2026-10-26T22:36:04.177513+00:00",
+  "last_run": "2026-10-27T02:00:00.634533+00:00",
+  "last_successful_fetch": "2026-10-27T02:00:05.047355+00:00",
   "processed_ids": [
-    "github:portbuster1337/CVE-2026-20182",
-    "github:yk3540433-cmyk/CVEX",
-    "github:aislabs-ai/cve-rank",
-    "github:Letalandroid/cve-2025-66478_rce_vulnerable",
-    "github:offseckit/CVE-2026-23813",
-    "github:HORKimhab/CVE-2025-46822",
     "github:HORKimhab/template-cve",
     "github:fineman999/POC_CVE-2024-12537",
     "github:thompalex/devin-superset-cve-remediator",
@@ -5001,7 +4995,13 @@
     "github:hacbs-release-tests/collectors-no-cve-cab622ed",
     "github:caiovenom/cvenom-dashboard",
     "github:zember/cvescout",
-    "github:jeffschafer/Bigfix-NodeJS-Vulnerability-Scanner-Content-CVE-2026-111497"
+    "github:jeffschafer/Bigfix-NodeJS-Vulnerability-Scanner-Content-CVE-2026-111497",
+    "github:Lw5959/xring-cve-2026-98260",
+    "github:chemilk02/AutoCVE",
+    "github:shinkbr/weekly-cve-report",
+    "github:dimasma0305/CVE-2026-114509",
+    "github:seck19/CVE-2026-101767-POC",
+    "github:ChaYeWuu/violin-CVE-2026-98260-OS4.0"
   ],
   "source_id": "github_trending",
   "stats": {
