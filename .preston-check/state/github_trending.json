@@ -1,9 +1,7 @@
 {
-  "last_run": "2026-10-27T02:00:00.634533+00:00",
-  "last_successful_fetch": "2026-10-27T02:00:05.047355+00:00",
+  "last_run": "2026-10-27T07:42:34.984386+00:00",
+  "last_successful_fetch": "2026-10-27T07:42:38.081351+00:00",
   "processed_ids": [
-    "github:HORKimhab/template-cve",
-    "github:fineman999/POC_CVE-2024-12537",
     "github:thompalex/devin-superset-cve-remediator",
     "github:xxconi/CVE-2026-6279",
     "github:yogaandriram/cve-intelligence-agent",
@@ -5001,7 +4999,9 @@
     "github:shinkbr/weekly-cve-report",
     "github:dimasma0305/CVE-2026-114509",
     "github:seck19/CVE-2026-101767-POC",
-    "github:ChaYeWuu/violin-CVE-2026-98260-OS4.0"
+    "github:ChaYeWuu/violin-CVE-2026-98260-OS4.0",
+    "github:b1gmang0/CVE-2026-98260-pandora-lpe",
+    "github:hktalent/weblogic-cve-scanner"
   ],
   "source_id": "github_trending",
   "stats": {
