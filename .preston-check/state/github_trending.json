@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-10-27T07:42:34.984386+00:00",
-  "last_successful_fetch": "2026-10-27T07:42:38.081351+00:00",
+  "last_run": "2026-10-27T14:22:11.335666+00:00",
+  "last_successful_fetch": "2026-10-27T14:22:16.814708+00:00",
   "processed_ids": [
-    "github:thompalex/devin-superset-cve-remediator",
-    "github:xxconi/CVE-2026-6279",
-    "github:yogaandriram/cve-intelligence-agent",
-    "github:cvennevik/cvennevik.github.io",
-    "github:banaeye/cvetest",
-    "github:banaeye/fix_cve",
-    "github:LeanderZiehm/cve-overview",
-    "github:DanielR91/CVE_Prioritiser",
-    "github:xxconi/CVE-2026-6960",
     "github:RaMaEnz/cve-threat-monitor",
     "github:0x9r4ngu/CVE-Updates",
     "github:sofronievm/cveti-geo-wedding-game",
@@ -5001,7 +4992,16 @@
     "github:seck19/CVE-2026-101767-POC",
     "github:ChaYeWuu/violin-CVE-2026-98260-OS4.0",
     "github:b1gmang0/CVE-2026-98260-pandora-lpe",
-    "github:hktalent/weblogic-cve-scanner"
+    "github:hktalent/weblogic-cve-scanner",
+    "github:manif3station/cve",
+    "github:Frawless/cve-notifier",
+    "github:YuKongA/CVE-2026-98260",
+    "github:Ghost-Bx1/Node2Shell-CVE-2026-111497",
+    "github:suominen/CVE-2026-97205",
+    "github:hacbs-release-tests/collectors-no-cve-112dbcf7",
+    "github:janewas/cve-2026-98260-vivo-gki-research",
+    "github:galoget/cve-tracker",
+    "github:Sadaqaty/CVE-2026-1277"
   ],
   "source_id": "github_trending",
   "stats": {
