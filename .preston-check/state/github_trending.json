@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-10-28T18:47:43.799445+00:00",
-  "last_successful_fetch": "2026-10-28T18:47:47.925081+00:00",
+  "last_run": "2026-10-28T23:07:59.850778+00:00",
+  "last_successful_fetch": "2026-10-28T23:08:03.820346+00:00",
   "processed_ids": [
-    "github:Xiaoyao988/xiaoX-hardcoded-secret-cve",
-    "github:Xiaoyao988/swift-graphql-hardcoded-jwt-cve",
-    "github:Xiaoyao988/software-eng-hardcoded-jwt-cve",
-    "github:Xiaoyao988/flask-api-demo-hardcoded-jwt-cve",
-    "github:Xiaoyao988/easepark-hardcoded-credentials-cve",
-    "github:nastya-chit/Cve-Automated-Triage",
-    "github:Xiaoyao988/auth-service-hardcoded-jwt-cve",
     "github:Xiaoyao988/og-clews-mini-rce-cve",
     "github:m0n1x90/CVE-2026-41096",
     "github:Aayushbankar/cve_aggregator",
@@ -5001,7 +4994,14 @@
     "github:barbaroskilicarslan/cve-sentinel",
     "github:linux-analysis/cvehound-rulegen",
     "github:arvazykova-lab/cvety",
-    "github:st-grosjean/CVE-Watch-Extreme-Networks"
+    "github:st-grosjean/CVE-Watch-Extreme-Networks",
+    "github:ricardojoserf/CVE-2026-63286",
+    "github:krnwbsn/supply-chain-cve-checker",
+    "github:b070nd/cvewatch",
+    "github:Annguyen0410/Nebius-Sentinel-Tiered-Nemotron-Live-CVE-Security-Gatekeeper",
+    "github:NuklearStriker/CVE_Watch",
+    "github:essam12e/CVESSAM",
+    "github:AbdullahAymanMSRE/cvehak"
   ],
   "source_id": "github_trending",
   "stats": {
