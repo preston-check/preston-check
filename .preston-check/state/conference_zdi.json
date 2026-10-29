@@ -1,6 +1,6 @@
 {
-  "last_run": "2026-10-29T12:57:21.007736+00:00",
-  "last_successful_fetch": "2026-10-29T12:57:21.011026+00:00",
+  "last_run": "2026-10-29T22:43:10.572459+00:00",
+  "last_successful_fetch": "2026-10-29T22:43:10.576231+00:00",
   "processed_ids": [
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-307/",
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-306/",
@@ -727,7 +727,21 @@
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-815/",
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-814/",
     "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-813/",
-    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-812/"
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-812/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-847/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-846/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-845/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-844/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-843/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-842/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-841/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-840/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-839/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-838/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-837/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-836/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-835/",
+    "zdi:http://www.zerodayinitiative.com/advisories/ZDI-26-834/"
   ],
   "source_id": "conference_zdi",
   "stats": {
