@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-10-28T23:07:59.850778+00:00",
-  "last_successful_fetch": "2026-10-28T23:08:03.820346+00:00",
+  "last_run": "2026-10-29T05:37:44.319685+00:00",
+  "last_successful_fetch": "2026-10-29T05:37:48.113944+00:00",
   "processed_ids": [
-    "github:Xiaoyao988/og-clews-mini-rce-cve",
-    "github:m0n1x90/CVE-2026-41096",
-    "github:Aayushbankar/cve_aggregator",
-    "github:awesome0254/cve-search_CveXplore-13921652146-8ab5ed6c",
-    "github:suominen/CVE-2026-9256",
-    "github:LLSJinw/shodan_cve",
-    "github:yohanesfc/Network_cve",
-    "github:Neonliteq/cvetomarket",
-    "github:pcx-xprz/cve",
     "github:p3ta00/react2shell-poc",
     "github:0xS4N4TG/CVE-2025-47812",
     "github:M3PH1569/CVE-2026-39987-POC",
@@ -5001,7 +4992,16 @@
     "github:Annguyen0410/Nebius-Sentinel-Tiered-Nemotron-Live-CVE-Security-Gatekeeper",
     "github:NuklearStriker/CVE_Watch",
     "github:essam12e/CVESSAM",
-    "github:AbdullahAymanMSRE/cvehak"
+    "github:AbdullahAymanMSRE/cvehak",
+    "github:Syerain/cve-2026-43499-vivo-mt6896",
+    "github:Gal3m/CVE_Research",
+    "github:s1204IT/CVE-2022-38181",
+    "github:hacbs-release-tests/collectors-no-cve-2e28ff37",
+    "github:Again1996-bit/CVE-2026-98260-GhostKey",
+    "github:jgamblin/cve-purl-usage",
+    "github:hktalent/cve-scanner",
+    "github:FUNFACTOR1/CVE-2026-82090-18-Years-All-Versions-CVSS-9.2-CRITICAL-The-Pocket-Forever-Day",
+    "github:XiaomingX/data-cve-poc-py-v1"
   ],
   "source_id": "github_trending",
   "stats": {
