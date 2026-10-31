@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-10-31T09:30:54.612350+00:00",
-  "last_successful_fetch": "2026-10-31T09:30:57.530051+00:00",
+  "last_run": "2026-10-31T15:42:06.338848+00:00",
+  "last_successful_fetch": "2026-10-31T15:42:10.228497+00:00",
   "processed_ids": [
-    "github:b1nhack/CVE-2024-1086",
-    "github:Jeanback1/CVE-2022-25765-exploit",
-    "github:Jeanback1/CVE-2019-0211-exploit",
-    "github:Jeanback1/CVE-2019-9053-exploit",
-    "github:uldagalihan/distributed-cve-search-engine",
-    "github:ice4war/cve-ui",
-    "github:cx18121/cve-intel",
-    "github:Least-Significant-Bit/CVE-2026-23744",
-    "github:hacbs-release-tests/collectors-no-cve-2cb2f392",
     "github:Axelioc/CVE",
     "github:AbubakarAhmadBjr/cryptolib-cve-scanner",
     "github:HORKimhab/CVE-2026-9560",
@@ -5001,7 +4992,16 @@
     "github:cvennevik/cvennevik.github.io",
     "github:sarkewww/CVE-2026-109520",
     "github:maryza2603/cvety-38481923396-demo",
-    "github:sebin-sec/cve-security-report"
+    "github:sebin-sec/cve-security-report",
+    "github:noxcrypt-x/CVE-2026-103039",
+    "github:AronWang001/debian-cve-2026-98432-fix",
+    "github:googlesky/CVE-2026-98432",
+    "github:Thinhlegit/cve-sentinel",
+    "github:CryptoGenNepal/CVE-KEV-RSS",
+    "github:ShadowGuard-AI/net-cve-scanner",
+    "github:PlasmaDrifter/CVE-Scanner",
+    "github:rupertgermann/cvesearch",
+    "github:MinhtuanTrs/cve-scanner"
   ],
   "source_id": "github_trending",
   "stats": {
