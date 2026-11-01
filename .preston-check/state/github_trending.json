@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-11-01T13:11:40.686437+00:00",
-  "last_successful_fetch": "2026-11-01T13:11:44.427275+00:00",
+  "last_run": "2026-11-01T18:52:19.516663+00:00",
+  "last_successful_fetch": "2026-11-01T18:52:23.567745+00:00",
   "processed_ids": [
-    "github:xiyangyang81/CVE",
-    "github:DarkFunct/TK-CVE-Repo",
-    "github:V33RU/Public-CVE",
-    "github:jabir-dev/CVE-2026-ThreemaDesktop-ArbitraryFileRead",
-    "github:Kai-One001/cve-",
-    "github:QikooEnakTau/Monitoring-CVE",
-    "github:Jenderal92/CVE-2026-8206",
-    "github:0xBlackash/CVE-2026-41089",
     "github:nesk-woe/cve-fix-agent",
     "github:MrSanketkumar/openshift-cve-automation",
     "github:AzDevops143/fragnesia-cve-2026-46300",
@@ -5001,7 +4993,15 @@
     "github:cvespy/cvescan",
     "github:bohmiiidd/Discovered-CVEs",
     "github:Jramone3/Remi_core-Auditor-de-Ciberinteligencia-y-CVEs",
-    "github:n3chik/CVE-2026-63765"
+    "github:n3chik/CVE-2026-63765",
+    "github:str1keboo/CVE-2021-43798",
+    "github:isukasanuj/CVE-2026-92744",
+    "github:sahmsec/CVE-2026-109618-PHP2SHELL",
+    "github:bobmarleyfaruk9/CVE-2026-86962",
+    "github:majidrahimi5020-lgtm/Poc-exploit-for-CVE-2026-116779-FreeSWITCH-",
+    "github:cuteaplane/CVE-2026-98260-for-OPD2501",
+    "github:Beksult0n/For-CVE",
+    "github:IAM-47/CVEBot"
   ],
   "source_id": "github_trending",
   "stats": {
