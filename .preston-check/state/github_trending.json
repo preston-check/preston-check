@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-11-01T05:52:37.217977+00:00",
-  "last_successful_fetch": "2026-11-01T05:52:41.026350+00:00",
+  "last_run": "2026-11-01T13:11:40.686437+00:00",
+  "last_successful_fetch": "2026-11-01T13:11:44.427275+00:00",
   "processed_ids": [
-    "github:jonathan-corbin/cve-arsenal",
-    "github:hacbs-release-tests/collectors-no-cve-7aefb8dc",
-    "github:wardsvelds2l/cve-watch",
     "github:xiyangyang81/CVE",
     "github:DarkFunct/TK-CVE-Repo",
     "github:V33RU/Public-CVE",
@@ -5001,7 +4998,10 @@
     "github:Ghost-Bx1/cve-2026-98432-linux-tcp-uaf",
     "github:Ghost-Bx1/cve-2025-1974-ingress-nginx-rce",
     "github:Ghost-Bx1/cve-2025-29927-nextjs-middleware-bypass",
-    "github:cvespy/cvescan"
+    "github:cvespy/cvescan",
+    "github:bohmiiidd/Discovered-CVEs",
+    "github:Jramone3/Remi_core-Auditor-de-Ciberinteligencia-y-CVEs",
+    "github:n3chik/CVE-2026-63765"
   ],
   "source_id": "github_trending",
   "stats": {
