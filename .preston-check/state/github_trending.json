@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-11-02T20:43:33.752322+00:00",
-  "last_successful_fetch": "2026-11-02T20:43:38.145561+00:00",
+  "last_run": "2026-11-03T02:52:14.543161+00:00",
+  "last_successful_fetch": "2026-11-03T02:52:17.804073+00:00",
   "processed_ids": [
-    "github:Cognition-Partner-Workshops/uc-cve-remediation-regulatory-compliance",
-    "github:abdulrhman-code/cve-radar",
-    "github:zzzxc643/CVE1",
-    "github:luminarydawn/cve",
-    "github:wavelocustfix/cvemytjv",
-    "github:fTz997/CVE-Collector",
     "github:SJYClass/CVE-POC",
     "github:hieuminhnv/CVE-2026-29198-POC",
     "github:strivepan/cve-2026-42945-scanner-gui",
@@ -5001,7 +4995,13 @@
     "github:DerAlex90/myCVE",
     "github:godylockz/CVE-2026-109618-109619",
     "github:kporras07/kevin-drupal-cve",
-    "github:valkenindustries/cve-2026-98432-mitigation"
+    "github:valkenindustries/cve-2026-98432-mitigation",
+    "github:czc-unac/CVE-dsh-agent",
+    "github:BabyGrootCICD/cve_validator_patcher",
+    "github:wchoi-redhat/redhat-cve-monitor",
+    "github:HieuDakholy/cve-phpshell",
+    "github:CODE-12894/CVE-Security-Dashboard",
+    "github:YodonTan/cve-2026-98260-harmonyos-applicability"
   ],
   "source_id": "github_trending",
   "stats": {
