@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-11-03T10:43:51.836635+00:00",
-  "last_successful_fetch": "2026-11-03T10:43:56.344367+00:00",
+  "last_run": "2026-11-03T18:22:09.321435+00:00",
+  "last_successful_fetch": "2026-11-03T18:22:13.912179+00:00",
   "processed_ids": [
-    "github:hacbs-release-tests/collectors-no-cve-74c9b3b6",
-    "github:hacbs-release-tests/collectors-no-cve-6aeeb4d1",
-    "github:Sirson39/CVevo",
-    "github:bouhlet0/cve-rag",
-    "github:victoriaalicex/CVE-2025-40536-Analysis",
-    "github:RaminNietzsche/CVE-Radar",
-    "github:leehunkoo/hk_CVE-2025-32433",
-    "github:DesertDemons/CVE-2025-4138-4517-POC",
     "github:michellelky/next-lodash-cve-demo",
     "github:ADScanPro/CVE-2026-41089-LongLogon",
     "github:dharmstm/CVE-2026-30502-OpenKM-6.3.12-Reflected-XSS",
@@ -5001,7 +4993,15 @@
     "github:hacbs-release-tests/collectors-no-cve-55fb71c2",
     "github:msatpathy/cve-tools",
     "github:AbdrrahimDahmani/ssh-enumeration-cve-OpenSSH-7.6p1-",
-    "github:maximklassen/cveditor"
+    "github:maximklassen/cveditor",
+    "github:0xaprn/IvantiConnectSecure-TripleCVE-AttackChain",
+    "github:RogoLabs/GhostCVEs",
+    "github:dwBruijn/CVEs",
+    "github:KopyTKG/CVE-Discord-RSS",
+    "github:diogogoebel/cve-feed",
+    "github:jorisc90/nos-cve-dashboard",
+    "github:thanujbtech-lgtm/hackernews_cve",
+    "github:JonathanRibeiroSilva/cve-bot-ptbr"
   ],
   "source_id": "github_trending",
   "stats": {
