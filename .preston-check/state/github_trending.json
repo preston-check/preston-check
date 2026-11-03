@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-11-03T02:52:14.543161+00:00",
-  "last_successful_fetch": "2026-11-03T02:52:17.804073+00:00",
+  "last_run": "2026-11-03T10:43:51.836635+00:00",
+  "last_successful_fetch": "2026-11-03T10:43:56.344367+00:00",
   "processed_ids": [
-    "github:SJYClass/CVE-POC",
-    "github:hieuminhnv/CVE-2026-29198-POC",
-    "github:strivepan/cve-2026-42945-scanner-gui",
-    "github:hacbs-release-tests/collectors-no-cve-94f0ce95",
-    "github:hacbs-release-tests/collectors-no-cve-1eda82fd",
-    "github:thanujbtech-lgtm/securityweek_cve",
-    "github:p5yc40515/linuxcan-cve-labs",
-    "github:DanieleGiovanardi2408/cve-2024-36401-geoserver-rce",
-    "github:psajja3302/nmap-cve-scanner",
-    "github:Andeptrai1213/WebCVETest",
     "github:hacbs-release-tests/collectors-no-cve-74c9b3b6",
     "github:hacbs-release-tests/collectors-no-cve-6aeeb4d1",
     "github:Sirson39/CVevo",
@@ -5001,7 +4991,17 @@
     "github:wchoi-redhat/redhat-cve-monitor",
     "github:HieuDakholy/cve-phpshell",
     "github:CODE-12894/CVE-Security-Dashboard",
-    "github:YodonTan/cve-2026-98260-harmonyos-applicability"
+    "github:YodonTan/cve-2026-98260-harmonyos-applicability",
+    "github:AhmadF77/CVE-2026-23744",
+    "github:qwq-nm/CVE",
+    "github:hacbs-release-tests/collectors-no-cve-9fa3bed4",
+    "github:AgnesAhalya/rw-cve-bench-dataset",
+    "github:SDshadow/CVE-2026-116063",
+    "github:OSSPhilippines/cve-tracker-cli",
+    "github:hacbs-release-tests/collectors-no-cve-55fb71c2",
+    "github:msatpathy/cve-tools",
+    "github:AbdrrahimDahmani/ssh-enumeration-cve-OpenSSH-7.6p1-",
+    "github:maximklassen/cveditor"
   ],
   "source_id": "github_trending",
   "stats": {
