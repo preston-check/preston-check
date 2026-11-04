@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-11-04T14:23:22.273844+00:00",
-  "last_successful_fetch": "2026-11-04T14:23:26.373652+00:00",
+  "last_run": "2026-11-04T21:15:04.374558+00:00",
+  "last_successful_fetch": "2026-11-04T21:15:08.546916+00:00",
   "processed_ids": [
-    "github:cardosource/cve-2026-3180",
-    "github:horrister/axios-supply-chain-cve-2026-26555",
-    "github:fredevsec/CVE-2026-0073",
-    "github:hacbs-release-tests/collectors-no-cve-6750a8ac",
-    "github:hacbs-release-tests/collectors-no-cve-6e577039",
-    "github:antinest/CVEs",
     "github:H1euPengu1n07/WordPress-CVE",
     "github:shootcannon/CVE-2026-5076",
     "github:drplagash/cve-lab-pocs",
@@ -5001,7 +4995,13 @@
     "github:hacbs-release-tests/collectors-no-cve-94a12142",
     "github:hacbs-release-tests/collectors-no-cve-475ee4a5",
     "github:ammarkrblt/CVE-2026-78818-cyberpanel-phpselection-rce",
-    "github:hacbs-release-tests/collectors-no-cve-f725bdab"
+    "github:hacbs-release-tests/collectors-no-cve-f725bdab",
+    "github:al4n4n/CVE-2026-118306",
+    "github:hacbs-release-tests/collectors-no-cve-013f5fa1",
+    "github:moatome/CVE-2026-98432-pen-test",
+    "github:Maxlabba/CVEditor",
+    "github:thanujbtech-lgtm/bleeping_cve",
+    "github:malwarekidd/Barz-Cve-Hunter"
   ],
   "source_id": "github_trending",
   "stats": {
