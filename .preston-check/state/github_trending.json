@@ -1,9 +1,7 @@
 {
-  "last_run": "2026-11-03T23:56:55.231939+00:00",
-  "last_successful_fetch": "2026-11-03T23:56:58.495095+00:00",
+  "last_run": "2026-11-04T06:04:22.648966+00:00",
+  "last_successful_fetch": "2026-11-04T06:04:25.866951+00:00",
   "processed_ids": [
-    "github:Diznev/CVE-2026-8732-EXPLOIT",
-    "github:Alemmi/cve",
     "github:am-hotstuff819/cve-watch",
     "github:crixpwn/CVE-2026-8389",
     "github:7h3w4lk3r/CVE-2023-40459",
@@ -5001,7 +4999,9 @@
     "github:gunyakit/CVE-2025-55182-PoC-exploit",
     "github:gunyakit/CVE-2025-24813-PoC-exploit",
     "github:gunyakit/CVE-2025-1974-PoC-exploit",
-    "github:markusweldon/cverdict"
+    "github:markusweldon/cverdict",
+    "github:al4n4n/CVE-2026-58115",
+    "github:sgInnora/innora-cve-research"
   ],
   "source_id": "github_trending",
   "stats": {
