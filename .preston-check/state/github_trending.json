@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-11-04T21:15:04.374558+00:00",
-  "last_successful_fetch": "2026-11-04T21:15:08.546916+00:00",
+  "last_run": "2026-11-05T02:18:31.960926+00:00",
+  "last_successful_fetch": "2026-11-05T02:18:34.801226+00:00",
   "processed_ids": [
-    "github:H1euPengu1n07/WordPress-CVE",
-    "github:shootcannon/CVE-2026-5076",
-    "github:drplagash/cve-lab-pocs",
-    "github:System32manager/CVE-2026-41089-699",
-    "github:Ashiii27/cve-explorer",
-    "github:HORKimhab/CVE-2026-3300",
     "github:sidechairmanblast/CVE-2026-41089-984",
     "github:whatsdd/CVEs-PoCs",
     "github:GalleryJoiner/CVE-2026-41089-686",
@@ -5001,7 +4995,13 @@
     "github:moatome/CVE-2026-98432-pen-test",
     "github:Maxlabba/CVEditor",
     "github:thanujbtech-lgtm/bleeping_cve",
-    "github:malwarekidd/Barz-Cve-Hunter"
+    "github:malwarekidd/Barz-Cve-Hunter",
+    "github:hacbs-release-tests/collectors-no-cve-26c71e41",
+    "github:brurpo/CVExplorer",
+    "github:sam00/CVE-2026-109618-CVE-2026-109619-POC",
+    "github:sam00/CVE-2026-111943-Emudhra-Ca-Compromise-POC",
+    "github:dpinse/CVEnom",
+    "github:SoftwareDesignTEC/cvexpert-ms-notificaciones"
   ],
   "source_id": "github_trending",
   "stats": {
