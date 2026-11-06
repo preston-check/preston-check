@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-11-06T07:52:22.707932+00:00",
-  "last_successful_fetch": "2026-11-06T07:52:26.452216+00:00",
+  "last_run": "2026-11-06T15:52:25.474252+00:00",
+  "last_successful_fetch": "2026-11-06T15:52:29.278881+00:00",
   "processed_ids": [
-    "github:kkeito09/cve-search-laravel",
-    "github:sectiondukestring25/CVE-2026-41089-971",
-    "github:Mapclaregister/CVE-2026-41089-191",
-    "github:hannkwang/CVE-Triage-Agent",
-    "github:StampDreamFitting/CVE-2026-41089-986",
-    "github:NodeRetrieve/CVE-2026-41089-637",
-    "github:segmentjoninsecret/CVE-2026-41089-334",
     "github:raingatorrouter/CVE-2026-41089-224",
     "github:raingatorrouter/CVE-2026-41089-953",
     "github:SightFinchFall/CVE-2026-41089-238",
@@ -5001,7 +4994,14 @@
     "github:foxnaim/device-activity-tracker",
     "github:yuwkaaa/CVE-2026-118570",
     "github:Xitro01/CVE-2026-22765-poc",
-    "github:evanhongo/CVE2CAPEC"
+    "github:evanhongo/CVE2CAPEC",
+    "github:im0xfay/CVE-2026-118423",
+    "github:Akshit0203/CVE-2015-1201-wordpress-Reflex-Gallery-plugin-RCE-PoC",
+    "github:claydirkschneider/CVE_Scanner",
+    "github:Maalfer/CVE-2026-123158",
+    "github:hacbs-release-tests/collectors-no-cve-eb12bb9b",
+    "github:reekol/cve-monitor",
+    "github:hacbs-release-tests/collectors-no-cve-9e3d0b2d"
   ],
   "source_id": "github_trending",
   "stats": {
