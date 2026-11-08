@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-11-08T07:13:42.940385+00:00",
-  "last_successful_fetch": "2026-11-08T07:13:46.325091+00:00",
+  "last_run": "2026-11-08T15:03:14.745899+00:00",
+  "last_successful_fetch": "2026-11-08T15:03:17.862627+00:00",
   "processed_ids": [
-    "github:Nixon-H/CVE-2025-68147-OSPOS-Stored-XSS",
-    "github:Nixon-H/CVE-2025-68434-OSPOS-CSRF",
-    "github:manueltomasello/CVE_Analysis_Toma_Tomasello",
-    "github:Moon-Harvest/CVE-2025-59528",
-    "github:CarlosEduardoPM/CVE-2026-4480-POC",
     "github:HORKimhab/CVE-2026-45067",
     "github:HORKimhab/CVE-2024-52011",
     "github:Mr-xn/CVE-2026-8054",
@@ -5001,7 +4996,12 @@
     "github:koast18/cve-2023-6931-hitv205n",
     "github:Evgeny25y/cvety-1773545797-demo",
     "github:Evgeny25y/cvety-138429638947-demo",
-    "github:xelab04/cve-tracker"
+    "github:xelab04/cve-tracker",
+    "github:andrehuang708/cve-dashboard-app",
+    "github:Terodo/CVEcho",
+    "github:starriv/CVE-2026-98260-Xiaomi-17-Pro-Max",
+    "github:shiky8/my--cve-vulnerability-research",
+    "github:fullsend-playground/cve-workflow-experiment"
   ],
   "source_id": "github_trending",
   "stats": {
