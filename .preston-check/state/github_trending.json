@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-11-08T19:34:37.608118+00:00",
-  "last_successful_fetch": "2026-11-08T19:34:40.502866+00:00",
+  "last_run": "2026-11-08T23:39:34.798581+00:00",
+  "last_successful_fetch": "2026-11-08T23:39:38.597827+00:00",
   "processed_ids": [
-    "github:cvetkovicdamjan/cvetkovicdamjan",
-    "github:thesw0rd/CVE-2026-27886-PoC-Account-Takeover",
-    "github:clawbotalone/cvetlicarna-rozica",
     "github:chamika-r/cve-dashboard",
     "github:jenniferreire26/CVE-2026-42945",
     "github:jenniferreire26/CVE-2026-28318",
@@ -5001,7 +4998,10 @@
     "github:rekuest/wp-rekuest-cve-client",
     "github:HexxedBitHeadz/cve-2026-111967",
     "github:blkph0x/CVE-2026-83844_POC",
-    "github:Wh02m1/CVE-2026-77812"
+    "github:Wh02m1/CVE-2026-77812",
+    "github:briskets/GHSA-xqc2-xf4c-x3h3-rce-poc",
+    "github:Neo-XeD/CVE-2026-113386",
+    "github:daniel-buchanan/cve-notify"
   ],
   "source_id": "github_trending",
   "stats": {
