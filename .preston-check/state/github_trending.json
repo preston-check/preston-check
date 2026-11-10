@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-11-09T17:24:15.652179+00:00",
-  "last_successful_fetch": "2026-11-09T17:24:18.786221+00:00",
+  "last_run": "2026-11-10T01:27:36.611831+00:00",
+  "last_successful_fetch": "2026-11-10T01:27:40.062281+00:00",
   "processed_ids": [
-    "github:0xBlackash/CVE-2026-4480",
-    "github:Mango-Wang2024/cVEP-Unity",
-    "github:hacbs-release-tests/collectors-no-cve-8c80768c",
     "github:v1ksssqqpon-oss/cveti22",
     "github:StanislawSkotniczny/cve-scan-history",
     "github:zeyn-zeze/cve_severity_analyzer",
@@ -5001,7 +4998,10 @@
     "github:pablo-nieves-sec/cve-digest",
     "github:capivara-research/CVE-2026-124576",
     "github:lorcn/CVE-Analysis-R",
-    "github:poto0922/elk-cve-monitor"
+    "github:poto0922/elk-cve-monitor",
+    "github:fixedbyreboot/CVE-2026-123488-POC",
+    "github:Delta-Water/CVE-2026-43499-phq110-root",
+    "github:ms-iipt/golang.org-x-crypto-CVEresolved"
   ],
   "source_id": "github_trending",
   "stats": {
