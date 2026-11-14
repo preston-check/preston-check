@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-11-13T22:32:02.630042+00:00",
-  "last_successful_fetch": "2026-11-13T22:32:06.412973+00:00",
+  "last_run": "2026-11-14T03:06:21.166457+00:00",
+  "last_successful_fetch": "2026-11-14T03:06:23.911082+00:00",
   "processed_ids": [
-    "github:hacbs-release-tests/collectors-no-cve-36dd1892",
-    "github:Neverland-lcl/Security_OS_CVE",
-    "github:olaffx/poc",
-    "github:cloudanimal/cve-explorer",
-    "github:hacbs-release-tests/collectors-no-cve-51700107",
     "github:znb-q/cve_scanner",
     "github:Mlassout/anssi-cve-analysis",
     "github:lozeva/cve-exploitability-prediction",
@@ -5001,7 +4996,12 @@
     "github:alinaclark672377250/CVE-2025-24799",
     "github:alinaclark672377250/CVE-2025-24016",
     "github:alinaclark672377250/CVE-2025-1661",
-    "github:LucasDECEBAL/cve-watch"
+    "github:LucasDECEBAL/cve-watch",
+    "github:hacbs-release-tests/collectors-no-cve-bbad243a",
+    "github:Zimo-666/cves",
+    "github:alinaclark672377250/CVE-2025-53770",
+    "github:thecdca/CVE-AEGIS",
+    "github:Zimo-666/D-Link-DCS-6501LH-cves"
   ],
   "source_id": "github_trending",
   "stats": {
