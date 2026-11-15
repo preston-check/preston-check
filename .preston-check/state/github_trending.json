@@ -1,10 +1,7 @@
 {
-  "last_run": "2026-11-15T17:00:02.082007+00:00",
-  "last_successful_fetch": "2026-11-15T17:00:05.290477+00:00",
+  "last_run": "2026-11-15T21:42:17.417970+00:00",
+  "last_successful_fetch": "2026-11-15T21:42:20.131471+00:00",
   "processed_ids": [
-    "github:levigo/jira-cve-action",
-    "github:cwayne18/k3s-cves",
-    "github:newstartin/cvefocus",
     "github:EynaExp/CVE-Lenin",
     "github:minq0x1412/CVE-2025-53024",
     "github:Intevation/csaf-cve-comparison",
@@ -5001,7 +4998,10 @@
     "github:lmodel/cve",
     "github:firmdura/cvedelta",
     "github:rand57/mosquitto-cve-repro",
-    "github:Jute333/beri-cveti"
+    "github:Jute333/beri-cveti",
+    "github:websecuritylabs/Bug-Bounty-CVE-Hunt",
+    "github:CosminB24/cve-anatomy",
+    "github:shuakami/cve-radar"
   ],
   "source_id": "github_trending",
   "stats": {
