@@ -1,13 +1,7 @@
 {
-  "last_run": "2026-11-16T20:20:56.082237+00:00",
-  "last_successful_fetch": "2026-11-16T20:21:00.679815+00:00",
+  "last_run": "2026-11-17T03:44:16.904736+00:00",
+  "last_successful_fetch": "2026-11-17T03:44:20.908716+00:00",
   "processed_ids": [
-    "github:Yetixxa/CveProject",
-    "github:cve-vul/TianTianWardrobe",
-    "github:HORKimhab/CVE-2026-42055",
-    "github:HORKimhab/CVE-2026-42530",
-    "github:peteroteks/cveenz",
-    "github:hacbs-release-tests/collectors-no-cve-e024593f",
     "github:darkotosic/cvecarairig.rs",
     "github:HORKimhab/poc-cve-collection",
     "github:codeboost-tr/cve-audit-skill",
@@ -5001,7 +4995,13 @@
     "github:lukaslimals7/CVE-logs",
     "github:tc4dy/CVE-2026-24061-PoC-Exploit",
     "github:trailofbits/cvedb",
-    "github:aminrj-labs/ai-security-cve-lab"
+    "github:aminrj-labs/ai-security-cve-lab",
+    "github:puwarun/cve-sentinel",
+    "github:luishurtado-bit/nvd-cve",
+    "github:sikii7/CVE-md",
+    "github:balipg19-ux/Alma8-errata-cve-tracker",
+    "github:Gvln-S/CVE-2011-2523",
+    "github:JHenryArcaneCipher/CVE-2026-59309-PoC"
   ],
   "source_id": "github_trending",
   "stats": {
