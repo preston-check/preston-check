@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-11-17T13:10:53.586767+00:00",
-  "last_successful_fetch": "2026-11-17T13:10:57.559765+00:00",
+  "last_run": "2026-11-17T22:13:24.601326+00:00",
+  "last_successful_fetch": "2026-11-17T22:13:28.288572+00:00",
   "processed_ids": [
-    "github:hacbs-release-tests/collectors-no-cve-a10da9da",
-    "github:pablenr/cve-intelligence-assistant",
-    "github:yadavnikhil17102004/CVE-Intel",
-    "github:covepseng/cve-2026-43515-poc",
-    "github:hackergovind/CVE-Radar",
-    "github:feritozner/My_CVE_Records",
-    "github:gagaltotal/CVE-2026-10523-Ivanti-sentry",
-    "github:NumyAddon/ToCVersions",
-    "github:abdurazzoqovjavohir700-dev/security-disclosures-2026",
     "github:TYehan/CVE-2025-57819-FreePBX-RCE-Exploit",
     "github:hacbs-release-tests/collectors-no-cve-7c09b6e7",
     "github:hacbs-release-tests/collectors-no-cve-1bbe5b54",
@@ -5001,7 +4992,16 @@
     "github:DoraYeh1519/cve-2026-29013-libcoap-oscore-repro",
     "github:chanderjeet/CVE",
     "github:sushma-biswas/CVE_refresh",
-    "github:googlesky/CVE-2026-130354"
+    "github:googlesky/CVE-2026-130354",
+    "github:ashrafzaryouh/CVE-2026-114938",
+    "github:CVET0311/CVET0311",
+    "github:yxc0915/cve-2026-98260-ppg-an00",
+    "github:factory-divya-nair/cve-remediation-demo",
+    "github:gviegasg/cveditor",
+    "github:jeffschafer/BigFix-Java4Shell-CVE-2026-114938-Scanner",
+    "github:mdbox037a/kernel-cve-tools",
+    "github:Sayre-Tnunu/cve-resolve-to-digest",
+    "github:RoBuys/cve-watch"
   ],
   "source_id": "github_trending",
   "stats": {
