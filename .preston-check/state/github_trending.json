@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-11-18T04:11:45.625474+00:00",
-  "last_successful_fetch": "2026-11-18T04:11:48.444800+00:00",
+  "last_run": "2026-11-18T13:51:15.088538+00:00",
+  "last_successful_fetch": "2026-11-18T13:51:18.851916+00:00",
   "processed_ids": [
-    "github:BenedictEjepu/CVE-2024-24945-NGINX-RIFT---TryHackMe-Lab-Walkthrough",
-    "github:v4ltonn/CVE-2026-42530",
-    "github:world-seeker/CVE2AT",
-    "github:kohtbworks-ops/CVE-RISK",
-    "github:JakPot42/cve-prioritizer",
-    "github:youzbe/cveasa",
-    "github:c1ayooo/cve-threat-intel",
-    "github:4qu4r1um/CVE-2026-54337-PoC",
     "github:Polosss/By-Poloss..-..CVE-2026-11912",
     "github:tc4dy/CVE-2026-41091-PoC-Exploit",
     "github:Xernary/CVE-2025-63821",
@@ -5001,7 +4993,15 @@
     "github:10245283he/cve-rss-filter-proxy",
     "github:murrez/CVE-2026-131850",
     "github:HaidarHilmi-27/cvescanner-cicd",
-    "github:1276486/ZERO-X-AI-Jailbreak"
+    "github:1276486/ZERO-X-AI-Jailbreak",
+    "github:zejunyang/java4shell-rce",
+    "github:gpheheise/All-Awareded-CVE-List",
+    "github:apnerve/cverse-website",
+    "github:n3d-d3v/Multi-Tenant-FaaS-Security-Lab-CVE-2024-21626",
+    "github:yora1928/CVE-2026-114938_by_yora1928",
+    "github:alyvlad1975-lang/cvety-ryadom",
+    "github:alyvlad1975-lang/pervyy-cvetochnyy",
+    "github:avergnaud/cve-2026-114938"
   ],
   "source_id": "github_trending",
   "stats": {
