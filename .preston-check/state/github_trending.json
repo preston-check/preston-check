@@ -1,14 +1,7 @@
 {
-  "last_run": "2026-11-19T12:53:29.981001+00:00",
-  "last_successful_fetch": "2026-11-19T12:53:34.442984+00:00",
+  "last_run": "2026-11-19T21:25:23.495881+00:00",
+  "last_successful_fetch": "2026-11-19T21:25:27.720504+00:00",
   "processed_ids": [
-    "github:ropydev/CVE-2021-4034-PwnKit",
-    "github:mukul975/cve-mcp-server",
-    "github:joshuavanderpoll/CVE-2026-49772",
-    "github:lenuskamaruska-boop/Cveta",
-    "github:0liverFlow/CVE2PoC",
-    "github:boimanomri/CVE-IOC-Discovery-Enrichment-Detection-Generation",
-    "github:Lanexus/cve-scanner",
     "github:Joapath/CVE-2021-41773",
     "github:s1lentf00thold/CVE-2020-11651-Poc",
     "github:wwarren/cve-dashboard",
@@ -5001,7 +4994,14 @@
     "github:GabrielOchieng/cve-al",
     "github:jojustleft/cve-landscape",
     "github:petkar-GIT/CVE-tutka",
-    "github:MSNightmare/FastUnlock"
+    "github:MSNightmare/FastUnlock",
+    "github:k8gege/K8tools",
+    "github:mail2ramya17/cve-risk-scorer",
+    "github:RobDoyle2/CVE",
+    "github:gashasbi/CVEvident",
+    "github:eagle1maledetto/php5.6-wheezy-cve-2026-109618",
+    "github:Toghrul-H/refactorerl-cve-detection",
+    "github:demon-i386/doas_race_condition"
   ],
   "source_id": "github_trending",
   "stats": {
