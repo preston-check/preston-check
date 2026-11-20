@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-11-20T03:03:01.624583+00:00",
-  "last_successful_fetch": "2026-11-20T03:03:10.050196+00:00",
+  "last_run": "2026-11-20T11:25:07.037238+00:00",
+  "last_successful_fetch": "2026-11-20T11:25:10.884319+00:00",
   "processed_ids": [
-    "github:interlok-tooling/nvd-cves-mirror",
-    "github:ahmed-meziane/CVE-Vulnerabilities-Analysis",
-    "github:hacbs-release-tests/collectors-no-cve-9f0b2757",
-    "github:sign9981/CVE",
-    "github:cvetofor/cvetofor",
-    "github:matkahoy-ops/CVE-list",
-    "github:GODofExploit/exploit-arsenal",
-    "github:hacbs-release-tests/collectors-no-cve-5e457f25",
-    "github:sibsfinx/cvet-shader-animation",
     "github:Malatesh0811/reachable-cve",
     "github:ALRAYZZ/CVE-Exploits",
     "github:blackjuker2/CVE-2019-0232",
@@ -5001,7 +4992,16 @@
     "github:Ethanpr05/cve-2015-2025-analisis",
     "github:4rji/CVE-security-advisores-DB",
     "github:Wadshah/cve_monitor",
-    "github:uemitarslan/suse-cve"
+    "github:uemitarslan/suse-cve",
+    "github:LLCForge/CVE-2026-123890",
+    "github:LLCForge/CVE-2026-129289",
+    "github:nanabingies/cve-2025-38618",
+    "github:ritesh63525/CVEngine-Heart",
+    "github:begimher/calix-cve-2026-9082-recovery",
+    "github:linobr/cve-inventory",
+    "github:CERT-MZ/cve-db",
+    "github:juanjatib-byte/cve-apparati",
+    "github:vitalelele/CVE-2023-28450-PoC"
   ],
   "source_id": "github_trending",
   "stats": {
