@@ -1,16 +1,7 @@
 {
-  "last_run": "2026-11-21T01:25:07.012190+00:00",
-  "last_successful_fetch": "2026-11-21T01:25:10.411608+00:00",
+  "last_run": "2026-11-21T09:39:16.280128+00:00",
+  "last_successful_fetch": "2026-11-21T09:39:19.575229+00:00",
   "processed_ids": [
-    "github:s1lentf00thold/CVE-2021-21425-RCE",
-    "github:Query-farm/vgi-cve",
-    "github:H1ssBl1tz/Blind-Trust-CVE-2024-21413-Research",
-    "github:cartyc/cve-comparision",
-    "github:cveeez5/cveeez-job-portal",
-    "github:solomon042/TML-CVE",
-    "github:beefalto7/cvezut",
-    "github:Oke367366/CVEDC-PREMIUM",
-    "github:nu11secur1ty/CVE-mitre",
     "github:Bizly/cvent_scrape_poc",
     "github:hekk-one/CVEs",
     "github:cvelde/cvelde.github.io",
@@ -5001,7 +4992,16 @@
     "github:raDiaSmO/cve-preconditions",
     "github:googlesky/CVE-2026-132275",
     "github:Arklith/W10CVEWatch",
-    "github:googlesky/CVE-2026-58192"
+    "github:googlesky/CVE-2026-58192",
+    "github:lyubeka99/cvetno-art",
+    "github:j4ckk0/CVEScanner",
+    "github:hackpatato/CVE-2026-132825-poc",
+    "github:buluma/ansible-role-cve_2024_3094",
+    "github:pm-parker/synology-dsm-cve-checker",
+    "github:LLCForge/CVE-2026-80188",
+    "github:LLCForge/CVE-2026-95517",
+    "github:suominen/CVE-2026-99312",
+    "github:T0tooro/cve-2026-123007-lab"
   ],
   "source_id": "github_trending",
   "stats": {
