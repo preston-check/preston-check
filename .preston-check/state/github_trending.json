@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-11-21T17:23:46.314125+00:00",
-  "last_successful_fetch": "2026-11-21T17:23:49.823385+00:00",
+  "last_run": "2026-11-21T23:05:54.295914+00:00",
+  "last_successful_fetch": "2026-11-21T23:05:58.433363+00:00",
   "processed_ids": [
-    "github:benloes/cveyzb",
-    "github:clevernyyyy/cve-wiki",
-    "github:manja7304/cyber-cve-triage-react",
-    "github:mattgsys/CVE-2026-11834",
-    "github:Bekzhanizb/CvetyBot",
     "github:AtlasOats/CVE-LLM",
     "github:v1xpopay/CVE-st",
     "github:tucoooooooo/cve-cvss-tool",
@@ -5001,7 +4996,12 @@
     "github:VulnSVNC/CVE-2026-115904",
     "github:hugovalters/Dotnet-.NET-CVE-scanner",
     "github:VulnSVNC/CVE-2026-125399",
-    "github:greenstevester/cve-watch-dog"
+    "github:greenstevester/cve-watch-dog",
+    "github:nico0748/cverse",
+    "github:Aman-cve/Aman-cve",
+    "github:0xamitsinghbora/cve-radar",
+    "github:Cveinnt/Cveinnt",
+    "github:wa6n3r/cve-2026-76466"
   ],
   "source_id": "github_trending",
   "stats": {
