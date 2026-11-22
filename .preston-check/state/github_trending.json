@@ -1,15 +1,7 @@
 {
-  "last_run": "2026-11-22T03:04:53.447367+00:00",
-  "last_successful_fetch": "2026-11-22T03:04:57.373673+00:00",
+  "last_run": "2026-11-22T11:10:47.950844+00:00",
+  "last_successful_fetch": "2026-11-22T11:10:51.163690+00:00",
   "processed_ids": [
-    "github:pawpic/CVE-2026-38526-POC",
-    "github:wvverez/CVE-2020-24186",
-    "github:nicholas-howland/CVE-2026-6992-PoC",
-    "github:K3ysTr0K3R/CVE-2021-29441",
-    "github:i1zco/wishlist-member-vuln-analysis",
-    "github:0xmrma/CVE-2026-46552",
-    "github:ogenich/CVE-2026-48908",
-    "github:4B5F5F4B/patchdiff-cve-analysis",
     "github:ev1Ndxrk3e01/public-cve-research",
     "github:0x5477/Ingram-Pro",
     "github:7whyex/CVE-2026-45321-Tanstack",
@@ -5001,7 +4993,15 @@
     "github:dotrungquan/cve-hom-nay",
     "github:RogoLabs/cve.icu",
     "github:venkatprema123/cve-agent",
-    "github:googlesky/CVE-2026-58210"
+    "github:googlesky/CVE-2026-58210",
+    "github:juanmitaboada/cve-watch",
+    "github:googlesky/CVE-2026-107853",
+    "github:woshigenm/CVE-2026-99491-FANXIAOCHAO",
+    "github:wixyvir/cvestream",
+    "github:hash3liZer/cve-hunt",
+    "github:imleafz/cve-scan",
+    "github:Danimexivasco/cve-depguard-cli",
+    "github:kazcov/FastUnlock"
   ],
   "source_id": "github_trending",
   "stats": {
