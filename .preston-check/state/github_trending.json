@@ -1,17 +1,7 @@
 {
-  "last_run": "2026-11-23T00:46:59.962944+00:00",
-  "last_successful_fetch": "2026-11-23T00:47:03.384393+00:00",
+  "last_run": "2026-11-23T08:56:22.509980+00:00",
+  "last_successful_fetch": "2026-11-23T08:56:26.905859+00:00",
   "processed_ids": [
-    "github:manahylkhan/cveradar",
-    "github:dariosharp/CVE",
-    "github:opensourcerouting/frr-cves",
-    "github:joaquinrrr/CVE-2025-8110",
-    "github:do4choo/CVE-2026-3227",
-    "github:tkocou/fCVE-Docker",
-    "github:dpustelnik/CVE-Risk-Analyzer",
-    "github:Mahnoor332/CVE-VulDETECT-Implementation",
-    "github:PeterMNguyenMRU/CVE-Sample",
-    "github:roy9495/CVE-Extractor",
     "github:kludgeworks/base-image-cve-benchmark",
     "github:0xBlackash/CVE-2026-43503",
     "github:mirackayikci/CVE-2026-55584",
@@ -5001,7 +4991,17 @@
     "github:OviSarkar62/cves-audit-kit",
     "github:rodriguezlaura90/cvevz",
     "github:TheSilentNomad/ha-cve-monitor",
-    "github:aimansam/zeroday-lpe-steamclient"
+    "github:aimansam/zeroday-lpe-steamclient",
+    "github:xyzzklk/HFS_Strike",
+    "github:googlesky/CVE-2026-134838",
+    "github:v0nx6/CVE-2026-119077",
+    "github:EloiseIncrociati/cve-radar",
+    "github:googlesky/CVE-2026-129233",
+    "github:googlesky/CVE-2026-128137",
+    "github:warsecurity/-CVE-2026-58882",
+    "github:googlesky/CVE-2026-128140",
+    "github:googlesky/CVE-2026-128138",
+    "github:bipul-unexpected/CVE-2026-109618-2026-109619"
   ],
   "source_id": "github_trending",
   "stats": {
