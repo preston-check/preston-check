@@ -1,12 +1,7 @@
 {
-  "last_run": "2026-11-22T19:28:58.943620+00:00",
-  "last_successful_fetch": "2026-11-22T19:29:02.389710+00:00",
+  "last_run": "2026-11-23T00:46:59.962944+00:00",
+  "last_successful_fetch": "2026-11-23T00:47:03.384393+00:00",
   "processed_ids": [
-    "github:hacbs-release-tests/collectors-no-cve-863a79f7",
-    "github:musha1140/sandbox-cve-lab",
-    "github:Leopicc/CVEqualizationProject",
-    "github:0xBlackash/CVE-2026-24061",
-    "github:hacbs-release-tests/collectors-no-cve-8cf8c79e",
     "github:manahylkhan/cveradar",
     "github:dariosharp/CVE",
     "github:opensourcerouting/frr-cves",
@@ -5001,7 +4996,12 @@
     "github:kitarp29/cve-harta",
     "github:ly1g3/debian-bts-CVE-2026-132147",
     "github:shahidmallaofficial/cpanel-cve-2026-41940-fix",
-    "github:pathcosmos/CVE-2026-114938"
+    "github:pathcosmos/CVE-2026-114938",
+    "github:FacuWitt/tp_cved_juego",
+    "github:OviSarkar62/cves-audit-kit",
+    "github:rodriguezlaura90/cvevz",
+    "github:TheSilentNomad/ha-cve-monitor",
+    "github:aimansam/zeroday-lpe-steamclient"
   ],
   "source_id": "github_trending",
   "stats": {
